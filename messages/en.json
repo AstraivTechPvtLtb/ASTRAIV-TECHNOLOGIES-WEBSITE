@@ -1,0 +1,72 @@
+{
+  "Common": {
+    "title": "Astraiv Technologies",
+    "tagline": "Next-Gen Enterprise IT Solutions & SaaS",
+    "getStarted": "Get Started",
+    "contactUs": "Contact Us",
+    "loading": "Loading...",
+    "search": "Search",
+    "filter": "Filter"
+  },
+  "Nav": {
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "pricing": "Pricing",
+    "blog": "Blog",
+    "contact": "Contact",
+    "dashboard": "Dashboard",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "Services": {
+    "title": "Our Services",
+    "subtitle": "Premium software engineering and cloud automation engineered for hyper-growth.",
+    "webDev": "Website Development",
+    "webDevDesc": "Premium, pixel-perfect, and highly optimized corporate websites utilizing the latest frameworks.",
+    "webApps": "Web Applications",
+    "webAppsDesc": "Custom, scalable SaaS applications and dashboards designed for optimal workflow performance.",
+    "uiux": "UI/UX Design",
+    "uiuxDesc": "Modern, Stripe-like user interfaces designed with strict layout hierarchies and seamless micro-interactions.",
+    "branding": "Brand Identity",
+    "brandingDesc": "Logos, brand guidelines, and visuals designed to position your business as a category leader.",
+    "aiSolutions": "AI Solutions",
+    "aiSolutionsDesc": "Integration of Large Language Models, custom agents, and predictive analytics into your pipelines.",
+    "cloud": "Cloud Solutions",
+    "cloudDesc": "Sleek, highly available AWS and Cloudflare R2 infrastructure designed for near-zero downtime.",
+    "automation": "Business Automation",
+    "automationDesc": "Automate internal databases, billing pipelines, CRM syncs, and client support flows."
+  },
+  "Auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "email": "Email Address",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "dontHaveAccount": "Don't have an account? Sign up",
+    "alreadyHaveAccount": "Already have an account? Sign in"
+  },
+  "Home": {
+    "heroBadge": "Announcing Astraiv Platform 1.0",
+    "heroHeadline": "We engineer the digital future",
+    "heroSubheadline": "Astraiv Technologies is an enterprise-grade IT firm and SaaS engine. We craft premium websites, high-performance web applications, custom AI automations, and modern cloud infrastructure.",
+    "trustedBy": "Trusted by industry leaders and high-growth engineering teams",
+    "platformTitle": "Unified SaaS Engine",
+    "platformSubtitle": "Manage your projects, submit support tickets, track billing, and automate CRM leads from a premium dashboard.",
+    "teamTitle": "Our Architects",
+    "teamSubtitle": "Meet the senior software engineers and designers building the future.",
+    "testimonialsTitle": "What Leaders Say",
+    "testimonialsSubtitle": "Hear from directors, founders, and engineering leaders working with Astraiv.",
+    "faqTitle": "Frequently Asked Questions",
+    "faqSubtitle": "Everything you need to know about our services and delivery models.",
+    "faq1Q": "What technology stack do you use?",
+    "faq1A": "We build primarily with Next.js (App Router), React, TypeScript, Tailwind CSS, Prisma, PostgreSQL, and Cloudflare R2, guaranteeing near-instant page loads and serverless scalability.",
+    "faq2Q": "How do you handle project management?",
+    "faq2A": "All clients receive access to our custom Client Portal, where you can check real-time project boards, review documentation, track billing, and open direct support tickets.",
+    "faq3Q": "Do you offer post-launch maintenance?",
+    "faq3A": "Yes, we offer monthly SLA agreements covering active monitoring, security patches, package upgrades, database backups, and direct priority Slack support.",
+    "pricingTitle": "Flexible Engagement Models",
+    "pricingSubtitle": "Choose a plan that matches your engineering velocity.",
+    "ctaTitle": "Ready to build something premium?",
+    "ctaSubtitle": "Join forces with our elite engineering team to build, scale, and automate your technology stack today."
+  }
+}

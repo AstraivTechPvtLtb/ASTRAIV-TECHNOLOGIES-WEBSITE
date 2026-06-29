@@ -1,0 +1,72 @@
+{
+  "Common": {
+    "title": "Astraiv Technologies",
+    "tagline": "Soluciones de TI y SaaS Empresariales de Próxima Generación",
+    "getStarted": "Empezar",
+    "contactUs": "Contáctenos",
+    "loading": "Cargando...",
+    "search": "Buscar",
+    "filter": "Filtrar"
+  },
+  "Nav": {
+    "services": "Servicios",
+    "portfolio": "Portafolio",
+    "pricing": "Precios",
+    "blog": "Blog",
+    "contact": "Contacto",
+    "dashboard": "Panel de Control",
+    "login": "Iniciar Sesión",
+    "logout": "Cerrar Sesión"
+  },
+  "Services": {
+    "title": "Nuestros Servicios",
+    "subtitle": "Ingeniería de software premium y automatización en la nube diseñadas para el hipercrecimiento.",
+    "webDev": "Desarrollo de Sitios Web",
+    "webDevDesc": "Sitios web corporativos premium, píxel-perfectos y altamente optimizados utilizando los últimos frameworks.",
+    "webApps": "Aplicaciones Web",
+    "webAppsDesc": "Aplicaciones SaaS y paneles de control personalizados y escalables diseñados para un rendimiento óptimo del flujo de trabajo.",
+    "uiux": "Diseño UI/UX",
+    "uiuxDesc": "Interfaces de usuario modernas, similares a las de Stripe, diseñadas con jerarquías de diseño estrictas e interacciones fluidas.",
+    "branding": "Identidad de Marca",
+    "brandingDesc": "Logotipos, pautas de marca y visuales diseñados para posicionar a su empresa como líder de categoría.",
+    "aiSolutions": "Soluciones de IA",
+    "aiSolutionsDesc": "Integración de Modelos de Lenguaje Grande, agentes personalizados y análisis predictivos en sus flujos de trabajo.",
+    "cloud": "Soluciones en la Nube",
+    "cloudDesc": "Infraestructura AWS y Cloudflare R2 altamente disponible y elegante, diseñada para un tiempo de inactividad cercano a cero.",
+    "automation": "Automatización de Negocios",
+    "automationDesc": "Automatice bases de datos internas, flujos de facturación, sincronización de CRM y flujos de atención al cliente."
+  },
+  "Auth": {
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "email": "Dirección de Correo",
+    "password": "Contraseña",
+    "forgotPassword": "¿Olvidó su contraseña?",
+    "dontHaveAccount": "¿No tiene una cuenta? Regístrese",
+    "alreadyHaveAccount": "¿Ya tiene una cuenta? Inicie sesión"
+  },
+  "Home": {
+    "heroBadge": "Presentamos Astraiv Platform 1.0",
+    "heroHeadline": "Diseñamos el futuro digital",
+    "heroSubheadline": "Astraiv Technologies es una empresa de TI empresarial y motor SaaS. Creamos sitios web premium, aplicaciones web de alto rendimiento, automatizaciones de IA personalizadas e infraestructura de nube moderna.",
+    "trustedBy": "Con la confianza de líderes de la industria y equipos de ingeniería de alto crecimiento",
+    "platformTitle": "Motor SaaS Unificado",
+    "platformSubtitle": "Administre sus proyectos, envíe tickets de soporte, realice un seguimiento de la facturación y automatice los clientes potenciales de CRM desde un panel de control premium.",
+    "teamTitle": "Nuestros Arquitectos",
+    "teamSubtitle": "Conozca a los ingenieros de software y diseñadores senior que construyen el futuro.",
+    "testimonialsTitle": "Qué Dicen los Líderes",
+    "testimonialsSubtitle": "Escuche a directores, fundadores y líderes de ingeniería que trabajan con Astraiv.",
+    "faqTitle": "Preguntas Frecuentes",
+    "faqSubtitle": "Todo lo que necesita saber sobre nuestros servicios y modelos de entrega.",
+    "faq1Q": "¿Qué pila de tecnologías utilizan?",
+    "faq1A": "Construimos principalmente con Next.js (App Router), React, TypeScript, Tailwind CSS, Prisma, PostgreSQL y Cloudflare R2, garantizando cargas de página casi instantáneas y escalabilidad sin servidor.",
+    "faq2Q": "¿Cómo manejan la gestión de proyectos?",
+    "faq2A": "Todos los clientes reciben acceso a nuestro Portal de Clientes personalizado, donde pueden consultar tableros de proyectos en tiempo real, revisar la documentación, realizar un seguimiento de la facturación y abrir tickets de soporte directo.",
+    "faq3Q": "¿Ofrecen mantenimiento posterior al lanzamiento?",
+    "faq3A": "Sí, ofrecemos acuerdos mensuales de SLA que cubren monitoreo activo, parches de seguridad, actualizaciones de paquetes, copias de seguridad de bases de datos y soporte prioritario directo en Slack.",
+    "pricingTitle": "Modelos de Compromiso Flexibles",
+    "pricingSubtitle": "Elija un plan que coincida con la velocidad de su equipo de ingeniería.",
+    "ctaTitle": "¿Listo para construir algo premium?",
+    "ctaSubtitle": "Una fuerzas con nuestro equipo de ingeniería de élite para construir, escalar y automatizar su pila tecnológica hoy mismo."
+  }
+}
