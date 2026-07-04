@@ -5,7 +5,7 @@ import { Pool } from 'pg';
 const prismaClientSingleton = () => {
   const connectionString =
     process.env.DATABASE_URL ||
-    'postgresql://postgres:postgres@localhost:5432/astraiv_tech?schema=public';
+    'postgresql://postgres:Astraiv2026@localhost:5432/astraiv_tech?schema=public';
   
   // Use connection pool for direct database queries
   const pool = new Pool({ connectionString });
