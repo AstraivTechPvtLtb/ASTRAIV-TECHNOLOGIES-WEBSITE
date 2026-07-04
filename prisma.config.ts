@@ -7,6 +7,6 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    url: env("DATABASE_URL") || "postgresql://postgres:postgres@localhost:5432/astraiv_tech?schema=public",
+    url: env("DATABASE_URL") || "postgresql://postgres:REDACTED_DEV_PWD@localhost:5432/astraiv_tech?schema=public",
   },
 });
