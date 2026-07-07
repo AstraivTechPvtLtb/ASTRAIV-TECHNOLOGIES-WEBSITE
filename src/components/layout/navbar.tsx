@@ -56,15 +56,18 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2.5 font-bold text-xl tracking-tight text-foreground group">
+        <Link href="/" className="flex items-center gap-2.5 font-bold tracking-tight text-foreground group">
           <Image
             src="/logo-icon.jpg"
             alt="Astraiv Logo"
-            width={32}
-            height={32}
+            width={35}
+            height={35}
             className="rounded-lg object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/10 group-hover:ring-primary/30"
           />
-          <span className="font-heading font-extrabold text-2xl tracking-tight bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">Astraiv</span>
+          <div className="flex flex-col items-start leading-[1.05]">
+            <span className="font-heading font-extrabold text-xl tracking-wider bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">ASTRAIV</span>
+            <span className="text-[8px] uppercase tracking-[0.28em] font-black text-black dark:text-white dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.85)] mt-0.5">TECHNOLOGIES</span>
+          </div>
         </Link>
 
         {/* Desktop Navigation links */}
