@@ -63,7 +63,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={`${inter.variable} ${plusJakartaSans.variable} font-sans`}>
+      <body className={`${inter.variable} ${plusJakartaSans.variable} font-sans`} suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider
             attribute="class"
