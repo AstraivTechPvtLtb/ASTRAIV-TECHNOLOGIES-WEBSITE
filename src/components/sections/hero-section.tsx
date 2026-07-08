@@ -1,11 +1,42 @@
 'use client';
 
+import { Fragment } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, Shield, Cpu } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { CircuitBackground } from './circuit-background';
+
+function parseHeadline(text: string) {
+  const words: { word: string; isHighlighted: boolean }[] = [];
+  let inHighlight = false;
+
+  const tokens = text.split(/\s+/);
+  for (const token of tokens) {
+    if (!token) continue;
+    let currentToken = token;
+
+    if (currentToken.includes('[')) {
+      inHighlight = true;
+      currentToken = currentToken.replace('[', '');
+    }
+
+    const highlighted = inHighlight;
+
+    if (currentToken.includes(']')) {
+      inHighlight = false;
+      currentToken = currentToken.replace(']', '');
+    }
+
+    words.push({
+      word: currentToken,
+      isHighlighted: highlighted,
+    });
+  }
+
+  return words;
+}
 
 interface HeroSectionProps {
   badgeText?: string;
@@ -26,6 +57,8 @@ export function HeroSection({
   secondaryCtaText = 'Contact Us',
   secondaryCtaHref = '#contact',
 }: HeroSectionProps) {
+  const parsedWords = parseHeadline(headline);
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -45,6 +78,33 @@ export function HeroSection({
       y: 0,
       transition: {
         duration: 0.8,
+        ease: [0.16, 1, 0.3, 1] as const, // easeOutExpo
+      },
+    },
+  };
+
+  const headlineContainerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.025, // Stagger each letter by 0.025s for typing effect
+        delayChildren: 0.25,
+      },
+    },
+  };
+
+  const letterVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 10,
+      scale: 0.9,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.45,
         ease: [0.16, 1, 0.3, 1] as const, // easeOutExpo
       },
     },
@@ -140,13 +200,33 @@ export function HeroSection({
 
         {/* Large Premium Headline */}
         <motion.h1
-          variants={itemVariants}
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] font-extrabold tracking-[-0.03em] md:tracking-[-0.04em] text-foreground leading-[1.05] max-w-4xl"
+          variants={headlineContainerVariants}
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] font-extrabold tracking-[-0.03em] md:tracking-[-0.04em] text-foreground leading-[1.05] max-w-4xl text-center"
         >
-          We engineer the{' '}
-          <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-            digital future
-          </span>
+          {parsedWords.map((item, index) => {
+            const letters = item.word.split('');
+            return (
+              <Fragment key={index}>
+                <span className="inline-block whitespace-nowrap">
+                  {letters.map((char, charIdx) => (
+                    <motion.span
+                      key={charIdx}
+                      variants={letterVariants}
+                      className={cn(
+                        "inline-block origin-bottom",
+                        item.isHighlighted 
+                          ? "bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer"
+                          : "text-foreground"
+                      )}
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </span>
+                {index < parsedWords.length - 1 && ' '}
+              </Fragment>
+            );
+          })}
         </motion.h1>
 
         {/* Supporting Subheadline */}
