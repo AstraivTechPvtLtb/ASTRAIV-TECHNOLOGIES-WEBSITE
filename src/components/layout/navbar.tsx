@@ -48,15 +48,11 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        'fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b',
+        'fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b backdrop-blur-2xl',
         scrolled 
-          ? 'bg-card/85 border-border py-3 shadow-lg dark:shadow-[0_10px_30px_-10px_rgba(91,95,239,0.25)]' 
-          : 'bg-card/70 border-border/80 py-4 shadow-md dark:shadow-[0_4px_20px_-10px_rgba(91,95,239,0.15)]'
+          ? 'bg-slate-100/80 dark:bg-slate-950/85 border-slate-200 dark:border-slate-800 py-3 shadow-lg dark:shadow-[0_10px_30px_-10px_rgba(91,95,239,0.25)]' 
+          : 'bg-slate-100/50 dark:bg-slate-950/45 border-slate-200/80 dark:border-slate-800/60 py-4 shadow-md dark:shadow-[0_4px_20px_-10px_rgba(91,95,239,0.15)]'
       )}
-      style={{
-        backdropFilter: 'blur(40px) saturate(180%)',
-        WebkitBackdropFilter: 'blur(40px) saturate(180%)',
-      }}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Brand Logo */}
