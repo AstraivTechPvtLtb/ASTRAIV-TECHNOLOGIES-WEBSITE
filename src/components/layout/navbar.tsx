@@ -48,11 +48,15 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        'fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b',
+        'fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b',
         scrolled 
-          ? 'bg-background/80 backdrop-blur-lg border-border/40 py-3 shadow-[0_2px_20px_-10px_rgba(0,0,0,0.05)]' 
-          : 'bg-transparent border-transparent py-5'
+          ? 'bg-card/85 border-border py-3 shadow-lg dark:shadow-[0_10px_30px_-10px_rgba(91,95,239,0.25)]' 
+          : 'bg-card/70 border-border/80 py-4 shadow-md dark:shadow-[0_4px_20px_-10px_rgba(91,95,239,0.15)]'
       )}
+      style={{
+        backdropFilter: 'blur(40px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+      }}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Brand Logo */}
