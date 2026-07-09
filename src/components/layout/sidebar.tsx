@@ -100,7 +100,7 @@ export function Sidebar({
             alt="Astraiv Logo"
             width={28}
             height={28}
-            className="rounded-lg object-cover shrink-0"
+            className="rounded-full object-cover shrink-0"
           />
           {!collapsed && (
             <div className="flex flex-col min-w-0 leading-[1.05]">
