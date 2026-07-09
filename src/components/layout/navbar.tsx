@@ -62,7 +62,7 @@ export function Navbar() {
             alt="Astraiv Logo"
             width={35}
             height={35}
-            className="rounded-lg object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/10 group-hover:ring-primary/30"
+            className="rounded-full object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/10 group-hover:ring-primary/30"
           />
           <div className="flex flex-col items-start leading-[1.05]">
             <span className="font-heading font-extrabold text-xl tracking-wider bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">ASTRAIV</span>
