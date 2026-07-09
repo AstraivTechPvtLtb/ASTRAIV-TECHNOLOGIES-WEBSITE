@@ -27,11 +27,20 @@ export function CircuitBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   
   // Mouse position tracking
   const mouseRef = useRef({ x: -9999, y: -9999, isHovering: false });
   const lastSpawnRef = useRef({ x: -9999, y: -9999 });
   const pathIdCounter = useRef(0);
+
+  // Physics simulation refs
+  const interpX = useRef(-9999);
+  const interpY = useRef(-9999);
+  const springX = useRef(-9999);
+  const springY = useRef(-9999);
+  const vx = useRef(0);
+  const vy = useRef(0);
 
   useEffect(() => {
     setMounted(true);
@@ -123,50 +132,135 @@ export function CircuitBackground() {
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       
-      mouseRef.current.x = x;
-      mouseRef.current.y = y;
-      mouseRef.current.isHovering = true;
-
-      // Spawn path if mouse has moved a threshold distance
-      const distFromLast = Math.hypot(x - lastSpawnRef.current.x, y - lastSpawnRef.current.y);
-      if (distFromLast > 18) {
-        spawnPath(x, y);
-        lastSpawnRef.current = { x, y };
+      const isInside = x >= 0 && x <= rect.width && y >= 0 && y <= rect.height;
+      
+      if (isInside) {
+        if (!mouseRef.current.isHovering) {
+          // Initialize spring position to avoid abrupt jump from -9999
+          if (mouseRef.current.x === -9999) {
+            interpX.current = x;
+            interpY.current = y;
+            springX.current = x;
+            springY.current = y;
+            vx.current = 0;
+            vy.current = 0;
+            lastSpawnRef.current = { x, y };
+          }
+          setIsHovered(true);
+        }
+        mouseRef.current.x = x;
+        mouseRef.current.y = y;
+        mouseRef.current.isHovering = true;
+      } else {
+        if (mouseRef.current.isHovering) {
+          mouseRef.current.isHovering = false;
+          setIsHovered(false);
+        }
       }
     };
 
     const handleMouseEnter = () => {
       mouseRef.current.isHovering = true;
+      setIsHovered(true);
     };
 
     const handleMouseLeave = () => {
       mouseRef.current.isHovering = false;
-      mouseRef.current.x = -9999;
-      mouseRef.current.y = -9999;
+      setIsHovered(false);
     };
+
+    const parent = canvas.parentElement;
 
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
     window.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('mouseenter', handleMouseEnter);
-    canvas.addEventListener('mouseleave', handleMouseLeave);
+    if (parent) {
+      parent.addEventListener('mouseenter', handleMouseEnter);
+      parent.addEventListener('mouseleave', handleMouseLeave);
+    }
 
     // Periodically pulse a background path at the cursor if the user stops moving the mouse but is hovering
     const idlePulseInterval = setInterval(() => {
-      const mouse = mouseRef.current;
-      if (mouse.isHovering && mouse.x !== -9999) {
-        // Spawn 1-2 random current paths emanating from the cursor location
-        spawnPath(mouse.x, mouse.y);
+      if (mouseRef.current.isHovering && springX.current !== -9999) {
+        // Spawn 1-2 random current paths emanating from the spring-interpolated cursor location
+        spawnPath(springX.current, springY.current);
         if (Math.random() > 0.6) {
-          spawnPath(mouse.x, mouse.y);
+          spawnPath(springX.current, springY.current);
         }
       }
     }, 280);
 
+    let lastTime: number | null = null;
     // Animation Loop
-    const animate = () => {
+    const animate = (timestamp: number) => {
+      if (lastTime === null) {
+        lastTime = timestamp;
+      }
+      let dt = (timestamp - lastTime) / 1000;
+      lastTime = timestamp;
+
+      // Clamp dt to avoid frame jumps on tab freeze/unfreeze
+      if (dt > 0.1) dt = 0.1;
+      if (dt <= 0) dt = 0.016;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const isDark = resolvedTheme === 'dark';
+
+      // Update physics for mouse positioning
+      const targetX = mouseRef.current.x;
+      const targetY = mouseRef.current.y;
+
+      if (targetX !== -9999 && targetY !== -9999) {
+        // 1. Interpolation step (approx 180ms => follow speed ~0.10)
+        const followSpeed = 0.10; // Follow speed: 0.08–0.12
+        interpX.current += (targetX - interpX.current) * followSpeed;
+        interpY.current += (targetY - interpY.current) * followSpeed;
+
+        // 2. Spring physics (stiffness: 120-180, damping: 18-24)
+        const stiffness = 150;
+        const damping = 20;
+
+        const ax = stiffness * (interpX.current - springX.current) - damping * vx.current;
+        const ay = stiffness * (interpY.current - springY.current) - damping * vy.current;
+
+        vx.current += ax * dt;
+        vy.current += ay * dt;
+
+        springX.current += vx.current * dt;
+        springY.current += vy.current * dt;
+
+        // 3. Maximum follow offset (20–40 px)
+        const maxOffset = 30; // Clamp offset to 30px
+        const dx = springX.current - targetX;
+        const dy = springY.current - targetY;
+        const dist = Math.hypot(dx, dy);
+
+        if (dist > maxOffset) {
+          springX.current = targetX + (dx / dist) * maxOffset;
+          springY.current = targetY + (dy / dist) * maxOffset;
+        }
+
+        // 4. Rest delta check: stop microscopic updates if settled
+        const restDelta = 0.001;
+        if (
+          Math.hypot(interpX.current - springX.current, interpY.current - springY.current) < restDelta &&
+          Math.hypot(vx.current, vy.current) < restDelta
+        ) {
+          springX.current = interpX.current;
+          springY.current = interpY.current;
+          vx.current = 0;
+          vy.current = 0;
+        }
+
+        // 5. Spawning paths based on spring coordinates
+        if (mouseRef.current.isHovering) {
+          const distFromLast = Math.hypot(springX.current - lastSpawnRef.current.x, springY.current - lastSpawnRef.current.y);
+          if (distFromLast > 18) {
+            spawnPath(springX.current, springY.current);
+            lastSpawnRef.current = { x: springX.current, y: springY.current };
+          }
+        }
+      }
 
       // Update and draw active traces
       activePaths.forEach((path) => {
@@ -252,15 +346,17 @@ export function CircuitBackground() {
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    animate();
+    animationFrameId = requestAnimationFrame(animate);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
       clearInterval(idlePulseInterval);
       window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('mousemove', handleMouseMove);
-      canvas.removeEventListener('mouseenter', handleMouseEnter);
-      if (canvas) canvas.removeEventListener('mouseleave', handleMouseLeave);
+      if (parent) {
+        parent.removeEventListener('mouseenter', handleMouseEnter);
+        parent.removeEventListener('mouseleave', handleMouseLeave);
+      }
     };
   }, [mounted, resolvedTheme]);
 
@@ -269,6 +365,14 @@ export function CircuitBackground() {
   return (
     <canvas
       ref={canvasRef}
+      style={{
+        opacity: isHovered ? 1 : 0,
+        transition: isHovered
+          ? 'opacity 320ms cubic-bezier(0.22, 1, 0.36, 1)'
+          : 'opacity 380ms cubic-bezier(0.16, 1, 0.3, 1)',
+        willChange: 'opacity, transform',
+        transform: 'translate3d(0, 0, 0)',
+      }}
       className="absolute inset-0 w-full h-full pointer-events-none select-none z-0"
     />
   );
