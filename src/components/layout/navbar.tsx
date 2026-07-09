@@ -11,6 +11,7 @@ import { useTheme } from 'next-themes';
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
   const pathname = usePathname();
   const router = useRouter();
 
@@ -24,8 +25,27 @@ export function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+
+      // Scroll spy logic
+      const sectionIds = ['services', 'why-us', 'industries', 'process', 'case-studies', 'pricing', 'contact'];
+      let currentSection = '';
+
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 180 && rect.bottom > 180) {
+            currentSection = id;
+            break;
+          }
+        }
+      }
+      setActiveSection(currentSection);
     };
+
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // initial load calculation
+    
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -48,13 +68,13 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        'fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b backdrop-blur-2xl',
+        'fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b backdrop-blur-2xl py-0',
         scrolled 
-          ? 'bg-slate-100/80 dark:bg-slate-950/85 border-slate-200 dark:border-slate-800 py-3 shadow-lg dark:shadow-[0_10px_30px_-10px_rgba(91,95,239,0.25)]' 
-          : 'bg-slate-100/50 dark:bg-slate-950/45 border-slate-200/80 dark:border-slate-800/60 py-4 shadow-md dark:shadow-[0_4px_20px_-10px_rgba(91,95,239,0.15)]'
+          ? 'bg-slate-100/80 dark:bg-slate-950/85 border-slate-200 dark:border-slate-800 shadow-lg dark:shadow-[0_10px_30px_-10px_rgba(91,95,239,0.25)]' 
+          : 'bg-slate-100/50 dark:bg-slate-950/45 border-slate-200/80 dark:border-slate-800/60 shadow-md dark:shadow-[0_4px_20px_-10px_rgba(91,95,239,0.15)]'
       )}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className={cn("max-w-7xl mx-auto px-6 flex items-center justify-between transition-all duration-300", scrolled ? "h-14" : "h-20")}>
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2.5 font-bold tracking-tight text-foreground group">
           <Image
@@ -71,21 +91,27 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Navigation links */}
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-8 h-full">
           {navLinks.map((link) => {
-            const isActive = pathname === link.href;
+            const sectionId = link.href.split('#')[1] || '';
+            const isActive = activeSection === sectionId;
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  'text-sm font-semibold tracking-wide transition-all duration-300 relative py-1 hover:text-primary',
-                  isActive ? 'text-primary' : 'text-muted-foreground'
+                  'text-sm font-semibold tracking-wide transition-all duration-300 relative h-full flex items-center hover:text-foreground',
+                  isActive ? 'text-primary dark:text-accent font-semibold' : 'text-muted-foreground'
                 )}
               >
                 {link.label}
                 {isActive && (
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary rounded-full" />
+                  <>
+                    {/* Glowing Indicator Line at bottom border */}
+                    <span className="absolute bottom-0 left-0 w-full h-[2.5px] bg-gradient-to-r from-primary via-secondary to-accent z-10 animate-fade-in" />
+                    {/* Soft glowing light beam rising upwards, fading to transparent */}
+                    <span className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-secondary/15 via-accent/5 to-transparent dark:from-secondary/25 dark:via-accent/10 dark:to-transparent blur-[8px] z-0 animate-pulse pointer-events-none" />
+                  </>
                 )}
               </Link>
             );
@@ -145,19 +171,26 @@ export function Navbar() {
       {/* Mobile Menu Panel */}
       {isOpen && (
         <div className="lg:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-xl border-b border-border/40 py-6 px-6 flex flex-col gap-4 shadow-lg animate-fade-in">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className={cn(
-                'text-base font-semibold py-2 transition-colors hover:text-primary border-b border-border/10',
-                pathname === link.href ? 'text-primary' : 'text-muted-foreground'
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const sectionId = link.href.split('#')[1] || '';
+            const isActive = activeSection === sectionId;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className={cn(
+                  'text-base font-semibold py-2 transition-colors border-b border-border/10 flex items-center justify-between',
+                  isActive ? 'text-primary dark:text-accent font-semibold' : 'text-muted-foreground hover:text-foreground'
+                )}
+              >
+                {link.label}
+                {isActive && (
+                  <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-primary to-accent shadow-[0_0_8px_rgba(91,95,239,0.8)] animate-pulse" />
+                )}
+              </Link>
+            );
+          })}
           <div className="flex flex-col gap-3 mt-4">
             <Link
               href="/auth/login"
