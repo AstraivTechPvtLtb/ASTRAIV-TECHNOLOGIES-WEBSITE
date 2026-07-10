@@ -11,7 +11,6 @@ import { AiSection } from '@/components/sections/ai-section';
 import { ProcessSection } from '@/components/sections/process-section';
 import { CaseStudiesSection } from '@/components/sections/case-studies-section';
 import { TestimonialsSection } from '@/components/sections/testimonials-section';
-import { StatsSection } from '@/components/sections/stats-section';
 import { PricingSection } from '@/components/sections/pricing-section';
 
 interface HomePageProps {
@@ -67,8 +66,7 @@ export default async function HomePage({ params }: HomePageProps) {
         {/* 10. Testimonials */}
         <TestimonialsSection />
 
-        {/* 11. Statistics */}
-        <StatsSection />
+
 
         {/* 12. Pricing */}
         <PricingSection />
