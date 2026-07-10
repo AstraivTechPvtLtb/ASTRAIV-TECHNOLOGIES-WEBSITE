@@ -1,13 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Globe, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import Image from 'next/image';
 import { Link, usePathname, useRouter } from '@/i18n/routing';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
+import { useLocale } from 'next-intl';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,10 +19,23 @@ export function Navbar() {
 
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showLangMenu, setShowLangMenu] = useState(false);
+  const locale = useLocale();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (!showDropdown) return;
+    const closeDropdown = () => {
+      setShowDropdown(false);
+      setShowLangMenu(false);
+    };
+    document.addEventListener('click', closeDropdown);
+    return () => document.removeEventListener('click', closeDropdown);
+  }, [showDropdown]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,10 +74,10 @@ export function Navbar() {
     { label: 'Contact', href: '/#contact' },
   ];
 
-  // Simply toggle languages between 'en' and 'es'
-  const toggleLanguage = () => {
-    const nextLocale = pathname.startsWith('/es') || pathname === 'es' ? 'en' : 'es';
-    router.replace(pathname, { locale: nextLocale });
+  const handleLanguageChange = (newLocale: 'en' | 'es' | 'bn' | 'hi' | 'ar') => {
+    router.replace(pathname, { locale: newLocale });
+    setShowDropdown(false);
+    setShowLangMenu(false);
   };
 
   return (
@@ -129,9 +143,99 @@ export function Navbar() {
 
         {/* CTA and Utilities */}
         <div className="hidden lg:flex items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={toggleLanguage} className="text-muted-foreground hover:text-foreground">
-            <Globe className="h-4 w-5" />
-          </Button>
+          {/* Custom Options Dropdown ("three lines") */}
+          <div className="relative">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowDropdown(!showDropdown);
+              }}
+              className="text-muted-foreground hover:text-foreground cursor-pointer"
+              aria-label="More Options"
+            >
+              <Menu className="h-4.5 w-4.5" />
+            </Button>
+            {showDropdown && (
+              <div className="absolute right-0 mt-2 w-48 rounded-xl border border-slate-200/50 dark:border-slate-800/40 bg-white/70 dark:bg-slate-950/60 backdrop-blur-xl p-2 shadow-xl z-50 text-xs flex flex-col gap-1">
+                {/* Language Selector Header */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowLangMenu(!showLangMenu);
+                  }}
+                  className="w-full text-left px-3 py-2 rounded-lg font-bold hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors flex items-center justify-between cursor-pointer text-slate-800 dark:text-slate-200"
+                >
+                  <span>Language</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-black">{locale.toUpperCase()}</span>
+                </button>
+
+                {/* Sub-menu with actual languages options */}
+                {showLangMenu && (
+                  <div className="pl-2 border-l border-slate-200 dark:border-slate-800 ml-2 mt-1 mb-1 flex flex-col gap-1">
+                    <button
+                      onClick={() => handleLanguageChange('en')}
+                      className={cn(
+                        "w-full text-left px-2.5 py-1.5 rounded-md font-semibold hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-colors cursor-pointer text-[10px]",
+                        locale === 'en' ? "text-primary dark:text-accent font-bold" : "text-slate-500 dark:text-slate-400"
+                      )}
+                    >
+                      🇺🇸 English
+                    </button>
+                    <button
+                      onClick={() => handleLanguageChange('es')}
+                      className={cn(
+                        "w-full text-left px-2.5 py-1.5 rounded-md font-semibold hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-colors cursor-pointer text-[10px]",
+                        locale === 'es' ? "text-primary dark:text-accent font-bold" : "text-slate-500 dark:text-slate-400"
+                      )}
+                    >
+                      🇪🇸 Español
+                    </button>
+                    <button
+                      onClick={() => handleLanguageChange('bn')}
+                      className={cn(
+                        "w-full text-left px-2.5 py-1.5 rounded-md font-semibold hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-colors cursor-pointer text-[10px]",
+                        locale === 'bn' ? "text-primary dark:text-accent font-bold" : "text-slate-500 dark:text-slate-400"
+                      )}
+                    >
+                      🇧🇩 Bengali
+                    </button>
+                    <button
+                      onClick={() => handleLanguageChange('hi')}
+                      className={cn(
+                        "w-full text-left px-2.5 py-1.5 rounded-md font-semibold hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-colors cursor-pointer text-[10px]",
+                        locale === 'hi' ? "text-primary dark:text-accent font-bold" : "text-slate-500 dark:text-slate-400"
+                      )}
+                    >
+                      🇮🇳 Hindi
+                    </button>
+                    <button
+                      onClick={() => handleLanguageChange('ar')}
+                      className={cn(
+                        "w-full text-left px-2.5 py-1.5 rounded-md font-semibold hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-colors cursor-pointer text-[10px]",
+                        locale === 'ar' ? "text-primary dark:text-accent font-bold" : "text-slate-500 dark:text-slate-400"
+                      )}
+                    >
+                      🇸🇦 Arabic
+                    </button>
+                  </div>
+                )}
+
+                <div className="border-t border-slate-200 dark:border-slate-800 my-1" />
+
+                {/* FAQ Link */}
+                <Link
+                  href="/faq"
+                  onClick={() => setShowDropdown(false)}
+                  className="w-full text-left px-3 py-2 rounded-lg font-bold text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors flex items-center justify-between cursor-pointer"
+                >
+                  <span>FAQ</span>
+                </Link>
+              </div>
+            )}
+          </div>
+
           <Button
             variant="ghost"
             size="icon"
@@ -152,9 +256,6 @@ export function Navbar() {
 
         {/* Mobile menu trigger */}
         <div className="flex lg:hidden items-center gap-3">
-          <Button variant="ghost" size="icon" onClick={toggleLanguage} className="text-muted-foreground hover:text-foreground">
-            <Globe className="h-4 w-4" />
-          </Button>
           <Button
             variant="ghost"
             size="icon"
@@ -197,13 +298,75 @@ export function Navbar() {
               </Link>
             );
           })}
-          <div className="flex flex-col gap-3 mt-4">
+          <div className="flex flex-col gap-3 mt-4 border-t border-border/20 pt-4">
             <Link
               href="/auth/login"
               onClick={() => setIsOpen(false)}
               className={cn(buttonVariants({ variant: 'outline' }), 'w-full font-semibold justify-center h-10')}
             >
               Login
+            </Link>
+            
+            {/* Mobile Language Selector */}
+            <div className="flex flex-col gap-1.5 mt-2">
+              <span className="text-[10px] uppercase tracking-wider font-extrabold text-muted-foreground/60 px-1">Language</span>
+              <div className="grid grid-cols-2 gap-1.5">
+                <button
+                  onClick={() => { handleLanguageChange('en'); setIsOpen(false); }}
+                  className={cn(
+                    "text-left px-3 py-2 rounded-lg font-bold text-xs bg-muted/40 cursor-pointer",
+                    locale === 'en' ? "text-primary dark:text-accent font-extrabold ring-1 ring-primary/20" : "text-muted-foreground"
+                  )}
+                >
+                  🇺🇸 English
+                </button>
+                <button
+                  onClick={() => { handleLanguageChange('es'); setIsOpen(false); }}
+                  className={cn(
+                    "text-left px-3 py-2 rounded-lg font-bold text-xs bg-muted/40 cursor-pointer",
+                    locale === 'es' ? "text-primary dark:text-accent font-extrabold ring-1 ring-primary/20" : "text-muted-foreground"
+                  )}
+                >
+                  🇪🇸 Español
+                </button>
+                <button
+                  onClick={() => { handleLanguageChange('bn'); setIsOpen(false); }}
+                  className={cn(
+                    "text-left px-3 py-2 rounded-lg font-bold text-xs bg-muted/40 cursor-pointer",
+                    locale === 'bn' ? "text-primary dark:text-accent font-extrabold ring-1 ring-primary/20" : "text-muted-foreground"
+                  )}
+                >
+                  🇧🇩 Bengali
+                </button>
+                <button
+                  onClick={() => { handleLanguageChange('hi'); setIsOpen(false); }}
+                  className={cn(
+                    "text-left px-3 py-2 rounded-lg font-bold text-xs bg-muted/40 cursor-pointer",
+                    locale === 'hi' ? "text-primary dark:text-accent font-extrabold ring-1 ring-primary/20" : "text-muted-foreground"
+                  )}
+                >
+                  🇮🇳 Hindi
+                </button>
+                <button
+                  onClick={() => { handleLanguageChange('ar'); setIsOpen(false); }}
+                  className={cn(
+                    "text-left px-3 py-2 rounded-lg font-bold text-xs bg-muted/40 cursor-pointer col-span-2 text-center",
+                    locale === 'ar' ? "text-primary dark:text-accent font-extrabold ring-1 ring-primary/20" : "text-muted-foreground"
+                  )}
+                >
+                  🇸🇦 Arabic
+                </button>
+              </div>
+            </div>
+
+            {/* Mobile FAQ Option */}
+            <Link
+              href="/faq"
+              onClick={() => setIsOpen(false)}
+              className="w-full flex items-center justify-between py-2.5 px-1 text-sm font-bold text-muted-foreground hover:text-foreground border-t border-border/15 mt-2"
+            >
+              <span>FAQ</span>
+              <span className="text-[10px] uppercase font-bold text-accent">New</span>
             </Link>
           </div>
         </div>
