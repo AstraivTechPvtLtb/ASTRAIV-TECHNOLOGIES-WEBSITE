@@ -13,7 +13,7 @@ export function FaqSection() {
   const t = useTranslations('Home');
 
   return (
-    <section id="faq" className="py-20 md:py-28 px-6 bg-background relative">
+    <section id="faq" className="py-12 md:py-20 px-6 relative">
       <div className="max-w-4xl mx-auto">
         <SectionHeader
           badge="Faq"
