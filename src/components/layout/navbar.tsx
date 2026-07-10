@@ -75,7 +75,7 @@ export function Navbar() {
           : 'bg-slate-100/50 dark:bg-slate-950/45 border-slate-200/80 dark:border-slate-800/60 shadow-md dark:shadow-[0_4px_20px_-10px_rgba(91,95,239,0.15)]'
       )}
     >
-      <div className={cn("max-w-7xl mx-auto px-6 flex items-center justify-between transition-all duration-300", scrolled ? "h-14" : "h-20")}>
+      <div className={cn("w-full px-6 md:px-12 flex items-center justify-between transition-all duration-300", scrolled ? "h-14" : "h-20")}>
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2.5 font-bold tracking-tight text-foreground group">
           <Image
@@ -145,11 +145,8 @@ export function Navbar() {
               <Moon className="h-4 w-4" />
             )}
           </Button>
-          <Link href="/auth/login" className="text-sm font-bold text-muted-foreground hover:text-foreground transition-colors mr-2">
+          <Link href="/auth/login" className="text-sm font-bold text-muted-foreground hover:text-foreground transition-colors">
             Login
-          </Link>
-          <Link href="/auth/signup" className={cn(buttonVariants({ variant: 'default', size: 'sm' }), 'font-bold h-9 px-5')}>
-            Get Started
           </Link>
         </div>
 
@@ -207,13 +204,6 @@ export function Navbar() {
               className={cn(buttonVariants({ variant: 'outline' }), 'w-full font-semibold justify-center h-10')}
             >
               Login
-            </Link>
-            <Link
-              href="/auth/signup"
-              onClick={() => setIsOpen(false)}
-              className={cn(buttonVariants({ variant: 'default' }), 'w-full font-semibold justify-center h-10')}
-            >
-              Get Started
             </Link>
           </div>
         </div>
