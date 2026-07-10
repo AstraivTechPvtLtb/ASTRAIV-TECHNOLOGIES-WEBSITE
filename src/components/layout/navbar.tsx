@@ -7,6 +7,7 @@ import { Link, usePathname, useRouter } from '@/i18n/routing';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useTheme } from 'next-themes';
+import { motion } from 'framer-motion';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -108,9 +109,17 @@ export function Navbar() {
                 {isActive && (
                   <>
                     {/* Glowing Indicator Line at bottom border */}
-                    <span className="absolute bottom-0 left-0 w-full h-[2.5px] bg-gradient-to-r from-primary via-secondary to-accent z-10 animate-fade-in" />
+                    <motion.span
+                      layoutId="activeIndicator"
+                      className="absolute bottom-0 left-0 w-full h-[2.5px] bg-gradient-to-r from-primary via-secondary to-accent z-10"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
                     {/* Soft glowing light beam rising upwards, fading to transparent */}
-                    <span className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-secondary/15 via-accent/5 to-transparent dark:from-secondary/25 dark:via-accent/10 dark:to-transparent blur-[8px] z-0 animate-pulse pointer-events-none" />
+                    <motion.span
+                      layoutId="activeGlow"
+                      className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-secondary/15 via-accent/5 to-transparent dark:from-secondary/25 dark:via-accent/10 dark:to-transparent blur-[8px] z-0 pointer-events-none"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
                   </>
                 )}
               </Link>
