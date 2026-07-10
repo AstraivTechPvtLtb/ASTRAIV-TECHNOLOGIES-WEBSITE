@@ -62,7 +62,7 @@ export function ContactForm() {
   return (
     <div className="w-full max-w-xl mx-auto p-6 md:p-8 rounded-2xl border border-border/40 bg-card/50 backdrop-blur-md">
       <h3 className="text-xl font-bold tracking-tight text-foreground mb-2">Request a Quote</h3>
-      <p className="text-sm text-muted-foreground mb-6">Let's discuss how we can build, scale, or automate your technology needs.</p>
+      <p className="text-sm text-muted-foreground mb-6">Let&apos;s discuss how we can build, scale, or automate your technology needs.</p>
 
       {submitSuccess === true && (
         <div className="p-4 mb-6 rounded-lg bg-green-500/10 border border-green-500/20 text-green-500 text-sm font-medium">
