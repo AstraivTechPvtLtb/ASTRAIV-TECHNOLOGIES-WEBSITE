@@ -1,10 +1,11 @@
+import { NextRequest } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
 import { routing } from './i18n/routing';
 
 const intlMiddleware = createMiddleware(routing);
 
 // Named proxy function is the new Next.js 16 standard
-export function proxy(request: any) {
+export function proxy(request: NextRequest) {
   return intlMiddleware(request);
 }
 
