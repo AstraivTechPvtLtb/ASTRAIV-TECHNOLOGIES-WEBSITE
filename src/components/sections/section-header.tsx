@@ -28,7 +28,7 @@ export function SectionHeader({
           {badge}
         </span>
       )}
-      <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground bg-gradient-to-br from-foreground via-foreground/90 to-foreground/75">
+      <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-transparent bg-gradient-to-br from-foreground via-foreground/90 to-foreground/75 bg-clip-text">
         {title}
       </h2>
       {description && (

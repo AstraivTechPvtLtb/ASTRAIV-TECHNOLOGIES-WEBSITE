@@ -13,7 +13,6 @@ import { CaseStudiesSection } from '@/components/sections/case-studies-section';
 import { TestimonialsSection } from '@/components/sections/testimonials-section';
 import { StatsSection } from '@/components/sections/stats-section';
 import { PricingSection } from '@/components/sections/pricing-section';
-import { ContactSection } from '@/components/sections/contact-section';
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -76,8 +75,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
 
 
-        {/* 14. Contact Form */}
-        <ContactSection />
+
       </main>
 
       {/* 15. Global Footer */}

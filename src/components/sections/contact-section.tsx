@@ -8,7 +8,7 @@ export function ContactSection() {
   const t = useTranslations('Home');
 
   return (
-    <section id="contact" className="py-20 md:py-28 px-6 bg-slate-50/50 dark:bg-slate-900/10 border-t border-border/20 relative">
+    <section id="contact" className="py-12 md:py-20 px-6 relative">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Contact details */}
         <div className="flex flex-col gap-6 text-left">

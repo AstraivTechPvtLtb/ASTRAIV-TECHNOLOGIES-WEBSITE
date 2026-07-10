@@ -71,7 +71,6 @@ export function Navbar() {
     { label: 'Process', href: '/#process' },
     { label: 'Portfolio', href: '/#case-studies' },
     { label: 'Pricing', href: '/#pricing' },
-    { label: 'Contact', href: '/#contact' },
   ];
 
   const handleLanguageChange = (newLocale: 'en' | 'es' | 'bn' | 'hi' | 'ar') => {
@@ -232,6 +231,15 @@ export function Navbar() {
                 >
                   <span>FAQ</span>
                 </Link>
+
+                {/* Contact Link */}
+                <Link
+                  href="/contact"
+                  onClick={() => setShowDropdown(false)}
+                  className="w-full text-left px-3 py-2 rounded-lg font-bold text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors flex items-center justify-between cursor-pointer"
+                >
+                  <span>Contact</span>
+                </Link>
               </div>
             )}
           </div>
@@ -367,6 +375,15 @@ export function Navbar() {
             >
               <span>FAQ</span>
               <span className="text-[10px] uppercase font-bold text-accent">New</span>
+            </Link>
+
+            {/* Mobile Contact Option */}
+            <Link
+              href="/contact"
+              onClick={() => setIsOpen(false)}
+              className="w-full flex items-center justify-between py-2.5 px-1 text-sm font-bold text-muted-foreground hover:text-foreground border-t border-border/15 mt-2"
+            >
+              <span>Contact</span>
             </Link>
           </div>
         </div>
