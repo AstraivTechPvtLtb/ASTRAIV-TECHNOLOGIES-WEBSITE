@@ -1,19 +1,21 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import { Link, usePathname, useRouter } from '@/i18n/routing';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useTheme } from 'next-themes';
-import { motion } from 'framer-motion';
-import { useLocale } from 'next-intl';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useLocale, useTranslations } from 'next-intl';
 
 export function Navbar() {
+  const tNav = useTranslations('Nav');
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -65,12 +67,20 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: 'Services', href: '/#services' },
-    { label: 'Why Us', href: '/#why-us' },
-    { label: 'Industries', href: '/#industries' },
-    { label: 'Process', href: '/#process' },
-    { label: 'Portfolio', href: '/portfolio' },
-    { label: 'Pricing', href: '/#pricing' },
+    { label: tNav('services'), href: '/#services' },
+    { label: tNav('whyUs'), href: '/#why-us' },
+    { 
+      label: tNav('technology'), 
+      href: '/technology',
+      dropdownItems: [
+        { label: tNav('techStack'), href: '/technology#technologies' },
+        { label: tNav('aiCapabilities'), href: '/technology#ai-expertise' }
+      ]
+    },
+    { label: tNav('industries'), href: '/#industries' },
+    { label: tNav('process'), href: '/#process' },
+    { label: tNav('portfolio'), href: '/portfolio' },
+    { label: tNav('pricing'), href: '/#pricing' },
   ];
 
   const handleLanguageChange = (newLocale: 'en' | 'es' | 'bn' | 'hi' | 'ar') => {
@@ -108,34 +118,71 @@ export function Navbar() {
         <nav className="hidden lg:flex items-center gap-8 h-full">
           {navLinks.map((link) => {
             const sectionId = link.href.split('#')[1] || '';
-            const isActive = sectionId ? activeSection === sectionId : pathname === link.href;
+            const isActive = sectionId 
+              ? activeSection === sectionId 
+              : pathname === link.href || (link.dropdownItems && link.dropdownItems.some(item => pathname === item.href.split('#')[0]));
+            const hasDropdown = !!link.dropdownItems;
+
             return (
-              <Link
+              <div
                 key={link.href}
-                href={link.href}
-                className={cn(
-                  'text-sm font-semibold tracking-wide transition-all duration-300 relative h-full flex items-center hover:text-foreground',
-                  isActive ? 'text-primary dark:text-accent font-semibold' : 'text-muted-foreground'
-                )}
+                className="relative h-full flex items-center"
+                onMouseEnter={() => hasDropdown && setHoveredLink(link.href)}
+                onMouseLeave={() => hasDropdown && setHoveredLink(null)}
               >
-                {link.label}
-                {isActive && (
-                  <>
-                    {/* Glowing Indicator Line at bottom border */}
-                    <motion.span
-                      layoutId="activeIndicator"
-                      className="absolute bottom-0 left-0 w-full h-[2.5px] bg-gradient-to-r from-primary via-secondary to-accent z-10"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                    {/* Soft glowing light beam rising upwards, fading to transparent */}
-                    <motion.span
-                      layoutId="activeGlow"
-                      className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-secondary/15 via-accent/5 to-transparent dark:from-secondary/25 dark:via-accent/10 dark:to-transparent blur-[8px] z-0 pointer-events-none"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  </>
+                <Link
+                  href={link.href}
+                  className={cn(
+                    'text-sm font-semibold tracking-wide transition-all duration-300 relative h-full flex items-center hover:text-foreground gap-1 group/link',
+                    isActive ? 'text-primary dark:text-accent font-semibold' : 'text-muted-foreground'
+                  )}
+                >
+                  <span>{link.label}</span>
+                  {hasDropdown && (
+                    <ChevronDown className={cn("h-3.5 w-3.5 opacity-65 transition-transform duration-300 group-hover/link:opacity-100 group-hover/link:text-foreground", hoveredLink === link.href ? "rotate-180 text-foreground" : "")} />
+                  )}
+                  {isActive && (
+                    <>
+                      {/* Glowing Indicator Line at bottom border */}
+                      <motion.span
+                        layoutId="activeIndicator"
+                        className="absolute bottom-0 left-0 w-full h-[2.5px] bg-gradient-to-r from-primary via-secondary to-accent z-10"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                      {/* Soft glowing light beam rising upwards, fading to transparent */}
+                      <motion.span
+                        layoutId="activeGlow"
+                        className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-secondary/15 via-accent/5 to-transparent dark:from-secondary/25 dark:via-accent/10 dark:to-transparent blur-[8px] z-0 pointer-events-none"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                    </>
+                  )}
+                </Link>
+
+                {hasDropdown && (
+                  <AnimatePresence>
+                    {hoveredLink === link.href && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="absolute top-[80%] left-1/2 -translate-x-1/2 mt-1 w-52 rounded-xl border border-slate-200/50 dark:border-slate-800/40 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl p-2.5 shadow-xl dark:shadow-[0_15px_40px_-10px_rgba(0,0,0,0.5)] z-50 text-xs flex flex-col gap-1.5"
+                      >
+                        {link.dropdownItems?.map((item) => (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            className="w-full text-left px-3 py-2 rounded-lg font-bold hover:bg-slate-100 dark:hover:bg-slate-900/60 transition-colors text-slate-800 dark:text-slate-200 flex items-center justify-between"
+                          >
+                            <span>{item.label}</span>
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 )}
-              </Link>
+              </div>
             );
           })}
         </nav>
@@ -328,22 +375,41 @@ export function Navbar() {
         <div className="lg:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-xl border-b border-border/40 py-6 px-6 flex flex-col gap-4 shadow-lg animate-fade-in">
           {navLinks.map((link) => {
             const sectionId = link.href.split('#')[1] || '';
-            const isActive = sectionId ? activeSection === sectionId : pathname === link.href;
+            const isActive = sectionId 
+              ? activeSection === sectionId 
+              : pathname === link.href || (link.dropdownItems && link.dropdownItems.some(item => pathname === item.href.split('#')[0]));
+            const hasDropdown = !!link.dropdownItems;
+
             return (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className={cn(
-                  'text-base font-semibold py-2 transition-colors border-b border-border/10 flex items-center justify-between',
-                  isActive ? 'text-primary dark:text-accent font-semibold' : 'text-muted-foreground hover:text-foreground'
+              <div key={link.href} className="flex flex-col border-b border-border/10 pb-1">
+                <Link
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className={cn(
+                    'text-base font-semibold py-2 transition-colors flex items-center justify-between',
+                    isActive ? 'text-primary dark:text-accent font-semibold' : 'text-muted-foreground hover:text-foreground'
+                  )}
+                >
+                  {link.label}
+                  {isActive && !hasDropdown && (
+                    <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-primary to-accent shadow-[0_0_8px_rgba(91,95,239,0.8)] animate-pulse" />
+                  )}
+                </Link>
+                {hasDropdown && link.dropdownItems && (
+                  <div className="pl-4 pb-2 pt-1 flex flex-col gap-2.5 border-l border-slate-200 dark:border-slate-800 ml-2 mt-0.5">
+                    {link.dropdownItems.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setIsOpen(false)}
+                        className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-1"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
                 )}
-              >
-                {link.label}
-                {isActive && (
-                  <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-primary to-accent shadow-[0_0_8px_rgba(91,95,239,0.8)] animate-pulse" />
-                )}
-              </Link>
+              </div>
             );
           })}
           <div className="flex flex-col gap-3 mt-4 border-t border-border/20 pt-4">

@@ -10,13 +10,19 @@
   },
   "Nav": {
     "services": "Services",
+    "whyUs": "Why Us",
+    "industries": "Industries",
+    "process": "Process",
     "portfolio": "Portfolio",
     "pricing": "Pricing",
     "blog": "Blog",
     "contact": "Contact",
     "dashboard": "Dashboard",
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "technology": "Technology",
+    "techStack": "Technology Stack",
+    "aiCapabilities": "AI Capabilities"
   },
   "Services": {
     "title": "Our Services",
@@ -68,5 +74,10 @@
     "pricingSubtitle": "Choose a plan that matches your engineering velocity.",
     "ctaTitle": "Ready to build something premium?",
     "ctaSubtitle": "Join forces with our elite engineering team to build, scale, and automate your technology stack today."
+  },
+  "Technology": {
+    "badge": "Technology & Innovation",
+    "title": "Next-Gen Software & Intelligent Systems",
+    "description": "We design, code, and deploy custom technology architectures and cognitive agent workflows tailored for enterprise-scale performance and intelligence."
   }
 }

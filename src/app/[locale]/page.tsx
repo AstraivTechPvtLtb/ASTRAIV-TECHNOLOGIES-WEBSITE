@@ -6,8 +6,6 @@ import { ClientsSection } from '@/components/sections/clients-section';
 import { ServicesSection } from '@/components/sections/services-section';
 import { WhySection } from '@/components/sections/why-section';
 import { IndustriesSection } from '@/components/sections/industries-section';
-import { TechSection } from '@/components/sections/tech-section';
-import { AiSection } from '@/components/sections/ai-section';
 import { ProcessSection } from '@/components/sections/process-section';
 import { PricingSection } from '@/components/sections/pricing-section';
 
@@ -49,11 +47,7 @@ export default async function HomePage({ params }: HomePageProps) {
         {/* 5. Industries */}
         <IndustriesSection />
 
-        {/* 6. Technologies */}
-        <TechSection />
 
-        {/* 7. AI Expertise */}
-        <AiSection />
 
         {/* 8. Development Process */}
         <ProcessSection />
