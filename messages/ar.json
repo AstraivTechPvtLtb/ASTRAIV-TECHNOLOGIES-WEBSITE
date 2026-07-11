@@ -22,7 +22,9 @@
     "logout": "تسجيل الخروج",
     "technology": "التكنولوجيا",
     "techStack": "مجموعة التكنولوجيا",
-    "aiCapabilities": "قدرات الذكاء الاصطناعي"
+    "aiCapabilities": "قدرات الذكاء الاصطناعي",
+    "caseStudies": "دراسات الحالة",
+    "successStories": "قصص النجاح"
   },
   "Services": {
     "title": "خدماتنا",

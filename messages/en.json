@@ -22,7 +22,9 @@
     "logout": "Logout",
     "technology": "Technology",
     "techStack": "Technology Stack",
-    "aiCapabilities": "AI Capabilities"
+    "aiCapabilities": "AI Capabilities",
+    "caseStudies": "Case Studies",
+    "successStories": "Success Stories"
   },
   "Services": {
     "title": "Our Services",

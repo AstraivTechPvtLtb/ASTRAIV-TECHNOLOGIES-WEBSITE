@@ -22,7 +22,9 @@
     "logout": "Cerrar Sesión",
     "technology": "Tecnología",
     "techStack": "Pila de Tecnología",
-    "aiCapabilities": "Capacidades de IA"
+    "aiCapabilities": "Capacidades de IA",
+    "caseStudies": "Casos de Estudio",
+    "successStories": "Historias de Éxito"
   },
   "Services": {
     "title": "Nuestros Servicios",
