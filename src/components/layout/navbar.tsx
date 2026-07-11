@@ -88,7 +88,7 @@ export function Navbar() {
           : 'bg-slate-100/50 dark:bg-slate-950/45 border-slate-200/80 dark:border-slate-800/60 shadow-md dark:shadow-[0_4px_20px_-10px_rgba(91,95,239,0.15)]'
       )}
     >
-      <div className={cn("w-full px-6 md:px-12 flex items-center justify-between transition-all duration-300", scrolled ? "h-14" : "h-20")}>
+      <div className={cn("w-full pl-6 md:pl-12 pr-4 md:pr-6 flex items-center justify-between transition-all duration-300", scrolled ? "h-14" : "h-20")}>
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2.5 font-bold tracking-tight text-foreground group">
           <Image
@@ -140,22 +140,60 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* CTA and Utilities */}
-        <div className="hidden lg:flex items-center gap-4">
+        {/* CTA and Utilities as separate buttons */}
+        <div className="hidden lg:flex items-center gap-3">
+          {/* Company Contact Glowing Button (Blue color in light and dark mode, smaller size) */}
+          <Link href="/contact" className="relative group inline-block">
+            {/* Soft glowing ambient light beam behind the button */}
+            <div className={cn(
+              "absolute -inset-[2px] bg-blue-500 rounded-full blur-[6px] opacity-40 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none",
+              pathname === '/contact'
+                ? "opacity-90 blur-[8px] scale-[1.03] animate-pulse"
+                : "group-hover:animate-pulse"
+            )} />
+            
+            {/* The main button */}
+            <button
+              className={cn(
+                "relative cursor-pointer font-bold rounded-full px-3 h-7.5 text-[10px] uppercase tracking-wider transition-all duration-300 shadow-sm flex items-center justify-center gap-1 border-none outline-none select-none text-white bg-blue-600 hover:bg-blue-750 active:scale-95",
+                pathname === '/contact' ? "bg-blue-700" : ""
+              )}
+            >
+              {/* Left small glowing dot inside the button for micro-animation */}
+              <span className={cn(
+                "h-1 w-1 rounded-full bg-white transition-all duration-300",
+                pathname === '/contact' ? "animate-ping" : "group-hover:animate-ping"
+              )} />
+              <span>Contact</span>
+            </button>
+          </Link>
+
+          {/* Login Button */}
+          <Link href="/auth/login">
+            <button
+              className={cn(
+                "cursor-pointer font-bold rounded-full px-3.5 h-7.5 text-[10px] uppercase tracking-wider transition-all duration-300 border bg-transparent flex items-center justify-center select-none active:scale-95",
+                pathname === '/auth/login'
+                  ? "border-primary text-primary dark:border-accent dark:text-accent font-extrabold"
+                  : "border-slate-200 text-slate-800 hover:bg-slate-100 hover:border-slate-300 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-850 dark:hover:border-slate-700"
+              )}
+            >
+              Login
+            </button>
+          </Link>
+
           {/* Custom Options Dropdown ("three lines") */}
           <div className="relative">
-            <Button
-              variant="ghost"
-              size="icon"
+            <button
               onClick={(e) => {
                 e.stopPropagation();
                 setShowDropdown(!showDropdown);
               }}
-              className="text-muted-foreground hover:text-foreground cursor-pointer"
+              className="text-muted-foreground hover:text-foreground cursor-pointer rounded-full h-7.5 w-7.5 hover:bg-slate-250 dark:hover:bg-slate-850 flex items-center justify-center border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 transition-colors select-none active:scale-95"
               aria-label="More Options"
             >
-              <Menu className="h-4.5 w-4.5" />
-            </Button>
+              <Menu className="h-4 w-4" />
+            </button>
             {showDropdown && (
               <div className="absolute right-0 mt-2 w-48 rounded-xl border border-slate-200/50 dark:border-slate-800/40 bg-white/70 dark:bg-slate-950/60 backdrop-blur-xl p-2 shadow-xl z-50 text-xs flex flex-col gap-1">
                 {/* Language Selector Header */}
@@ -223,6 +261,32 @@ export function Navbar() {
 
                 <div className="border-t border-slate-200 dark:border-slate-800 my-1" />
 
+                {/* Theme Selector */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
+                  }}
+                  className="w-full text-left px-3 py-2 rounded-lg font-bold hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors flex items-center justify-between cursor-pointer text-slate-800 dark:text-slate-200"
+                >
+                  <span>Theme</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-black flex items-center gap-1.5">
+                    {mounted && resolvedTheme === 'dark' ? (
+                      <>
+                        <span>Dark</span>
+                        <Moon className="h-3.5 w-3.5 text-primary" />
+                      </>
+                    ) : (
+                      <>
+                        <span>Light</span>
+                        <Sun className="h-3.5 w-3.5 text-accent" />
+                      </>
+                    )}
+                  </span>
+                </button>
+
+                <div className="border-t border-slate-200 dark:border-slate-800 my-1" />
+
                 {/* FAQ Link */}
                 <Link
                   href="/faq"
@@ -232,34 +296,10 @@ export function Navbar() {
                   <span>FAQ</span>
                 </Link>
 
-                {/* Contact Link */}
-                <Link
-                  href="/contact"
-                  onClick={() => setShowDropdown(false)}
-                  className="w-full text-left px-3 py-2 rounded-lg font-bold text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors flex items-center justify-between cursor-pointer"
-                >
-                  <span>Contact</span>
-                </Link>
+
               </div>
             )}
           </div>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-            className="text-muted-foreground hover:text-foreground"
-            aria-label="Toggle Theme"
-          >
-            {mounted && resolvedTheme === 'dark' ? (
-              <Sun className="h-4 w-4" />
-            ) : (
-              <Moon className="h-4 w-4" />
-            )}
-          </Button>
-          <Link href="/auth/login" className="text-sm font-bold text-muted-foreground hover:text-foreground transition-colors">
-            Login
-          </Link>
         </div>
 
         {/* Mobile menu trigger */}
