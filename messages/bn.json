@@ -22,7 +22,9 @@
     "logout": "লগআউট",
     "technology": "প্রযুক্তি",
     "techStack": "টেকনোলজি স্ট্যাক",
-    "aiCapabilities": "এআই সক্ষমতা"
+    "aiCapabilities": "এআই সক্ষমতা",
+    "caseStudies": "কেস স্টাডিজ",
+    "successStories": "সাফল্যের গল্প"
   },
   "Services": {
     "title": "আমাদের পরিষেবা সমূহ",

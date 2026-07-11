@@ -44,7 +44,7 @@ export function Navbar() {
       setScrolled(window.scrollY > 20);
 
       // Scroll spy logic
-      const sectionIds = ['services', 'why-us', 'industries', 'process', 'case-studies', 'pricing', 'contact'];
+      const sectionIds = ['services', 'why-us', 'industries', 'process', 'case-studies', 'testimonials', 'pricing', 'contact', 'technologies', 'ai-expertise'];
       let currentSection = '';
 
       for (const id of sectionIds) {
@@ -79,7 +79,14 @@ export function Navbar() {
     },
     { label: tNav('industries'), href: '/#industries' },
     { label: tNav('process'), href: '/#process' },
-    { label: tNav('portfolio'), href: '/portfolio' },
+    { 
+      label: tNav('portfolio'), 
+      href: '/portfolio',
+      dropdownItems: [
+        { label: tNav('caseStudies'), href: '/portfolio#case-studies' },
+        { label: tNav('successStories'), href: '/portfolio#testimonials' }
+      ]
+    },
     { label: tNav('pricing'), href: '/#pricing' },
   ];
 
@@ -167,17 +174,35 @@ export function Navbar() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 10, scale: 0.95 }}
                         transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="absolute top-[80%] left-1/2 -translate-x-1/2 mt-1 w-52 rounded-xl border border-slate-200/50 dark:border-slate-800/40 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl p-2.5 shadow-xl dark:shadow-[0_15px_40px_-10px_rgba(0,0,0,0.5)] z-50 text-xs flex flex-col gap-1.5"
+                        className="absolute top-[80%] left-1/2 -translate-x-1/2 mt-1 w-52 rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-white/95 dark:bg-slate-950/90 backdrop-blur-xl p-2.5 shadow-xl dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.7)] z-50 text-xs flex flex-col gap-1.5"
                       >
-                        {link.dropdownItems?.map((item) => (
-                          <Link
-                            key={item.href}
-                            href={item.href}
-                            className="w-full text-left px-3 py-2 rounded-lg font-bold hover:bg-slate-100 dark:hover:bg-slate-900/60 transition-colors text-slate-800 dark:text-slate-200 flex items-center justify-between"
-                          >
-                            <span>{item.label}</span>
-                          </Link>
-                        ))}
+                        {link.dropdownItems?.map((item) => {
+                          const itemPath = item.href.split('#')[0];
+                          const itemHash = item.href.split('#')[1] || '';
+                          const isItemActive = pathname === itemPath && (itemHash ? activeSection === itemHash : true);
+
+                          return (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              className={cn(
+                                "w-full text-left px-3.5 py-2 rounded-lg transition-all duration-200 flex items-center justify-between text-[11px] font-bold tracking-wide select-none active:scale-98",
+                                isItemActive
+                                  ? "bg-primary/10 dark:bg-accent/15 text-primary dark:text-accent font-extrabold shadow-[inset_0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-none"
+                                  : "text-slate-700 dark:text-slate-300 hover:bg-slate-50/80 dark:hover:bg-slate-900/50 hover:text-slate-900 dark:hover:text-white"
+                              )}
+                            >
+                              <span>{item.label}</span>
+                              {isItemActive && (
+                                <motion.span 
+                                  layoutId={`activeDot-${link.href}`}
+                                  className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-primary to-accent shadow-[0_0_8px_rgba(91,95,239,0.8)]"
+                                  transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                                />
+                              )}
+                            </Link>
+                          );
+                        })}
                       </motion.div>
                     )}
                   </AnimatePresence>
