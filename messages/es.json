@@ -10,13 +10,19 @@
   },
   "Nav": {
     "services": "Servicios",
+    "whyUs": "Por qué nosotros",
+    "industries": "Industrias",
+    "process": "Proceso",
     "portfolio": "Portafolio",
     "pricing": "Precios",
     "blog": "Blog",
     "contact": "Contacto",
     "dashboard": "Panel de Control",
     "login": "Iniciar Sesión",
-    "logout": "Cerrar Sesión"
+    "logout": "Cerrar Sesión",
+    "technology": "Tecnología",
+    "techStack": "Pila de Tecnología",
+    "aiCapabilities": "Capacidades de IA"
   },
   "Services": {
     "title": "Nuestros Servicios",
@@ -68,5 +74,10 @@
     "pricingSubtitle": "Elija un plan que coincida con la velocidad de su equipo de ingeniería.",
     "ctaTitle": "¿Listo para construir algo premium?",
     "ctaSubtitle": "Una fuerzas con nuestro equipo de ingeniería de élite para construir, escalar y automatizar su pila tecnológica hoy mismo."
+  },
+  "Technology": {
+    "badge": "Tecnología e Innovación",
+    "title": "Software de Próxima Generación y Sistemas Inteligentes",
+    "description": "Diseñamos, codificamos e implementamos arquitecturas tecnológicas personalizadas y flujos de trabajo de agentes cognitivos adaptados para el rendimiento y la inteligencia a escala empresarial."
   }
 }

@@ -22,8 +22,8 @@ export function Footer() {
       links: [
         { label: 'Why Astraiv', href: '/#why-us' },
         { label: 'Industries We Serve', href: '/#industries' },
-        { label: 'Our Technologies', href: '/#technologies' },
-        { label: 'AI Capabilities', href: '/#ai-expertise' },
+        { label: 'Our Technologies', href: '/technology#technologies' },
+        { label: 'AI Capabilities', href: '/technology#ai-expertise' },
       ],
     },
     {
