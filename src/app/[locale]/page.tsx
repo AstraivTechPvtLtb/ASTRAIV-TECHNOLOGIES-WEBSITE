@@ -9,8 +9,6 @@ import { IndustriesSection } from '@/components/sections/industries-section';
 import { TechSection } from '@/components/sections/tech-section';
 import { AiSection } from '@/components/sections/ai-section';
 import { ProcessSection } from '@/components/sections/process-section';
-import { CaseStudiesSection } from '@/components/sections/case-studies-section';
-import { TestimonialsSection } from '@/components/sections/testimonials-section';
 import { PricingSection } from '@/components/sections/pricing-section';
 
 interface HomePageProps {
@@ -60,11 +58,7 @@ export default async function HomePage({ params }: HomePageProps) {
         {/* 8. Development Process */}
         <ProcessSection />
 
-        {/* 9. Case Studies */}
-        <CaseStudiesSection />
 
-        {/* 10. Testimonials */}
-        <TestimonialsSection />
 
 
 

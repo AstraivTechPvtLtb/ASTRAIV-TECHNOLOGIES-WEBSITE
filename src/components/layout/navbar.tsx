@@ -69,7 +69,7 @@ export function Navbar() {
     { label: 'Why Us', href: '/#why-us' },
     { label: 'Industries', href: '/#industries' },
     { label: 'Process', href: '/#process' },
-    { label: 'Portfolio', href: '/#case-studies' },
+    { label: 'Portfolio', href: '/portfolio' },
     { label: 'Pricing', href: '/#pricing' },
   ];
 
@@ -108,7 +108,7 @@ export function Navbar() {
         <nav className="hidden lg:flex items-center gap-8 h-full">
           {navLinks.map((link) => {
             const sectionId = link.href.split('#')[1] || '';
-            const isActive = activeSection === sectionId;
+            const isActive = sectionId ? activeSection === sectionId : pathname === link.href;
             return (
               <Link
                 key={link.href}
@@ -328,7 +328,7 @@ export function Navbar() {
         <div className="lg:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-xl border-b border-border/40 py-6 px-6 flex flex-col gap-4 shadow-lg animate-fade-in">
           {navLinks.map((link) => {
             const sectionId = link.href.split('#')[1] || '';
-            const isActive = activeSection === sectionId;
+            const isActive = sectionId ? activeSection === sectionId : pathname === link.href;
             return (
               <Link
                 key={link.href}

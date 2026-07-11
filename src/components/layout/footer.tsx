@@ -30,7 +30,7 @@ export function Footer() {
       title: 'Company',
       links: [
         { label: 'Development Process', href: '/#process' },
-        { label: 'Case Studies', href: '/#case-studies' },
+        {label: 'Portfolio', href: '/portfolio' },
         { label: 'Flexible Pricing', href: '/#pricing' },
         { label: 'Frequently Asked Qs', href: '/#faq' },
       ],
