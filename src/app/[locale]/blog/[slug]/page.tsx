@@ -11,6 +11,8 @@ import { ArrowLeft, Clock, Calendar, User } from 'lucide-react';
 import { formatDate } from '@/utils';
 import { BlogCard } from '@/components/sections/blog-card';
 
+export const dynamic = 'force-dynamic';
+
 interface BlogDetailPageProps {
   params: Promise<{ locale: string; slug: string }>;
 }
