@@ -15,7 +15,7 @@
     "process": "Process",
     "portfolio": "Portfolio",
     "pricing": "Pricing",
-    "blog": "Blog",
+    "blog": "Blogs",
     "contact": "Contact",
     "dashboard": "Dashboard",
     "login": "Login",
@@ -81,5 +81,17 @@
     "badge": "Technology & Innovation",
     "title": "Next-Gen Software & Intelligent Systems",
     "description": "We design, code, and deploy custom technology architectures and cognitive agent workflows tailored for enterprise-scale performance and intelligence."
+  },
+  "Blog": {
+    "title": "Astraiv Tech Insights",
+    "subtitle": "Deep dives into software architecture, artificial intelligence, and digital design.",
+    "searchPlaceholder": "Search articles...",
+    "allCategories": "All Categories",
+    "readTime": "{time} min read",
+    "backToBlog": "Back to Blog",
+    "relatedPosts": "Related Articles",
+    "noPosts": "No articles found matching your criteria.",
+    "publishedBy": "By {author}",
+    "publishedOn": "Published on {date}"
   }
 }
