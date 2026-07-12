@@ -8,6 +8,8 @@ import { SectionHeader } from '@/components/sections/section-header';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
+
 interface BlogPageProps {
   params: Promise<{ locale: string }>;
 }
