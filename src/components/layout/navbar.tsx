@@ -214,43 +214,18 @@ export function Navbar() {
 
         {/* CTA and Utilities as separate buttons */}
         <div className="hidden lg:flex items-center gap-3">
-          {/* Company Contact Glowing Button (Blue color in light and dark mode, smaller size) */}
+          {/* Company Contact Button (Blue color in light and dark mode, moderate size, more squarish, no glow) */}
           <Link href="/contact" className="relative group inline-block">
-            {/* Soft glowing ambient light beam behind the button */}
-            <div className={cn(
-              "absolute -inset-[2px] bg-blue-500 rounded-full blur-[6px] opacity-40 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none",
-              pathname === '/contact'
-                ? "opacity-90 blur-[8px] scale-[1.03] animate-pulse"
-                : "group-hover:animate-pulse"
-            )} />
-            
             {/* The main button */}
             <button
               className={cn(
-                "relative cursor-pointer font-bold rounded-full px-3 h-7.5 text-[10px] uppercase tracking-wider transition-all duration-300 shadow-sm flex items-center justify-center gap-1 border-none outline-none select-none text-white bg-blue-600 hover:bg-blue-750 active:scale-95",
-                pathname === '/contact' ? "bg-blue-700" : ""
+                "relative cursor-pointer font-bold rounded-lg px-4.5 h-8.5 text-[11px] tracking-wider transition-all duration-300 shadow-sm flex items-center justify-center gap-1.5 border-none outline-none select-none text-white bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 dark:hover:bg-blue-500 active:scale-95",
+                pathname === '/contact' ? "bg-[#093275] dark:bg-blue-500" : ""
               )}
             >
-              {/* Left small glowing dot inside the button for micro-animation */}
-              <span className={cn(
-                "h-1 w-1 rounded-full bg-white transition-all duration-300",
-                pathname === '/contact' ? "animate-ping" : "group-hover:animate-ping"
-              )} />
-              <span>Contact</span>
-            </button>
-          </Link>
-
-          {/* Login Button */}
-          <Link href="/auth/login">
-            <button
-              className={cn(
-                "cursor-pointer font-bold rounded-full px-3.5 h-7.5 text-[10px] uppercase tracking-wider transition-all duration-300 border bg-transparent flex items-center justify-center select-none active:scale-95",
-                pathname === '/auth/login'
-                  ? "border-primary text-primary dark:border-accent dark:text-accent font-extrabold"
-                  : "border-slate-200 text-slate-800 hover:bg-slate-100 hover:border-slate-300 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-850 dark:hover:border-slate-700"
-              )}
-            >
-              Login
+              {/* Left small dot inside the button */}
+              <span className="h-1.5 w-1.5 rounded-full bg-white" />
+              <span>Contact Us</span>
             </button>
           </Link>
 
