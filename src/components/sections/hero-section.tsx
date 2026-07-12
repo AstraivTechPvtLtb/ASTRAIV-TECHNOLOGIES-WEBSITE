@@ -4,7 +4,6 @@ import { Fragment } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, Shield, Cpu } from 'lucide-react';
 import { Link } from '@/i18n/routing';
-import { Button, buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { CircuitBackground } from './circuit-background';
 
@@ -44,8 +43,6 @@ interface HeroSectionProps {
   subheadline: string;
   ctaText?: string;
   ctaHref?: string;
-  secondaryCtaText?: string;
-  secondaryCtaHref?: string;
 }
 
 export function HeroSection({
@@ -54,8 +51,6 @@ export function HeroSection({
   subheadline,
   ctaText = 'Get Started',
   ctaHref = '/auth/signup',
-  secondaryCtaText = 'Contact Us',
-  secondaryCtaHref = '#contact',
 }: HeroSectionProps) {
   const parsedWords = parseHeadline(headline);
 
@@ -238,22 +233,17 @@ export function HeroSection({
         </motion.p>
 
         {/* Interactive Buttons */}
-        <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mt-4 w-full sm:w-auto justify-center">
+        <motion.div variants={itemVariants} className="flex justify-center mt-4 w-full">
           <Link
             href={ctaHref}
-            className={cn(buttonVariants({ variant: 'default', size: 'lg' }), 'h-13 px-8 font-bold text-sm tracking-wide shadow-lg group')}
+            className="relative group inline-block"
           >
-            {ctaText} 
-            <ArrowRight className="ml-2.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
-          <Link
-            href={secondaryCtaHref}
-            className={cn(
-              buttonVariants({ variant: 'outline', size: 'lg' }),
-              'h-13 px-8 font-bold text-sm tracking-wide bg-background/40 backdrop-blur-xs hover:border-primary transition-all duration-300'
-            )}
-          >
-            {secondaryCtaText}
+            <button
+              className="relative cursor-pointer font-bold rounded-xl px-10 h-13 text-sm tracking-wide text-white bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 dark:hover:bg-blue-500 active:scale-95 transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 border-none outline-none select-none"
+            >
+              <span>{ctaText}</span>
+              <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </button>
           </Link>
         </motion.div>
 

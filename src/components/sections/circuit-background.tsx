@@ -63,7 +63,6 @@ export function CircuitBackground() {
       canvas.height = canvas.parentElement?.clientHeight || window.innerHeight;
     };
 
-    const isDark = resolvedTheme === 'dark';
     const primaryColor = '#5B5FEF'; // Astraiv Purple
     const accentColor = '#00C2FF';  // Astraiv Cyan
 
