@@ -128,10 +128,16 @@
   }
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-foreground;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-feature-settings: normal; /* Disable custom character alternates that cause rendering baseline clipping */
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading), sans-serif;
+    padding-bottom: 0.08em; /* Safe padding to prevent descender clipping (g, y, p, q, j) */
+    margin-bottom: -0.08em; /* Offset padding height to prevent layout shifts */
+  }
+  p, li, label, input, textarea, select, a, button {
+    padding-bottom: 0.04em; /* Safe padding to prevent descender clipping (g, y, p, q, j) */
+    margin-bottom: -0.04em; /* Offset padding height to prevent layout shifts */
   }
   html {
     @apply scroll-smooth;

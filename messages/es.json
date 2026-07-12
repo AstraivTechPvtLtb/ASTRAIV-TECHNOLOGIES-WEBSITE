@@ -15,7 +15,7 @@
     "process": "Proceso",
     "portfolio": "Portafolio",
     "pricing": "Precios",
-    "blog": "Blog",
+    "blog": "Blogs",
     "contact": "Contacto",
     "dashboard": "Panel de Control",
     "login": "Iniciar Sesión",
@@ -81,5 +81,17 @@
     "badge": "Tecnología e Innovación",
     "title": "Software de Próxima Generación y Sistemas Inteligentes",
     "description": "Diseñamos, codificamos e implementamos arquitecturas tecnológicas personalizadas y flujos de trabajo de agentes cognitivos adaptados para el rendimiento y la inteligencia a escala empresarial."
+  },
+  "Blog": {
+    "title": "Perspectivas Tecnológicas de Astraiv",
+    "subtitle": "Inmersiones profundas en arquitectura de software, inteligencia artificial y diseño digital.",
+    "searchPlaceholder": "Buscar artículos...",
+    "allCategories": "Todas las categorías",
+    "readTime": "{time} min de lectura",
+    "backToBlog": "Volver al Blog",
+    "relatedPosts": "Artículos Relacionados",
+    "noPosts": "No se encontraron artículos que coincidan con sus criterios.",
+    "publishedBy": "Por {author}",
+    "publishedOn": "Publicado el {date}"
   }
 }

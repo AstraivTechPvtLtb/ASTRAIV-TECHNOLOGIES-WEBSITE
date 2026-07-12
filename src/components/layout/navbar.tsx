@@ -69,22 +69,23 @@ export function Navbar() {
   const navLinks = [
     { label: tNav('services'), href: '/#services' },
     { label: tNav('whyUs'), href: '/#why-us' },
-    { 
-      label: tNav('technology'), 
-      href: '/technology',
-      dropdownItems: [
-        { label: tNav('techStack'), href: '/technology#technologies' },
-        { label: tNav('aiCapabilities'), href: '/technology#ai-expertise' }
-      ]
-    },
     { label: tNav('industries'), href: '/#industries' },
     { label: tNav('process'), href: '/#process' },
+    { label: tNav('blog'), href: '/blog' },
     { 
       label: tNav('portfolio'), 
       href: '/portfolio',
       dropdownItems: [
         { label: tNav('caseStudies'), href: '/portfolio#case-studies' },
         { label: tNav('successStories'), href: '/portfolio#testimonials' }
+      ]
+    },
+    { 
+      label: tNav('technology'), 
+      href: '/technology',
+      dropdownItems: [
+        { label: tNav('techStack'), href: '/technology#technologies' },
+        { label: tNav('aiCapabilities'), href: '/technology#ai-expertise' }
       ]
     },
     { label: tNav('pricing'), href: '/#pricing' },

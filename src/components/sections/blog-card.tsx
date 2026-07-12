@@ -22,7 +22,7 @@ export function BlogCard({
   readTime = '5 min read',
 }: BlogCardProps) {
   return (
-    <Card className="group flex flex-col overflow-hidden bg-card border border-border/40 hover:border-primary/20 card-hover h-full">
+    <Card className="group relative flex flex-col overflow-hidden bg-card border border-border/40 hover:border-primary/20 card-hover h-full">
       <CardHeader className="p-0 relative aspect-video overflow-hidden bg-muted">
         {imageUrl ? (
           <Image
@@ -49,7 +49,7 @@ export function BlogCard({
           <span>{readTime}</span>
         </div>
         <CardTitle className="text-lg font-bold tracking-tight text-foreground group-hover:text-primary transition-colors line-clamp-2">
-          <Link href={`/blog/${slug}`}>{title}</Link>
+          <Link href={`/blog/${slug}`} className="after:absolute after:inset-0 after:z-10">{title}</Link>
         </CardTitle>
         <p className="text-sm text-muted-foreground leading-relaxed mt-3 line-clamp-3 flex-1">
           {summary}
