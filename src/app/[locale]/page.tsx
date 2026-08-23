@@ -3,6 +3,7 @@ import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { HeroSection } from '@/components/sections/hero-section';
 import { ClientsSection } from '@/components/sections/clients-section';
+import { StatsSection } from '@/components/sections/stats-section';
 import { ServicesSection } from '@/components/sections/services-section';
 import { WhySection } from '@/components/sections/why-section';
 import { IndustriesSection } from '@/components/sections/industries-section';
@@ -37,6 +38,9 @@ export default async function HomePage({ params }: HomePageProps) {
 
         {/* 2. Clients / Brands */}
         <ClientsSection />
+
+        {/* Highlighted Important Metrics Section before Services */}
+        <StatsSection />
 
         {/* 3. Services */}
         <ServicesSection />

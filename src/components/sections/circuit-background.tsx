@@ -125,6 +125,11 @@ export function CircuitBackground() {
       });
     };
 
+    const stiffness = 150;
+    const damping = 22;
+    const maxOffset = 30; // Clamp parallax movement to 30px
+    const followSpeed = 0.1; // Smooth follow amount: 0.1
+
     // Handle mouse events
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
@@ -170,18 +175,23 @@ export function CircuitBackground() {
 
     const parent = canvas.parentElement;
 
+    // Check media queries
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
-    window.addEventListener('mousemove', handleMouseMove);
-    if (parent) {
-      parent.addEventListener('mouseenter', handleMouseEnter);
-      parent.addEventListener('mouseleave', handleMouseLeave);
+    if (!isTouchDevice && !prefersReducedMotion) {
+      window.addEventListener('mousemove', handleMouseMove);
+      if (parent) {
+        parent.addEventListener('mouseenter', handleMouseEnter);
+        parent.addEventListener('mouseleave', handleMouseLeave);
+      }
     }
 
-    // Periodically pulse a background path at the cursor if the user stops moving the mouse but is hovering
+    // Periodically pulse a background path at the cursor if the user is hovering
     const idlePulseInterval = setInterval(() => {
-      if (mouseRef.current.isHovering && springX.current !== -9999) {
-        // Spawn 1-2 random current paths emanating from the spring-interpolated cursor location
+      if (mouseRef.current.isHovering && springX.current !== -9999 && !prefersReducedMotion) {
         spawnPath(springX.current, springY.current);
         if (Math.random() > 0.6) {
           spawnPath(springX.current, springY.current);
@@ -205,20 +215,16 @@ export function CircuitBackground() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const isDark = resolvedTheme === 'dark';
 
-      // Update physics for mouse positioning
+      // Update physics for mouse positioning using spring physics
       const targetX = mouseRef.current.x;
       const targetY = mouseRef.current.y;
 
       if (targetX !== -9999 && targetY !== -9999) {
-        // 1. Interpolation step (approx 180ms => follow speed ~0.10)
-        const followSpeed = 0.10; // Follow speed: 0.08–0.12
+        // 1. Target interpolation with smooth follow amount 0.1
         interpX.current += (targetX - interpX.current) * followSpeed;
         interpY.current += (targetY - interpY.current) * followSpeed;
 
-        // 2. Spring physics (stiffness: 120-180, damping: 18-24)
-        const stiffness = 150;
-        const damping = 20;
-
+        // 2. Spring-based physics: stiffness 150, damping 22
         const ax = stiffness * (interpX.current - springX.current) - damping * vx.current;
         const ay = stiffness * (interpY.current - springY.current) - damping * vy.current;
 
@@ -228,8 +234,7 @@ export function CircuitBackground() {
         springX.current += vx.current * dt;
         springY.current += vy.current * dt;
 
-        // 3. Maximum follow offset (20–40 px)
-        const maxOffset = 30; // Clamp offset to 30px
+        // 3. Maximum parallax movement clamp to 30px
         const dx = springX.current - targetX;
         const dy = springY.current - targetY;
         const dist = Math.hypot(dx, dy);
@@ -239,7 +244,7 @@ export function CircuitBackground() {
           springY.current = targetY + (dy / dist) * maxOffset;
         }
 
-        // 4. Rest delta check: stop microscopic updates if settled
+        // 4. Smooth settling check (rest delta)
         const restDelta = 0.001;
         if (
           Math.hypot(interpX.current - springX.current, interpY.current - springY.current) < restDelta &&
@@ -251,7 +256,7 @@ export function CircuitBackground() {
           vy.current = 0;
         }
 
-        // 5. Spawning paths based on spring coordinates
+        // 5. Spawn paths with subtle momentum preserved
         if (mouseRef.current.isHovering) {
           const distFromLast = Math.hypot(springX.current - lastSpawnRef.current.x, springY.current - lastSpawnRef.current.y);
           if (distFromLast > 18) {
@@ -261,16 +266,15 @@ export function CircuitBackground() {
         }
       }
 
-      // Update and draw active traces
+      // Update and draw active traces with organic momentum
       activePaths.forEach((path) => {
-        // Calculate coordinates along the two-segment path
         const d1 = path.segment1Length;
         const d2 = path.segment2Length;
         const totalD = d1 + d2;
         const currentD = path.progress * totalD;
 
         if (path.progress < 1) {
-          // Current is flowing
+          // Flowing along path
           path.progress += path.speed;
           if (path.progress > 1) path.progress = 1;
 
@@ -284,8 +288,8 @@ export function CircuitBackground() {
             path.currentY = path.p1Y + t * (path.p2Y - path.p1Y);
           }
         } else {
-          // Flow is completed, trace fades out
-          path.life -= 0.02; // fade rate
+          // Fade out smoothly
+          path.life -= 0.02;
         }
 
         // Draw flowing path traces
@@ -302,7 +306,7 @@ export function CircuitBackground() {
 
         // Gradient for current traces trailing behind the pulse head
         const grad = ctx.createLinearGradient(path.startX, path.startY, path.currentX, path.currentY);
-        const traceMaxOpacity = isDark ? 0.4 : 0.2;
+        const traceMaxOpacity = isDark ? 0.45 : 0.25;
         grad.addColorStop(0, 'rgba(0,0,0,0)');
         grad.addColorStop(1, path.color === accentColor 
           ? `rgba(0, 194, 255, ${traceMaxOpacity * path.life})` 
@@ -326,7 +330,7 @@ export function CircuitBackground() {
           ctx.fill();
           ctx.shadowBlur = 0; // reset shadow for performance
 
-          // If current flow reaches terminal point (Point 2), draw glowing Astraiv concentric ring logo detail
+          // If current flow reaches terminal point (Point 2), draw glowing Astraiv concentric ring
           if (path.progress >= 1) {
             ctx.beginPath();
             ctx.arc(path.p2X, path.p2Y, path.nodeRadius + 4, 0, Math.PI * 2);
@@ -367,8 +371,8 @@ export function CircuitBackground() {
       style={{
         opacity: isHovered ? 1 : 0,
         transition: isHovered
-          ? 'opacity 320ms cubic-bezier(0.22, 1, 0.36, 1)'
-          : 'opacity 380ms cubic-bezier(0.16, 1, 0.3, 1)',
+          ? 'opacity 450ms cubic-bezier(0.22, 1, 0.36, 1)'
+          : 'opacity 550ms ease-in-out',
         willChange: 'opacity, transform',
         transform: 'translate3d(0, 0, 0)',
       }}
