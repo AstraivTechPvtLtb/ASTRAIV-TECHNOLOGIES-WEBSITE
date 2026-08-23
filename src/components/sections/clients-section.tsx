@@ -4,42 +4,57 @@ import { motion } from 'framer-motion';
 
 export function ClientsSection() {
   const clients = [
-    { name: 'Acme Corp', industry: 'Enterprise SaaS' },
-    { name: 'Globex', industry: 'Logistics AI' },
-    { name: 'Initech', industry: 'Automation System' },
-    { name: 'Umbrella', industry: 'BioTech Platforms' },
-    { name: 'Hooli', industry: 'Cloud Engineering' },
-    { name: 'Stark Industries', industry: 'Defense Tech' },
+    { name: 'Acme Corp' },
+    { name: 'Globex' },
+    { name: 'Initech' },
+    { name: 'Umbrella' },
+    { name: 'Hooli' },
+    { name: 'Stark Industries' },
   ];
 
   return (
-    <section className="py-12 bg-slate-50 dark:bg-slate-900/30 border-b border-border/20">
-      <div className="max-w-7xl mx-auto px-6">
-        <motion.p 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 0.8 }}
-          viewport={{ once: true }}
-          className="text-xs font-bold uppercase tracking-wider text-muted-foreground text-center mb-8"
-        >
-          Powering performance for high-velocity engineering teams
-        </motion.p>
+    <section className="py-10 md:py-14 bg-slate-50/80 dark:bg-slate-900/40 border-b border-border/30 relative overflow-hidden">
+      {/* Subtle backdrop glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(91,95,239,0.04),transparent_70%)] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        {/* Prominent Header Badge & Noticeable Text */}
+        <div className="flex flex-col items-center justify-center text-center mb-8">
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest text-primary dark:text-accent bg-primary/10 dark:bg-accent/10 border border-primary/20 dark:border-accent/20 mb-3"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-primary dark:bg-accent animate-pulse" />
+            <span>Trusted Enterprise Network</span>
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.05 }}
+            className="text-base sm:text-lg md:text-xl font-bold tracking-tight text-foreground"
+          >
+            Powering Performance for High-Velocity Engineering Teams
+          </motion.h2>
+        </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-8 items-center justify-items-center opacity-70">
+        {/* Prominent Client Badges Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 items-center justify-items-stretch">
           {clients.map((client, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.05, duration: 0.5 }}
-              whileHover={{ scale: 1.05, opacity: 1 }}
-              className="flex flex-col items-center justify-center cursor-pointer group"
+              transition={{ delay: index * 0.06, duration: 0.45 }}
+              whileHover={{ y: -3, scale: 1.02 }}
+              className="flex items-center justify-center py-4 px-4 rounded-xl bg-card border border-border/50 hover:border-primary/40 dark:hover:border-accent/40 shadow-xs hover:shadow-md hover:shadow-primary/5 transition-all duration-300 cursor-pointer group select-none w-full"
             >
-              <span className="text-base font-extrabold tracking-widest text-foreground/75 dark:text-foreground/60 group-hover:text-primary dark:group-hover:text-accent transition-colors duration-300 uppercase">
+              <span className="text-sm sm:text-base font-black tracking-widest text-foreground/80 dark:text-foreground/75 group-hover:text-primary dark:group-hover:text-accent transition-colors duration-300 uppercase text-center">
                 {client.name}
-              </span>
-              <span className="text-[9px] font-semibold tracking-wide text-muted-foreground uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-1">
-                {client.industry}
               </span>
             </motion.div>
           ))}
@@ -48,3 +63,4 @@ export function ClientsSection() {
     </section>
   );
 }
+

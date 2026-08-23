@@ -18,7 +18,8 @@ export function PricingSection() {
         'SEO & Performance Tuning',
         'Standard Contact Integrations',
         '2 rounds of layout revisions',
-        'Email Support',
+        'Production Deployment & CI/CD',
+        'Dedicated Email Support',
       ],
       buttonText: 'Start Building',
     },
@@ -88,7 +89,7 @@ export function PricingSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 max-w-6xl mx-auto items-stretch">
           {plans.map((plan, index) => (
             <motion.div
               key={index}
@@ -96,6 +97,7 @@ export function PricingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: index * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
+              className="h-full flex flex-col"
             >
               <PricingCard
                 name={plan.name}
