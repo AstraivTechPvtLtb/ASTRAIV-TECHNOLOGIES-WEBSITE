@@ -77,7 +77,7 @@ export function ContactSection() {
           <span className="inline-flex self-start px-3.5 py-1.5 text-xs font-bold tracking-wider text-primary bg-primary/10 rounded-full border border-primary/20 dark:bg-primary/20 dark:text-primary-foreground uppercase w-fit select-none">
             Get in Touch
           </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight font-heading leading-tight bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer">
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight font-heading leading-tight bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer pb-1">
             {t('ctaTitle')}
           </h2>
           <p className="text-base md:text-[18px] text-muted-foreground leading-relaxed max-w-xl font-medium">

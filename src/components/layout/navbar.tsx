@@ -122,9 +122,9 @@ export function Navbar() {
             height={35}
             className="rounded-full object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/10 group-hover:ring-primary/30"
           />
-          <div className="flex flex-col items-start leading-[1.05]">
-            <span className="font-heading font-extrabold text-xl tracking-wider bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">ASTRAIV</span>
-            <span className="text-[8px] uppercase tracking-[0.28em] font-black text-black dark:text-white dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.85)] mt-0.5">TECHNOLOGIES</span>
+          <div className="flex flex-col items-start leading-tight">
+            <span className="font-heading font-extrabold text-xl tracking-wider bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent pb-0.5">ASTRAIV</span>
+            <span className="text-[8px] uppercase tracking-[0.28em] font-black text-black dark:text-white dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.85)]">TECHNOLOGIES</span>
           </div>
         </Link>
 

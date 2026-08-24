@@ -196,19 +196,19 @@ export function HeroSection({
         {/* Large Premium Headline */}
         <motion.h1
           variants={headlineContainerVariants}
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] font-extrabold tracking-[-0.03em] md:tracking-[-0.04em] text-foreground leading-[1.05] max-w-4xl text-center"
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] font-extrabold tracking-[-0.03em] md:tracking-[-0.04em] text-foreground leading-[1.18] sm:leading-[1.2] max-w-4xl text-center pb-2"
         >
           {parsedWords.map((item, index) => {
             const letters = item.word.split('');
             return (
               <Fragment key={index}>
-                <span className="inline-block whitespace-nowrap">
+                <span className="inline-block whitespace-nowrap pb-1">
                   {letters.map((char, charIdx) => (
                     <motion.span
                       key={charIdx}
                       variants={letterVariants}
                       className={cn(
-                        "inline-block origin-bottom",
+                        "inline-block origin-bottom pb-1",
                         item.isHighlighted 
                           ? "bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer"
                           : "text-foreground"
