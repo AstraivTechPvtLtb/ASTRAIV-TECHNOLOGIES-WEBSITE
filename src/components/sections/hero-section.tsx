@@ -110,7 +110,7 @@ export function HeroSection({
     <section className="relative flex flex-col items-center justify-center min-h-[92vh] py-20 px-6 overflow-hidden bg-background border-b border-border/40">
       {/* Dynamic Animated Blobs */}
       <motion.div
-        className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] pointer-events-none"
+        className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-primary/10 dark:bg-primary/20 rounded-full blur-[120px] pointer-events-none"
         animate={{
           x: [0, 40, -20, 0],
           y: [0, -30, 40, 0],
@@ -123,7 +123,7 @@ export function HeroSection({
         }}
       />
       <motion.div
-        className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[100px] pointer-events-none"
+        className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-secondary/10 dark:bg-blue-600/20 rounded-full blur-[100px] pointer-events-none"
         animate={{
           x: [0, -30, 45, 0],
           y: [0, 40, -20, 0],
@@ -137,7 +137,7 @@ export function HeroSection({
         }}
       />
       <motion.div
-        className="absolute top-10 right-10 w-[250px] h-[250px] bg-accent/10 rounded-full blur-[80px] pointer-events-none"
+        className="absolute top-10 right-10 w-[250px] h-[250px] bg-accent/10 dark:bg-cyan-400/20 rounded-full blur-[80px] pointer-events-none"
         animate={{
           scale: [1, 1.2, 0.8, 1],
         }}
@@ -203,7 +203,19 @@ export function HeroSection({
             const letters = item.word.split('');
             return (
               <Fragment key={index}>
-                <span className="inline-block whitespace-nowrap pb-1">
+                <span
+                  className={cn(
+                    "inline-block whitespace-nowrap pb-1",
+                    item.isHighlighted && "relative"
+                  )}
+                >
+                  {item.isHighlighted && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute -inset-x-2 -inset-y-1 bg-gradient-to-r from-blue-500/15 via-indigo-500/20 to-cyan-400/20 dark:from-blue-500/35 dark:via-indigo-500/30 dark:to-cyan-400/35 blur-xl rounded-full pointer-events-none -z-10 animate-pulse"
+                      style={{ animationDuration: '4s' }}
+                    />
+                  )}
                   {letters.map((char, charIdx) => (
                     <motion.span
                       key={charIdx}
@@ -211,7 +223,7 @@ export function HeroSection({
                       className={cn(
                         "inline-block origin-bottom pb-1",
                         item.isHighlighted 
-                          ? "bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#38BDF8] dark:via-[#818CF8] dark:to-[#60A5FA] bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer"
+                          ? "bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#38BDF8] dark:via-[#818CF8] dark:to-[#60A5FA] bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer dark:drop-shadow-[0_0_20px_rgba(56,189,248,0.4)]"
                           : "text-foreground"
                       )}
                     >
