@@ -1,7 +1,7 @@
 'use client';
 
 import { Fragment } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Sparkles, Shield, Cpu } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
@@ -53,6 +53,7 @@ export function HeroSection({
   ctaHref = '/auth/signup',
 }: HeroSectionProps) {
   const parsedWords = parseHeadline(headline);
+  const shouldReduceMotion = useReducedMotion();
 
   // Animation variants
   const containerVariants = {
@@ -78,32 +79,25 @@ export function HeroSection({
     },
   };
 
-  const headlineContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.02,
-        delayChildren: 0.15,
-      },
-    },
-  };
-
+  // Refined slow, sequential letter reveal animation (left-to-right)
   const letterVariants = {
     hidden: { 
       opacity: 0, 
-      y: 10,
-      filter: 'blur(3px)',
+      x: shouldReduceMotion ? 0 : -6,
+      filter: shouldReduceMotion ? 'none' : 'blur(4px)',
     },
-    visible: {
+    visible: (i: number) => ({
       opacity: 1,
-      y: 0,
+      x: 0,
       filter: 'blur(0px)',
-      transition: {
-        duration: 0.4,
-        ease: [0.22, 1, 0.36, 1] as const,
-      },
-    },
+      transition: shouldReduceMotion
+        ? { duration: 0 }
+        : {
+            delay: 0.25 + i * 0.058, // ~58ms stagger between consecutive letters
+            duration: 0.6,          // 600ms smooth individual character entrance
+            ease: [0.16, 1, 0.3, 1] as const, // Silky smooth ease-out curve
+          },
+    }),
   };
 
   return (
@@ -196,45 +190,62 @@ export function HeroSection({
 
         {/* Large Premium Headline */}
         <motion.h1
-          variants={headlineContainerVariants}
+          variants={itemVariants}
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[70px] font-extrabold tracking-tight md:tracking-[-0.03em] text-foreground leading-[1.15] max-w-5xl xl:max-w-6xl text-center pb-2 whitespace-normal sm:whitespace-nowrap"
         >
-          {parsedWords.map((item, index) => {
-            const letters = item.word.split('');
-            return (
-              <Fragment key={index}>
-                <span
-                  className={cn(
-                    "inline-block whitespace-nowrap pb-1",
-                    item.isHighlighted && "relative"
-                  )}
-                >
-                  {item.isHighlighted && (
-                    <span
-                      aria-hidden="true"
-                      className="absolute -inset-x-2 -inset-y-1 bg-gradient-to-r from-blue-500/15 via-indigo-500/20 to-cyan-400/20 dark:from-blue-500/35 dark:via-indigo-500/30 dark:to-cyan-400/35 blur-xl rounded-full pointer-events-none -z-10 animate-pulse"
-                      style={{ animationDuration: '4s' }}
-                    />
-                  )}
-                  {letters.map((char, charIdx) => (
-                    <motion.span
-                      key={charIdx}
-                      variants={letterVariants}
-                      className={cn(
-                        "inline-block origin-bottom pb-1",
-                        item.isHighlighted 
-                          ? "bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#38BDF8] dark:via-[#818CF8] dark:to-[#60A5FA] bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer dark:drop-shadow-[0_0_20px_rgba(56,189,248,0.4)]"
-                          : "text-foreground"
-                      )}
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                </span>
-                {index < parsedWords.length - 1 && ' '}
-              </Fragment>
-            );
-          })}
+          {(() => {
+            let charCounter = 0;
+            return parsedWords.map((item, index) => {
+              const letters = item.word.split('');
+              const wordStartIdx = charCounter;
+              return (
+                <Fragment key={index}>
+                  <span
+                    className={cn(
+                      "inline-block whitespace-nowrap pb-1",
+                      item.isHighlighted && "relative"
+                    )}
+                  >
+                    {item.isHighlighted && (
+                      <motion.span
+                        aria-hidden="true"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={
+                          shouldReduceMotion 
+                            ? { duration: 0 } 
+                            : { delay: 0.25 + wordStartIdx * 0.058, duration: 0.9, ease: "easeOut" }
+                        }
+                        className="absolute -inset-x-2 -inset-y-1 bg-gradient-to-r from-blue-500/15 via-indigo-500/20 to-cyan-400/20 dark:from-blue-500/35 dark:via-indigo-500/30 dark:to-cyan-400/35 blur-xl rounded-full pointer-events-none -z-10 animate-pulse"
+                        style={{ animationDuration: '4s' }}
+                      />
+                    )}
+                    {letters.map((char, charIdx) => {
+                      const currentIdx = charCounter++;
+                      return (
+                        <motion.span
+                          key={charIdx}
+                          custom={currentIdx}
+                          variants={letterVariants}
+                          initial="hidden"
+                          animate="visible"
+                          className={cn(
+                            "inline-block origin-bottom pb-1",
+                            item.isHighlighted 
+                              ? "bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#38BDF8] dark:via-[#818CF8] dark:to-[#60A5FA] bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer dark:drop-shadow-[0_0_20px_rgba(56,189,248,0.4)]"
+                              : "text-foreground"
+                          )}
+                        >
+                          {char}
+                        </motion.span>
+                      );
+                    })}
+                  </span>
+                  {index < parsedWords.length - 1 && ' '}
+                </Fragment>
+              );
+            });
+          })()}
         </motion.h1>
 
         {/* Supporting Subheadline */}
