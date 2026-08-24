@@ -88,7 +88,7 @@ export function Footer() {
         {/* Link columns with aligned headers & uniform line height */}
         {columns.map((column, index) => (
           <div key={index} className="flex flex-col text-left">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-4 h-5 flex items-center">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-4 min-h-[20px] flex items-center">
               {column.title}
             </h4>
             <ul className="flex flex-col gap-3">
@@ -105,7 +105,7 @@ export function Footer() {
 
         {/* Support contacts Column */}
         <div className="flex flex-col text-left">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-4 h-5 flex items-center">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-4 min-h-[20px] flex items-center">
             Contacts
           </h4>
           <div className="flex flex-col gap-3 text-xs sm:text-sm text-slate-400">

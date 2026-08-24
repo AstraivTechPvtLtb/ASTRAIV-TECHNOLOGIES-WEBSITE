@@ -128,16 +128,14 @@
   }
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-foreground;
-    font-feature-settings: normal; /* Disable custom character alternates that cause rendering baseline clipping */
+    font-feature-settings: normal;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading), sans-serif;
-    padding-bottom: 0.08em; /* Safe padding to prevent descender clipping (g, y, p, q, j) */
-    margin-bottom: -0.08em; /* Offset padding height to prevent layout shifts */
+    line-height: 1.2;
   }
-  p, li, label, input, textarea, select, a, button {
-    padding-bottom: 0.04em; /* Safe padding to prevent descender clipping (g, y, p, q, j) */
-    margin-bottom: -0.04em; /* Offset padding height to prevent layout shifts */
+  p, li, label {
+    line-height: 1.5;
   }
   html {
     @apply scroll-smooth;
@@ -171,6 +169,8 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-image: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%);
+  display: inline-block;
+  padding-bottom: 0.1em;
 }
 
 @utility card-hover {
