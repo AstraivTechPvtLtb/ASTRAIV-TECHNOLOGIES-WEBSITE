@@ -79,11 +79,12 @@ export function HeroSection({
   };
 
   const headlineContainerVariants = {
-    hidden: {},
+    hidden: { opacity: 0 },
     visible: {
+      opacity: 1,
       transition: {
-        staggerChildren: 0.025, // Stagger each letter by 0.025s for typing effect
-        delayChildren: 0.25,
+        staggerChildren: 0.02,
+        delayChildren: 0.15,
       },
     },
   };
@@ -92,15 +93,15 @@ export function HeroSection({
     hidden: { 
       opacity: 0, 
       y: 10,
-      scale: 0.9,
+      filter: 'blur(3px)',
     },
     visible: {
       opacity: 1,
       y: 0,
-      scale: 1,
+      filter: 'blur(0px)',
       transition: {
-        duration: 0.45,
-        ease: [0.16, 1, 0.3, 1] as const, // easeOutExpo
+        duration: 0.4,
+        ease: [0.22, 1, 0.36, 1] as const,
       },
     },
   };
@@ -179,7 +180,7 @@ export function HeroSection({
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 max-w-5xl mx-auto flex flex-col items-center gap-6 md:gap-8 text-center"
+        className="relative z-10 max-w-6xl mx-auto flex flex-col items-center gap-6 md:gap-8 text-center px-2"
       >
         {/* Animated Badge */}
         {badgeText && (
@@ -196,7 +197,7 @@ export function HeroSection({
         {/* Large Premium Headline */}
         <motion.h1
           variants={headlineContainerVariants}
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] font-extrabold tracking-[-0.03em] md:tracking-[-0.04em] text-foreground leading-[1.18] sm:leading-[1.2] max-w-4xl text-center pb-2"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[70px] font-extrabold tracking-tight md:tracking-[-0.03em] text-foreground leading-[1.15] max-w-5xl xl:max-w-6xl text-center pb-2 whitespace-normal sm:whitespace-nowrap"
         >
           {parsedWords.map((item, index) => {
             const letters = item.word.split('');
@@ -210,7 +211,7 @@ export function HeroSection({
                       className={cn(
                         "inline-block origin-bottom pb-1",
                         item.isHighlighted 
-                          ? "bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer"
+                          ? "bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#38BDF8] dark:via-[#818CF8] dark:to-[#60A5FA] bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer"
                           : "text-foreground"
                       )}
                     >
