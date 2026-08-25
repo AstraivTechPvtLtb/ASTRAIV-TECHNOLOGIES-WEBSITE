@@ -294,9 +294,6 @@ export function TechBackground() {
       {/* Ambient background gradient layer for depth */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(91,95,239,0.06),transparent_70%)] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(91,95,239,0.09),transparent_70%)]" />
 
-      {/* Subtle Technical Coordinate Grid */}
-      <div className="absolute inset-0 opacity-[0.04] dark:opacity-[0.03] bg-[linear-gradient(to_right,#475569_1px,transparent_1px),linear-gradient(to_bottom,#475569_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#94A3B8_1px,transparent_1px),linear-gradient(to_bottom,#94A3B8_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_85%_80%_at_50%_45%,#000_75%,transparent_100%)]" />
-
       {/* Floating Ambient Code Panels Container - Distributed across the entire page */}
       <div className="absolute inset-0 max-w-[1920px] mx-auto w-full h-full overflow-hidden">
         
