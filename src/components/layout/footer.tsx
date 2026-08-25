@@ -36,7 +36,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-slate-950 text-slate-100 border-t border-slate-900 py-16 px-6">
+    <footer className="relative z-30 bg-slate-950 text-slate-100 border-t border-slate-900 py-16 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12 items-start text-left">
         {/* Brand details and social icons (Left Column) */}
         <div className="flex flex-col gap-4 text-left">

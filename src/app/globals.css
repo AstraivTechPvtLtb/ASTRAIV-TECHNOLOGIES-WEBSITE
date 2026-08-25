@@ -197,3 +197,67 @@
   background-size: 200% auto;
   animation: text-shimmer-sweep 8s ease infinite;
 }
+
+/* Subtle IT & Technology Ambient Animations */
+@keyframes ambient-drift-1 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(14px, -18px, 0) rotate(0.6deg);
+  }
+  66% {
+    transform: translate3d(-10px, 12px, 0) rotate(-0.4deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+@keyframes ambient-drift-2 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(-16px, 16px, 0) rotate(-0.5deg);
+  }
+  66% {
+    transform: translate3d(12px, -14px, 0) rotate(0.5deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+@keyframes ambient-drift-3 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(12px, -16px, 0) scale(1.01);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@utility animate-ambient-drift-1 {
+  animation: ambient-drift-1 32s ease-in-out infinite;
+}
+
+@utility animate-ambient-drift-2 {
+  animation: ambient-drift-2 38s ease-in-out infinite;
+}
+
+@utility animate-ambient-drift-3 {
+  animation: ambient-drift-3 44s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ambient-drift-1,
+  .animate-ambient-drift-2,
+  .animate-ambient-drift-3 {
+    animation: none !important;
+    transform: none !important;
+  }
+}
