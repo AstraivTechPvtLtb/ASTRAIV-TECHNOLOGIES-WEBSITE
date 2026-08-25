@@ -77,17 +77,17 @@ export function IndustriesSection() {
         />
 
         {/* Desktop tab buttons */}
-        <div className="flex flex-wrap justify-center gap-3 mt-12 max-w-4xl mx-auto">
+        <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mt-12 max-w-5xl xl:max-w-6xl mx-auto w-full">
           {industries.map((ind, idx) => {
             const isActive = activeTab === idx;
             return (
               <button
                 key={idx}
                 onClick={() => setActiveTab(idx)}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all duration-300 relative cursor-pointer ${
+                className={`flex items-center gap-2 px-4 lg:px-5 py-2 md:py-2.5 rounded-full text-xs sm:text-sm font-bold tracking-wide whitespace-nowrap transition-all duration-300 relative cursor-pointer select-none ${
                   isActive 
-                    ? 'text-primary-foreground bg-primary shadow-md shadow-primary/10' 
-                    : 'text-muted-foreground bg-slate-100/70 dark:bg-slate-900/50 backdrop-blur-xs border border-border/40 hover:text-foreground'
+                    ? 'text-primary-foreground bg-primary shadow-md shadow-primary/25 border border-primary' 
+                    : 'text-muted-foreground bg-slate-100/80 hover:bg-slate-200/80 dark:bg-slate-900/60 dark:hover:bg-slate-800/60 backdrop-blur-xs border border-border/60 hover:border-border hover:text-foreground'
                 }`}
               >
                 {ind.icon}
