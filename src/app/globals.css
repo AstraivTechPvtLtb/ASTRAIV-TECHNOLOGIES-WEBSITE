@@ -241,6 +241,21 @@
   }
 }
 
+@keyframes ambient-drift-4 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(10px, 14px, 0) rotate(-0.5deg);
+  }
+  66% {
+    transform: translate3d(-14px, -10px, 0) rotate(0.4deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
 @utility animate-ambient-drift-1 {
   animation: ambient-drift-1 32s ease-in-out infinite;
 }
@@ -253,11 +268,17 @@
   animation: ambient-drift-3 44s ease-in-out infinite;
 }
 
+@utility animate-ambient-drift-4 {
+  animation: ambient-drift-4 36s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-ambient-drift-1,
   .animate-ambient-drift-2,
-  .animate-ambient-drift-3 {
+  .animate-ambient-drift-3,
+  .animate-ambient-drift-4 {
     animation: none !important;
     transform: none !important;
   }
-}
+}
+

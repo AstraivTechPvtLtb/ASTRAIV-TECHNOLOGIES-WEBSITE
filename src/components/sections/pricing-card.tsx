@@ -27,8 +27,8 @@ export function PricingCard({
   return (
     <Card
       className={cn(
-        'relative flex flex-col h-full bg-card border card-hover overflow-hidden rounded-[20px] shadow-sm transition-all duration-300',
-        isPopular ? 'border-primary shadow-lg ring-1 ring-primary/25' : 'border-border/40'
+        'relative flex flex-col h-full bg-card/85 dark:bg-slate-900/85 backdrop-blur-xl border card-hover overflow-hidden rounded-[20px] shadow-sm transition-all duration-300',
+        isPopular ? 'border-primary/80 dark:border-accent/80 shadow-lg ring-1 ring-primary/25 bg-card/90 dark:bg-slate-900/90' : 'border-border/50'
       )}
     >
       {isPopular && (

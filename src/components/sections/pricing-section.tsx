@@ -55,7 +55,7 @@ export function PricingSection() {
   ];
 
   return (
-    <section id="pricing" className="py-20 md:py-28 px-6 bg-slate-50/50 dark:bg-slate-900/10 border-y border-border/20 relative">
+    <section id="pricing" className="py-20 md:py-28 px-6 bg-transparent border-y border-border/20 relative">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           badge="Pricing"
@@ -70,7 +70,7 @@ export function PricingSection() {
           </span>
           <button
             onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'yearly' : 'monthly')}
-            className="w-14 h-8 bg-slate-200 dark:bg-slate-800 rounded-full p-1 transition-colors duration-300 relative focus:outline-hidden"
+            className="w-14 h-8 bg-slate-200/80 dark:bg-slate-800/80 backdrop-blur-xs rounded-full p-1 transition-colors duration-300 relative focus:outline-hidden cursor-pointer"
           >
             <motion.div
               layout

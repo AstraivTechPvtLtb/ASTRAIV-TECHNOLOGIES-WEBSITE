@@ -13,7 +13,7 @@ export function ClientsSection() {
   ];
 
   return (
-    <section className="py-10 md:py-14 bg-slate-50/80 dark:bg-slate-900/40 border-b border-border/30 relative overflow-hidden">
+    <section className="py-10 md:py-14 bg-transparent border-b border-border/20 relative overflow-hidden">
       {/* Subtle backdrop glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(91,95,239,0.04),transparent_70%)] pointer-events-none" />
 
@@ -41,7 +41,7 @@ export function ClientsSection() {
           </motion.h2>
         </div>
         
-        {/* Prominent Client Badges Grid */}
+        {/* Prominent Client Badges Grid with translucent glass */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 items-center justify-items-stretch">
           {clients.map((client, index) => (
             <motion.div
@@ -51,7 +51,7 @@ export function ClientsSection() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.06, duration: 0.45 }}
               whileHover={{ y: -3, scale: 1.02 }}
-              className="flex items-center justify-center py-4 px-4 rounded-xl bg-card border border-border/50 hover:border-primary/40 dark:hover:border-accent/40 shadow-xs hover:shadow-md hover:shadow-primary/5 transition-all duration-300 cursor-pointer group select-none w-full"
+              className="flex items-center justify-center py-4 px-4 rounded-xl bg-card/85 dark:bg-slate-900/85 backdrop-blur-xl border border-border/50 hover:border-primary/40 dark:hover:border-accent/40 shadow-xs hover:shadow-md hover:shadow-primary/5 transition-all duration-300 cursor-pointer group select-none w-full"
             >
               <span className="text-sm sm:text-base font-black tracking-widest text-foreground/80 dark:text-foreground/75 group-hover:text-primary dark:group-hover:text-accent transition-colors duration-300 uppercase text-center">
                 {client.name}

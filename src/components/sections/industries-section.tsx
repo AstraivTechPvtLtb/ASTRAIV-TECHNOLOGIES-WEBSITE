@@ -68,7 +68,7 @@ export function IndustriesSection() {
   ];
 
   return (
-    <section id="industries" className="py-20 md:py-28 px-6 bg-background relative">
+    <section id="industries" className="py-20 md:py-28 px-6 bg-transparent relative">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           badge="Industries"
@@ -84,10 +84,10 @@ export function IndustriesSection() {
               <button
                 key={idx}
                 onClick={() => setActiveTab(idx)}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all duration-300 relative ${
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all duration-300 relative cursor-pointer ${
                   isActive 
                     ? 'text-primary-foreground bg-primary shadow-md shadow-primary/10' 
-                    : 'text-muted-foreground bg-slate-100 dark:bg-slate-900 border border-border/40 hover:text-foreground'
+                    : 'text-muted-foreground bg-slate-100/70 dark:bg-slate-900/50 backdrop-blur-xs border border-border/40 hover:text-foreground'
                 }`}
               >
                 {ind.icon}
@@ -97,8 +97,8 @@ export function IndustriesSection() {
           })}
         </div>
 
-        {/* Tab content panel */}
-        <div className="mt-12 max-w-5xl mx-auto min-h-[380px] bg-card border border-border/40 rounded-[20px] shadow-md p-8 md:p-12 text-left relative overflow-hidden">
+        {/* Tab content panel with translucent glass */}
+        <div className="mt-12 max-w-5xl mx-auto min-h-[380px] bg-card/85 dark:bg-slate-900/85 backdrop-blur-xl border border-border/50 rounded-[20px] shadow-md p-8 md:p-12 text-left relative overflow-hidden">
           {/* Subtle background graphic */}
           <div className="absolute right-0 bottom-0 opacity-[0.02] dark:opacity-[0.03] translate-x-12 translate-y-12 select-none pointer-events-none">
             {industries[activeTab].icon}
@@ -131,7 +131,7 @@ export function IndustriesSection() {
                 </a>
               </div>
 
-              <div className="lg:col-span-2 p-6 rounded-2xl bg-slate-50/70 dark:bg-slate-900/50 border border-border/40 flex flex-col gap-4">
+              <div className="lg:col-span-2 p-6 rounded-2xl bg-slate-50/50 dark:bg-slate-900/40 backdrop-blur-xs border border-border/40 flex flex-col gap-4">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">Operational Benchmarks</h4>
                 <ul className="flex flex-col gap-3">
                   {industries[activeTab].metrics.map((metric, mIdx) => (
