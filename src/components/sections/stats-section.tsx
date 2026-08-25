@@ -23,18 +23,18 @@ export function StatsSection() {
   ];
 
   return (
-    <section className="py-8 md:py-12 px-6 bg-gradient-to-b from-background via-slate-100/80 to-background dark:from-background dark:via-slate-900/50 dark:to-background relative overflow-hidden border-y border-border/30">
+    <section className="py-8 md:py-12 px-6 bg-transparent relative overflow-hidden border-y border-border/20">
       {/* Decorative accent glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[160px] bg-primary/10 dark:bg-accent/10 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Highlighted prominent metrics container */}
+        {/* Highlighted prominent metrics container with translucent glass */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-          className="p-6 md:p-8 rounded-[24px] bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border border-primary/20 dark:border-accent/25 shadow-[0_15px_40px_-15px_rgba(91,95,239,0.12)] relative overflow-hidden"
+          className="p-6 md:p-8 rounded-[24px] bg-white/85 dark:bg-slate-950/80 backdrop-blur-xl border border-primary/20 dark:border-accent/25 shadow-[0_15px_40px_-15px_rgba(91,95,239,0.12)] relative overflow-hidden"
         >
           {/* Subtle glowing corner accent */}
           <div className="absolute -top-12 -right-12 w-32 h-32 bg-accent/15 rounded-full blur-2xl pointer-events-none" />

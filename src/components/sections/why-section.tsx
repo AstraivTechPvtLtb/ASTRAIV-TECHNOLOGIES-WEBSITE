@@ -52,7 +52,7 @@ export function WhySection() {
   ];
 
   return (
-    <section id="why-us" className="py-20 md:py-28 px-6 bg-slate-50/50 dark:bg-slate-900/10 border-y border-border/20 relative">
+    <section id="why-us" className="py-20 md:py-28 px-6 bg-transparent border-y border-border/20 relative">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           badge="Why Astraiv"
@@ -69,9 +69,9 @@ export function WhySection() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: index * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
               whileHover={{ y: -5 }}
-              className="flex gap-6 p-8 bg-card border border-border/40 rounded-[20px] shadow-sm hover:shadow-[0_20px_50px_-20px_rgba(11,61,145,0.06)] hover:border-primary/20 transition-all duration-300 relative group overflow-hidden"
+              className="flex gap-6 p-8 bg-card/85 dark:bg-slate-900/85 backdrop-blur-xl border border-border/50 rounded-[20px] shadow-sm hover:shadow-[0_20px_50px_-20px_rgba(11,61,145,0.06)] hover:border-primary/30 dark:hover:border-accent/30 transition-all duration-300 relative group overflow-hidden"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 shrink-0 border border-border/40 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all duration-300">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100/80 dark:bg-slate-800/60 shrink-0 border border-border/40 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all duration-300">
                 {point.icon}
               </div>
               <div className="flex flex-col gap-2 text-left">

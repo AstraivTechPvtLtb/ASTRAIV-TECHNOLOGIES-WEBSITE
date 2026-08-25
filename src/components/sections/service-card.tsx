@@ -14,7 +14,7 @@ interface ServiceCardProps {
 
 export function ServiceCard({ icon, title, description, href }: ServiceCardProps) {
   return (
-    <Card className="group relative overflow-hidden bg-card border border-border/40 hover:border-primary/30 card-hover select-none h-full flex flex-col justify-between rounded-[20px] shadow-xs hover:shadow-md transition-all duration-300">
+    <Card className="group relative overflow-hidden bg-card/85 dark:bg-slate-900/85 backdrop-blur-xl border border-border/50 hover:border-primary/40 dark:hover:border-accent/40 card-hover select-none h-full flex flex-col justify-between rounded-[20px] shadow-xs hover:shadow-md transition-all duration-300">
       {/* Decorative background glow */}
       <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-primary/5 blur-2xl group-hover:bg-primary/10 transition-all duration-300" />
       

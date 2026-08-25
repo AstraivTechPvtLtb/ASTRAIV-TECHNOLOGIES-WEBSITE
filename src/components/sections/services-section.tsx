@@ -119,7 +119,7 @@ export function ServicesSection() {
   };
 
   return (
-    <section id="services" className="py-20 md:py-28 px-6 bg-background relative overflow-hidden">
+    <section id="services" className="py-20 md:py-28 px-6 bg-transparent relative overflow-hidden">
       {/* Decorative Light Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[160px] pointer-events-none" />
 

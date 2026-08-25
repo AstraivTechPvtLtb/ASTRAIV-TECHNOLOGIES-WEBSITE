@@ -66,7 +66,7 @@ export function TechSection() {
   ];
 
   return (
-    <section id="technologies" className="py-20 md:py-28 px-6 bg-slate-50/50 dark:bg-slate-900/10 border-b border-border/20">
+    <section id="technologies" className="py-20 md:py-28 px-6 bg-transparent border-b border-border/20">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           badge="Technology Stack"
@@ -83,7 +83,7 @@ export function TechSection() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: index * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
               whileHover={{ y: -4 }}
-              className="p-6 bg-card border border-border/40 rounded-[20px] shadow-xs hover:shadow-md hover:border-primary/20 transition-all duration-300 flex flex-col text-left justify-between min-h-[220px]"
+              className="p-6 bg-card/60 dark:bg-slate-900/40 backdrop-blur-md border border-border/40 rounded-[20px] shadow-xs hover:shadow-md hover:border-primary/30 dark:hover:border-accent/30 transition-all duration-300 flex flex-col text-left justify-between min-h-[220px]"
             >
               <div className="flex flex-col gap-4">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 border border-border/40 shrink-0">
