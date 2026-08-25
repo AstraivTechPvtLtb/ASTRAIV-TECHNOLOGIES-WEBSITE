@@ -5,6 +5,7 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { ThemeProvider } from '@/providers/theme-provider';
+import { TechBackground } from '@/components/layout/tech-background';
 import '../globals.css';
 
 const inter = Inter({
@@ -71,6 +72,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
             enableSystem
             disableTransitionOnChange
           >
+            <TechBackground />
             {children}
           </ThemeProvider>
         </NextIntlClientProvider>
