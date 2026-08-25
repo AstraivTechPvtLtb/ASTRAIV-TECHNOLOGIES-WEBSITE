@@ -101,7 +101,7 @@ export function HeroSection({
   };
 
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-[92vh] py-20 px-6 overflow-hidden bg-background border-b border-border/40">
+    <section className="relative flex flex-col items-center justify-center min-h-[88vh] sm:min-h-[90vh] lg:min-h-[92vh] pt-28 pb-16 sm:pt-36 sm:pb-20 md:pt-40 md:pb-24 lg:pt-44 lg:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-background border-b border-border/40">
       {/* Dynamic Animated Blobs */}
       <motion.div
         className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-primary/10 dark:bg-primary/20 rounded-full blur-[120px] pointer-events-none"
@@ -151,7 +151,7 @@ export function HeroSection({
       {/* Floating Cognitive Shapes */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
         <motion.div 
-          className="absolute top-[20%] left-[10%] hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-card border border-border/40 shadow-xs backdrop-blur-xs"
+          className="absolute top-[22%] left-[6%] lg:left-[10%] hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-card border border-border/40 shadow-xs backdrop-blur-xs"
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         >
@@ -160,7 +160,7 @@ export function HeroSection({
         </motion.div>
         
         <motion.div 
-          className="absolute bottom-[25%] right-[12%] hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-card border border-border/40 shadow-xs backdrop-blur-xs"
+          className="absolute bottom-[22%] right-[6%] lg:right-[10%] hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-card border border-border/40 shadow-xs backdrop-blur-xs"
           animate={{ y: [0, 12, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
         >
@@ -169,18 +169,18 @@ export function HeroSection({
         </motion.div>
       </div>
 
-      {/* Inner wrapper */}
+      {/* Unified Hero Content Group */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 max-w-6xl mx-auto flex flex-col items-center gap-6 md:gap-8 text-center px-2"
+        className="relative z-10 max-w-5xl xl:max-w-6xl mx-auto flex flex-col items-center text-center px-2"
       >
-        {/* Animated Badge */}
+        {/* 1. Animated Badge */}
         {badgeText && (
           <motion.div 
             variants={itemVariants} 
-            className="inline-flex items-center gap-2 px-4 py-1.5 text-xs font-bold text-slate-800 dark:text-slate-100 bg-secondary/10 dark:bg-secondary/20 border border-secondary/20 dark:border-secondary/30 rounded-full shadow-[0_2px_10px_rgba(91,95,239,0.05)] select-none"
+            className="inline-flex items-center gap-2 px-4 py-1.5 mb-5 md:mb-6 text-xs font-bold text-slate-800 dark:text-slate-100 bg-secondary/10 dark:bg-secondary/20 border border-secondary/20 dark:border-secondary/30 rounded-full shadow-[0_2px_10px_rgba(91,95,239,0.05)] select-none hover:border-secondary/40 transition-colors"
           >
             <Sparkles className="h-3.5 w-3.5 text-secondary animate-pulse" />
             <span>{badgeText}</span>
@@ -188,10 +188,10 @@ export function HeroSection({
           </motion.div>
         )}
 
-        {/* Large Premium Headline */}
+        {/* 2. Large Premium Headline */}
         <motion.h1
           variants={itemVariants}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[70px] font-extrabold tracking-tight md:tracking-[-0.03em] text-foreground leading-[1.15] max-w-5xl xl:max-w-6xl text-center pb-2 whitespace-normal sm:whitespace-nowrap"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[70px] font-extrabold tracking-tight md:tracking-[-0.03em] text-foreground leading-[1.14] max-w-5xl xl:max-w-6xl text-center mb-4 md:mb-5 whitespace-normal sm:whitespace-nowrap"
         >
           {(() => {
             let charCounter = 0;
@@ -248,16 +248,16 @@ export function HeroSection({
           })()}
         </motion.h1>
 
-        {/* Supporting Subheadline */}
+        {/* 3. Supporting Subheadline */}
         <motion.p
           variants={itemVariants}
-          className="text-base sm:text-lg md:text-[20px] text-muted-foreground font-medium max-w-3xl leading-relaxed"
+          className="text-base sm:text-lg md:text-[19px] lg:text-[20px] text-muted-foreground font-medium max-w-3xl leading-relaxed mb-8 md:mb-10"
         >
           {subheadline}
         </motion.p>
 
-        {/* Interactive Buttons */}
-        <motion.div variants={itemVariants} className="flex justify-center mt-4 w-full">
+        {/* 4. Interactive CTA Button */}
+        <motion.div variants={itemVariants} className="flex justify-center w-full">
           <Link
             href={ctaHref}
             className="relative group inline-block"
@@ -269,27 +269,6 @@ export function HeroSection({
               <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </button>
           </Link>
-        </motion.div>
-
-        {/* Trust Indicators */}
-        <motion.div 
-          variants={itemVariants}
-          className="flex items-center justify-center gap-6 mt-8 pt-8 border-t border-border/20 w-full max-w-xl mx-auto"
-        >
-          <div className="flex flex-col gap-1 items-center">
-            <span className="text-2xl font-extrabold text-foreground tracking-tight">100%</span>
-            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Client Retention</span>
-          </div>
-          <div className="w-[1px] h-8 bg-border/40" />
-          <div className="flex flex-col gap-1 items-center">
-            <span className="text-2xl font-extrabold text-foreground tracking-tight">SLA</span>
-            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Enterprise Grade</span>
-          </div>
-          <div className="w-[1px] h-8 bg-border/40" />
-          <div className="flex flex-col gap-1 items-center">
-            <span className="text-2xl font-extrabold text-foreground tracking-tight">ISO-27001</span>
-            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Security First</span>
-          </div>
         </motion.div>
       </motion.div>
     </section>
