@@ -28,7 +28,7 @@ export default async function HomePage({ params }: HomePageProps) {
       {/* Navigation Headers */}
       <Navbar />
 
-      <main className="flex-1 mt-16">
+      <main className="flex-1">
         {/* 1. Hero Area */}
         <HeroSection
           badgeText={t('heroBadge')}
