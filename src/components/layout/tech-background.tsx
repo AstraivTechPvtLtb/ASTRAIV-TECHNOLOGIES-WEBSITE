@@ -212,7 +212,7 @@ function LiveTypewriterPanel({ snippets, initialDelay = 0 }: { snippets: CodeSni
         setLineIndex(0);
         setCharIndex(0);
         setSnippetIndex((prev) => (prev + 1) % snippets.length);
-      }, 3400);
+      }, 4000);
       return () => clearTimeout(resetTimer);
     }
 
@@ -222,16 +222,17 @@ function LiveTypewriterPanel({ snippets, initialDelay = 0 }: { snippets: CodeSni
     }
 
     if (charIndex < lineFullText.length) {
-      const speed = Math.random() * 20 + 22; // ~22ms - 42ms
+      // Advance 1-2 characters per tick every 45ms to reduce React render frequency by >50%
       const timer = setTimeout(() => {
-        setCharIndex((prev) => prev + 1);
-      }, speed);
+        if (typeof document !== 'undefined' && document.hidden) return;
+        setCharIndex((prev) => Math.min(prev + (lineFullText.length - prev > 1 && Math.random() > 0.4 ? 2 : 1), lineFullText.length));
+      }, 45);
       return () => clearTimeout(timer);
     } else {
       const nextLineTimer = setTimeout(() => {
         setLineIndex((prev) => prev + 1);
         setCharIndex(0);
-      }, 240);
+      }, 280);
       return () => clearTimeout(nextLineTimer);
     }
   }, [charIndex, lineIndex, isDone, snippet, lineFullText, started, snippets.length]);
@@ -289,6 +290,10 @@ export function TechBackground() {
   return (
     <div
       aria-hidden="true"
+      style={{
+        contain: 'paint layout',
+        transform: 'translate3d(0, 0, 0)',
+      }}
       className="fixed inset-0 pointer-events-none select-none overflow-hidden z-0"
     >
       {/* Ambient background gradient layer for depth */}
@@ -301,9 +306,9 @@ export function TechBackground() {
             SECTOR 1: TOP-LEFT — LIVE TYPEWRITER CONSOLE (Python AI Core)
            ========================================================================= */}
         <div
-          className="absolute -left-10 sm:left-[1%] lg:left-[2%] xl:left-[3%] top-[6%] sm:top-[8%] lg:top-[9%] w-[270px] sm:w-[310px] md:w-[340px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/45 dark:bg-slate-900/25 backdrop-blur-[3px] shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.28] dark:opacity-[0.22] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-1"
+          className="absolute -left-10 sm:left-[1%] lg:left-[2%] xl:left-[3%] top-[6%] sm:top-[8%] lg:top-[9%] w-[270px] sm:w-[310px] md:w-[340px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.28] dark:opacity-[0.22] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-1"
         >
-          <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/50 dark:bg-slate-800/25 text-[10px] font-mono">
+          <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/60 dark:bg-slate-800/40 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-rose-500/60 dark:bg-rose-500/50" />
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/50" />
@@ -321,9 +326,9 @@ export function TechBackground() {
             SECTOR 2: TOP-RIGHT — TELEMETRY METRICS PAYLOAD
            ========================================================================= */}
         <div
-          className="absolute -right-10 sm:right-[1%] lg:right-[2%] xl:right-[3%] top-[7%] sm:top-[9%] lg:top-[11%] w-[260px] sm:w-[290px] md:w-[320px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/45 dark:bg-slate-900/25 backdrop-blur-[3px] shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.28] dark:opacity-[0.22] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-2"
+          className="absolute -right-10 sm:right-[1%] lg:right-[2%] xl:right-[3%] top-[7%] sm:top-[9%] lg:top-[11%] w-[260px] sm:w-[290px] md:w-[320px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.28] dark:opacity-[0.22] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-2"
         >
-          <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/50 dark:bg-slate-800/25 text-[10px] font-mono">
+          <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/60 dark:bg-slate-800/40 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500/60 dark:bg-blue-500/50" />
               <span className="px-1.5 py-0.5 rounded bg-emerald-600/10 dark:bg-emerald-400/10 text-emerald-700 dark:text-emerald-300 text-[9px] font-semibold">
@@ -356,9 +361,9 @@ export function TechBackground() {
             SECTOR 3: TOP-CENTER UPPER — LIVE TERMINAL EVENT LOG STREAM
            ========================================================================= */}
         <div
-          className="hidden xl:block absolute left-[36%] top-[6%] w-[330px] rounded-xl border border-slate-300/40 dark:border-slate-700/25 bg-white/40 dark:bg-slate-900/20 backdrop-blur-[3px] shadow-[0_4px_20px_rgba(15,23,42,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] opacity-[0.24] dark:opacity-[0.18] transition-opacity hover:opacity-65 dark:hover:opacity-55 duration-700 will-change-transform animate-ambient-drift-3"
+          className="hidden xl:block absolute left-[36%] top-[6%] w-[330px] rounded-xl border border-slate-300/40 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 shadow-[0_4px_20px_rgba(15,23,42,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] opacity-[0.24] dark:opacity-[0.18] transition-opacity hover:opacity-65 dark:hover:opacity-55 duration-700 will-change-transform animate-ambient-drift-3"
         >
-          <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/40 dark:bg-slate-800/20 text-[10px] font-mono">
+          <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/50 dark:bg-slate-800/30 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               <span className="text-[9.5px] text-emerald-700 dark:text-emerald-400 font-semibold">cluster_stream.log</span>
@@ -385,9 +390,9 @@ export function TechBackground() {
             SECTOR 4: MID-LEFT — TYPESCRIPT ENTERPRISE AGENT INTERFACE
            ========================================================================= */}
         <div
-          className="hidden md:block absolute left-[1%] lg:left-[2.5%] xl:left-[4%] top-[34%] lg:top-[36%] w-[290px] lg:w-[330px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/45 dark:bg-slate-900/25 backdrop-blur-[3px] shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.26] dark:opacity-[0.20] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-4"
+          className="hidden md:block absolute left-[1%] lg:left-[2.5%] xl:left-[4%] top-[34%] lg:top-[36%] w-[290px] lg:w-[330px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.26] dark:opacity-[0.20] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-4"
         >
-          <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/50 dark:bg-slate-800/25 text-[10px] font-mono">
+          <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/60 dark:bg-slate-800/40 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
               <span className="px-1.5 py-0.5 rounded bg-blue-600/10 dark:bg-blue-400/10 text-blue-700 dark:text-blue-300 text-[9px] font-semibold">
                 &lt;/&gt; enterprise_agent.ts
@@ -408,9 +413,9 @@ export function TechBackground() {
             SECTOR 5: MID-RIGHT — LIVE TYPEWRITER CONSOLE (Next.js 15 Server Actions)
            ========================================================================= */}
         <div
-          className="hidden sm:block absolute right-[1%] lg:right-[2.5%] xl:right-[4%] top-[35%] lg:top-[38%] w-[280px] lg:w-[330px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/45 dark:bg-slate-900/25 backdrop-blur-[3px] shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.28] dark:opacity-[0.22] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-2"
+          className="hidden sm:block absolute right-[1%] lg:right-[2.5%] xl:right-[4%] top-[35%] lg:top-[38%] w-[280px] lg:w-[330px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.28] dark:opacity-[0.22] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-2"
         >
-          <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/50 dark:bg-slate-800/25 text-[10px] font-mono">
+          <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/60 dark:bg-slate-800/40 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500/60 dark:bg-blue-500/50" />
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-500/60 dark:bg-cyan-500/50" />
@@ -427,9 +432,9 @@ export function TechBackground() {
             SECTOR 6: BOTTOM-LEFT — LIVE TYPEWRITER CONSOLE (Rust Stream Engine)
            ========================================================================= */}
         <div
-          className="hidden md:block absolute left-[1%] lg:left-[2%] xl:left-[3%] bottom-[8%] lg:bottom-[10%] w-[280px] lg:w-[330px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/45 dark:bg-slate-900/25 backdrop-blur-[3px] shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.26] dark:opacity-[0.20] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-3"
+          className="hidden md:block absolute left-[1%] lg:left-[2%] xl:left-[3%] bottom-[8%] lg:bottom-[10%] w-[280px] lg:w-[330px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.26] dark:opacity-[0.20] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-3"
         >
-          <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/50 dark:bg-slate-800/25 text-[10px] font-mono">
+          <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/60 dark:bg-slate-800/40 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
               <span className="px-1.5 py-0.5 rounded bg-orange-600/10 dark:bg-orange-400/10 text-orange-700 dark:text-orange-300 text-[9px] font-semibold">
                 ● Live Rust Engine
@@ -444,9 +449,9 @@ export function TechBackground() {
             SECTOR 7: BOTTOM-RIGHT — KUBERNETES EDGE MESH YAML
            ========================================================================= */}
         <div
-          className="hidden md:block absolute right-[1%] lg:right-[2%] xl:right-[3%] bottom-[9%] lg:bottom-[11%] w-[270px] lg:w-[310px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/45 dark:bg-slate-900/25 backdrop-blur-[3px] shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.26] dark:opacity-[0.20] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-4"
+          className="hidden md:block absolute right-[1%] lg:right-[2%] xl:right-[3%] bottom-[9%] lg:bottom-[11%] w-[270px] lg:w-[310px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.26] dark:opacity-[0.20] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-4"
         >
-          <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/50 dark:bg-slate-800/25 text-[10px] font-mono">
+          <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/60 dark:bg-slate-800/40 text-[10px] font-mono">
             <span className="px-1.5 py-0.5 rounded bg-amber-600/10 dark:bg-amber-400/10 text-amber-700 dark:text-amber-300 text-[9px] font-semibold">
               &lt;/&gt; k8s_mesh.yaml
             </span>
@@ -465,9 +470,9 @@ export function TechBackground() {
             SECTOR 8: BOTTOM-CENTER — PGVECTOR SEMANTIC RAG SQL
            ========================================================================= */}
         <div
-          className="hidden lg:block absolute left-[37%] bottom-[5%] w-[310px] rounded-xl border border-slate-300/40 dark:border-slate-700/25 bg-white/40 dark:bg-slate-900/20 backdrop-blur-[3px] shadow-[0_4px_20px_rgba(15,23,42,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] opacity-[0.24] dark:opacity-[0.18] transition-opacity hover:opacity-65 dark:hover:opacity-55 duration-700 will-change-transform animate-ambient-drift-1"
+          className="hidden lg:block absolute left-[37%] bottom-[5%] w-[310px] rounded-xl border border-slate-300/40 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 shadow-[0_4px_20px_rgba(15,23,42,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] opacity-[0.24] dark:opacity-[0.18] transition-opacity hover:opacity-65 dark:hover:opacity-55 duration-700 will-change-transform animate-ambient-drift-1"
         >
-          <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/40 dark:bg-slate-800/20 text-[10px] font-mono">
+          <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/50 dark:bg-slate-800/30 text-[10px] font-mono">
             <span className="px-1.5 py-0.5 rounded bg-violet-600/10 dark:bg-violet-400/10 text-violet-700 dark:text-violet-300 text-[9px] font-semibold">
               &lt;/&gt; semantic_rag.sql
             </span>
@@ -484,47 +489,36 @@ export function TechBackground() {
             MICRO-ELEMENTS: Floating Code Tokens, Syntax Badges & Digital Nodes
            ========================================================================= */}
         {/* Token 1: Top-Left Corridor */}
-        <div className="absolute top-[22%] left-[12%] hidden sm:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/35 dark:bg-slate-900/20 backdrop-blur-[2px] font-mono text-[9.5px] text-blue-700/80 dark:text-cyan-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-2">
+        <div className="absolute top-[22%] left-[12%] hidden sm:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-blue-700/80 dark:text-cyan-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-2">
           <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
           <span>k8s.cluster.healthy</span>
         </div>
 
         {/* Token 2: Top-Right Corridor */}
-        <div className="absolute top-[24%] right-[14%] hidden sm:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/35 dark:bg-slate-900/20 backdrop-blur-[2px] font-mono text-[9.5px] text-indigo-700/80 dark:text-indigo-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-1">
+        <div className="absolute top-[24%] right-[14%] hidden sm:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-indigo-700/80 dark:text-indigo-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-1">
           <span className="text-indigo-600 dark:text-indigo-400 font-bold">λ</span>
           <span>distributed-edge: 0.8ms</span>
         </div>
 
         {/* Token 3: Mid-Center Corridor */}
-        <div className="absolute top-[52%] left-[16%] hidden md:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/35 dark:bg-slate-900/20 backdrop-blur-[2px] font-mono text-[9.5px] text-purple-700/80 dark:text-purple-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-3">
+        <div className="absolute top-[52%] left-[16%] hidden md:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-purple-700/80 dark:text-purple-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-3">
           <span>Next.js 15 // Server Actions</span>
         </div>
 
         {/* Token 4: Mid-Right Corridor */}
-        <div className="absolute top-[54%] right-[16%] hidden md:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/35 dark:bg-slate-900/20 backdrop-blur-[2px] font-mono text-[9.5px] text-emerald-700/80 dark:text-emerald-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-4">
+        <div className="absolute top-[54%] right-[16%] hidden md:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-emerald-700/80 dark:text-emerald-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-4">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
           <span>TLS 1.3 // AES-GCM-256</span>
         </div>
 
         {/* Token 5: Bottom-Left Corridor */}
-        <div className="absolute top-[75%] left-[14%] hidden lg:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/35 dark:bg-slate-900/20 backdrop-blur-[2px] font-mono text-[9.5px] text-amber-700/80 dark:text-amber-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-2">
+        <div className="absolute top-[75%] left-[14%] hidden lg:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-amber-700/80 dark:text-amber-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-2">
           <span>Prisma 6 // Postgres Pool</span>
         </div>
 
         {/* Token 6: Bottom-Right Corridor */}
-        <div className="absolute top-[78%] right-[15%] hidden md:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/35 dark:bg-slate-900/20 backdrop-blur-[2px] font-mono text-[9.5px] text-slate-800/80 dark:text-slate-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-1">
+        <div className="absolute top-[78%] right-[15%] hidden md:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-slate-800/80 dark:text-slate-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-1">
           <span>0x7F4B92C...SYN/ACK</span>
-        </div>
-
-        {/* Tech Coordinate Markers */}
-        <div className="absolute top-[18%] left-[48%] font-mono text-[9px] text-slate-500/70 dark:text-slate-400/50 font-semibold hidden lg:block tracking-widest">
-          + 28.40.AI.INFRA
-        </div>
-        <div className="absolute top-[48%] right-[44%] font-mono text-[9px] text-slate-500/70 dark:text-slate-400/50 font-semibold hidden lg:block tracking-widest">
-          + 00.12.EDGE.LATENCY
-        </div>
-        <div className="absolute top-[78%] left-[45%] font-mono text-[9px] text-slate-500/70 dark:text-slate-400/50 font-semibold hidden lg:block tracking-widest">
-          + 99.99.SLA.ACTIVE
         </div>
 
       </div>

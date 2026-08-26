@@ -34,33 +34,12 @@ export function ContactSection() {
 
   return (
     <section id="contact" className="py-12 md:py-24 px-6 relative w-full overflow-hidden">
-      {/* Dynamic Animated Background Blobs */}
-      <motion.div
-        className="absolute top-[-10%] left-[-10%] w-[450px] h-[450px] bg-primary/10 rounded-full blur-[100px] pointer-events-none z-0"
-        animate={{
-          x: [0, 25, -15, 0],
-          y: [0, -25, 20, 0],
-          scale: [1, 1.05, 0.95, 1],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
+      {/* Dynamic Animated Background Blobs (GPU Composited) */}
+      <div
+        className="absolute top-[-10%] left-[-10%] w-[450px] h-[450px] bg-primary/10 rounded-full blur-[100px] pointer-events-none z-0 animate-blob-1"
       />
-      <motion.div
-        className="absolute bottom-[-10%] right-[-10%] w-[450px] h-[450px] bg-secondary/10 rounded-full blur-[110px] pointer-events-none z-0"
-        animate={{
-          x: [0, -20, 30, 0],
-          y: [0, 30, -15, 0],
-          scale: [1, 0.95, 1.05, 1],
-        }}
-        transition={{
-          duration: 14,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 0.5,
-        }}
+      <div
+        className="absolute bottom-[-10%] right-[-10%] w-[450px] h-[450px] bg-secondary/10 rounded-full blur-[110px] pointer-events-none z-0 animate-blob-2"
       />
 
       <motion.div 
