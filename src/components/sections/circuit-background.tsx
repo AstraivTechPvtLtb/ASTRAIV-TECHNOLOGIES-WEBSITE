@@ -130,8 +130,42 @@ export function CircuitBackground() {
     const maxOffset = 30; // Clamp parallax movement to 30px
     const followSpeed = 0.1; // Smooth follow amount: 0.1
 
+    let isVisible = true;
+    let isLoopRunning = false;
+
+    const startAnimationLoop = () => {
+      if (!isLoopRunning && isVisible) {
+        isLoopRunning = true;
+        lastTime = null;
+        animationFrameId = requestAnimationFrame(animate);
+      }
+    };
+
+    const stopAnimationLoop = () => {
+      if (isLoopRunning) {
+        cancelAnimationFrame(animationFrameId);
+        isLoopRunning = false;
+      }
+    };
+
+    // Use IntersectionObserver to pause entirely when scrolled out of viewport
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          startAnimationLoop();
+        } else {
+          stopAnimationLoop();
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(canvas);
+
     // Handle mouse events
     const handleMouseMove = (e: MouseEvent) => {
+      if (!isVisible) return;
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
@@ -155,6 +189,7 @@ export function CircuitBackground() {
         mouseRef.current.x = x;
         mouseRef.current.y = y;
         mouseRef.current.isHovering = true;
+        startAnimationLoop();
       } else {
         if (mouseRef.current.isHovering) {
           mouseRef.current.isHovering = false;
@@ -166,6 +201,7 @@ export function CircuitBackground() {
     const handleMouseEnter = () => {
       mouseRef.current.isHovering = true;
       setIsHovered(true);
+      startAnimationLoop();
     };
 
     const handleMouseLeave = () => {
@@ -180,9 +216,9 @@ export function CircuitBackground() {
     const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('resize', resizeCanvas, { passive: true });
     if (!isTouchDevice && !prefersReducedMotion) {
-      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mousemove', handleMouseMove, { passive: true });
       if (parent) {
         parent.addEventListener('mouseenter', handleMouseEnter);
         parent.addEventListener('mouseleave', handleMouseLeave);
@@ -191,17 +227,23 @@ export function CircuitBackground() {
 
     // Periodically pulse a background path at the cursor if the user is hovering
     const idlePulseInterval = setInterval(() => {
-      if (mouseRef.current.isHovering && springX.current !== -9999 && !prefersReducedMotion) {
+      if (isVisible && mouseRef.current.isHovering && springX.current !== -9999 && !prefersReducedMotion) {
         spawnPath(springX.current, springY.current);
         if (Math.random() > 0.6) {
           spawnPath(springX.current, springY.current);
         }
+        startAnimationLoop();
       }
     }, 280);
 
     let lastTime: number | null = null;
     // Animation Loop
     const animate = (timestamp: number) => {
+      if (!isVisible) {
+        isLoopRunning = false;
+        return;
+      }
+
       if (lastTime === null) {
         lastTime = timestamp;
       }
@@ -346,13 +388,21 @@ export function CircuitBackground() {
       // Filter out dead paths
       activePaths = activePaths.filter((path) => path.life > 0);
 
+      // If idle and no paths left to render, pause the loop until mouse interaction
+      if (activePaths.length === 0 && !mouseRef.current.isHovering) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        isLoopRunning = false;
+        return;
+      }
+
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    animationFrameId = requestAnimationFrame(animate);
+    startAnimationLoop();
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      stopAnimationLoop();
+      observer.disconnect();
       clearInterval(idlePulseInterval);
       window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('mousemove', handleMouseMove);

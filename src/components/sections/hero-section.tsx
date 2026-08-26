@@ -102,44 +102,15 @@ export function HeroSection({
 
   return (
     <section className="relative flex flex-col items-center justify-center min-h-[88vh] sm:min-h-[90vh] lg:min-h-[92vh] pt-28 pb-16 sm:pt-36 sm:pb-20 md:pt-40 md:pb-24 lg:pt-44 lg:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-background border-b border-border/40">
-      {/* Dynamic Animated Blobs */}
-      <motion.div
-        className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-primary/10 dark:bg-primary/20 rounded-full blur-[120px] pointer-events-none"
-        animate={{
-          x: [0, 40, -20, 0],
-          y: [0, -30, 40, 0],
-          scale: [1, 1.1, 0.95, 1],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
+      {/* Dynamic Animated Blobs (GPU Composited) */}
+      <div
+        className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-primary/10 dark:bg-primary/20 rounded-full blur-[120px] pointer-events-none animate-blob-1"
       />
-      <motion.div
-        className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-secondary/10 dark:bg-blue-600/20 rounded-full blur-[100px] pointer-events-none"
-        animate={{
-          x: [0, -30, 45, 0],
-          y: [0, 40, -20, 0],
-          scale: [1, 0.9, 1.1, 1],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 1,
-        }}
+      <div
+        className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-secondary/10 dark:bg-blue-600/20 rounded-full blur-[100px] pointer-events-none animate-blob-2"
       />
-      <motion.div
-        className="absolute top-10 right-10 w-[250px] h-[250px] bg-accent/10 dark:bg-cyan-400/20 rounded-full blur-[80px] pointer-events-none"
-        animate={{
-          scale: [1, 1.2, 0.8, 1],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
+      <div
+        className="absolute top-10 right-10 w-[250px] h-[250px] bg-accent/10 dark:bg-cyan-400/20 rounded-full blur-[80px] pointer-events-none animate-blob-3"
       />
 
       {/* Circuit Background Animation with Antigravity repulsion */}

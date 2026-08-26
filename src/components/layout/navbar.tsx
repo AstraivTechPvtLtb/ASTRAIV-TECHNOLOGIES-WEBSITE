@@ -40,28 +40,38 @@ export function Navbar() {
   }, [showDropdown]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+    let ticking = false;
+    const sectionIds = ['services', 'why-us', 'industries', 'process', 'case-studies', 'testimonials', 'pricing', 'contact', 'technologies', 'ai-expertise'];
+
+    const updateScrollState = () => {
+      const isScrolled = window.scrollY > 20;
+      setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
 
       // Scroll spy logic
-      const sectionIds = ['services', 'why-us', 'industries', 'process', 'case-studies', 'testimonials', 'pricing', 'contact', 'technologies', 'ai-expertise'];
       let currentSection = '';
-
-      for (const id of sectionIds) {
-        const el = document.getElementById(id);
+      for (let i = 0; i < sectionIds.length; i++) {
+        const el = document.getElementById(sectionIds[i]);
         if (el) {
           const rect = el.getBoundingClientRect();
           if (rect.top <= 180 && rect.bottom > 180) {
-            currentSection = id;
+            currentSection = sectionIds[i];
             break;
           }
         }
       }
-      setActiveSection(currentSection);
+      setActiveSection((prev) => (prev !== currentSection ? currentSection : prev));
+      ticking = false;
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // initial load calculation
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateScrollState);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    updateScrollState(); // initial load calculation
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
