@@ -17,21 +17,21 @@ function ProcessStepItem({ step, index }: { step: StepData; index: number }) {
 
   const { scrollYProgress } = useScroll({
     target: itemRef,
-    offset: ['start 92%', 'start 60%'],
+    offset: ['start 90%', 'start 65%'],
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 260,
-    damping: 28,
-    mass: 0.5,
+    stiffness: 600,
+    damping: 38,
+    mass: 0.05,
     restDelta: 0.001,
   });
 
   const x = useTransform(smoothProgress, [0, 1], [isEven ? 40 : -40, 0]);
-  const opacity = useTransform(smoothProgress, [0, 0.7, 1], [0, 0.85, 1]);
+  const opacity = useTransform(smoothProgress, [0, 1], [0, 1]);
   const scale = useTransform(smoothProgress, [0, 1], [0.94, 1]);
-  const circleScale = useTransform(smoothProgress, [0, 1], [0.65, 1]);
-  const circleOpacity = useTransform(smoothProgress, [0, 0.5, 1], [0, 0.8, 1]);
+  const circleScale = useTransform(smoothProgress, [0, 1], [0.7, 1]);
+  const circleOpacity = useTransform(smoothProgress, [0, 1], [0, 1]);
 
   return (
     <div
@@ -57,15 +57,15 @@ function ProcessStepItem({ step, index }: { step: StepData; index: number }) {
         whileHover={{ scale: 1.01 }}
         className="w-full md:w-1/2 pl-16 md:pl-0 md:px-8 text-left will-change-transform"
       >
-        <div className="p-8 bg-card/85 dark:bg-slate-900/85 backdrop-blur-xl border border-border/50 rounded-[20px] shadow-sm hover:shadow-[0_15px_40px_-15px_rgba(11,61,145,0.05)] hover:border-primary/30 dark:hover:border-accent/30 transition-all duration-300">
-          <span className="text-[10px] font-extrabold uppercase tracking-wider text-secondary">
+        <div className="p-8 bg-card/85 dark:bg-slate-900/85 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-[20px] shadow-sm hover:shadow-[0_15px_40px_-15px_rgba(11,61,145,0.08)] dark:hover:shadow-[0_15px_40px_-15px_rgba(0,0,0,0.5)] hover:border-primary/40 dark:hover:border-accent/40 transition-all duration-300">
+          <span className="text-[10px] font-extrabold uppercase tracking-wider text-secondary dark:text-accent">
             Stage {step.num}
           </span>
           <h3 className="text-xl font-bold tracking-tight text-foreground mt-1.5">{step.title}</h3>
           <h4 className="text-xs font-semibold text-muted-foreground italic mt-0.5 leading-relaxed">
             {step.subtitle}
           </h4>
-          <p className="text-sm text-muted-foreground leading-relaxed font-semibold mt-4">
+          <p className="text-sm text-muted-foreground leading-relaxed font-medium mt-4">
             {step.details}
           </p>
         </div>
