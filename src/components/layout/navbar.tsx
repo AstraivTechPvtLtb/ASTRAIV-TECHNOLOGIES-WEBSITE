@@ -200,11 +200,11 @@ export function Navbar() {
                   <AnimatePresence>
                     {hoveredLink === link.href && (
                       <motion.div
-                        initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                        initial={{ opacity: 0, y: -2, scale: 0.98 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="absolute top-[80%] left-1/2 -translate-x-1/2 mt-1 w-52 rounded-xl border border-slate-200/90 dark:border-slate-800/80 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl p-2.5 shadow-xl dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.7)] z-50 text-xs flex flex-col gap-1.5"
+                        exit={{ opacity: 0, y: -2, scale: 0.98 }}
+                        transition={{ duration: 0.15, ease: "easeOut" }}
+                        className="absolute top-full left-1/2 -translate-x-1/2 w-48 rounded-md border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl p-1.5 shadow-xl shadow-slate-900/10 dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)] z-50 text-xs flex flex-col gap-1"
                       >
                         {link.dropdownItems?.map((item) => {
                           const itemPath = item.href.split('#')[0] || '/';
@@ -219,10 +219,10 @@ export function Navbar() {
                               href={item.href}
                               onClick={() => setHoveredLink(null)}
                               className={cn(
-                                "w-full text-left px-3.5 py-2 rounded-lg transition-all duration-200 flex items-center justify-between text-[11px] font-bold tracking-wide select-none active:scale-98",
+                                "w-full text-left px-3 py-2 rounded-[4px] transition-colors duration-150 flex items-center justify-between text-xs font-semibold tracking-wide select-none active:scale-[0.99]",
                                 isItemActive
-                                  ? "bg-primary/10 dark:bg-accent/15 text-primary dark:text-accent font-extrabold shadow-[inset_0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-none"
-                                  : "text-slate-700 dark:text-slate-300 hover:bg-slate-100/90 dark:hover:bg-slate-900/80 hover:text-slate-900 dark:hover:text-white"
+                                  ? "bg-primary/10 dark:bg-accent/15 text-primary dark:text-accent font-bold"
+                                  : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-white"
                               )}
                             >
                               <span>{item.label}</span>
@@ -246,7 +246,7 @@ export function Navbar() {
         </nav>
 
         {/* CTA and Utilities as separate buttons */}
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3 h-full">
           {/* Company Contact Button (Blue color in light and dark mode, moderate size, more squarish, no glow) */}
           <Link href="/contact" className="relative group inline-block">
             {/* The main button */}
@@ -263,122 +263,128 @@ export function Navbar() {
           </Link>
 
           {/* Custom Options Dropdown ("three lines") */}
-          <div className="relative">
+          <div className="relative h-full flex items-center">
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 setShowDropdown(!showDropdown);
               }}
-              className="text-muted-foreground hover:text-foreground cursor-pointer rounded-full h-7.5 w-7.5 hover:bg-slate-250 dark:hover:bg-slate-850 flex items-center justify-center border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 transition-colors select-none active:scale-95"
+              className="text-muted-foreground hover:text-foreground cursor-pointer rounded-full h-7.5 w-7.5 hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 transition-colors select-none active:scale-95"
               aria-label="More Options"
             >
               <Menu className="h-4 w-4" />
             </button>
-            {showDropdown && (
-              <div className="absolute right-0 mt-2 w-48 rounded-xl border border-slate-200/50 dark:border-slate-800/40 bg-white/70 dark:bg-slate-950/60 backdrop-blur-xl p-2 shadow-xl z-50 text-xs flex flex-col gap-1">
-                {/* Language Selector Header */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowLangMenu(!showLangMenu);
-                  }}
-                  className="w-full text-left px-3 py-2 rounded-lg font-bold hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors flex items-center justify-between cursor-pointer text-slate-800 dark:text-slate-200"
+            <AnimatePresence>
+              {showDropdown && (
+                <motion.div
+                  initial={{ opacity: 0, y: -2, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -2, scale: 0.98 }}
+                  transition={{ duration: 0.15, ease: "easeOut" }}
+                  className="absolute right-0 top-full w-48 rounded-md border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl p-1.5 shadow-xl shadow-slate-900/10 dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)] z-50 text-xs flex flex-col gap-1"
                 >
-                  <span>Language</span>
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-black">{locale.toUpperCase()}</span>
-                </button>
+                  {/* Language Selector Header */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowLangMenu(!showLangMenu);
+                    }}
+                    className="w-full text-left px-3 py-2 rounded-[4px] font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors flex items-center justify-between cursor-pointer text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs select-none active:scale-[0.99]"
+                  >
+                    <span>Language</span>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-black">{locale.toUpperCase()}</span>
+                  </button>
 
-                {/* Sub-menu with actual languages options */}
-                {showLangMenu && (
-                  <div className="pl-2 border-l border-slate-200 dark:border-slate-800 ml-2 mt-1 mb-1 flex flex-col gap-1">
-                    <button
-                      onClick={() => handleLanguageChange('en')}
-                      className={cn(
-                        "w-full text-left px-2.5 py-1.5 rounded-md font-semibold hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-colors cursor-pointer text-[10px]",
-                        locale === 'en' ? "text-primary dark:text-accent font-bold" : "text-slate-500 dark:text-slate-400"
+                  {/* Sub-menu with actual languages options */}
+                  {showLangMenu && (
+                    <div className="pl-2 border-l border-slate-200 dark:border-slate-800 ml-2 mt-0.5 mb-1 flex flex-col gap-1">
+                      <button
+                        onClick={() => handleLanguageChange('en')}
+                        className={cn(
+                          "w-full text-left px-2.5 py-1.5 rounded-[4px] font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors cursor-pointer text-[11px]",
+                          locale === 'en' ? "bg-primary/10 dark:bg-accent/15 text-primary dark:text-accent font-bold" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                        )}
+                      >
+                        🇺🇸 English
+                      </button>
+                      <button
+                        onClick={() => handleLanguageChange('es')}
+                        className={cn(
+                          "w-full text-left px-2.5 py-1.5 rounded-[4px] font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors cursor-pointer text-[11px]",
+                          locale === 'es' ? "bg-primary/10 dark:bg-accent/15 text-primary dark:text-accent font-bold" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                        )}
+                      >
+                        🇪🇸 Español
+                      </button>
+                      <button
+                        onClick={() => handleLanguageChange('bn')}
+                        className={cn(
+                          "w-full text-left px-2.5 py-1.5 rounded-[4px] font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors cursor-pointer text-[11px]",
+                          locale === 'bn' ? "bg-primary/10 dark:bg-accent/15 text-primary dark:text-accent font-bold" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                        )}
+                      >
+                        🇧🇩 Bengali
+                      </button>
+                      <button
+                        onClick={() => handleLanguageChange('hi')}
+                        className={cn(
+                          "w-full text-left px-2.5 py-1.5 rounded-[4px] font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors cursor-pointer text-[11px]",
+                          locale === 'hi' ? "bg-primary/10 dark:bg-accent/15 text-primary dark:text-accent font-bold" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                        )}
+                      >
+                        🇮🇳 Hindi
+                      </button>
+                      <button
+                        onClick={() => handleLanguageChange('ar')}
+                        className={cn(
+                          "w-full text-left px-2.5 py-1.5 rounded-[4px] font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors cursor-pointer text-[11px]",
+                          locale === 'ar' ? "bg-primary/10 dark:bg-accent/15 text-primary dark:text-accent font-bold" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                        )}
+                      >
+                        🇸🇦 Arabic
+                      </button>
+                    </div>
+                  )}
+
+                  <div className="border-t border-slate-200 dark:border-slate-800 my-0.5" />
+
+                  {/* Theme Selector */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
+                    }}
+                    className="w-full text-left px-3 py-2 rounded-[4px] font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors flex items-center justify-between cursor-pointer text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs select-none active:scale-[0.99]"
+                  >
+                    <span>Theme</span>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-black flex items-center gap-1.5">
+                      {mounted && resolvedTheme === 'dark' ? (
+                        <>
+                          <span>Dark</span>
+                          <Moon className="h-3.5 w-3.5 text-primary" />
+                        </>
+                      ) : (
+                        <>
+                          <span>Light</span>
+                          <Sun className="h-3.5 w-3.5 text-accent" />
+                        </>
                       )}
-                    >
-                      🇺🇸 English
-                    </button>
-                    <button
-                      onClick={() => handleLanguageChange('es')}
-                      className={cn(
-                        "w-full text-left px-2.5 py-1.5 rounded-md font-semibold hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-colors cursor-pointer text-[10px]",
-                        locale === 'es' ? "text-primary dark:text-accent font-bold" : "text-slate-500 dark:text-slate-400"
-                      )}
-                    >
-                      🇪🇸 Español
-                    </button>
-                    <button
-                      onClick={() => handleLanguageChange('bn')}
-                      className={cn(
-                        "w-full text-left px-2.5 py-1.5 rounded-md font-semibold hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-colors cursor-pointer text-[10px]",
-                        locale === 'bn' ? "text-primary dark:text-accent font-bold" : "text-slate-500 dark:text-slate-400"
-                      )}
-                    >
-                      🇧🇩 Bengali
-                    </button>
-                    <button
-                      onClick={() => handleLanguageChange('hi')}
-                      className={cn(
-                        "w-full text-left px-2.5 py-1.5 rounded-md font-semibold hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-colors cursor-pointer text-[10px]",
-                        locale === 'hi' ? "text-primary dark:text-accent font-bold" : "text-slate-500 dark:text-slate-400"
-                      )}
-                    >
-                      🇮🇳 Hindi
-                    </button>
-                    <button
-                      onClick={() => handleLanguageChange('ar')}
-                      className={cn(
-                        "w-full text-left px-2.5 py-1.5 rounded-md font-semibold hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-colors cursor-pointer text-[10px]",
-                        locale === 'ar' ? "text-primary dark:text-accent font-bold" : "text-slate-500 dark:text-slate-400"
-                      )}
-                    >
-                      🇸🇦 Arabic
-                    </button>
-                  </div>
-                )}
+                    </span>
+                  </button>
 
-                <div className="border-t border-slate-200 dark:border-slate-800 my-1" />
+                  <div className="border-t border-slate-200 dark:border-slate-800 my-0.5" />
 
-                {/* Theme Selector */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
-                  }}
-                  className="w-full text-left px-3 py-2 rounded-lg font-bold hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors flex items-center justify-between cursor-pointer text-slate-800 dark:text-slate-200"
-                >
-                  <span>Theme</span>
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-black flex items-center gap-1.5">
-                    {mounted && resolvedTheme === 'dark' ? (
-                      <>
-                        <span>Dark</span>
-                        <Moon className="h-3.5 w-3.5 text-primary" />
-                      </>
-                    ) : (
-                      <>
-                        <span>Light</span>
-                        <Sun className="h-3.5 w-3.5 text-accent" />
-                      </>
-                    )}
-                  </span>
-                </button>
-
-                <div className="border-t border-slate-200 dark:border-slate-800 my-1" />
-
-                {/* FAQ Link */}
-                <Link
-                  href="/faq"
-                  onClick={() => setShowDropdown(false)}
-                  className="w-full text-left px-3 py-2 rounded-lg font-bold text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors flex items-center justify-between cursor-pointer"
-                >
-                  <span>FAQ</span>
-                </Link>
-
-
-              </div>
-            )}
+                  {/* FAQ Link */}
+                  <Link
+                    href="/faq"
+                    onClick={() => setShowDropdown(false)}
+                    className="w-full text-left px-3 py-2 rounded-[4px] font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center justify-between cursor-pointer text-xs select-none active:scale-[0.99]"
+                  >
+                    <span>FAQ</span>
+                  </Link>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
