@@ -15,6 +15,11 @@ interface CodeSnippet {
   lines: CodeToken[][];
 }
 
+/* =========================================================================
+   SNIPPET LIBRARIES: Distributed, Diverse & Fullstack Astraiv Technologies
+   ========================================================================= */
+
+// SECTOR 1: TOP-LEFT — Python AI Core & Reasoning
 const AI_SNIPPETS: CodeSnippet[] = [
   {
     filename: 'astraiv_ai_engine.py',
@@ -84,8 +89,42 @@ const AI_SNIPPETS: CodeSnippet[] = [
       ],
     ],
   },
+  {
+    filename: 'vector_pipeline.py',
+    lang: 'python',
+    badge: 'Qdrant + RAG',
+    successMsg: '🔍 Semantic index synced (0.4ms)',
+    lines: [
+      [
+        { text: 'index = ', className: 'text-slate-700 dark:text-slate-300' },
+        { text: 'VectorIndex', className: 'text-amber-700 dark:text-amber-300 font-bold' },
+        { text: '(collection=', className: 'text-slate-700 dark:text-slate-300' },
+        { text: '"astraiv_vault"', className: 'text-emerald-700 dark:text-emerald-300' },
+        { text: ')', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: 'async def ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: 'query_hybrid_context', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: '(query: str):', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '    vec = ', className: 'text-slate-700 dark:text-slate-300' },
+        { text: 'await ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: 'embed_multimodal(query, dim=', className: 'text-slate-700 dark:text-slate-300' },
+        { text: '1536', className: 'text-amber-700 dark:text-amber-300 font-bold' },
+        { text: ')', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '    return await ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: 'index.similarity_search(vec, top_k=', className: 'text-slate-800 dark:text-slate-200' },
+        { text: '5', className: 'text-amber-700 dark:text-amber-300 font-bold' },
+        { text: ')', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+    ],
+  },
 ];
 
+// SECTOR 5: MID-RIGHT — Next.js 15 Server Actions & Edge Auth
 const SERVER_SNIPPETS: CodeSnippet[] = [
   {
     filename: 'server_action.ts',
@@ -154,8 +193,40 @@ const SERVER_SNIPPETS: CodeSnippet[] = [
       ],
     ],
   },
+  {
+    filename: 'telemetry_sink.ts',
+    lang: 'typescript',
+    badge: 'Edge Sockets',
+    successMsg: '📡 Real-time heartbeat stream connected',
+    lines: [
+      [
+        { text: 'export async function ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: 'streamTelemetry', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: '(clientId: string) {', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '    const ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: 'channel = ', className: 'text-slate-700 dark:text-slate-300' },
+        { text: 'await ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: 'EdgeSocket.openChannel(clientId);', className: 'text-slate-800 dark:text-slate-200' },
+      ],
+      [
+        { text: '    return channel.subscribe((packet) => {', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '        metrics.record(packet.latency, packet.status);', className: 'text-emerald-700 dark:text-emerald-300' },
+      ],
+      [
+        { text: '    });', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '}', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+    ],
+  },
 ];
 
+// SECTOR 6: BOTTOM-LEFT — Rust Tokio & High Concurrency Engine
 const RUST_SNIPPETS: CodeSnippet[] = [
   {
     filename: 'engine.rs',
@@ -183,15 +254,246 @@ const RUST_SNIPPETS: CodeSnippet[] = [
       ],
     ],
   },
+  {
+    filename: 'zero_copy_arena.rs',
+    lang: 'rust',
+    badge: 'mem::alloc',
+    successMsg: '⚡ Zero-copy buffer locked (0.1ms)',
+    lines: [
+      [
+        { text: 'pub struct ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: 'MemoryArena<T: Send + Sync>', className: 'text-amber-700 dark:text-amber-300 font-bold' },
+        { text: ' {', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '    pub fn ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: 'alloc_pinned', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: '(&self, size: usize) -> PinBuffer<T> {', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '        self.pool.acquire_uninit(size).expect("OOM")', className: 'text-emerald-700 dark:text-emerald-300' },
+      ],
+      [
+        { text: '    }', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '}', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+    ],
+  },
+  {
+    filename: 'mesh_gateway.rs',
+    lang: 'rust',
+    badge: 'actix::mesh',
+    successMsg: '🌐 Edge gateway operational (100k req/s)',
+    lines: [
+      [
+        { text: '#[actix_web::get("/api/v2/mesh/status")]', className: 'text-blue-700 dark:text-cyan-400 font-semibold' },
+      ],
+      [
+        { text: 'pub async fn ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: 'mesh_status', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: '(mesh: web::Data<MeshCluster>) -> HttpResponse {', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '    let telemetry = mesh.read_active_nodes().await;', className: 'text-slate-800 dark:text-slate-200' },
+      ],
+      [
+        { text: '    HttpResponse::Ok().json(telemetry)', className: 'text-emerald-700 dark:text-emerald-300' },
+      ],
+      [
+        { text: '}', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+    ],
+  },
 ];
 
-function LiveTypewriterPanel({ snippets, initialDelay = 0 }: { snippets: CodeSnippet[]; initialDelay?: number }) {
+// SECTOR 9: CENTER TILE — Compact, Vertically Well-Proportioned Astraiv Services & Architecture
+const CENTER_ORCHESTRATOR_SNIPPETS: CodeSnippet[] = [
+  {
+    filename: 'astraiv_platform.ts',
+    lang: 'typescript',
+    badge: 'Astraiv Hub v2.6',
+    successMsg: '✨ Enterprise Suite live across edge (0.4ms)',
+    lines: [
+      [
+        { text: 'import { ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: 'AstraivEngine', className: 'text-blue-700 dark:text-cyan-300 font-semibold' },
+        { text: ' } from ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: '"@astraiv/core";', className: 'text-emerald-700 dark:text-emerald-300' },
+      ],
+      [
+        { text: 'export const ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: 'Platform = ', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: 'defineStack({', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '  services: ', className: 'text-slate-700 dark:text-slate-300' },
+        { text: '["Web Dev", "AI RAG", "Cloud"]', className: 'text-emerald-700 dark:text-emerald-300' },
+        { text: ',', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '  frontend: ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: '"Next.js 15 App Router"', className: 'text-emerald-700 dark:text-emerald-300' },
+        { text: ',', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '  aiEngine: ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: '"Neural Vector Mesh (<12ms)"', className: 'text-emerald-700 dark:text-emerald-300' },
+        { text: ',', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '  cloudSLA: ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: '"99.999% Zero-Downtime"', className: 'text-emerald-700 dark:text-emerald-300' },
+        { text: ',', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '  async deploy(suite) {', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+      ],
+      [
+        { text: '    return await AstraivEngine.launch(suite);', className: 'text-slate-800 dark:text-slate-200' },
+      ],
+      [
+        { text: '  }', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '});', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+    ],
+  },
+  {
+    filename: 'services_matrix.config.ts',
+    lang: 'typescript',
+    badge: 'Enterprise Architecture',
+    successMsg: '🚀 7 Core Services scaled & healthy',
+    lines: [
+      [
+        { text: 'export const ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: 'AstraivMatrix: ServiceRegistry = {', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+      ],
+      [
+        { text: '  webDev: ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: '{ tech: "Next.js 15", perf: 100 },', className: 'text-emerald-700 dark:text-emerald-300' },
+      ],
+      [
+        { text: '  aiSolutions: ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: '{ engine: "Vector Vault RAG" },', className: 'text-emerald-700 dark:text-emerald-300' },
+      ],
+      [
+        { text: '  cloudSystems: ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: '{ nodes: 64, edge: "global" },', className: 'text-emerald-700 dark:text-emerald-300' },
+      ],
+      [
+        { text: '  uiUxDesign: ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: '{ tokens: "Adaptive HSL" },', className: 'text-emerald-700 dark:text-emerald-300' },
+      ],
+      [
+        { text: '  automation: ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: '{ throughput: "100k ops/s" },', className: 'text-emerald-700 dark:text-emerald-300' },
+      ],
+      [
+        { text: '  security: ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: '{ protocol: "TLS 1.3 / AES" },', className: 'text-emerald-700 dark:text-emerald-300' },
+      ],
+      [
+        { text: '};', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+    ],
+  },
+  {
+    filename: 'distributed_ai_mesh.py',
+    lang: 'python',
+    badge: 'Neural Engine v2.6',
+    successMsg: '🧠 Multi-Agent Reasoning synchronized (0.6ms)',
+    lines: [
+      [
+        { text: '@astraiv.service(cluster="ai-enterprise")', className: 'text-blue-700 dark:text-cyan-400 font-semibold' },
+      ],
+      [
+        { text: 'class ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: 'AstraivNeuralMesh', className: 'text-amber-700 dark:text-amber-300 font-bold' },
+        { text: ':', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '    def __init__(self, tenant_id: str):', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '        self.vault = astraiv.connect_vault(tenant_id)', className: 'text-slate-800 dark:text-slate-200' },
+      ],
+      [
+        { text: '        self.engine = astraiv.load_neural_router()', className: 'text-slate-800 dark:text-slate-200' },
+      ],
+      [
+        { text: '    async def stream_reasoning(self, query: str):', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+      ],
+      [
+        { text: '        ctx = await self.vault.vector_search(query)', className: 'text-slate-800 dark:text-slate-200' },
+      ],
+      [
+        { text: '        return await self.engine.stream(ctx)', className: 'text-emerald-700 dark:text-emerald-300' },
+      ],
+    ],
+  },
+  {
+    filename: 'cloud_deployer.rs',
+    lang: 'rust',
+    badge: 'Edge Deployer',
+    successMsg: '🌐 Global cluster active across 64 nodes',
+    lines: [
+      [
+        { text: 'pub async fn ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
+        { text: 'deploy_cluster', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: '() -> Result<Mesh> {', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+      [
+        { text: '    let edge = GlobalEdgeRouter::connect().await?;', className: 'text-slate-800 dark:text-slate-200' },
+      ],
+      [
+        { text: '    let nodes = edge.sync(&["iad1", "fra1"]).await?;', className: 'text-slate-800 dark:text-slate-200' },
+      ],
+      [
+        { text: '    Telemetry::verify_latency_p99("< 1.2ms")?;', className: 'text-emerald-700 dark:text-emerald-300' },
+      ],
+      [
+        { text: '    Ok(Mesh::active(nodes.len(), SLA::High99))', className: 'text-slate-800 dark:text-slate-200' },
+      ],
+      [
+        { text: '}', className: 'text-slate-700 dark:text-slate-300' },
+      ],
+    ],
+  },
+];
+
+/* =========================================================================
+   ROBUST PERMANENT TYPEWRITER COMPONENT
+   ========================================================================= */
+
+interface LiveTypewriterPanelProps {
+  snippets: CodeSnippet[];
+  initialDelay?: number;
+  typingSpeed?: number;
+  lineDelay?: number;
+  holdDelay?: number;
+  fontSizeClass?: string;
+  onSnippetChange?: (snippet: CodeSnippet) => void;
+}
+
+function LiveTypewriterPanel({
+  snippets,
+  initialDelay = 0,
+  typingSpeed = 40,
+  lineDelay = 280,
+  holdDelay = 4000,
+  fontSizeClass = 'text-[10px] sm:text-[10.5px]',
+  onSnippetChange,
+}: LiveTypewriterPanelProps) {
   const [snippetIndex, setSnippetIndex] = useState(0);
   const [lineIndex, setLineIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDone, setIsDone] = useState(false);
   const [started, setStarted] = useState(initialDelay === 0);
 
+  // Initial delay stagger
   useEffect(() => {
     if (initialDelay > 0 && !started) {
       const startTimer = setTimeout(() => setStarted(true), initialDelay);
@@ -199,43 +501,81 @@ function LiveTypewriterPanel({ snippets, initialDelay = 0 }: { snippets: CodeSni
     }
   }, [initialDelay, started]);
 
-  const snippet = snippets[snippetIndex];
-  const currentLine = snippet.lines[lineIndex];
+  const activeSnippetIndex = snippetIndex % snippets.length;
+  const snippet = snippets[activeSnippetIndex];
+  const currentLine = snippet?.lines?.[lineIndex];
   const lineFullText = currentLine ? currentLine.map((t) => t.text).join('') : '';
 
+  // Notify parent of active snippet for header updates
   useEffect(() => {
-    if (!started) return;
+    if (snippet && onSnippetChange) {
+      onSnippetChange(snippet);
+    }
+  }, [activeSnippetIndex, snippet, onSnippetChange]);
 
+  // Main indestructible typing loop
+  useEffect(() => {
+    if (!started || !snippet) return;
+
+    // 1. Completion state: hold success message then advance snippet
     if (isDone) {
       const resetTimer = setTimeout(() => {
         setIsDone(false);
         setLineIndex(0);
         setCharIndex(0);
         setSnippetIndex((prev) => (prev + 1) % snippets.length);
-      }, 4000);
+      }, holdDelay);
       return () => clearTimeout(resetTimer);
     }
 
+    // 2. Check if we completed all lines in current snippet
     if (lineIndex >= snippet.lines.length) {
       setIsDone(true);
       return;
     }
 
+    // 3. Typing characters within current line
     if (charIndex < lineFullText.length) {
-      // Advance 1-2 characters per tick every 45ms to reduce React render frequency by >50%
+      const charsLeft = lineFullText.length - charIndex;
+      const step = charsLeft > 2 && Math.random() > 0.4 ? 2 : 1;
+      const jitter = typingSpeed + (Math.random() * 14 - 7);
+      
       const timer = setTimeout(() => {
-        if (typeof document !== 'undefined' && document.hidden) return;
-        setCharIndex((prev) => Math.min(prev + (lineFullText.length - prev > 1 && Math.random() > 0.4 ? 2 : 1), lineFullText.length));
-      }, 45);
+        setCharIndex((prev) => Math.min(prev + step, lineFullText.length));
+      }, Math.max(16, jitter));
       return () => clearTimeout(timer);
     } else {
+      // 4. Line finished: pause briefly before advancing to next line
       const nextLineTimer = setTimeout(() => {
         setLineIndex((prev) => prev + 1);
         setCharIndex(0);
-      }, 280);
+      }, lineDelay);
       return () => clearTimeout(nextLineTimer);
     }
-  }, [charIndex, lineIndex, isDone, snippet, lineFullText, started, snippets.length]);
+  }, [
+    started,
+    isDone,
+    lineIndex,
+    charIndex,
+    snippet,
+    lineFullText,
+    holdDelay,
+    lineDelay,
+    typingSpeed,
+    snippets.length,
+  ]);
+
+  // Tab visibility listener: guarantees instant resumption if tab is switched
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        // Trigger a safe non-destructive re-eval
+        setCharIndex((c) => c);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
+  }, []);
 
   const renderLineContent = (tokens: CodeToken[], maxChars: number) => {
     let charsRemaining = maxChars;
@@ -252,18 +592,18 @@ function LiveTypewriterPanel({ snippets, initialDelay = 0 }: { snippets: CodeSni
   };
 
   return (
-    <div className="p-3 text-[10px] sm:text-[10.5px] font-mono leading-relaxed text-slate-700 dark:text-slate-300 overflow-hidden">
+    <div className={`p-3 font-mono leading-relaxed text-slate-700 dark:text-slate-300 overflow-hidden ${fontSizeClass}`}>
       {snippet.lines.map((tokens, idx) => {
         if (idx > lineIndex) return null;
         const isCurrentLine = idx === lineIndex && !isDone;
         const maxChars = isCurrentLine ? charIndex : tokens.map((t) => t.text).join('').length;
 
         return (
-          <div key={idx} className="flex items-start gap-2.5 min-h-[18px]">
-            <span className="select-none text-slate-400/60 dark:text-slate-600/50 text-[9px] w-3 text-right shrink-0">
+          <div key={idx} className="flex items-start gap-2 min-h-[17px]">
+            <span className="select-none text-slate-400/60 dark:text-slate-600/50 text-[9px] w-3.5 text-right shrink-0">
               {String(idx + 1).padStart(2, '0')}
             </span>
-            <div className="flex-1 whitespace-pre">
+            <div className="flex-1 whitespace-pre overflow-hidden text-ellipsis">
               {renderLineContent(tokens, maxChars)}
               {isCurrentLine && (
                 <span className="inline-block w-1.5 h-3.5 bg-primary dark:bg-cyan-400 ml-0.5 -mb-0.5 animate-pulse rounded-xs" />
@@ -286,7 +626,16 @@ function LiveTypewriterPanel({ snippets, initialDelay = 0 }: { snippets: CodeSni
   );
 }
 
+/* =========================================================================
+   MAIN TECH BACKGROUND SYSTEM
+   ========================================================================= */
+
 export function TechBackground() {
+  const [activeCenterSnippet, setActiveCenterSnippet] = useState<CodeSnippet>(CENTER_ORCHESTRATOR_SNIPPETS[0]);
+  const [activeAiSnippet, setActiveAiSnippet] = useState<CodeSnippet>(AI_SNIPPETS[0]);
+  const [activeServerSnippet, setActiveServerSnippet] = useState<CodeSnippet>(SERVER_SNIPPETS[0]);
+  const [activeRustSnippet, setActiveRustSnippet] = useState<CodeSnippet>(RUST_SNIPPETS[0]);
+
   return (
     <div
       aria-hidden="true"
@@ -304,9 +653,10 @@ export function TechBackground() {
         
         {/* =========================================================================
             SECTOR 1: TOP-LEFT — LIVE TYPEWRITER CONSOLE (Python AI Core)
+            Speed: 36ms | Delay: 0ms | Hold: 3400ms
            ========================================================================= */}
         <div
-          className="absolute -left-10 sm:left-[1%] lg:left-[2%] xl:left-[3%] top-[6%] sm:top-[8%] lg:top-[9%] w-[270px] sm:w-[310px] md:w-[340px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.28] dark:opacity-[0.22] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-1"
+          className="absolute -left-10 sm:left-[1%] lg:left-[2%] xl:left-[3%] top-[6%] sm:top-[8%] lg:top-[9%] w-[270px] sm:w-[310px] md:w-[330px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.28] dark:opacity-[0.22] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-1"
         >
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/60 dark:bg-slate-800/40 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
@@ -317,16 +667,25 @@ export function TechBackground() {
                 ● Live AI Engine
               </span>
             </div>
-            <span className="text-[9.5px] text-slate-500 dark:text-slate-400 font-medium">astraiv.ai.py</span>
+            <span className="text-[9.5px] text-slate-500 dark:text-slate-400 font-medium">
+              {activeAiSnippet.filename}
+            </span>
           </div>
-          <LiveTypewriterPanel snippets={AI_SNIPPETS} initialDelay={0} />
+          <LiveTypewriterPanel
+            snippets={AI_SNIPPETS}
+            initialDelay={0}
+            typingSpeed={36}
+            lineDelay={240}
+            holdDelay={3400}
+            onSnippetChange={setActiveAiSnippet}
+          />
         </div>
 
         {/* =========================================================================
-            SECTOR 2: TOP-RIGHT — TELEMETRY METRICS PAYLOAD
+            SECTOR 2: TOP-RIGHT — TELEMETRY METRICS PAYLOAD (Static)
            ========================================================================= */}
         <div
-          className="absolute -right-10 sm:right-[1%] lg:right-[2%] xl:right-[3%] top-[7%] sm:top-[9%] lg:top-[11%] w-[260px] sm:w-[290px] md:w-[320px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.28] dark:opacity-[0.22] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-2"
+          className="absolute -right-10 sm:right-[1%] lg:right-[2%] xl:right-[3%] top-[7%] sm:top-[9%] lg:top-[11%] w-[260px] sm:w-[290px] md:w-[310px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.28] dark:opacity-[0.22] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-2"
         >
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/60 dark:bg-slate-800/40 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
@@ -361,7 +720,7 @@ export function TechBackground() {
             SECTOR 3: TOP-CENTER UPPER — LIVE TERMINAL EVENT LOG STREAM
            ========================================================================= */}
         <div
-          className="hidden xl:block absolute left-[36%] top-[6%] w-[330px] rounded-xl border border-slate-300/40 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 shadow-[0_4px_20px_rgba(15,23,42,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] opacity-[0.24] dark:opacity-[0.18] transition-opacity hover:opacity-65 dark:hover:opacity-55 duration-700 will-change-transform animate-ambient-drift-3"
+          className="hidden xl:block absolute left-[37%] top-[5%] w-[310px] rounded-xl border border-slate-300/40 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 shadow-[0_4px_20px_rgba(15,23,42,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] opacity-[0.24] dark:opacity-[0.18] transition-opacity hover:opacity-65 dark:hover:opacity-55 duration-700 will-change-transform animate-ambient-drift-3"
         >
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/50 dark:bg-slate-800/30 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
@@ -387,10 +746,10 @@ export function TechBackground() {
         </div>
 
         {/* =========================================================================
-            SECTOR 4: MID-LEFT — TYPESCRIPT ENTERPRISE AGENT INTERFACE
+            SECTOR 4: MID-LEFT — TYPESCRIPT ENTERPRISE AGENT INTERFACE (Static)
            ========================================================================= */}
         <div
-          className="hidden md:block absolute left-[1%] lg:left-[2.5%] xl:left-[4%] top-[34%] lg:top-[36%] w-[290px] lg:w-[330px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.26] dark:opacity-[0.20] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-4"
+          className="hidden md:block absolute left-[1%] lg:left-[2%] xl:left-[3%] top-[34%] lg:top-[36%] w-[280px] lg:w-[310px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.26] dark:opacity-[0.20] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-4"
         >
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/60 dark:bg-slate-800/40 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
@@ -411,9 +770,10 @@ export function TechBackground() {
 
         {/* =========================================================================
             SECTOR 5: MID-RIGHT — LIVE TYPEWRITER CONSOLE (Next.js 15 Server Actions)
+            Speed: 48ms | Delay: 1600ms | Hold: 4800ms
            ========================================================================= */}
         <div
-          className="hidden sm:block absolute right-[1%] lg:right-[2.5%] xl:right-[4%] top-[35%] lg:top-[38%] w-[280px] lg:w-[330px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.28] dark:opacity-[0.22] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-2"
+          className="hidden sm:block absolute right-[1%] lg:right-[2%] xl:right-[3%] top-[35%] lg:top-[38%] w-[270px] lg:w-[310px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.28] dark:opacity-[0.22] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-2"
         >
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/60 dark:bg-slate-800/40 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
@@ -423,16 +783,26 @@ export function TechBackground() {
                 ● Live Server Action
               </span>
             </div>
-            <span className="text-[9px] text-purple-700 dark:text-purple-400 font-semibold">&apos;use server&apos;</span>
+            <span className="text-[9px] text-purple-700 dark:text-purple-400 font-semibold">
+              {activeServerSnippet.filename}
+            </span>
           </div>
-          <LiveTypewriterPanel snippets={SERVER_SNIPPETS} initialDelay={1200} />
+          <LiveTypewriterPanel
+            snippets={SERVER_SNIPPETS}
+            initialDelay={1600}
+            typingSpeed={48}
+            lineDelay={320}
+            holdDelay={4800}
+            onSnippetChange={setActiveServerSnippet}
+          />
         </div>
 
         {/* =========================================================================
             SECTOR 6: BOTTOM-LEFT — LIVE TYPEWRITER CONSOLE (Rust Stream Engine)
+            Speed: 40ms | Delay: 3200ms | Hold: 5600ms
            ========================================================================= */}
         <div
-          className="hidden md:block absolute left-[1%] lg:left-[2%] xl:left-[3%] bottom-[8%] lg:bottom-[10%] w-[280px] lg:w-[330px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.26] dark:opacity-[0.20] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-3"
+          className="hidden md:block absolute left-[1%] lg:left-[2%] xl:left-[3%] bottom-[8%] lg:bottom-[10%] w-[270px] lg:w-[310px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.26] dark:opacity-[0.20] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-3"
         >
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/60 dark:bg-slate-800/40 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
@@ -440,16 +810,25 @@ export function TechBackground() {
                 ● Live Rust Engine
               </span>
             </div>
-            <span className="text-[9px] text-slate-500 font-medium">tokio::stream</span>
+            <span className="text-[9px] text-slate-500 font-medium">
+              {activeRustSnippet.filename}
+            </span>
           </div>
-          <LiveTypewriterPanel snippets={RUST_SNIPPETS} initialDelay={2400} />
+          <LiveTypewriterPanel
+            snippets={RUST_SNIPPETS}
+            initialDelay={3200}
+            typingSpeed={40}
+            lineDelay={200}
+            holdDelay={5600}
+            onSnippetChange={setActiveRustSnippet}
+          />
         </div>
 
         {/* =========================================================================
-            SECTOR 7: BOTTOM-RIGHT — KUBERNETES EDGE MESH YAML
+            SECTOR 7: BOTTOM-RIGHT — KUBERNETES EDGE MESH YAML (Static)
            ========================================================================= */}
         <div
-          className="hidden md:block absolute right-[1%] lg:right-[2%] xl:right-[3%] bottom-[9%] lg:bottom-[11%] w-[270px] lg:w-[310px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.26] dark:opacity-[0.20] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-4"
+          className="hidden md:block absolute right-[1%] lg:right-[2%] xl:right-[3%] bottom-[9%] lg:bottom-[11%] w-[260px] lg:w-[300px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.26] dark:opacity-[0.20] transition-opacity hover:opacity-70 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-4"
         >
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/60 dark:bg-slate-800/40 text-[10px] font-mono">
             <span className="px-1.5 py-0.5 rounded bg-amber-600/10 dark:bg-amber-400/10 text-amber-700 dark:text-amber-300 text-[9px] font-semibold">
@@ -467,10 +846,10 @@ export function TechBackground() {
         </div>
 
         {/* =========================================================================
-            SECTOR 8: BOTTOM-CENTER — PGVECTOR SEMANTIC RAG SQL
+            SECTOR 8: BOTTOM-CENTER — PGVECTOR SEMANTIC RAG SQL (Static)
            ========================================================================= */}
         <div
-          className="hidden lg:block absolute left-[37%] bottom-[5%] w-[310px] rounded-xl border border-slate-300/40 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 shadow-[0_4px_20px_rgba(15,23,42,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] opacity-[0.24] dark:opacity-[0.18] transition-opacity hover:opacity-65 dark:hover:opacity-55 duration-700 will-change-transform animate-ambient-drift-1"
+          className="hidden lg:block absolute left-[37%] bottom-[5%] w-[300px] rounded-xl border border-slate-300/40 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 shadow-[0_4px_20px_rgba(15,23,42,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] opacity-[0.24] dark:opacity-[0.18] transition-opacity hover:opacity-65 dark:hover:opacity-55 duration-700 will-change-transform animate-ambient-drift-1"
         >
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/50 dark:bg-slate-800/30 text-[10px] font-mono">
             <span className="px-1.5 py-0.5 rounded bg-violet-600/10 dark:bg-violet-400/10 text-violet-700 dark:text-violet-300 text-[9px] font-semibold">
@@ -486,38 +865,80 @@ export function TechBackground() {
         </div>
 
         {/* =========================================================================
-            MICRO-ELEMENTS: Floating Code Tokens, Syntax Badges & Digital Nodes
+            SECTOR 9: CENTER TILE — ASTRAIV ENTERPRISE LIVE CODING (Compact Width, Taller Proportion)
+            Speed: 32ms | Delay: 800ms | Hold: 4200ms | Fits between side tiles without overlapping
+           ========================================================================= */}
+        <div
+          className="hidden md:block absolute left-1/2 -translate-x-1/2 top-[22%] sm:top-[23%] lg:top-[24%] w-[360px] sm:w-[410px] md:w-[450px] lg:w-[480px] xl:w-[510px] rounded-xl border border-slate-300/45 dark:border-slate-700/30 bg-white/75 dark:bg-slate-900/60 shadow-[0_8px_30px_rgba(15,23,42,0.05)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.22)] opacity-[0.24] dark:opacity-[0.18] transition-opacity hover:opacity-75 dark:hover:opacity-65 duration-700 will-change-transform animate-ambient-drift-1"
+        >
+          {/* Header Bar */}
+          <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/60 dark:bg-slate-800/40 text-[10px] font-mono">
+            <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-500/60 dark:bg-rose-500/50" />
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/50" />
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/60 dark:bg-emerald-500/50" />
+              </div>
+              <span className="ml-1 px-1.5 py-0.5 rounded bg-primary/10 dark:bg-primary/20 text-primary dark:text-cyan-300 text-[9px] font-bold tracking-wide">
+                ● Astraiv Hub
+              </span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[9.5px] text-slate-500 dark:text-slate-400 font-medium">
+                {activeCenterSnippet.filename}
+              </span>
+              <span className="inline-flex items-center gap-1 text-[8.5px] text-emerald-700 dark:text-emerald-400 font-semibold px-1 py-0.5 rounded bg-emerald-500/10">
+                <span className="w-1 h-1 rounded-full bg-emerald-500 animate-ping" />
+                LIVE
+              </span>
+            </div>
+          </div>
+
+          {/* Live Typewriter Coding Body */}
+          <LiveTypewriterPanel
+            snippets={CENTER_ORCHESTRATOR_SNIPPETS}
+            initialDelay={800}
+            typingSpeed={32}
+            lineDelay={220}
+            holdDelay={4200}
+            fontSizeClass="text-[9.5px] sm:text-[10px] md:text-[10.5px] p-3 sm:p-3.5"
+            onSnippetChange={setActiveCenterSnippet}
+          />
+        </div>
+
+        {/* =========================================================================
+            MICRO-ELEMENTS: Floating Code Tokens (Adjusted positions to ensure 0 collisions)
            ========================================================================= */}
         {/* Token 1: Top-Left Corridor */}
-        <div className="absolute top-[22%] left-[12%] hidden sm:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-blue-700/80 dark:text-cyan-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-2">
+        <div className="absolute top-[24%] left-[6%] sm:left-[8%] hidden sm:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-blue-700/80 dark:text-cyan-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-2">
           <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
           <span>k8s.cluster.healthy</span>
         </div>
 
         {/* Token 2: Top-Right Corridor */}
-        <div className="absolute top-[24%] right-[14%] hidden sm:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-indigo-700/80 dark:text-indigo-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-1">
+        <div className="absolute top-[25%] right-[6%] sm:right-[8%] hidden sm:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-indigo-700/80 dark:text-indigo-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-1">
           <span className="text-indigo-600 dark:text-indigo-400 font-bold">λ</span>
           <span>distributed-edge: 0.8ms</span>
         </div>
 
-        {/* Token 3: Mid-Center Corridor */}
-        <div className="absolute top-[52%] left-[16%] hidden md:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-purple-700/80 dark:text-purple-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-3">
+        {/* Token 3: Mid-Left Corridor */}
+        <div className="absolute top-[52%] left-[13%] hidden md:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-purple-700/80 dark:text-purple-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-3">
           <span>Next.js 15 // Server Actions</span>
         </div>
 
         {/* Token 4: Mid-Right Corridor */}
-        <div className="absolute top-[54%] right-[16%] hidden md:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-emerald-700/80 dark:text-emerald-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-4">
+        <div className="absolute top-[54%] right-[13%] hidden md:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-emerald-700/80 dark:text-emerald-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-4">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
           <span>TLS 1.3 // AES-GCM-256</span>
         </div>
 
         {/* Token 5: Bottom-Left Corridor */}
-        <div className="absolute top-[75%] left-[14%] hidden lg:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-amber-700/80 dark:text-amber-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-2">
+        <div className="absolute top-[75%] left-[12%] hidden lg:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-amber-700/80 dark:text-amber-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-2">
           <span>Prisma 6 // Postgres Pool</span>
         </div>
 
         {/* Token 6: Bottom-Right Corridor */}
-        <div className="absolute top-[78%] right-[15%] hidden md:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-slate-800/80 dark:text-slate-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-1">
+        <div className="absolute top-[78%] right-[13%] hidden md:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-slate-800/80 dark:text-slate-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-1">
           <span>0x7F4B92C...SYN/ACK</span>
         </div>
 
