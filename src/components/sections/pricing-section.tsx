@@ -18,7 +18,8 @@ export function PricingSection() {
         'SEO & Performance Tuning',
         'Standard Contact Integrations',
         '2 rounds of layout revisions',
-        'Email Support',
+        'Production Deployment & CI/CD',
+        'Dedicated Email Support',
       ],
       buttonText: 'Start Building',
     },
@@ -54,7 +55,7 @@ export function PricingSection() {
   ];
 
   return (
-    <section id="pricing" className="py-20 md:py-28 px-6 bg-slate-50/50 dark:bg-slate-900/10 border-y border-border/20 relative">
+    <section id="pricing" className="py-20 md:py-28 px-6 bg-transparent border-y border-border/20 relative">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           badge="Pricing"
@@ -69,7 +70,7 @@ export function PricingSection() {
           </span>
           <button
             onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'yearly' : 'monthly')}
-            className="w-14 h-8 bg-slate-200 dark:bg-slate-800 rounded-full p-1 transition-colors duration-300 relative focus:outline-hidden"
+            className="w-14 h-8 bg-slate-200/80 dark:bg-slate-800/80 backdrop-blur-xs rounded-full p-1 transition-colors duration-300 relative focus:outline-hidden cursor-pointer"
           >
             <motion.div
               layout
@@ -88,7 +89,7 @@ export function PricingSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 max-w-6xl mx-auto items-stretch">
           {plans.map((plan, index) => (
             <motion.div
               key={index}
@@ -96,6 +97,7 @@ export function PricingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: index * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
+              className="h-full flex flex-col"
             >
               <PricingCard
                 name={plan.name}

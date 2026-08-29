@@ -40,38 +40,54 @@ export function Navbar() {
   }, [showDropdown]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+    let ticking = false;
+    const sectionIds = ['services', 'why-us', 'industries', 'process', 'case-studies', 'testimonials', 'pricing', 'contact', 'technologies', 'ai-expertise'];
+
+    const updateScrollState = () => {
+      const isScrolled = window.scrollY > 20;
+      setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
 
       // Scroll spy logic
-      const sectionIds = ['services', 'why-us', 'industries', 'process', 'case-studies', 'testimonials', 'pricing', 'contact', 'technologies', 'ai-expertise'];
       let currentSection = '';
-
-      for (const id of sectionIds) {
-        const el = document.getElementById(id);
+      for (let i = 0; i < sectionIds.length; i++) {
+        const el = document.getElementById(sectionIds[i]);
         if (el) {
           const rect = el.getBoundingClientRect();
           if (rect.top <= 180 && rect.bottom > 180) {
-            currentSection = id;
+            currentSection = sectionIds[i];
             break;
           }
         }
       }
-      setActiveSection(currentSection);
+      setActiveSection((prev) => (prev !== currentSection ? currentSection : prev));
+      ticking = false;
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // initial load calculation
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateScrollState);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    updateScrollState(); // initial load calculation
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
     { label: tNav('services'), href: '/#services' },
-    { label: tNav('whyUs'), href: '/#why-us' },
+    { 
+      label: tNav('whyUs'), 
+      href: '/#why-us',
+      dropdownItems: [
+        { label: tNav('whyUs'), href: '/#why-us' },
+        { label: tNav('blog'), href: '/blog' }
+      ]
+    },
     { label: tNav('industries'), href: '/#industries' },
     { label: tNav('process'), href: '/#process' },
-    { label: tNav('blog'), href: '/blog' },
     { 
       label: tNav('portfolio'), 
       href: '/portfolio',
@@ -116,9 +132,9 @@ export function Navbar() {
             height={35}
             className="rounded-full object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/10 group-hover:ring-primary/30"
           />
-          <div className="flex flex-col items-start leading-[1.05]">
-            <span className="font-heading font-extrabold text-xl tracking-wider bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">ASTRAIV</span>
-            <span className="text-[8px] uppercase tracking-[0.28em] font-black text-black dark:text-white dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.85)] mt-0.5">TECHNOLOGIES</span>
+          <div className="flex flex-col items-start leading-tight">
+            <span className="font-heading font-extrabold text-xl tracking-wider bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent pb-0.5">ASTRAIV</span>
+            <span className="text-[8px] uppercase tracking-[0.28em] font-black text-black dark:text-white dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.85)]">TECHNOLOGIES</span>
           </div>
         </Link>
 
@@ -126,10 +142,23 @@ export function Navbar() {
         <nav className="hidden lg:flex items-center gap-8 h-full">
           {navLinks.map((link) => {
             const sectionId = link.href.split('#')[1] || '';
-            const isActive = sectionId 
-              ? activeSection === sectionId 
-              : pathname === link.href || (link.dropdownItems && link.dropdownItems.some(item => pathname === item.href.split('#')[0]));
+            const linkPath = link.href.split('#')[0] || '/';
             const hasDropdown = !!link.dropdownItems;
+
+            const isDropdownItemActive = link.dropdownItems?.some(item => {
+              const itemPath = item.href.split('#')[0] || '/';
+              const itemHash = item.href.split('#')[1] || '';
+              if (itemHash) {
+                return (pathname === itemPath || (itemPath === '/' && pathname === '/')) && activeSection === itemHash;
+              }
+              return pathname === itemPath && itemPath !== '/';
+            });
+
+            const isActive = isDropdownItemActive || (
+              sectionId 
+                ? ((pathname === '/' || pathname === '') && activeSection === sectionId)
+                : pathname === link.href
+            );
 
             return (
               <div
@@ -175,22 +204,25 @@ export function Navbar() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 10, scale: 0.95 }}
                         transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="absolute top-[80%] left-1/2 -translate-x-1/2 mt-1 w-52 rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-white/95 dark:bg-slate-950/90 backdrop-blur-xl p-2.5 shadow-xl dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.7)] z-50 text-xs flex flex-col gap-1.5"
+                        className="absolute top-[80%] left-1/2 -translate-x-1/2 mt-1 w-52 rounded-xl border border-slate-200/90 dark:border-slate-800/80 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl p-2.5 shadow-xl dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.7)] z-50 text-xs flex flex-col gap-1.5"
                       >
                         {link.dropdownItems?.map((item) => {
-                          const itemPath = item.href.split('#')[0];
+                          const itemPath = item.href.split('#')[0] || '/';
                           const itemHash = item.href.split('#')[1] || '';
-                          const isItemActive = pathname === itemPath && (itemHash ? activeSection === itemHash : true);
+                          const isItemActive = itemHash 
+                            ? ((pathname === itemPath || (itemPath === '/' && pathname === '')) && activeSection === itemHash)
+                            : (pathname === itemPath && itemPath !== '/');
 
                           return (
                             <Link
                               key={item.href}
                               href={item.href}
+                              onClick={() => setHoveredLink(null)}
                               className={cn(
                                 "w-full text-left px-3.5 py-2 rounded-lg transition-all duration-200 flex items-center justify-between text-[11px] font-bold tracking-wide select-none active:scale-98",
                                 isItemActive
                                   ? "bg-primary/10 dark:bg-accent/15 text-primary dark:text-accent font-extrabold shadow-[inset_0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-none"
-                                  : "text-slate-700 dark:text-slate-300 hover:bg-slate-50/80 dark:hover:bg-slate-900/50 hover:text-slate-900 dark:hover:text-white"
+                                  : "text-slate-700 dark:text-slate-300 hover:bg-slate-100/90 dark:hover:bg-slate-900/80 hover:text-slate-900 dark:hover:text-white"
                               )}
                             >
                               <span>{item.label}</span>

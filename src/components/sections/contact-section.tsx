@@ -34,37 +34,13 @@ export function ContactSection() {
 
   return (
     <section id="contact" className="py-12 md:py-24 px-6 relative w-full overflow-hidden">
-      {/* Dynamic Animated Background Blobs */}
-      <motion.div
-        className="absolute top-[-10%] left-[-10%] w-[450px] h-[450px] bg-primary/10 rounded-full blur-[100px] pointer-events-none z-0"
-        animate={{
-          x: [0, 25, -15, 0],
-          y: [0, -25, 20, 0],
-          scale: [1, 1.05, 0.95, 1],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
+      {/* Dynamic Animated Background Blobs (GPU Composited) */}
+      <div
+        className="absolute top-[-10%] left-[-10%] w-[450px] h-[450px] bg-primary/10 rounded-full blur-[100px] pointer-events-none z-0 animate-blob-1"
       />
-      <motion.div
-        className="absolute bottom-[-10%] right-[-10%] w-[450px] h-[450px] bg-secondary/10 rounded-full blur-[110px] pointer-events-none z-0"
-        animate={{
-          x: [0, -20, 30, 0],
-          y: [0, 30, -15, 0],
-          scale: [1, 0.95, 1.05, 1],
-        }}
-        transition={{
-          duration: 14,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 0.5,
-        }}
+      <div
+        className="absolute bottom-[-10%] right-[-10%] w-[450px] h-[450px] bg-secondary/10 rounded-full blur-[110px] pointer-events-none z-0 animate-blob-2"
       />
-
-      {/* Modern Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808007_1px,transparent_1px),linear-gradient(to_bottom,#80808007_1px,transparent_1px)] bg-[size:24px_36px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_40%,#000_80%,transparent_100%)] pointer-events-none z-0" />
 
       <motion.div 
         variants={containerVariants}
@@ -77,7 +53,7 @@ export function ContactSection() {
           <span className="inline-flex self-start px-3.5 py-1.5 text-xs font-bold tracking-wider text-primary bg-primary/10 rounded-full border border-primary/20 dark:bg-primary/20 dark:text-primary-foreground uppercase w-fit select-none">
             Get in Touch
           </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight font-heading leading-tight bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer">
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight font-heading leading-tight bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer pb-1">
             {t('ctaTitle')}
           </h2>
           <p className="text-base md:text-[18px] text-muted-foreground leading-relaxed max-w-xl font-medium">

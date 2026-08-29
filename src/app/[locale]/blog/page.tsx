@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { db } from '@/db/prisma';
+import { getBlogPosts, getBlogCategories } from '@/lib/blog-data';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { BlogList } from '@/components/sections/blog-list';
@@ -34,25 +34,11 @@ export default async function BlogPage({ params }: BlogPageProps) {
   // Set the request locale for server-side localized rendering
   setRequestLocale(locale);
 
-  // Fetch published blog posts from the database
-  const posts = await db.blogPost.findMany({
-    where: { published: true },
-    include: {
-      category: true,
-      author: {
-        select: {
-          name: true,
-          image: true,
-        },
-      },
-    },
-    orderBy: { createdAt: 'desc' },
-  });
-
-  // Fetch all categories
-  const categories = await db.blogCategory.findMany({
-    orderBy: { name: 'asc' },
-  });
+  // Fetch published blog posts and categories safely
+  const [posts, categories] = await Promise.all([
+    getBlogPosts(),
+    getBlogCategories(),
+  ]);
 
   const t = await getTranslations('Blog');
 
