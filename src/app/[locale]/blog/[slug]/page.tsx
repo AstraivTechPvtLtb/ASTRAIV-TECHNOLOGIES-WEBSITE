@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { db } from '@/db/prisma';
+import { getBlogPostBySlug, getRelatedBlogPosts } from '@/lib/blog-data';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { CircuitBackground } from '@/components/sections/circuit-background';
@@ -19,9 +19,7 @@ interface BlogDetailPageProps {
 
 export async function generateMetadata({ params }: BlogDetailPageProps) {
   const { slug } = await params;
-  const post = await db.blogPost.findFirst({
-    where: { slug, published: true },
-  });
+  const post = await getBlogPostBySlug(slug);
 
   if (!post) {
     return {
@@ -45,43 +43,15 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 
   setRequestLocale(locale);
 
-  // Fetch the blog post
-  const post = await db.blogPost.findFirst({
-    where: { slug, published: true },
-    include: {
-      category: true,
-      author: {
-        select: {
-          name: true,
-          image: true,
-        },
-      },
-    },
-  });
+  // Fetch the blog post safely
+  const post = await getBlogPostBySlug(slug);
 
   if (!post) {
     notFound();
   }
 
-  // Fetch related posts (same category, different id)
-  const relatedPosts = await db.blogPost.findMany({
-    where: {
-      published: true,
-      categoryId: post.categoryId,
-      NOT: { id: post.id },
-    },
-    take: 3,
-    include: {
-      category: true,
-      author: {
-        select: {
-          name: true,
-          image: true,
-        },
-      },
-    },
-    orderBy: { createdAt: 'desc' },
-  });
+  // Fetch related posts safely
+  const relatedPosts = await getRelatedBlogPosts(post.categoryId, post.id);
 
   const t = await getTranslations('Blog');
 
@@ -109,7 +79,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
           </div>
 
           {/* Title */}
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mt-4 mb-6 leading-tight">
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mt-4 mb-6 leading-tight pb-1">
             {post.title}
           </h1>
 

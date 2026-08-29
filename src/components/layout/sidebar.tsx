@@ -103,9 +103,9 @@ export function Sidebar({
             className="rounded-full object-cover shrink-0"
           />
           {!collapsed && (
-            <div className="flex flex-col min-w-0 leading-[1.05]">
-              <span className="font-extrabold text-sm tracking-wider text-foreground">ASTRAIV</span>
-              <span className="text-[7px] uppercase tracking-[0.25em] font-black text-black dark:text-white dark:drop-shadow-[0_0_4px_rgba(255,255,255,0.85)] mt-0.5">TECHNOLOGIES</span>
+            <div className="flex flex-col min-w-0 leading-tight">
+              <span className="font-extrabold text-sm tracking-wider text-foreground pb-0.5">ASTRAIV</span>
+              <span className="text-[7px] uppercase tracking-[0.25em] font-black text-black dark:text-white dark:drop-shadow-[0_0_4px_rgba(255,255,255,0.85)]">TECHNOLOGIES</span>
             </div>
           )}
         </Link>

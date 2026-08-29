@@ -38,7 +38,7 @@ export default async function TechnologyPage({ params }: TechnologyPageProps) {
           <span className="inline-flex self-center px-3.5 py-1 text-xs font-semibold tracking-wider text-primary bg-primary/10 rounded-full border border-primary/20 dark:bg-primary/20 dark:text-primary-foreground uppercase w-fit animate-fade-in">
             {t('badge')}
           </span>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-transparent bg-gradient-to-br from-foreground via-foreground/90 to-foreground/75 bg-clip-text leading-tight md:leading-normal">
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-transparent bg-gradient-to-br from-foreground via-foreground/90 to-foreground/75 bg-clip-text leading-tight md:leading-normal pb-1">
             {t('title')}
           </h1>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto font-semibold">

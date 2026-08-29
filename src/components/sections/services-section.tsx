@@ -119,7 +119,7 @@ export function ServicesSection() {
   };
 
   return (
-    <section id="services" className="py-20 md:py-28 px-6 bg-background relative overflow-hidden">
+    <section id="services" className="py-20 md:py-28 px-6 bg-transparent relative overflow-hidden">
       {/* Decorative Light Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[160px] pointer-events-none" />
 
@@ -135,10 +135,10 @@ export function ServicesSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-16"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-16 items-stretch"
         >
           {services.map((service, index) => (
-            <motion.div key={index} variants={cardVariants}>
+            <motion.div key={index} variants={cardVariants} className="h-full flex flex-col">
               <ServiceCard
                 icon={service.icon}
                 title={service.title}

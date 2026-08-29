@@ -39,7 +39,7 @@ export function ProcessSection() {
   ];
 
   return (
-    <section id="process" className="py-20 md:py-28 px-6 bg-slate-50/50 dark:bg-slate-900/10 border-y border-border/20 relative">
+    <section id="process" className="py-20 md:py-28 px-6 bg-transparent border-y border-border/20 relative">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           badge="Development Process"
@@ -69,7 +69,7 @@ export function ProcessSection() {
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.5 }}
-                  className="absolute left-[39px] md:left-1/2 top-2 h-10 w-10 rounded-full bg-card border-2 border-primary flex items-center justify-center -translate-x-1/2 z-10 shadow-xs"
+                  className="absolute left-[39px] md:left-1/2 top-2 h-10 w-10 rounded-full bg-card/90 dark:bg-slate-900/90 backdrop-blur-sm border-2 border-primary flex items-center justify-center -translate-x-1/2 z-10 shadow-xs"
                 >
                   <span className="text-xs font-extrabold text-primary">{step.num}</span>
                 </motion.div>
@@ -83,7 +83,7 @@ export function ProcessSection() {
                   whileHover={{ scale: 1.01 }}
                   className="w-full md:w-1/2 pl-16 md:pl-0 md:px-8 text-left"
                 >
-                  <div className="p-8 bg-card border border-border/40 rounded-[20px] shadow-sm hover:shadow-[0_15px_40px_-15px_rgba(11,61,145,0.05)] hover:border-primary/10 transition-all duration-300">
+                  <div className="p-8 bg-card/85 dark:bg-slate-900/85 backdrop-blur-xl border border-border/50 rounded-[20px] shadow-sm hover:shadow-[0_15px_40px_-15px_rgba(11,61,145,0.05)] hover:border-primary/30 dark:hover:border-accent/30 transition-all duration-300">
                     <span className="text-[10px] font-extrabold uppercase tracking-wider text-secondary">
                       Stage {step.num}
                     </span>
