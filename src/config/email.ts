@@ -5,9 +5,9 @@
 
 export const emailConfig = {
   apiKey: process.env.RESEND_API_KEY || '',
-  defaultFrom: 'Astraiv Technologies <noreply@astraiv.com>',
-  supportEmail: 'support@astraiv.com',
-  infoEmail: 'info@astraiv.com',
+  defaultFrom: 'Astraiv Technologies <noreply@astraivtechnologies.com>',
+  supportEmail: 'support@astraivtechnologies.com',
+  infoEmail: 'info@astraivtechnologies.com',
   
   // Standard transactional template IDs or configurations
   templates: {

@@ -23,11 +23,11 @@ export const metadata: Metadata = {
     template: '%s | Astraiv Technologies',
   },
   description: 'Enterprise-grade website development, cloud infrastructure, AI solutions, and business automation built with clean architecture.',
-  metadataBase: new URL('https://astraiv.com'),
+  metadataBase: new URL('https://www.astraivtechnologies.com'),
   openGraph: {
     title: 'Astraiv Technologies',
     description: 'Enterprise-grade IT Solutions & SaaS platform built for performance.',
-    url: 'https://astraiv.com',
+    url: 'https://www.astraivtechnologies.com',
     siteName: 'Astraiv Technologies',
     locale: 'en_US',
     type: 'website',

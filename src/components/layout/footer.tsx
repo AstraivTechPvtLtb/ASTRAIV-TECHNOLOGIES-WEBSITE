@@ -85,11 +85,10 @@ export function Footer() {
         <div className="flex flex-col gap-4 text-left">
           <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">Contacts</h4>
           <p className="text-sm text-slate-400">
-            100 Pine Street<br />
-            San Francisco, CA 94111
+            Ashoknagar, Kolkata
           </p>
-          <a href="mailto:info@astraiv.com" className="text-sm font-semibold text-accent hover:underline">
-            info@astraiv.com
+          <a href="mailto:info@astraivtechnologies.com" className="text-sm font-semibold text-accent hover:underline">
+            info@astraivtechnologies.com
           </a>
         </div>
       </div>

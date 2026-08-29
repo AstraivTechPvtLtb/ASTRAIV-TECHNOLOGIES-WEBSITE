@@ -87,7 +87,7 @@ export function ContactSection() {
           <div className="flex flex-col gap-6 mt-6">
             {/* Email link */}
             <a 
-              href="mailto:info@astraiv.com" 
+              href="mailto:info@astraivtechnologies.com" 
               className="flex items-center gap-4 text-foreground/80 hover:text-primary transition-colors duration-300 group w-fit"
             >
               <div className="h-12 w-12 flex items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20 group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-105 transition-all duration-300 shrink-0 shadow-xs dark:group-hover:shadow-[0_0_15px_rgba(91,95,239,0.3)]">
@@ -95,7 +95,7 @@ export function ContactSection() {
               </div>
               <div className="flex flex-col">
                 <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider">Email Us</span>
-                <span className="text-sm font-bold">info@astraiv.com</span>
+                <span className="text-sm font-bold">info@astraivtechnologies.com</span>
               </div>
             </a>
 
@@ -115,7 +115,7 @@ export function ContactSection() {
 
             {/* Address / Maps link */}
             <a 
-              href="https://maps.google.com/?q=100+Pine+Street,+San+Francisco,+CA+94111"
+              href="https://maps.google.com/?q=Ashoknagar,+Kolkata"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-4 text-foreground/80 hover:text-primary transition-colors duration-300 group w-fit"
@@ -126,7 +126,7 @@ export function ContactSection() {
               <div className="flex flex-col">
                 <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider">Our Office</span>
                 <span className="text-sm font-semibold max-w-xs leading-normal">
-                  100 Pine Street, San Francisco, CA 94111
+                  Ashoknagar, Kolkata
                 </span>
               </div>
             </a>

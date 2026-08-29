@@ -73,7 +73,7 @@ export function ContactForm() {
 
       {submitSuccess === false && (
         <div className="p-4 mb-6 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm font-medium">
-          Something went wrong. Please try again or email us directly at info@astraiv.com.
+          Something went wrong. Please try again or email us directly at info@astraivtechnologies.com.
         </div>
       )}
 
