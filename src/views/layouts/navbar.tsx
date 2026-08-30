@@ -347,29 +347,61 @@ export function Navbar() {
 
                   <div className="border-t border-slate-200 dark:border-slate-800 my-0.5" />
 
-                  {/* Theme Selector */}
-                  <button
+                  {/* Theme Toggle Slider Section */}
+                  <div
                     onClick={(e) => {
                       e.stopPropagation();
                       setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
                     }}
-                    className="w-full text-left px-3 py-2 rounded-[4px] font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors flex items-center justify-between cursor-pointer text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs select-none active:scale-[0.99]"
+                    className="w-full text-left px-3 py-2 rounded-[4px] font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors flex items-center justify-between cursor-pointer text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs select-none group"
+                    role="button"
+                    tabIndex={0}
+                    aria-label="Toggle theme"
                   >
-                    <span>Theme</span>
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-black flex items-center gap-1.5">
-                      {mounted && resolvedTheme === 'dark' ? (
-                        <>
-                          <span>Dark</span>
-                          <Moon className="h-3.5 w-3.5 text-primary" />
-                        </>
-                      ) : (
-                        <>
-                          <span>Light</span>
-                          <Sun className="h-3.5 w-3.5 text-accent" />
-                        </>
+                    <div className="flex items-center gap-1.5">
+                      <span>Theme</span>
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">
+                        {mounted ? (resolvedTheme === 'dark' ? 'Dark' : 'Light') : ''}
+                      </span>
+                    </div>
+
+                    {/* Smooth sliding toggle button */}
+                    <div
+                      className={cn(
+                        "relative w-10 h-5.5 rounded-full p-0.5 transition-colors duration-300 flex items-center border cursor-pointer",
+                        mounted && resolvedTheme === 'dark'
+                          ? "bg-slate-800/90 border-slate-700 shadow-inner"
+                          : "bg-slate-200/90 border-slate-300 shadow-inner"
                       )}
-                    </span>
-                  </button>
+                    >
+                      {/* Background track icons */}
+                      <div className="absolute inset-0 flex items-center justify-between px-1 pointer-events-none">
+                        <Sun className="h-2.5 w-2.5 text-amber-500/50" />
+                        <Moon className="h-2.5 w-2.5 text-cyan-400/50" />
+                      </div>
+
+                      {/* Sliding thumb */}
+                      <motion.div
+                        className="relative z-10 w-4.5 h-4.5 rounded-full bg-white dark:bg-slate-950 shadow-xs flex items-center justify-center border border-slate-200/80 dark:border-cyan-500/40"
+                        animate={{
+                          x: mounted && resolvedTheme === 'dark' ? 18 : 0,
+                        }}
+                        transition={{
+                          type: 'spring',
+                          stiffness: 500,
+                          damping: 32,
+                        }}
+                      >
+                        {mounted && (
+                          resolvedTheme === 'dark' ? (
+                            <Moon className="h-2.5 w-2.5 text-cyan-400" />
+                          ) : (
+                            <Sun className="h-2.5 w-2.5 text-amber-500" />
+                          )
+                        )}
+                      </motion.div>
+                    </div>
+                  </div>
 
                   <div className="border-t border-slate-200 dark:border-slate-800 my-0.5" />
 
