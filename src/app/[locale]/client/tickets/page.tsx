@@ -1,9 +1,10 @@
-import { auth, db } from '@/models';
-import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { getCurrentUserSession, getClientTickets } from '@/controllers';
 import { DashboardLayout } from '@/views/layouts/dashboard-layout';
 import { DashboardRole } from '@/views/layouts/sidebar';
 import { TicketsView } from '@/views/portal/tickets-view';
+
+export const dynamic = 'force-dynamic';
 
 interface ClientTicketsPageProps {
   params: Promise<{ locale: string }>;
@@ -11,42 +12,21 @@ interface ClientTicketsPageProps {
 
 export default async function ClientTicketsPage({ params }: ClientTicketsPageProps) {
   const { locale } = await params;
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  
+  // Obtain current session via Auth Controller
+  const user = await getCurrentUserSession();
 
-  if (!session) {
+  if (!user) {
     redirect(`/${locale}/auth/login`);
   }
-
-  const user = session.user;
 
   // Protect client route - only client and admin profiles are allowed
   if (user.role !== 'CLIENT' && user.role !== 'ADMIN' && user.role !== 'PROJECT_MANAGER') {
     redirect(`/${locale}/dashboard`);
   }
 
-  // Fetch client tickets or all tickets for admin
-  const tickets = await db.clientTicket.findMany({
-    where: user.role === 'CLIENT' ? { clientId: user.id } : {},
-    include: {
-      client: {
-        select: {
-          id: true,
-          name: true,
-          email: true,
-        },
-      },
-      assignedTo: {
-        select: {
-          id: true,
-          name: true,
-          image: true,
-        },
-      },
-    },
-    orderBy: { updatedAt: 'desc' },
-  });
+  // Fetch client tickets via Tickets Controller
+  const tickets = await getClientTickets(user);
 
   const breadcrumbs = [
     { label: 'Dashboard', href: '/dashboard' },

@@ -1,7 +1,6 @@
-import { auth, db } from '@/models';
-import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
+import { getCurrentUserSession, getClientProjects } from '@/controllers';
 import { DashboardLayout } from '@/views/layouts/dashboard-layout';
 import { DashboardRole } from '@/views/layouts/sidebar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/views/ui/card';
@@ -9,33 +8,29 @@ import { Briefcase, Calendar, DollarSign, UserCheck } from 'lucide-react';
 import { formatCurrency, formatDate } from '@/utils';
 import { cn } from '@/lib/utils';
 
+export const dynamic = 'force-dynamic';
+
 interface ClientProjectsPageProps {
   params: Promise<{ locale: string }>;
 }
 
 export default async function ClientProjectsPage({ params }: ClientProjectsPageProps) {
   const { locale } = await params;
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  
+  // Obtain current session via Auth Controller
+  const user = await getCurrentUserSession();
 
-  if (!session) {
+  if (!user) {
     redirect(`/${locale}/auth/login`);
   }
 
-  const user = session.user;
-
   // Protect client route
-  if (user.role !== 'CLIENT' && user.role !== 'ADMIN') {
+  if (user.role !== 'CLIENT' && user.role !== 'ADMIN' && user.role !== 'PROJECT_MANAGER') {
     redirect(`/${locale}/dashboard`);
   }
 
-  // Fetch client projects
-  const projects = await db.project.findMany({
-    where: user.role === 'ADMIN' ? {} : { clientId: user.id },
-    include: { manager: true },
-    orderBy: { updatedAt: 'desc' },
-  });
+  // Fetch client projects via Projects Controller
+  const projects = await getClientProjects(user);
 
   const getStatusBadgeClass = (status: string) => {
     switch (status) {

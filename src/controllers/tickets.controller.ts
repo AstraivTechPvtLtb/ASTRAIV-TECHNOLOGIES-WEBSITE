@@ -116,3 +116,66 @@ export async function createTicketAction(data: {
   }
 }
 
+export interface TicketWithRelations {
+  id: string;
+  subject: string;
+  description: string;
+  status: string;
+  priority: string;
+  clientId: string;
+  assignedToId?: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+  client?: {
+    id: string;
+    name: string;
+    email: string;
+  } | null;
+  assignedTo?: {
+    id: string;
+    name: string;
+    image?: string | null;
+  } | null;
+}
+
+/**
+ * Retrieves support tickets based on the user's role and identity.
+ */
+export async function getClientTickets(user: { id: string; role: string }): Promise<TicketWithRelations[]> {
+  try {
+    const isClient = user.role === 'CLIENT';
+    const isProjectManager = user.role === 'PROJECT_MANAGER';
+
+    let whereClause = {};
+    if (isClient) {
+      whereClause = { clientId: user.id };
+    } else if (isProjectManager) {
+      whereClause = { assignedToId: user.id };
+    }
+
+    return await db.clientTicket.findMany({
+      where: whereClause,
+      include: {
+        client: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+        assignedTo: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
+      },
+      orderBy: { updatedAt: 'desc' },
+    });
+  } catch (err: unknown) {
+    console.error('[Get Client Tickets Error]:', err);
+    return [];
+  }
+}
+
