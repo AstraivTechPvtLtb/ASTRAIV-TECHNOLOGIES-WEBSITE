@@ -420,6 +420,7 @@ export function Navbar() {
 
                       {/* Sliding thumb */}
                       <motion.div
+                        initial={false}
                         className="relative z-10 w-4.5 h-4.5 rounded-full bg-white dark:bg-slate-950 shadow-xs flex items-center justify-center border border-slate-200/80 dark:border-cyan-500/40"
                         animate={{
                           x: mounted && resolvedTheme === 'dark' ? 18 : 0,
