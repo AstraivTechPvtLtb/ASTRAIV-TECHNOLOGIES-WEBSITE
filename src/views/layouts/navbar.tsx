@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Sun, Moon, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import { Link, usePathname, useRouter } from '@/i18n/routing';
@@ -23,6 +23,7 @@ export function Navbar() {
   const { resolvedTheme, setTheme } = useTheme();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLangMenu, setShowLangMenu] = useState(false);
+  const optionsDropdownRef = useRef<HTMLDivElement>(null);
   const locale = useLocale();
 
   useEffect(() => {
@@ -31,12 +32,14 @@ export function Navbar() {
 
   useEffect(() => {
     if (!showDropdown) return;
-    const closeDropdown = () => {
-      setShowDropdown(false);
-      setShowLangMenu(false);
+    const handleClickOutside = (event: MouseEvent) => {
+      if (optionsDropdownRef.current && !optionsDropdownRef.current.contains(event.target as Node)) {
+        setShowDropdown(false);
+        setShowLangMenu(false);
+      }
     };
-    document.addEventListener('click', closeDropdown);
-    return () => document.removeEventListener('click', closeDropdown);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [showDropdown]);
 
   useEffect(() => {
@@ -216,7 +219,6 @@ export function Navbar() {
                             <Link
                               key={item.href}
                               href={item.href}
-                              onClick={() => setHoveredLink(null)}
                               className={cn(
                                 "w-full text-left px-3 py-2 rounded-[4px] transition-colors duration-150 flex items-center justify-between text-xs font-semibold tracking-wide select-none active:scale-[0.99]",
                                 isItemActive
@@ -262,12 +264,16 @@ export function Navbar() {
           </Link>
 
           {/* Custom Options Dropdown ("three lines") */}
-          <div className="relative h-full flex items-center">
+          <div
+            ref={optionsDropdownRef}
+            className="relative h-full flex items-center"
+            onMouseLeave={() => {
+              setShowDropdown(false);
+              setShowLangMenu(false);
+            }}
+          >
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowDropdown(!showDropdown);
-              }}
+              onClick={() => setShowDropdown((prev) => !prev)}
               className="text-muted-foreground hover:text-foreground cursor-pointer rounded-full h-7.5 w-7.5 hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 transition-colors select-none active:scale-95"
               aria-label="More Options"
             >
