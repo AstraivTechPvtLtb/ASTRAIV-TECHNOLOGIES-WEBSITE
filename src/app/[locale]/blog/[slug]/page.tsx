@@ -55,7 +55,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   const t = await getTranslations('Blog');
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-primary selection:text-white flex flex-col justify-between relative overflow-hidden">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground flex flex-col justify-between relative overflow-hidden">
       <CircuitBackground />
       <Navbar />
 
