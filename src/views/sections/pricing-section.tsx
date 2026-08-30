@@ -158,7 +158,10 @@ export function PricingSection() {
         <div className="flex flex-col items-center justify-center gap-5 mt-10 mb-8">
           
           {/* Custom Region / Currency selector badge (No native select flicker or text clipping) */}
-          <div className="relative" ref={dropdownRef}>
+          <div
+            className="relative"
+            ref={dropdownRef}
+          >
             <button
               type="button"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
