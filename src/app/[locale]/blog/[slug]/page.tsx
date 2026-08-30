@@ -1,7 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getBlogPostBySlug, getRelatedBlogPosts } from '@/controllers/blog.controller';
 import { Navbar, Footer } from '@/views';
-import { CircuitBackground } from '@/views/sections/circuit-background';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
@@ -56,7 +55,6 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground flex flex-col justify-between relative overflow-hidden">
-      <CircuitBackground />
       <Navbar />
 
       <main className="pt-28 flex-grow z-10 relative">
