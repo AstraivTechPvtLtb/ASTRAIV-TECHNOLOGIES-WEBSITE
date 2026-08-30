@@ -1,15 +1,14 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { getBlogPostBySlug, getRelatedBlogPosts } from '@/lib/blog-data';
-import { Navbar } from '@/components/layout/navbar';
-import { Footer } from '@/components/layout/footer';
-import { CircuitBackground } from '@/components/sections/circuit-background';
+import { getBlogPostBySlug, getRelatedBlogPosts } from '@/controllers/blog.controller';
+import { Navbar, Footer } from '@/views';
+import { CircuitBackground } from '@/views/sections/circuit-background';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { ArrowLeft, Clock, Calendar, User } from 'lucide-react';
 import { formatDate } from '@/utils';
-import { BlogCard } from '@/components/sections/blog-card';
+import { BlogCard } from '@/views/sections/blog-card';
 
 export const dynamic = 'force-dynamic';
 

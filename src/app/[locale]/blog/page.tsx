@@ -1,10 +1,8 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { getBlogPosts, getBlogCategories } from '@/lib/blog-data';
-import { Navbar } from '@/components/layout/navbar';
-import { Footer } from '@/components/layout/footer';
-import { BlogList } from '@/components/sections/blog-list';
-import { CircuitBackground } from '@/components/sections/circuit-background';
-import { SectionHeader } from '@/components/sections/section-header';
+import { getBlogPosts, getBlogCategories } from '@/controllers/blog.controller';
+import { Navbar, Footer, BlogList } from '@/views';
+import { CircuitBackground } from '@/views/sections/circuit-background';
+import { SectionHeader } from '@/views/sections/section-header';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 

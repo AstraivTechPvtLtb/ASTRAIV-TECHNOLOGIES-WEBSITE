@@ -1,14 +1,16 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Navbar } from '@/components/layout/navbar';
-import { Footer } from '@/components/layout/footer';
-import { HeroSection } from '@/components/sections/hero-section';
-import { ClientsSection } from '@/components/sections/clients-section';
-import { StatsSection } from '@/components/sections/stats-section';
-import { ServicesSection } from '@/components/sections/services-section';
-import { WhySection } from '@/components/sections/why-section';
-import { IndustriesSection } from '@/components/sections/industries-section';
-import { ProcessSection } from '@/components/sections/process-section';
-import { PricingSection } from '@/components/sections/pricing-section';
+import {
+  Navbar,
+  Footer,
+  HeroSection,
+  ClientsSection,
+  StatsSection,
+  ServicesSection,
+  WhySection,
+  IndustriesSection,
+  ProcessSection,
+  PricingSection,
+} from '@/views';
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;

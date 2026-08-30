@@ -1,13 +1,12 @@
-import { auth } from '@/config/auth';
+import { auth } from '@/models';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { DashboardLayout } from '@/components/layout/dashboard-layout';
-import { DashboardRole } from '@/components/layout/sidebar';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { CreditCard, DollarSign, ArrowUpRight, CheckCircle2, ShieldCheck, Download } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { DashboardLayout } from '@/views/layouts/dashboard-layout';
+import { DashboardRole } from '@/views/layouts/sidebar';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/views/ui/card';
+import { ArrowUpRight, CheckCircle2, Download } from 'lucide-react';
+import { Button } from '@/views/ui/button';
 import { formatCurrency, formatDate } from '@/utils';
-import { cn } from '@/lib/utils';
 
 interface ClientBillingPageProps {
   params: Promise<{ locale: string }>;

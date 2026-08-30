@@ -1,10 +1,9 @@
-import { auth } from '@/config/auth';
+import { auth, db } from '@/models';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { db } from '@/db/prisma';
-import { DashboardView } from '@/components/dashboard/dashboard-view';
-import { DashboardLayout } from '@/components/layout/dashboard-layout';
-import { DashboardRole } from '@/components/layout/sidebar';
+import { DashboardView } from '@/views/portal/dashboard-view';
+import { DashboardLayout } from '@/views/layouts/dashboard-layout';
+import { DashboardRole } from '@/views/layouts/sidebar';
 import { Project, ClientTicket, CRMLead, User } from '@prisma/client';
 
 type ProjectWithRelations = Project & {

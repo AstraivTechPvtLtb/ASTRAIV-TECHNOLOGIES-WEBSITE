@@ -178,3 +178,59 @@ model CRMLead {
 
   @@map("crm_lead")
 }
+
+// Contact Form Submissions
+model ContactSubmission {
+  id        String   @id @default(uuid())
+  name      String
+  company   String?
+  email     String
+  phone     String?
+  service   String   @default("General Inquiry")
+  message   String   @db.Text
+  status    String   @default("pending") // pending, contacted, closed, spam
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("contact_submissions")
+}
+
+// Client Reviews & Testimonials
+model Review {
+  id          String    @id @default(uuid())
+  reviewId    String?   @map("review_id")
+  clientName  String    @map("client_name")
+  company     String?
+  designation String?
+  review      String    @db.Text
+  rating      Int       @default(5)
+  imageUrl    String?   @map("image_url")
+  status      String    @default("pending") // pending, approved, rejected
+  featured    Boolean   @default(false)
+  adminNote   String?   @map("admin_note") @db.Text
+  publishedAt DateTime? @map("published_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@map("reviews")
+}
+
+// Services Management
+model ServiceItem {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  category    String   @default("Development")
+  shortDesc   String   @map("short_desc") @db.Text
+  fullDesc    String   @map("full_desc") @db.Text
+  features    String[]
+  badge       String?
+  icon        String   @default("Code2")
+  active      Boolean  @default(true)
+  orderIndex  Int      @default(0) @map("order_index")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("services")
+}
+
