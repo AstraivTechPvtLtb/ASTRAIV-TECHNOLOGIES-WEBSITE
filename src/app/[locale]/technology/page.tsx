@@ -1,6 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Navbar, Footer, TechSection, AiSection } from '@/views';
-import { CircuitBackground } from '@/views/sections/circuit-background';
 import { Metadata } from 'next';
 
 interface TechnologyPageProps {
@@ -26,7 +25,6 @@ export default async function TechnologyPage({ params }: TechnologyPageProps) {
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground flex flex-col justify-between relative overflow-hidden">
-      <CircuitBackground />
       <Navbar />
       
       <main className="pt-24 flex-grow z-10 relative">

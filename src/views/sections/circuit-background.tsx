@@ -21,6 +21,7 @@ interface CircuitPath {
   angleType: number; // 1 (up-bend), -1 (down-bend), 0 (straight)
   segment1Length: number;
   segment2Length: number;
+  isAccent: boolean;
 }
 
 export function CircuitBackground() {
@@ -57,14 +58,27 @@ export function CircuitBackground() {
     let animationFrameId: number;
     let activePaths: CircuitPath[] = [];
 
-    // Fit canvas to parent container
-    const resizeCanvas = () => {
-      canvas.width = canvas.parentElement?.clientWidth || window.innerWidth;
-      canvas.height = canvas.parentElement?.clientHeight || window.innerHeight;
-    };
+    const isDark = resolvedTheme === 'dark';
 
-    const primaryColor = '#5B5FEF'; // Astraiv Purple
-    const accentColor = '#00C2FF';  // Astraiv Cyan
+    // Theme-optimized color palette
+    const primaryColor = isDark ? '#6366F1' : '#4F46E5'; // Astraiv Indigo / Violet
+    const accentColor = isDark ? '#00F0FF' : '#0284C7';  // Electric Cyan (Dark) / Tech Sapphire Blue (Light)
+
+    // Fit canvas to parent container with High-DPI support
+    const resizeCanvas = () => {
+      const parent = canvas.parentElement;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const width = parent?.clientWidth || window.innerWidth;
+      const height = parent?.clientHeight || window.innerHeight;
+
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+
+      ctx.resetTransform();
+      ctx.scale(dpr, dpr);
+    };
 
     // Function to spawn a circuit trace path at coordinates
     const spawnPath = (x: number, y: number) => {
@@ -122,6 +136,7 @@ export function CircuitBackground() {
         angleType,
         segment1Length,
         segment2Length,
+        isAccent,
       });
     };
 
@@ -163,7 +178,7 @@ export function CircuitBackground() {
 
     observer.observe(canvas);
 
-    // Handle mouse events
+    // Handle mouse events strictly within the hero bounds
     const handleMouseMove = (e: MouseEvent) => {
       if (!isVisible) return;
       const rect = canvas.getBoundingClientRect();
@@ -254,8 +269,9 @@ export function CircuitBackground() {
       if (dt > 0.1) dt = 0.1;
       if (dt <= 0) dt = 0.016;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const isDark = resolvedTheme === 'dark';
+      const parentWidth = canvas.parentElement?.clientWidth || window.innerWidth;
+      const parentHeight = canvas.parentElement?.clientHeight || window.innerHeight;
+      ctx.clearRect(0, 0, parentWidth, parentHeight);
 
       // Update physics for mouse positioning using spring physics
       const targetX = mouseRef.current.x;
@@ -348,38 +364,57 @@ export function CircuitBackground() {
 
         // Gradient for current traces trailing behind the pulse head
         const grad = ctx.createLinearGradient(path.startX, path.startY, path.currentX, path.currentY);
-        const traceMaxOpacity = isDark ? 0.45 : 0.25;
+        const traceMaxOpacity = isDark ? 0.55 : 0.45;
         grad.addColorStop(0, 'rgba(0,0,0,0)');
-        grad.addColorStop(1, path.color === accentColor 
-          ? `rgba(0, 194, 255, ${traceMaxOpacity * path.life})` 
-          : `rgba(91, 95, 239, ${traceMaxOpacity * path.life})`
-        );
+
+        if (isDark) {
+          grad.addColorStop(1, path.isAccent
+            ? `rgba(0, 240, 255, ${traceMaxOpacity * path.life})`
+            : `rgba(99, 102, 241, ${traceMaxOpacity * path.life})`
+          );
+        } else {
+          grad.addColorStop(1, path.isAccent
+            ? `rgba(2, 132, 199, ${traceMaxOpacity * path.life})`
+            : `rgba(79, 70, 229, ${traceMaxOpacity * path.life})`
+          );
+        }
 
         ctx.strokeStyle = grad;
-        ctx.lineWidth = 1.75;
+        ctx.lineWidth = isDark ? 1.75 : 2;
         ctx.stroke();
 
         // Draw current pulse head (glowing signal dot)
         if (path.life > 0) {
           ctx.beginPath();
           ctx.arc(path.currentX, path.currentY, path.nodeRadius, 0, Math.PI * 2);
-          ctx.fillStyle = isDark ? '#FFFFFF' : path.color;
-
+          
           if (isDark) {
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = path.color;
+            ctx.fillStyle = '#FFFFFF';
+            ctx.shadowBlur = 12;
+            ctx.shadowColor = path.isAccent ? '#00F0FF' : '#6366F1';
+          } else {
+            ctx.fillStyle = path.isAccent ? '#0284C7' : '#4F46E5';
+            ctx.shadowBlur = 6;
+            ctx.shadowColor = path.isAccent ? '#0284C7' : '#4F46E5';
           }
+          
           ctx.fill();
           ctx.shadowBlur = 0; // reset shadow for performance
 
-          // If current flow reaches terminal point (Point 2), draw glowing Astraiv concentric ring
+          // If current flow reaches terminal point (Point 2), draw glowing concentric ring
           if (path.progress >= 1) {
             ctx.beginPath();
             ctx.arc(path.p2X, path.p2Y, path.nodeRadius + 4, 0, Math.PI * 2);
-            ctx.strokeStyle = path.color === accentColor 
-              ? `rgba(0, 194, 255, ${0.35 * path.life})` 
-              : `rgba(91, 95, 239, ${0.35 * path.life})`;
-            ctx.lineWidth = 1;
+            if (isDark) {
+              ctx.strokeStyle = path.isAccent 
+                ? `rgba(0, 240, 255, ${0.45 * path.life})` 
+                : `rgba(99, 102, 241, ${0.45 * path.life})`;
+            } else {
+              ctx.strokeStyle = path.isAccent 
+                ? `rgba(2, 132, 199, ${0.45 * path.life})` 
+                : `rgba(79, 70, 229, ${0.45 * path.life})`;
+            }
+            ctx.lineWidth = isDark ? 1 : 1.25;
             ctx.stroke();
           }
         }
@@ -390,7 +425,7 @@ export function CircuitBackground() {
 
       // If idle and no paths left to render, pause the loop until mouse interaction
       if (activePaths.length === 0 && !mouseRef.current.isHovering) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, parentWidth, parentHeight);
         isLoopRunning = false;
         return;
       }
