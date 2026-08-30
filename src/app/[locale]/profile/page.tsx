@@ -1,9 +1,10 @@
-import { auth } from '@/config/auth';
+import { auth } from '@/models';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { DashboardLayout } from '@/components/layout/dashboard-layout';
-import { DashboardRole } from '@/components/layout/sidebar';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Image from 'next/image';
+import { DashboardLayout } from '@/views/layouts/dashboard-layout';
+import { DashboardRole } from '@/views/layouts/sidebar';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/views/ui/card';
 import { User, Mail, ShieldAlert, Calendar } from 'lucide-react';
 import { formatDate } from '@/utils';
 
@@ -47,9 +48,11 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
           {/* Avatar card */}
           <Card className="border border-border/40 text-center p-6 flex flex-col items-center justify-center">
             {user.image ? (
-              <img
+              <Image
                 src={user.image}
                 alt={user.name}
+                width={96}
+                height={96}
                 className="h-24 w-24 rounded-full object-cover shadow-md border-2 border-primary/20 mb-4"
               />
             ) : (

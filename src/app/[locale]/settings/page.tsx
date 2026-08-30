@@ -1,11 +1,10 @@
-import { auth } from '@/config/auth';
+import { auth } from '@/models';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { DashboardLayout } from '@/components/layout/dashboard-layout';
-import { DashboardRole } from '@/components/layout/sidebar';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Settings, Globe, Shield, Bell } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { DashboardLayout } from '@/views/layouts/dashboard-layout';
+import { DashboardRole } from '@/views/layouts/sidebar';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/views/ui/card';
+import { Globe, Bell } from 'lucide-react';
 
 interface SettingsPageProps {
   params: Promise<{ locale: string }>;

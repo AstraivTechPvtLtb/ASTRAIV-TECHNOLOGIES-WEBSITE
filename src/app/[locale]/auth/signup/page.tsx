@@ -7,12 +7,12 @@ import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Lock, User, ArrowRight, Eye, EyeOff, AlertCircle, Loader2, CheckCircle2 } from 'lucide-react';
 import { Link, useRouter } from '@/i18n/routing';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/views/ui/button';
+import { Input } from '@/views/ui/input';
 import { signupSchema, SignupInput } from '@/lib/validations/auth';
 import { signUp } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
-import { CircuitBackground } from '@/components/sections/circuit-background';
+import { CircuitBackground } from '@/views/sections/circuit-background';
 
 export default function SignupPage() {
   const t = useTranslations('Auth');

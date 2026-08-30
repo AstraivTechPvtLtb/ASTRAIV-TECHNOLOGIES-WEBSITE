@@ -15,6 +15,9 @@ async function main() {
   await prisma.blogCategory.deleteMany();
   await prisma.portfolioProject.deleteMany();
   await prisma.cRMLead.deleteMany();
+  await prisma.contactSubmission.deleteMany();
+  await prisma.review.deleteMany();
+  await prisma.serviceItem.deleteMany();
   await prisma.user.deleteMany();
 
   console.log('🗑️  Cleaned existing database tables.');
@@ -105,7 +108,7 @@ async function main() {
     },
   });
 
-  const categoryBusiness = await prisma.blogCategory.create({
+  await prisma.blogCategory.create({
     data: {
       name: 'Business Strategy',
       slug: 'business-strategy',
@@ -181,7 +184,7 @@ async function main() {
   console.log('💼 Seeded Portfolio Projects.');
 
   // 8. Create Projects
-  const project1 = await prisma.project.create({
+  await prisma.project.create({
     data: {
       name: 'Astraiv Dashboard Portal Rebuild',
       description: 'Migrating legacy client metrics portals to the modern Next.js 16 stack.',
@@ -194,7 +197,7 @@ async function main() {
     },
   });
 
-  const project2 = await prisma.project.create({
+  await prisma.project.create({
     data: {
       name: 'Cloudflare Migration & SLA Setup',
       description: 'Configuring edge caches, CDN rules, and zero-egress R2 media buckets for static assets.',
@@ -274,6 +277,124 @@ async function main() {
   });
 
   console.log('📈 Seeded CRM Leads.');
+
+  // 11. Create Contact Submissions (Enquiries)
+  await prisma.contactSubmission.createMany({
+    data: [
+      {
+        name: 'Alexander Wright',
+        email: 'a.wright@solartechnica.io',
+        phone: '+1 (415) 555-9012',
+        company: 'Solar Technica',
+        service: 'Custom Web Application',
+        message: 'Looking for a full platform rebuild with Next.js 16 and real-time telemetry dashboards.',
+        status: 'pending',
+      },
+      {
+        name: 'Elena Rostova',
+        email: 'elena@novafinancial.eu',
+        phone: '+44 20 7946 0912',
+        company: 'Nova Financial',
+        service: 'Cloud Infrastructure & DevOps',
+        message: 'Need assistance setting up high-availability PostgreSQL clusters and zero-egress CDN infrastructure.',
+        status: 'contacted',
+      },
+      {
+        name: 'David Kim',
+        email: 'dkim@apexlogistics.kr',
+        phone: '+82 2 312 3456',
+        company: 'Apex Logistics',
+        service: 'Enterprise SaaS Development',
+        message: 'Requesting consultation on migrating our warehouse ERP to a unified modern web portal.',
+        status: 'closed',
+      },
+    ],
+  });
+  console.log('📬 Seeded Contact Submissions (Enquiries).');
+
+  // 12. Create Client Reviews
+  await prisma.review.createMany({
+    data: [
+      {
+        clientName: 'Marcus Vance',
+        company: 'Vance Capital',
+        designation: 'Managing Director',
+        review: 'AstraIV transformed our institutional trading portal. The performance gains and design elegance exceeded all expectations.',
+        rating: 5,
+        imageUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=256&h=256&fit=crop',
+        status: 'approved',
+        featured: true,
+        publishedAt: new Date(),
+      },
+      {
+        clientName: 'Sarah Jenkins',
+        company: 'BioHealth Analytics',
+        designation: 'Head of Product',
+        review: 'The team delivered our HIPAA-compliant analytics dashboard two weeks ahead of schedule. Truly enterprise caliber.',
+        rating: 5,
+        imageUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=256&h=256&fit=crop',
+        status: 'approved',
+        featured: true,
+        publishedAt: new Date(),
+      },
+      {
+        clientName: 'Devon Miles',
+        company: 'Aether Robotics',
+        designation: 'Chief Technology Officer',
+        review: 'Unrivaled expertise in modern web systems, Postgres optimization, and reactive UI architecture.',
+        rating: 5,
+        imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=256&h=256&fit=crop',
+        status: 'approved',
+        featured: false,
+        publishedAt: new Date(),
+      },
+    ],
+  });
+  console.log('⭐ Seeded Client Reviews.');
+
+  // 13. Create Services
+  await prisma.serviceItem.createMany({
+    data: [
+      {
+        title: 'Custom Web Application Development',
+        slug: 'custom-web-applications',
+        category: 'Engineering',
+        shortDesc: 'Ultra-fast Next.js and React full-stack applications engineered for high scale.',
+        fullDesc: 'End-to-end web engineering utilizing modern React 19 architecture, PostgreSQL databases, edge middleware, and hardened security practices.',
+        features: ['Next.js 16 App Router', 'PostgreSQL & Prisma ORM', 'Real-time WebSockets', 'Tailwind CSS Modern UI'],
+        badge: 'Popular',
+        icon: 'Code2',
+        active: true,
+        orderIndex: 1,
+      },
+      {
+        title: 'Cloud Infrastructure & DevOps',
+        slug: 'cloud-infrastructure-devops',
+        category: 'Cloud',
+        shortDesc: 'Automated CI/CD pipelines, container orchestration, and serverless hosting.',
+        fullDesc: 'Robust cloud architectures with automated deployment pipelines, Docker & Kubernetes orchestration, CDN edge caching, and 99.99% uptime SLAs.',
+        features: ['Automated CI/CD', 'AWS & Cloudflare Edge', 'Zero-Downtime Deployments', '24/7 Monitoring & Alerting'],
+        badge: 'Enterprise',
+        icon: 'Cloud',
+        active: true,
+        orderIndex: 2,
+      },
+      {
+        title: 'AI & Business Automation',
+        slug: 'ai-business-automation',
+        category: 'AI & Data',
+        shortDesc: 'Intelligent LLM agent integration, workflow automation, and predictive analytics.',
+        fullDesc: 'Empower your enterprise with AI agents, automated customer support pipelines, semantic search, and predictive data intelligence.',
+        features: ['Custom LLM Pipelines', 'RAG & Vector Embeddings', 'Workflow Automations', 'Enterprise Data Protection'],
+        badge: 'Cutting-Edge',
+        icon: 'Cpu',
+        active: true,
+        orderIndex: 3,
+      },
+    ],
+  });
+  console.log('⚙️ Seeded Services.');
+
   console.log('🎉 Seeding successfully completed!');
 }
 

@@ -1,9 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Navbar } from '@/components/layout/navbar';
-import { Footer } from '@/components/layout/footer';
-import { TechSection } from '@/components/sections/tech-section';
-import { AiSection } from '@/components/sections/ai-section';
-import { CircuitBackground } from '@/components/sections/circuit-background';
+import { Navbar, Footer, TechSection, AiSection } from '@/views';
+import { CircuitBackground } from '@/views/sections/circuit-background';
 import { Metadata } from 'next';
 
 interface TechnologyPageProps {

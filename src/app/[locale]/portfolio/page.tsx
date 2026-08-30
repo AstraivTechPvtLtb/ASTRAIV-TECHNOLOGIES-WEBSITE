@@ -1,9 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
-import { Navbar } from '@/components/layout/navbar';
-import { Footer } from '@/components/layout/footer';
-import { CaseStudiesSection } from '@/components/sections/case-studies-section';
-import { TestimonialsSection } from '@/components/sections/testimonials-section';
-import { CircuitBackground } from '@/components/sections/circuit-background';
+import { Navbar, Footer, CaseStudiesSection, TestimonialsSection } from '@/views';
+import { CircuitBackground } from '@/views/sections/circuit-background';
 
 interface PortfolioPageProps {
   params: Promise<{ locale: string }>;

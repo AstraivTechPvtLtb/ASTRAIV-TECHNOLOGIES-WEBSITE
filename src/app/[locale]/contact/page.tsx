@@ -1,8 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
-import { Navbar } from '@/components/layout/navbar';
-import { Footer } from '@/components/layout/footer';
-import { ContactSection } from '@/components/sections/contact-section';
-import { CircuitBackground } from '@/components/sections/circuit-background';
+import { Navbar, Footer, ContactSection } from '@/views';
+import { CircuitBackground } from '@/views/sections/circuit-background';
 
 interface ContactPageProps {
   params: Promise<{ locale: string }>;

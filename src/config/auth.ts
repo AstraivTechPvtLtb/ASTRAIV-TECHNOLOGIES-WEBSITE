@@ -1,30 +1,6 @@
-import { betterAuth } from 'better-auth';
-import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { db } from '@/db/prisma';
+/**
+ * @file client/src/config/auth.ts
+ * @description Better Auth instance configuration (re-export from models).
+ */
 
-export const auth = betterAuth({
-  database: prismaAdapter(db, {
-    provider: 'postgresql',
-  }),
-  emailAndPassword: {
-    enabled: true,
-    autoSignIn: true,
-  },
-  // Setting up user properties and session configuration
-  user: {
-    additionalFields: {
-      role: {
-        type: 'string',
-        required: false,
-        defaultValue: 'USER',
-      },
-    },
-  },
-  // Stubs for future OAuth provider logins
-  socialProviders: {
-    // google: {
-    //   clientId: process.env.GOOGLE_CLIENT_ID || '',
-    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-    // },
-  },
-});
+export * from '@/models/auth';

@@ -1,10 +1,10 @@
-import { auth } from '@/config/auth';
+import { auth, db } from '@/models';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { db } from '@/db/prisma';
-import { DashboardLayout } from '@/components/layout/dashboard-layout';
-import { DashboardRole } from '@/components/layout/sidebar';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Image from 'next/image';
+import { DashboardLayout } from '@/views/layouts/dashboard-layout';
+import { DashboardRole } from '@/views/layouts/sidebar';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/views/ui/card';
 import { Briefcase, Calendar, DollarSign, UserCheck } from 'lucide-react';
 import { formatCurrency, formatDate } from '@/utils';
 import { cn } from '@/lib/utils';
@@ -154,9 +154,11 @@ export default async function ClientProjectsPage({ params }: ClientProjectsPageP
                     {project.manager && (
                       <div className="flex items-center gap-3 p-3 rounded-lg border border-border/20 bg-muted/30">
                         {project.manager.image ? (
-                          <img
+                          <Image
                             src={project.manager.image}
                             alt={project.manager.name}
+                            width={34}
+                            height={34}
                             className="h-8.5 w-8.5 rounded-full object-cover shrink-0"
                           />
                         ) : (
