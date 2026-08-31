@@ -24,11 +24,34 @@ export function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLangMenu, setShowLangMenu] = useState(false);
   const optionsDropdownRef = useRef<HTMLDivElement>(null);
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const locale = useLocale();
 
   useEffect(() => {
     setMounted(true);
+    return () => {
+      if (closeTimeoutRef.current) {
+        clearTimeout(closeTimeoutRef.current);
+      }
+    };
   }, []);
+
+  const handleDropdownMouseEnter = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+  };
+
+  const handleDropdownMouseLeave = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+    closeTimeoutRef.current = setTimeout(() => {
+      setShowDropdown(false);
+      setShowLangMenu(false);
+    }, 180);
+  };
 
   useEffect(() => {
     if (!showDropdown) return;
@@ -267,15 +290,24 @@ export function Navbar() {
           <div
             ref={optionsDropdownRef}
             className="relative h-full flex items-center"
-            onMouseLeave={() => {
-              setShowDropdown(false);
-              setShowLangMenu(false);
-            }}
+            onMouseEnter={handleDropdownMouseEnter}
+            onMouseLeave={handleDropdownMouseLeave}
           >
             <button
-              onClick={() => setShowDropdown((prev) => !prev)}
-              className="text-muted-foreground hover:text-foreground cursor-pointer rounded-full h-7.5 w-7.5 hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 transition-colors select-none active:scale-95"
+              onClick={() => {
+                setShowDropdown((prev) => {
+                  if (prev) setShowLangMenu(false);
+                  return !prev;
+                });
+              }}
+              className={cn(
+                "text-muted-foreground hover:text-foreground cursor-pointer rounded-full h-7.5 w-7.5 flex items-center justify-center border transition-colors select-none active:scale-95",
+                showDropdown
+                  ? "bg-slate-200 text-foreground border-slate-300 dark:bg-slate-800 dark:text-white dark:border-slate-700"
+                  : "bg-white/50 dark:bg-slate-950/50 border-slate-200 dark:border-slate-800 hover:bg-slate-200/80 dark:hover:bg-slate-800"
+              )}
               aria-label="More Options"
+              aria-expanded={showDropdown}
             >
               <Menu className="h-4 w-4" />
             </button>
@@ -286,7 +318,7 @@ export function Navbar() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -2, scale: 0.98 }}
                   transition={{ duration: 0.15, ease: "easeOut" }}
-                  className="absolute right-0 top-full w-48 rounded-md border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl p-1.5 shadow-xl shadow-slate-900/10 dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)] z-50 text-xs flex flex-col gap-1"
+                  className="absolute right-0 top-full w-48 rounded-md border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl p-1.5 shadow-xl shadow-slate-900/10 dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)] z-50 text-xs flex flex-col gap-1 before:content-[''] before:absolute before:-top-6 before:right-0 before:w-full before:h-6 before:pointer-events-auto"
                 >
                   {/* Language Selector Header */}
                   <button
@@ -388,6 +420,7 @@ export function Navbar() {
 
                       {/* Sliding thumb */}
                       <motion.div
+                        initial={false}
                         className="relative z-10 w-4.5 h-4.5 rounded-full bg-white dark:bg-slate-950 shadow-xs flex items-center justify-center border border-slate-200/80 dark:border-cyan-500/40"
                         animate={{
                           x: mounted && resolvedTheme === 'dark' ? 18 : 0,
