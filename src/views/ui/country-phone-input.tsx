@@ -94,7 +94,7 @@ export const CountryPhoneInput = React.forwardRef<HTMLInputElement, CountryPhone
 
     // When phone input changes
     const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      let inputVal = e.target.value;
+      const inputVal = e.target.value;
 
       // Auto-detect country if user types/pastes a + dial code
       if (inputVal.startsWith('+')) {
