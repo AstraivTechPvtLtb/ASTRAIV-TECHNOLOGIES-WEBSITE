@@ -1,6 +1,7 @@
 import { Link } from '@/i18n/routing';
 import Image from 'next/image';
 import { GithubIcon, TwitterIcon, LinkedinIcon } from '@/views/ui/icons';
+import { Phone, Mail, MapPin } from 'lucide-react';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -37,7 +38,7 @@ export function Footer() {
 
   return (
     <footer className="relative z-30 bg-slate-950 text-slate-100 border-t border-slate-900 py-16 px-6">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12 items-start text-left">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.9fr_0.9fr_0.9fr_1.5fr] gap-8 lg:gap-8 xl:gap-10 items-start text-left">
         {/* Brand details and social icons (Left Column) */}
         <div className="flex flex-col gap-4 text-left">
           <Link href="/" className="inline-block">
@@ -104,17 +105,67 @@ export function Footer() {
         ))}
 
         {/* Support contacts */}
-        <div className="flex flex-col gap-4 text-left">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">Contacts</h4>
-          <p className="text-sm text-slate-400">
-            Ashoknagar, Kolkata
-          </p>
-          <a href="mailto:info@astraivtechnologies.com" className="text-sm font-semibold text-accent hover:underline">
-            info@astraivtechnologies.com
-          </a>
-          <a href="tel:+918167409664" className="text-sm font-semibold text-slate-300 hover:text-accent transition-colors">
-            +91 8167409664
-          </a>
+        <div className="flex flex-col text-left">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-4 min-h-[20px] flex items-center">
+            Contact Us
+          </h4>
+          <div className="flex flex-col gap-3.5">
+            {/* Call */}
+            <a
+              href="tel:+918167409664"
+              className="flex items-center gap-3 group text-left transition-colors"
+            >
+              <div className="h-9 w-9 rounded-full flex items-center justify-center shrink-0 bg-accent/10 text-accent border border-accent/20 group-hover:bg-accent group-hover:text-slate-950 group-hover:border-accent group-hover:scale-105 transition-all duration-300 shadow-xs">
+                <Phone className="h-4 w-4" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-200 group-hover:text-accent transition-colors">
+                  Call Us
+                </span>
+                <span className="text-xs lg:text-[13px] xl:text-sm text-slate-400 group-hover:text-slate-200 transition-colors font-medium whitespace-nowrap">
+                  +91 8167409664
+                </span>
+              </div>
+            </a>
+
+            {/* Email */}
+            <a
+              href="mailto:info@astraivtechnologies.com"
+              className="flex items-center gap-3 group text-left transition-colors"
+            >
+              <div className="h-9 w-9 rounded-full flex items-center justify-center shrink-0 bg-accent/10 text-accent border border-accent/20 group-hover:bg-accent group-hover:text-slate-950 group-hover:border-accent group-hover:scale-105 transition-all duration-300 shadow-xs">
+                <Mail className="h-4 w-4" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-200 group-hover:text-accent transition-colors">
+                  Send Email
+                </span>
+                <span className="text-xs lg:text-[13px] xl:text-sm text-slate-400 group-hover:text-slate-200 transition-colors font-medium whitespace-nowrap">
+                  info@astraivtechnologies.com
+                </span>
+              </div>
+            </a>
+
+            {/* Address */}
+            <a
+              href="https://maps.google.com/?q=Ashoknagar,+Kolkata"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 group text-left transition-colors"
+            >
+              <div className="h-9 w-9 rounded-full flex items-center justify-center shrink-0 bg-accent/10 text-accent border border-accent/20 group-hover:bg-accent group-hover:text-slate-950 group-hover:border-accent group-hover:scale-105 transition-all duration-300 shadow-xs">
+                <MapPin className="h-4 w-4" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-200 group-hover:text-accent transition-colors">
+                  Address
+                </span>
+                <span className="text-xs lg:text-[13px] xl:text-sm text-slate-400 group-hover:text-slate-200 transition-colors font-medium whitespace-nowrap">
+                  Ashoknagar, Kolkata
+                </span>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
 
