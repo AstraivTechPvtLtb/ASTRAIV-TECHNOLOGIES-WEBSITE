@@ -1,11 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Button } from '@/views/ui/button';
 import { Input } from '@/views/ui/input';
+import { CountryPhoneInput } from '@/views/ui/country-phone-input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/views/ui/select';
 import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -31,6 +32,7 @@ export function ContactForm() {
   const {
     register,
     handleSubmit,
+    control,
     setValue,
     reset,
     formState: { errors },
@@ -118,10 +120,15 @@ export function ContactForm() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-[10px] font-bold text-foreground/80 mb-1.5 uppercase tracking-wider">Phone (Optional)</label>
-            <Input 
-              placeholder="+1 (555) 000-0000" 
-              {...register('phone')} 
-              className="h-11 px-3.5 bg-slate-100/30 hover:bg-slate-100/50 focus:bg-white dark:bg-slate-950/20 dark:hover:bg-slate-950/40 dark:focus:bg-slate-950/80 text-foreground transition-all duration-200 border-border/50 dark:border-border/30"
+            <Controller
+              name="phone"
+              control={control}
+              render={({ field }) => (
+                <CountryPhoneInput
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              )}
             />
           </div>
 
