@@ -112,6 +112,9 @@ export function Footer() {
           <a href="mailto:info@astraivtechnologies.com" className="text-sm font-semibold text-accent hover:underline">
             info@astraivtechnologies.com
           </a>
+          <a href="tel:+918167409664" className="text-sm font-semibold text-slate-300 hover:text-accent transition-colors">
+            +91 8167409664
+          </a>
         </div>
       </div>
 
