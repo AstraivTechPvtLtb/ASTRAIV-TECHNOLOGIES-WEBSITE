@@ -231,7 +231,7 @@ export function HeroSection({
             className="relative group inline-block"
           >
             <button
-              className="relative cursor-pointer font-bold rounded-xl px-10 h-13 text-sm tracking-wide text-white bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 dark:hover:bg-blue-500 active:scale-95 transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 border-none outline-none select-none"
+              className="relative cursor-pointer font-bold rounded-md px-10 h-13 text-sm tracking-wide text-white bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 dark:hover:bg-blue-500 active:scale-95 transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 border-none outline-none select-none"
             >
               <span>{ctaText}</span>
               <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />

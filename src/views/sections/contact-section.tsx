@@ -77,7 +77,7 @@ export function ContactSection() {
 
             {/* Phone link */}
             <a 
-              href="tel:+15550199231" 
+              href="tel:+918167409664" 
               className="flex items-center gap-4 text-foreground/80 hover:text-primary transition-colors duration-300 group w-fit"
             >
               <div className="h-12 w-12 flex items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20 group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-105 transition-all duration-300 shrink-0 shadow-xs dark:group-hover:shadow-[0_0_15px_rgba(91,95,239,0.3)]">
@@ -85,7 +85,7 @@ export function ContactSection() {
               </div>
               <div className="flex flex-col">
                 <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider">Call Us</span>
-                <span className="text-sm font-bold">+1 (555) 019-9231</span>
+                <span className="text-sm font-bold">+91 8167409664</span>
               </div>
             </a>
 

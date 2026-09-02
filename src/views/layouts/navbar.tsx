@@ -276,7 +276,7 @@ export function Navbar() {
             {/* The main button */}
             <button
               className={cn(
-                "relative cursor-pointer font-bold rounded-lg px-4.5 h-8.5 text-[11px] tracking-wider transition-all duration-300 shadow-sm flex items-center justify-center gap-1.5 border-none outline-none select-none text-white bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 dark:hover:bg-blue-500 active:scale-95",
+                "relative cursor-pointer font-bold rounded-md px-4.5 h-8.5 text-[11px] tracking-wider transition-all duration-300 shadow-sm flex items-center justify-center gap-1.5 border-none outline-none select-none text-white bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 dark:hover:bg-blue-500 active:scale-95",
                 pathname === '/contact' ? "bg-[#093275] dark:bg-blue-500" : ""
               )}
             >

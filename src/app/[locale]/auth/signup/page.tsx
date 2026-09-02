@@ -12,7 +12,6 @@ import { Input } from '@/views/ui/input';
 import { signupSchema, SignupInput } from '@/lib/validations/auth';
 import { signUp } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
-import { CircuitBackground } from '@/views/sections/circuit-background';
 
 export default function SignupPage() {
   const t = useTranslations('Auth');
@@ -76,9 +75,6 @@ export default function SignupPage() {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center p-6 bg-slate-950 overflow-hidden">
-      {/* Visual background lines and shadows */}
-      <CircuitBackground />
-      
       <div className="absolute inset-0 bg-radial-[circle_at_center,transparent_30%,rgba(15,23,42,0.9)] pointer-events-none" />
 
       {/* Signup form card */}
