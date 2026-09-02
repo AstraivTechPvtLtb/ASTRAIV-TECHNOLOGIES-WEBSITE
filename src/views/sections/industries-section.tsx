@@ -74,6 +74,7 @@ export function IndustriesSection() {
           badge="Industries"
           title="Tailored Solutions for Complex Industries"
           description="We do not build generic templates. We deliver specialized software architected for the unique regulatory and operational needs of your industry."
+          className="max-w-5xl"
         />
 
         {/* Desktop tab buttons */}

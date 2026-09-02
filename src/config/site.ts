@@ -12,7 +12,7 @@ export const siteConfig = {
   contact: {
     email: 'info@astraivtechnologies.com',
     supportEmail: 'support@astraivtechnologies.com',
-    phone: '+1 (555) 019-9231',
+    phone: '+91 8167409664',
     address: 'Ashoknagar, Kolkata',
   },
   
