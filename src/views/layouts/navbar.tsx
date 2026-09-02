@@ -491,16 +491,18 @@ export function Navbar() {
 
         {/* Right Side: CTA and Preserved 3-Lines Options Button */}
         <div className="hidden lg:flex items-center gap-3 h-full">
-          {/* Primary Enterprise CTA: Let's Talk → */}
+          {/* Primary Enterprise CTA: Let's Connect → */}
           <Link href="/contact" className="relative group inline-block">
             <button
               className={cn(
-                'relative cursor-pointer font-bold rounded-md px-4.5 h-9 text-[12px] tracking-wide transition-all duration-200 shadow-sm flex items-center justify-center gap-2 border-none outline-none select-none text-white bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 dark:hover:bg-blue-500 active:scale-95',
-                pathname === '/contact' ? 'bg-[#093275] dark:bg-blue-500' : ''
+                'relative cursor-pointer font-bold rounded-md px-4.5 h-9 text-[12px] tracking-wide transition-all duration-200 shadow-sm flex items-center justify-center gap-2 border outline-none select-none active:scale-95',
+                'text-white bg-[#0B3D91] hover:bg-[#082d6c] border-blue-900/20 hover:shadow-md hover:shadow-[#0B3D91]/25',
+                'dark:bg-blue-600 dark:hover:bg-blue-500 dark:border-blue-400/30 dark:shadow-[0_0_16px_-2px_rgba(59,130,246,0.35)] dark:hover:shadow-[0_0_22px_-1px_rgba(59,130,246,0.55)]',
+                pathname === '/contact' ? 'bg-[#093275] ring-2 ring-blue-500/40 dark:bg-blue-500 dark:ring-blue-400/50' : ''
               )}
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-white/90 animate-pulse" />
-              <span>{tNav.has('letsTalk') ? tNav('letsTalk') : "Let's Talk"}</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 dark:bg-cyan-400 shadow-[0_0_6px_rgba(103,232,249,0.9)] animate-pulse" />
+              <span>{tNav.has('letsTalk') ? tNav('letsTalk') : "Let's Connect"}</span>
               <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
             </button>
           </Link>
@@ -846,9 +848,15 @@ export function Navbar() {
               <Link
                 href="/contact"
                 onClick={() => setIsOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm text-white bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 shadow-md active:scale-98 transition-all"
+                className={cn(
+                  'w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm text-white transition-all duration-200 select-none active:scale-[0.98]',
+                  'bg-[#0B3D91] hover:bg-[#082d6c] border border-blue-900/20 shadow-sm hover:shadow-md hover:shadow-[#0B3D91]/25',
+                  'dark:bg-blue-600 dark:hover:bg-blue-500 dark:border-blue-400/30 dark:shadow-[0_0_16px_-2px_rgba(59,130,246,0.35)]',
+                  pathname === '/contact' ? 'bg-[#093275] ring-2 ring-blue-500/40 dark:bg-blue-500 dark:ring-blue-400/50' : ''
+                )}
               >
-                <span>{tNav.has('letsTalk') ? tNav('letsTalk') : "Let's Talk"}</span>
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 dark:bg-cyan-400 shadow-[0_0_6px_rgba(103,232,249,0.9)] animate-pulse" />
+                <span>{tNav.has('letsTalk') ? tNav('letsTalk') : "Let's Connect"}</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
 
