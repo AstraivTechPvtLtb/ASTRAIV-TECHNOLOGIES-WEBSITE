@@ -19,7 +19,7 @@ export function Footer() {
     {
       title: 'Platform',
       links: [
-        { label: 'Why Astraiv', href: '/#why-us' },
+        { label: 'Why Astraiv', href: '/company#why-us' },
         { label: 'Industries We Serve', href: '/#industries' },
         { label: 'Our Technologies', href: '/technology#technologies' },
         { label: 'AI Capabilities', href: '/technology#ai-expertise' },
@@ -28,9 +28,9 @@ export function Footer() {
     {
       title: 'Company',
       links: [
-        { label: 'Development Process', href: '/#process' },
+        { label: 'Development Process', href: '/company#process' },
         { label: 'Portfolio', href: '/portfolio' },
-        { label: 'Flexible Pricing', href: '/#pricing' },
+        { label: 'Flexible Pricing', href: '/company#pricing' },
         { label: 'Frequently Asked Qs', href: '/faq' },
       ],
     },

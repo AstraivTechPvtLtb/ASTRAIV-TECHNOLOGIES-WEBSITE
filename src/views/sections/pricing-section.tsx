@@ -146,7 +146,7 @@ export function PricingSection() {
   ];
 
   return (
-    <section id="pricing" className="py-20 md:py-28 px-6 bg-transparent border-y border-border/20 relative">
+    <section id="pricing" className="py-20 md:py-28 px-6 bg-transparent border-y border-border/20 relative scroll-mt-24">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           badge="Pricing"

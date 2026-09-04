@@ -6,10 +6,7 @@ import {
   ClientsSection,
   StatsSection,
   ServicesSection,
-  WhySection,
   IndustriesSection,
-  ProcessSection,
-  PricingSection,
 } from '@/views';
 
 interface HomePageProps {
@@ -47,30 +44,11 @@ export default async function HomePage({ params }: HomePageProps) {
         {/* 3. Services */}
         <ServicesSection />
 
-        {/* 4. Why Astraiv */}
-        <WhySection />
-
-        {/* 5. Industries */}
+        {/* 4. Industries */}
         <IndustriesSection />
-
-
-
-        {/* 8. Development Process */}
-        <ProcessSection />
-
-
-
-
-
-        {/* 12. Pricing */}
-        <PricingSection />
-
-
-
-
       </main>
 
-      {/* 15. Global Footer */}
+      {/* Global Footer */}
       <Footer />
     </div>
   );
