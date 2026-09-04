@@ -299,12 +299,12 @@ export const COMPANY_DROPDOWN: MegaMenuConfig = {
   type: 'dropdown',
   items: [
     {
-      name: 'About AstraIV',
+      name: 'About Astraiv',
       href: '/#why-us',
       description: 'Our engineering philosophy and global mission.',
     },
     {
-      name: 'Why AstraIV',
+      name: 'Why Astraiv',
       href: '/#why-us',
       description: 'Architectural rigor, speed, and proven delivery track record.',
     },
