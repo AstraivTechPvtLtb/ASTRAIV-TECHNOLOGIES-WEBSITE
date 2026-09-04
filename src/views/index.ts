@@ -28,6 +28,7 @@ export * from './sections/industries-section';
 export * from './sections/process-section';
 export * from './sections/careers-section';
 export * from './sections/blog-list';
+export * from './sections/solutions-view';
 
 // Portal Views
 export * from './portal/dashboard-view';

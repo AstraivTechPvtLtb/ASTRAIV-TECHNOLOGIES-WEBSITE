@@ -192,7 +192,7 @@ export function Navbar() {
       return (pathname === '/' || pathname === '') && activeSection === 'services';
     }
     if (item.id === 'solutions') {
-      return (pathname === '/' || pathname === '') && (activeSection === 'services' || activeSection === 'ai-expertise');
+      return pathname === '/solutions' || pathname.startsWith('/solutions');
     }
     if (item.id === 'technologies') {
       return pathname === '/technology' || activeSection === 'technologies' || activeSection === 'ai-expertise';
