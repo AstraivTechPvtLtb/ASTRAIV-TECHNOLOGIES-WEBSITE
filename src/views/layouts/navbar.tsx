@@ -327,7 +327,7 @@ export function Navbar() {
     // Standard Curated Dropdown (Insights, Company)
     if (config.type === 'dropdown') {
       return (
-        <div className="w-72 rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl p-2 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col gap-1">
+        <div className="w-72 rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-white dark:bg-slate-950 backdrop-blur-2xl p-2 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col gap-1">
           {config.items?.map((sub) => (
             <Link
               key={sub.name}
@@ -335,12 +335,12 @@ export function Navbar() {
               onClick={() => setActiveDropdown(null)}
               className="group/drop px-3 py-2.5 rounded-lg hover:bg-slate-100/90 dark:hover:bg-slate-900/80 transition-colors flex flex-col"
             >
-              <span className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover/drop:text-primary dark:group-hover/drop:text-accent transition-colors flex items-center justify-between">
+              <span className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover/drop:text-primary dark:group-hover/drop:text-accent transition-colors flex items-center justify-between">
                 <span>{sub.name}</span>
                 <ArrowRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover/drop:opacity-100 group-hover/drop:translate-x-0 transition-all text-primary dark:text-accent" />
               </span>
               {sub.description && (
-                <span className="text-[10.5px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1 leading-snug">
+                <span className="text-[10.5px] text-slate-500 dark:text-slate-400 group-hover/drop:text-slate-600 dark:group-hover/drop:text-slate-300 mt-0.5 line-clamp-1 leading-snug transition-colors">
                   {sub.description}
                 </span>
               )}
