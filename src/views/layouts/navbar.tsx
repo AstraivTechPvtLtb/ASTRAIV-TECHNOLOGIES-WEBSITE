@@ -540,7 +540,7 @@ export function Navbar() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -2, scale: 0.98 }}
                   transition={{ duration: 0.15, ease: 'easeOut' }}
-                  className="absolute right-0 top-full w-52 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl p-2 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)] z-50 text-xs flex flex-col gap-1"
+                  className="absolute right-0 top-full w-52 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 backdrop-blur-xl p-2 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)] z-50 text-xs flex flex-col gap-1"
                 >
                   {/* Language Selector Header */}
                   <button
@@ -548,7 +548,7 @@ export function Navbar() {
                       e.stopPropagation();
                       setShowLangMenu(!showLangMenu);
                     }}
-                    className="w-full text-left px-3 py-2 rounded-md font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors flex items-center justify-between cursor-pointer text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs select-none active:scale-[0.99]"
+                    className="w-full text-left px-3 py-2 rounded-md font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors flex items-center justify-between cursor-pointer text-slate-800 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white text-xs select-none active:scale-[0.99]"
                   >
                     <span>Language</span>
                     <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-black">
@@ -675,20 +675,11 @@ export function Navbar() {
 
                   <div className="border-t border-slate-200 dark:border-slate-800 my-1" />
 
-                  {/* FAQ Link */}
-                  <Link
-                    href="/faq"
-                    onClick={() => setShowOptionsDropdown(false)}
-                    className="w-full text-left px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center justify-between cursor-pointer text-xs select-none active:scale-[0.99]"
-                  >
-                    <span>FAQ</span>
-                  </Link>
-
                   {/* Login Link */}
                   <Link
                     href="/auth/login"
                     onClick={() => setShowOptionsDropdown(false)}
-                    className="w-full text-left px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center justify-between cursor-pointer text-xs select-none active:scale-[0.99]"
+                    className="w-full text-left px-3 py-2 rounded-md font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-950 dark:hover:text-white transition-colors flex items-center justify-between cursor-pointer text-xs select-none active:scale-[0.99]"
                   >
                     <span>Client Portal</span>
                   </Link>
