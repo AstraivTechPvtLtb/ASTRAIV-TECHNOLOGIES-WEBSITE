@@ -207,10 +207,7 @@ export function Navbar() {
       return pathname.startsWith('/blog') || pathname === '/faq';
     }
     if (item.id === 'company') {
-      return (
-        (pathname === '/' || pathname === '') &&
-        (activeSection === 'why-us' || activeSection === 'process' || activeSection === 'pricing')
-      );
+      return pathname === '/company' || pathname.startsWith('/company');
     }
     return false;
   };

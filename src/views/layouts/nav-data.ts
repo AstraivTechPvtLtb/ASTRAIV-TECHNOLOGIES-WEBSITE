@@ -300,37 +300,37 @@ export const COMPANY_DROPDOWN: MegaMenuConfig = {
   items: [
     {
       name: 'About Astraiv',
-      href: '/#why-us',
+      href: '/company#about',
       description: 'Our engineering philosophy and global mission.',
     },
     {
       name: 'Why Astraiv',
-      href: '/#why-us',
+      href: '/company#why-us',
       description: 'Architectural rigor, speed, and proven delivery track record.',
     },
     {
       name: 'Our Process',
-      href: '/#process',
+      href: '/company#process',
       description: 'Agile execution, rigorous code QA & transparent sprint cadence.',
     },
     {
       name: 'Client Reviews',
-      href: '/portfolio#testimonials',
+      href: '/company#reviews',
       description: 'Feedback from founders and senior engineering leaders.',
     },
     {
       name: 'Careers',
-      href: '/contact',
+      href: '/company#careers',
       description: 'Join our team of elite full-stack engineers and architects.',
     },
     {
       name: 'Pricing & Models',
-      href: '/#pricing',
+      href: '/company#pricing',
       description: 'Dedicated squads, staff augmentation & fixed sprint models.',
     },
     {
       name: 'Contact',
-      href: '/contact',
+      href: '/company#contact',
       description: 'Schedule a direct architectural consultation with our team.',
     },
   ],
@@ -388,7 +388,7 @@ export const NAV_ITEMS: NavItem[] = [
     id: 'company',
     labelKey: 'company',
     defaultLabel: 'Company',
-    href: '/#why-us',
+    href: '/company',
     hasDropdown: true,
     megaMenu: COMPANY_DROPDOWN,
   },
