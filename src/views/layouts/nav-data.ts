@@ -114,7 +114,7 @@ export const SOLUTIONS_MEGA: MegaMenuConfig = {
     tagline: 'Engineered for Impact.',
     description: 'Purpose-built technical architectures solving high-stakes enterprise bottlenecks.',
     ctaLabel: 'View All Solutions',
-    ctaHref: '/#services',
+    ctaHref: '/solutions',
   },
   groups: [
     {
@@ -122,17 +122,17 @@ export const SOLUTIONS_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'AI Agents & Automation',
-          href: '/technology#ai-expertise',
+          href: '/solutions#ai-agents',
           description: 'Autonomous decision pipelines & goal-driven task bots.',
         },
         {
           name: 'RAG & Knowledge Systems',
-          href: '/technology#ai-expertise',
+          href: '/solutions#rag-knowledge',
           description: 'Enterprise search across complex multi-format document lakes.',
         },
         {
           name: 'Data & Analytics',
-          href: '/technology#technologies',
+          href: '/solutions#data-analytics',
           description: 'Real-time metrics, telemetry & executive predictive dashboards.',
         },
       ],
@@ -142,17 +142,17 @@ export const SOLUTIONS_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'SaaS Platforms',
-          href: '/#services',
+          href: '/solutions#saas-platforms',
           description: 'Enterprise recurring revenue engines & customer portals.',
         },
         {
           name: 'Enterprise Applications',
-          href: '/#services',
+          href: '/solutions#enterprise-applications',
           description: 'High-throughput business operations & unified command centers.',
         },
         {
           name: 'Business Process Automation',
-          href: '/#services',
+          href: '/solutions#business-process-automation',
           description: 'End-to-end integration workflows eliminating manual labor.',
         },
       ],
@@ -162,12 +162,12 @@ export const SOLUTIONS_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'System Integration',
-          href: '/#services',
+          href: '/solutions#system-integration',
           description: 'Robust API gateways, event buses & microservice links.',
         },
         {
           name: 'Legacy Modernization',
-          href: '/#services',
+          href: '/solutions#legacy-modernization',
           description: 'Zero-downtime refactoring into modern serverless stacks.',
         },
       ],
@@ -349,7 +349,7 @@ export const NAV_ITEMS: NavItem[] = [
     id: 'solutions',
     labelKey: 'solutions',
     defaultLabel: 'Solutions',
-    href: '/#services',
+    href: '/solutions',
     hasDropdown: true,
     megaMenu: SOLUTIONS_MEGA,
   },
