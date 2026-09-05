@@ -1,22 +1,22 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import {
   Bot,
-  Cloud,
+  Terminal,
   Cpu,
-  Database,
+  Cloud,
   Globe,
   Smartphone,
   Layers,
   GitBranch,
   Settings,
+  Database,
   Shuffle,
   HelpCircle,
-  Terminal,
   Sparkles,
   ArrowRight,
   CheckCircle2,
@@ -25,642 +25,844 @@ import {
   Server,
   Code2,
   ChevronRight,
-  Radio,
+  Search,
+  Activity,
+  Lock,
+  Workflow,
+  Laptop,
+  Check,
+  Compass,
+  FileCode2,
 } from 'lucide-react';
 
-interface ServiceItem {
+/* -------------------------------------------------------------------------- */
+/*                               DATA DEFINITION                              */
+/* -------------------------------------------------------------------------- */
+
+interface CoreServiceItem {
   id: string;
-  category: 'ai-software' | 'applications' | 'cloud-engineering' | 'strategy-transformation';
+  category: 'ai-software' | 'web-mobile' | 'cloud-devops' | 'enterprise-strategy';
   categoryLabel: string;
   title: string;
-  tagline: string;
   description: string;
   icon: React.ReactNode;
   iconBg: string;
-  metric: {
-    value: string;
-    label: string;
-  };
-  features: string[];
-  technologies: string[];
+  deliverables: string[];
+  techStack: string[];
+  slaHighlight: string;
 }
 
-const SERVICES_DATA: ServiceItem[] = [
-  // 1. AI & SOFTWARE
+const ALL_SERVICES_CARDS: CoreServiceItem[] = [
+  // 1. AI Solutions
   {
-    id: 'ai-intelligent-systems',
+    id: 'ai-solutions',
     category: 'ai-software',
-    categoryLabel: 'AI & Software',
-    title: 'AI & Intelligent Systems',
-    tagline: 'Autonomous agents, cognitive workflows & predictive engines.',
+    categoryLabel: 'AI & Machine Learning',
+    title: 'AI Solutions & Autonomous Agents',
     description:
-      'We design and deploy custom autonomous agents, LLM pipelines, and cognitive workflows that integrate directly into your database and operational tools to execute multi-step business decisions.',
+      'Integration of Large Language Models, autonomous agent swarms, vector retrieval (RAG), and predictive analytics pipelines into your core business operations.',
     icon: <Bot className="h-6 w-6 text-cyan-500" />,
-    iconBg: 'from-cyan-500/20 to-blue-500/10 border-cyan-500/30',
-    metric: {
-      value: '10x',
-      label: 'Faster cognitive workflow execution',
-    },
-    features: [
-      'Autonomous multi-agent orchestration and task decomposition',
-      'Enterprise RAG pipelines with dense and sparse hybrid vector search',
-      'Custom LLM fine-tuning and strict prompt safety evaluation',
-      'Real-time streaming agent telemetry and hallucination guardrails',
+    iconBg: 'from-cyan-500/15 to-blue-500/10 border-cyan-500/30 text-cyan-500',
+    deliverables: [
+      'Multi-agent decision orchestrations',
+      'High-precision RAG knowledge systems',
+      'Prompt safety & hallucination guards',
     ],
-    technologies: ['LangChain', 'Python FastAPI', 'pgvector', 'OpenAI', 'Claude 3.5'],
+    techStack: ['LangChain', 'Python FastAPI', 'pgvector', 'Claude 3.5', 'OpenAI'],
+    slaHighlight: '< 150ms Vector Retrieval',
   },
+  // 2. Web Applications
   {
-    id: 'saas-development',
-    category: 'ai-software',
-    categoryLabel: 'AI & Software',
-    title: 'SaaS Development',
-    tagline: 'Scalable multi-tenant platforms built for high user growth.',
+    id: 'web-applications',
+    category: 'web-mobile',
+    categoryLabel: 'Applications',
+    title: 'Web Applications & SaaS Platforms',
     description:
-      'Full-lifecycle SaaS architecture and product engineering. We build resilient multi-tenant foundations, automated billing systems, user permission structures, and client self-service portals.',
-    icon: <Cloud className="h-6 w-6 text-indigo-500" />,
-    iconBg: 'from-indigo-500/20 to-purple-500/10 border-indigo-500/30',
-    metric: {
-      value: '99.99%',
-      label: 'Multi-region cluster availability SLA',
-    },
-    features: [
-      'Isolated multi-tenant database partitioning and tenancy middleware',
-      'Recurring Stripe & Paddle billing with automated tier metering',
-      'Granular role-based access control (RBAC) and team management',
-      'White-label branded tenant subdomains and custom styling',
+      'Custom, scalable SaaS applications, real-time command dashboards, and client self-service portals engineered for enterprise velocity and high concurrency.',
+    icon: <Terminal className="h-6 w-6 text-indigo-500" />,
+    iconBg: 'from-indigo-500/15 to-purple-500/10 border-indigo-500/30 text-indigo-500',
+    deliverables: [
+      'Multi-tenant architecture & RBAC',
+      'Automated recurring Stripe/Paddle billing',
+      'Real-time WebSocket event feeds',
     ],
-    technologies: ['Next.js 15', 'TypeScript', 'Prisma', 'PostgreSQL', 'Stripe'],
+    techStack: ['Next.js 15', 'React', 'TypeScript', 'Prisma', 'PostgreSQL'],
+    slaHighlight: '99.99% Cluster Availability',
   },
+  // 3. Custom Software
   {
     id: 'custom-software',
     category: 'ai-software',
-    categoryLabel: 'AI & Software',
+    categoryLabel: 'Core Engineering',
     title: 'Custom Software Development',
-    tagline: 'Tailored enterprise architectures engineered for your workflows.',
     description:
-      'Bespoke, high-performance software engineered specifically around your core business requirements. We replace fragmented third-party tools with unified, proprietary enterprise systems.',
+      'Bespoke, high-performance software engineered specifically around your core business models to replace fragmented third-party SaaS with proprietary IP.',
     icon: <Cpu className="h-6 w-6 text-purple-500" />,
-    iconBg: 'from-purple-500/20 to-pink-500/10 border-purple-500/30',
-    metric: {
-      value: '100%',
-      label: 'Proprietary IP tailored to your exact workflows',
-    },
-    features: [
-      'Tailored business logic engines built with zero extraneous dependencies',
-      'Strict type contracts, DDD (Domain-Driven Design), and clean architecture',
-      'High-throughput internal processing pipelines and worker queues',
-      'Custom admin dashboards, telemetry metrics, and reporting tools',
+    iconBg: 'from-purple-500/15 to-pink-500/10 border-purple-500/30 text-purple-500',
+    deliverables: [
+      'Domain-Driven Design (DDD) logic',
+      'High-throughput internal worker queues',
+      'Custom admin telemetry consoles',
     ],
-    technologies: ['Node.js', 'Go', 'Python', 'TypeScript', 'Redis', 'PostgreSQL'],
+    techStack: ['Go', 'Node.js', 'Python', 'TypeScript', 'Redis'],
+    slaHighlight: '100% Client IP Ownership',
   },
+  // 4. Cloud Solutions
   {
-    id: 'enterprise-software',
-    category: 'ai-software',
-    categoryLabel: 'AI & Software',
-    title: 'Enterprise Software',
-    tagline: 'Mission-critical portals, microservices & legacy migrations.',
+    id: 'cloud-solutions',
+    category: 'cloud-devops',
+    categoryLabel: 'Infrastructure',
+    title: 'Cloud Solutions & Architecture',
     description:
-      'Robust enterprise backbones capable of supporting millions of transactions, complex permission hierarchies, distributed microservices, and strict regulatory compliance requirements.',
-    icon: <Database className="h-6 w-6 text-blue-500" />,
-    iconBg: 'from-blue-500/20 to-indigo-500/10 border-blue-500/30',
-    metric: {
-      value: '50k+',
-      label: 'Concurrent user operations supported without degradation',
-    },
-    features: [
-      'Distributed microservices linked via asynchronous event buses',
-      'Enterprise SSO (SAML 2.0 / Okta / Azure Active Directory)',
-      'Immutable audit logging, encryption at rest, and HIPAA/SOC2 readiness',
-      'High-availability relational clusters with automated failover',
+      'Resilient, highly available AWS and Cloudflare Edge infrastructure designed with automated autoscaling, multi-region redundancy, and near-zero downtime.',
+    icon: <Cloud className="h-6 w-6 text-sky-500" />,
+    iconBg: 'from-sky-500/15 to-blue-500/10 border-sky-500/30 text-sky-500',
+    deliverables: [
+      'Multi-region Terraform Infrastructure as Code',
+      'Cloudflare R2 edge assets & CDN',
+      'Disaster recovery & hot failover',
     ],
-    technologies: ['Next.js', 'Docker', 'Kubernetes', 'PostgreSQL', 'Kafka'],
+    techStack: ['AWS', 'Cloudflare Edge', 'Docker', 'Terraform', 'PostgreSQL'],
+    slaHighlight: '99.99% Availability SLA',
   },
-
-  // 2. APPLICATIONS
+  // 5. Website Development
   {
     id: 'web-development',
-    category: 'applications',
-    categoryLabel: 'Applications',
-    title: 'Web Application Development',
-    tagline: 'Modern Next.js & React apps with sub-second performance.',
+    category: 'web-mobile',
+    categoryLabel: 'Web Systems',
+    title: 'Corporate Website Development',
     description:
-      'We craft blistering fast, pixel-perfect web applications utilizing the latest Next.js App Router, React Server Components, streaming SSR, and edge-first caching patterns.',
-    icon: <Globe className="h-6 w-6 text-emerald-500" />,
-    iconBg: 'from-emerald-500/20 to-teal-500/10 border-emerald-500/30',
-    metric: {
-      value: '< 0.8s',
-      label: 'First Contentful Paint on mobile and desktop',
-    },
-    features: [
-      'Server-side rendering, streaming hydration, and edge middleware',
-      'Lighthouse 95+ performance, SEO, accessibility, and best practices',
-      'Optimistic mutations with seamless instant client state transitions',
-      'Responsive design systems matching high-end Stripe-like polish',
+      'Premium, pixel-perfect, and SEO-optimized corporate web properties utilizing modern Next.js App Router for sub-second page loads and global brand presence.',
+    icon: <Globe className="h-6 w-6 text-teal-500" />,
+    iconBg: 'from-teal-500/15 to-emerald-500/10 border-teal-500/30 text-teal-500',
+    deliverables: [
+      'Sub-second First Contentful Paint (FCP)',
+      'Internationalization (i18n) routing',
+      'Headless CMS & CRM lead capture',
     ],
-    technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    techStack: ['Next.js SSR', 'Tailwind CSS', 'Framer Motion', 'next-intl'],
+    slaHighlight: '100 Lighthouse Performance',
   },
+  // 6. Mobile Apps
   {
     id: 'mobile-apps',
-    category: 'applications',
-    categoryLabel: 'Applications',
-    title: 'Mobile App Development',
-    tagline: 'Native-feel iOS & Android apps with seamless UX.',
+    category: 'web-mobile',
+    categoryLabel: 'Mobile Engineering',
+    title: 'Mobile Applications (iOS & Android)',
     description:
-      'Cross-platform iOS and Android applications engineered for fluid native performance, real-time push notifications, offline storage, and intuitive micro-interactions.',
-    icon: <Smartphone className="h-6 w-6 text-sky-500" />,
-    iconBg: 'from-sky-500/20 to-blue-500/10 border-sky-500/30',
-    metric: {
-      value: '60 FPS',
-      label: 'Fluid native gesture and animation frame rate',
-    },
-    features: [
-      'Cross-platform code sharing with native platform compilation',
-      'Offline-first synchronization with local SQLite/WatermelonDB',
-      'Push notifications, biometric authentication, and in-app purchases',
-      'App Store and Google Play automated submission pipelines',
+      'Premium cross-platform mobile experiences engineered with native responsiveness, offline-first sync, biometric security, and push notification pipelines.',
+    icon: <Smartphone className="h-6 w-6 text-emerald-500" />,
+    iconBg: 'from-emerald-500/15 to-teal-500/10 border-emerald-500/30 text-emerald-500',
+    deliverables: [
+      'Single codebase iOS & Android apps',
+      'Offline caching & optimistic updates',
+      'App Store & Google Play deployment',
     ],
-    technologies: ['React Native', 'Expo', 'TypeScript', 'Tailwind', 'REST/GraphQL'],
+    techStack: ['React Native', 'Flutter', 'TypeScript', 'Expo', 'SQLite'],
+    slaHighlight: '60 FPS Native Performance',
   },
+  // 7. UI/UX Design
   {
-    id: 'uiux-design',
-    category: 'applications',
-    categoryLabel: 'Applications',
-    title: 'UI/UX Design',
-    tagline: 'High-conversion design systems & micro-interactions.',
+    id: 'ui-ux-design',
+    category: 'web-mobile',
+    categoryLabel: 'Product Design',
+    title: 'UI/UX Design & Design Systems',
     description:
-      'Modern, conversion-focused user experiences engineered with strict layout hierarchies, harmonious color palettes, accessible typography, and delightful micro-animations.',
-    icon: <Layers className="h-6 w-6 text-amber-500" />,
-    iconBg: 'from-amber-500/20 to-orange-500/10 border-amber-500/30',
-    metric: {
-      value: '2.4x',
-      label: 'Average conversion lift on redesign rollouts',
-    },
-    features: [
-      'Complete Figma design systems with reusable atomic tokens',
-      'User journey mapping, cognitive wireframing, and interactive prototypes',
-      'WCAG 2.1 AA accessibility compliance and contrast validation',
-      'Developer handoff blueprints with precision layout specifications',
+      'Modern, Stripe-grade user interfaces designed with strict layout hierarchies, bespoke design tokens, fluid micro-interactions, and conversion-first user flows.',
+    icon: <Layers className="h-6 w-6 text-pink-500" />,
+    iconBg: 'from-pink-500/15 to-rose-500/10 border-pink-500/30 text-pink-500',
+    deliverables: [
+      'Figma design system & reusable tokens',
+      'Interactive clickable prototypes',
+      'WCAG 2.1 AAA Accessibility audits',
     ],
-    technologies: ['Figma', 'Design Systems', 'Prototyping', 'Tailwind Tokens'],
+    techStack: ['Figma', 'Design Tokens', 'Tailwind CSS', 'Storybook', 'Framer Motion'],
+    slaHighlight: '100% Component Library Spec',
   },
-
-  // 3. CLOUD & ENGINEERING
-  {
-    id: 'cloud-infrastructure',
-    category: 'cloud-engineering',
-    categoryLabel: 'Cloud & Engineering',
-    title: 'Cloud & Infrastructure',
-    tagline: 'Reliable AWS & Cloudflare setups with 99.99% availability.',
-    description:
-      'Sleek, highly available cloud topologies utilizing AWS serverless primitives, Cloudflare edge caching, object storage, and automated zero-downtime deployment pipelines.',
-    icon: <Server className="h-6 w-6 text-cyan-500" />,
-    iconBg: 'from-cyan-500/20 to-indigo-500/10 border-cyan-500/30',
-    metric: {
-      value: '99.99%',
-      label: 'Infrastructure uptime across global edge nodes',
-    },
-    features: [
-      'Terraform & Infrastructure as Code (IaC) automated provisioning',
-      'AWS Lambda, ECS, Cloudflare Workers, and R2 storage architecture',
-      'Global DDoS mitigation, SSL certificates, and WAF protection',
-      'Automated database backups, point-in-time recovery, and replicas',
-    ],
-    technologies: ['AWS', 'Cloudflare', 'Terraform', 'Docker', 'PostgreSQL'],
-  },
+  // 8. DevOps & CI/CD
   {
     id: 'devops-cicd',
-    category: 'cloud-engineering',
-    categoryLabel: 'Cloud & Engineering',
-    title: 'DevOps & CI/CD',
-    tagline: 'Automated test-and-deploy pipelines & container orchestration.',
+    category: 'cloud-devops',
+    categoryLabel: 'Infrastructure',
+    title: 'DevOps, CI/CD & Kubernetes',
     description:
-      'Modernize developer velocity with automated continuous integration and continuous deployment pipelines, automated linting, test suites, and preview environments.',
-    icon: <GitBranch className="h-6 w-6 text-purple-500" />,
-    iconBg: 'from-purple-500/20 to-pink-500/10 border-purple-500/30',
-    metric: {
-      value: '< 5 min',
-      label: 'From git commit to global production deployment',
-    },
-    features: [
-      'Automated GitHub Actions workflows with lint, type, and test gates',
-      'Isolated ephemeral pull request preview staging environments',
-      'Zero-downtime rolling and blue-green deployment strategies',
-      'Centralized secrets management and environment isolation',
+      'Zero-downtime deployment pipelines, automated linting & test suites, Kubernetes cluster management, and continuous container preview environments.',
+    icon: <GitBranch className="h-6 w-6 text-amber-500" />,
+    iconBg: 'from-amber-500/15 to-orange-500/10 border-amber-500/30 text-amber-500',
+    deliverables: [
+      'GitHub Actions automated deployment pipelines',
+      'Kubernetes Helm chart management',
+      'Automated rollbacks & health probes',
     ],
-    technologies: ['GitHub Actions', 'Docker', 'Kubernetes', 'AWS', 'Vercel'],
+    techStack: ['GitHub Actions', 'Kubernetes', 'Docker', 'Helm', 'ArgoCD'],
+    slaHighlight: 'Zero-Downtime Deployments',
   },
+  // 9. Business Automation
   {
     id: 'business-automation',
-    category: 'cloud-engineering',
-    categoryLabel: 'Cloud & Engineering',
-    title: 'Business Automation',
-    tagline: 'Automated CRM, billing pipelines & operational bots.',
+    category: 'enterprise-strategy',
+    categoryLabel: 'Automation',
+    title: 'Business Process Automation',
     description:
-      'Eliminate manual friction and administrative overhead by automating internal databases, partner billing syncs, CRM lead routing, and customer notification workflows.',
-    icon: <Settings className="h-6 w-6 text-blue-500" />,
-    iconBg: 'from-blue-500/20 to-cyan-500/10 border-blue-500/30',
-    metric: {
-      value: '80%',
-      label: 'Decrease in administrative data entry cycles',
-    },
-    features: [
-      'Multi-platform webhook routing and data transformation engines',
-      'Automated billing reconciliation and invoice generation bots',
-      'CRM synchronization (HubSpot, Salesforce, custom DBs)',
-      'Automated Slack, email, and SMS customer alert triggers',
+      'Automate internal multi-step databases, billing pipelines, CRM synchronization, customer support escalations, and cross-platform event dispatchers.',
+    icon: <Settings className="h-6 w-6 text-orange-500" />,
+    iconBg: 'from-orange-500/15 to-amber-500/10 border-orange-500/30 text-orange-500',
+    deliverables: [
+      'Bi-directional CRM & database synchronization',
+      'Automated email & webhook dispatchers',
+      'Exception alerting & fallback queues',
     ],
-    technologies: ['Node.js', 'BullMQ', 'Temporal', 'Webhooks', 'Redis'],
+    techStack: ['Temporal', 'n8n', 'Zapier Enterprise', 'Python', 'Redis Queues'],
+    slaHighlight: '90%+ Manual Hours Saved',
   },
-
-  // 4. STRATEGY & TRANSFORMATION (Shifted from Home Page Services)
+  // 10. Enterprise Software
+  {
+    id: 'enterprise-software',
+    category: 'enterprise-strategy',
+    categoryLabel: 'Enterprise IT',
+    title: 'Enterprise Software & Microservices',
+    description:
+      'High-concurrency database architectures, distributed microservices linked via asynchronous event brokers, SAML 2.0 enterprise SSO, and regulatory audits.',
+    icon: <Database className="h-6 w-6 text-blue-600" />,
+    iconBg: 'from-blue-600/15 to-indigo-500/10 border-blue-600/30 text-blue-600',
+    deliverables: [
+      'Distributed event streaming architectures',
+      'Enterprise SSO (SAML 2.0 / Okta / Azure AD)',
+      'Immutable audit logs & HIPAA/SOC2 readiness',
+    ],
+    techStack: ['Next.js', 'Go', 'Apache Kafka', 'PostgreSQL', 'Docker'],
+    slaHighlight: '50k+ Concurrent Users',
+  },
+  // 11. Digital Transformation
   {
     id: 'digital-transformation',
-    category: 'strategy-transformation',
-    categoryLabel: 'Strategy & Transformation',
-    title: 'Digital Transformation',
-    tagline: 'Transitioning analog workflows to scalable cloud platforms.',
+    category: 'enterprise-strategy',
+    categoryLabel: 'Transformation',
+    title: 'Digital Transformation & Modernization',
     description:
-      'Modernize outdated legacy business processes with bespoke cloud platforms, structured relational databases, automated reporting, and real-time operational transparency.',
-    icon: <Shuffle className="h-6 w-6 text-rose-500" />,
-    iconBg: 'from-rose-500/20 to-red-500/10 border-rose-500/30',
-    metric: {
-      value: '65%',
-      label: 'Reduction in operational overhead post-migration',
-    },
-    features: [
-      'Comprehensive workflow digitalization and paperwork elimination',
-      'Centralized cloud-native data warehousing and automated exports',
-      'Custom operations portals with role-based team management',
-      'Change management, documentation, and staff training protocols',
+      'Modernize legacy monoliths into scalable micro-frontends and cloud-native backends with zero data loss, continuous migration gates, and staff training.',
+    icon: <Shuffle className="h-6 w-6 text-violet-500" />,
+    iconBg: 'from-violet-500/15 to-purple-500/10 border-violet-500/30 text-violet-500',
+    deliverables: [
+      'Legacy monolith strangulation & refactoring',
+      'Zero-downtime database migration scripts',
+      'Standardized modern developer toolchains',
     ],
-    technologies: ['Next.js', 'PostgreSQL', 'Cloud Infrastructure', 'API Integrations'],
+    techStack: ['TypeScript', 'GraphQL', 'Next.js', 'PostgreSQL', 'Docker'],
+    slaHighlight: 'Zero Business Disruption',
   },
+  // 12. IT Consulting
   {
     id: 'it-consulting',
-    category: 'strategy-transformation',
-    categoryLabel: 'Strategy & Transformation',
-    title: 'IT Consulting & Architecture',
-    tagline: 'Senior architectural audits, risk assessment & optimization.',
+    category: 'enterprise-strategy',
+    categoryLabel: 'Advisory',
+    title: 'IT Consulting & Architectural Audits',
     description:
-      'Direct guidance from seasoned principal software architects. We evaluate your existing codebase, identify security bottlenecks, and construct scalable technical roadmaps.',
-    icon: <HelpCircle className="h-6 w-6 text-amber-500" />,
-    iconBg: 'from-amber-500/20 to-yellow-500/10 border-amber-500/30',
-    metric: {
-      value: '100%',
-      label: 'Direct principal engineer consultation and audit reports',
-    },
-    features: [
-      'Deep architectural and database query performance audits',
-      'Security posture, SOC2 readiness, and vulnerability scanning',
-      'Tech stack evaluation, licensing cost reduction, and vendor audits',
-      'Sprint velocity reviews and engineering team augmentation scoping',
+      'Senior architectural reviews, tech due diligence, security posture evaluations, and tailored engineering roadmaps delivered by principal engineers.',
+    icon: <HelpCircle className="h-6 w-6 text-rose-500" />,
+    iconBg: 'from-rose-500/15 to-pink-500/10 border-rose-500/30 text-rose-500',
+    deliverables: [
+      'Deep architectural bottleneck diagnosis',
+      'Security vulnerability & compliance reports',
+      '12-month technology scaling roadmap',
     ],
-    technologies: ['Architecture Audits', 'Cloud Cost Optimization', 'Security Review', 'Codebase QA'],
+    techStack: ['System Modeling', 'C4 Architecture', 'OpenTelemetry', 'AWS Well-Architected'],
+    slaHighlight: 'Actionable Executive Blueprint',
   },
 ];
 
-const CATEGORIES = [
-  { id: 'all', label: 'All Services' },
-  { id: 'ai-software', label: 'AI & Software' },
-  { id: 'applications', label: 'Applications' },
-  { id: 'cloud-engineering', label: 'Cloud & Engineering' },
-  { id: 'strategy-transformation', label: 'Strategy & Transformation' },
+const CATEGORY_TABS = [
+  { id: 'all', label: 'All Services (12)' },
+  { id: 'ai-software', label: 'AI & Core Software' },
+  { id: 'web-mobile', label: 'Web & Mobile' },
+  { id: 'cloud-devops', label: 'Cloud & DevOps' },
+  { id: 'enterprise-strategy', label: 'Enterprise & Strategy' },
 ] as const;
+
+/* -------------------------------------------------------------------------- */
+/*                               MAIN COMPONENT                               */
+/* -------------------------------------------------------------------------- */
 
 export function ServicesView() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [activeConsoleTab, setActiveConsoleTab] = useState<'pipeline' | 'telemetry' | 'standards'>('pipeline');
 
-  const filteredServices =
-    selectedCategory === 'all'
-      ? SERVICES_DATA
-      : SERVICES_DATA.filter((item) => item.category === selectedCategory);
+  // Filter services by category and search keyword
+  const filteredServices = useMemo(() => {
+    return ALL_SERVICES_CARDS.filter((item) => {
+      const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
+      const matchesSearch =
+        searchQuery.trim() === '' ||
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.categoryLabel.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.techStack.some((tech) => tech.toLowerCase().includes(searchQuery.toLowerCase()));
+
+      return matchesCategory && matchesSearch;
+    });
+  }, [selectedCategory, searchQuery]);
 
   return (
-    <div className="flex flex-col w-full">
-      {/* 1. HERO SECTION */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 px-6 overflow-hidden">
-        {/* Ambient background glows */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-tr from-primary/15 via-secondary/10 to-accent/15 rounded-full blur-[140px] pointer-events-none -z-10" />
-        <div className="absolute top-10 right-10 w-[350px] h-[350px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
+    <div className="flex flex-col w-full selection:bg-primary/20">
+      {/* ==================================================================== */}
+      {/* 1. INNOVATIVE ASYMMETRICAL HERO SECTION                              */}
+      {/* ==================================================================== */}
+      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 px-6 overflow-hidden bg-gradient-to-b from-primary/5 via-transparent to-transparent dark:from-slate-950 dark:via-background dark:to-background border-b border-border/50 dark:border-slate-800/60">
+        {/* Futuristic Ambient Glow Spheres */}
+        <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-primary/15 dark:bg-primary/20 rounded-full blur-[140px] pointer-events-none -z-10" />
+        <div className="absolute top-1/3 -right-32 w-[550px] h-[550px] bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-[150px] pointer-events-none -z-10" />
+        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[800px] h-[200px] bg-secondary/10 dark:bg-secondary/15 rounded-full blur-[120px] pointer-events-none -z-10" />
 
-        <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-bold tracking-wider text-primary bg-primary/10 rounded-full border border-primary/20 dark:bg-primary/20 dark:text-primary-foreground uppercase mb-6 animate-fade-in">
-            <Sparkles className="h-3.5 w-3.5 text-primary dark:text-accent" />
-            <span>FULL-CYCLE ENGINEERING SERVICES</span>
-          </div>
-
-          {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight font-heading text-slate-900 dark:text-white max-w-5xl leading-[1.1] mb-6">
-            Engineered for Scale.{' '}
-            <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              Built for Velocity.
-            </span>
-          </h1>
-
-          {/* Subtitle */}
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl font-medium mb-10">
-            From cognitive autonomous agents and multi-tenant SaaS platforms to resilient cloud infrastructure,
-            we engineer high-velocity technology around your core business models.
-          </p>
-
-          {/* Stats Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 w-full max-w-4xl p-6 bg-card/85 dark:bg-slate-900/85 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-2xl shadow-sm mb-12 text-left">
-            <div className="flex flex-col">
-              <span className="text-2xl sm:text-3xl font-extrabold font-heading text-primary dark:text-accent">
-                99.99%
-              </span>
-              <span className="text-xs sm:text-sm text-muted-foreground font-semibold">
-                Cloud Availability SLA
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-2xl sm:text-3xl font-extrabold font-heading text-secondary dark:text-purple-400">
-                12 Disciplines
-              </span>
-              <span className="text-xs sm:text-sm text-muted-foreground font-semibold">
-                Full-Stack Technical Domains
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-2xl sm:text-3xl font-extrabold font-heading text-accent dark:text-cyan-400">
-                100%
-              </span>
-              <span className="text-xs sm:text-sm text-muted-foreground font-semibold">
-                Strict Type-Safe Delivery
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-2xl sm:text-3xl font-extrabold font-heading text-emerald-500">
-                24/7
-              </span>
-              <span className="text-xs sm:text-sm text-muted-foreground font-semibold">
-                Active Telemetry & SLA
-              </span>
-            </div>
-          </div>
-
-          {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 bg-card/90 dark:bg-slate-900/90 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs">
-            {CATEGORIES.map((cat) => {
-              const active = selectedCategory === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className={cn(
-                    'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer select-none',
-                    active
-                      ? 'bg-primary text-white shadow-sm dark:bg-accent dark:text-slate-950 font-extrabold'
-                      : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
-                  )}
-                >
-                  {cat.label}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* 2. FEATURED SHOWCASE BANNER (From services dropdown featured card) */}
-      <section className="px-6 mb-16 max-w-7xl mx-auto w-full">
-        <div className="relative overflow-hidden rounded-3xl border border-primary/25 dark:border-cyan-500/30 bg-gradient-to-br from-blue-50/70 via-indigo-50/40 to-cyan-50/50 dark:from-slate-900/95 dark:via-slate-900/90 dark:to-blue-950/40 p-8 sm:p-12 shadow-md">
-          <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-primary/10 dark:bg-cyan-500/10 blur-3xl pointer-events-none" />
-          <div className="absolute -left-16 -bottom-16 h-64 w-64 rounded-full bg-secondary/10 dark:bg-purple-500/10 blur-3xl pointer-events-none" />
-
-          <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-            <div className="flex flex-col gap-3 max-w-2xl text-left">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-black tracking-wider uppercase bg-primary/10 text-primary dark:bg-cyan-500/20 dark:text-cyan-300 border border-primary/20 dark:border-cyan-500/40 w-fit">
-                <Sparkles className="h-3.5 w-3.5" />
-                <span>ENTERPRISE IT</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white font-heading tracking-tight">
-                Build something exceptional.
-              </h2>
-              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
-                From AI systems to scalable enterprise applications, we engineer technology around your business.
-                Partner with senior architects and elite engineers dedicated to your technical velocity.
-              </p>
-            </div>
-
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full lg:w-auto">
-              <Link
-                href="/contact"
-                className="px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm text-white bg-primary hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 transition-all flex items-center justify-center gap-2 shadow-sm shadow-primary/20"
-              >
-                <span>Schedule Engineering Scoping</span>
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <a
-                href="#all-services"
-                className="px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm text-slate-700 dark:text-slate-200 bg-white/90 dark:bg-slate-800/90 hover:bg-white dark:hover:bg-slate-800 border border-border/80 dark:border-slate-700/80 transition-all flex items-center justify-center gap-2 shadow-xs"
-              >
-                <span>Explore All Services</span>
-                <ChevronRight className="h-4 w-4" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. SERVICES CATEGORIES & CARDS (All dropdown items + shifted home page services) */}
-      <section id="all-services" className="px-6 pb-24 max-w-7xl mx-auto w-full scroll-mt-24">
-        <div className="flex flex-col gap-12">
-          {/* CATEGORY 01: AI & SOFTWARE */}
-          {(selectedCategory === 'all' || selectedCategory === 'ai-software') && (
-            <div id="ai-software" className="flex flex-col gap-3 scroll-mt-28">
-              <div className="flex items-center gap-3">
-                <span className="h-2 w-2 rounded-full bg-cyan-500 animate-pulse" />
-                <span className="text-xs font-black uppercase tracking-widest text-cyan-600 dark:text-cyan-400">
-                  CATEGORY 01
-                </span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white font-heading">
-                AI &amp; Software
-              </h2>
-              <p className="text-sm sm:text-base text-muted-foreground max-w-3xl">
-                Autonomous agent pipelines, multi-tenant software platforms, and mission-critical custom architectures.
-              </p>
-            </div>
-          )}
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-            {filteredServices
-              .filter((s) => selectedCategory !== 'all' || s.category === 'ai-software')
-              .map((service) => (
-                <ServiceDetailCard key={service.id} service={service} />
-              ))}
-          </div>
-
-          {/* CATEGORY 02: APPLICATIONS */}
-          {(selectedCategory === 'all' || selectedCategory === 'applications') && (
-            <div id="applications" className="flex flex-col gap-3 pt-10 scroll-mt-28 border-t border-border/60 dark:border-slate-800/80">
-              <div className="flex items-center gap-3">
-                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-xs font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
-                  CATEGORY 02
-                </span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white font-heading">
-                Applications
-              </h2>
-              <p className="text-sm sm:text-base text-muted-foreground max-w-3xl">
-                Modern Next.js web platforms, native-feel iOS &amp; Android applications, and high-conversion design systems.
-              </p>
-            </div>
-          )}
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredServices
-              .filter((s) => selectedCategory !== 'all' || s.category === 'applications')
-              .map((service) => (
-                <ServiceDetailCard key={service.id} service={service} />
-              ))}
-          </div>
-
-          {/* CATEGORY 03: CLOUD & ENGINEERING */}
-          {(selectedCategory === 'all' || selectedCategory === 'cloud-engineering') && (
-            <div id="cloud-engineering" className="flex flex-col gap-3 pt-10 scroll-mt-28 border-t border-border/60 dark:border-slate-800/80">
-              <div className="flex items-center gap-3">
-                <span className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse" />
-                <span className="text-xs font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
-                  CATEGORY 03
-                </span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white font-heading">
-                Cloud &amp; Engineering
-              </h2>
-              <p className="text-sm sm:text-base text-muted-foreground max-w-3xl">
-                High-availability AWS and Cloudflare environments, automated CI/CD deployment pipelines, and business process automations.
-              </p>
-            </div>
-          )}
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredServices
-              .filter((s) => selectedCategory !== 'all' || s.category === 'cloud-engineering')
-              .map((service) => (
-                <ServiceDetailCard key={service.id} service={service} />
-              ))}
-          </div>
-
-          {/* CATEGORY 04: STRATEGY & TRANSFORMATION (Shifted from Home Page) */}
-          {(selectedCategory === 'all' || selectedCategory === 'strategy-transformation') && (
-            <div id="strategy-transformation" className="flex flex-col gap-3 pt-10 scroll-mt-28 border-t border-border/60 dark:border-slate-800/80">
-              <div className="flex items-center gap-3">
-                <span className="h-2 w-2 rounded-full bg-rose-500 animate-pulse" />
-                <span className="text-xs font-black uppercase tracking-widest text-rose-600 dark:text-rose-400">
-                  CATEGORY 04
-                </span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white font-heading">
-                Strategy &amp; Transformation
-              </h2>
-              <p className="text-sm sm:text-base text-muted-foreground max-w-3xl">
-                Comprehensive digital transformation programs, legacy workflow modernizations, and principal software architecture audits.
-              </p>
-            </div>
-          )}
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-            {filteredServices
-              .filter((s) => selectedCategory !== 'all' || s.category === 'strategy-transformation')
-              .map((service) => (
-                <ServiceDetailCard key={service.id} service={service} />
-              ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. ENGINEERING STANDARDS FRAMEWORK */}
-      <section className="py-20 md:py-28 px-6 bg-slate-100/60 dark:bg-slate-900/50 border-y border-border/60 dark:border-slate-800/80">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col gap-3 text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-flex self-center px-3.5 py-1 text-xs font-bold tracking-wider text-primary bg-primary/10 rounded-full border border-primary/20 dark:bg-primary/20 dark:text-primary-foreground uppercase w-fit">
-              DELIVERY STANDARDS
-            </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white font-heading">
-              Our Core Engineering Principles
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+            {/* Left Column: Mission, Value Prop, Action Buttons */}
+            <div className="lg:col-span-7 flex flex-col items-start text-left">
+              {/* Badge with live pulse */}
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 dark:bg-primary/20 dark:text-cyan-300 dark:border-cyan-500/30 mb-6 shadow-xs">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500" />
+                </span>
+                <span>Full-Cycle Software Engineering</span>
+              </div>
+
+              {/* Commanding Headline */}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight font-heading text-slate-900 dark:text-white leading-[1.08] mb-6">
+                Architectural Precision.{' '}
+                <span className="bg-gradient-to-r from-primary via-indigo-600 to-cyan-500 dark:from-cyan-400 dark:via-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
+                  High-Velocity
+                </span>{' '}
+                Delivery.
+              </h1>
+
+              {/* Subheadline */}
+              <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-medium mb-8 max-w-2xl">
+                We engineer mission-critical digital products, autonomous AI pipelines, high-throughput web applications, and resilient cloud architectures with zero technical debt and 100% proprietary code ownership.
+              </p>
+
+              {/* CTA Action Buttons */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto mb-10">
+                <Link
+                  href="/contact"
+                  className="px-7 py-3.5 rounded-xl font-bold text-sm text-white bg-primary hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 shadow-md shadow-primary/25 transition-all flex items-center justify-center gap-2 active:scale-95 group"
+                >
+                  <span>Schedule Technical Scope</span>
+                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <a
+                  href="#services-catalog"
+                  className="px-6 py-3.5 rounded-xl font-bold text-sm text-slate-800 dark:text-slate-200 bg-white/90 hover:bg-white dark:bg-slate-900/90 dark:hover:bg-slate-800 border border-slate-200/90 dark:border-slate-800 shadow-xs transition-all flex items-center justify-center gap-2"
+                >
+                  <span>Explore 12 Core Services</span>
+                  <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                </a>
+              </div>
+
+              {/* Assurances Bar */}
+              <div className="pt-6 border-t border-border/60 dark:border-slate-800/80 w-full grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  <ShieldCheck className="h-4 w-4 text-emerald-500 shrink-0" />
+                  <span>100% Client IP Ownership</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  <Zap className="h-4 w-4 text-amber-500 shrink-0" />
+                  <span>Strict Type-Safe Code</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300 col-span-2 sm:col-span-1">
+                  <Activity className="h-4 w-4 text-cyan-500 shrink-0" />
+                  <span>99.99% Cloud SLA</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Interactive Live Engineering Command Console */}
+            <div className="lg:col-span-5 w-full">
+              <div className="relative rounded-2xl p-1 bg-gradient-to-br from-primary/30 via-indigo-500/20 to-cyan-500/30 shadow-xl shadow-primary/10">
+                <div className="rounded-[14px] bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl border border-slate-200/80 dark:border-slate-800 p-6 flex flex-col gap-5 text-left">
+                  {/* Window Bar */}
+                  <div className="flex items-center justify-between border-b border-border/60 dark:border-slate-800 pb-3">
+                    <div className="flex items-center gap-2">
+                      <div className="h-3 w-3 rounded-full bg-rose-500/80" />
+                      <div className="h-3 w-3 rounded-full bg-amber-500/80" />
+                      <div className="h-3 w-3 rounded-full bg-emerald-500/80" />
+                      <span className="ml-2 font-mono text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+                        astraiv-engine // live-telemetry
+                      </span>
+                    </div>
+                    <span className="font-mono text-[10.5px] uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30">
+                      LIVE • CLUSTER READY
+                    </span>
+                  </div>
+
+                  {/* Console Tabs */}
+                  <div className="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-slate-900 rounded-lg">
+                    {[
+                      { id: 'pipeline', label: 'Delivery Pipeline' },
+                      { id: 'telemetry', label: 'SLAs & Telemetry' },
+                      { id: 'standards', label: 'Code Standards' },
+                    ].map((tab) => (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveConsoleTab(tab.id as any)}
+                        className={cn(
+                          'flex-1 py-1.5 px-2 rounded-md text-[11px] font-bold transition-all',
+                          activeConsoleTab === tab.id
+                            ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs'
+                            : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
+                        )}
+                      >
+                        {tab.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Tab 1: Delivery Pipeline */}
+                  {activeConsoleTab === 'pipeline' && (
+                    <div className="flex flex-col gap-3 py-1">
+                      {[
+                        {
+                          phase: 'Stage 01',
+                          title: 'System Modeling & Spec',
+                          status: 'Validated',
+                          badgeColor: 'text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/40',
+                        },
+                        {
+                          phase: 'Stage 02',
+                          title: 'Type-Safe Core Engineering',
+                          status: 'Active Sprint',
+                          badgeColor: 'text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40',
+                        },
+                        {
+                          phase: 'Stage 03',
+                          title: 'Automated Security & QA',
+                          status: 'Passing (100%)',
+                          badgeColor: 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40',
+                        },
+                        {
+                          phase: 'Stage 04',
+                          title: 'Cloudflare / AWS Deployment',
+                          status: 'Zero-Downtime',
+                          badgeColor: 'text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40',
+                        },
+                      ].map((item, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800/80"
+                        >
+                          <div className="flex items-center gap-2.5">
+                            <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                            <div>
+                              <span className="block text-[10px] uppercase font-bold text-slate-400 dark:text-slate-500 font-mono">
+                                {item.phase}
+                              </span>
+                              <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
+                                {item.title}
+                              </span>
+                            </div>
+                          </div>
+                          <span className={cn('text-[10px] font-bold px-2 py-0.5 rounded border', item.badgeColor)}>
+                            {item.status}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Tab 2: SLAs & Telemetry */}
+                  {activeConsoleTab === 'telemetry' && (
+                    <div className="grid grid-cols-2 gap-3 py-1">
+                      {[
+                        { label: 'Cluster Uptime SLA', val: '99.99%', sub: 'Zero unplanned outages' },
+                        { label: 'Global P99 Latency', val: '< 65ms', sub: 'Edge CDN routing' },
+                        { label: 'Test Coverage', val: '98.5%', sub: 'Unit & integration suites' },
+                        { label: 'Type Safety', val: '100%', sub: 'Strict schema validation' },
+                      ].map((stat, idx) => (
+                        <div
+                          key={idx}
+                          className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800/80 flex flex-col"
+                        >
+                          <span className="text-[10.5px] font-semibold text-slate-500 dark:text-slate-400">
+                            {stat.label}
+                          </span>
+                          <span className="text-xl font-black font-heading text-slate-900 dark:text-white mt-1">
+                            {stat.val}
+                          </span>
+                          <span className="text-[9.5px] text-slate-400 dark:text-slate-500 mt-0.5">
+                            {stat.sub}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Tab 3: Code Standards */}
+                  {activeConsoleTab === 'standards' && (
+                    <div className="flex flex-col gap-2.5 py-1 text-xs">
+                      <div className="flex items-start gap-2 text-slate-700 dark:text-slate-300">
+                        <Check className="h-4 w-4 text-cyan-500 mt-0.5 shrink-0" />
+                        <span><strong>Domain-Driven Design:</strong> Decoupled logic with clean boundaries.</span>
+                      </div>
+                      <div className="flex items-start gap-2 text-slate-700 dark:text-slate-300">
+                        <Check className="h-4 w-4 text-cyan-500 mt-0.5 shrink-0" />
+                        <span><strong>Zero Hallucination AI:</strong> Strict JSON validation gates on all LLMs.</span>
+                      </div>
+                      <div className="flex items-start gap-2 text-slate-700 dark:text-slate-300">
+                        <Check className="h-4 w-4 text-cyan-500 mt-0.5 shrink-0" />
+                        <span><strong>OWASP & SOC2:</strong> Sanitized inputs, RBAC, and payload encryption.</span>
+                      </div>
+                      <div className="flex items-start gap-2 text-slate-700 dark:text-slate-300">
+                        <Check className="h-4 w-4 text-cyan-500 mt-0.5 shrink-0" />
+                        <span><strong>Immutable Handover:</strong> 100% code repositories pushed to your Git.</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Terminal Footer Info */}
+                  <div className="pt-2 border-t border-border/50 dark:border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                    <span>12 Active Disciplines</span>
+                    <span className="text-primary dark:text-cyan-400 font-bold">READY TO SCALE →</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================================================================== */}
+      {/* 2. THE 12 CORE SERVICES CATALOG (PREVIOUS CARDS + RICH CAPABILITIES) */}
+      {/* ==================================================================== */}
+      <section id="services-catalog" className="py-20 px-6 max-w-7xl mx-auto w-full scroll-mt-24">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div className="flex flex-col gap-2.5 max-w-2xl text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-black tracking-wider uppercase bg-primary/10 text-primary dark:bg-cyan-500/20 dark:text-cyan-300 border border-primary/20 dark:border-cyan-500/30 w-fit">
+              <Sparkles className="h-3.5 w-3.5" />
+              <span>CORE ENGINEERING CATALOG</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white font-heading tracking-tight">
+              Our Services
             </h2>
-            <p className="text-base text-muted-foreground leading-relaxed">
-              Every software service we deliver complies with rigorous technical benchmarks designed to eliminate debt and ensure lifelong reliability.
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+              Premium software engineering and cloud automation engineered for hyper-growth. Explore our 12 specialized disciplines built for enterprise velocity.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Search Box */}
+          <div className="relative w-full md:w-72">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Search services or tech..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-xl bg-card dark:bg-slate-900 border border-border/70 dark:border-slate-800 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all shadow-xs"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+              >
+                Clear
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Category Filter Pills */}
+        <div className="flex flex-wrap items-center gap-2 p-1.5 bg-slate-100/80 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/70 dark:border-slate-800 rounded-2xl shadow-xs mb-10 w-fit">
+          {CATEGORY_TABS.map((tab) => {
+            const active = selectedCategory === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setSelectedCategory(tab.id)}
+                className={cn(
+                  'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer select-none',
+                  active
+                    ? 'bg-primary text-white shadow-sm dark:bg-blue-600 dark:text-white font-black'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800'
+                )}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* The 12 Services Grid */}
+        {filteredServices.length === 0 ? (
+          <div className="p-12 text-center rounded-2xl border border-dashed border-border dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40">
+            <p className="text-base text-muted-foreground font-semibold">
+              No services found matching "{searchQuery}".
+            </p>
+            <button
+              onClick={() => {
+                setSelectedCategory('all');
+                setSearchQuery('');
+              }}
+              className="mt-3 text-xs font-bold text-primary dark:text-cyan-400 hover:underline"
+            >
+              Reset Filters
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-stretch">
+            {filteredServices.map((service, index) => (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, delay: index * 0.04 }}
+                className="h-full flex flex-col"
+              >
+                <div className="group relative overflow-hidden bg-card/90 dark:bg-slate-900/90 backdrop-blur-xl border border-border/70 dark:border-slate-800/90 hover:border-primary/50 dark:hover:border-cyan-500/50 rounded-[22px] shadow-xs hover:shadow-xl transition-all duration-300 select-none h-full flex flex-col justify-between p-6 text-left">
+                  {/* Decorative background glow */}
+                  <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-primary/5 dark:bg-cyan-500/10 blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
+
+                  <div>
+                    {/* Header: Icon & Category Label */}
+                    <div className="flex items-center justify-between mb-4">
+                      <div
+                        className={cn(
+                          'flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br border transition-transform duration-300 group-hover:scale-110',
+                          service.iconBg
+                        )}
+                      >
+                        {service.icon}
+                      </div>
+                      <span className="text-[10px] uppercase font-black tracking-widest text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/90 px-2 py-0.5 rounded-md border border-slate-200 dark:border-slate-700/60">
+                        {service.categoryLabel}
+                      </span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-lg font-bold tracking-tight text-slate-900 dark:text-white mb-2 group-hover:text-primary dark:group-hover:text-cyan-400 transition-colors">
+                      {service.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium mb-4">
+                      {service.description}
+                    </p>
+
+                    {/* Deliverables Checklist */}
+                    <div className="flex flex-col gap-1.5 mb-5 pt-3 border-t border-border/50 dark:border-slate-800/80">
+                      {service.deliverables.map((item, dIdx) => (
+                        <div key={dIdx} className="flex items-start gap-2 text-[11px] text-slate-600 dark:text-slate-300 font-medium">
+                          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    {/* Tech Stack Pills */}
+                    <div className="flex flex-wrap gap-1 mb-4 pt-3 border-t border-border/50 dark:border-slate-800/80">
+                      {service.techStack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Footer Action */}
+                    <div className="flex items-center justify-between pt-2">
+                      <span className="text-[10.5px] font-bold text-slate-500 dark:text-slate-400 font-mono">
+                        {service.slaHighlight}
+                      </span>
+                      <Link
+                        href="/contact"
+                        className="inline-flex items-center text-xs font-black text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 transition-colors group/link"
+                      >
+                        <span>Scope Service</span>
+                        <ArrowRight className="ml-1 h-3.5 w-3.5 group-hover/link:translate-x-1 transition-transform" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* ==================================================================== */}
+      {/* 3. INNOVATIVE FULL-CYCLE ENGINEERING LIFECYCLE                       */}
+      {/* ==================================================================== */}
+      <section className="py-20 md:py-28 px-6 bg-slate-50/80 dark:bg-slate-950/60 border-y border-border/70 dark:border-slate-800/80">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="flex flex-col gap-3 text-center max-w-3xl mx-auto mb-16">
+            <span className="inline-flex self-center px-3.5 py-1 text-xs font-black tracking-wider text-primary bg-primary/10 rounded-full border border-primary/20 dark:bg-cyan-500/20 dark:text-cyan-300 dark:border-cyan-500/30 uppercase w-fit">
+              EXECUTION METHODOLOGY
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white font-heading">
+              How We Deliver Engineering Excellence
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+              A systematic 4-phase agile engineering lifecycle designed to eliminate technical debt, guarantee architectural clarity, and maximize launch velocity.
+            </p>
+          </div>
+
+          {/* 4-Step Process Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
                 step: '01',
-                title: 'Type-Safe Architecture',
-                desc: 'Strict end-to-end TypeScript and schema contracts eliminate runtime regressions across API boundaries.',
-                icon: <Code2 className="h-5 w-5 text-cyan-500" />,
+                title: 'Architectural Blueprinting',
+                desc: 'Deep-dive discovery, entity relation diagrams, API contracts, and infrastructure topology modeling prior to coding.',
+                deliverable: 'System Architecture Document',
+                icon: <Compass className="h-6 w-6 text-cyan-500" />,
               },
               {
                 step: '02',
-                title: 'Automated CI/CD & QA',
-                desc: 'Rigorous unit tests, integration suites, and automated container preview builds with every commit.',
-                icon: <GitBranch className="h-5 w-5 text-purple-500" />,
+                title: 'High-Velocity Sprints',
+                desc: 'Two-week sprint cycles with type-safe implementations, live staging preview branches, and weekly video walkthroughs.',
+                deliverable: 'Live Staging Previews & PRs',
+                icon: <FileCode2 className="h-6 w-6 text-indigo-500" />,
               },
               {
                 step: '03',
-                title: 'Security & Compliance',
-                desc: 'Role-based access, end-to-end payload encryption, and SOC2/HIPAA readiness embedded into system design.',
-                icon: <ShieldCheck className="h-5 w-5 text-emerald-500" />,
+                title: 'Hardening & Security Audits',
+                desc: 'Rigorous penetration testing, automated OWASP security scans, load simulations, and WCAG accessibility verifications.',
+                deliverable: 'Security & QA Sign-Off',
+                icon: <ShieldCheck className="h-6 w-6 text-emerald-500" />,
               },
               {
                 step: '04',
-                title: 'Continuous Telemetry',
-                desc: 'Distributed OpenTelemetry APM, real-time error alerts, and 99.99% cloud availability standards.',
-                icon: <Radio className="h-5 w-5 text-amber-500" />,
+                title: 'Zero-Downtime Deployment & SLA',
+                desc: 'Cloudflare Edge CDN, automated AWS failover clusters, continuous telemetry logging, and proactive 24/7 SLA monitoring.',
+                deliverable: 'Production Rollout & 24/7 SLA',
+                icon: <Activity className="h-6 w-6 text-purple-500" />,
               },
-            ].map((pillar) => (
+            ].map((phase, idx) => (
               <div
-                key={pillar.step}
-                className="p-7 bg-card dark:bg-slate-900/90 border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs hover:shadow-md transition-all flex flex-col gap-4 text-left group"
+                key={idx}
+                className="p-7 bg-card dark:bg-slate-900/90 border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs hover:shadow-lg transition-all flex flex-col justify-between text-left group relative overflow-hidden"
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-border/50 group-hover:bg-primary group-hover:text-white transition-colors">
-                    {pillar.icon}
+                <div className="absolute -top-10 -right-10 w-24 h-24 bg-primary/5 dark:bg-cyan-500/10 rounded-full blur-xl group-hover:scale-150 transition-transform" />
+
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/60 group-hover:bg-primary group-hover:text-white transition-colors">
+                      {phase.icon}
+                    </div>
+                    <span className="text-3xl font-black font-heading text-slate-300 dark:text-slate-700">
+                      {phase.step}
+                    </span>
                   </div>
-                  <span className="text-2xl font-black font-heading text-slate-300 dark:text-slate-700">
-                    {pillar.step}
-                  </span>
+
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                    {phase.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium mb-6">
+                    {phase.desc}
+                  </p>
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white">{pillar.title}</h3>
-                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-medium">
-                  {pillar.desc}
-                </p>
+
+                <div className="pt-3 border-t border-border/60 dark:border-slate-800 flex items-center gap-2 text-[11px] font-semibold text-primary dark:text-cyan-400">
+                  <Check className="h-3.5 w-3.5" />
+                  <span>{phase.deliverable}</span>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 5. CONSULTATION CTA */}
-      <section className="py-20 md:py-28 px-6 max-w-5xl mx-auto w-full text-center">
-        <div className="relative overflow-hidden rounded-3xl border border-primary/20 dark:border-slate-700/80 bg-gradient-to-b from-card via-card to-primary/5 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/30 p-10 sm:p-16 shadow-lg">
-          <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
-            <span className="inline-flex px-3.5 py-1 text-xs font-black tracking-wider uppercase text-primary bg-primary/10 dark:bg-primary/20 rounded-full border border-primary/20">
-              START YOUR PROJECT
+      {/* ==================================================================== */}
+      {/* 4. ENGINEERING STANDARDS & SLA BENCHMARKS                            */}
+      {/* ==================================================================== */}
+      <section className="py-20 px-6 max-w-7xl mx-auto w-full">
+        <div className="p-8 sm:p-12 rounded-3xl bg-card dark:bg-slate-900/90 border border-border/80 dark:border-slate-800/80 shadow-md">
+          <div className="max-w-3xl mb-12 text-left">
+            <span className="inline-flex px-3 py-1 text-xs font-black tracking-wider uppercase text-primary bg-primary/10 dark:bg-cyan-500/20 dark:text-cyan-300 rounded-md border border-primary/20 dark:border-cyan-500/30 mb-3">
+              CONTRACTUAL GUARANTEES
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-heading text-slate-900 dark:text-white tracking-tight leading-tight">
-              Ready to Build Your Next Engineering Milestone?
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 dark:text-white font-heading tracking-tight">
+              Engineering Built on Trust and Rigor
             </h2>
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-medium">
-              Connect directly with our engineering team to discuss your project scope, technical requirements, and delivery milestones.
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium mt-2">
+              Every project contracted with Astraiv Technologies adheres to ironclad technical standards designed to safeguard your capital and brand reputation.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+            <div className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">
+              <div className="flex items-center gap-2 text-primary dark:text-cyan-400 font-bold text-sm">
+                <Lock className="h-4 w-4" />
+                <span>100% IP Handover</span>
+              </div>
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                All source code, schemas, documentation, and infrastructure keys are transferred directly to your organization.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">
+              <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-bold text-sm">
+                <Code2 className="h-4 w-4" />
+                <span>Type-Safe Delivery</span>
+              </div>
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                End-to-end type safety eliminates runtime failures and provides automated self-documenting API structures.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">
+              <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold text-sm">
+                <Workflow className="h-4 w-4" />
+                <span>Zero Vendor Lock-In</span>
+              </div>
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                Built strictly on industry-standard open-source ecosystems (Next.js, Node, Go, Docker) with no proprietary traps.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">
+              <div className="flex items-center gap-2 text-rose-600 dark:text-rose-400 font-bold text-sm">
+                <ShieldCheck className="h-4 w-4" />
+                <span>SOC2 & HIPAA Compliant</span>
+              </div>
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                Architectures pre-configured with granular RBAC, encryption at rest and in transit, and immutable audit trails.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================================================================== */}
+      {/* 5. CONSULTATION & PROJECT SCOPING CTA                                */}
+      {/* ==================================================================== */}
+      <section className="py-20 md:py-28 px-6 max-w-5xl mx-auto w-full text-center">
+        <div className="relative overflow-hidden rounded-3xl border border-primary/30 dark:border-cyan-500/30 bg-gradient-to-br from-primary/10 via-card to-cyan-500/10 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/40 p-10 sm:p-16 shadow-xl">
+          <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
+            <span className="inline-flex px-3.5 py-1 text-xs font-black tracking-wider uppercase text-primary dark:text-cyan-300 bg-primary/10 dark:bg-cyan-500/20 rounded-full border border-primary/20 dark:border-cyan-500/30">
+              LET'S BUILD TOGETHER
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading text-slate-900 dark:text-white tracking-tight leading-tight">
+              Ready to Accelerate Your Software Engineering?
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+              Schedule a direct consultation with our senior systems architects to discuss project requirements, timelines, and technical architecture.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-3.5 pt-2 w-full sm:w-auto">
               <Link
                 href="/contact"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm text-white bg-primary hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 shadow-md shadow-primary/25 transition-all flex items-center justify-center gap-2 active:scale-95"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm text-white bg-primary hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 shadow-md shadow-primary/25 transition-all flex items-center justify-center gap-2 active:scale-95 group"
               >
-                <span>Book Engineering Consultation</span>
-                <ArrowRight className="h-4 w-4" />
+                <span>Book Engineering Scoping Call</span>
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/company#pricing"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm text-slate-700 dark:text-slate-200 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-all flex items-center justify-center gap-2 shadow-xs"
               >
                 <span>View Engagement Models</span>
               </Link>
@@ -668,98 +870,6 @@ export function ServicesView() {
           </div>
         </div>
       </section>
-    </div>
-  );
-}
-
-function ServiceDetailCard({ service }: { service: ServiceItem }) {
-  return (
-    <div
-      id={service.id}
-      className="group scroll-mt-32 p-7 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs hover:shadow-xl hover:border-primary/40 dark:hover:border-accent/40 transition-all duration-300 flex flex-col justify-between text-left relative overflow-hidden"
-    >
-      <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 dark:bg-accent/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
-
-      <div>
-        {/* Category Pill & Icon */}
-        <div className="flex items-center justify-between mb-5">
-          <div
-            className={cn(
-              'flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br border shrink-0 group-hover:scale-105 transition-transform duration-300',
-              service.iconBg
-            )}
-          >
-            {service.icon}
-          </div>
-
-          <span className="text-[10.5px] uppercase font-black tracking-widest text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800/80 px-2.5 py-1 rounded-md border border-border/50 dark:border-slate-800">
-            {service.categoryLabel}
-          </span>
-        </div>
-
-        {/* Title */}
-        <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-heading tracking-tight mb-2 group-hover:text-primary dark:group-hover:text-accent transition-colors">
-          {service.title}
-        </h3>
-
-        {/* Tagline */}
-        <p className="text-xs sm:text-sm font-semibold text-primary dark:text-cyan-400 mb-3">
-          {service.tagline}
-        </p>
-
-        {/* Description */}
-        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6 font-medium">
-          {service.description}
-        </p>
-
-        {/* Metric Highlight */}
-        <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-border/60 dark:border-slate-800/80 mb-6 flex items-center gap-3.5">
-          <span className="text-xl sm:text-2xl font-black font-heading text-slate-900 dark:text-white shrink-0">
-            {service.metric.value}
-          </span>
-          <span className="text-[11.5px] sm:text-xs text-slate-600 dark:text-slate-400 font-semibold leading-tight">
-            {service.metric.label}
-          </span>
-        </div>
-
-        {/* Core Capabilities */}
-        <div className="flex flex-col gap-2.5 mb-6">
-          <span className="text-[11px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
-            Key Capabilities
-          </span>
-          {service.features.map((feat, i) => (
-            <div key={i} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300 font-medium">
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
-              <span>{feat}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        {/* Technologies Tags */}
-        <div className="pt-4 border-t border-border/50 dark:border-slate-800/80 mb-5">
-          <div className="flex flex-wrap gap-1.5">
-            {service.technologies.map((tech) => (
-              <span
-                key={tech}
-                className="px-2 py-0.5 rounded-md text-[10.5px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-border/40 dark:border-slate-700/60"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* CTA Button */}
-        <Link
-          href="/contact"
-          className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-slate-100 hover:bg-primary hover:text-white dark:bg-slate-800 dark:hover:bg-accent dark:hover:text-slate-950 text-slate-800 dark:text-slate-200 transition-all flex items-center justify-center gap-2 group/btn"
-        >
-          <span>Consult on this Service</span>
-          <ArrowRight className="h-3.5 w-3.5 group-hover/btn:translate-x-1 transition-transform" />
-        </Link>
-      </div>
     </div>
   );
 }
