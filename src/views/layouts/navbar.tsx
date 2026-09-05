@@ -188,27 +188,36 @@ export function Navbar() {
 
   // Determine active state for each nav item
   const isItemActive = (item: NavItem) => {
-    if (item.id === 'services') {
-      return pathname === '/services' || pathname.startsWith('/services');
+    // 1. Dedicated page checks take strict precedence
+    if (pathname === '/company' || pathname.startsWith('/company')) {
+      return item.id === 'company';
     }
-    if (item.id === 'solutions') {
-      return pathname === '/solutions' || pathname.startsWith('/solutions');
+    if (pathname === '/portfolio' || pathname.startsWith('/portfolio')) {
+      return item.id === 'portfolio';
     }
-    if (item.id === 'technologies') {
-      return pathname === '/technology' || activeSection === 'technologies' || activeSection === 'ai-expertise';
+    if (pathname === '/services' || pathname.startsWith('/services')) {
+      return item.id === 'services';
     }
-    if (item.id === 'industries') {
-      return (pathname === '/' || pathname === '') && activeSection === 'industries';
+    if (pathname === '/solutions' || pathname.startsWith('/solutions')) {
+      return item.id === 'solutions';
     }
-    if (item.id === 'portfolio') {
-      return pathname === '/portfolio' || activeSection === 'case-studies' || activeSection === 'testimonials';
+    if (pathname === '/technology' || pathname.startsWith('/technology')) {
+      return item.id === 'technologies';
     }
-    if (item.id === 'insights') {
-      return pathname.startsWith('/blog') || pathname === '/faq';
+    if (pathname.startsWith('/blog') || pathname === '/faq') {
+      return item.id === 'insights';
     }
-    if (item.id === 'company') {
-      return pathname === '/company' || pathname.startsWith('/company');
+
+    // 2. On Home page ('/' or ''), activate based on in-view section
+    if (pathname === '/' || pathname === '') {
+      if (item.id === 'industries') {
+        return activeSection === 'industries';
+      }
+      if (item.id === 'technologies') {
+        return activeSection === 'technologies' || activeSection === 'ai-expertise';
+      }
     }
+
     return false;
   };
 
@@ -440,12 +449,12 @@ export function Navbar() {
                     <>
                       <motion.span
                         layoutId="activeNavIndicator"
-                        className="absolute bottom-0 left-0 w-full h-[2.5px] bg-gradient-to-r from-primary via-secondary to-accent z-10"
+                        className="absolute bottom-0 left-0 w-full h-[2.5px] bg-gradient-to-r from-primary via-secondary to-accent z-10 shadow-[0_1px_6px_rgba(11,61,145,0.25)] dark:shadow-[0_1px_8px_rgba(0,194,255,0.45)]"
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                       />
                       <motion.span
                         layoutId="activeNavGlow"
-                        className="absolute bottom-0 left-0 w-full h-10 bg-gradient-to-t from-secondary/15 via-accent/5 to-transparent dark:from-secondary/25 dark:via-accent/10 dark:to-transparent blur-[8px] z-0 pointer-events-none"
+                        className="absolute bottom-0 left-0 w-full h-10 bg-gradient-to-t from-primary/15 via-accent/5 to-transparent dark:from-accent/25 dark:via-secondary/15 dark:to-transparent blur-[8px] z-0 pointer-events-none"
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                       />
                     </>
