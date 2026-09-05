@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Navbar, Footer, TechSection, AiSection } from '@/views';
+import { Navbar, Footer, TechnologyView } from '@/views';
 import { Metadata } from 'next';
 
 interface TechnologyPageProps {
@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: TechnologyPageProps): Promise
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'Technology' });
   return {
-    title: t('title'),
+    title: `${t('title')} | Astraiv Technologies`,
     description: t('description'),
   };
 }
@@ -27,27 +27,12 @@ export default async function TechnologyPage({ params }: TechnologyPageProps) {
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground flex flex-col justify-between relative overflow-hidden">
       <Navbar />
       
-      <main className="pt-24 flex-grow z-10 relative">
-        {/* Intro Hero Section */}
-        <section className="pt-16 pb-6 px-6 text-center max-w-4xl mx-auto flex flex-col gap-4">
-          <span className="inline-flex self-center px-3.5 py-1 text-xs font-semibold tracking-wider text-primary bg-primary/10 rounded-full border border-primary/20 dark:bg-primary/20 dark:text-primary-foreground uppercase w-fit animate-fade-in">
-            {t('badge')}
-          </span>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-transparent bg-gradient-to-br from-foreground via-foreground/90 to-foreground/75 bg-clip-text leading-tight md:leading-normal pb-1">
-            {t('title')}
-          </h1>
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto font-semibold">
-            {t('description')}
-          </p>
-        </section>
-
-        {/* 1. Tech Stack Section */}
-        <TechSection />
-
-        {/* 2. AI Capabilities Section */}
-        <AiSection />
-
-
+      <main className="flex-grow z-10 relative">
+        <TechnologyView
+          badge={t('badge')}
+          title={t('title')}
+          description={t('description')}
+        />
       </main>
 
       <Footer />
