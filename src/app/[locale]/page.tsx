@@ -5,7 +5,6 @@ import {
   HeroSection,
   ClientsSection,
   StatsSection,
-  IndustriesSection,
 } from '@/views';
 
 interface HomePageProps {
@@ -39,9 +38,6 @@ export default async function HomePage({ params }: HomePageProps) {
 
         {/* Highlighted Important Metrics Section */}
         <StatsSection />
-
-        {/* 3. Industries */}
-        <IndustriesSection />
       </main>
 
       {/* Global Footer */}

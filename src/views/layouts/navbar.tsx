@@ -297,7 +297,7 @@ export function Navbar() {
               Industry Verticals & Domains
             </span>
             <Link
-              href="/#industries"
+              href="/industries"
               onClick={() => setActiveDropdown(null)}
               className="text-xs font-bold text-primary dark:text-accent hover:underline flex items-center gap-1"
             >

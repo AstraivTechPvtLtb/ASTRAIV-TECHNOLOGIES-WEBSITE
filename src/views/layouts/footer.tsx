@@ -20,7 +20,7 @@ export function Footer() {
       title: 'Platform',
       links: [
         { label: 'Why Astraiv', href: '/company#why-us' },
-        { label: 'Industries We Serve', href: '/#industries' },
+        { label: 'Industries We Serve', href: '/industries' },
         { label: 'Our Technologies', href: '/technology#technologies' },
         { label: 'AI Capabilities', href: '/technology#ai-expertise' },
       ],
