@@ -31,7 +31,7 @@ export function Footer() {
         { label: 'Development Process', href: '/company#process' },
         { label: 'Portfolio', href: '/portfolio' },
         { label: 'Flexible Pricing', href: '/company#pricing' },
-        { label: 'Frequently Asked Qs', href: '/faq' },
+        { label: 'Frequently Asked Qs', href: '/blog#faq' },
       ],
     },
   ];

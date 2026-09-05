@@ -30,6 +30,7 @@ export * from './sections/careers-section';
 export * from './sections/blog-list';
 export * from './sections/solutions-view';
 export * from './sections/services-view';
+export * from './sections/insights-view';
 
 // Portal Views
 export * from './portal/dashboard-view';
