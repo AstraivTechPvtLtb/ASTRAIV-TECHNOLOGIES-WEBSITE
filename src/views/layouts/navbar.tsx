@@ -189,7 +189,7 @@ export function Navbar() {
   // Determine active state for each nav item
   const isItemActive = (item: NavItem) => {
     if (item.id === 'services') {
-      return (pathname === '/' || pathname === '') && activeSection === 'services';
+      return pathname === '/services' || pathname.startsWith('/services');
     }
     if (item.id === 'solutions') {
       return pathname === '/solutions' || pathname.startsWith('/solutions');

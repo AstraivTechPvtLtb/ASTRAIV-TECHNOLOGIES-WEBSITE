@@ -37,7 +37,7 @@ export const SERVICES_MEGA: MegaMenuConfig = {
     tagline: 'Build something exceptional.',
     description: 'From AI systems to scalable enterprise applications, we engineer technology around your business.',
     ctaLabel: 'Explore All Services',
-    ctaHref: '/#services',
+    ctaHref: '/services',
   },
   groups: [
     {
@@ -45,22 +45,22 @@ export const SERVICES_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'AI & Intelligent Systems',
-          href: '/#services',
+          href: '/services#ai-intelligent-systems',
           description: 'Autonomous agents, cognitive workflows & predictive engines.',
         },
         {
           name: 'SaaS Development',
-          href: '/#services',
+          href: '/services#saas-development',
           description: 'Scalable multi-tenant platforms built for high user growth.',
         },
         {
           name: 'Custom Software Development',
-          href: '/#services',
+          href: '/services#custom-software',
           description: 'Tailored enterprise architectures engineered for your workflows.',
         },
         {
           name: 'Enterprise Software',
-          href: '/#services',
+          href: '/services#enterprise-software',
           description: 'Mission-critical portals, microservices & legacy migrations.',
         },
       ],
@@ -70,17 +70,17 @@ export const SERVICES_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'Web Application Development',
-          href: '/#services',
+          href: '/services#web-development',
           description: 'Modern Next.js & React apps with sub-second performance.',
         },
         {
           name: 'Mobile App Development',
-          href: '/#services',
+          href: '/services#mobile-apps',
           description: 'Native-feel iOS & Android apps with seamless UX.',
         },
         {
           name: 'UI/UX Design',
-          href: '/#services',
+          href: '/services#uiux-design',
           description: 'High-conversion design systems & micro-interactions.',
         },
       ],
@@ -90,17 +90,17 @@ export const SERVICES_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'Cloud & Infrastructure',
-          href: '/#services',
+          href: '/services#cloud-infrastructure',
           description: 'Reliable AWS & Cloudflare setups with 99.99% availability.',
         },
         {
           name: 'DevOps & CI/CD',
-          href: '/#services',
+          href: '/services#devops-cicd',
           description: 'Automated test-and-deploy pipelines & container orchestration.',
         },
         {
           name: 'Business Automation',
-          href: '/#services',
+          href: '/services#business-automation',
           description: 'Automated CRM, billing pipelines & operational bots.',
         },
       ],
@@ -341,7 +341,7 @@ export const NAV_ITEMS: NavItem[] = [
     id: 'services',
     labelKey: 'services',
     defaultLabel: 'Services',
-    href: '/#services',
+    href: '/services',
     hasDropdown: true,
     megaMenu: SERVICES_MEGA,
   },
