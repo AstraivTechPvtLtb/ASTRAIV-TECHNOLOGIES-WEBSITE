@@ -76,7 +76,7 @@ export function CaseStudiesSection() {
   return (
     <section id="case-studies" className="py-20 md:py-28 px-6 bg-background relative overflow-hidden">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-primary/5 rounded-full blur-[180px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-primary/5 dark:bg-primary/10 rounded-full blur-[180px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader
@@ -95,8 +95,8 @@ export function CaseStudiesSection() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-4 py-2 rounded-full text-xs font-bold tracking-wide transition-all duration-300 select-none cursor-pointer ${
                   isActive
-                    ? 'bg-primary text-white shadow-md shadow-primary/20 scale-105'
-                    : 'bg-card border border-border/60 text-muted-foreground hover:text-foreground hover:border-primary/30'
+                    ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20 scale-105'
+                    : 'bg-card/90 backdrop-blur-sm border border-border/70 dark:border-border/60 text-muted-foreground hover:text-foreground hover:border-primary/40 dark:hover:border-accent/40'
                 }`}
               >
                 {cat}
@@ -117,7 +117,7 @@ export function CaseStudiesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] as const }}
-                className="group relative bg-card border border-border/60 hover:border-primary/30 rounded-[28px] shadow-sm hover:shadow-[0_25px_60px_-15px_rgba(11,61,145,0.08)] overflow-hidden transition-all duration-500"
+                className="group relative bg-card border border-border/70 dark:border-border/60 hover:border-primary/40 dark:hover:border-accent/40 rounded-[28px] shadow-xs hover:shadow-[0_25px_60px_-15px_rgba(11,61,145,0.08)] dark:hover:shadow-[0_25px_60px_-15px_rgba(91,95,239,0.18)] overflow-hidden transition-all duration-500"
               >
                 {/* Subtle internal gradient accent */}
                 <div
@@ -182,14 +182,14 @@ export function CaseStudiesSection() {
                     {/* Header: Title and Category */}
                     <div>
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-widest text-primary bg-primary/10 border border-primary/20">
+                        <span className="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-widest text-primary bg-primary/10 border border-primary/20 dark:text-accent dark:bg-accent/10 dark:border-accent/20">
                           Case Study
                         </span>
                         <span className="text-xs font-semibold text-muted-foreground">
                           {project.category}
                         </span>
                       </div>
-                      <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground group-hover:text-primary transition-colors duration-300">
+                      <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors duration-300">
                         {project.title}
                       </h3>
                     </div>
@@ -197,21 +197,21 @@ export function CaseStudiesSection() {
                     {/* Problem vs Solution Split */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* Challenge */}
-                      <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-border/40 flex flex-col gap-1.5">
+                      <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/70 border border-border/60 dark:border-slate-800/80 flex flex-col gap-1.5">
                         <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-600 dark:text-amber-400">
                           Challenge
                         </span>
-                        <p className="text-xs text-muted-foreground leading-relaxed font-medium">
+                        <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-medium">
                           {project.challenge}
                         </p>
                       </div>
 
                       {/* Solution */}
-                      <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-border/40 flex flex-col gap-1.5">
+                      <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/70 border border-border/60 dark:border-slate-800/80 flex flex-col gap-1.5">
                         <span className="text-[10px] font-extrabold uppercase tracking-wider text-primary dark:text-accent">
                           Engineered Solution
                         </span>
-                        <p className="text-xs text-muted-foreground leading-relaxed font-medium">
+                        <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-medium">
                           {project.solution}
                         </p>
                       </div>
@@ -219,14 +219,14 @@ export function CaseStudiesSection() {
 
                     {/* Technologies Used */}
                     <div>
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-muted-foreground/80 block mb-2">
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-muted-foreground/80 dark:text-slate-400 block mb-2">
                         Technologies Deployed
                       </span>
                       <div className="flex flex-wrap gap-2">
                         {project.technologies.map((tech, tIdx) => (
                           <span
                             key={tIdx}
-                            className="px-2.5 py-1 text-xs font-bold rounded-lg bg-card border border-border/60 text-foreground/80 shadow-2xs"
+                            className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-slate-100/90 dark:bg-slate-800/90 border border-border/70 dark:border-slate-700/60 text-foreground/80 dark:text-slate-200"
                           >
                             {tech}
                           </span>
@@ -235,8 +235,8 @@ export function CaseStudiesSection() {
                     </div>
 
                     {/* Bottom CTA / Action */}
-                    <div className="pt-2 flex flex-wrap items-center justify-between gap-4 border-t border-border/30">
-                      <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">
+                    <div className="pt-2 flex flex-wrap items-center justify-between gap-4 border-t border-border/40 dark:border-border/30">
+                      <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground dark:text-slate-400">
                         <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
                         <span>Production verified architecture</span>
                       </div>
