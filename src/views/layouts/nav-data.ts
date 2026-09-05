@@ -264,32 +264,32 @@ export const INSIGHTS_DROPDOWN: MegaMenuConfig = {
   items: [
     {
       name: 'Blog',
-      href: '/blog',
+      href: '/blog#blog',
       description: 'Technical deep dives, architectural tutorials & insights.',
     },
     {
       name: 'Case Studies',
-      href: '/portfolio#case-studies',
+      href: '/blog#case-studies',
       description: 'Real client projects and measurable business outcomes.',
     },
     {
       name: 'AI Insights',
-      href: '/technology#ai-expertise',
+      href: '/blog#ai-insights',
       description: 'Breakthroughs in autonomous agents & cognitive workflows.',
     },
     {
       name: 'Technology Insights',
-      href: '/technology#technologies',
+      href: '/blog#tech-insights',
       description: 'Engineering practices for modern cloud applications.',
     },
     {
       name: 'FAQs',
-      href: '/faq',
+      href: '/blog#faq',
       description: 'Answers about our delivery velocity, SLAs & security.',
     },
     {
       name: 'Resources',
-      href: '/contact',
+      href: '/blog#resources',
       description: 'Client documentation, consultation guides & technical blueprints.',
     },
   ],
