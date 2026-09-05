@@ -10,10 +10,10 @@ export function Footer() {
     {
       title: 'Services',
       links: [
-        { label: 'AI Solutions & RAG', href: '/#services' },
-        { label: 'SaaS Development', href: '/#services' },
-        { label: 'Custom Systems', href: '/#services' },
-        { label: 'Cloud & Infrastructure', href: '/#services' },
+        { label: 'AI Solutions & RAG', href: '/services#ai-intelligent-systems' },
+        { label: 'SaaS Development', href: '/services#saas-development' },
+        { label: 'Custom Systems', href: '/services#custom-software' },
+        { label: 'Cloud & Infrastructure', href: '/services#cloud-infrastructure' },
       ],
     },
     {

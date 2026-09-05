@@ -5,7 +5,6 @@ import {
   HeroSection,
   ClientsSection,
   StatsSection,
-  ServicesSection,
   IndustriesSection,
 } from '@/views';
 
@@ -38,13 +37,10 @@ export default async function HomePage({ params }: HomePageProps) {
         {/* 2. Clients / Brands */}
         <ClientsSection />
 
-        {/* Highlighted Important Metrics Section before Services */}
+        {/* Highlighted Important Metrics Section */}
         <StatsSection />
 
-        {/* 3. Services */}
-        <ServicesSection />
-
-        {/* 4. Industries */}
+        {/* 3. Industries */}
         <IndustriesSection />
       </main>
 
