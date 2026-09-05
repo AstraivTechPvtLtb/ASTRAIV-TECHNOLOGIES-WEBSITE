@@ -7,9 +7,7 @@ import { cn } from '@/lib/utils';
 import {
   Brain,
   Cpu,
-  Database,
   Cloud,
-  Layers,
   Sparkles,
   Zap,
   ShieldCheck,
@@ -17,23 +15,15 @@ import {
   ArrowRight,
   ChevronRight,
   CheckCircle2,
-  Terminal,
   Activity,
   Workflow,
-  Server,
-  Code2,
   ExternalLink,
   Bot,
   DatabaseZap,
-  Network,
   Infinity as InfinityIcon,
-  Wind,
-  Globe2,
-  Filter,
   Check,
   Share2,
   Lock,
-  Boxes,
 } from 'lucide-react';
 
 /* -------------------------------------------------------------------------- */
@@ -271,7 +261,12 @@ export const ALL_TECHNOLOGY_ITEMS: TechItem[] = [
     versionOrSla: 'Next.js 16.2 / React 19',
     description:
       'App router, streaming SSR & reactivity. Used for advanced Server Actions, Server Components, page caching, and serverless edge rendering with near-instant Time-to-First-Byte.',
-    icon: <NextjsIcon className="h-6 w-6 text-foreground" />,
+    icon: (
+      <div className="flex items-center -space-x-1">
+        <NextjsIcon className="h-5 w-5 text-foreground" />
+        <ReactIcon className="h-5 w-5" />
+      </div>
+    ),
     highlights: ['Zero-bundle Server Components', 'Incremental Static Regeneration (ISR)', 'Parallel routes & interceptors', 'Optimistic UI mutations'],
     metrics: { label: 'Lighthouse Score', value: '99+' },
   },
