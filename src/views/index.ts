@@ -32,6 +32,7 @@ export * from './sections/solutions-view';
 export * from './sections/services-view';
 export * from './sections/insights-view';
 export * from './sections/technology-view';
+export * from './sections/industries-view';
 
 // Portal Views
 export * from './portal/dashboard-view';
