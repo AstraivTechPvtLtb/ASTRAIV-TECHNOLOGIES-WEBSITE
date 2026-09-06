@@ -1,13 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import {
   Bot,
   Brain,
-  DatabaseZap,
   LineChart,
   Cloud,
   Building2,
@@ -20,10 +18,7 @@ import {
   ShieldCheck,
   Zap,
   Layers,
-  Cpu,
   Server,
-  Lock,
-  ExternalLink,
   ChevronRight,
 } from 'lucide-react';
 

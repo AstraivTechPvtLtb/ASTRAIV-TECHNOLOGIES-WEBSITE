@@ -11,24 +11,19 @@ import {
   ContactSection,
 } from '@/views';
 import {
-  ShieldCheck,
   Zap,
   Target,
   Globe2,
   Sparkles,
-  ArrowRight,
   Layers,
-  Users2,
-  CheckCircle,
 } from 'lucide-react';
-import { Link } from '@/i18n/routing';
 
 interface CompanyPageProps {
   params: Promise<{ locale: string }>;
 }
 
 export async function generateMetadata({ params }: CompanyPageProps): Promise<Metadata> {
-  const { locale } = await params;
+  await params;
   return {
     title: 'Company | Astraiv Technologies',
     description:
@@ -127,7 +122,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
 
           {/* Mission & Philosophy Pillars */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full text-left">
-            {pillars.map((pillar, i) => (
+            {pillars.map((pillar) => (
               <div
                 key={pillar.title}
                 className="p-7 bg-card/85 dark:bg-slate-900/85 backdrop-blur-xl border border-border/50 dark:border-slate-800/80 rounded-2xl shadow-xs hover:shadow-md hover:border-primary/30 dark:hover:border-accent/30 transition-all group"

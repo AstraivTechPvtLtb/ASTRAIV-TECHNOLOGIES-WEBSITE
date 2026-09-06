@@ -413,7 +413,7 @@ export function Navbar() {
               >
                 <Link
                   href={item.href}
-                  onClick={(e) => {
+                  onClick={() => {
                     if (item.hasDropdown) {
                       // Allow toggling dropdown via click on desktop
                       if (activeDropdown === item.id) {

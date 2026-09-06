@@ -1,4 +1,4 @@
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { getBlogPosts, getBlogCategories } from '@/controllers/blog.controller';
 import { Navbar, Footer, InsightsView } from '@/views';
 import { routing } from '@/i18n/routing';
@@ -11,7 +11,7 @@ interface BlogPageProps {
 }
 
 export async function generateMetadata({ params }: BlogPageProps) {
-  const { locale } = await params;
+  await params;
   return {
     title: 'Astraiv Tech Insights & Engineering Publications | Astraiv Technologies',
     description:
