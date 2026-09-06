@@ -17,13 +17,10 @@ import {
   Database,
   Shuffle,
   HelpCircle,
-  Sparkles,
   ArrowRight,
   CheckCircle2,
   ShieldCheck,
-  Zap,
   Code2,
-  ChevronRight,
   Search,
   Activity,
   Lock,
@@ -284,7 +281,6 @@ const CATEGORY_TABS = [
 export function ServicesView() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [activeConsoleTab, setActiveConsoleTab] = useState<'pipeline' | 'telemetry' | 'standards'>('pipeline');
 
   // Filter services by category and search keyword
   const filteredServices = useMemo(() => {
@@ -304,246 +300,17 @@ export function ServicesView() {
   return (
     <div className="flex flex-col w-full selection:bg-primary/20">
       {/* ==================================================================== */}
-      {/* 1. INNOVATIVE ASYMMETRICAL HERO SECTION                              */}
+      {/* 1. THE 12 CORE SERVICES CATALOG                                      */}
       {/* ==================================================================== */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 px-6 overflow-hidden bg-gradient-to-b from-primary/5 via-transparent to-transparent dark:from-slate-950 dark:via-background dark:to-background border-b border-border/50 dark:border-slate-800/60">
-        {/* Futuristic Ambient Glow Spheres */}
-        <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-primary/15 dark:bg-primary/20 rounded-full blur-[140px] pointer-events-none -z-10" />
-        <div className="absolute top-1/3 -right-32 w-[550px] h-[550px] bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-[150px] pointer-events-none -z-10" />
-        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[800px] h-[200px] bg-secondary/10 dark:bg-secondary/15 rounded-full blur-[120px] pointer-events-none -z-10" />
-
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-            {/* Left Column: Mission, Value Prop, Action Buttons */}
-            <div className="lg:col-span-7 flex flex-col items-start text-left">
-              {/* Badge with live pulse */}
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 dark:bg-primary/20 dark:text-cyan-300 dark:border-cyan-500/30 mb-6 shadow-xs">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500" />
-                </span>
-                <span>Full-Cycle Software Engineering</span>
-              </div>
-
-              {/* Commanding Headline */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight font-heading text-slate-900 dark:text-white leading-[1.08] mb-6">
-                Architectural Precision.{' '}
-                <span className="bg-gradient-to-r from-primary via-indigo-600 to-cyan-500 dark:from-cyan-400 dark:via-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
-                  High-Velocity
-                </span>{' '}
-                Delivery.
-              </h1>
-
-              {/* Subheadline */}
-              <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-medium mb-8 max-w-2xl">
-                We engineer mission-critical digital products, autonomous AI pipelines, high-throughput web applications, and resilient cloud architectures with zero technical debt and 100% proprietary code ownership.
-              </p>
-
-              {/* CTA Action Buttons */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto mb-10">
-                <Link
-                  href="/contact"
-                  className="px-7 py-3.5 rounded-xl font-bold text-sm text-white bg-primary hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 shadow-md shadow-primary/25 transition-all flex items-center justify-center gap-2 active:scale-95 group"
-                >
-                  <span>Schedule Technical Scope</span>
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-                <a
-                  href="#services-catalog"
-                  className="px-6 py-3.5 rounded-xl font-bold text-sm text-slate-800 dark:text-slate-200 bg-white/90 hover:bg-white dark:bg-slate-900/90 dark:hover:bg-slate-800 border border-slate-200/90 dark:border-slate-800 shadow-xs transition-all flex items-center justify-center gap-2"
-                >
-                  <span>Explore 12 Core Services</span>
-                  <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                </a>
-              </div>
-
-              {/* Assurances Bar */}
-              <div className="pt-6 border-t border-border/60 dark:border-slate-800/80 w-full grid grid-cols-2 sm:grid-cols-3 gap-4">
-                <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
-                  <ShieldCheck className="h-4 w-4 text-emerald-500 shrink-0" />
-                  <span>100% Client IP Ownership</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
-                  <Zap className="h-4 w-4 text-amber-500 shrink-0" />
-                  <span>Strict Type-Safe Code</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300 col-span-2 sm:col-span-1">
-                  <Activity className="h-4 w-4 text-cyan-500 shrink-0" />
-                  <span>99.99% Cloud SLA</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: Interactive Live Engineering Command Console */}
-            <div className="lg:col-span-5 w-full">
-              <div className="relative rounded-2xl p-1 bg-gradient-to-br from-primary/30 via-indigo-500/20 to-cyan-500/30 shadow-xl shadow-primary/10">
-                <div className="rounded-[14px] bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl border border-slate-200/80 dark:border-slate-800 p-6 flex flex-col gap-5 text-left">
-                  {/* Window Bar */}
-                  <div className="flex items-center justify-between border-b border-border/60 dark:border-slate-800 pb-3">
-                    <div className="flex items-center gap-2">
-                      <div className="h-3 w-3 rounded-full bg-rose-500/80" />
-                      <div className="h-3 w-3 rounded-full bg-amber-500/80" />
-                      <div className="h-3 w-3 rounded-full bg-emerald-500/80" />
-                      <span className="ml-2 font-mono text-[11px] font-semibold text-slate-500 dark:text-slate-400">
-                        astraiv-engine // live-telemetry
-                      </span>
-                    </div>
-                    <span className="font-mono text-[10.5px] uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30">
-                      LIVE • CLUSTER READY
-                    </span>
-                  </div>
-
-                  {/* Console Tabs */}
-                  <div className="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-slate-900 rounded-lg">
-                    {([
-                      { id: 'pipeline', label: 'Delivery Pipeline' },
-                      { id: 'telemetry', label: 'SLAs & Telemetry' },
-                      { id: 'standards', label: 'Code Standards' },
-                    ] as const).map((tab) => (
-                      <button
-                        key={tab.id}
-                        onClick={() => setActiveConsoleTab(tab.id)}
-                        className={cn(
-                          'flex-1 py-1.5 px-2 rounded-md text-[11px] font-bold transition-all',
-                          activeConsoleTab === tab.id
-                            ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs'
-                            : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
-                        )}
-                      >
-                        {tab.label}
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Tab 1: Delivery Pipeline */}
-                  {activeConsoleTab === 'pipeline' && (
-                    <div className="flex flex-col gap-3 py-1">
-                      {[
-                        {
-                          phase: 'Stage 01',
-                          title: 'System Modeling & Spec',
-                          status: 'Validated',
-                          badgeColor: 'text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/40',
-                        },
-                        {
-                          phase: 'Stage 02',
-                          title: 'Type-Safe Core Engineering',
-                          status: 'Active Sprint',
-                          badgeColor: 'text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40',
-                        },
-                        {
-                          phase: 'Stage 03',
-                          title: 'Automated Security & QA',
-                          status: 'Passing (100%)',
-                          badgeColor: 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40',
-                        },
-                        {
-                          phase: 'Stage 04',
-                          title: 'Cloudflare / AWS Deployment',
-                          status: 'Zero-Downtime',
-                          badgeColor: 'text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/40',
-                        },
-                      ].map((item, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800/80"
-                        >
-                          <div className="flex items-center gap-2.5">
-                            <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-                            <div>
-                              <span className="block text-[10px] uppercase font-bold text-slate-400 dark:text-slate-500 font-mono">
-                                {item.phase}
-                              </span>
-                              <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                                {item.title}
-                              </span>
-                            </div>
-                          </div>
-                          <span className={cn('text-[10px] font-bold px-2 py-0.5 rounded border', item.badgeColor)}>
-                            {item.status}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Tab 2: SLAs & Telemetry */}
-                  {activeConsoleTab === 'telemetry' && (
-                    <div className="grid grid-cols-2 gap-3 py-1">
-                      {[
-                        { label: 'Cluster Uptime SLA', val: '99.99%', sub: 'Zero unplanned outages' },
-                        { label: 'Global P99 Latency', val: '< 65ms', sub: 'Edge CDN routing' },
-                        { label: 'Test Coverage', val: '98.5%', sub: 'Unit & integration suites' },
-                        { label: 'Type Safety', val: '100%', sub: 'Strict schema validation' },
-                      ].map((stat, idx) => (
-                        <div
-                          key={idx}
-                          className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800/80 flex flex-col"
-                        >
-                          <span className="text-[10.5px] font-semibold text-slate-500 dark:text-slate-400">
-                            {stat.label}
-                          </span>
-                          <span className="text-xl font-black font-heading text-slate-900 dark:text-white mt-1">
-                            {stat.val}
-                          </span>
-                          <span className="text-[9.5px] text-slate-400 dark:text-slate-500 mt-0.5">
-                            {stat.sub}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Tab 3: Code Standards */}
-                  {activeConsoleTab === 'standards' && (
-                    <div className="flex flex-col gap-2.5 py-1 text-xs">
-                      <div className="flex items-start gap-2 text-slate-700 dark:text-slate-300">
-                        <Check className="h-4 w-4 text-cyan-500 mt-0.5 shrink-0" />
-                        <span><strong>Domain-Driven Design:</strong> Decoupled logic with clean boundaries.</span>
-                      </div>
-                      <div className="flex items-start gap-2 text-slate-700 dark:text-slate-300">
-                        <Check className="h-4 w-4 text-cyan-500 mt-0.5 shrink-0" />
-                        <span><strong>Zero Hallucination AI:</strong> Strict JSON validation gates on all LLMs.</span>
-                      </div>
-                      <div className="flex items-start gap-2 text-slate-700 dark:text-slate-300">
-                        <Check className="h-4 w-4 text-cyan-500 mt-0.5 shrink-0" />
-                        <span><strong>OWASP & SOC2:</strong> Sanitized inputs, RBAC, and payload encryption.</span>
-                      </div>
-                      <div className="flex items-start gap-2 text-slate-700 dark:text-slate-300">
-                        <Check className="h-4 w-4 text-cyan-500 mt-0.5 shrink-0" />
-                        <span><strong>Immutable Handover:</strong> 100% code repositories pushed to your Git.</span>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Terminal Footer Info */}
-                  <div className="pt-2 border-t border-border/50 dark:border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                    <span>12 Active Disciplines</span>
-                    <span className="text-primary dark:text-cyan-400 font-bold">READY TO SCALE →</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================================================================== */}
-      {/* 2. THE 12 CORE SERVICES CATALOG (PREVIOUS CARDS + RICH CAPABILITIES) */}
-      {/* ==================================================================== */}
-      <section id="services-catalog" className="py-20 px-6 max-w-7xl mx-auto w-full scroll-mt-24">
+      <section id="services-catalog" className="pt-28 pb-20 md:pt-36 md:pb-24 px-6 max-w-7xl mx-auto w-full scroll-mt-24">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <div className="flex flex-col gap-2.5 max-w-2xl text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-black tracking-wider uppercase bg-primary/10 text-primary dark:bg-cyan-500/20 dark:text-cyan-300 border border-primary/20 dark:border-cyan-500/30 w-fit">
-              <Sparkles className="h-3.5 w-3.5" />
-              <span>CORE ENGINEERING CATALOG</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white font-heading tracking-tight">
+          <div className="flex flex-col gap-2 max-w-2xl text-left">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white font-heading tracking-tight">
               Our Services
-            </h2>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
-              Premium software engineering and cloud automation engineered for hyper-growth. Explore our 12 specialized disciplines built for enterprise velocity.
+            </h1>
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-medium">
+              Explore our 12 specialized disciplines built for enterprise velocity.
             </p>
           </div>
 

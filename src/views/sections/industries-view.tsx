@@ -17,11 +17,9 @@ import {
   ShieldCheck,
   CheckCircle2,
   Activity,
-  Zap,
   Lock,
   Compass,
   ArrowUpRight,
-  Radio,
   Sparkles,
 } from 'lucide-react';
 
@@ -475,64 +473,14 @@ export function IndustriesView() {
 
   return (
     <div className="flex flex-col w-full">
-      {/* ==================================================================== */}
-      {/* 1. HERO SECTION                                                      */}
-      {/* ==================================================================== */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 px-6 overflow-hidden">
-        {/* Ambient atmospheric glows */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-tr from-primary/20 via-sky-500/10 to-accent/20 rounded-full blur-[140px] pointer-events-none -z-10" />
-
-        <div className="max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-wider text-primary bg-primary/10 dark:bg-primary/20 border border-primary/20 uppercase mb-6 backdrop-blur-md">
-            <Radio className="h-3.5 w-3.5 text-primary animate-pulse" />
-            <span>Vertical Domain Engineering</span>
-          </div>
-
-          {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight font-heading text-slate-900 dark:text-white max-w-5xl leading-[1.1] mb-6">
-            Architected for Highly Regulated &{' '}
-            <span className="bg-gradient-to-r from-primary via-blue-500 to-accent bg-clip-text text-transparent">
-              High-Velocity Sectors
-            </span>
-          </h1>
-
-          {/* Subheadline */}
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl font-medium mb-12">
-            Generic software templates fail complex business operations. At Astraiv Technologies, we engineer
-            mission-critical platforms calibrated to the sovereign regulatory requirements, sub-millisecond latencies,
-            and high concurrency demands of your specific industry.
-          </p>
-
-          {/* Live System Telemetry Strip */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-5xl">
-            {[
-              { label: 'Annual Capital Routed', value: '$4.8B+', sub: 'Zero-Drift Ledgers', icon: <DollarSign className="h-4 w-4 text-emerald-500" /> },
-              { label: 'Regulatory Audits Passed', value: '100%', sub: 'HIPAA, PCI, SOC-2', icon: <ShieldCheck className="h-4 w-4 text-primary" /> },
-              { label: 'Mission-Critical SLA', value: '99.999%', sub: 'High Availability', icon: <Activity className="h-4 w-4 text-accent" /> },
-              { label: 'Average P99 Latency', value: '< 100ms', sub: 'Distributed Global Edge', icon: <Zap className="h-4 w-4 text-amber-500" /> },
-            ].map((stat, idx) => (
-              <div
-                key={idx}
-                className="p-5 rounded-2xl bg-card/80 dark:bg-slate-900/80 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 shadow-xs flex flex-col text-left transition-all hover:border-primary/40 hover:shadow-md"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-                    {stat.label}
-                  </span>
-                  {stat.icon}
-                </div>
-                <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground font-heading mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-xs text-muted-foreground font-semibold flex items-center gap-1.5">
-                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping" />
-                  <span>{stat.sub}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+      {/* 1. HEADER */}
+      <section className="pt-28 pb-4 md:pt-36 md:pb-6 px-6 max-w-7xl mx-auto w-full text-left">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white font-heading tracking-tight">
+          Industries We Empower
+        </h1>
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-medium mt-1">
+          Mission-critical software engineering architected for regulated and high-velocity sectors.
+        </p>
       </section>
 
       {/* ==================================================================== */}

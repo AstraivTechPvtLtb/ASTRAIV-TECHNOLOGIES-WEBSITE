@@ -14,7 +14,6 @@ import {
   Zap,
   Target,
   Globe2,
-  Sparkles,
   Layers,
 } from 'lucide-react';
 
@@ -78,37 +77,13 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
       <Navbar />
 
       <main className="flex-grow z-10 relative">
-        {/* 1. About Astraiv Hero / Philosophy Section */}
+        {/* 1. Philosophy Pillars & Quick Navigation */}
         <section
           id="about"
-          className="pt-32 pb-16 md:pt-40 md:pb-24 px-6 max-w-7xl mx-auto flex flex-col items-center text-center scroll-mt-24 relative"
+          className="pt-28 pb-12 md:pt-36 md:pb-16 px-6 max-w-7xl mx-auto flex flex-col items-center text-center scroll-mt-24 relative"
         >
-          {/* Subtle Ambient Background Gradient */}
-          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-primary/15 via-secondary/10 to-accent/15 rounded-full blur-[120px] pointer-events-none -z-10" />
-
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 text-xs font-bold tracking-wider text-primary bg-primary/10 rounded-full border border-primary/20 dark:bg-primary/20 dark:text-primary-foreground uppercase mb-6 animate-fade-in">
-            <Sparkles className="h-3 w-3" />
-            <span>About Astraiv Technologies</span>
-          </div>
-
-          {/* Main Headline */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight font-heading text-slate-900 dark:text-white max-w-5xl leading-[1.1] mb-6">
-            Engineering the Foundations of the{' '}
-            <span className="bg-gradient-to-r from-primary via-blue-600 to-accent bg-clip-text text-transparent">
-              Digital Frontier
-            </span>
-          </h1>
-
-          {/* Subtitle / Mission Statement */}
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl font-medium mb-10">
-            Astraiv Technologies is an elite software engineering consultancy and SaaS architecture firm.
-            We partner with category leaders and ambitious startups to architect high-performance websites,
-            resilient cloud applications, and autonomous AI systems.
-          </p>
-
           {/* Quick Jump Navigation Pill */}
-          <div className="flex flex-wrap items-center justify-center gap-2 max-w-4xl p-1.5 bg-card/80 dark:bg-slate-900/80 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-2xl shadow-xs mb-16">
+          <div className="flex flex-wrap items-center justify-center gap-2 max-w-4xl p-1.5 bg-card/80 dark:bg-slate-900/80 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-2xl shadow-xs mb-10">
             {quickNav.map((item) => (
               <a
                 key={item.label}
