@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { motion, useInView, useMotionValue, useSpring, useReducedMotion } from 'framer-motion';
+import { ShieldCheck } from 'lucide-react';
 
 function AnimatedStatValue({
   value,
@@ -139,6 +140,23 @@ export function StatsSection() {
           {/* Subtle glowing corner accents */}
           <div className="absolute -top-12 -right-12 w-36 h-36 bg-accent/20 dark:bg-cyan-400/20 rounded-full blur-2xl pointer-events-none animate-pulse" />
           <div className="absolute -bottom-12 -left-12 w-36 h-36 bg-primary/20 dark:bg-primary/25 rounded-full blur-2xl pointer-events-none animate-pulse" />
+
+          {/* ISO 27001:2022 Certification Seal - Preserves exact tile height & width */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 z-20 select-none pointer-events-none">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-0.5 sm:py-1 rounded-b-xl border-x border-b border-slate-200/90 dark:border-cyan-500/35 bg-slate-100/95 dark:bg-slate-900/95 backdrop-blur-md shadow-[0_4px_12px_rgba(15,23,42,0.06)] dark:shadow-[0_4px_14px_rgba(0,194,255,0.18)]">
+              <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-emerald-500" />
+              </span>
+              <ShieldCheck className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-emerald-600 dark:text-cyan-400 shrink-0" />
+              <span className="font-mono text-[10px] sm:text-[11px] font-extrabold tracking-wider text-slate-800 dark:text-cyan-200 uppercase">
+                ISO 27001:2022
+              </span>
+              <span className="text-[9px] sm:text-[10px] font-bold text-slate-500 dark:text-slate-400 tracking-wider uppercase hidden xs:inline sm:inline">
+                Certified
+              </span>
+            </div>
+          </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 items-center divide-y sm:divide-y-0 sm:divide-x divide-border/40 dark:divide-slate-800/80">
             {stats.map((stat, index) => (
