@@ -194,11 +194,18 @@ export type Database = {
           id: string
           title: string
           slug: string
+          category: string | null
+          short_desc: string | null
+          full_desc: string | null
           description: string
+          features: string[] | null
+          badge: string | null
           icon: string
           image_url: string | null
           status: 'active' | 'draft' | 'archived'
+          active?: boolean
           display_order: number
+          order_index?: number
           created_at: string
           updated_at: string
         }
@@ -206,11 +213,18 @@ export type Database = {
           id?: string
           title: string
           slug: string
+          category?: string | null
+          short_desc?: string | null
+          full_desc?: string | null
           description: string
+          features?: string[] | null
+          badge?: string | null
           icon?: string
           image_url?: string | null
           status?: 'active' | 'draft' | 'archived'
+          active?: boolean
           display_order?: number
+          order_index?: number
           created_at?: string
           updated_at?: string
         }
@@ -218,11 +232,18 @@ export type Database = {
           id?: string
           title?: string
           slug?: string
+          category?: string | null
+          short_desc?: string | null
+          full_desc?: string | null
           description?: string
+          features?: string[] | null
+          badge?: string | null
           icon?: string
           image_url?: string | null
           status?: 'active' | 'draft' | 'archived'
+          active?: boolean
           display_order?: number
+          order_index?: number
           created_at?: string
           updated_at?: string
         }
