@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { Card, CardContent, CardHeader } from '@/views/ui/card';
-import { Quote } from 'lucide-react';
+import { Quote, Star } from 'lucide-react';
 
 interface TestimonialCardProps {
   quote: string;
@@ -8,6 +8,7 @@ interface TestimonialCardProps {
   authorRole: string;
   authorCompany: string;
   avatarUrl?: string;
+  rating?: number;
 }
 
 export function TestimonialCard({
@@ -16,41 +17,55 @@ export function TestimonialCard({
   authorRole,
   authorCompany,
   avatarUrl,
+  rating = 5,
 }: TestimonialCardProps) {
   return (
-    <Card className="relative bg-card border border-border/40 overflow-hidden card-hover p-6 md:p-8">
-      {/* Background Quote Icon for watermark style */}
-      <Quote className="absolute right-6 top-6 h-16 w-16 text-primary/5 pointer-events-none" />
-      
-      <CardHeader className="p-0 flex flex-row items-center gap-4">
-        <div className="relative h-12 w-12 rounded-full overflow-hidden bg-muted border border-border">
+    <Card className="group relative bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-cyan-400/40 rounded-[22px] shadow-xs hover:shadow-[0_16px_36px_-10px_rgba(11,61,145,0.1)] dark:hover:shadow-[0_16px_36px_-10px_rgba(0,194,255,0.1)] transition-all duration-300 transform-gpu hover:-translate-y-1 overflow-hidden p-6 sm:p-8 flex flex-col justify-between h-full select-none">
+      {/* Background Quote Watermark */}
+      <Quote className="absolute right-6 top-6 h-16 w-16 text-primary/5 dark:text-cyan-400/5 pointer-events-none group-hover:text-primary/10 transition-colors" />
+
+      <div>
+        {/* Star Rating Row */}
+        <div className="flex items-center gap-1 mb-5">
+          {Array.from({ length: rating }).map((_, i) => (
+            <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
+          ))}
+        </div>
+
+        {/* Quote Content */}
+        <CardContent className="p-0">
+          <p className="text-sm sm:text-[15px] text-muted-foreground leading-relaxed font-medium">
+            &ldquo;{quote}&rdquo;
+          </p>
+        </CardContent>
+      </div>
+
+      {/* Author Footer */}
+      <CardHeader className="p-0 mt-8 pt-5 border-t border-border/40 dark:border-slate-800/60 flex flex-row items-center gap-3.5">
+        <div className="relative h-11 w-11 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-800 border border-border/60 dark:border-slate-700/60 shrink-0">
           {avatarUrl ? (
             <Image
               src={avatarUrl}
               alt={authorName}
               fill
-              sizes="48px"
+              sizes="44px"
               className="object-cover"
             />
           ) : (
-            <div className="h-full w-full flex items-center justify-center bg-primary/10 text-primary font-bold text-sm">
+            <div className="h-full w-full flex items-center justify-center bg-primary/10 dark:bg-cyan-400/10 text-primary dark:text-cyan-300 font-bold text-xs font-mono">
               {authorName.substring(0, 2).toUpperCase()}
             </div>
           )}
         </div>
         <div className="flex flex-col text-left">
-          <h4 className="text-sm font-bold text-foreground">{authorName}</h4>
-          <p className="text-xs text-muted-foreground mt-0.5">
-            {authorRole}, <span className="font-semibold text-foreground/80">{authorCompany}</span>
+          <h4 className="text-sm font-extrabold text-foreground group-hover:text-primary dark:group-hover:text-cyan-300 transition-colors">
+            {authorName}
+          </h4>
+          <p className="text-xs text-muted-foreground font-medium">
+            {authorRole} • <span className="font-semibold text-secondary dark:text-indigo-400">{authorCompany}</span>
           </p>
         </div>
       </CardHeader>
-      
-      <CardContent className="p-0 mt-6">
-        <p className="text-sm md:text-base text-muted-foreground leading-relaxed italic">
-          &ldquo;{quote}&rdquo;
-        </p>
-      </CardContent>
     </Card>
   );
 }

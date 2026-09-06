@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { SectionHeader } from './section-header';
-import { ArrowRight, CheckCircle2, Cpu, Sparkles, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Cpu, Zap, ShieldCheck } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 
 export function CaseStudiesSection() {
@@ -11,61 +12,53 @@ export function CaseStudiesSection() {
 
   const categories = [
     'All',
-    'Web Application',
-    'SaaS & HealthTech',
-    'Logistics AI',
-    'FinTech & AI',
-    'Backend System',
+    'SaaS & Analytics',
+    'Logistics & AI',
+    'FinTech & Ledger',
   ];
 
   const projects = [
     {
       id: 'pulsefit',
       title: 'PulseFit Multi-Tenant Fitness Analytics Platform',
-      category: 'SaaS & HealthTech',
-      categoryType: ['All', 'Web Application', 'SaaS & HealthTech'],
+      category: 'SaaS & Analytics',
+      categoryType: ['All', 'SaaS & Analytics'],
       client: 'PulseFit Global',
-      challenge: 'High latency in database synchronization and slow dashboard rendering times were causing user drop-offs across multi-tenant fitness centers.',
-      solution: 'Engineered a next-generation multi-tenant analytics dashboard built on Next.js 16 and Prisma, with edge caching and automated real-time database sync pipelines.',
-      description: 'A multi-tenant fitness analytics dashboard built with Next.js 16 and Prisma. We automated database synchronization and reduced page load times by 65%.',
+      imageSrc: '/images/portfolio/portfolio-pulsefit.jpg',
+      challenge: 'High database latency and slow dashboard rendering times across multi-tenant fitness centers were causing user churn.',
+      solution: 'Engineered a next-generation multi-tenant analytics dashboard in Next.js 16 with Prisma ORM, edge caching, and automated real-time database sync.',
       technologies: ['Next.js 16', 'Prisma ORM', 'PostgreSQL', 'Tailwind CSS', 'Cloudflare R2'],
-      metric: '65% faster page loads',
+      metric: '65% Faster Page Loads',
       metricLabel: 'Performance Increase',
-      color: 'from-blue-600 via-indigo-600 to-cyan-500',
-      glowColor: 'rgba(59, 130, 246, 0.15)',
-      badgeIcon: <Zap className="h-3.5 w-3.5 text-blue-500" />,
+      badgeIcon: <Zap className="h-3.5 w-3.5 text-cyan-400" />,
     },
     {
       id: 'aerosync',
       title: 'AeroSync Real-Time Logistics & Parcel Coordination',
-      category: 'Logistics AI & Cloud Infrastructure',
-      categoryType: ['All', 'Logistics AI', 'Backend System'],
+      category: 'Logistics & AI',
+      categoryType: ['All', 'Logistics & AI'],
       client: 'AeroSync Logistics Inc.',
-      challenge: 'Excessive route overhead, delayed dispatch updates, and manual parcel sorting across high-volume distribution fleets.',
+      imageSrc: '/images/portfolio/portfolio-aerosync.jpg',
+      challenge: 'Excessive route overhead, delayed dispatch updates, and manual parcel sorting across high-volume regional distribution fleets.',
       solution: 'Developed custom scheduling software coordinating parcel distribution in real-time leveraging WebSockets for instant tracking updates and AI-optimized routes.',
-      description: 'Custom scheduling software that coordinates parcel distribution in real-time. Leverages WebSockets for instant tracking updates and optimized routes.',
       technologies: ['WebSockets', 'AI Route Engine', 'TypeScript', 'AWS Cloud', 'Docker'],
-      metric: '-18% route fuel overhead',
+      metric: '-22% Route Fuel Overhead',
       metricLabel: 'Fleet Optimization',
-      color: 'from-purple-600 via-pink-600 to-indigo-600',
-      glowColor: 'rgba(168, 85, 247, 0.15)',
-      badgeIcon: <Cpu className="h-3.5 w-3.5 text-purple-500" />,
+      badgeIcon: <Cpu className="h-3.5 w-3.5 text-purple-400" />,
     },
     {
       id: 'financeflow',
       title: 'FinanceFlow AI-Driven Budget & Ledger Engine',
-      category: 'FinTech & Cognitive AI Agents',
-      categoryType: ['All', 'FinTech & AI', 'Backend System'],
+      category: 'FinTech & Ledger',
+      categoryType: ['All', 'FinTech & Ledger'],
       client: 'FinanceFlow Capital',
+      imageSrc: '/images/portfolio/portfolio-financeflow.jpg',
       challenge: 'Manual financial reconciliation bottlenecks and complex bank ledger integration compliance requiring strict data isolation.',
-      solution: 'An AI-driven budget analyzer integrating LLMs with bank ledger APIs, featuring secure credentials management and automated reconciliation loops.',
-      description: 'An AI-driven budget analyzer integrating LLMs with bank ledger APIs. Includes secure credentials management and automated reconciliation loops.',
+      solution: 'Engineered an AI-driven budget analyzer integrating LLMs with bank ledger APIs, featuring secure credential vaulting and automated reconciliation loops.',
       technologies: ['LLM Agents', 'Bank Ledger APIs', 'pgvector', 'TypeScript', 'SOC-2 Vault'],
-      metric: 'SOC-2 compliant storage',
+      metric: '100% PCI-DSS Compliant',
       metricLabel: 'Security Standard',
-      color: 'from-cyan-600 via-blue-600 to-emerald-500',
-      glowColor: 'rgba(6, 182, 212, 0.15)',
-      badgeIcon: <ShieldCheck className="h-3.5 w-3.5 text-cyan-500" />,
+      badgeIcon: <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />,
     },
   ];
 
@@ -74,29 +67,29 @@ export function CaseStudiesSection() {
     : projects.filter(p => p.categoryType.includes(selectedCategory));
 
   return (
-    <section id="case-studies" className="py-20 md:py-28 px-6 bg-background relative overflow-hidden">
+    <section id="case-studies" className="py-20 md:py-28 px-6 bg-transparent relative overflow-hidden scroll-mt-24">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-primary/5 dark:bg-primary/10 rounded-full blur-[180px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-primary/5 dark:bg-cyan-500/5 rounded-full blur-[180px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader
-          badge="Portfolio"
-          title="Premium Case Studies"
-          description="A selection of high-performance software engineered for industry category leaders."
+          badge="Featured Work"
+          title="Built to Solve Real Problems"
+          description="A selection of high-performance software engineered by AstraIV Technologies for industry category leaders."
         />
 
-        {/* Category filter tabs matching design review mockup */}
-        <div className="flex flex-wrap justify-center items-center gap-2.5 mt-10 max-w-4xl mx-auto">
+        {/* Category filter tabs */}
+        <div className="flex flex-wrap justify-center items-center gap-2 mt-10 max-w-3xl mx-auto">
           {categories.map((cat) => {
             const isActive = selectedCategory === cat;
             return (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-bold tracking-wide transition-all duration-300 select-none cursor-pointer ${
+                className={`px-4 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-300 select-none cursor-pointer ${
                   isActive
-                    ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20 scale-105'
-                    : 'bg-card/90 backdrop-blur-sm border border-border/70 dark:border-border/60 text-muted-foreground hover:text-foreground hover:border-primary/40 dark:hover:border-accent/40'
+                    ? 'bg-primary text-white shadow-sm shadow-primary/20 scale-105'
+                    : 'bg-card/90 dark:bg-slate-900/70 border border-border/70 dark:border-slate-800/80 text-muted-foreground hover:text-foreground hover:border-primary/40 dark:hover:border-cyan-400/40'
                 }`}
               >
                 {cat}
@@ -105,99 +98,79 @@ export function CaseStudiesSection() {
           })}
         </div>
 
-        {/* Distinct separated case study visual sections */}
-        <div className="mt-14 md:mt-20 space-y-12 md:space-y-16 max-w-6xl mx-auto">
+        {/* Large Visual Case Study Cards */}
+        <div className="mt-12 sm:mt-16 space-y-10 sm:space-y-12 max-w-6xl mx-auto">
           {filteredProjects.map((project, index) => {
             const isReversed = index % 2 !== 0;
 
             return (
               <motion.article
                 key={project.id}
-                initial={{ opacity: 0, y: 35 }}
+                initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] as const }}
-                className="group relative bg-card border border-border/70 dark:border-border/60 hover:border-primary/40 dark:hover:border-accent/40 rounded-[28px] shadow-xs hover:shadow-[0_25px_60px_-15px_rgba(11,61,145,0.08)] dark:hover:shadow-[0_25px_60px_-15px_rgba(91,95,239,0.18)] overflow-hidden transition-all duration-500"
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
+                className="group relative bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-cyan-400/40 rounded-[24px] sm:rounded-[28px] shadow-xs hover:shadow-[0_20px_50px_-15px_rgba(11,61,145,0.12)] dark:hover:shadow-[0_20px_50px_-15px_rgba(0,194,255,0.12)] overflow-hidden transition-all duration-500 transform-gpu hover:-translate-y-1"
               >
-                {/* Subtle internal gradient accent */}
-                <div
-                  className="absolute inset-0 pointer-events-none opacity-40 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{
-                    background: `radial-gradient(circle at ${isReversed ? '80% 20%' : '20% 20%'}, ${project.glowColor}, transparent 60%)`,
-                  }}
-                />
-
-                <div className={`relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 p-6 sm:p-8 md:p-10 items-center ${
-                  isReversed ? 'lg:grid-flow-dense' : ''
-                }`}>
-                  {/* Visual Preview / Metric Visual Hero Block */}
-                  <div className={`lg:col-span-5 flex flex-col justify-between rounded-2xl overflow-hidden bg-gradient-to-br ${project.color} p-6 md:p-8 text-white min-h-[280px] sm:min-h-[340px] relative shadow-inner ${
-                    isReversed ? 'lg:col-start-8' : ''
+                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 p-6 sm:p-8 md:p-10 items-center">
+                  {/* Left Column: Visual Image Showcase */}
+                  <div className={`lg:col-span-6 relative w-full h-[240px] sm:h-[300px] md:h-[340px] rounded-2xl overflow-hidden shadow-inner group/preview border border-border/50 dark:border-slate-800/80 bg-slate-950 ${
+                    isReversed ? 'lg:order-2' : ''
                   }`}>
-                    {/* Abstract technical pattern overlay */}
-                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#000_100%)] opacity-35" />
-                    <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:16px_16px]" />
+                    <Image
+                      src={project.imageSrc}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/20" />
 
-                    {/* Top tags */}
-                    <div className="relative z-10 flex items-center justify-between gap-2">
-                      <span className="inline-flex items-center gap-1.5 px-3.5 py-1 text-[11px] font-extrabold tracking-wider bg-black/30 backdrop-blur-md border border-white/20 text-white rounded-full uppercase">
+                    {/* Category overlay badge */}
+                    <div className="absolute top-4 left-4 flex items-center gap-2">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-extrabold tracking-wider bg-slate-950/80 backdrop-blur-md border border-cyan-400/30 text-cyan-300 rounded-full uppercase">
                         {project.badgeIcon}
                         <span>{project.category}</span>
                       </span>
-                      <span className="text-[11px] font-bold text-white/80 uppercase tracking-widest">
-                        0{index + 1}
-                      </span>
                     </div>
 
-                    {/* Center project identifier badge */}
-                    <div className="relative z-10 my-auto py-6">
-                      <span className="text-xs uppercase tracking-widest font-semibold text-white/75 block mb-1">
-                        Client Partner
-                      </span>
-                      <h4 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white font-heading drop-shadow-sm">
-                        {project.client}
-                      </h4>
-                    </div>
-
-                    {/* Bottom prominent impact metric highlight */}
-                    <div className="relative z-10 pt-4 border-t border-white/20 flex items-end justify-between">
+                    {/* Metric pill */}
+                    <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white">
                       <div>
-                        <span className="text-[10px] uppercase font-bold tracking-wider text-white/70 block">
+                        <span className="text-[9px] uppercase font-bold tracking-wider text-slate-300 block">
                           {project.metricLabel}
                         </span>
-                        <span className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                        <span className="text-base sm:text-lg font-black tracking-tight text-white font-mono">
                           {project.metric}
                         </span>
                       </div>
-                      <div className="h-8 w-8 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center border border-white/25">
-                        <Sparkles className="h-4 w-4 text-white" />
-                      </div>
+                      <span className="text-xs font-bold text-slate-300 bg-slate-900/70 px-2.5 py-1 rounded-md border border-slate-700">
+                        {project.client}
+                      </span>
                     </div>
                   </div>
 
-                  {/* Comprehensive Case Study Content Block */}
-                  <div className={`lg:col-span-7 flex flex-col justify-between text-left space-y-6 ${
-                    isReversed ? 'lg:col-start-1' : ''
+                  {/* Right Column: Case Study Architecture Details */}
+                  <div className={`lg:col-span-6 flex flex-col justify-between text-left space-y-5 ${
+                    isReversed ? 'lg:order-1' : ''
                   }`}>
-                    {/* Header: Title and Category */}
                     <div>
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-widest text-primary bg-primary/10 border border-primary/20 dark:text-accent dark:bg-accent/10 dark:border-accent/20">
-                          Case Study
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-primary dark:text-cyan-400 bg-primary/10 dark:bg-cyan-400/10 border border-primary/20 dark:border-cyan-400/20">
+                          Production Case Study
                         </span>
                         <span className="text-xs font-semibold text-muted-foreground">
                           {project.category}
                         </span>
                       </div>
-                      <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors duration-300">
+                      <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-cyan-300 transition-colors">
                         {project.title}
                       </h3>
                     </div>
 
                     {/* Problem vs Solution Split */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {/* Challenge */}
-                      <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/70 border border-border/60 dark:border-slate-800/80 flex flex-col gap-1.5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      <div className="p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 border border-border/60 dark:border-slate-700/60 flex flex-col gap-1">
                         <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-600 dark:text-amber-400">
                           Challenge
                         </span>
@@ -206,9 +179,8 @@ export function CaseStudiesSection() {
                         </p>
                       </div>
 
-                      {/* Solution */}
-                      <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/70 border border-border/60 dark:border-slate-800/80 flex flex-col gap-1.5">
-                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-primary dark:text-accent">
+                      <div className="p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 border border-border/60 dark:border-slate-700/60 flex flex-col gap-1">
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-primary dark:text-cyan-400">
                           Engineered Solution
                         </span>
                         <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-medium">
@@ -217,16 +189,16 @@ export function CaseStudiesSection() {
                       </div>
                     </div>
 
-                    {/* Technologies Used */}
+                    {/* Technologies Deployed */}
                     <div>
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-muted-foreground/80 dark:text-slate-400 block mb-2">
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-muted-foreground block mb-2">
                         Technologies Deployed
                       </span>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-1.5">
                         {project.technologies.map((tech, tIdx) => (
                           <span
                             key={tIdx}
-                            className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-slate-100/90 dark:bg-slate-800/90 border border-border/70 dark:border-slate-700/60 text-foreground/80 dark:text-slate-200"
+                            className="px-2.5 py-0.5 text-xs font-semibold rounded-md bg-slate-100 dark:bg-slate-800 border border-border/60 dark:border-slate-700 text-foreground/90 dark:text-slate-200"
                           >
                             {tech}
                           </span>
@@ -234,19 +206,19 @@ export function CaseStudiesSection() {
                       </div>
                     </div>
 
-                    {/* Bottom CTA / Action */}
-                    <div className="pt-2 flex flex-wrap items-center justify-between gap-4 border-t border-border/40 dark:border-border/30">
-                      <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground dark:text-slate-400">
-                        <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
-                        <span>Production verified architecture</span>
+                    {/* Bottom Action Link */}
+                    <div className="pt-2 flex items-center justify-between border-t border-border/40 dark:border-slate-800/60">
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                        <CheckCircle2 className="h-4 w-4 shrink-0" />
+                        <span>Production verified</span>
                       </div>
 
                       <Link
-                        href="/contact"
-                        className="inline-flex items-center gap-2 text-xs font-extrabold text-primary hover:text-primary/80 dark:text-accent dark:hover:text-accent/80 transition-colors group/link"
+                        href="/portfolio"
+                        className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-extrabold text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 transition-colors"
                       >
-                        <span>Request Architecture Brief</span>
-                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-1" />
+                        <span>View Project Architecture</span>
+                        <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                       </Link>
                     </div>
                   </div>
