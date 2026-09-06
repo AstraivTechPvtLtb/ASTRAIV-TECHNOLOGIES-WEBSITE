@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getPublicActiveServices } from '@/controllers/services.controller';
 import {
   Navbar,
   Footer,
@@ -22,8 +23,11 @@ export default async function HomePage({ params }: HomePageProps) {
   // Set the request locale for server caching
   setRequestLocale(locale);
 
-  // Load language bundles
-  const t = await getTranslations('Home');
+  // Load language bundles and active services from database
+  const [t, services] = await Promise.all([
+    getTranslations('Home'),
+    getPublicActiveServices(),
+  ]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -45,7 +49,7 @@ export default async function HomePage({ params }: HomePageProps) {
         <StatsSection />
 
         {/* 3. Services */}
-        <ServicesSection />
+        <ServicesSection initialServices={services} />
 
         {/* 4. Why Astraiv */}
         <WhySection />

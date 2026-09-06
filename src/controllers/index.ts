@@ -10,3 +10,4 @@ export * from './tickets.controller';
 export * from './contact.controller';
 export * from './public-data.controller';
 export * from './blog.controller';
+export * from './services.controller';

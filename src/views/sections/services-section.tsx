@@ -1,101 +1,23 @@
 'use client';
 
+/**
+ * @file client/src/views/sections/services-section.tsx
+ * @description [VIEW] Client homepage services section driven dynamically by PostgreSQL database records.
+ */
+
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { 
-  Bot, 
-  Terminal, 
-  Cpu, 
-  Cloud, 
-  Globe, 
-  Smartphone, 
-  Layers, 
-  Settings, 
-  Shuffle, 
-  HelpCircle,
-  Database,
-  GitBranch
-} from 'lucide-react';
 import { ServiceCard } from './service-card';
 import { SectionHeader } from './section-header';
+import { ServiceIcon } from '@/views/ui/service-icon';
+import { PublicServiceItem } from '@/controllers/services.controller';
 
-export function ServicesSection() {
+interface ServicesSectionProps {
+  initialServices?: PublicServiceItem[];
+}
+
+export function ServicesSection({ initialServices = [] }: ServicesSectionProps) {
   const t = useTranslations('Services');
-
-  const services = [
-    {
-      icon: <Bot className="h-5 w-5" />,
-      title: t('aiSolutions'),
-      description: t('aiSolutionsDesc'),
-      href: '#contact',
-    },
-    {
-      icon: <Terminal className="h-5 w-5" />,
-      title: t('webApps'),
-      description: t('webAppsDesc'),
-      href: '#contact',
-    },
-    {
-      icon: <Cpu className="h-5 w-5" />,
-      title: 'Custom Software',
-      description: 'Bespoke, high-performance software engineered specifically for your core business operations.',
-      href: '#contact',
-    },
-    {
-      icon: <Cloud className="h-5 w-5" />,
-      title: t('cloud'),
-      description: t('cloudDesc'),
-      href: '#contact',
-    },
-    {
-      icon: <Globe className="h-5 w-5" />,
-      title: t('webDev'),
-      description: t('webDevDesc'),
-      href: '#contact',
-    },
-    {
-      icon: <Smartphone className="h-5 w-5" />,
-      title: 'Mobile Apps',
-      description: 'Premium cross-platform iOS and Android applications designed with native performance.',
-      href: '#contact',
-    },
-    {
-      icon: <Layers className="h-5 w-5" />,
-      title: t('uiux'),
-      description: t('uiuxDesc'),
-      href: '#contact',
-    },
-    {
-      icon: <GitBranch className="h-5 w-5" />,
-      title: 'DevOps & CI/CD',
-      description: 'Zero-downtime deployment pipelines, automated tests, and Kubernetes container management.',
-      href: '#contact',
-    },
-    {
-      icon: <Settings className="h-5 w-5" />,
-      title: t('automation'),
-      description: t('automationDesc'),
-      href: '#contact',
-    },
-    {
-      icon: <Database className="h-5 w-5" />,
-      title: 'Enterprise Software',
-      description: 'Highly available databases, microservices architectures, and legacy system refactoring.',
-      href: '#contact',
-    },
-    {
-      icon: <Shuffle className="h-5 w-5" />,
-      title: 'Digital Transformation',
-      description: 'Transitioning analog workflows to scalable cloud platforms with automated logging.',
-      href: '#contact',
-    },
-    {
-      icon: <HelpCircle className="h-5 w-5" />,
-      title: 'IT Consulting',
-      description: 'Senior architectural audits, technology risk assessment, and system optimization plans.',
-      href: '#contact',
-    },
-  ];
 
   const containerVariants = {
     hidden: {},
@@ -137,13 +59,13 @@ export function ServicesSection() {
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-16 items-stretch"
         >
-          {services.map((service, index) => (
-            <motion.div key={index} variants={cardVariants} className="h-full flex flex-col">
+          {initialServices.map((service) => (
+            <motion.div key={service.id || service.slug} variants={cardVariants} className="h-full flex flex-col">
               <ServiceCard
-                icon={service.icon}
+                icon={<ServiceIcon name={service.icon} className="h-5 w-5" />}
                 title={service.title}
-                description={service.description}
-                href={service.href}
+                description={service.shortDesc}
+                href={`/services/${service.slug}`}
               />
             </motion.div>
           ))}
