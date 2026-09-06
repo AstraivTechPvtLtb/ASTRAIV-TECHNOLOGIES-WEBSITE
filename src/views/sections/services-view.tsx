@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import {
@@ -22,14 +22,12 @@ import {
   CheckCircle2,
   ShieldCheck,
   Zap,
-  Server,
   Code2,
   ChevronRight,
   Search,
   Activity,
   Lock,
   Workflow,
-  Laptop,
   Check,
   Compass,
   FileCode2,
@@ -397,14 +395,14 @@ export function ServicesView() {
 
                   {/* Console Tabs */}
                   <div className="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-slate-900 rounded-lg">
-                    {[
+                    {([
                       { id: 'pipeline', label: 'Delivery Pipeline' },
                       { id: 'telemetry', label: 'SLAs & Telemetry' },
                       { id: 'standards', label: 'Code Standards' },
-                    ].map((tab) => (
+                    ] as const).map((tab) => (
                       <button
                         key={tab.id}
-                        onClick={() => setActiveConsoleTab(tab.id as any)}
+                        onClick={() => setActiveConsoleTab(tab.id)}
                         className={cn(
                           'flex-1 py-1.5 px-2 rounded-md text-[11px] font-bold transition-all',
                           activeConsoleTab === tab.id
@@ -595,7 +593,7 @@ export function ServicesView() {
         {filteredServices.length === 0 ? (
           <div className="p-12 text-center rounded-2xl border border-dashed border-border dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40">
             <p className="text-base text-muted-foreground font-semibold">
-              No services found matching "{searchQuery}".
+              No services found matching &quot;{searchQuery}&quot;.
             </p>
             <button
               onClick={() => {
@@ -844,7 +842,7 @@ export function ServicesView() {
         <div className="relative overflow-hidden rounded-3xl border border-primary/30 dark:border-cyan-500/30 bg-gradient-to-br from-primary/10 via-card to-cyan-500/10 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/40 p-10 sm:p-16 shadow-xl">
           <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
             <span className="inline-flex px-3.5 py-1 text-xs font-black tracking-wider uppercase text-primary dark:text-cyan-300 bg-primary/10 dark:bg-cyan-500/20 rounded-full border border-primary/20 dark:border-cyan-500/30">
-              LET'S BUILD TOGETHER
+              LET&apos;S BUILD TOGETHER
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading text-slate-900 dark:text-white tracking-tight leading-tight">
               Ready to Accelerate Your Software Engineering?

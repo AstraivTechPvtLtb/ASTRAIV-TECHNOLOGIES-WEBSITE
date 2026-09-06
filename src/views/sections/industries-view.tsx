@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import {
@@ -21,13 +20,8 @@ import {
   Zap,
   Lock,
   Compass,
-  FileCheck,
-  Building2,
   ArrowUpRight,
-  ChevronRight,
-  Database,
   Radio,
-  Server,
   Sparkles,
 } from 'lucide-react';
 

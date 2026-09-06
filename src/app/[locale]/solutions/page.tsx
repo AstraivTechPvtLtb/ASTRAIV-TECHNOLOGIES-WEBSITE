@@ -7,7 +7,7 @@ interface SolutionsPageProps {
 }
 
 export async function generateMetadata({ params }: SolutionsPageProps): Promise<Metadata> {
-  const { locale } = await params;
+  await params;
   return {
     title: 'Enterprise Solutions | Astraiv Technologies',
     description:

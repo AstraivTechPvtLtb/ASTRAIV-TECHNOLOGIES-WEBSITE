@@ -7,12 +7,10 @@ import {
   Briefcase,
   Code2,
   Brain,
-  Cloud,
   ArrowRight,
   Globe2,
   Sparkles,
   ShieldCheck,
-  CheckCircle2,
 } from 'lucide-react';
 
 export function CareersSection() {

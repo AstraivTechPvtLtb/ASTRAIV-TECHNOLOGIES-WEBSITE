@@ -24,7 +24,6 @@ import {
   ChevronRight,
   ExternalLink,
   Code2,
-  Terminal,
   BarChart3,
   Layers,
   Send,
