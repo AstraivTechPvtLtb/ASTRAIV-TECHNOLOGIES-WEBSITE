@@ -282,66 +282,53 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[550px] bg-gradient-to-b from-primary/10 via-secondary/5 to-transparent rounded-full blur-[140px] pointer-events-none -z-10" />
       <div className="absolute top-[1200px] right-0 w-[600px] h-[600px] bg-cyan-500/5 dark:bg-cyan-500/10 rounded-full blur-[180px] pointer-events-none -z-10" />
 
-      {/* ========================================================================= */}
-      {/* 1. EDITORIAL PUBLICATION HERO */}
-      {/* ========================================================================= */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-20 px-6 max-w-7xl mx-auto text-center relative z-10">
-        {/* Publication Tag Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 text-xs font-extrabold tracking-wider text-primary bg-primary/10 dark:bg-accent/10 dark:text-accent rounded-full border border-primary/20 dark:border-accent/20 uppercase mb-6 shadow-xs">
-          <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
-          <span>Astraiv Research & Knowledge Publication</span>
+      {/* 1. EDITORIAL HEADER & SEARCH */}
+      <section className="pt-28 pb-8 md:pt-36 md:pb-10 px-6 max-w-7xl mx-auto relative z-10">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading text-slate-900 dark:text-white tracking-tight">
+              Insights & Engineering Publications
+            </h1>
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-medium mt-1">
+              Technical deep dives, system architectures, and engineering case studies.
+            </p>
+          </div>
+
+          {/* Search Command Bar */}
+          <div className="w-full md:w-80 relative group">
+            <div className="relative flex items-center bg-card dark:bg-slate-900 border border-border/80 dark:border-slate-800 rounded-2xl p-1 shadow-xs focus-within:border-primary dark:focus-within:border-accent focus-within:ring-2 focus-within:ring-primary/20">
+              <Search className="h-4 w-4 text-muted-foreground ml-3 mr-2 shrink-0" />
+              <input
+                type="text"
+                placeholder="Search articles or blueprints..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-transparent border-none outline-none py-1.5 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground font-semibold"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="text-xs px-2.5 py-1 text-muted-foreground hover:text-foreground font-bold cursor-pointer"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
+          </div>
         </div>
 
-        {/* Headline */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight font-heading text-slate-900 dark:text-white max-w-5xl mx-auto leading-[1.1] mb-6">
-          Engineering Intelligence,{' '}
-          <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-            Architectural Rigor
-          </span>{' '}
-          & Industry Insights
-        </h1>
-
-        {/* Subtitle */}
-        <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto font-medium mb-12">
-          Technical deep dives, autonomous AI breakthroughs, verified case studies, and engineering
-          blueprints written by the senior engineers and architects at Astraiv Technologies.
-        </p>
-
-        {/* Quick Jump Navigation Pill (Matching Dropdown Elements) */}
-        <div className="flex flex-wrap items-center justify-center gap-2 max-w-5xl mx-auto p-2 bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-sm mb-12">
+        {/* Quick Jump Navigation Pill */}
+        <div className="flex flex-wrap items-center gap-2 p-1.5 bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs mt-6 w-fit">
           {quickNavItems.map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-accent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all select-none"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-accent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all select-none"
             >
               {item.icon}
               <span>{item.label}</span>
             </a>
           ))}
-        </div>
-
-        {/* Search Command Bar */}
-        <div className="max-w-2xl mx-auto relative group">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/10 to-accent/20 rounded-2xl blur-xl opacity-40 group-focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
-          <div className="relative flex items-center bg-card/90 dark:bg-slate-900/90 backdrop-blur-xl border border-border/80 dark:border-slate-700/80 rounded-2xl p-1.5 shadow-md transition-all duration-300 focus-within:border-primary dark:focus-within:border-accent focus-within:ring-2 focus-within:ring-primary/20">
-            <Search className="h-5 w-5 text-muted-foreground ml-4 mr-2.5 transition-colors group-focus-within:text-primary dark:group-focus-within:text-accent shrink-0" />
-            <input
-              type="text"
-              placeholder="Search technical articles, blueprints, case studies, or architectural topics..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-transparent border-none outline-none py-2.5 text-sm md:text-base text-foreground placeholder:text-muted-foreground font-semibold"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="text-xs px-2.5 py-1 text-muted-foreground hover:text-foreground font-bold cursor-pointer"
-              >
-                Clear
-              </button>
-            )}
-          </div>
         </div>
       </section>
 

@@ -240,71 +240,20 @@ export function SolutionsView() {
 
   return (
     <div className="flex flex-col w-full">
-      {/* 1. HERO SECTION */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 px-6 overflow-hidden">
-        {/* Ambient background glows */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-tr from-primary/15 via-secondary/10 to-accent/15 rounded-full blur-[140px] pointer-events-none -z-10" />
-        <div className="absolute top-10 right-10 w-[350px] h-[350px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
-
-        <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-bold tracking-wider text-primary bg-primary/10 rounded-full border border-primary/20 dark:bg-primary/20 dark:text-primary-foreground uppercase mb-6 animate-fade-in">
-            <Sparkles className="h-3.5 w-3.5 text-primary dark:text-accent" />
-            <span>ENTERPRISE SOLUTIONS ARCHITECTURE</span>
-          </div>
-
-          {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight font-heading text-slate-900 dark:text-white max-w-5xl leading-[1.1] mb-6">
-            Engineered for Impact.{' '}
-            <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              Built for Scale.
-            </span>
-          </h1>
-
-          {/* Subtitle */}
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl font-medium mb-10">
-            Purpose-built technical architectures solving high-stakes enterprise bottlenecks across
-            intelligent autonomous systems, high-throughput digital products, and zero-downtime engineering transformations.
-          </p>
-
-          {/* Stats Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 w-full max-w-4xl p-6 bg-card/85 dark:bg-slate-900/85 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-2xl shadow-sm mb-12 text-left">
-            <div className="flex flex-col">
-              <span className="text-2xl sm:text-3xl font-extrabold font-heading text-primary dark:text-accent">
-                99.99%
-              </span>
-              <span className="text-xs sm:text-sm text-muted-foreground font-semibold">
-                Architecture SLA Standard
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-2xl sm:text-3xl font-extrabold font-heading text-secondary dark:text-purple-400">
-                8 Domains
-              </span>
-              <span className="text-xs sm:text-sm text-muted-foreground font-semibold">
-                Specialized Enterprise Solutions
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-2xl sm:text-3xl font-extrabold font-heading text-accent dark:text-cyan-400">
-                &lt; 100ms
-              </span>
-              <span className="text-xs sm:text-sm text-muted-foreground font-semibold">
-                P99 Core Performance Latency
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-2xl sm:text-3xl font-extrabold font-heading text-emerald-500">
-                100%
-              </span>
-              <span className="text-xs sm:text-sm text-muted-foreground font-semibold">
-                Strict Type-Safe Codebases
-              </span>
-            </div>
+      {/* 1. CATEGORY NAVIGATION HEADER */}
+      <section className="pt-28 pb-8 md:pt-36 md:pb-10 px-6 max-w-7xl mx-auto w-full">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white font-heading tracking-tight">
+              Enterprise Solutions
+            </h1>
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-medium mt-1">
+              Purpose-built technical architectures solving high-stakes enterprise bottlenecks.
+            </p>
           </div>
 
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 bg-card/90 dark:bg-slate-900/90 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs">
+          <div className="flex flex-wrap items-center gap-2 p-1.5 bg-card/90 dark:bg-slate-900/90 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs w-fit">
             {CATEGORIES.map((cat) => {
               const active = selectedCategory === cat.id;
               return (
@@ -314,7 +263,7 @@ export function SolutionsView() {
                   className={cn(
                     'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer select-none',
                     active
-                      ? 'bg-primary text-white shadow-sm dark:bg-accent dark:text-slate-950 font-extrabold'
+                      ? 'bg-primary text-white shadow-xs dark:bg-blue-600 dark:text-white font-black'
                       : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
                   )}
                 >

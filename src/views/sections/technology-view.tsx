@@ -534,9 +534,9 @@ interface TechnologyViewProps {
 }
 
 export function TechnologyView({
-  badge = 'Technology & Innovation',
+  badge: _badge,
   title = 'Next-Gen Software & Intelligent Systems',
-  description = 'We design, code, and deploy custom technology architectures and cognitive agent workflows tailored for enterprise-scale performance and intelligence.',
+  description: _description,
 }: TechnologyViewProps) {
   const [selectedCategory, setSelectedCategory] = useState<TechCategory>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -568,49 +568,15 @@ export function TechnologyView({
 
   return (
     <div className="w-full relative">
-      {/* =========================================================================
-          HERO SECTION: Title, Mission, & Enterprise IT Featured Card
-          ========================================================================= */}
-      <section className="pt-28 pb-16 px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
-        {/* Glow ambient halos */}
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[340px] bg-gradient-to-tr from-primary/10 via-cyan-500/10 to-transparent rounded-full blur-[130px] pointer-events-none" />
-
-        <div className="text-center max-w-4xl mx-auto flex flex-col items-center gap-5">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 text-primary dark:text-primary-foreground text-xs font-semibold tracking-wider uppercase backdrop-blur-md shadow-xs">
-            <Sparkles className="h-3.5 w-3.5 text-primary" />
-            <span>{badge}</span>
-          </div>
-
-          {/* Heading */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.15] max-w-3xl">
+      {/* 1. HEADER */}
+      <section className="pt-28 pb-8 md:pt-36 md:pb-10 px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
+        <div className="max-w-5xl mx-auto text-left mb-8">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading text-slate-900 dark:text-white tracking-tight">
             {title}
           </h1>
-
-          {/* Description */}
-          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl font-medium">
-            {description}
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-medium mt-1">
+            Foundational engineering stack, intelligent agent frameworks, and enterprise infrastructure.
           </p>
-
-          {/* Live System Metrics Quick Strip */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-3xl mt-4 pt-4 border-t border-border/40">
-            <div className="flex flex-col items-center p-3 rounded-xl bg-card/60 dark:bg-slate-900/50 border border-border/40 backdrop-blur-sm">
-              <span className="text-xs text-muted-foreground font-medium">Architecture SLA</span>
-              <span className="text-base sm:text-lg font-extrabold text-foreground tracking-tight">99.99%</span>
-            </div>
-            <div className="flex flex-col items-center p-3 rounded-xl bg-card/60 dark:bg-slate-900/50 border border-border/40 backdrop-blur-sm">
-              <span className="text-xs text-muted-foreground font-medium">Edge Response</span>
-              <span className="text-base sm:text-lg font-extrabold text-emerald-600 dark:text-emerald-400 tracking-tight">&lt; 15ms</span>
-            </div>
-            <div className="flex flex-col items-center p-3 rounded-xl bg-card/60 dark:bg-slate-900/50 border border-border/40 backdrop-blur-sm">
-              <span className="text-xs text-muted-foreground font-medium">Type Safety</span>
-              <span className="text-base sm:text-lg font-extrabold text-blue-600 dark:text-blue-400 tracking-tight">100% Strict</span>
-            </div>
-            <div className="flex flex-col items-center p-3 rounded-xl bg-card/60 dark:bg-slate-900/50 border border-border/40 backdrop-blur-sm">
-              <span className="text-xs text-muted-foreground font-medium">AI Retrieval</span>
-              <span className="text-base sm:text-lg font-extrabold text-purple-600 dark:text-purple-400 tracking-tight">Sub-Second</span>
-            </div>
-          </div>
         </div>
 
         {/* =========================================================================
@@ -620,7 +586,7 @@ export function TechnologyView({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mt-12 max-w-5xl mx-auto"
+          className="max-w-5xl mx-auto"
         >
           <div className="relative overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-r from-card/90 via-primary/5 to-card/90 dark:from-slate-900/80 dark:via-primary/10 dark:to-slate-900/80 backdrop-blur-xl p-6 sm:p-8 shadow-lg">
             <div className="absolute top-0 right-0 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
