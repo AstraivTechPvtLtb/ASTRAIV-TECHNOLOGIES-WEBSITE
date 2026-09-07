@@ -86,17 +86,13 @@ export async function getPublicActiveServices(): Promise<PublicServiceItem[]> {
         orderBy: { orderIndex: 'asc' },
       });
 
-      if (!records || records.length === 0) {
-        return DEFAULT_SERVICES;
-      }
-
       return records.map((s) => ({
         id: s.id,
         title: s.title,
         slug: s.slug,
         category: s.category || 'Engineering',
-        shortDesc: s.shortDesc,
-        fullDesc: s.fullDesc,
+        shortDesc: s.shortDesc || '',
+        fullDesc: s.fullDesc || s.shortDesc || '',
         features: s.features || [],
         badge: s.badge || null,
         icon: s.icon || 'Cpu',
@@ -111,17 +107,34 @@ export async function getPublicActiveServices(): Promise<PublicServiceItem[]> {
       .eq('status', 'active')
       .order('display_order', { ascending: true });
 
-    if (error || !records || records.length === 0) {
-      return DEFAULT_SERVICES;
+    if (error) {
+      console.error('[Supabase Public Services Error]:', error);
+      // Fallback to Prisma if Supabase query failed
+      const dbRecords = await db.serviceItem.findMany({
+        where: { active: true },
+        orderBy: { orderIndex: 'asc' },
+      });
+      return dbRecords.map((s) => ({
+        id: s.id,
+        title: s.title,
+        slug: s.slug,
+        category: s.category || 'Engineering',
+        shortDesc: s.shortDesc || '',
+        fullDesc: s.fullDesc || s.shortDesc || '',
+        features: s.features || [],
+        badge: s.badge || null,
+        icon: s.icon || 'Cpu',
+        orderIndex: s.orderIndex,
+      }));
     }
 
-    return records.map((s: any) => ({
+    return (records || []).map((s: any) => ({
       id: s.id,
       title: s.title,
       slug: s.slug,
       category: s.category || 'Engineering',
       shortDesc: s.short_desc || s.description || '',
-      fullDesc: s.full_desc || s.description || '',
+      fullDesc: s.full_desc || s.short_desc || s.description || '',
       features: s.features || [],
       badge: s.badge || null,
       icon: s.icon || 'Cpu',
@@ -129,7 +142,7 @@ export async function getPublicActiveServices(): Promise<PublicServiceItem[]> {
     }));
   } catch (error) {
     console.error('[Get Public Services Controller Error]:', error);
-    return DEFAULT_SERVICES;
+    return [];
   }
 }
 
@@ -155,8 +168,8 @@ export async function getPublicServiceBySlug(slug: string): Promise<PublicServic
         title: record.title,
         slug: record.slug,
         category: record.category || 'Engineering',
-        shortDesc: record.shortDesc,
-        fullDesc: record.fullDesc,
+        shortDesc: record.shortDesc || '',
+        fullDesc: record.fullDesc || record.shortDesc || '',
         features: record.features || [],
         badge: record.badge || null,
         icon: record.icon || 'Cpu',
@@ -172,7 +185,30 @@ export async function getPublicServiceBySlug(slug: string): Promise<PublicServic
       .eq('status', 'active')
       .maybeSingle();
 
-    if (error || !record) return null;
+    if (error || !record) {
+      // Fallback to Prisma
+      const dbRecord = await db.serviceItem.findFirst({
+        where: {
+          slug: cleanSlug,
+          active: true,
+        },
+      });
+
+      if (!dbRecord) return null;
+
+      return {
+        id: dbRecord.id,
+        title: dbRecord.title,
+        slug: dbRecord.slug,
+        category: dbRecord.category || 'Engineering',
+        shortDesc: dbRecord.shortDesc || '',
+        fullDesc: dbRecord.fullDesc || dbRecord.shortDesc || '',
+        features: dbRecord.features || [],
+        badge: dbRecord.badge || null,
+        icon: dbRecord.icon || 'Cpu',
+        orderIndex: dbRecord.orderIndex,
+      };
+    }
 
     return {
       id: record.id,
@@ -180,7 +216,7 @@ export async function getPublicServiceBySlug(slug: string): Promise<PublicServic
       slug: record.slug,
       category: record.category || 'Engineering',
       shortDesc: record.short_desc || record.description || '',
-      fullDesc: record.full_desc || record.description || '',
+      fullDesc: record.full_desc || record.short_desc || record.description || '',
       features: record.features || [],
       badge: record.badge || null,
       icon: record.icon || 'Cpu',
