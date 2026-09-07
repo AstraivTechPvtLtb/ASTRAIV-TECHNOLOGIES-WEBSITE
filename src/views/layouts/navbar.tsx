@@ -445,9 +445,11 @@ export function Navbar() {
                         className={cn(
                           'absolute top-full z-50 pt-2',
                           item.megaMenu?.type === 'dropdown'
-                            ? 'left-0'
+                            ? item.id === 'insights'
+                              ? 'right-0'
+                              : 'left-0'
                             : item.id === 'services'
-                            ? '-left-12'
+                            ? '-left-24'
                             : item.id === 'solutions'
                             ? '-left-48'
                             : item.id === 'technologies'
