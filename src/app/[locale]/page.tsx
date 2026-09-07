@@ -13,6 +13,9 @@ import {
   PricingSection,
 } from '@/views';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 interface HomePageProps {
   params: Promise<{ locale: string }>;
 }
