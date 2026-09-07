@@ -14,7 +14,6 @@ export function Navbar() {
   const tNav = useTranslations('Nav');
   const [isOpen, setIsOpen] = useState(false); // Mobile menu state
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [expandedMobileItem, setExpandedMobileItem] = useState<string | null>(null);
 
@@ -83,38 +82,13 @@ export function Navbar() {
     return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, []);
 
-  // Scroll listener & Scrollspy
+  // Scroll listener for header background and sizing
   useEffect(() => {
     let ticking = false;
-    const sectionIds = [
-      'services',
-      'why-us',
-      'industries',
-      'process',
-      'case-studies',
-      'testimonials',
-      'pricing',
-      'contact',
-      'technologies',
-      'ai-expertise',
-    ];
 
     const updateScrollState = () => {
       const isScrolled = window.scrollY > 15;
       setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
-
-      let currentSection = '';
-      for (let i = 0; i < sectionIds.length; i++) {
-        const el = document.getElementById(sectionIds[i]);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 180 && rect.bottom > 180) {
-            currentSection = sectionIds[i];
-            break;
-          }
-        }
-      }
-      setActiveSection((prev) => (prev !== currentSection ? currentSection : prev));
       ticking = false;
     };
 
@@ -188,7 +162,12 @@ export function Navbar() {
 
   // Determine active state for each nav item
   const isItemActive = (item: NavItem) => {
-    // 1. Dedicated page checks take strict precedence
+    // 1. On Home page ('/' or ''), do not show any active indicating underline
+    if (pathname === '/' || pathname === '') {
+      return false;
+    }
+
+    // 2. Dedicated page checks
     if (pathname === '/company' || pathname.startsWith('/company')) {
       return item.id === 'company';
     }
@@ -204,18 +183,11 @@ export function Navbar() {
     if (pathname === '/technology' || pathname.startsWith('/technology')) {
       return item.id === 'technologies';
     }
+    if (pathname === '/industries' || pathname.startsWith('/industries')) {
+      return item.id === 'industries';
+    }
     if (pathname.startsWith('/blog') || pathname === '/faq') {
       return item.id === 'insights';
-    }
-
-    // 2. On Home page ('/' or ''), activate based on in-view section
-    if (pathname === '/' || pathname === '') {
-      if (item.id === 'industries') {
-        return activeSection === 'industries';
-      }
-      if (item.id === 'technologies') {
-        return activeSection === 'technologies' || activeSection === 'ai-expertise';
-      }
     }
 
     return false;
@@ -449,12 +421,12 @@ export function Navbar() {
                     <>
                       <motion.span
                         layoutId="activeNavIndicator"
-                        className="absolute bottom-0 left-0 w-full h-[2.5px] bg-gradient-to-r from-primary via-secondary to-accent z-10 shadow-[0_1px_6px_rgba(11,61,145,0.25)] dark:shadow-[0_1px_8px_rgba(0,194,255,0.45)]"
+                        className="absolute bottom-0 left-0 w-full h-[2.5px] rounded-full bg-gradient-to-r from-primary via-secondary to-accent dark:from-accent dark:via-primary dark:to-cyan-400 z-10 shadow-[0_1px_6px_rgba(11,61,145,0.35)] dark:shadow-[0_0_12px_rgba(0,194,255,0.7)]"
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                       />
                       <motion.span
                         layoutId="activeNavGlow"
-                        className="absolute bottom-0 left-0 w-full h-10 bg-gradient-to-t from-primary/15 via-accent/5 to-transparent dark:from-accent/25 dark:via-secondary/15 dark:to-transparent blur-[8px] z-0 pointer-events-none"
+                        className="absolute bottom-0 left-0 w-full h-10 bg-gradient-to-t from-primary/15 via-accent/5 to-transparent dark:from-accent/25 dark:via-primary/15 dark:to-transparent blur-[8px] z-0 pointer-events-none"
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                       />
                     </>
