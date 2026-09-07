@@ -338,6 +338,14 @@ export const COMPANY_DROPDOWN: MegaMenuConfig = {
 
 export const NAV_ITEMS: NavItem[] = [
   {
+    id: 'company',
+    labelKey: 'aboutUs',
+    defaultLabel: 'About Us',
+    href: '/company',
+    hasDropdown: true,
+    megaMenu: COMPANY_DROPDOWN,
+  },
+  {
     id: 'services',
     labelKey: 'services',
     defaultLabel: 'Services',
@@ -383,13 +391,5 @@ export const NAV_ITEMS: NavItem[] = [
     href: '/blog',
     hasDropdown: true,
     megaMenu: INSIGHTS_DROPDOWN,
-  },
-  {
-    id: 'company',
-    labelKey: 'company',
-    defaultLabel: 'Company',
-    href: '/company',
-    hasDropdown: true,
-    megaMenu: COMPANY_DROPDOWN,
   },
 ];
