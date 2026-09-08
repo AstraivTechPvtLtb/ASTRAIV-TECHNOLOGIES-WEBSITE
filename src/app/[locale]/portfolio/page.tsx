@@ -1,5 +1,5 @@
 import { setRequestLocale } from 'next-intl/server';
-import { Navbar, Footer, CaseStudiesSection, TestimonialsSection } from '@/views';
+import { Navbar, Footer, CaseStudiesSection } from '@/views';
 
 interface PortfolioPageProps {
   params: Promise<{ locale: string }>;
@@ -16,7 +16,6 @@ export default async function PortfolioPage({ params }: PortfolioPageProps) {
       <Navbar />
       <main className="pt-24 flex-grow z-10 relative">
         <CaseStudiesSection />
-        <TestimonialsSection />
       </main>
       <Footer />
     </div>

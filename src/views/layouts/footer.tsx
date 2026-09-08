@@ -12,17 +12,17 @@ export async function Footer() {
     {
       title: 'Services',
       links: [
-        { label: 'AI Solutions & RAG', href: '/#services' },
-        { label: 'SaaS Development', href: '/#services' },
-        { label: 'Custom Systems', href: '/#services' },
-        { label: 'Cloud & Infrastructure', href: '/#services' },
+        { label: 'AI Solutions & RAG', href: '/services#ai-intelligent-systems' },
+        { label: 'SaaS Development', href: '/services#saas-development' },
+        { label: 'Custom Systems', href: '/services#custom-software' },
+        { label: 'Cloud & Infrastructure', href: '/services#cloud-infrastructure' },
       ],
     },
     {
       title: 'Platform',
       links: [
-        { label: 'Why Astraiv', href: '/#why-us' },
-        { label: 'Industries We Serve', href: '/#industries' },
+        { label: 'Why Astraiv', href: '/company#why-us' },
+        { label: 'Industries We Serve', href: '/industries' },
         { label: 'Our Technologies', href: '/technology#technologies' },
         { label: 'AI Capabilities', href: '/technology#ai-expertise' },
       ],
@@ -30,10 +30,10 @@ export async function Footer() {
     {
       title: 'Company',
       links: [
-        { label: 'Development Process', href: '/#process' },
+        { label: 'Development Process', href: '/company#process' },
         { label: 'Portfolio', href: '/portfolio' },
-        { label: 'Flexible Pricing', href: '/#pricing' },
-        { label: 'Frequently Asked Qs', href: '/faq' },
+        { label: 'Flexible Pricing', href: '/company#pricing' },
+        { label: 'Frequently Asked Qs', href: '/blog#faq' },
       ],
     },
   ];

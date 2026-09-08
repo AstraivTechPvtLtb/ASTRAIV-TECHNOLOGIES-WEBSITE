@@ -1,94 +1,120 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SectionHeader } from './section-header';
 import { 
   DollarSign, 
   Heart, 
-  Layers, 
   ShoppingCart, 
   Truck, 
   GraduationCap,
-  ArrowRight
+  ArrowRight,
+  Activity
 } from 'lucide-react';
+import { Link } from '@/i18n/routing';
 
 export function IndustriesSection() {
   const [activeTab, setActiveTab] = useState(0);
 
   const industries = [
     {
+      id: 'fintech',
       icon: <DollarSign className="h-5 w-5" />,
       label: 'FinTech',
-      title: 'Secure FinTech & Transactional Infrastructure',
-      subtitle: 'High-availability ledger integration and Stripe billing pipelines.',
-      details: 'We build institutional-grade payment engines, micro-transaction processing pipelines, multi-tenant subscription routing, and detailed billing analytics dashboards that follow PCI-DSS compliance strictly.',
-      metrics: ['99.999% API Uptime', 'Stripe Certified partner integrations', 'PCI-DSS Compliant architectures'],
+      title: 'Institutional FinTech & Transactional Infrastructure',
+      subtitle: 'PCI-DSS compliant ledgers, Stripe pipelines, and automated reconciliation.',
+      details: 'We engineer institutional-grade payment engines, micro-transaction processing pipelines, multi-tenant billing algorithms, and risk analytics dashboards that strictly adhere to PCI-DSS Level 1 compliance.',
+      imageSrc: '/images/industries/industry-fintech.jpg',
+      metrics: [
+        { label: 'API Uptime SLA', val: '99.999%' },
+        { label: 'Reconciliation Latency', val: '< 18ms' },
+        { label: 'Compliance Standard', val: 'PCI-DSS & SOC-2' },
+      ],
     },
     {
+      id: 'healthtech',
       icon: <Heart className="h-5 w-5" />,
       label: 'HealthTech',
-      title: 'HIPAA-Compliant Patient & BioTech Portals',
-      subtitle: 'Encrypted databases and secure cloud pipelines for medical applications.',
-      details: 'Our BioTech systems automate clinical trials workflow pipelines, manage electronic health record integrations securely, and facilitate patient data access while meeting HIPAA privacy requirements at rest and in transit.',
-      metrics: ['Full HIPAA Compliance', 'AES-256 encrypted endpoints', 'Legacy HL7/FHIR compatibility'],
+      title: 'HIPAA-Compliant Patient & Biotech Telemetry Portals',
+      subtitle: 'Encrypted databases, EHR synchronization, and secure clinical telemetry.',
+      details: 'Our biotech systems automate clinical trial data collection, securely synchronize Electronic Health Record (EHR/FHIR) databases, and provide doctors and patients with sub-second real-time vitals access.',
+      imageSrc: '/images/industries/industry-healthtech.jpg',
+      metrics: [
+        { label: 'Privacy Standard', val: 'Full HIPAA Compliance' },
+        { label: 'Data Encryption', val: 'AES-256 GCM Rest/Transit' },
+        { label: 'Interoperability', val: 'HL7 / FHIR V4 Ready' },
+      ],
     },
     {
-      icon: <Layers className="h-5 w-5" />,
-      label: 'SaaS Platforms',
-      title: 'Next-Gen SaaS Dashboards & Core Logic',
-      subtitle: 'Performant web apps utilizing Server Components and Prisma.',
-      details: 'We engineer premium, multi-tenant SaaS dashboards that render instantly, load databases securely with Prisma, sync CRM leads, and offer state-of-the-art UI/UX that keeps users engaged.',
-      metrics: ['<100ms average response time', 'Pre-configured auth & role structures', 'Vercel-optimized caching'],
-    },
-    {
+      id: 'ecommerce',
       icon: <ShoppingCart className="h-5 w-5" />,
-      title: 'High-Conversion E-commerce Engines',
-      label: 'E-commerce',
-      subtitle: 'Optimized headless storefronts built for peak loads.',
-      details: 'We build lightning-fast storefronts leveraging Shopify headless APIs or custom serverless databases, maximizing conversion rates using layout psychology, and automating inventory sync pipelines.',
-      metrics: ['+35% Mobile Conversion Rates', '<1.2s Largest Contentful Paint', 'Dynamic inventory webhook syncs'],
+      label: 'E-Commerce',
+      title: 'High-Conversion Headless Storefronts & Inventory Engines',
+      subtitle: 'Sub-second checkout velocity, Shopify headless, and dynamic inventory sync.',
+      details: 'We build lightning-fast headless storefronts with Next.js edge rendering, maximizing purchase conversions through layout psychology, automated inventory webhooks, and zero cart abandonment lag.',
+      imageSrc: '/images/industries/industry-ecommerce.jpg',
+      metrics: [
+        { label: 'Mobile Conversion', val: '+38% Average Lift' },
+        { label: 'Largest Contentful Paint', val: '< 0.9s Globally' },
+        { label: 'Inventory Webhooks', val: 'Instant Redis Cache' },
+      ],
     },
     {
+      id: 'logistics',
       icon: <Truck className="h-5 w-5" />,
-      title: 'Logistics & Route Optimization Systems',
       label: 'Logistics',
-      subtitle: 'Automating tracking APIs and scheduling systems.',
-      details: 'Our custom logistics software tracks delivery fleet routes in real-time, optimizes load capacities using AI models, and automates vendor notification webhooks for zero manual tracking lag.',
-      metrics: ['-18% Route overhead costs', 'Real-time WebSockets tracking', 'Automated vendor dispatch'],
+      title: 'Real-Time Fleet Telemetry & AI Route Optimization',
+      subtitle: 'Live parcel coordination, WebSocket telemetry maps, and auto-dispatching.',
+      details: 'Our custom supply chain software tracks delivery fleets in real-time across global waypoints, leverages predictive AI models to minimize route fuel overhead, and automates vendor notification dispatch loops.',
+      imageSrc: '/images/industries/industry-logistics.jpg',
+      metrics: [
+        { label: 'Route Overhead', val: '-22% Fuel Savings' },
+        { label: 'Live Tracking Stream', val: 'Sub-50ms WebSockets' },
+        { label: 'Dispatch Precision', val: 'Automated Routing' },
+      ],
     },
     {
+      id: 'edtech',
       icon: <GraduationCap className="h-5 w-5" />,
-      title: 'Immersive EdTech & Training Modules',
       label: 'EdTech',
-      subtitle: 'Scalable class pipelines and automated tests evaluations.',
-      details: 'We build interactive learning dashboards, secure student portal billing, real-time assessment APIs, and rich vector-graphic training systems that render fluidly across all mobile devices.',
-      metrics: ['Support for 100k+ concurrent users', 'SCORM & LTI compliant adapters', '98% user satisfaction rates'],
+      title: 'Interactive Learning Dashboards & Mastery Tracking',
+      subtitle: 'Scalable student class pipelines, real-time tests, and vector knowledge graphs.',
+      details: 'We create immersive digital learning hubs, automated test evaluation APIs, secure student billing, and rich interactive knowledge graph visualizers that deliver seamless performance across any device.',
+      imageSrc: '/images/industries/industry-edtech.jpg',
+      metrics: [
+        { label: 'Concurrent Users', val: '100k+ Load Tested' },
+        { label: 'Curriculum Standards', val: 'SCORM & LTI Adapters' },
+        { label: 'Course Completion', val: '+45% Engagement' },
+      ],
     },
   ];
 
   return (
-    <section id="industries" className="py-20 md:py-28 px-6 bg-transparent relative">
-      <div className="max-w-7xl mx-auto">
+    <section id="industries" className="py-20 md:py-28 px-6 bg-transparent relative scroll-mt-24 overflow-hidden">
+      {/* Background ambient lighting */}
+      <div className="absolute top-1/3 right-1/4 w-[700px] h-[400px] bg-primary/5 dark:bg-cyan-500/5 rounded-full blur-[160px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader
           badge="Industries"
-          title="Tailored Solutions for Complex Industries"
-          description="We do not build generic templates. We deliver specialized software architected for the unique regulatory and operational needs of your industry."
-          className="max-w-5xl"
+          title="Technology for Every Industry"
+          description="We do not build generic templates. We deliver specialized software architected for the unique regulatory, operational, and scale requirements of your domain."
         />
 
-        {/* Desktop tab buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mt-12 max-w-5xl xl:max-w-6xl mx-auto w-full">
+        {/* Industry Category Navigation Pills */}
+        <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mt-12 max-w-5xl mx-auto w-full">
           {industries.map((ind, idx) => {
             const isActive = activeTab === idx;
             return (
               <button
-                key={idx}
+                key={ind.id}
                 onClick={() => setActiveTab(idx)}
-                className={`flex items-center gap-2 px-4 lg:px-5 py-2 md:py-2.5 rounded-full text-xs sm:text-sm font-bold tracking-wide whitespace-nowrap transition-all duration-300 relative cursor-pointer select-none ${
-                  isActive 
-                    ? 'text-primary-foreground bg-primary shadow-md shadow-primary/25 border border-primary' 
-                    : 'text-muted-foreground bg-slate-100/80 hover:bg-slate-200/80 dark:bg-slate-900/60 dark:hover:bg-slate-800/60 backdrop-blur-xs border border-border/60 hover:border-border hover:text-foreground'
+                className={`flex items-center gap-2 px-4 lg:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 cursor-pointer select-none ${
+                  isActive
+                    ? 'text-white bg-primary shadow-md shadow-primary/25 border border-primary scale-105'
+                    : 'text-muted-foreground bg-card/85 dark:bg-slate-900/70 border border-border/70 dark:border-slate-800/80 hover:text-foreground hover:border-primary/40 dark:hover:border-cyan-400/40'
                 }`}
               >
                 {ind.icon}
@@ -98,50 +124,90 @@ export function IndustriesSection() {
           })}
         </div>
 
-        {/* Tab content panel with translucent glass */}
-        <div className="mt-12 max-w-5xl mx-auto min-h-[380px] bg-card/85 dark:bg-slate-900/85 backdrop-blur-xl border border-border/50 rounded-[20px] shadow-md p-8 md:p-12 text-left relative overflow-hidden">
-          {/* Subtle background graphic */}
-          <div className="absolute right-0 bottom-0 opacity-[0.02] dark:opacity-[0.03] translate-x-12 translate-y-12 select-none pointer-events-none">
-            {industries[activeTab].icon}
-          </div>
-
+        {/* Main Industry Showcase Feature Card with Large Picture */}
+        <div className="mt-12 max-w-6xl mx-auto bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-[26px] shadow-sm hover:shadow-[0_20px_50px_-15px_rgba(11,61,145,0.12)] dark:hover:shadow-[0_20px_50px_-15px_rgba(0,194,255,0.12)] overflow-hidden transition-all duration-500">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
-              initial={{ opacity: 0, x: 15 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -15 }}
-              transition={{ duration: 0.4, ease: 'easeInOut' }}
-              className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center relative z-10"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] as const }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 p-6 sm:p-8 md:p-10 items-center text-left"
             >
-              <div className="lg:col-span-3 flex flex-col gap-4">
-                <span className="inline-flex self-start px-3 py-1 text-[10px] font-bold tracking-wider text-secondary bg-secondary/10 dark:bg-secondary/20 rounded-full border border-secondary/20">
-                  {industries[activeTab].label} Architecture
-                </span>
-                <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight text-foreground leading-tight">
-                  {industries[activeTab].title}
-                </h3>
-                <h4 className="text-sm font-semibold text-muted-foreground leading-relaxed italic">
-                  {industries[activeTab].subtitle}
-                </h4>
-                <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-medium">
-                  {industries[activeTab].details}
-                </p>
-                <a href="#contact" className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-accent hover:underline mt-2">
-                  Request {industries[activeTab].label} Consultation <ArrowRight className="h-3.5 w-3.5" />
-                </a>
+              {/* Left Column: High-Resolution Visual Picture */}
+              <div className="lg:col-span-6 relative w-full h-[260px] sm:h-[340px] md:h-[380px] rounded-2xl overflow-hidden shadow-inner group/img border border-border/50 dark:border-slate-800/80 bg-slate-950">
+                <Image
+                  src={industries[activeTab].imageSrc}
+                  alt={industries[activeTab].title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover/img:scale-105"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/20" />
+                
+                {/* Visual Overlay Tag */}
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white text-xs">
+                  <span className="px-3 py-1 rounded-full bg-slate-950/80 backdrop-blur-md border border-cyan-400/30 text-cyan-300 font-extrabold text-[11px] uppercase tracking-wider flex items-center gap-1.5">
+                    <Activity className="h-3.5 w-3.5 animate-pulse" />
+                    <span>Live Sector Architecture</span>
+                  </span>
+                  <span className="font-mono text-[11px] text-slate-300 bg-slate-950/60 px-2.5 py-1 rounded-md">
+                    0{activeTab + 1} / 05
+                  </span>
+                </div>
               </div>
 
-              <div className="lg:col-span-2 p-6 rounded-2xl bg-slate-50/50 dark:bg-slate-900/40 backdrop-blur-xs border border-border/40 flex flex-col gap-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">Operational Benchmarks</h4>
-                <ul className="flex flex-col gap-3">
-                  {industries[activeTab].metrics.map((metric, mIdx) => (
-                    <li key={mIdx} className="flex items-center gap-3 text-sm font-semibold text-muted-foreground">
-                      <div className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-                      <span>{metric}</span>
-                    </li>
-                  ))}
-                </ul>
+              {/* Right Column: Detailed Business & Engineering Scope */}
+              <div className="lg:col-span-6 flex flex-col justify-between gap-5">
+                <div>
+                  <span className="inline-flex self-start px-3 py-1 text-[10px] font-extrabold tracking-wider text-primary dark:text-cyan-400 bg-primary/10 dark:bg-cyan-400/10 rounded-full border border-primary/20 dark:border-cyan-400/20 uppercase mb-3">
+                    {industries[activeTab].label} Technology
+                  </span>
+                  
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-foreground leading-tight">
+                    {industries[activeTab].title}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm font-semibold text-secondary dark:text-indigo-400 mt-2 italic">
+                    {industries[activeTab].subtitle}
+                  </p>
+
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-medium mt-3">
+                    {industries[activeTab].details}
+                  </p>
+                </div>
+
+                {/* Operational Benchmarks Grid */}
+                <div className="p-4 sm:p-5 rounded-xl bg-slate-50/80 dark:bg-slate-800/50 border border-border/60 dark:border-slate-700/60 flex flex-col gap-3">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-muted-foreground">
+                    Operational Benchmarks
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {industries[activeTab].metrics.map((m, mIdx) => (
+                      <div key={mIdx} className="flex flex-col">
+                        <span className="text-sm sm:text-base font-extrabold text-foreground font-mono">
+                          {m.val}
+                        </span>
+                        <span className="text-[11px] text-muted-foreground font-medium">
+                          {m.label}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Action CTA */}
+                <div className="pt-2 flex items-center justify-between">
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 transition-colors group"
+                  >
+                    <span>Request {industries[activeTab].label} Solution Brief</span>
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
               </div>
             </motion.div>
           </AnimatePresence>

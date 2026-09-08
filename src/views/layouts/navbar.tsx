@@ -188,30 +188,36 @@ export function Navbar() {
 
   // Determine active state for each nav item
   const isItemActive = (item: NavItem) => {
-    if (item.id === 'services') {
-      return (pathname === '/' || pathname === '') && activeSection === 'services';
+    // 1. Dedicated page checks take strict precedence
+    if (pathname === '/company' || pathname.startsWith('/company')) {
+      return item.id === 'company';
     }
-    if (item.id === 'solutions') {
-      return (pathname === '/' || pathname === '') && (activeSection === 'services' || activeSection === 'ai-expertise');
+    if (pathname === '/portfolio' || pathname.startsWith('/portfolio')) {
+      return item.id === 'portfolio';
     }
-    if (item.id === 'technologies') {
-      return pathname === '/technology' || activeSection === 'technologies' || activeSection === 'ai-expertise';
+    if (pathname === '/services' || pathname.startsWith('/services')) {
+      return item.id === 'services';
     }
-    if (item.id === 'industries') {
-      return (pathname === '/' || pathname === '') && activeSection === 'industries';
+    if (pathname === '/solutions' || pathname.startsWith('/solutions')) {
+      return item.id === 'solutions';
     }
-    if (item.id === 'portfolio') {
-      return pathname === '/portfolio' || activeSection === 'case-studies' || activeSection === 'testimonials';
+    if (pathname === '/technology' || pathname.startsWith('/technology')) {
+      return item.id === 'technologies';
     }
-    if (item.id === 'insights') {
-      return pathname.startsWith('/blog') || pathname === '/faq';
+    if (pathname.startsWith('/blog') || pathname === '/faq') {
+      return item.id === 'insights';
     }
-    if (item.id === 'company') {
-      return (
-        (pathname === '/' || pathname === '') &&
-        (activeSection === 'why-us' || activeSection === 'process' || activeSection === 'pricing')
-      );
+
+    // 2. On Home page ('/' or ''), activate based on in-view section
+    if (pathname === '/' || pathname === '') {
+      if (item.id === 'industries') {
+        return activeSection === 'industries';
+      }
+      if (item.id === 'technologies') {
+        return activeSection === 'technologies' || activeSection === 'ai-expertise';
+      }
     }
+
     return false;
   };
 
@@ -291,7 +297,7 @@ export function Navbar() {
               Industry Verticals & Domains
             </span>
             <Link
-              href="/#industries"
+              href="/industries"
               onClick={() => setActiveDropdown(null)}
               className="text-xs font-bold text-primary dark:text-accent hover:underline flex items-center gap-1"
             >
@@ -327,7 +333,7 @@ export function Navbar() {
     // Standard Curated Dropdown (Insights, Company)
     if (config.type === 'dropdown') {
       return (
-        <div className="w-72 rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl p-2 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col gap-1">
+        <div className="w-72 rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-white dark:bg-slate-950 backdrop-blur-2xl p-2 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col gap-1">
           {config.items?.map((sub) => (
             <Link
               key={sub.name}
@@ -335,12 +341,12 @@ export function Navbar() {
               onClick={() => setActiveDropdown(null)}
               className="group/drop px-3 py-2.5 rounded-lg hover:bg-slate-100/90 dark:hover:bg-slate-900/80 transition-colors flex flex-col"
             >
-              <span className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover/drop:text-primary dark:group-hover/drop:text-accent transition-colors flex items-center justify-between">
+              <span className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover/drop:text-primary dark:group-hover/drop:text-accent transition-colors flex items-center justify-between">
                 <span>{sub.name}</span>
                 <ArrowRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover/drop:opacity-100 group-hover/drop:translate-x-0 transition-all text-primary dark:text-accent" />
               </span>
               {sub.description && (
-                <span className="text-[10.5px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1 leading-snug">
+                <span className="text-[10.5px] text-slate-500 dark:text-slate-400 group-hover/drop:text-slate-600 dark:group-hover/drop:text-slate-300 mt-0.5 line-clamp-1 leading-snug transition-colors">
                   {sub.description}
                 </span>
               )}
@@ -407,7 +413,7 @@ export function Navbar() {
               >
                 <Link
                   href={item.href}
-                  onClick={(e) => {
+                  onClick={() => {
                     if (item.hasDropdown) {
                       // Allow toggling dropdown via click on desktop
                       if (activeDropdown === item.id) {
@@ -443,12 +449,12 @@ export function Navbar() {
                     <>
                       <motion.span
                         layoutId="activeNavIndicator"
-                        className="absolute bottom-0 left-0 w-full h-[2.5px] bg-gradient-to-r from-primary via-secondary to-accent z-10"
+                        className="absolute bottom-0 left-0 w-full h-[2.5px] bg-gradient-to-r from-primary via-secondary to-accent z-10 shadow-[0_1px_6px_rgba(11,61,145,0.25)] dark:shadow-[0_1px_8px_rgba(0,194,255,0.45)]"
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                       />
                       <motion.span
                         layoutId="activeNavGlow"
-                        className="absolute bottom-0 left-0 w-full h-10 bg-gradient-to-t from-secondary/15 via-accent/5 to-transparent dark:from-secondary/25 dark:via-accent/10 dark:to-transparent blur-[8px] z-0 pointer-events-none"
+                        className="absolute bottom-0 left-0 w-full h-10 bg-gradient-to-t from-primary/15 via-accent/5 to-transparent dark:from-accent/25 dark:via-secondary/15 dark:to-transparent blur-[8px] z-0 pointer-events-none"
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                       />
                     </>
@@ -540,7 +546,7 @@ export function Navbar() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -2, scale: 0.98 }}
                   transition={{ duration: 0.15, ease: 'easeOut' }}
-                  className="absolute right-0 top-full w-52 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl p-2 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)] z-50 text-xs flex flex-col gap-1"
+                  className="absolute right-0 top-full w-52 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 backdrop-blur-xl p-2 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)] z-50 text-xs flex flex-col gap-1"
                 >
                   {/* Language Selector Header */}
                   <button
@@ -548,7 +554,7 @@ export function Navbar() {
                       e.stopPropagation();
                       setShowLangMenu(!showLangMenu);
                     }}
-                    className="w-full text-left px-3 py-2 rounded-md font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors flex items-center justify-between cursor-pointer text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs select-none active:scale-[0.99]"
+                    className="w-full text-left px-3 py-2 rounded-md font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors flex items-center justify-between cursor-pointer text-slate-800 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white text-xs select-none active:scale-[0.99]"
                   >
                     <span>Language</span>
                     <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-black">
@@ -675,20 +681,11 @@ export function Navbar() {
 
                   <div className="border-t border-slate-200 dark:border-slate-800 my-1" />
 
-                  {/* FAQ Link */}
-                  <Link
-                    href="/faq"
-                    onClick={() => setShowOptionsDropdown(false)}
-                    className="w-full text-left px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center justify-between cursor-pointer text-xs select-none active:scale-[0.99]"
-                  >
-                    <span>FAQ</span>
-                  </Link>
-
                   {/* Login Link */}
                   <Link
                     href="/auth/login"
                     onClick={() => setShowOptionsDropdown(false)}
-                    className="w-full text-left px-3 py-2 rounded-md font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center justify-between cursor-pointer text-xs select-none active:scale-[0.99]"
+                    className="w-full text-left px-3 py-2 rounded-md font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-950 dark:hover:text-white transition-colors flex items-center justify-between cursor-pointer text-xs select-none active:scale-[0.99]"
                   >
                     <span>Client Portal</span>
                   </Link>

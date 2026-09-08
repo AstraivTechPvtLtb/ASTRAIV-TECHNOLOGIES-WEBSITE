@@ -7,6 +7,7 @@ import { Link } from '@/i18n/routing';
 import { ArrowLeft, ArrowRight, CheckCircle2, Sparkles, Shield, Cpu, Layers } from 'lucide-react';
 import { ServiceIcon } from '@/views/ui/service-icon';
 import { ServiceCard } from '@/views/sections/service-card';
+import { getServiceImage } from '@/views/sections/services-section';
 import { Card } from '@/views/ui/card';
 
 export const dynamic = 'force-dynamic';
@@ -273,8 +274,10 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                     <ServiceCard
                       icon={<ServiceIcon name={rel.icon} className="h-5 w-5" />}
                       title={rel.title}
+                      badge={rel.badge || rel.category}
                       description={rel.shortDesc}
                       href={`/services/${rel.slug}`}
+                      imageSrc={getServiceImage(rel.slug, rel.icon)}
                     />
                   </div>
                 ))}
