@@ -8,9 +8,14 @@ import {
   StatsSection,
   ServicesSection,
   WhySection,
+  TechSection,
   IndustriesSection,
   ProcessSection,
-  PricingSection,
+  CaseStudiesSection,
+  AiSection,
+  TestimonialsSection,
+  FaqSection,
+  ContactSection,
 } from '@/views';
 
 export const dynamic = 'force-dynamic';
@@ -33,51 +38,56 @@ export default async function HomePage({ params }: HomePageProps) {
   ]);
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Navigation Headers */}
+    <div className="flex flex-col min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground">
+      {/* 1. Global Navigation Header */}
       <Navbar />
 
-      <main className="flex-1">
-        {/* 1. Hero Area */}
+      <main className="flex-1 w-full overflow-x-hidden">
+        {/* 2. Hero Section (Kept 100% as is per requirement) */}
         <HeroSection
           badgeText={t('heroBadge')}
           headline={t('heroHeadline')}
           subheadline={t('heroSubheadline')}
         />
 
-        {/* 2. Clients / Brands */}
+        {/* 3. Trusted Enterprise Network */}
         <ClientsSection />
 
-        {/* Highlighted Important Metrics Section before Services */}
+        {/* 4. Crucial Performance Metrics & Value Strip */}
         <StatsSection />
 
         {/* 3. Services */}
         <ServicesSection initialServices={services} />
 
-        {/* 4. Why Astraiv */}
+        {/* 6. Why Businesses Choose AstraIV */}
         <WhySection />
 
-        {/* 5. Industries */}
+        {/* 7. Categorized Technology Stack */}
+        <TechSection />
+
+        {/* 8. Industries We Serve with Picture Showcases */}
         <IndustriesSection />
 
-
-
-        {/* 8. Development Process */}
+        {/* 9. Execution Process & Roadmap */}
         <ProcessSection />
 
+        {/* 10. Featured Work & Case Studies with Pictures */}
+        <CaseStudiesSection />
 
+        {/* 11. AI & Innovation Spotlight */}
+        <AiSection />
 
+        {/* 12. Client Testimonials & Leadership Endorsements */}
+        <TestimonialsSection />
 
+        {/* 13. Frequently Asked Questions */}
+        <FaqSection />
 
-        {/* 12. Pricing */}
-        <PricingSection />
-
-
-
-
+        {/* 14. Final Conversion CTA & Contact Form */}
+        <ContactSection />
       </main>
 
-      {/* 15. Global Footer */}
+      {/* 15. Global Solid Enterprise Footer */}
       <Footer />
     </div>
   );

@@ -1,7 +1,6 @@
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { getBlogPosts, getBlogCategories } from '@/controllers/blog.controller';
-import { Navbar, Footer, BlogList } from '@/views';
-import { SectionHeader } from '@/views/sections/section-header';
+import { Navbar, Footer, InsightsView } from '@/views';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 
@@ -12,11 +11,11 @@ interface BlogPageProps {
 }
 
 export async function generateMetadata({ params }: BlogPageProps) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'Blog' });
+  await params;
   return {
-    title: t('title'),
-    description: t('subtitle'),
+    title: 'Astraiv Tech Insights & Engineering Publications | Astraiv Technologies',
+    description:
+      'Technical deep dives into software architecture, autonomous AI systems, client case studies, and modern engineering practices.',
   };
 }
 
@@ -37,22 +36,11 @@ export default async function BlogPage({ params }: BlogPageProps) {
     getBlogCategories(),
   ]);
 
-  const t = await getTranslations('Blog');
-
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground flex flex-col justify-between relative overflow-hidden">
       <Navbar />
-      <main className="pt-32 flex-grow z-10 relative">
-        <div className="max-w-7xl mx-auto px-6">
-          <SectionHeader
-            badge={t('title')}
-            title={t('title')}
-            description={t('subtitle')}
-            align="center"
-            className="mb-8 md:mb-10"
-          />
-        </div>
-        <BlogList initialPosts={posts} categories={categories} />
+      <main className="flex-grow z-10 relative">
+        <InsightsView initialPosts={posts} categories={categories} />
       </main>
       <Footer />
     </div>

@@ -37,7 +37,7 @@ export const SERVICES_MEGA: MegaMenuConfig = {
     tagline: 'Build something exceptional.',
     description: 'From AI systems to scalable enterprise applications, we engineer technology around your business.',
     ctaLabel: 'Explore All Services',
-    ctaHref: '/#services',
+    ctaHref: '/services',
   },
   groups: [
     {
@@ -45,22 +45,22 @@ export const SERVICES_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'AI & Intelligent Systems',
-          href: '/#services',
+          href: '/services#ai-intelligent-systems',
           description: 'Autonomous agents, cognitive workflows & predictive engines.',
         },
         {
           name: 'SaaS Development',
-          href: '/#services',
+          href: '/services#saas-development',
           description: 'Scalable multi-tenant platforms built for high user growth.',
         },
         {
           name: 'Custom Software Development',
-          href: '/#services',
+          href: '/services#custom-software',
           description: 'Tailored enterprise architectures engineered for your workflows.',
         },
         {
           name: 'Enterprise Software',
-          href: '/#services',
+          href: '/services#enterprise-software',
           description: 'Mission-critical portals, microservices & legacy migrations.',
         },
       ],
@@ -70,17 +70,17 @@ export const SERVICES_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'Web Application Development',
-          href: '/#services',
+          href: '/services#web-development',
           description: 'Modern Next.js & React apps with sub-second performance.',
         },
         {
           name: 'Mobile App Development',
-          href: '/#services',
+          href: '/services#mobile-apps',
           description: 'Native-feel iOS & Android apps with seamless UX.',
         },
         {
           name: 'UI/UX Design',
-          href: '/#services',
+          href: '/services#uiux-design',
           description: 'High-conversion design systems & micro-interactions.',
         },
       ],
@@ -90,17 +90,17 @@ export const SERVICES_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'Cloud & Infrastructure',
-          href: '/#services',
+          href: '/services#cloud-infrastructure',
           description: 'Reliable AWS & Cloudflare setups with 99.99% availability.',
         },
         {
           name: 'DevOps & CI/CD',
-          href: '/#services',
+          href: '/services#devops-cicd',
           description: 'Automated test-and-deploy pipelines & container orchestration.',
         },
         {
           name: 'Business Automation',
-          href: '/#services',
+          href: '/services#business-automation',
           description: 'Automated CRM, billing pipelines & operational bots.',
         },
       ],
@@ -114,7 +114,7 @@ export const SOLUTIONS_MEGA: MegaMenuConfig = {
     tagline: 'Engineered for Impact.',
     description: 'Purpose-built technical architectures solving high-stakes enterprise bottlenecks.',
     ctaLabel: 'View All Solutions',
-    ctaHref: '/#services',
+    ctaHref: '/solutions',
   },
   groups: [
     {
@@ -122,17 +122,17 @@ export const SOLUTIONS_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'AI Agents & Automation',
-          href: '/technology#ai-expertise',
+          href: '/solutions#ai-agents',
           description: 'Autonomous decision pipelines & goal-driven task bots.',
         },
         {
           name: 'RAG & Knowledge Systems',
-          href: '/technology#ai-expertise',
+          href: '/solutions#rag-knowledge',
           description: 'Enterprise search across complex multi-format document lakes.',
         },
         {
           name: 'Data & Analytics',
-          href: '/technology#technologies',
+          href: '/solutions#data-analytics',
           description: 'Real-time metrics, telemetry & executive predictive dashboards.',
         },
       ],
@@ -142,17 +142,17 @@ export const SOLUTIONS_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'SaaS Platforms',
-          href: '/#services',
+          href: '/solutions#saas-platforms',
           description: 'Enterprise recurring revenue engines & customer portals.',
         },
         {
           name: 'Enterprise Applications',
-          href: '/#services',
+          href: '/solutions#enterprise-applications',
           description: 'High-throughput business operations & unified command centers.',
         },
         {
           name: 'Business Process Automation',
-          href: '/#services',
+          href: '/solutions#business-process-automation',
           description: 'End-to-end integration workflows eliminating manual labor.',
         },
       ],
@@ -162,12 +162,12 @@ export const SOLUTIONS_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'System Integration',
-          href: '/#services',
+          href: '/solutions#system-integration',
           description: 'Robust API gateways, event buses & microservice links.',
         },
         {
           name: 'Legacy Modernization',
-          href: '/#services',
+          href: '/solutions#legacy-modernization',
           description: 'Zero-downtime refactoring into modern serverless stacks.',
         },
       ],
@@ -218,42 +218,42 @@ export const INDUSTRIES_MEGA: MegaMenuConfig = {
   items: [
     {
       name: 'FinTech',
-      href: '/#industries',
+      href: '/industries#fintech',
       description: 'Secure financial platforms and intelligent transaction systems.',
     },
     {
       name: 'HealthTech',
-      href: '/#industries',
+      href: '/industries#healthtech',
       description: 'HIPAA-compliant healthcare software and clinical data workflows.',
     },
     {
       name: 'SaaS & Technology',
-      href: '/#industries',
+      href: '/industries#saas',
       description: 'High-velocity multi-tenant architectures and product engineering.',
     },
     {
       name: 'E-commerce',
-      href: '/#industries',
+      href: '/industries#ecommerce',
       description: 'Headless digital commerce engines with sub-second checkout speeds.',
     },
     {
       name: 'Logistics',
-      href: '/#industries',
+      href: '/industries#logistics',
       description: 'Intelligent fleet tracking, telemetry & automated supply chains.',
     },
     {
       name: 'EdTech',
-      href: '/#industries',
+      href: '/industries#edtech',
       description: 'Interactive learning management systems and virtual student portals.',
     },
     {
       name: 'Professional Services',
-      href: '/#industries',
+      href: '/industries#professional-services',
       description: 'Automated practice management, client onboarding & billing.',
     },
     {
       name: 'Other Industries',
-      href: '/#industries',
+      href: '/industries#other-industries',
       description: 'Custom architectural solutions tailored for specialized verticals.',
     },
   ],
@@ -264,32 +264,32 @@ export const INSIGHTS_DROPDOWN: MegaMenuConfig = {
   items: [
     {
       name: 'Blog',
-      href: '/blog',
+      href: '/blog#blog',
       description: 'Technical deep dives, architectural tutorials & insights.',
     },
     {
       name: 'Case Studies',
-      href: '/portfolio#case-studies',
+      href: '/blog#case-studies',
       description: 'Real client projects and measurable business outcomes.',
     },
     {
       name: 'AI Insights',
-      href: '/technology#ai-expertise',
+      href: '/blog#ai-insights',
       description: 'Breakthroughs in autonomous agents & cognitive workflows.',
     },
     {
       name: 'Technology Insights',
-      href: '/technology#technologies',
+      href: '/blog#tech-insights',
       description: 'Engineering practices for modern cloud applications.',
     },
     {
       name: 'FAQs',
-      href: '/faq',
+      href: '/blog#faq',
       description: 'Answers about our delivery velocity, SLAs & security.',
     },
     {
       name: 'Resources',
-      href: '/contact',
+      href: '/blog#resources',
       description: 'Client documentation, consultation guides & technical blueprints.',
     },
   ],
@@ -299,38 +299,38 @@ export const COMPANY_DROPDOWN: MegaMenuConfig = {
   type: 'dropdown',
   items: [
     {
-      name: 'About AstraIV',
-      href: '/#why-us',
+      name: 'About Astraiv',
+      href: '/company#about',
       description: 'Our engineering philosophy and global mission.',
     },
     {
-      name: 'Why AstraIV',
-      href: '/#why-us',
+      name: 'Why Astraiv',
+      href: '/company#why-us',
       description: 'Architectural rigor, speed, and proven delivery track record.',
     },
     {
       name: 'Our Process',
-      href: '/#process',
+      href: '/company#process',
       description: 'Agile execution, rigorous code QA & transparent sprint cadence.',
     },
     {
       name: 'Client Reviews',
-      href: '/portfolio#testimonials',
+      href: '/company#reviews',
       description: 'Feedback from founders and senior engineering leaders.',
     },
     {
       name: 'Careers',
-      href: '/contact',
+      href: '/company#careers',
       description: 'Join our team of elite full-stack engineers and architects.',
     },
     {
       name: 'Pricing & Models',
-      href: '/#pricing',
+      href: '/company#pricing',
       description: 'Dedicated squads, staff augmentation & fixed sprint models.',
     },
     {
       name: 'Contact',
-      href: '/contact',
+      href: '/company#contact',
       description: 'Schedule a direct architectural consultation with our team.',
     },
   ],
@@ -341,7 +341,7 @@ export const NAV_ITEMS: NavItem[] = [
     id: 'services',
     labelKey: 'services',
     defaultLabel: 'Services',
-    href: '/#services',
+    href: '/services',
     hasDropdown: true,
     megaMenu: SERVICES_MEGA,
   },
@@ -349,7 +349,7 @@ export const NAV_ITEMS: NavItem[] = [
     id: 'solutions',
     labelKey: 'solutions',
     defaultLabel: 'Solutions',
-    href: '/#services',
+    href: '/solutions',
     hasDropdown: true,
     megaMenu: SOLUTIONS_MEGA,
   },
@@ -365,7 +365,7 @@ export const NAV_ITEMS: NavItem[] = [
     id: 'industries',
     labelKey: 'industries',
     defaultLabel: 'Industries',
-    href: '/#industries',
+    href: '/industries',
     hasDropdown: true,
     megaMenu: INDUSTRIES_MEGA,
   },
@@ -388,7 +388,7 @@ export const NAV_ITEMS: NavItem[] = [
     id: 'company',
     labelKey: 'company',
     defaultLabel: 'Company',
-    href: '/#why-us',
+    href: '/company',
     hasDropdown: true,
     megaMenu: COMPANY_DROPDOWN,
   },
