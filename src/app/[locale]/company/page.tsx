@@ -10,6 +10,7 @@ import {
   PricingSection,
   ContactSection,
 } from '@/views';
+import { getPublicApprovedReviews } from '@/controllers/public-data.controller';
 import {
   Zap,
   Target,
@@ -33,6 +34,8 @@ export async function generateMetadata({ params }: CompanyPageProps): Promise<Me
 export default async function CompanyPage({ params }: CompanyPageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
+
+  const reviews = await getPublicApprovedReviews();
 
   const pillars = [
     {
@@ -122,7 +125,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
 
         {/* 4. Client Reviews Section (supports both #reviews and #testimonials anchors) */}
         <div id="reviews" className="scroll-mt-24">
-          <TestimonialsSection />
+          <TestimonialsSection initialReviews={reviews} />
         </div>
 
         {/* 5. Careers Section */}

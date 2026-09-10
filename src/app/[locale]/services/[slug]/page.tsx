@@ -7,7 +7,7 @@ import { Link } from '@/i18n/routing';
 import { ArrowLeft, ArrowRight, CheckCircle2, Sparkles, Shield, Cpu, Layers } from 'lucide-react';
 import { ServiceIcon } from '@/views/ui/service-icon';
 import { ServiceCard } from '@/views/sections/service-card';
-import { getServiceImage } from '@/views/sections/services-section';
+import { getServiceImage } from '@/lib/services-utils';
 import { Card } from '@/views/ui/card';
 
 export const dynamic = 'force-dynamic';
@@ -22,12 +22,12 @@ export async function generateMetadata({ params }: ServiceDetailPageProps) {
 
   if (!service) {
     return {
-      title: 'Service Not Found | AstraIV Technologies',
+      title: 'Service Not Found | Astraiv Technologies',
     };
   }
 
   return {
-    title: `${service.title} | AstraIV Technologies`,
+    title: `${service.title} | Astraiv Technologies`,
     description: service.shortDesc,
   };
 }

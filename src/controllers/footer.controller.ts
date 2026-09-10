@@ -66,11 +66,13 @@ export async function getPublicFooterData(): Promise<PublicFooterData> {
     if (!isSupabaseConfigured()) {
       try {
         const [settingsRecord, socialRecords] = await Promise.all([
-          db.footerSetting.findFirst(),
-          db.socialLink.findMany({
-            where: { active: true },
-            orderBy: { orderIndex: 'asc' },
-          }),
+          db.footerSetting ? db.footerSetting.findFirst() : Promise.resolve(null),
+          db.socialLink
+            ? db.socialLink.findMany({
+                where: { active: true },
+                orderBy: { orderIndex: 'asc' },
+              })
+            : Promise.resolve([]),
         ]);
 
         const phone = settingsRecord?.phone || DEFAULT_FOOTER_DATA.phone;
