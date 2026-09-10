@@ -294,6 +294,78 @@ export type Database = {
         }
         Relationships: []
       }
+      footer_settings: {
+        Row: {
+          id: string
+          brand_tagline: string
+          phone: string
+          email: string
+          address: string
+          map_url: string | null
+          copyright_text: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          brand_tagline?: string
+          phone?: string
+          email?: string
+          address?: string
+          map_url?: string | null
+          copyright_text?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          brand_tagline?: string
+          phone?: string
+          email?: string
+          address?: string
+          map_url?: string | null
+          copyright_text?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      social_links: {
+        Row: {
+          id: string
+          platform: string
+          name: string
+          url: string
+          icon: string
+          active: boolean
+          order_index: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          platform: string
+          name: string
+          url: string
+          icon?: string
+          active?: boolean
+          order_index?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          platform?: string
+          name?: string
+          url?: string
+          icon?: string
+          active?: boolean
+          order_index?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -319,3 +391,5 @@ export type AdminProfile = Database['public']['Tables']['admin_profiles']['Row']
 export type Project = Database['public']['Tables']['projects']['Row'];
 export type Service = Database['public']['Tables']['services']['Row'];
 export type BlogPost = Database['public']['Tables']['blog_posts']['Row'];
+export type FooterSetting = Database['public']['Tables']['footer_settings']['Row'];
+export type SocialLink = Database['public']['Tables']['social_links']['Row'];

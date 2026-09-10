@@ -24,7 +24,7 @@ export interface PublicServiceItem {
 /**
  * Fallback static services in case of transient database connection interruption.
  */
-const DEFAULT_SERVICES: PublicServiceItem[] = [
+export const DEFAULT_SERVICES: PublicServiceItem[] = [
   {
     id: 'def-1',
     title: 'AI Solutions',
@@ -86,7 +86,7 @@ export async function getPublicActiveServices(): Promise<PublicServiceItem[]> {
         orderBy: { orderIndex: 'asc' },
       });
 
-      return records.map((s) => ({
+      const dbServices = records.map((s) => ({
         id: s.id,
         title: s.title,
         slug: s.slug,
@@ -98,6 +98,8 @@ export async function getPublicActiveServices(): Promise<PublicServiceItem[]> {
         icon: s.icon || 'Cpu',
         orderIndex: s.orderIndex,
       }));
+
+      return dbServices.length > 0 ? dbServices : DEFAULT_SERVICES;
     }
 
     const supabase = await createSupabaseClient();
@@ -114,7 +116,7 @@ export async function getPublicActiveServices(): Promise<PublicServiceItem[]> {
         where: { active: true },
         orderBy: { orderIndex: 'asc' },
       });
-      return dbRecords.map((s) => ({
+      const fallbackServices = dbRecords.map((s) => ({
         id: s.id,
         title: s.title,
         slug: s.slug,
@@ -126,9 +128,11 @@ export async function getPublicActiveServices(): Promise<PublicServiceItem[]> {
         icon: s.icon || 'Cpu',
         orderIndex: s.orderIndex,
       }));
+
+      return fallbackServices.length > 0 ? fallbackServices : DEFAULT_SERVICES;
     }
 
-    return (records || []).map((s: any) => ({
+    const activeServices = (records || []).map((s) => ({
       id: s.id,
       title: s.title,
       slug: s.slug,
@@ -140,9 +144,11 @@ export async function getPublicActiveServices(): Promise<PublicServiceItem[]> {
       icon: s.icon || 'Cpu',
       orderIndex: s.display_order ?? s.order_index ?? 0,
     }));
+
+    return activeServices.length > 0 ? activeServices : DEFAULT_SERVICES;
   } catch (error) {
     console.error('[Get Public Services Controller Error]:', error);
-    return [];
+    return DEFAULT_SERVICES;
   }
 }
 
@@ -150,9 +156,9 @@ export async function getPublicActiveServices(): Promise<PublicServiceItem[]> {
  * Retrieves a single service by slug if active.
  */
 export async function getPublicServiceBySlug(slug: string): Promise<PublicServiceItem | null> {
-  try {
-    const cleanSlug = slug.toLowerCase().trim();
+  const cleanSlug = slug.toLowerCase().trim();
 
+  try {
     if (!isSupabaseConfigured()) {
       const record = await db.serviceItem.findFirst({
         where: {
@@ -161,7 +167,9 @@ export async function getPublicServiceBySlug(slug: string): Promise<PublicServic
         },
       });
 
-      if (!record) return null;
+      if (!record) {
+        return DEFAULT_SERVICES.find((s) => s.slug === cleanSlug) || null;
+      }
 
       return {
         id: record.id,
@@ -194,7 +202,9 @@ export async function getPublicServiceBySlug(slug: string): Promise<PublicServic
         },
       });
 
-      if (!dbRecord) return null;
+      if (!dbRecord) {
+        return DEFAULT_SERVICES.find((s) => s.slug === cleanSlug) || null;
+      }
 
       return {
         id: dbRecord.id,
@@ -224,7 +234,7 @@ export async function getPublicServiceBySlug(slug: string): Promise<PublicServic
     };
   } catch (error) {
     console.error('[Get Public Service By Slug Error]:', error);
-    return null;
+    return DEFAULT_SERVICES.find((s) => s.slug === cleanSlug) || null;
   }
 }
 
@@ -248,7 +258,7 @@ export async function getAllActiveServiceSlugs(): Promise<string[]> {
       .eq('status', 'active');
 
     if (error || !data) return [];
-    return data.map((s: any) => s.slug);
+    return data.map((s) => s.slug);
   } catch {
     return [];
   }
