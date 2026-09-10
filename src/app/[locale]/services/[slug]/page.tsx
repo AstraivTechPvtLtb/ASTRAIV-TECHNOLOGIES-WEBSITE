@@ -1,14 +1,13 @@
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { getPublicServiceBySlug, getPublicActiveServices } from '@/controllers/services.controller';
 import { Navbar, Footer } from '@/views';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { Link } from '@/i18n/routing';
-import { ArrowLeft, ArrowRight, CheckCircle2, Sparkles, Shield, Cpu, Layers } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
 import { ServiceIcon } from '@/views/ui/service-icon';
 import { ServiceCard } from '@/views/sections/service-card';
 import { getServiceImage } from '@/lib/services-utils';
-import { Card } from '@/views/ui/card';
 
 export const dynamic = 'force-dynamic';
 
@@ -117,7 +116,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
   const { locale, slug } = await params;
 
   // Validate locale
-  if (!routing.locales.includes(locale as any)) {
+  if (!(routing.locales as readonly string[]).includes(locale)) {
     notFound();
   }
 

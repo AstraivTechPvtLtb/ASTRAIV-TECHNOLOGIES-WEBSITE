@@ -110,7 +110,7 @@ export async function getPublicFooterData(): Promise<PublicFooterData> {
       }
     }
 
-    const supabase = (await createSupabaseClient()) as any;
+    const supabase = await createSupabaseClient();
     const [settingsRes, socialsRes] = await Promise.all([
       supabase.from('footer_settings').select('*').limit(1).maybeSingle(),
       supabase.from('social_links').select('*').eq('active', true).order('order_index', { ascending: true }),
@@ -127,7 +127,7 @@ export async function getPublicFooterData(): Promise<PublicFooterData> {
     const socialsData = socialsRes.data;
     const socials: PublicSocialLink[] =
       socialsData && socialsData.length > 0
-        ? socialsData.map((s: any) => ({
+        ? socialsData.map((s) => ({
             id: s.id,
             platform: s.platform,
             name: s.name,
