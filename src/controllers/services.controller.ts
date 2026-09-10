@@ -24,7 +24,7 @@ export interface PublicServiceItem {
 /**
  * Fallback static services in case of transient database connection interruption.
  */
-export const DEFAULT_SERVICES: PublicServiceItem[] = [
+const DEFAULT_SERVICES: PublicServiceItem[] = [
   {
     id: 'def-1',
     title: 'AI Solutions',
