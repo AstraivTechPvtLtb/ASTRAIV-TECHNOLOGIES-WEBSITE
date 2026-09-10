@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
+import { PublicServiceItem } from '@/controllers/services.controller';
 import {
   Bot,
   Terminal,
@@ -266,8 +267,156 @@ const ALL_SERVICES_CARDS: CoreServiceItem[] = [
   },
 ];
 
+function mapCategoryToTab(
+  cat?: string,
+  slug?: string
+): 'ai-software' | 'web-mobile' | 'cloud-devops' | 'enterprise-strategy' {
+  const c = (cat || '').toLowerCase().trim();
+  const s = (slug || '').toLowerCase().trim();
+
+  if (
+    c === 'ai-software' ||
+    c === 'web-mobile' ||
+    c === 'cloud-devops' ||
+    c === 'enterprise-strategy'
+  ) {
+    return c;
+  }
+  if (
+    c.includes('ai') ||
+    c.includes('artificial') ||
+    c.includes('machine') ||
+    c.includes('intelligence') ||
+    c.includes('core') ||
+    s.includes('ai-') ||
+    s.includes('custom-software')
+  ) {
+    return 'ai-software';
+  }
+  if (
+    c.includes('web') ||
+    c.includes('mobile') ||
+    c.includes('app') ||
+    c.includes('design') ||
+    c.includes('ui') ||
+    c.includes('ux') ||
+    s.includes('web') ||
+    s.includes('mobile') ||
+    s.includes('ui-ux')
+  ) {
+    return 'web-mobile';
+  }
+  if (
+    c.includes('cloud') ||
+    c.includes('devops') ||
+    c.includes('infrastructure') ||
+    c.includes('ci/cd') ||
+    c.includes('ci-cd') ||
+    c.includes('k8s') ||
+    s.includes('cloud') ||
+    s.includes('devops')
+  ) {
+    return 'cloud-devops';
+  }
+  if (
+    c.includes('enterprise') ||
+    c.includes('strategy') ||
+    c.includes('automation') ||
+    c.includes('consulting') ||
+    c.includes('transformation') ||
+    c.includes('it') ||
+    s.includes('enterprise') ||
+    s.includes('automation') ||
+    s.includes('transformation') ||
+    s.includes('consulting')
+  ) {
+    return 'enterprise-strategy';
+  }
+  return 'ai-software';
+}
+
+function getDynamicIcon(iconName?: string): { icon: React.ReactNode; iconBg: string } {
+  const norm = (iconName || '').toLowerCase().trim();
+  switch (norm) {
+    case 'bot':
+      return {
+        icon: <Bot className="h-6 w-6 text-cyan-500" />,
+        iconBg: 'from-cyan-500/15 to-blue-500/10 border-cyan-500/30 text-cyan-500',
+      };
+    case 'terminal':
+      return {
+        icon: <Terminal className="h-6 w-6 text-indigo-500" />,
+        iconBg: 'from-indigo-500/15 to-purple-500/10 border-indigo-500/30 text-indigo-500',
+      };
+    case 'cpu':
+      return {
+        icon: <Cpu className="h-6 w-6 text-purple-500" />,
+        iconBg: 'from-purple-500/15 to-pink-500/10 border-purple-500/30 text-purple-500',
+      };
+    case 'cloud':
+      return {
+        icon: <Cloud className="h-6 w-6 text-sky-500" />,
+        iconBg: 'from-sky-500/15 to-blue-500/10 border-sky-500/30 text-sky-500',
+      };
+    case 'globe':
+      return {
+        icon: <Globe className="h-6 w-6 text-teal-500" />,
+        iconBg: 'from-teal-500/15 to-emerald-500/10 border-teal-500/30 text-teal-500',
+      };
+    case 'smartphone':
+    case 'mobile':
+      return {
+        icon: <Smartphone className="h-6 w-6 text-emerald-500" />,
+        iconBg: 'from-emerald-500/15 to-teal-500/10 border-emerald-500/30 text-emerald-500',
+      };
+    case 'layers':
+      return {
+        icon: <Layers className="h-6 w-6 text-pink-500" />,
+        iconBg: 'from-pink-500/15 to-rose-500/10 border-pink-500/30 text-pink-500',
+      };
+    case 'gitbranch':
+    case 'git-branch':
+      return {
+        icon: <GitBranch className="h-6 w-6 text-amber-500" />,
+        iconBg: 'from-amber-500/15 to-orange-500/10 border-amber-500/30 text-amber-500',
+      };
+    case 'settings':
+      return {
+        icon: <Settings className="h-6 w-6 text-orange-500" />,
+        iconBg: 'from-orange-500/15 to-amber-500/10 border-orange-500/30 text-orange-500',
+      };
+    case 'database':
+      return {
+        icon: <Database className="h-6 w-6 text-blue-600" />,
+        iconBg: 'from-blue-600/15 to-indigo-500/10 border-blue-600/30 text-blue-600',
+      };
+    case 'shuffle':
+      return {
+        icon: <Shuffle className="h-6 w-6 text-violet-500" />,
+        iconBg: 'from-violet-500/15 to-purple-500/10 border-violet-500/30 text-violet-500',
+      };
+    case 'helpcircle':
+    case 'help-circle':
+      return {
+        icon: <HelpCircle className="h-6 w-6 text-rose-500" />,
+        iconBg: 'from-rose-500/15 to-pink-500/10 border-rose-500/30 text-rose-500',
+      };
+    case 'code2':
+    case 'code':
+      return {
+        icon: <Code2 className="h-6 w-6 text-cyan-400" />,
+        iconBg: 'from-cyan-500/15 to-teal-500/10 border-cyan-500/30 text-cyan-400',
+      };
+    default:
+      return {
+        icon: <Cpu className="h-6 w-6 text-blue-500" />,
+        iconBg: 'from-blue-500/15 to-indigo-500/10 border-blue-500/30 text-blue-500',
+      };
+  }
+}
+
 const CATEGORY_TABS = [
-  { id: 'all', label: 'All Services (12)' },
+  { id: 'all', label: 'All Services' },
   { id: 'ai-software', label: 'AI & Core Software' },
   { id: 'web-mobile', label: 'Web & Mobile' },
   { id: 'cloud-devops', label: 'Cloud & DevOps' },
@@ -278,13 +427,67 @@ const CATEGORY_TABS = [
 /*                               MAIN COMPONENT                               */
 /* -------------------------------------------------------------------------- */
 
-export function ServicesView() {
+export interface ServicesViewProps {
+  activeServices?: PublicServiceItem[];
+}
+
+export function ServicesView({ activeServices }: ServicesViewProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
+  // Dynamically map activeServices from PostgreSQL, preserving rich styling
+  const availableCards = useMemo<CoreServiceItem[]>(() => {
+    if (!activeServices || activeServices.length === 0) {
+      return ALL_SERVICES_CARDS;
+    }
+
+    const staticMap = new Map<string, CoreServiceItem>();
+    ALL_SERVICES_CARDS.forEach((card) => {
+      staticMap.set(card.id.toLowerCase().trim(), card);
+    });
+
+    return activeServices.map((service) => {
+      const normalizedSlug = service.slug.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-');
+      const fallback =
+        staticMap.get(normalizedSlug) ||
+        staticMap.get(normalizedSlug.replace('website-', 'web-')) ||
+        staticMap.get(normalizedSlug.replace('mobile-apps', 'mobile-development')) ||
+        null;
+
+      const dynamicIcon = getDynamicIcon(service.icon || fallback?.id);
+      const category = mapCategoryToTab(service.category, service.slug);
+
+      return {
+        id: service.slug,
+        category,
+        categoryLabel: service.badge || fallback?.categoryLabel || service.category || 'Engineering',
+        title: service.title,
+        description: service.shortDesc || fallback?.description || service.fullDesc,
+        icon: dynamicIcon.icon,
+        iconBg: dynamicIcon.iconBg,
+        deliverables:
+          service.features && service.features.length > 0
+            ? service.features
+            : fallback?.deliverables || [
+                'Enterprise-grade architecture',
+                'Production-ready implementation',
+                'Full automated test suite',
+              ],
+        techStack: fallback?.techStack || [
+          service.category || 'Engineering',
+          'Next.js',
+          'TypeScript',
+          'PostgreSQL',
+          'Cloud Edge',
+        ],
+        slaHighlight: service.badge ? `${service.badge} Tier` : (fallback?.slaHighlight || 'Production Ready SLA'),
+      };
+    });
+  }, [activeServices]);
+
   // Filter services by category and search keyword
   const filteredServices = useMemo(() => {
-    return ALL_SERVICES_CARDS.filter((item) => {
+    return availableCards.filter((item) => {
       const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
       const matchesSearch =
         searchQuery.trim() === '' ||
@@ -295,7 +498,8 @@ export function ServicesView() {
 
       return matchesCategory && matchesSearch;
     });
-  }, [selectedCategory, searchQuery]);
+  }, [availableCards, selectedCategory, searchQuery]);
+
 
   return (
     <div className="flex flex-col w-full selection:bg-primary/20">
@@ -339,6 +543,7 @@ export function ServicesView() {
         <div className="flex flex-wrap items-center gap-2 p-1.5 bg-slate-100/80 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/70 dark:border-slate-800 rounded-2xl shadow-xs mb-10 w-fit">
           {CATEGORY_TABS.map((tab) => {
             const active = selectedCategory === tab.id;
+            const tabLabel = tab.id === 'all' ? `All Services (${availableCards.length})` : tab.label;
             return (
               <button
                 key={tab.id}
@@ -350,7 +555,7 @@ export function ServicesView() {
                     : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800'
                 )}
               >
-                {tab.label}
+                {tabLabel}
               </button>
             );
           })}
@@ -442,7 +647,7 @@ export function ServicesView() {
                         {service.slaHighlight}
                       </span>
                       <Link
-                        href="/contact"
+                        href={`/services/${service.id}`}
                         className="inline-flex items-center text-xs font-black text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 transition-colors group/link"
                       >
                         <span>Scope Service</span>

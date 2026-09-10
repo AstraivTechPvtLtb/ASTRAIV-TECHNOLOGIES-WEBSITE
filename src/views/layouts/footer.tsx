@@ -49,6 +49,7 @@ export async function Footer() {
               alt="Astraiv Technologies Logo"
               width={140}
               height={40}
+              style={{ width: 'auto', height: 'auto' }}
               className="object-contain hover:opacity-90 transition-opacity"
             />
           </Link>
