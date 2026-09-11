@@ -194,11 +194,18 @@ export type Database = {
           id: string
           title: string
           slug: string
+          category: string | null
+          short_desc: string | null
+          full_desc: string | null
           description: string
+          features: string[] | null
+          badge: string | null
           icon: string
           image_url: string | null
           status: 'active' | 'draft' | 'archived'
+          active?: boolean
           display_order: number
+          order_index?: number
           created_at: string
           updated_at: string
         }
@@ -206,11 +213,18 @@ export type Database = {
           id?: string
           title: string
           slug: string
+          category?: string | null
+          short_desc?: string | null
+          full_desc?: string | null
           description: string
+          features?: string[] | null
+          badge?: string | null
           icon?: string
           image_url?: string | null
           status?: 'active' | 'draft' | 'archived'
+          active?: boolean
           display_order?: number
+          order_index?: number
           created_at?: string
           updated_at?: string
         }
@@ -218,11 +232,18 @@ export type Database = {
           id?: string
           title?: string
           slug?: string
+          category?: string | null
+          short_desc?: string | null
+          full_desc?: string | null
           description?: string
+          features?: string[] | null
+          badge?: string | null
           icon?: string
           image_url?: string | null
           status?: 'active' | 'draft' | 'archived'
+          active?: boolean
           display_order?: number
+          order_index?: number
           created_at?: string
           updated_at?: string
         }
@@ -273,6 +294,198 @@ export type Database = {
         }
         Relationships: []
       }
+      footer_settings: {
+        Row: {
+          id: string
+          brand_tagline: string
+          phone: string
+          email: string
+          address: string
+          map_url: string | null
+          copyright_text: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          brand_tagline?: string
+          phone?: string
+          email?: string
+          address?: string
+          map_url?: string | null
+          copyright_text?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          brand_tagline?: string
+          phone?: string
+          email?: string
+          address?: string
+          map_url?: string | null
+          copyright_text?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      social_links: {
+        Row: {
+          id: string
+          platform: string
+          name: string
+          url: string
+          icon: string
+          active: boolean
+          order_index: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          platform: string
+          name: string
+          url: string
+          icon?: string
+          active?: boolean
+          order_index?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          platform?: string
+          name?: string
+          url?: string
+          icon?: string
+          active?: boolean
+          order_index?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      job_openings: {
+        Row: {
+          id: string
+          title: string
+          slug: string
+          department: string
+          type: string
+          location: string
+          experience: string | null
+          description: string
+          skills: string[]
+          salary: string | null
+          apply_url: string | null
+          active: boolean
+          order_index: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          slug: string
+          department?: string
+          type?: string
+          location?: string
+          experience?: string | null
+          description?: string
+          skills?: string[]
+          salary?: string | null
+          apply_url?: string | null
+          active?: boolean
+          order_index?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          slug?: string
+          department?: string
+          type?: string
+          location?: string
+          experience?: string | null
+          description?: string
+          skills?: string[]
+          salary?: string | null
+          apply_url?: string | null
+          active?: boolean
+          order_index?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      pricing_plans: {
+        Row: {
+          id: string
+          name: string
+          slug: string
+          description: string
+          badge: string | null
+          is_popular: boolean
+          price_type: string
+          price_monthly_inr: number | null
+          price_yearly_inr: number | null
+          price_monthly_usd: number | null
+          price_yearly_usd: number | null
+          custom_price_label: string | null
+          features: string[]
+          button_text: string
+          button_url: string
+          active: boolean
+          order_index: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          slug: string
+          description?: string
+          badge?: string | null
+          is_popular?: boolean
+          price_type?: string
+          price_monthly_inr?: number | null
+          price_yearly_inr?: number | null
+          price_monthly_usd?: number | null
+          price_yearly_usd?: number | null
+          custom_price_label?: string | null
+          features?: string[]
+          button_text?: string
+          button_url?: string
+          active?: boolean
+          order_index?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          slug?: string
+          description?: string
+          badge?: string | null
+          is_popular?: boolean
+          price_type?: string
+          price_monthly_inr?: number | null
+          price_yearly_inr?: number | null
+          price_monthly_usd?: number | null
+          price_yearly_usd?: number | null
+          custom_price_label?: string | null
+          features?: string[]
+          button_text?: string
+          button_url?: string
+          active?: boolean
+          order_index?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -298,3 +511,5 @@ export type AdminProfile = Database['public']['Tables']['admin_profiles']['Row']
 export type Project = Database['public']['Tables']['projects']['Row'];
 export type Service = Database['public']['Tables']['services']['Row'];
 export type BlogPost = Database['public']['Tables']['blog_posts']['Row'];
+export type FooterSetting = Database['public']['Tables']['footer_settings']['Row'];
+export type SocialLink = Database['public']['Tables']['social_links']['Row'];

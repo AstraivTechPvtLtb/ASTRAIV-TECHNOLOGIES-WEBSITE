@@ -13,7 +13,13 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 
-export function CareersSection() {
+import { PublicJobOpening, DEFAULT_JOB_OPENINGS } from '@/models/types';
+
+interface CareersSectionProps {
+  initialRoles?: PublicJobOpening[];
+}
+
+export function CareersSection({ initialRoles }: CareersSectionProps) {
   const perks = [
     {
       icon: <Globe2 className="h-5 w-5 text-primary" />,
@@ -37,29 +43,7 @@ export function CareersSection() {
     },
   ];
 
-  const roles = [
-    {
-      title: 'Senior Full-Stack Architect',
-      type: 'Full-Time / Remote',
-      department: 'Engineering',
-      description: 'Lead high-throughput web applications and SaaS portal architectures using Next.js App Router, TypeScript, and Postgres.',
-      skills: ['Next.js', 'React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Prisma'],
-    },
-    {
-      title: 'AI Systems & LLM Engineer',
-      type: 'Full-Time / Remote',
-      department: 'AI & Automation',
-      description: 'Design and deploy state-of-the-art cognitive agents, hybrid vector retrieval (RAG), and asynchronous task queues.',
-      skills: ['Python', 'FastAPI', 'LangChain', 'Vector DBs', 'PyTorch', 'Agentic Workflows'],
-    },
-    {
-      title: 'Cloud & DevOps Infrastructure Lead',
-      type: 'Full-Time / Remote',
-      department: 'Cloud Ops',
-      description: 'Engineer zero-downtime CI/CD pipelines, container orchestration, edge caching on Cloudflare R2, and AWS infrastructure.',
-      skills: ['AWS', 'Cloudflare Workers/R2', 'Docker', 'Terraform', 'Turborepo', 'Security Hardening'],
-    },
-  ];
+  const roles = initialRoles !== undefined ? initialRoles : DEFAULT_JOB_OPENINGS;
 
   return (
     <section id="careers" className="py-20 md:py-28 px-6 bg-slate-50/60 dark:bg-slate-900/20 border-y border-border/30 relative scroll-mt-24">
@@ -112,52 +96,71 @@ export function CareersSection() {
           </div>
 
           <div className="flex flex-col gap-4">
-            {roles.map((role, idx) => (
-              <motion.div
-                key={role.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1, duration: 0.5 }}
-                className="p-6 sm:p-7 bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-2xl hover:border-primary/40 dark:hover:border-accent/40 shadow-xs hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-6 group"
-              >
-                <div className="flex flex-col gap-2.5 max-w-2xl">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-border/40">
-                      {role.department}
-                    </span>
-                    <span className="text-xs text-muted-foreground font-semibold flex items-center gap-1">
-                      <Briefcase className="h-3 w-3" />
-                      {role.type}
-                    </span>
-                  </div>
-                  <h4 className="text-lg sm:text-xl font-bold text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors">
-                    {role.title}
-                  </h4>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                    {role.description}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5 mt-1">
-                    {role.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="text-[10.5px] font-semibold px-2 py-0.5 rounded-md bg-muted/70 text-foreground/80"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
+            {roles.length === 0 ? (
+              <div className="p-10 bg-card/70 dark:bg-slate-900/60 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-2xl text-center flex flex-col items-center justify-center gap-3">
+                <div className="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-1">
+                  <Briefcase className="h-6 w-6" />
                 </div>
-
+                <h4 className="text-lg font-bold text-foreground">No Current Open Positions</h4>
+                <p className="text-xs sm:text-sm text-muted-foreground max-w-md leading-relaxed">
+                  All active positions are currently filled. However, we are always eager to meet exceptional engineering talent. Send us your portfolio!
+                </p>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs bg-primary hover:bg-primary/90 text-primary-foreground shadow-xs hover:shadow-md transition-all duration-200 shrink-0 select-none active:scale-95 group/btn"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 mt-2 transition-all shadow-xs"
                 >
-                  <span>Apply for Role</span>
-                  <ArrowRight className="h-3.5 w-3.5 group-hover/btn:translate-x-0.5 transition-transform" />
+                  <span>Connect with Engineering</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
-              </motion.div>
-            ))}
+              </div>
+            ) : (
+              roles.map((role, idx) => (
+                <motion.div
+                  key={role.slug || role.id || role.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1, duration: 0.5 }}
+                  className="p-6 sm:p-7 bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-2xl hover:border-primary/40 dark:hover:border-accent/40 shadow-xs hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-6 group"
+                >
+                  <div className="flex flex-col gap-2.5 max-w-2xl">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-border/40">
+                        {role.department}
+                      </span>
+                      <span className="text-xs text-muted-foreground font-semibold flex items-center gap-1">
+                        <Briefcase className="h-3 w-3" />
+                        {role.type}
+                      </span>
+                    </div>
+                    <h4 className="text-lg sm:text-xl font-bold text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors">
+                      {role.title}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                      {role.description}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5 mt-1">
+                      {role.skills.map((skill) => (
+                        <span
+                          key={skill}
+                          className="text-[10.5px] font-semibold px-2 py-0.5 rounded-md bg-muted/70 text-foreground/80"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs bg-primary hover:bg-primary/90 text-primary-foreground shadow-xs hover:shadow-md transition-all duration-200 shrink-0 select-none active:scale-95 group/btn"
+                  >
+                    <span>Apply for Role</span>
+                    <ArrowRight className="h-3.5 w-3.5 group-hover/btn:translate-x-0.5 transition-transform" />
+                  </Link>
+                </motion.div>
+              ))
+            )}
           </div>
         </div>
       </div>

@@ -11,11 +11,19 @@ import {
   ContactSection,
 } from '@/views';
 import {
+  getPublicApprovedReviews,
+  getPublicJobOpenings,
+  getPublicPricingPlans,
+} from '@/controllers/public-data.controller';
+import {
   Zap,
   Target,
   Globe2,
   Layers,
 } from 'lucide-react';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 interface CompanyPageProps {
   params: Promise<{ locale: string }>;
@@ -33,6 +41,12 @@ export async function generateMetadata({ params }: CompanyPageProps): Promise<Me
 export default async function CompanyPage({ params }: CompanyPageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
+
+  const [reviews, jobOpenings, pricingPlans] = await Promise.all([
+    getPublicApprovedReviews(),
+    getPublicJobOpenings(),
+    getPublicPricingPlans(),
+  ]);
 
   const pillars = [
     {
@@ -122,14 +136,14 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
 
         {/* 4. Client Reviews Section (supports both #reviews and #testimonials anchors) */}
         <div id="reviews" className="scroll-mt-24">
-          <TestimonialsSection />
+          <TestimonialsSection initialReviews={reviews} />
         </div>
 
         {/* 5. Careers Section */}
-        <CareersSection />
+        <CareersSection initialRoles={jobOpenings} />
 
         {/* 6. Pricing & Models Section */}
-        <PricingSection />
+        <PricingSection initialPlans={pricingPlans} />
 
         {/* 7. Contact Consultation Section */}
         <ContactSection />

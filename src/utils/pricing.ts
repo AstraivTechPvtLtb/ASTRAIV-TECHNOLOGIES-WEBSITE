@@ -809,3 +809,5 @@ export function getPlanPrice(
     return `${currency.symbol}${amount.toLocaleString()}`;
   }
 }
+
+export const SUPPORTED_CURRENCIES_LIST: CurrencyConfig[] = Object.values(SUPPORTED_CURRENCIES);

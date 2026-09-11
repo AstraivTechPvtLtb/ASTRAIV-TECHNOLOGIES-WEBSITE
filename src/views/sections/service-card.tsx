@@ -6,16 +6,23 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/vie
 import { ArrowRight } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 
-interface ServiceCardProps {
+export interface ServiceCardProps {
   icon: ReactNode;
   title: string;
   description: string;
   href: string;
-  imageSrc: string;
-  badge?: string;
+  imageSrc?: string;
+  badge?: string | null;
 }
 
-export function ServiceCard({ icon, title, description, href, imageSrc, badge }: ServiceCardProps) {
+export function ServiceCard({
+  icon,
+  title,
+  description,
+  href,
+  imageSrc = '/images/services/service-software.jpg',
+  badge,
+}: ServiceCardProps) {
   return (
     <Card className="group relative overflow-hidden bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-cyan-400/40 select-none h-full flex flex-col justify-between rounded-[22px] shadow-xs hover:shadow-[0_16px_36px_-10px_rgba(11,61,145,0.12)] dark:hover:shadow-[0_16px_36px_-10px_rgba(0,194,255,0.12)] transition-all duration-300 transform-gpu hover:-translate-y-1.5">
       {/* Visual Image Header with zoom & gradient blend */}
