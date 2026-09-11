@@ -366,6 +366,126 @@ export type Database = {
         }
         Relationships: []
       }
+      job_openings: {
+        Row: {
+          id: string
+          title: string
+          slug: string
+          department: string
+          type: string
+          location: string
+          experience: string | null
+          description: string
+          skills: string[]
+          salary: string | null
+          apply_url: string | null
+          active: boolean
+          order_index: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          slug: string
+          department?: string
+          type?: string
+          location?: string
+          experience?: string | null
+          description?: string
+          skills?: string[]
+          salary?: string | null
+          apply_url?: string | null
+          active?: boolean
+          order_index?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          slug?: string
+          department?: string
+          type?: string
+          location?: string
+          experience?: string | null
+          description?: string
+          skills?: string[]
+          salary?: string | null
+          apply_url?: string | null
+          active?: boolean
+          order_index?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      pricing_plans: {
+        Row: {
+          id: string
+          name: string
+          slug: string
+          description: string
+          badge: string | null
+          is_popular: boolean
+          price_type: string
+          price_monthly_inr: number | null
+          price_yearly_inr: number | null
+          price_monthly_usd: number | null
+          price_yearly_usd: number | null
+          custom_price_label: string | null
+          features: string[]
+          button_text: string
+          button_url: string
+          active: boolean
+          order_index: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          slug: string
+          description?: string
+          badge?: string | null
+          is_popular?: boolean
+          price_type?: string
+          price_monthly_inr?: number | null
+          price_yearly_inr?: number | null
+          price_monthly_usd?: number | null
+          price_yearly_usd?: number | null
+          custom_price_label?: string | null
+          features?: string[]
+          button_text?: string
+          button_url?: string
+          active?: boolean
+          order_index?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          slug?: string
+          description?: string
+          badge?: string | null
+          is_popular?: boolean
+          price_type?: string
+          price_monthly_inr?: number | null
+          price_yearly_inr?: number | null
+          price_monthly_usd?: number | null
+          price_yearly_usd?: number | null
+          custom_price_label?: string | null
+          features?: string[]
+          button_text?: string
+          button_url?: string
+          active?: boolean
+          order_index?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

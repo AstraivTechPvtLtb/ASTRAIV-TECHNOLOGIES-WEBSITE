@@ -134,30 +134,14 @@ export async function getPublicJobOpenings(): Promise<PublicJobOpening[]> {
   if (isSupabaseConfigured()) {
     try {
       const supabase = await createSupabaseClient();
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('job_openings')
         .select('*')
         .eq('active', true)
         .order('order_index', { ascending: true });
 
       if (!error && data && data.length > 0) {
-        interface SupabaseJobRow {
-          id: string;
-          title: string;
-          slug: string;
-          department?: string;
-          type?: string;
-          location?: string;
-          experience?: string | null;
-          description: string;
-          skills?: string[];
-          salary?: string | null;
-          apply_url?: string | null;
-          active?: boolean;
-          order_index?: number;
-        }
-
-        return (data as unknown as SupabaseJobRow[]).map((j) => ({
+        return data.map((j) => ({
           id: j.id,
           title: j.title,
           slug: j.slug,
@@ -219,34 +203,14 @@ export async function getPublicPricingPlans(): Promise<PublicPricingPlan[]> {
   if (isSupabaseConfigured()) {
     try {
       const supabase = await createSupabaseClient();
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('pricing_plans')
         .select('*')
         .eq('active', true)
         .order('order_index', { ascending: true });
 
       if (!error && data && data.length > 0) {
-        interface SupabasePlanRow {
-          id: string;
-          name: string;
-          slug: string;
-          description: string;
-          badge?: string | null;
-          is_popular?: boolean;
-          price_type?: string;
-          price_monthly_inr?: number | null;
-          price_yearly_inr?: number | null;
-          price_monthly_usd?: number | null;
-          price_yearly_usd?: number | null;
-          custom_price_label?: string | null;
-          features?: string[];
-          button_text?: string;
-          button_url?: string;
-          active?: boolean;
-          order_index?: number;
-        }
-
-        return (data as unknown as SupabasePlanRow[]).map((p) => ({
+        return data.map((p) => ({
           id: p.id,
           name: p.name,
           slug: p.slug,
