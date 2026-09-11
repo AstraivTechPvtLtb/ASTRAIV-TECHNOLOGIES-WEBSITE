@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, Mail, Calendar, Sparkles } from 'lucide-react';
+import { ArrowRight, Calendar, Sparkles } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 
 export function ContactCTASection() {

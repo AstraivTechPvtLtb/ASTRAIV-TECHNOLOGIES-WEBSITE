@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, Sparkles, CheckCircle2, Shield, Cpu, Cloud, Code2, Users } from 'lucide-react';
+import { ArrowRight, Sparkles, Shield, Cpu, Cloud, Code2 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 
 export function AboutSection() {

@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, Sparkles, Calendar, Clock, BookOpen } from 'lucide-react';
+import { ArrowRight, Sparkles, Clock, BookOpen } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { type BlogPost } from '@/controllers/blog.controller';
 
