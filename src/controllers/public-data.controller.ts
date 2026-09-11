@@ -110,7 +110,7 @@ export async function getPublicJobOpenings(): Promise<PublicJobOpening[]> {
       orderBy: { orderIndex: 'asc' },
     });
 
-    if (jobs && jobs.length > 0) {
+    if (jobs) {
       return jobs.map((j) => ({
         id: j.id,
         title: j.title,
@@ -140,7 +140,7 @@ export async function getPublicJobOpenings(): Promise<PublicJobOpening[]> {
         .eq('active', true)
         .order('order_index', { ascending: true });
 
-      if (!error && data && data.length > 0) {
+      if (!error && data) {
         return data.map((j) => ({
           id: j.id,
           title: j.title,
@@ -175,7 +175,7 @@ export async function getPublicPricingPlans(): Promise<PublicPricingPlan[]> {
       orderBy: { orderIndex: 'asc' },
     });
 
-    if (plans && plans.length > 0) {
+    if (plans) {
       return plans.map((p) => ({
         id: p.id,
         name: p.name,
@@ -209,7 +209,7 @@ export async function getPublicPricingPlans(): Promise<PublicPricingPlan[]> {
         .eq('active', true)
         .order('order_index', { ascending: true });
 
-      if (!error && data && data.length > 0) {
+      if (!error && data) {
         return data.map((p) => ({
           id: p.id,
           name: p.name,

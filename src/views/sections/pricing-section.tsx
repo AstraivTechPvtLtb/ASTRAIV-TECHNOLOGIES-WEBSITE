@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, ChevronDown, Check, Search, X } from 'lucide-react';
 import { SectionHeader } from './section-header';
 import { PricingCard } from './pricing-card';
+import { Link } from '@/i18n/routing';
 import { detectUserCurrency, SUPPORTED_CURRENCIES, CurrencyConfig } from '@/utils/pricing';
 import { PublicPricingPlan, DEFAULT_PRICING_PLANS } from '@/models/types';
 
@@ -85,7 +86,7 @@ export function PricingSection({ initialPlans }: PricingSectionProps) {
 
   const currentCurrency: CurrencyConfig = SUPPORTED_CURRENCIES[currencyCode] || SUPPORTED_CURRENCIES.USD;
 
-  const rawPlans = initialPlans && initialPlans.length > 0 ? initialPlans : DEFAULT_PRICING_PLANS;
+  const rawPlans = initialPlans !== undefined ? initialPlans : DEFAULT_PRICING_PLANS;
 
   const formatPlanPrice = (plan: PublicPricingPlan): string => {
     if (plan.priceType === 'custom') {
@@ -158,7 +159,7 @@ export function PricingSection({ initialPlans }: PricingSectionProps) {
     }
   };
 
-  const filteredCurrencies = Object.values(SUPPORTED_CURRENCIES).filter((c) => {
+  const filteredCurrencies = Object.values(SUPPORTED_CURRENCIES).filter((c: CurrencyConfig) => {
     const q = searchQuery.toLowerCase().trim();
     if (!q) return true;
     return (
@@ -326,28 +327,43 @@ export function PricingSection({ initialPlans }: PricingSectionProps) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 max-w-6xl mx-auto items-stretch">
-          {plans.map((plan, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: index * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-              className="h-full flex flex-col"
+        {plans.length === 0 ? (
+          <div className="p-12 max-w-2xl mx-auto bg-card/70 dark:bg-slate-900/60 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-3xl text-center flex flex-col items-center justify-center gap-4 mt-8">
+            <h4 className="text-xl font-bold text-foreground">Custom Consultation & Scope Scoping</h4>
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-md">
+              We engineer custom enterprise engagement models tailored strictly to your company&apos;s architecture, timeline, and security requirements.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-md transition-all cursor-pointer"
             >
-              <PricingCard
-                name={plan.name}
-                price={plan.price}
-                period={billingCycle === 'monthly' ? '/mo' : '/yr'}
-                description={plan.description}
-                features={plan.features}
-                buttonText={plan.buttonText}
-                isPopular={plan.isPopular}
-              />
-            </motion.div>
-          ))}
-        </div>
+              <span>Schedule Architecture Review</span>
+            </Link>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 max-w-6xl mx-auto items-stretch">
+            {plans.map((plan, index) => (
+              <motion.div
+                key={plan.name || index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: index * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
+                className="h-full flex flex-col"
+              >
+                <PricingCard
+                  name={plan.name}
+                  price={plan.price}
+                  period={billingCycle === 'monthly' ? '/mo' : '/yr'}
+                  description={plan.description}
+                  features={plan.features}
+                  buttonText={plan.buttonText}
+                  isPopular={plan.isPopular}
+                />
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
