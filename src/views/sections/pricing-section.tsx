@@ -5,9 +5,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, ChevronDown, Check, Search, X } from 'lucide-react';
 import { SectionHeader } from './section-header';
 import { PricingCard } from './pricing-card';
-import { detectUserCurrency, getPlanPrice, SUPPORTED_CURRENCIES, CurrencyConfig } from '@/utils/pricing';
+import { detectUserCurrency, SUPPORTED_CURRENCIES, CurrencyConfig } from '@/utils/pricing';
+import { PublicPricingPlan, DEFAULT_PRICING_PLANS } from '@/models/types';
 
-export function PricingSection() {
+interface PricingSectionProps {
+  initialPlans?: PublicPricingPlan[];
+}
+
+export function PricingSection({ initialPlans }: PricingSectionProps) {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
   const [currencyCode, setCurrencyCode] = useState<string>('USD');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -80,13 +85,78 @@ export function PricingSection() {
 
   const currentCurrency: CurrencyConfig = SUPPORTED_CURRENCIES[currencyCode] || SUPPORTED_CURRENCIES.USD;
 
-  const starterPrice = mounted
-    ? getPlanPrice(currencyCode, 'starter', billingCycle)
-    : billingCycle === 'monthly' ? '$4,999' : '$3,999';
+  const rawPlans = initialPlans && initialPlans.length > 0 ? initialPlans : DEFAULT_PRICING_PLANS;
 
-  const proPrice = mounted
-    ? getPlanPrice(currencyCode, 'pro', billingCycle)
-    : billingCycle === 'monthly' ? '$9,999' : '$7,999';
+  const formatPlanPrice = (plan: PublicPricingPlan): string => {
+    if (plan.priceType === 'custom') {
+      return plan.customPriceLabel || 'Custom';
+    }
+
+    if (!mounted) {
+      // Default SSR fallback
+      if (billingCycle === 'monthly') {
+        return plan.priceMonthlyUsd ? `$${plan.priceMonthlyUsd.toLocaleString()}` : '$4,999';
+      }
+      return plan.priceYearlyUsd ? `$${plan.priceYearlyUsd.toLocaleString()}` : '$3,999';
+    }
+
+    const currency = SUPPORTED_CURRENCIES[currencyCode] || SUPPORTED_CURRENCIES.USD;
+
+    // Direct INR currency
+    if (currency.code === 'INR') {
+      const inrAmount =
+        billingCycle === 'monthly'
+          ? (plan.priceMonthlyInr ?? (plan.priceMonthlyUsd ? plan.priceMonthlyUsd * currency.rate : 399999))
+          : (plan.priceYearlyInr ?? (plan.priceYearlyUsd ? plan.priceYearlyUsd * currency.rate : 319999));
+
+      try {
+        return new Intl.NumberFormat('en-IN', {
+          style: 'currency',
+          currency: 'INR',
+          maximumFractionDigits: 0,
+        }).format(inrAmount);
+      } catch {
+        return `₹${Math.round(inrAmount).toLocaleString()}`;
+      }
+    }
+
+    // Direct USD currency
+    if (currency.code === 'USD') {
+      const usdAmount =
+        billingCycle === 'monthly'
+          ? (plan.priceMonthlyUsd ?? (plan.priceMonthlyInr ? Math.round(plan.priceMonthlyInr / 86.5) : 4999))
+          : (plan.priceYearlyUsd ?? (plan.priceYearlyInr ? Math.round(plan.priceYearlyInr / 86.5) : 3999));
+
+      try {
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+          maximumFractionDigits: 0,
+        }).format(usdAmount);
+      } catch {
+        return `$${Math.round(usdAmount).toLocaleString()}`;
+      }
+    }
+
+    // Any other supported currency (EUR, GBP, CAD, AUD, AED, etc.)
+    const baseUsd =
+      billingCycle === 'monthly'
+        ? (plan.priceMonthlyUsd ?? (plan.priceMonthlyInr ? plan.priceMonthlyInr / 86.5 : 4999))
+        : (plan.priceYearlyUsd ?? (plan.priceYearlyInr ? plan.priceYearlyInr / 86.5 : 3999));
+
+    const converted = Math.round(baseUsd * currency.rate);
+
+    try {
+      return new Intl.NumberFormat(currency.locale, {
+        style: 'currency',
+        currency: currency.code,
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
+      }).format(converted);
+    } catch {
+      return `${currency.symbol}${converted.toLocaleString()}`;
+    }
+  };
 
   const filteredCurrencies = Object.values(SUPPORTED_CURRENCIES).filter((c) => {
     const q = searchQuery.toLowerCase().trim();
@@ -99,51 +169,14 @@ export function PricingSection() {
     );
   });
 
-  const plans = [
-    {
-      name: 'Starter Plan',
-      price: starterPrice,
-      description: 'Ideal for early-stage startups needing a premium marketing website and brand system.',
-      features: [
-        'Custom Web Design (Framer/Next.js)',
-        'SEO & Performance Tuning',
-        'Standard Contact Integrations',
-        '2 rounds of layout revisions',
-        'Production Deployment & CI/CD',
-        'Dedicated Email Support',
-      ],
-      buttonText: 'Start Building',
-    },
-    {
-      name: 'Professional Plan',
-      price: proPrice,
-      description: 'Our most popular plan, covering custom web applications, SaaS dashboards, and database setup.',
-      features: [
-        'Everything in Starter',
-        'SaaS Dashboard & User Login',
-        'Prisma & Postgres integrations',
-        'Stripe payment stub setup',
-        '2 weeks post-launch SLA support',
-        'Dedicated Slack support channel',
-      ],
-      buttonText: 'Hire Our Architects',
-      isPopular: true,
-    },
-    {
-      name: 'Enterprise Plan',
-      price: 'Custom',
-      description: 'For companies requiring dedicated cloud infrastructure, AI integrations, and full SLA support.',
-      features: [
-        'Custom AI & Agent workflow stubs',
-        'Cloudflare R2 CDNs config',
-        'AWS load-balanced hosting setup',
-        'Role-Based admin dashboards',
-        'Priority SLA 24/7 Response time',
-        'Unlimited revision approvals',
-      ],
-      buttonText: 'Book a Consultation',
-    },
-  ];
+  const plans = rawPlans.map((p) => ({
+    name: p.name,
+    price: formatPlanPrice(p),
+    description: p.description,
+    features: p.features,
+    buttonText: p.buttonText,
+    isPopular: p.isPopular,
+  }));
 
   return (
     <section id="pricing" className="py-20 md:py-28 px-6 bg-transparent border-y border-border/20 relative scroll-mt-24">

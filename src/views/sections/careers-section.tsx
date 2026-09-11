@@ -13,7 +13,13 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 
-export function CareersSection() {
+import { PublicJobOpening, DEFAULT_JOB_OPENINGS } from '@/models/types';
+
+interface CareersSectionProps {
+  initialRoles?: PublicJobOpening[];
+}
+
+export function CareersSection({ initialRoles }: CareersSectionProps) {
   const perks = [
     {
       icon: <Globe2 className="h-5 w-5 text-primary" />,
@@ -37,29 +43,7 @@ export function CareersSection() {
     },
   ];
 
-  const roles = [
-    {
-      title: 'Senior Full-Stack Architect',
-      type: 'Full-Time / Remote',
-      department: 'Engineering',
-      description: 'Lead high-throughput web applications and SaaS portal architectures using Next.js App Router, TypeScript, and Postgres.',
-      skills: ['Next.js', 'React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Prisma'],
-    },
-    {
-      title: 'AI Systems & LLM Engineer',
-      type: 'Full-Time / Remote',
-      department: 'AI & Automation',
-      description: 'Design and deploy state-of-the-art cognitive agents, hybrid vector retrieval (RAG), and asynchronous task queues.',
-      skills: ['Python', 'FastAPI', 'LangChain', 'Vector DBs', 'PyTorch', 'Agentic Workflows'],
-    },
-    {
-      title: 'Cloud & DevOps Infrastructure Lead',
-      type: 'Full-Time / Remote',
-      department: 'Cloud Ops',
-      description: 'Engineer zero-downtime CI/CD pipelines, container orchestration, edge caching on Cloudflare R2, and AWS infrastructure.',
-      skills: ['AWS', 'Cloudflare Workers/R2', 'Docker', 'Terraform', 'Turborepo', 'Security Hardening'],
-    },
-  ];
+  const roles = initialRoles && initialRoles.length > 0 ? initialRoles : DEFAULT_JOB_OPENINGS;
 
   return (
     <section id="careers" className="py-20 md:py-28 px-6 bg-slate-50/60 dark:bg-slate-900/20 border-y border-border/30 relative scroll-mt-24">

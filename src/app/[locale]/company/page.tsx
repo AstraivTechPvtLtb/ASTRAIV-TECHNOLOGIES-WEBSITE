@@ -10,7 +10,11 @@ import {
   PricingSection,
   ContactSection,
 } from '@/views';
-import { getPublicApprovedReviews } from '@/controllers/public-data.controller';
+import {
+  getPublicApprovedReviews,
+  getPublicJobOpenings,
+  getPublicPricingPlans,
+} from '@/controllers/public-data.controller';
 import {
   Zap,
   Target,
@@ -35,7 +39,11 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const reviews = await getPublicApprovedReviews();
+  const [reviews, jobOpenings, pricingPlans] = await Promise.all([
+    getPublicApprovedReviews(),
+    getPublicJobOpenings(),
+    getPublicPricingPlans(),
+  ]);
 
   const pillars = [
     {
@@ -129,10 +137,10 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
         </div>
 
         {/* 5. Careers Section */}
-        <CareersSection />
+        <CareersSection initialRoles={jobOpenings} />
 
         {/* 6. Pricing & Models Section */}
-        <PricingSection />
+        <PricingSection initialPlans={pricingPlans} />
 
         {/* 7. Contact Consultation Section */}
         <ContactSection />

@@ -9,7 +9,8 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeader } from './section-header';
 import { TestimonialCard } from './testimonial-card';
-import { getPublicApprovedReviews, type TestimonialItem } from '@/controllers/public-data.controller';
+import { type TestimonialItem } from '@/models/types';
+import { getPublicApprovedReviews } from '@/controllers/public-data.controller';
 
 interface TestimonialsSectionProps {
   initialReviews?: TestimonialItem[];
