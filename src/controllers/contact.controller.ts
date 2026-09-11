@@ -91,5 +91,7 @@ export async function submitContactForm(
 /**
  * Backward compatibility alias for submitContactForm.
  */
-export const submitContactEnquiry = submitContactForm;
+export async function submitContactEnquiry(data: Parameters<typeof submitContactForm>[0]) {
+  return submitContactForm(data);
+}
 
