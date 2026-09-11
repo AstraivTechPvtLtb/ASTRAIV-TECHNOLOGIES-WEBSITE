@@ -1,10 +1,12 @@
 import { Link } from '@/i18n/routing';
 import Image from 'next/image';
-import { GithubIcon, TwitterIcon, LinkedinIcon } from '@/views/ui/icons';
+import { SocialPlatformIcon } from '@/views/ui/icons';
 import { Phone, Mail, MapPin } from 'lucide-react';
+import { getPublicFooterData } from '@/controllers/footer.controller';
 
-export function Footer() {
+export async function Footer() {
   const currentYear = new Date().getFullYear();
+  const footerData = await getPublicFooterData();
 
   const columns = [
     {
@@ -39,7 +41,7 @@ export function Footer() {
   return (
     <footer className="relative z-30 bg-slate-950 text-slate-100 border-t border-slate-900 py-16 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.9fr_0.9fr_0.9fr_1.5fr] gap-8 lg:gap-8 xl:gap-10 items-start text-left">
-        {/* Brand details and social icons (Left Column) */}
+        {/* Brand details and dynamic social icons (Left Column) */}
         <div className="flex flex-col gap-4 text-left">
           <Link href="/" className="inline-block">
             <Image
@@ -47,42 +49,30 @@ export function Footer() {
               alt="Astraiv Technologies Logo"
               width={140}
               height={40}
+              style={{ width: 'auto', height: 'auto' }}
               className="object-contain hover:opacity-90 transition-opacity"
             />
           </Link>
 
           <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-            Your trusted partner for AI, enterprise software, and scalable cloud systems.
+            {footerData.brandTagline}
           </p>
 
-          <div className="flex items-center gap-2.5 mt-2">
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-8 w-8 rounded-lg bg-slate-900 border border-slate-800 hover:border-accent hover:text-accent text-slate-400 flex items-center justify-center transition-colors"
-              aria-label="Twitter"
-            >
-              <TwitterIcon className="h-3.5 w-3.5" />
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-8 w-8 rounded-lg bg-slate-900 border border-slate-800 hover:border-accent hover:text-accent text-slate-400 flex items-center justify-center transition-colors"
-              aria-label="LinkedIn"
-            >
-              <LinkedinIcon className="h-3.5 w-3.5" />
-            </a>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-8 w-8 rounded-lg bg-slate-900 border border-slate-800 hover:border-accent hover:text-accent text-slate-400 flex items-center justify-center transition-colors"
-              aria-label="GitHub"
-            >
-              <GithubIcon className="h-3.5 w-3.5" />
-            </a>
+          {/* Social Network Icon redirects */}
+          <div className="flex items-center flex-wrap gap-2.5 mt-2">
+            {footerData.socials.map((social) => (
+              <a
+                key={social.id}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-8 w-8 rounded-lg bg-slate-900 border border-slate-800 hover:border-accent hover:text-accent text-slate-400 flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-xs"
+                aria-label={social.name}
+                title={social.name}
+              >
+                <SocialPlatformIcon platform={social.platform || social.icon} className="h-3.5 w-3.5" />
+              </a>
+            ))}
           </div>
         </div>
 
@@ -112,7 +102,7 @@ export function Footer() {
           <div className="flex flex-col gap-3.5">
             {/* Call */}
             <a
-              href="tel:+918167409664"
+              href={`tel:${footerData.phone.replace(/[^\d+]/g, '') || footerData.phone}`}
               className="flex items-center gap-3 group text-left transition-colors"
             >
               <div className="h-9 w-9 rounded-full flex items-center justify-center shrink-0 bg-accent/10 text-accent border border-accent/20 group-hover:bg-accent group-hover:text-slate-950 group-hover:border-accent group-hover:scale-105 transition-all duration-300 shadow-xs">
@@ -123,14 +113,14 @@ export function Footer() {
                   Call Us
                 </span>
                 <span className="text-xs lg:text-[13px] xl:text-sm text-slate-400 group-hover:text-slate-200 transition-colors font-medium whitespace-nowrap">
-                  +91 8167409664
+                  {footerData.phone}
                 </span>
               </div>
             </a>
 
             {/* Email */}
             <a
-              href="mailto:info@astraivtechnologies.com"
+              href={`mailto:${footerData.email}`}
               className="flex items-center gap-3 group text-left transition-colors"
             >
               <div className="h-9 w-9 rounded-full flex items-center justify-center shrink-0 bg-accent/10 text-accent border border-accent/20 group-hover:bg-accent group-hover:text-slate-950 group-hover:border-accent group-hover:scale-105 transition-all duration-300 shadow-xs">
@@ -141,14 +131,14 @@ export function Footer() {
                   Send Email
                 </span>
                 <span className="text-xs lg:text-[13px] xl:text-sm text-slate-400 group-hover:text-slate-200 transition-colors font-medium whitespace-nowrap">
-                  info@astraivtechnologies.com
+                  {footerData.email}
                 </span>
               </div>
             </a>
 
             {/* Address */}
             <a
-              href="https://maps.google.com/?q=Ashoknagar,+Kolkata"
+              href={footerData.mapUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 group text-left transition-colors"
@@ -161,7 +151,7 @@ export function Footer() {
                   Address
                 </span>
                 <span className="text-xs lg:text-[13px] xl:text-sm text-slate-400 group-hover:text-slate-200 transition-colors font-medium whitespace-nowrap">
-                  Ashoknagar, Kolkata
+                  {footerData.address}
                 </span>
               </div>
             </a>
@@ -172,7 +162,7 @@ export function Footer() {
       {/* Bottom Bar */}
       <div className="max-w-7xl mx-auto mt-14 pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
         <p>
-          &copy; {currentYear} Astraiv Technologies. All rights reserved.
+          &copy; {currentYear} {footerData.copyrightText}
         </p>
 
         <div className="flex items-center gap-6">

@@ -1,4 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getPublicActiveServices } from '@/controllers/services.controller';
+import { getPublicApprovedReviews } from '@/controllers/public-data.controller';
 import {
   Navbar,
   Footer,
@@ -17,6 +19,9 @@ import {
   ContactSection,
 } from '@/views';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 interface HomePageProps {
   params: Promise<{ locale: string }>;
 }
@@ -27,8 +32,12 @@ export default async function HomePage({ params }: HomePageProps) {
   // Set the request locale for server caching
   setRequestLocale(locale);
 
-  // Load language bundles
-  const t = await getTranslations('Home');
+  // Load language bundles, active services, and approved reviews from database
+  const [t, services, reviews] = await Promise.all([
+    getTranslations('Home'),
+    getPublicActiveServices(),
+    getPublicApprovedReviews(),
+  ]);
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground">
@@ -49,8 +58,8 @@ export default async function HomePage({ params }: HomePageProps) {
         {/* 4. Crucial Performance Metrics & Value Strip */}
         <StatsSection />
 
-        {/* 5. Core Services with Pictures & Card Animations */}
-        <ServicesSection />
+        {/* 3. Services */}
+        <ServicesSection initialServices={services} />
 
         {/* 6. Why Businesses Choose AstraIV */}
         <WhySection />
@@ -71,7 +80,7 @@ export default async function HomePage({ params }: HomePageProps) {
         <AiSection />
 
         {/* 12. Client Testimonials & Leadership Endorsements */}
-        <TestimonialsSection />
+        <TestimonialsSection initialReviews={reviews} />
 
         {/* 13. Frequently Asked Questions */}
         <FaqSection />
