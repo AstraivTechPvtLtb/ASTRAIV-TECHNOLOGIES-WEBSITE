@@ -91,17 +91,17 @@ export function InsightsSection({ initialPosts = [] }: InsightsSectionProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="group relative p-6 sm:p-10 lg:p-12 rounded-3xl bg-slate-900/90 dark:bg-slate-950/90 border border-slate-800/90 hover:border-cyan-500/30 transition-all duration-300 shadow-xl overflow-hidden mb-8"
+            className="group relative p-6 sm:p-10 lg:p-12 rounded-3xl bg-slate-900/90 dark:bg-slate-950/90 border border-slate-800/90 hover:border-blue-600/30 transition-all duration-300 shadow-xl overflow-hidden mb-8"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               {/* Left: Article Narrative */}
               <div className="lg:col-span-6 flex flex-col justify-between text-left">
                 <div>
-                  <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-slate-800 text-cyan-300 border border-slate-700 inline-block mb-4">
+                  <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-slate-800 text-blue-300 border border-slate-700 inline-block mb-4">
                     {featuredPost.category?.name || 'Featured Publication'}
                   </span>
 
-                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-tight mb-4 group-hover:text-cyan-300 transition-colors">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-tight mb-4 group-hover:text-blue-300 transition-colors">
                     {featuredPost.title}
                   </h3>
 
@@ -112,13 +112,13 @@ export function InsightsSection({ initialPosts = [] }: InsightsSectionProps) {
 
                 <div className="flex items-center justify-between pt-6 border-t border-slate-800">
                   <div className="flex items-center gap-2 text-xs text-slate-400 font-mono">
-                    <Clock className="h-3.5 w-3.5 text-cyan-400" />
+                    <Clock className="h-3.5 w-3.5 text-blue-400" />
                     <span>5 min read</span>
                   </div>
 
                   <Link
                     href={`/blog/${featuredPost.slug}`}
-                    className="inline-flex items-center gap-2 text-sm font-bold text-cyan-400 hover:text-cyan-300 transition-colors"
+                    className="inline-flex items-center gap-2 text-sm font-bold text-blue-400 hover:text-blue-300 transition-colors"
                   >
                     <span>Read Article</span>
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -156,11 +156,11 @@ export function InsightsSection({ initialPosts = [] }: InsightsSectionProps) {
               <Link
                 key={post.id}
                 href={`/blog/${post.slug}`}
-                className="group p-6 rounded-2xl bg-card/80 dark:bg-slate-900/70 border border-border/80 dark:border-slate-800 hover:border-primary/40 dark:hover:border-cyan-400/40 transition-all duration-200 flex flex-col justify-between text-left hover:-translate-y-1 shadow-xs hover:shadow-md"
+                className="group p-6 rounded-2xl bg-card/80 dark:bg-slate-900/70 border border-border/80 dark:border-slate-800 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-200 flex flex-col justify-between text-left hover:-translate-y-1 shadow-xs hover:shadow-md"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-primary dark:text-cyan-400">
+                    <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-400">
                       {post.category?.name || 'Engineering'}
                     </span>
                     <span className="text-[11px] font-mono text-muted-foreground">
@@ -172,7 +172,7 @@ export function InsightsSection({ initialPosts = [] }: InsightsSectionProps) {
                     </span>
                   </div>
 
-                  <h4 className="text-base sm:text-lg font-bold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-cyan-300 transition-colors mb-2 line-clamp-2">
+                  <h4 className="text-base sm:text-lg font-bold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors mb-2 line-clamp-2">
                     {post.title}
                   </h4>
 
@@ -181,7 +181,7 @@ export function InsightsSection({ initialPosts = [] }: InsightsSectionProps) {
                   </p>
                 </div>
 
-                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-cyan-400 pt-3 border-t border-border/40 dark:border-slate-800">
+                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-blue-400 pt-3 border-t border-border/40 dark:border-slate-800">
                   <span>Read Story</span>
                   <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                 </div>

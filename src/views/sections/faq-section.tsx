@@ -54,10 +54,10 @@ export function FaqSection() {
             <AccordionItem
               key={index}
               value={`faq-${index}`}
-              className="border border-border/70 dark:border-slate-800/80 rounded-[20px] px-6 bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl shadow-xs hover:border-primary/40 dark:hover:border-cyan-400/40 transition-colors"
+              className="border border-border/70 dark:border-slate-800/80 rounded-[20px] px-6 bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl shadow-xs hover:border-primary/40 dark:hover:border-blue-400/40 transition-colors"
             >
               <AccordionTrigger className="text-sm sm:text-base font-bold text-foreground hover:no-underline py-5 text-left group">
-                <span className="group-hover:text-primary dark:group-hover:text-cyan-300 transition-colors">
+                <span className="group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
                   {faq.q}
                 </span>
               </AccordionTrigger>

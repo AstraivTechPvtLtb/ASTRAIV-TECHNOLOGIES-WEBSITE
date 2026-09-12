@@ -65,7 +65,7 @@ export function TrustStrip() {
       displayRaw: '99.99%',
       label: 'Server Uptime SLA',
       description: 'Zero-downtime edge network',
-      icon: <Globe2 className="h-4 w-4 text-primary dark:text-cyan-400" />,
+      icon: <Globe2 className="h-4 w-4 text-primary dark:text-blue-400" />,
     },
     {
       target: 40,

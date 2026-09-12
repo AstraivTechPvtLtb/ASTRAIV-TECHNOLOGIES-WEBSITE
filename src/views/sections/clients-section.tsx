@@ -72,7 +72,7 @@ export function ClientsSection() {
   return (
     <section className="py-12 md:py-16 bg-transparent border-b border-border/20 relative overflow-hidden">
       {/* Subtle backdrop glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(91,95,239,0.08),transparent_70%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(0,194,255,0.06),transparent_70%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(91,95,239,0.08),transparent_70%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(37, 99, 235,0.06),transparent_70%)] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Prominent Header Badge & Noticeable Text with visible scroll animation */}
@@ -83,7 +83,7 @@ export function ClientsSection() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             whileHover={shouldReduceMotion ? {} : { scale: 1.04 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest text-primary dark:text-accent bg-primary/10 dark:bg-accent/10 border border-primary/30 dark:border-accent/30 mb-3.5 shadow-[0_0_18px_rgba(91,95,239,0.15)] dark:shadow-[0_0_18px_rgba(0,194,255,0.2)] backdrop-blur-md cursor-default select-none transition-[border-color,background-color,box-shadow] duration-300 will-change-transform"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest text-primary dark:text-accent bg-primary/10 dark:bg-accent/10 border border-primary/30 dark:border-accent/30 mb-3.5 shadow-[0_0_18px_rgba(91,95,239,0.15)] dark:shadow-[0_0_18px_rgba(37, 99, 235,0.2)] backdrop-blur-md cursor-default select-none transition-[border-color,background-color,box-shadow] duration-300 will-change-transform"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary dark:bg-accent opacity-75" />
@@ -117,10 +117,10 @@ export function ClientsSection() {
               whileHover={shouldReduceMotion ? {} : { y: -4, scale: 1.03 }}
               whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
               transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-              className="group relative flex items-center justify-center h-14 sm:h-16 px-3 sm:px-4 rounded-xl bg-white/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/90 dark:border-slate-800/80 hover:border-primary/50 dark:hover:border-accent/60 shadow-xs hover:shadow-[0_12px_28px_-6px_rgba(11,61,145,0.15)] dark:hover:shadow-[0_12px_28px_-6px_rgba(0,194,255,0.22)] transition-[border-color,background-color,box-shadow] duration-300 cursor-pointer select-none w-full overflow-hidden will-change-transform"
+              className="group relative flex items-center justify-center h-14 sm:h-16 px-3 sm:px-4 rounded-xl bg-white/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/90 dark:border-slate-800/80 hover:border-primary/50 dark:hover:border-accent/60 shadow-xs hover:shadow-[0_12px_28px_-6px_rgba(11,61,145,0.15)] dark:hover:shadow-[0_12px_28px_-6px_rgba(37, 99, 235,0.22)] transition-[border-color,background-color,box-shadow] duration-300 cursor-pointer select-none w-full overflow-hidden will-change-transform"
             >
               {/* Shimmer light sweep on hover */}
-              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/25 dark:via-cyan-400/15 to-transparent transition-transform duration-700 ease-in-out pointer-events-none" />
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/25 dark:via-blue-400/15 to-transparent transition-transform duration-700 ease-in-out pointer-events-none" />
 
               {/* Glowing Corner Accent on hover */}
               <div className="absolute top-0 right-0 w-8 h-8 bg-primary/0 group-hover:bg-primary/15 dark:group-hover:bg-accent/20 rounded-bl-xl transition-[background-color] duration-300 pointer-events-none" />

@@ -57,8 +57,8 @@ const ALL_SERVICES_CARDS: CoreServiceItem[] = [
     title: 'AI Solutions & Autonomous Agents',
     description:
       'Integration of Large Language Models, autonomous agent swarms, vector retrieval (RAG), and predictive analytics pipelines into your core business operations.',
-    icon: <Bot className="h-6 w-6 text-cyan-500" />,
-    iconBg: 'from-cyan-500/15 to-blue-500/10 border-cyan-500/30 text-cyan-500',
+    icon: <Bot className="h-6 w-6 text-blue-600" />,
+    iconBg: 'from-blue-600/15 to-blue-500/10 border-blue-600/30 text-blue-600',
     deliverables: [
       'Multi-agent decision orchestrations',
       'High-precision RAG knowledge systems',
@@ -340,8 +340,8 @@ function getDynamicIcon(iconName?: string): { icon: React.ReactNode; iconBg: str
   switch (norm) {
     case 'bot':
       return {
-        icon: <Bot className="h-6 w-6 text-cyan-500" />,
-        iconBg: 'from-cyan-500/15 to-blue-500/10 border-cyan-500/30 text-cyan-500',
+        icon: <Bot className="h-6 w-6 text-blue-600" />,
+        iconBg: 'from-blue-600/15 to-blue-500/10 border-blue-600/30 text-blue-600',
       };
     case 'terminal':
       return {
@@ -404,8 +404,8 @@ function getDynamicIcon(iconName?: string): { icon: React.ReactNode; iconBg: str
     case 'code2':
     case 'code':
       return {
-        icon: <Code2 className="h-6 w-6 text-cyan-400" />,
-        iconBg: 'from-cyan-500/15 to-teal-500/10 border-cyan-500/30 text-cyan-400',
+        icon: <Code2 className="h-6 w-6 text-blue-400" />,
+        iconBg: 'from-blue-600/15 to-teal-500/10 border-blue-600/30 text-blue-400',
       };
     default:
       return {
@@ -572,7 +572,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
                 setSelectedCategory('all');
                 setSearchQuery('');
               }}
-              className="mt-3 text-xs font-bold text-primary dark:text-cyan-400 hover:underline"
+              className="mt-3 text-xs font-bold text-primary dark:text-blue-400 hover:underline"
             >
               Reset Filters
             </button>
@@ -587,9 +587,9 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
                 transition={{ duration: 0.35, delay: index * 0.04 }}
                 className="h-full flex flex-col"
               >
-                <div className="group relative overflow-hidden bg-card/90 dark:bg-slate-900/90 backdrop-blur-xl border border-border/70 dark:border-slate-800/90 hover:border-primary/50 dark:hover:border-cyan-500/50 rounded-[22px] shadow-xs hover:shadow-xl transition-all duration-300 select-none h-full flex flex-col justify-between p-6 text-left">
+                <div className="group relative overflow-hidden bg-card/90 dark:bg-slate-900/90 backdrop-blur-xl border border-border/70 dark:border-slate-800/90 hover:border-primary/50 dark:hover:border-blue-600/50 rounded-[22px] shadow-xs hover:shadow-xl transition-all duration-300 select-none h-full flex flex-col justify-between p-6 text-left">
                   {/* Decorative background glow */}
-                  <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-primary/5 dark:bg-cyan-500/10 blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
+                  <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-primary/5 dark:bg-blue-600/10 blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
 
                   <div>
                     {/* Header: Icon & Category Label */}
@@ -608,7 +608,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-lg font-bold tracking-tight text-slate-900 dark:text-white mb-2 group-hover:text-primary dark:group-hover:text-cyan-400 transition-colors">
+                    <h3 className="text-lg font-bold tracking-tight text-slate-900 dark:text-white mb-2 group-hover:text-primary dark:group-hover:text-blue-400 transition-colors">
                       {service.title}
                     </h3>
 
@@ -648,7 +648,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
                       </span>
                       <Link
                         href={`/services/${service.id}`}
-                        className="inline-flex items-center text-xs font-black text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 transition-colors group/link"
+                        className="inline-flex items-center text-xs font-black text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group/link"
                       >
                         <span>Scope Service</span>
                         <ArrowRight className="ml-1 h-3.5 w-3.5 group-hover/link:translate-x-1 transition-transform" />
@@ -669,7 +669,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="flex flex-col gap-3 text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-flex self-center px-3.5 py-1 text-xs font-black tracking-wider text-primary bg-primary/10 rounded-full border border-primary/20 dark:bg-cyan-500/20 dark:text-cyan-300 dark:border-cyan-500/30 uppercase w-fit">
+            <span className="inline-flex self-center px-3.5 py-1 text-xs font-black tracking-wider text-primary bg-primary/10 rounded-full border border-primary/20 dark:bg-blue-600/20 dark:text-blue-300 dark:border-blue-600/30 uppercase w-fit">
               EXECUTION METHODOLOGY
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white font-heading">
@@ -688,7 +688,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
                 title: 'Architectural Blueprinting',
                 desc: 'Deep-dive discovery, entity relation diagrams, API contracts, and infrastructure topology modeling prior to coding.',
                 deliverable: 'System Architecture Document',
-                icon: <Compass className="h-6 w-6 text-cyan-500" />,
+                icon: <Compass className="h-6 w-6 text-blue-600" />,
               },
               {
                 step: '02',
@@ -716,7 +716,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
                 key={idx}
                 className="p-7 bg-card dark:bg-slate-900/90 border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs hover:shadow-lg transition-all flex flex-col justify-between text-left group relative overflow-hidden"
               >
-                <div className="absolute -top-10 -right-10 w-24 h-24 bg-primary/5 dark:bg-cyan-500/10 rounded-full blur-xl group-hover:scale-150 transition-transform" />
+                <div className="absolute -top-10 -right-10 w-24 h-24 bg-primary/5 dark:bg-blue-600/10 rounded-full blur-xl group-hover:scale-150 transition-transform" />
 
                 <div>
                   <div className="flex items-center justify-between mb-4">
@@ -736,7 +736,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-border/60 dark:border-slate-800 flex items-center gap-2 text-[11px] font-semibold text-primary dark:text-cyan-400">
+                <div className="pt-3 border-t border-border/60 dark:border-slate-800 flex items-center gap-2 text-[11px] font-semibold text-primary dark:text-blue-400">
                   <Check className="h-3.5 w-3.5" />
                   <span>{phase.deliverable}</span>
                 </div>
@@ -752,7 +752,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
       <section className="py-20 px-6 max-w-7xl mx-auto w-full">
         <div className="p-8 sm:p-12 rounded-3xl bg-card dark:bg-slate-900/90 border border-border/80 dark:border-slate-800/80 shadow-md">
           <div className="max-w-3xl mb-12 text-left">
-            <span className="inline-flex px-3 py-1 text-xs font-black tracking-wider uppercase text-primary bg-primary/10 dark:bg-cyan-500/20 dark:text-cyan-300 rounded-md border border-primary/20 dark:border-cyan-500/30 mb-3">
+            <span className="inline-flex px-3 py-1 text-xs font-black tracking-wider uppercase text-primary bg-primary/10 dark:bg-blue-600/20 dark:text-blue-300 rounded-md border border-primary/20 dark:border-blue-600/30 mb-3">
               CONTRACTUAL GUARANTEES
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 dark:text-white font-heading tracking-tight">
@@ -765,7 +765,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
             <div className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">
-              <div className="flex items-center gap-2 text-primary dark:text-cyan-400 font-bold text-sm">
+              <div className="flex items-center gap-2 text-primary dark:text-blue-400 font-bold text-sm">
                 <Lock className="h-4 w-4" />
                 <span>100% IP Handover</span>
               </div>
@@ -811,9 +811,9 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
       {/* 5. CONSULTATION & PROJECT SCOPING CTA                                */}
       {/* ==================================================================== */}
       <section className="py-20 md:py-28 px-6 max-w-5xl mx-auto w-full text-center">
-        <div className="relative overflow-hidden rounded-3xl border border-primary/30 dark:border-cyan-500/30 bg-gradient-to-br from-primary/10 via-card to-cyan-500/10 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/40 p-10 sm:p-16 shadow-xl">
+        <div className="relative overflow-hidden rounded-3xl border border-primary/30 dark:border-blue-600/30 bg-gradient-to-br from-primary/10 via-card to-blue-600/10 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/40 p-10 sm:p-16 shadow-xl">
           <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
-            <span className="inline-flex px-3.5 py-1 text-xs font-black tracking-wider uppercase text-primary dark:text-cyan-300 bg-primary/10 dark:bg-cyan-500/20 rounded-full border border-primary/20 dark:border-cyan-500/30">
+            <span className="inline-flex px-3.5 py-1 text-xs font-black tracking-wider uppercase text-primary dark:text-blue-300 bg-primary/10 dark:bg-blue-600/20 rounded-full border border-primary/20 dark:border-blue-600/30">
               LET&apos;S BUILD TOGETHER
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading text-slate-900 dark:text-white tracking-tight leading-tight">

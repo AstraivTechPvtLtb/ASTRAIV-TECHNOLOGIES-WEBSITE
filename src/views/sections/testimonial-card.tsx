@@ -20,9 +20,9 @@ export function TestimonialCard({
   rating = 5,
 }: TestimonialCardProps) {
   return (
-    <Card className="group relative bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-cyan-400/40 rounded-[22px] shadow-xs hover:shadow-[0_16px_36px_-10px_rgba(11,61,145,0.1)] dark:hover:shadow-[0_16px_36px_-10px_rgba(0,194,255,0.1)] transition-all duration-300 transform-gpu hover:-translate-y-1 overflow-hidden p-6 sm:p-8 flex flex-col justify-between h-full select-none">
+    <Card className="group relative bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-blue-400/40 rounded-[22px] shadow-xs hover:shadow-[0_16px_36px_-10px_rgba(11,61,145,0.1)] dark:hover:shadow-[0_16px_36px_-10px_rgba(37, 99, 235,0.1)] transition-all duration-300 transform-gpu hover:-translate-y-1 overflow-hidden p-6 sm:p-8 flex flex-col justify-between h-full select-none">
       {/* Background Quote Watermark */}
-      <Quote className="absolute right-6 top-6 h-16 w-16 text-primary/5 dark:text-cyan-400/5 pointer-events-none group-hover:text-primary/10 transition-colors" />
+      <Quote className="absolute right-6 top-6 h-16 w-16 text-primary/5 dark:text-blue-400/5 pointer-events-none group-hover:text-primary/10 transition-colors" />
 
       <div>
         {/* Star Rating Row */}
@@ -52,13 +52,13 @@ export function TestimonialCard({
               className="object-cover"
             />
           ) : (
-            <div className="h-full w-full flex items-center justify-center bg-primary/10 dark:bg-cyan-400/10 text-primary dark:text-cyan-300 font-bold text-xs font-mono">
+            <div className="h-full w-full flex items-center justify-center bg-primary/10 dark:bg-blue-400/10 text-primary dark:text-blue-300 font-bold text-xs font-mono">
               {authorName.substring(0, 2).toUpperCase()}
             </div>
           )}
         </div>
         <div className="flex flex-col text-left">
-          <h4 className="text-sm font-extrabold text-foreground group-hover:text-primary dark:group-hover:text-cyan-300 transition-colors">
+          <h4 className="text-sm font-extrabold text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
             {authorName}
           </h4>
           <p className="text-xs text-muted-foreground font-medium">

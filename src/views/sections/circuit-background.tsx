@@ -62,7 +62,7 @@ export function CircuitBackground() {
 
     // Theme-optimized color palette
     const primaryColor = isDark ? '#3B82F6' : '#4F46E5'; // Supporting Tech Blue (Dark) / Tech Indigo (Light)
-    const accentColor = isDark ? '#00F0FF' : '#0284C7';  // Electric Cyan (Dark) / Tech Sapphire Blue (Light)
+    const accentColor = isDark ? '#2563EB' : '#0284C7';  // Royal Blue (Dark) / Tech Sapphire Blue (Light)
 
     // Fit canvas to parent container with High-DPI support
     const resizeCanvas = () => {
@@ -391,7 +391,7 @@ export function CircuitBackground() {
           if (isDark) {
             ctx.fillStyle = '#FFFFFF';
             ctx.shadowBlur = 12;
-            ctx.shadowColor = path.isAccent ? '#00F0FF' : '#6366F1';
+            ctx.shadowColor = path.isAccent ? '#2563EB' : '#3B82F6';
           } else {
             ctx.fillStyle = path.isAccent ? '#0284C7' : '#4F46E5';
             ctx.shadowBlur = 6;

@@ -32,7 +32,7 @@ export function ContactSection() {
   return (
     <section id="contact" className="py-20 md:py-28 px-6 relative w-full overflow-hidden scroll-mt-24">
       {/* Dynamic Ambient Background Blobs */}
-      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-primary/10 dark:bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none z-0" />
+      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-primary/10 dark:bg-blue-600/10 rounded-full blur-[140px] pointer-events-none z-0" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-secondary/10 dark:bg-primary/10 rounded-full blur-[140px] pointer-events-none z-0" />
 
       <motion.div 
@@ -44,13 +44,13 @@ export function ContactSection() {
       >
         {/* Left Column: Direct Conversation Trigger */}
         <motion.div variants={itemVariants} className="lg:col-span-6 flex flex-col gap-6 text-left">
-          <span className="inline-flex self-start px-3.5 py-1 text-xs font-extrabold tracking-wider text-primary dark:text-cyan-400 bg-primary/10 dark:bg-cyan-400/10 rounded-full border border-primary/20 dark:border-cyan-400/20 uppercase w-fit select-none">
+          <span className="inline-flex self-start px-3.5 py-1 text-xs font-extrabold tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 rounded-full border border-primary/20 dark:border-blue-400/20 uppercase w-fit select-none">
             Start Your Next Build
           </span>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading leading-tight text-foreground">
             Have an Idea? <br />
-            <span className="bg-gradient-to-r from-primary via-secondary to-accent dark:from-cyan-400 dark:via-blue-400 dark:to-indigo-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary via-secondary to-accent dark:from-blue-400 dark:via-blue-400 dark:to-indigo-300 bg-clip-text text-transparent">
               Let&apos;s Build It.
             </span>
           </h2>
@@ -69,7 +69,7 @@ export function ContactSection() {
             </a>
             <Link
               href="/services"
-              className="inline-flex items-center gap-1.5 px-6 py-3 rounded-xl bg-card/85 dark:bg-slate-900/80 border border-border/70 dark:border-slate-800 text-foreground font-bold text-xs sm:text-sm hover:border-primary/40 dark:hover:border-cyan-400 transition-all"
+              className="inline-flex items-center gap-1.5 px-6 py-3 rounded-xl bg-card/85 dark:bg-slate-900/80 border border-border/70 dark:border-slate-800 text-foreground font-bold text-xs sm:text-sm hover:border-primary/40 dark:hover:border-blue-400 transition-all"
             >
               <span>Explore Our Services</span>
               <ArrowRight className="h-3.5 w-3.5" />
@@ -80,9 +80,9 @@ export function ContactSection() {
           <div className="flex flex-col gap-4 mt-4 pt-6 border-t border-border/40 dark:border-slate-800/60">
             <a 
               href="mailto:info@astraivtechnologies.com" 
-              className="flex items-center gap-3.5 text-foreground/80 hover:text-primary dark:hover:text-cyan-400 transition-colors group w-fit"
+              className="flex items-center gap-3.5 text-foreground/80 hover:text-primary dark:hover:text-blue-400 transition-colors group w-fit"
             >
-              <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-primary/10 dark:bg-cyan-400/10 text-primary dark:text-cyan-300 border border-primary/20 dark:border-cyan-400/20 group-hover:scale-105 transition-all shrink-0">
+              <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-primary/10 dark:bg-blue-400/10 text-primary dark:text-blue-300 border border-primary/20 dark:border-blue-400/20 group-hover:scale-105 transition-all shrink-0">
                 <Mail className="h-4 w-4" />
               </div>
               <div className="flex flex-col">
@@ -93,9 +93,9 @@ export function ContactSection() {
 
             <a 
               href="tel:+918167409664" 
-              className="flex items-center gap-3.5 text-foreground/80 hover:text-primary dark:hover:text-cyan-400 transition-colors group w-fit"
+              className="flex items-center gap-3.5 text-foreground/80 hover:text-primary dark:hover:text-blue-400 transition-colors group w-fit"
             >
-              <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-primary/10 dark:bg-cyan-400/10 text-primary dark:text-cyan-300 border border-primary/20 dark:border-cyan-400/20 group-hover:scale-105 transition-all shrink-0">
+              <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-primary/10 dark:bg-blue-400/10 text-primary dark:text-blue-300 border border-primary/20 dark:border-blue-400/20 group-hover:scale-105 transition-all shrink-0">
                 <Phone className="h-4 w-4" />
               </div>
               <div className="flex flex-col">
@@ -105,7 +105,7 @@ export function ContactSection() {
             </a>
 
             <div className="flex items-center gap-3.5 text-foreground/80 w-fit">
-              <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-primary/10 dark:bg-cyan-400/10 text-primary dark:text-cyan-300 border border-primary/20 dark:border-cyan-400/20 shrink-0">
+              <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-primary/10 dark:bg-blue-400/10 text-primary dark:text-blue-300 border border-primary/20 dark:border-blue-400/20 shrink-0">
                 <MapPin className="h-4 w-4" />
               </div>
               <div className="flex flex-col">
@@ -123,7 +123,7 @@ export function ContactSection() {
 
         {/* Right Column: Interactive Contact Form */}
         <motion.div id="contact-form-box" variants={itemVariants} className="lg:col-span-6 relative w-full">
-          <div className="absolute inset-0 bg-primary/10 dark:bg-cyan-500/10 rounded-3xl blur-2xl pointer-events-none" />
+          <div className="absolute inset-0 bg-primary/10 dark:bg-blue-600/10 rounded-3xl blur-2xl pointer-events-none" />
           <ContactForm />
         </motion.div>
       </motion.div>

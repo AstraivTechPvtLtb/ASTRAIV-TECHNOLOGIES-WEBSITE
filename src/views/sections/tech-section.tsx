@@ -134,7 +134,7 @@ export function TechSection() {
                 className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-300 cursor-pointer select-none ${
                   isActive
                     ? 'bg-primary text-white shadow-sm shadow-primary/20 scale-105'
-                    : 'bg-card/90 dark:bg-slate-900/70 border border-border/70 dark:border-slate-800/80 text-muted-foreground hover:text-foreground hover:border-primary/40 dark:hover:border-cyan-400/40'
+                    : 'bg-card/90 dark:bg-slate-900/70 border border-border/70 dark:border-slate-800/80 text-muted-foreground hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40'
                 }`}
               >
                 {cat.icon}
@@ -155,11 +155,11 @@ export function TechSection() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] as const }}
-                className="group relative p-6 bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-[20px] shadow-xs hover:shadow-[0_16px_36px_-10px_rgba(11,61,145,0.1)] dark:hover:shadow-[0_16px_36px_-10px_rgba(0,194,255,0.1)] hover:border-primary/40 dark:hover:border-cyan-400/40 transition-all duration-300 transform-gpu hover:-translate-y-1 flex flex-col justify-between"
+                className="group relative p-6 bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-[20px] shadow-xs hover:shadow-[0_16px_36px_-10px_rgba(11,61,145,0.1)] dark:hover:shadow-[0_16px_36px_-10px_rgba(37, 99, 235,0.1)] hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-300 transform-gpu hover:-translate-y-1 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider text-primary dark:text-cyan-400 bg-primary/10 dark:bg-cyan-400/10 border border-primary/20 dark:border-cyan-400/20">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 border border-primary/20 dark:border-blue-400/20">
                       {tech.category}
                     </span>
                     <span className="text-[10px] font-mono font-semibold text-muted-foreground/80 dark:text-slate-400">
@@ -167,7 +167,7 @@ export function TechSection() {
                     </span>
                   </div>
 
-                  <h3 className="text-base sm:text-lg font-bold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-cyan-300 transition-colors">
+                  <h3 className="text-base sm:text-lg font-bold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
                     {tech.name}
                   </h3>
                   <span className="text-[11px] font-semibold text-secondary dark:text-indigo-400 block mt-0.5">

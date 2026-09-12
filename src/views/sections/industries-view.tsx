@@ -220,9 +220,9 @@ const INDUSTRIES_DATA: IndustryData[] = [
     image: 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=1600&auto=format&fit=crop',
     imageAlt: 'Aerial container port and modern freight transportation fleet',
     icon: <Truck className="h-5 w-5" />,
-    accentColor: 'text-cyan-500 dark:text-cyan-400',
-    accentBg: 'bg-cyan-500/10 dark:bg-cyan-500/20',
-    accentBorder: 'border-cyan-500/30',
+    accentColor: 'text-blue-600 dark:text-blue-400',
+    accentBg: 'bg-blue-600/10 dark:bg-blue-600/20',
+    accentBorder: 'border-blue-600/30',
     statusText: 'IoT Ingestion: 25k Pings/s | Telematics Live',
     complianceBadge: 'DOT Compliant • EDI 204/214 • Geofence Verified',
     challenge:

@@ -49,8 +49,8 @@ const SOLUTIONS_DATA: SolutionItem[] = [
     tagline: 'Autonomous decision pipelines & goal-driven task bots.',
     description:
       'We engineer self-orchestrating agent workflows that plan, execute, and verify multi-step tasks across external APIs, customer channels, and enterprise data backbones without human intervention.',
-    icon: <Bot className="h-6 w-6 text-cyan-500" />,
-    iconBg: 'from-cyan-500/20 to-blue-500/10 border-cyan-500/30',
+    icon: <Bot className="h-6 w-6 text-blue-600" />,
+    iconBg: 'from-blue-600/20 to-blue-500/10 border-blue-600/30',
     metric: {
       value: '85%',
       label: 'Reduction in manual repetitive workflows',
@@ -94,7 +94,7 @@ const SOLUTIONS_DATA: SolutionItem[] = [
     description:
       'Consolidate high-velocity transactional and event streams into lightning-fast analytical engines. Deliver executive dashboards, operational alerting, and predictive forecasts at scale.',
     icon: <LineChart className="h-6 w-6 text-blue-500" />,
-    iconBg: 'from-blue-500/20 to-cyan-500/10 border-blue-500/30',
+    iconBg: 'from-blue-500/20 to-blue-600/10 border-blue-500/30',
     metric: {
       value: '< 50ms',
       label: 'Analytical query latency on billion-row datasets',
@@ -277,14 +277,14 @@ export function SolutionsView() {
 
       {/* 2. FEATURED SHOWCASE BANNER (From dropdown featured card) */}
       <section className="px-6 mb-16 max-w-7xl mx-auto w-full">
-        <div className="relative overflow-hidden rounded-3xl border border-primary/25 dark:border-cyan-500/30 bg-gradient-to-br from-blue-50/70 via-indigo-50/40 to-cyan-50/50 dark:from-slate-900/95 dark:via-slate-900/90 dark:to-blue-950/40 p-8 sm:p-12 shadow-md">
+        <div className="relative overflow-hidden rounded-3xl border border-primary/25 dark:border-blue-600/30 bg-gradient-to-br from-blue-50/70 via-indigo-50/40 to-blue-50/50 dark:from-slate-900/95 dark:via-slate-900/90 dark:to-blue-950/40 p-8 sm:p-12 shadow-md">
           {/* Subtle decoration lines */}
-          <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-primary/10 dark:bg-cyan-500/10 blur-3xl pointer-events-none" />
+          <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-primary/10 dark:bg-blue-600/10 blur-3xl pointer-events-none" />
           <div className="absolute -left-16 -bottom-16 h-64 w-64 rounded-full bg-secondary/10 dark:bg-purple-500/10 blur-3xl pointer-events-none" />
 
           <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             <div className="flex flex-col gap-3 max-w-2xl text-left">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-black tracking-wider uppercase bg-primary/10 text-primary dark:bg-cyan-500/20 dark:text-cyan-300 border border-primary/20 dark:border-cyan-500/40 w-fit">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-black tracking-wider uppercase bg-primary/10 text-primary dark:bg-blue-600/20 dark:text-blue-300 border border-primary/20 dark:border-blue-600/40 w-fit">
                 <Sparkles className="h-3.5 w-3.5" />
                 <span>ENTERPRISE IT</span>
               </div>
@@ -325,8 +325,8 @@ export function SolutionsView() {
           {(selectedCategory === 'all' || selectedCategory === 'intelligent-systems') && (
             <div id="intelligent-systems" className="flex flex-col gap-3 scroll-mt-28">
               <div className="flex items-center gap-3">
-                <span className="h-2 w-2 rounded-full bg-cyan-500 animate-pulse" />
-                <span className="text-xs font-black uppercase tracking-widest text-cyan-600 dark:text-cyan-400">
+                <span className="h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
+                <span className="text-xs font-black uppercase tracking-widest text-blue-600 dark:text-blue-400">
                   CATEGORY 01
                 </span>
               </div>
@@ -429,7 +429,7 @@ export function SolutionsView() {
                 step: '02',
                 title: 'Architectural Blueprint',
                 desc: 'We construct full system topologies, schema contracts, microservice boundaries, and strict security protocol models.',
-                icon: <Layers className="h-5 w-5 text-cyan-500" />,
+                icon: <Layers className="h-5 w-5 text-blue-600" />,
               },
               {
                 step: '03',
@@ -533,7 +533,7 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
         </h3>
 
         {/* Tagline (original dropdown copy) */}
-        <p className="text-xs sm:text-sm font-semibold text-primary dark:text-cyan-400 mb-3">
+        <p className="text-xs sm:text-sm font-semibold text-primary dark:text-blue-400 mb-3">
           {solution.tagline}
         </p>
 

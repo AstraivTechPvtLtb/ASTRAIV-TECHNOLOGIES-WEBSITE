@@ -23,7 +23,7 @@ export function AboutSection() {
       metric: '99.99%',
       label: 'Cloud Availability SLA',
       detail: 'Multi-region distributed failover',
-      icon: <Cloud className="h-4 w-4 text-cyan-400" />,
+      icon: <Cloud className="h-4 w-4 text-blue-400" />,
     },
     {
       metric: '10M+',
@@ -80,7 +80,7 @@ export function AboutSection() {
             <div
               className="pointer-events-none absolute -inset-px transition-opacity duration-300 opacity-60 dark:opacity-80"
               style={{
-                background: `radial-gradient(550px circle at ${mousePos.x}px ${mousePos.y}px, rgba(11, 61, 145, 0.25), rgba(0, 194, 255, 0.08), transparent 80%)`,
+                background: `radial-gradient(550px circle at ${mousePos.x}px ${mousePos.y}px, rgba(11, 61, 145, 0.25), rgba(37, 99, 235, 0.08), transparent 80%)`,
               }}
             />
           )}
@@ -91,8 +91,8 @@ export function AboutSection() {
             <div className="lg:col-span-6 flex flex-col justify-between text-left">
               <div>
                 {/* Eyebrow */}
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold text-cyan-300 bg-cyan-950/60 border border-cyan-800/60 mb-6 font-mono">
-                  <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold text-blue-300 bg-blue-950/60 border border-blue-800/60 mb-6 font-mono">
+                  <Sparkles className="h-3.5 w-3.5 text-blue-400" />
                   <span>ABOUT ASTRAIV</span>
                 </div>
 
@@ -111,7 +111,7 @@ export function AboutSection() {
                 {/* Learn More CTA */}
                 <Link
                   href="/company#why-us"
-                  className="inline-flex items-center gap-2 text-sm font-bold text-cyan-400 hover:text-cyan-300 group transition-colors mb-10 cursor-pointer"
+                  className="inline-flex items-center gap-2 text-sm font-bold text-blue-400 hover:text-blue-300 group transition-colors mb-10 cursor-pointer"
                 >
                   <span>Learn About Our Methodology</span>
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -127,7 +127,7 @@ export function AboutSection() {
                   {teamChips.map((chip) => (
                     <div
                       key={chip.name}
-                      className="px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-cyan-500/40 transition-colors"
+                      className="px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-blue-600/40 transition-colors"
                     >
                       <span className="block text-xs font-bold text-slate-200 truncate">{chip.name}</span>
                       <span className="block text-[10px] text-slate-400 truncate">{chip.role}</span>
@@ -172,10 +172,10 @@ export function AboutSection() {
               </div>
 
               {/* Bottom Showcase Card (Matching PDF Page 1 "TOTALWORX" Card) */}
-              <div className="p-6 rounded-2xl bg-gradient-to-r from-slate-900 to-slate-900/90 border border-slate-800 hover:border-cyan-500/50 transition-all group flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="p-6 rounded-2xl bg-gradient-to-r from-slate-900 to-slate-900/90 border border-slate-800 hover:border-blue-600/50 transition-all group flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="flex flex-col text-left">
                   <div className="flex items-center gap-2 mb-1.5">
-                    <span className="text-[11px] font-mono font-bold text-cyan-400 uppercase tracking-wider">
+                    <span className="text-[11px] font-mono font-bold text-blue-400 uppercase tracking-wider">
                       ASTRAIV PLATFORM ENGINE
                     </span>
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -187,7 +187,7 @@ export function AboutSection() {
 
                 <Link
                   href="/services"
-                  className="shrink-0 h-10 w-10 rounded-xl bg-slate-800 group-hover:bg-cyan-500 group-hover:text-slate-950 text-slate-300 border border-slate-700 flex items-center justify-center transition-all duration-200"
+                  className="shrink-0 h-10 w-10 rounded-xl bg-slate-800 group-hover:bg-blue-600 group-hover:text-slate-950 text-slate-300 border border-slate-700 flex items-center justify-center transition-all duration-200"
                   aria-label="Explore Platform Services"
                 >
                   <ArrowRight className="h-4 w-4" />
