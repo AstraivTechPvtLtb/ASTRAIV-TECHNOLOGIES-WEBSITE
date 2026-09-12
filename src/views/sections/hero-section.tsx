@@ -7,8 +7,8 @@ import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import { CircuitBackground } from './circuit-background';
 
-const TOTAL_INTERMEDIATE_LAYERS = 200;
-const MAX_DEPTH = 1200; // Deep Z-axis depth coordinate in px
+const TOTAL_INTERMEDIATE_LAYERS = 400;
+const MAX_DEPTH = 2000; // Deep Z-axis depth coordinate in px
 
 function parseHeadline(text: string) {
   const words: { word: string; isHighlighted: boolean }[] = [];
@@ -67,8 +67,8 @@ export function HeroSection({
   const smoothMouseY = useSpring(mouseY, springConfig);
 
   // Dynamic 3D tilt angles calculated smoothly from cursor position
-  const rotateX = useTransform(smoothMouseY, [0, 1], [6, -6]);
-  const rotateY = useTransform(smoothMouseX, [0, 1], [-7, 7]);
+  const rotateX = useTransform(smoothMouseY, [0, 1], [7, -7]);
+  const rotateY = useTransform(smoothMouseX, [0, 1], [-8, 8]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (shouldReduceMotion) return;
@@ -84,11 +84,11 @@ export function HeroSection({
     mouseY.set(0.5);
   };
 
-  // Generate 200 discrete depth layers between Layer 1 (foreground) and Layer 202 (deep hover animation)
+  // Generate 400 discrete depth layers between Layer 1 (foreground) and Layer 402 (deep hover animation)
   const intermediateLayers = useMemo(() => {
     return Array.from({ length: TOTAL_INTERMEDIATE_LAYERS }, (_, idx) => {
-      const layerNum = idx + 2; // Layers 2 through 201 (exactly 200 layers)
-      const depthRatio = (layerNum - 1) / 201;
+      const layerNum = idx + 2; // Layers 2 through 401 (exactly 400 layers)
+      const depthRatio = (layerNum - 1) / (TOTAL_INTERMEDIATE_LAYERS + 1);
       const z = -(depthRatio * MAX_DEPTH);
       return {
         layerNum,
@@ -165,27 +165,27 @@ export function HeroSection({
         {/* Dynamic Animated Blobs in 3D Z-Space */}
         <div
           className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-primary/10 dark:bg-blue-600/10 rounded-full blur-[120px] pointer-events-none animate-blob-1"
-          style={{ transform: 'translateZ(-700px)', transformStyle: 'preserve-3d' }}
+          style={{ transform: 'translateZ(-1200px)', transformStyle: 'preserve-3d' }}
         />
         <div
           className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-secondary/10 dark:bg-blue-600/10 rounded-full blur-[100px] pointer-events-none animate-blob-2"
-          style={{ transform: 'translateZ(-500px)', transformStyle: 'preserve-3d' }}
+          style={{ transform: 'translateZ(-800px)', transformStyle: 'preserve-3d' }}
         />
         <div
           className="absolute top-10 right-10 w-[250px] h-[250px] bg-accent/10 dark:bg-blue-500/10 rounded-full blur-[80px] pointer-events-none animate-blob-3"
-          style={{ transform: 'translateZ(-300px)', transformStyle: 'preserve-3d' }}
+          style={{ transform: 'translateZ(-500px)', transformStyle: 'preserve-3d' }}
         />
 
         {/* ========================================================================= */}
-        {/* LAYER 202 — HOVER ANIMATION (DEEPEST VISUAL 3D PLANE: -1200px)            */}
-        {/* Positioned deep in Z-space (-1200px) with scale compensation (2.2x)       */}
+        {/* LAYER 402 — HOVER ANIMATION (DEEPEST VISUAL 3D PLANE: -2000px)            */}
+        {/* Positioned deep in Z-space (-2000px) with scale compensation (2.85x)      */}
         {/* at perspective 1200px for full visual coverage and expansive 3D parallax  */}
         {/* ========================================================================= */}
         <div
-          data-depth-layer="202"
+          data-depth-layer="402"
           className="absolute inset-0 pointer-events-none select-none z-0"
           style={{
-            transform: `translateZ(-${MAX_DEPTH}px) scale(2.2)`,
+            transform: `translateZ(-${MAX_DEPTH}px) scale(2.85)`,
             transformOrigin: 'center center',
             transformStyle: 'preserve-3d',
           }}
@@ -194,9 +194,9 @@ export function HeroSection({
         </div>
 
         {/* ========================================================================= */}
-        {/* LAYERS 2–201 — 200 INTERMEDIATE 3D DEPTH LAYERS                           */}
-        {/* Exactly 200 real depth planes separating Layer 1 (foreground) and         */}
-        {/* Layer 202 (hover animation) to deliver immense continuous 3D spatial depth*/}
+        {/* LAYERS 2–401 — 400 INTERMEDIATE 3D DEPTH LAYERS                           */}
+        {/* Exactly 400 real depth planes separating Layer 1 (foreground) and         */}
+        {/* Layer 402 (hover animation) to deliver immense continuous 3D spatial depth*/}
         {/* ========================================================================= */}
         {intermediateLayers.map(({ layerNum, z }) => (
           <div
