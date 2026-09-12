@@ -27,8 +27,9 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico' },
-      { url: '/icon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon-48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/icon-96.png', sizes: '96x96', type: 'image/png' },
       { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
       { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
     ],
@@ -36,6 +37,9 @@ export const metadata: Metadata = {
     apple: [
       { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
     ],
+  },
+  verification: {
+    google: 'vOihYvEytgm-hcOnX7P5sfCpcV1Zj3ZdfpYrXV756C4',
   },
 };
 
@@ -62,8 +66,22 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   // Load language translation bundle
   const messages = await getMessages();
 
+  const orgSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Astraiv Technologies',
+    url: 'https://www.astraivtechnologies.com',
+    logo: 'https://www.astraivtechnologies.com/icon-512.png',
+    image: 'https://www.astraivtechnologies.com/icon-512.png',
+    description: 'Enterprise-grade website development, cloud infrastructure, AI solutions, and business automation built with clean architecture.',
+  };
+
   return (
     <NextIntlClientProvider messages={messages}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+      />
       {/* Temporarily locked to Dark theme as requested */}
       <ThemeProvider
         attribute="class"
