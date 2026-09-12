@@ -120,18 +120,16 @@ export function HomeNavbar() {
 
           {/* Right Action Group */}
           <div className="hidden md:flex items-center gap-3">
-            {/* Theme Toggle Button */}
+            {/* Theme Toggle Button - TEMPORARILY DISABLED: Locked to Dark mode */}
             {mounted && (
               <button
-                onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-                aria-label="Toggle color theme"
-                className="h-9 w-9 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-foreground bg-slate-100 dark:bg-slate-800/80 border border-border/60 dark:border-slate-700/60 transition-colors cursor-pointer"
+                disabled
+                aria-disabled="true"
+                aria-label="Toggle color theme (disabled)"
+                title="Theme selection is temporarily locked to Dark mode"
+                className="h-9 w-9 rounded-full flex items-center justify-center text-slate-400 bg-slate-100 dark:bg-slate-800/80 border border-border/60 dark:border-slate-700/60 opacity-60 cursor-not-allowed"
               >
-                {resolvedTheme === 'dark' ? (
-                  <Sun className="h-4 w-4 text-amber-400" />
-                ) : (
-                  <Moon className="h-4 w-4 text-slate-700" />
-                )}
+                <Moon className="h-4 w-4 text-cyan-400" />
               </button>
             )}
 
@@ -149,15 +147,13 @@ export function HomeNavbar() {
           <div className="flex md:hidden items-center gap-2">
             {mounted && (
               <button
-                onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-                aria-label="Toggle color theme"
-                className="h-8 w-8 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 border border-border/60"
+                disabled
+                aria-disabled="true"
+                aria-label="Toggle color theme (disabled)"
+                title="Theme selection is temporarily locked to Dark mode"
+                className="h-8 w-8 rounded-full flex items-center justify-center text-slate-400 bg-slate-100 dark:bg-slate-800 border border-border/60 opacity-60 cursor-not-allowed"
               >
-                {resolvedTheme === 'dark' ? (
-                  <Sun className="h-3.5 w-3.5 text-amber-400" />
-                ) : (
-                  <Moon className="h-3.5 w-3.5 text-slate-700" />
-                )}
+                <Moon className="h-3.5 w-3.5 text-cyan-400" />
               </button>
             )}
 

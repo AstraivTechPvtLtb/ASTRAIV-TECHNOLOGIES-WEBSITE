@@ -64,10 +64,12 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
 
   return (
     <NextIntlClientProvider messages={messages}>
+      {/* Temporarily locked to Dark theme as requested */}
       <ThemeProvider
         attribute="class"
-        defaultTheme="system"
-        enableSystem
+        defaultTheme="dark"
+        forcedTheme="dark"
+        enableSystem={false}
         disableTransitionOnChange
       >
         <TechBackground />
