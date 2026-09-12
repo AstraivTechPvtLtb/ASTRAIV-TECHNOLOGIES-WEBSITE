@@ -106,28 +106,28 @@
   --card-foreground: #F8FAFC;
   --popover: #111827;
   --popover-foreground: #F8FAFC;
-  --primary: #00F0FF;
-  --primary-foreground: #080C14;
+  --primary: #2563EB;
+  --primary-foreground: #FFFFFF;
   --secondary: #172033;
   --secondary-foreground: #F8FAFC;
   --muted: #111827;
   --muted-foreground: #94A3B8;
-  --accent: #00F0FF;
-  --accent-foreground: #080C14;
+  --accent: #2563EB;
+  --accent-foreground: #FFFFFF;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
   --border: rgba(255, 255, 255, 0.10);
   --input: rgba(255, 255, 255, 0.10);
-  --ring: rgba(0, 240, 255, 0.4);
+  --ring: rgba(37, 99, 235, 0.4);
   
   --sidebar: #0D1320;
   --sidebar-foreground: #F8FAFC;
-  --sidebar-primary: #00F0FF;
-  --sidebar-primary-foreground: #080C14;
+  --sidebar-primary: #2563EB;
+  --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: #172033;
-  --sidebar-accent-foreground: #00F0FF;
+  --sidebar-accent-foreground: #3B82F6;
   --sidebar-border: rgba(255, 255, 255, 0.10);
-  --sidebar-ring: rgba(0, 240, 255, 0.4);
+  --sidebar-ring: rgba(37, 99, 235, 0.4);
 
   /* Astraiv Centralized Dark Tokens */
   --astraiv-bg: #080C14;
@@ -136,16 +136,16 @@
   --astraiv-text-primary: #F8FAFC;
   --astraiv-text-secondary: #94A3B8;
   --astraiv-text-muted: #64748B;
-  --astraiv-accent: #00F0FF;
-  --astraiv-accent-secondary: #06B6D4;
-  --astraiv-blue: #3B82F6;
+  --astraiv-accent: #2563EB;
+  --astraiv-accent-secondary: #3B82F6;
+  --astraiv-blue: #2563EB;
   --astraiv-violet: #8B5CF6;
   --astraiv-border: rgba(255, 255, 255, 0.10);
 
   /* Gradient Stops */
-  --gradient-start: #00F0FF;
+  --gradient-start: #2563EB;
   --gradient-mid: #3B82F6;
-  --gradient-end: #8B5CF6;
+  --gradient-end: #60A5FA;
 }
 
 @layer base {

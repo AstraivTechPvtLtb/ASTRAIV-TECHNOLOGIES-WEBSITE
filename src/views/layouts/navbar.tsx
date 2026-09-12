@@ -361,7 +361,7 @@ export function Navbar() {
             className="rounded-full object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/15 group-hover:ring-primary/40"
           />
           <div className="flex flex-col items-start leading-tight">
-            <span className="font-heading font-extrabold text-[19px] tracking-wider bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#00F0FF] dark:via-[#38BDF8] dark:to-[#818CF8] bg-clip-text text-transparent pb-0.5">
+            <span className="font-heading font-extrabold text-[19px] tracking-wider bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent pb-0.5">
               ASTRAIV
             </span>
             <span className="text-[7.5px] uppercase tracking-[0.28em] font-black text-black dark:text-white dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.85)]">
@@ -421,7 +421,7 @@ export function Navbar() {
                     <>
                       <motion.span
                         layoutId="activeNavIndicator"
-                        className="absolute bottom-0 left-0 w-full h-[2.5px] rounded-full bg-gradient-to-r from-primary via-secondary to-accent dark:from-accent dark:via-primary dark:to-cyan-400 z-10 shadow-[0_1px_6px_rgba(11,61,145,0.35)] dark:shadow-[0_0_12px_rgba(0,194,255,0.7)]"
+                        className="absolute bottom-0 left-0 w-full h-[2.5px] rounded-full bg-gradient-to-r from-primary via-secondary to-accent dark:from-accent dark:via-primary dark:to-blue-400 z-10 shadow-[0_1px_6px_rgba(11,61,145,0.35)] dark:shadow-[0_0_12px_rgba(37,99,235,0.7)]"
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                       />
                       <motion.span
@@ -481,7 +481,7 @@ export function Navbar() {
                 pathname === '/contact' ? 'bg-[#093275] ring-2 ring-blue-500/40 dark:bg-blue-500 dark:ring-blue-400/50' : ''
               )}
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 dark:bg-cyan-400 shadow-[0_0_6px_rgba(103,232,249,0.9)] animate-pulse" />
+              <span className="h-1.5 w-1.5 rounded-full bg-blue-400 dark:bg-blue-400 shadow-[0_0_6px_rgba(59,130,246,0.9)] animate-pulse" />
               <span>{tNav.has('letsTalk') ? tNav('letsTalk') : "Let's Connect"}</span>
               <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
             </button>
@@ -626,12 +626,12 @@ export function Navbar() {
                     >
                       <div className="absolute inset-0 flex items-center justify-between px-1 pointer-events-none">
                         <Sun className="h-2.5 w-2.5 text-amber-500/40" />
-                        <Moon className="h-2.5 w-2.5 text-cyan-400/80" />
+                        <Moon className="h-2.5 w-2.5 text-blue-400/80" />
                       </div>
 
                       <motion.div
                         initial={false}
-                        className="relative z-10 w-4.5 h-4.5 rounded-full bg-white dark:bg-slate-950 shadow-xs flex items-center justify-center border border-slate-200/80 dark:border-cyan-500/40"
+                        className="relative z-10 w-4.5 h-4.5 rounded-full bg-white dark:bg-slate-950 shadow-xs flex items-center justify-center border border-slate-200/80 dark:border-blue-500/40"
                         animate={{
                           x: 18,
                         }}
@@ -641,7 +641,7 @@ export function Navbar() {
                           damping: 32,
                         }}
                       >
-                        <Moon className="h-2.5 w-2.5 text-cyan-400" />
+                        <Moon className="h-2.5 w-2.5 text-blue-400" />
                       </motion.div>
                     </div>
                   </div>
@@ -671,7 +671,7 @@ export function Navbar() {
             title="Theme selection is temporarily locked to Dark mode"
             className="p-2 rounded-lg text-slate-400 dark:text-slate-400 opacity-60 cursor-not-allowed transition-colors"
           >
-            <Moon className="h-5 w-5 text-cyan-400" />
+            <Moon className="h-5 w-5 text-blue-400" />
           </button>
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -817,7 +817,7 @@ export function Navbar() {
                   pathname === '/contact' ? 'bg-[#093275] ring-2 ring-blue-500/40 dark:bg-blue-500 dark:ring-blue-400/50' : ''
                 )}
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 dark:bg-cyan-400 shadow-[0_0_6px_rgba(103,232,249,0.9)] animate-pulse" />
+                <span className="h-1.5 w-1.5 rounded-full bg-blue-400 dark:bg-blue-400 shadow-[0_0_6px_rgba(59,130,246,0.9)] animate-pulse" />
                 <span>{tNav.has('letsTalk') ? tNav('letsTalk') : "Let's Connect"}</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>

@@ -104,9 +104,9 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
         'How we design deterministic execution layers over stochastic LLMs using graph-based planners, schema validation gates, and self-healing error loops.',
       tags: ['LangGraph', 'Autonomous Agents', 'Next.js 16', 'TypeScript'],
       metric: '99.4% task completion rate',
-      icon: <Bot className="h-5 w-5 text-cyan-500" />,
-      color: 'from-cyan-500/10 via-blue-500/5 to-transparent',
-      borderColor: 'border-cyan-500/30 dark:border-cyan-500/20',
+      icon: <Bot className="h-5 w-5 text-blue-600" />,
+      color: 'from-blue-600/10 via-blue-500/5 to-transparent',
+      borderColor: 'border-blue-600/30 dark:border-blue-600/20',
     },
     {
       id: 'pgvector',
@@ -218,7 +218,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       pages: '12 Pages (PDF)',
       description:
         'Step-by-step production readiness checklist: prompt sanitization, token budget management, fallback circuits, and latency SLAs.',
-      icon: <Bot className="h-6 w-6 text-cyan-500" />,
+      icon: <Bot className="h-6 w-6 text-blue-600" />,
       tags: ['AI Agents', 'Architecture', 'CTO Guide'],
     },
     {
@@ -280,7 +280,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
     <div className="w-full relative overflow-hidden bg-background text-foreground">
       {/* Editorial Tech Background Grid & Subtle Ambient Glows */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[550px] bg-gradient-to-b from-primary/10 via-secondary/5 to-transparent rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute top-[1200px] right-0 w-[600px] h-[600px] bg-cyan-500/5 dark:bg-cyan-500/10 rounded-full blur-[180px] pointer-events-none -z-10" />
+      <div className="absolute top-[1200px] right-0 w-[600px] h-[600px] bg-blue-600/5 dark:bg-blue-600/10 rounded-full blur-[180px] pointer-events-none -z-10" />
 
       {/* 1. EDITORIAL HEADER & SEARCH */}
       <section className="pt-28 pb-8 md:pt-36 md:pb-10 px-6 max-w-7xl mx-auto relative z-10">
@@ -358,7 +358,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:hidden" />
                 <div className="absolute top-4 left-4 z-10">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-black uppercase tracking-wider bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full">
-                    <Sparkles className="h-3 w-3 text-cyan-400" />
+                    <Sparkles className="h-3 w-3 text-blue-400" />
                     <span>Featured Deep Dive</span>
                   </span>
                 </div>
@@ -513,7 +513,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       >
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-600 dark:text-cyan-400 text-xs font-bold uppercase tracking-wider mb-3">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-600/10 border border-blue-600/20 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-wider mb-3">
               <Bot className="h-3.5 w-3.5" />
               <span>AI Research & Breakthroughs</span>
             </div>
@@ -694,7 +694,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
                   <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between text-white">
                     <div>
-                      <span className="text-[10px] uppercase font-bold tracking-widest text-cyan-300 block">
+                      <span className="text-[10px] uppercase font-bold tracking-widest text-blue-300 block">
                         {study.category}
                       </span>
                       <h4 className="text-lg font-bold leading-tight">{study.client}</h4>

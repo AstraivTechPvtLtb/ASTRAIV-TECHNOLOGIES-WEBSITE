@@ -30,7 +30,7 @@ export function CaseStudiesSection() {
       technologies: ['Next.js 16', 'Prisma ORM', 'PostgreSQL', 'Tailwind CSS', 'Cloudflare R2'],
       metric: '65% Faster Page Loads',
       metricLabel: 'Performance Increase',
-      badgeIcon: <Zap className="h-3.5 w-3.5 text-cyan-400" />,
+      badgeIcon: <Zap className="h-3.5 w-3.5 text-blue-400" />,
     },
     {
       id: 'aerosync',
@@ -69,7 +69,7 @@ export function CaseStudiesSection() {
   return (
     <section id="case-studies" className="py-20 md:py-28 px-6 bg-transparent relative overflow-hidden scroll-mt-24">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-primary/5 dark:bg-cyan-500/5 rounded-full blur-[180px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-primary/5 dark:bg-blue-600/5 rounded-full blur-[180px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader
@@ -89,7 +89,7 @@ export function CaseStudiesSection() {
                 className={`px-4 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-300 select-none cursor-pointer ${
                   isActive
                     ? 'bg-primary text-white shadow-sm shadow-primary/20 scale-105'
-                    : 'bg-card/90 dark:bg-slate-900/70 border border-border/70 dark:border-slate-800/80 text-muted-foreground hover:text-foreground hover:border-primary/40 dark:hover:border-cyan-400/40'
+                    : 'bg-card/90 dark:bg-slate-900/70 border border-border/70 dark:border-slate-800/80 text-muted-foreground hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40'
                 }`}
               >
                 {cat}
@@ -110,7 +110,7 @@ export function CaseStudiesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
-                className="group relative bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-cyan-400/40 rounded-[24px] sm:rounded-[28px] shadow-xs hover:shadow-[0_20px_50px_-15px_rgba(11,61,145,0.12)] dark:hover:shadow-[0_20px_50px_-15px_rgba(0,194,255,0.12)] overflow-hidden transition-all duration-500 transform-gpu hover:-translate-y-1"
+                className="group relative bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-blue-400/40 rounded-[24px] sm:rounded-[28px] shadow-xs hover:shadow-[0_20px_50px_-15px_rgba(11,61,145,0.12)] dark:hover:shadow-[0_20px_50px_-15px_rgba(37, 99, 235,0.12)] overflow-hidden transition-all duration-500 transform-gpu hover:-translate-y-1"
               >
                 <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 p-6 sm:p-8 md:p-10 items-center">
                   {/* Left Column: Visual Image Showcase */}
@@ -128,7 +128,7 @@ export function CaseStudiesSection() {
 
                     {/* Category overlay badge */}
                     <div className="absolute top-4 left-4 flex items-center gap-2">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-extrabold tracking-wider bg-slate-950/80 backdrop-blur-md border border-cyan-400/30 text-cyan-300 rounded-full uppercase">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-extrabold tracking-wider bg-slate-950/80 backdrop-blur-md border border-blue-400/30 text-blue-300 rounded-full uppercase">
                         {project.badgeIcon}
                         <span>{project.category}</span>
                       </span>
@@ -156,14 +156,14 @@ export function CaseStudiesSection() {
                   }`}>
                     <div>
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-primary dark:text-cyan-400 bg-primary/10 dark:bg-cyan-400/10 border border-primary/20 dark:border-cyan-400/20">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 border border-primary/20 dark:border-blue-400/20">
                           Production Case Study
                         </span>
                         <span className="text-xs font-semibold text-muted-foreground">
                           {project.category}
                         </span>
                       </div>
-                      <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-cyan-300 transition-colors">
+                      <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
                         {project.title}
                       </h3>
                     </div>
@@ -180,7 +180,7 @@ export function CaseStudiesSection() {
                       </div>
 
                       <div className="p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 border border-border/60 dark:border-slate-700/60 flex flex-col gap-1">
-                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-primary dark:text-cyan-400">
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-primary dark:text-blue-400">
                           Engineered Solution
                         </span>
                         <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-medium">
@@ -215,7 +215,7 @@ export function CaseStudiesSection() {
 
                       <Link
                         href="/portfolio"
-                        className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-extrabold text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 transition-colors"
+                        className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-extrabold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors"
                       >
                         <span>View Project Architecture</span>
                         <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />

@@ -12,7 +12,7 @@ export function ContactCTASection() {
       {/* Container with Royal Blue / Indigo Radiant Gradient (Matching PDF Page 5) */}
       <div className="max-w-7xl mx-auto relative rounded-3xl lg:rounded-[36px] overflow-hidden bg-gradient-to-br from-[#0B3D91] via-[#1D4ED8] to-[#5B5FEF] p-8 sm:p-14 lg:p-20 text-center shadow-2xl border border-blue-400/20">
         {/* Subtle Ambient Shimmer Overlays */}
-        <div className="absolute -top-24 -left-24 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-500/30 rounded-full blur-3xl pointer-events-none" />
 
         {/* Content */}
@@ -25,7 +25,7 @@ export function ContactCTASection() {
             transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider text-blue-100 bg-white/10 border border-white/20 backdrop-blur-md mb-6 select-none"
           >
-            <Sparkles className="h-3.5 w-3.5 text-cyan-300" />
+            <Sparkles className="h-3.5 w-3.5 text-blue-300" />
             <span>CONTACT US</span>
           </motion.div>
 

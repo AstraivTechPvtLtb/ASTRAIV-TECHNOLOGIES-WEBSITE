@@ -104,13 +104,13 @@ export function HeroSection({
     <section className="relative flex flex-col items-center justify-center min-h-[88vh] sm:min-h-[90vh] lg:min-h-[92vh] pt-28 pb-16 sm:pt-36 sm:pb-20 md:pt-40 md:pb-24 lg:pt-44 lg:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-background border-b border-border/40">
       {/* Dynamic Animated Blobs (GPU Composited) */}
       <div
-        className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-primary/10 dark:bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none animate-blob-1"
+        className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-primary/10 dark:bg-blue-600/10 rounded-full blur-[120px] pointer-events-none animate-blob-1"
       />
       <div
         className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-secondary/10 dark:bg-blue-600/10 rounded-full blur-[100px] pointer-events-none animate-blob-2"
       />
       <div
-        className="absolute top-10 right-10 w-[250px] h-[250px] bg-accent/10 dark:bg-cyan-400/10 rounded-full blur-[80px] pointer-events-none animate-blob-3"
+        className="absolute top-10 right-10 w-[250px] h-[250px] bg-accent/10 dark:bg-blue-500/10 rounded-full blur-[80px] pointer-events-none animate-blob-3"
       />
 
       {/* Circuit Background Animation with Antigravity repulsion */}
@@ -123,7 +123,7 @@ export function HeroSection({
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         >
-          <Cpu className="h-4 w-4 text-secondary dark:text-cyan-400" />
+          <Cpu className="h-4 w-4 text-secondary dark:text-blue-400" />
           <span className="text-xs font-semibold text-muted-foreground">Autonomous Agents</span>
         </motion.div>
         
@@ -132,7 +132,7 @@ export function HeroSection({
           animate={{ y: [0, 12, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
         >
-          <Shield className="h-4 w-4 text-primary dark:text-cyan-400" />
+          <Shield className="h-4 w-4 text-primary dark:text-blue-400" />
           <span className="text-xs font-semibold text-muted-foreground">Enterprise Secure</span>
         </motion.div>
       </div>
@@ -148,11 +148,11 @@ export function HeroSection({
         {badgeText && (
           <motion.div 
             variants={itemVariants} 
-            className="inline-flex items-center gap-2 px-4 py-1.5 mb-5 md:mb-6 text-xs font-mono font-bold text-slate-800 dark:text-cyan-300 bg-secondary/10 dark:bg-cyan-500/10 border border-secondary/20 dark:border-cyan-500/30 rounded-full shadow-[0_2px_10px_rgba(0,240,255,0.05)] select-none hover:border-cyan-500/40 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-1.5 mb-5 md:mb-6 text-xs font-mono font-bold text-slate-800 dark:text-blue-300 bg-secondary/10 dark:bg-blue-600/10 border border-secondary/20 dark:border-blue-500/30 rounded-full shadow-[0_2px_10px_rgba(37,99,235,0.05)] select-none hover:border-blue-500/40 transition-colors"
           >
-            <Sparkles className="h-3.5 w-3.5 text-secondary dark:text-cyan-400 animate-pulse" />
+            <Sparkles className="h-3.5 w-3.5 text-secondary dark:text-blue-400 animate-pulse" />
             <span>{badgeText}</span>
-            <ArrowRight className="h-3.5 w-3.5 text-secondary dark:text-cyan-400" />
+            <ArrowRight className="h-3.5 w-3.5 text-secondary dark:text-blue-400" />
           </motion.div>
         )}
 
@@ -184,7 +184,7 @@ export function HeroSection({
                             ? { duration: 0 } 
                             : { delay: 0.25 + wordStartIdx * 0.058, duration: 0.9, ease: "easeOut" }
                         }
-                        className="absolute -inset-x-2 -inset-y-1 bg-gradient-to-r from-blue-500/15 via-indigo-500/20 to-cyan-400/20 dark:from-cyan-500/20 dark:via-blue-500/20 dark:to-cyan-400/20 blur-xl rounded-full pointer-events-none -z-10 animate-pulse"
+                        className="absolute -inset-x-2 -inset-y-1 bg-gradient-to-r from-blue-500/15 via-indigo-500/20 to-blue-400/20 dark:from-blue-600/25 dark:via-blue-500/20 dark:to-indigo-500/25 blur-xl rounded-full pointer-events-none -z-10 animate-pulse"
                         style={{ animationDuration: '4s' }}
                       />
                     )}
@@ -200,7 +200,7 @@ export function HeroSection({
                           className={cn(
                             "inline-block origin-bottom pb-1",
                             item.isHighlighted 
-                              ? "bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#00F0FF] dark:via-[#38BDF8] dark:to-[#818CF8] bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer dark:drop-shadow-[0_0_20px_rgba(0,240,255,0.35)]"
+                              ? "bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer dark:drop-shadow-[0_0_20px_rgba(37,99,235,0.35)]"
                               : "text-foreground"
                           )}
                         >
@@ -231,7 +231,7 @@ export function HeroSection({
             className="relative group inline-block"
           >
             <button
-              className="relative cursor-pointer font-bold rounded-md px-10 h-13 text-sm tracking-wide text-white bg-[#0B3D91] hover:bg-[#093275] dark:bg-[#00F0FF] dark:hover:bg-[#00D4E2] dark:text-[#080C14] active:scale-95 transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 border-none outline-none select-none"
+              className="relative cursor-pointer font-bold rounded-md px-10 h-13 text-sm tracking-wide text-white bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 dark:hover:bg-blue-500 active:scale-95 transition-all duration-300 shadow-md hover:shadow-lg dark:border dark:border-blue-400/30 dark:shadow-[0_0_16px_-2px_rgba(59,130,246,0.35)] dark:hover:shadow-[0_0_22px_-1px_rgba(59,130,246,0.55)] flex items-center justify-center gap-2 outline-none select-none"
             >
               <span>{ctaText}</span>
               <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />

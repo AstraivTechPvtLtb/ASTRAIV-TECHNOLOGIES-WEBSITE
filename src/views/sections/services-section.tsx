@@ -152,7 +152,7 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
   return (
     <section id="services" className="py-20 md:py-28 px-6 bg-transparent relative overflow-hidden scroll-mt-20">
       {/* Decorative ambient lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-primary/5 dark:bg-cyan-500/5 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-primary/5 dark:bg-blue-600/5 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader

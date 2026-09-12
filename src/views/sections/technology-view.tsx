@@ -227,7 +227,7 @@ export const ALL_TECHNOLOGY_ITEMS: TechItem[] = [
     versionOrSla: 'LangGraph + Swarms',
     description:
       'We develop self-orchestrating agent workflows that execute complex multi-step processes, connect to external APIs, write to databases, and handle customer support flows autonomously.',
-    icon: <Bot className="h-6 w-6 text-cyan-500" />,
+    icon: <Bot className="h-6 w-6 text-blue-600" />,
     highlights: ['Multi-agent role coordination', 'ReAct decision loops', 'Human-in-the-loop checkpoints', 'Self-healing execution queues'],
     metrics: { label: 'Manual Task Reduction', value: '85%' },
   },
@@ -435,7 +435,7 @@ export const ALL_TECHNOLOGY_ITEMS: TechItem[] = [
     versionOrSla: 'Better Auth v1.6',
     description:
       'Implements secure multi-tenant cookie sessions, password hashing, 2FA, OAuth SSO, and role structures with zero vendor lock-in and high-speed local verification.',
-    icon: <Lock className="h-6 w-6 text-cyan-500" />,
+    icon: <Lock className="h-6 w-6 text-blue-600" />,
     highlights: ['Multi-tenant role hierarchies (RBAC)', 'Hardware-key 2FA support', 'Cryptographic session tokens', 'Zero third-party user data lock-in'],
     metrics: { label: 'Session Verification', value: '< 0.3ms' },
   },
@@ -451,7 +451,7 @@ const ARCHITECTURE_TIERS = [
     number: '01',
     name: 'Client & Edge Experience',
     badge: 'Interface Layer',
-    color: 'from-blue-500/20 to-cyan-500/20 text-cyan-500 border-cyan-500/30',
+    color: 'from-blue-500/20 to-blue-600/20 text-blue-600 border-blue-600/30',
     techNames: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind v4', 'Framer Motion'],
     summary: 'Sub-second SSR, streaming render pipelines, strict client typing, and 60FPS fluid micro-interactions.',
     latency: '12ms TTFB',
@@ -765,7 +765,7 @@ export function TechnologyView({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto mb-14">
           <div className="p-6 rounded-2xl bg-card/70 dark:bg-slate-900/50 border border-border/50 hover:border-primary/40 transition-all shadow-xs flex flex-col justify-between">
             <div className="flex flex-col gap-3">
-              <div className="h-10 w-10 rounded-xl bg-cyan-500/10 dark:bg-cyan-500/20 text-cyan-500 flex items-center justify-center border border-cyan-500/20">
+              <div className="h-10 w-10 rounded-xl bg-blue-600/10 dark:bg-blue-600/20 text-blue-600 flex items-center justify-center border border-blue-600/20">
                 <Bot className="h-5 w-5" />
               </div>
               <h3 className="text-lg font-bold text-foreground">Autonomous AI Agents</h3>
@@ -773,7 +773,7 @@ export function TechnologyView({
                 We develop self-orchestrating agent workflows that execute complex multi-step processes, connect to external APIs, write to databases, and handle customer support flows autonomously.
               </p>
             </div>
-            <span className="text-[10px] font-mono text-cyan-600 dark:text-cyan-400 mt-4 font-bold uppercase">
+            <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 mt-4 font-bold uppercase">
               • 85% Task Automation
             </span>
           </div>

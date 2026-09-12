@@ -31,10 +31,10 @@ const AI_SNIPPETS: CodeSnippet[] = [
         { text: 'import ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
         { text: 'astraiv_neural ', className: 'text-slate-800 dark:text-slate-200' },
         { text: 'as ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
-        { text: 'ai', className: 'text-blue-700 dark:text-cyan-300 font-semibold' },
+        { text: 'ai', className: 'text-blue-700 dark:text-blue-300 font-semibold' },
       ],
       [
-        { text: '@ai.distributed_pipeline', className: 'text-blue-700 dark:text-cyan-400 font-semibold' },
+        { text: '@ai.distributed_pipeline', className: 'text-blue-700 dark:text-blue-400 font-semibold' },
         { text: '(', className: 'text-slate-700 dark:text-slate-300' },
         { text: 'region=', className: 'text-slate-700 dark:text-slate-300' },
         { text: '"global-edge"', className: 'text-emerald-700 dark:text-emerald-300' },
@@ -71,7 +71,7 @@ const AI_SNIPPETS: CodeSnippet[] = [
       ],
       [
         { text: '    def ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
-        { text: '__init__', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: '__init__', className: 'text-blue-700 dark:text-blue-300 font-bold' },
         { text: '(self, model_id: str):', className: 'text-slate-700 dark:text-slate-300' },
       ],
       [
@@ -80,7 +80,7 @@ const AI_SNIPPETS: CodeSnippet[] = [
       ],
       [
         { text: '    async def ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
-        { text: 'solve_task', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: 'solve_task', className: 'text-blue-700 dark:text-blue-300 font-bold' },
         { text: '(self, prompt):', className: 'text-slate-700 dark:text-slate-300' },
       ],
       [
@@ -104,7 +104,7 @@ const AI_SNIPPETS: CodeSnippet[] = [
       ],
       [
         { text: 'async def ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
-        { text: 'query_hybrid_context', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: 'query_hybrid_context', className: 'text-blue-700 dark:text-blue-300 font-bold' },
         { text: '(query: str):', className: 'text-slate-700 dark:text-slate-300' },
       ],
       [
@@ -137,7 +137,7 @@ const SERVER_SNIPPETS: CodeSnippet[] = [
       ],
       [
         { text: 'export async function ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
-        { text: 'orchestratePipeline', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: 'orchestratePipeline', className: 'text-blue-700 dark:text-blue-300 font-bold' },
         { text: '() {', className: 'text-slate-700 dark:text-slate-300' },
       ],
       [
@@ -151,7 +151,7 @@ const SERVER_SNIPPETS: CodeSnippet[] = [
         { text: 'astraivEngine.stream({', className: 'text-slate-800 dark:text-slate-200' },
       ],
       [
-        { text: '        concurrency: ', className: 'text-blue-700 dark:text-cyan-300' },
+        { text: '        concurrency: ', className: 'text-blue-700 dark:text-blue-300' },
         { text: '64', className: 'text-amber-700 dark:text-amber-300 font-bold' },
         { text: ', sla: ', className: 'text-slate-700 dark:text-slate-300' },
         { text: '"ultra-low"', className: 'text-emerald-700 dark:text-emerald-300' },
@@ -172,7 +172,7 @@ const SERVER_SNIPPETS: CodeSnippet[] = [
     lines: [
       [
         { text: 'export const ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
-        { text: 'validateEdgeRequest = ', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: 'validateEdgeRequest = ', className: 'text-blue-700 dark:text-blue-300 font-bold' },
         { text: 'async (req) => {', className: 'text-slate-700 dark:text-slate-300' },
       ],
       [
@@ -201,7 +201,7 @@ const SERVER_SNIPPETS: CodeSnippet[] = [
     lines: [
       [
         { text: 'export async function ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
-        { text: 'streamTelemetry', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: 'streamTelemetry', className: 'text-blue-700 dark:text-blue-300 font-bold' },
         { text: '(clientId: string) {', className: 'text-slate-700 dark:text-slate-300' },
       ],
       [
@@ -236,7 +236,7 @@ const RUST_SNIPPETS: CodeSnippet[] = [
     lines: [
       [
         { text: 'pub async fn ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
-        { text: 'handle_stream', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: 'handle_stream', className: 'text-blue-700 dark:text-blue-300 font-bold' },
         { text: '(stream: Arc<Queue>) -> Result<()> {', className: 'text-slate-700 dark:text-slate-300' },
       ],
       [
@@ -267,7 +267,7 @@ const RUST_SNIPPETS: CodeSnippet[] = [
       ],
       [
         { text: '    pub fn ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
-        { text: 'alloc_pinned', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: 'alloc_pinned', className: 'text-blue-700 dark:text-blue-300 font-bold' },
         { text: '(&self, size: usize) -> PinBuffer<T> {', className: 'text-slate-700 dark:text-slate-300' },
       ],
       [
@@ -288,11 +288,11 @@ const RUST_SNIPPETS: CodeSnippet[] = [
     successMsg: '🌐 Edge gateway operational (100k req/s)',
     lines: [
       [
-        { text: '#[actix_web::get("/api/v2/mesh/status")]', className: 'text-blue-700 dark:text-cyan-400 font-semibold' },
+        { text: '#[actix_web::get("/api/v2/mesh/status")]', className: 'text-blue-700 dark:text-blue-400 font-semibold' },
       ],
       [
         { text: 'pub async fn ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
-        { text: 'mesh_status', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: 'mesh_status', className: 'text-blue-700 dark:text-blue-300 font-bold' },
         { text: '(mesh: web::Data<MeshCluster>) -> HttpResponse {', className: 'text-slate-700 dark:text-slate-300' },
       ],
       [
@@ -318,13 +318,13 @@ const CENTER_ORCHESTRATOR_SNIPPETS: CodeSnippet[] = [
     lines: [
       [
         { text: 'import { ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
-        { text: 'AstraivEngine', className: 'text-blue-700 dark:text-cyan-300 font-semibold' },
+        { text: 'AstraivEngine', className: 'text-blue-700 dark:text-blue-300 font-semibold' },
         { text: ' } from ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
         { text: '"@astraiv/core";', className: 'text-emerald-700 dark:text-emerald-300' },
       ],
       [
         { text: 'export const ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
-        { text: 'Platform = ', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: 'Platform = ', className: 'text-blue-700 dark:text-blue-300 font-bold' },
         { text: 'defineStack({', className: 'text-slate-700 dark:text-slate-300' },
       ],
       [
@@ -369,7 +369,7 @@ const CENTER_ORCHESTRATOR_SNIPPETS: CodeSnippet[] = [
     lines: [
       [
         { text: 'export const ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
-        { text: 'AstraivMatrix: ServiceRegistry = {', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: 'AstraivMatrix: ServiceRegistry = {', className: 'text-blue-700 dark:text-blue-300 font-bold' },
       ],
       [
         { text: '  webDev: ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
@@ -407,7 +407,7 @@ const CENTER_ORCHESTRATOR_SNIPPETS: CodeSnippet[] = [
     successMsg: '🧠 Multi-Agent Reasoning synchronized (0.6ms)',
     lines: [
       [
-        { text: '@astraiv.service(cluster="ai-enterprise")', className: 'text-blue-700 dark:text-cyan-400 font-semibold' },
+        { text: '@astraiv.service(cluster="ai-enterprise")', className: 'text-blue-700 dark:text-blue-400 font-semibold' },
       ],
       [
         { text: 'class ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
@@ -442,7 +442,7 @@ const CENTER_ORCHESTRATOR_SNIPPETS: CodeSnippet[] = [
     lines: [
       [
         { text: 'pub async fn ', className: 'text-purple-700 dark:text-purple-400 font-semibold' },
-        { text: 'deploy_cluster', className: 'text-blue-700 dark:text-cyan-300 font-bold' },
+        { text: 'deploy_cluster', className: 'text-blue-700 dark:text-blue-300 font-bold' },
         { text: '() -> Result<Mesh> {', className: 'text-slate-700 dark:text-slate-300' },
       ],
       [
@@ -606,7 +606,7 @@ function LiveTypewriterPanel({
             <div className="flex-1 whitespace-pre overflow-hidden text-ellipsis">
               {renderLineContent(tokens, maxChars)}
               {isCurrentLine && (
-                <span className="inline-block w-1.5 h-3.5 bg-primary dark:bg-cyan-400 ml-0.5 -mb-0.5 animate-pulse rounded-xs" />
+                <span className="inline-block w-1.5 h-3.5 bg-primary dark:bg-blue-400 ml-0.5 -mb-0.5 animate-pulse rounded-xs" />
               )}
             </div>
           </div>
@@ -701,16 +701,16 @@ export function TechBackground() {
           <div className="p-3 text-[10px] sm:text-[10.5px] font-mono leading-relaxed text-slate-700 dark:text-slate-300 overflow-hidden">
             <div>&#123;</div>
             <div className="pl-3">
-              <span className="text-blue-700 dark:text-cyan-300 font-semibold">&quot;network_status&quot;</span>: <span className="text-emerald-700 dark:text-emerald-300">&quot;operational&quot;</span>,
+              <span className="text-blue-700 dark:text-blue-300 font-semibold">&quot;network_status&quot;</span>: <span className="text-emerald-700 dark:text-emerald-300">&quot;operational&quot;</span>,
             </div>
             <div className="pl-3">
-              <span className="text-blue-700 dark:text-cyan-300 font-semibold">&quot;active_clusters&quot;</span>: <span className="text-amber-700 dark:text-amber-300 font-bold">128</span>,
+              <span className="text-blue-700 dark:text-blue-300 font-semibold">&quot;active_clusters&quot;</span>: <span className="text-amber-700 dark:text-amber-300 font-bold">128</span>,
             </div>
             <div className="pl-3">
-              <span className="text-blue-700 dark:text-cyan-300 font-semibold">&quot;latency_p99&quot;</span>: <span className="text-emerald-700 dark:text-emerald-300">&quot;1.24ms&quot;</span>,
+              <span className="text-blue-700 dark:text-blue-300 font-semibold">&quot;latency_p99&quot;</span>: <span className="text-emerald-700 dark:text-emerald-300">&quot;1.24ms&quot;</span>,
             </div>
             <div className="pl-3">
-              <span className="text-blue-700 dark:text-cyan-300 font-semibold">&quot;uptime_sla&quot;</span>: <span className="text-emerald-700 dark:text-emerald-300">&quot;99.999%&quot;</span>
+              <span className="text-blue-700 dark:text-blue-300 font-semibold">&quot;uptime_sla&quot;</span>: <span className="text-emerald-700 dark:text-emerald-300">&quot;99.999%&quot;</span>
             </div>
             <div>&#125;</div>
           </div>
@@ -735,7 +735,7 @@ export function TechBackground() {
               <span className="text-slate-800 dark:text-slate-200">POST /v1/ai/stream -&gt; 0.9ms</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="text-blue-700 dark:text-cyan-400 font-bold">[METRIC]</span>
+              <span className="text-blue-700 dark:text-blue-400 font-bold">[METRIC]</span>
               <span className="text-slate-800 dark:text-slate-200">p99: 0.82ms | edge healthy</span>
             </div>
             <div className="flex items-center gap-1.5">
@@ -761,9 +761,9 @@ export function TechBackground() {
           </div>
           <div className="p-3 text-[10px] font-mono leading-relaxed text-slate-700 dark:text-slate-300 overflow-hidden">
             <div><span className="text-purple-700 dark:text-purple-400 font-semibold">export interface</span> <span className="text-amber-700 dark:text-amber-300 font-bold">EnterpriseAgent</span> &#123;</div>
-            <div className="pl-3"><span className="text-blue-700 dark:text-cyan-300 font-semibold">id</span>: <span className="text-emerald-700 dark:text-emerald-300 font-semibold">UUID</span>;</div>
-            <div className="pl-3"><span className="text-blue-700 dark:text-cyan-300 font-semibold">concurrency</span>: <span className="text-purple-700 dark:text-purple-300">&quot;ultra-high&quot;</span>;</div>
-            <div className="pl-3"><span className="text-blue-700 dark:text-cyan-300 font-semibold">execute</span>(task: <span className="text-amber-700 dark:text-amber-300">Task</span>): <span className="text-purple-700 dark:text-purple-400 font-semibold">Promise</span>&lt;<span className="text-amber-700 dark:text-amber-300">Result</span>&gt;;</div>
+            <div className="pl-3"><span className="text-blue-700 dark:text-blue-300 font-semibold">id</span>: <span className="text-emerald-700 dark:text-emerald-300 font-semibold">UUID</span>;</div>
+            <div className="pl-3"><span className="text-blue-700 dark:text-blue-300 font-semibold">concurrency</span>: <span className="text-purple-700 dark:text-purple-300">&quot;ultra-high&quot;</span>;</div>
+            <div className="pl-3"><span className="text-blue-700 dark:text-blue-300 font-semibold">execute</span>(task: <span className="text-amber-700 dark:text-amber-300">Task</span>): <span className="text-purple-700 dark:text-purple-400 font-semibold">Promise</span>&lt;<span className="text-amber-700 dark:text-amber-300">Result</span>&gt;;</div>
             <div>&#125;</div>
           </div>
         </div>
@@ -778,7 +778,7 @@ export function TechBackground() {
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/50 dark:border-slate-800/40 bg-slate-100/60 dark:bg-slate-800/40 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500/60 dark:bg-blue-500/50" />
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-500/60 dark:bg-cyan-500/50" />
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-600/60 dark:bg-blue-600/50" />
               <span className="ml-1 px-1.5 py-0.5 rounded bg-blue-600/10 dark:bg-blue-400/10 text-blue-700 dark:text-blue-300 text-[9px] font-semibold">
                 ● Live Server Action
               </span>
@@ -837,11 +837,11 @@ export function TechBackground() {
             <span className="text-[9px] text-slate-500 font-medium">prod-edge</span>
           </div>
           <div className="p-3 text-[10px] font-mono leading-relaxed text-slate-700 dark:text-slate-300 overflow-hidden">
-            <div><span className="text-blue-700 dark:text-cyan-300 font-semibold">kind</span>: <span className="text-amber-700 dark:text-amber-300 font-bold">CloudClusterMesh</span></div>
-            <div><span className="text-blue-700 dark:text-cyan-300 font-semibold">spec</span>:</div>
-            <div className="pl-3"><span className="text-blue-700 dark:text-cyan-300 font-semibold">regions</span>: [<span className="text-emerald-700 dark:text-emerald-300">&quot;iad1&quot;</span>, <span className="text-emerald-700 dark:text-emerald-300">&quot;fra1&quot;</span>]</div>
-            <div className="pl-3"><span className="text-blue-700 dark:text-cyan-300 font-semibold">autoscale</span>: &#123; <span className="text-blue-700 dark:text-cyan-300">max</span>: <span className="text-amber-700 dark:text-amber-300 font-bold">64</span> &#125;</div>
-            <div className="pl-3"><span className="text-blue-700 dark:text-cyan-300 font-semibold">zeroDowntime</span>: <span className="text-emerald-700 dark:text-emerald-300">true</span></div>
+            <div><span className="text-blue-700 dark:text-blue-300 font-semibold">kind</span>: <span className="text-amber-700 dark:text-amber-300 font-bold">CloudClusterMesh</span></div>
+            <div><span className="text-blue-700 dark:text-blue-300 font-semibold">spec</span>:</div>
+            <div className="pl-3"><span className="text-blue-700 dark:text-blue-300 font-semibold">regions</span>: [<span className="text-emerald-700 dark:text-emerald-300">&quot;iad1&quot;</span>, <span className="text-emerald-700 dark:text-emerald-300">&quot;fra1&quot;</span>]</div>
+            <div className="pl-3"><span className="text-blue-700 dark:text-blue-300 font-semibold">autoscale</span>: &#123; <span className="text-blue-700 dark:text-blue-300">max</span>: <span className="text-amber-700 dark:text-amber-300 font-bold">64</span> &#125;</div>
+            <div className="pl-3"><span className="text-blue-700 dark:text-blue-300 font-semibold">zeroDowntime</span>: <span className="text-emerald-700 dark:text-emerald-300">true</span></div>
           </div>
         </div>
 
@@ -859,7 +859,7 @@ export function TechBackground() {
           </div>
           <div className="p-2.5 text-[9.5px] font-mono leading-relaxed text-slate-700 dark:text-slate-300 overflow-hidden">
             <div><span className="text-purple-700 dark:text-purple-400 font-semibold">SELECT</span> doc_id, tenant_id,</div>
-            <div className="pl-2.5"><span className="text-blue-700 dark:text-cyan-300">1 - (embedding &lt;=&gt; $query)</span> <span className="text-purple-700 dark:text-purple-400 font-semibold">AS</span> score</div>
+            <div className="pl-2.5"><span className="text-blue-700 dark:text-blue-300">1 - (embedding &lt;=&gt; $query)</span> <span className="text-purple-700 dark:text-purple-400 font-semibold">AS</span> score</div>
             <div><span className="text-purple-700 dark:text-purple-400 font-semibold">FROM</span> astraiv_vault <span className="text-purple-700 dark:text-purple-400 font-semibold">ORDER BY</span> score <span className="text-purple-700 dark:text-purple-400 font-semibold">DESC LIMIT</span> 5;</div>
           </div>
         </div>
@@ -879,7 +879,7 @@ export function TechBackground() {
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/50" />
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/60 dark:bg-emerald-500/50" />
               </div>
-              <span className="ml-1 px-1.5 py-0.5 rounded bg-primary/10 dark:bg-primary/20 text-primary dark:text-cyan-300 text-[9px] font-bold tracking-wide">
+              <span className="ml-1 px-1.5 py-0.5 rounded bg-primary/10 dark:bg-primary/20 text-primary dark:text-blue-300 text-[9px] font-bold tracking-wide">
                 ● Astraiv Hub
               </span>
             </div>
@@ -910,8 +910,8 @@ export function TechBackground() {
             MICRO-ELEMENTS: Floating Code Tokens (Adjusted positions to ensure 0 collisions)
            ========================================================================= */}
         {/* Token 1: Top-Left Corridor */}
-        <div className="absolute top-[24%] left-[6%] sm:left-[8%] hidden sm:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-blue-700/80 dark:text-cyan-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
+        <div className="absolute top-[24%] left-[6%] sm:left-[8%] hidden sm:flex items-center gap-1 px-2.5 py-0.5 rounded border border-slate-300/35 dark:border-slate-700/25 bg-white/70 dark:bg-slate-900/50 font-mono text-[9.5px] text-blue-700/80 dark:text-blue-300/70 opacity-[0.26] dark:opacity-[0.20] shadow-2xs animate-ambient-drift-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
           <span>k8s.cluster.healthy</span>
         </div>
 

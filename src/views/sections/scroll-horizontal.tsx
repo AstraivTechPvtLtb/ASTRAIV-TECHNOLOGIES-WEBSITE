@@ -118,13 +118,13 @@ export function ScrollHorizontal() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[250px] bg-primary/10 dark:bg-accent/10 rounded-full blur-[120px] pointer-events-none" />
 
         <div className="relative z-10 flex flex-col items-center max-w-4xl mx-auto text-center px-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-primary dark:text-accent bg-primary/10 dark:bg-accent/10 border border-primary/30 dark:border-accent/30 mb-5 backdrop-blur-md shadow-[0_0_16px_rgba(91,95,239,0.12)] dark:shadow-[0_0_18px_rgba(0,194,255,0.2)]">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-primary dark:text-accent bg-primary/10 dark:bg-accent/10 border border-primary/30 dark:border-accent/30 mb-5 backdrop-blur-md shadow-[0_0_16px_rgba(91,95,239,0.12)] dark:shadow-[0_0_18px_rgba(37, 99, 235,0.2)]">
             <Sparkles className="w-3.5 h-3.5 text-primary dark:text-accent animate-pulse" />
             <span>Core Engineering Pillars</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white font-heading leading-tight">
-            Architected for <span className="bg-gradient-to-r from-primary via-secondary to-accent dark:from-accent dark:via-cyan-300 dark:to-white bg-clip-text text-transparent">Hyper-Velocity</span>
+            Architected for <span className="bg-gradient-to-r from-primary via-secondary to-accent dark:from-accent dark:via-blue-300 dark:to-white bg-clip-text text-transparent">Hyper-Velocity</span>
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
@@ -225,7 +225,7 @@ export function ScrollHorizontal() {
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white bg-primary hover:bg-primary/90 dark:bg-accent dark:text-slate-950 dark:hover:bg-cyan-300 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white bg-primary hover:bg-primary/90 dark:bg-accent dark:text-slate-950 dark:hover:bg-blue-300 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
             >
               <span>Schedule Architecture Call</span>
               <ArrowRight className="w-4 h-4" />
@@ -316,7 +316,7 @@ function StyleSheet() {
       /* Dark Theme Card Overrides */
       :is(.dark .gallery-item) {
         border-color: rgba(255, 255, 255, 0.12);
-        box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 35px -10px rgba(0, 194, 255, 0.15);
+        box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 35px -10px rgba(37, 99, 235, 0.15);
       }
 
       .gallery-item:hover {

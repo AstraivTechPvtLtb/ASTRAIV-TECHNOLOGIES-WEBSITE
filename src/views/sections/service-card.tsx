@@ -24,7 +24,7 @@ export function ServiceCard({
   badge,
 }: ServiceCardProps) {
   return (
-    <Card className="group relative overflow-hidden bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-cyan-400/40 select-none h-full flex flex-col justify-between rounded-[22px] shadow-xs hover:shadow-[0_16px_36px_-10px_rgba(11,61,145,0.12)] dark:hover:shadow-[0_16px_36px_-10px_rgba(0,194,255,0.12)] transition-all duration-300 transform-gpu hover:-translate-y-1.5">
+    <Card className="group relative overflow-hidden bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-blue-400/40 select-none h-full flex flex-col justify-between rounded-[22px] shadow-xs hover:shadow-[0_16px_36px_-10px_rgba(11,61,145,0.12)] dark:hover:shadow-[0_16px_36px_-10px_rgba(37, 99, 235,0.12)] transition-all duration-300 transform-gpu hover:-translate-y-1.5">
       {/* Visual Image Header with zoom & gradient blend */}
       <div className="relative w-full h-44 sm:h-48 overflow-hidden bg-slate-950/20">
         <Image
@@ -39,19 +39,19 @@ export function ServiceCard({
         
         {/* Floating Category Badge */}
         {badge && (
-          <span className="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider bg-slate-950/70 text-cyan-300 backdrop-blur-md rounded-full border border-cyan-400/30">
+          <span className="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider bg-slate-950/70 text-blue-300 backdrop-blur-md rounded-full border border-blue-400/30">
             {badge}
           </span>
         )}
 
         {/* Floating Icon Pod */}
-        <div className="absolute bottom-3 right-4 h-10 w-10 flex items-center justify-center rounded-xl bg-card/90 dark:bg-slate-800/90 text-primary dark:text-cyan-400 border border-border/60 dark:border-slate-700/60 shadow-sm group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all duration-300">
+        <div className="absolute bottom-3 right-4 h-10 w-10 flex items-center justify-center rounded-xl bg-card/90 dark:bg-slate-800/90 text-primary dark:text-blue-400 border border-border/60 dark:border-slate-700/60 shadow-sm group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all duration-300">
           {icon}
         </div>
       </div>
 
       <CardHeader className="relative z-10 p-5 sm:p-6 pb-2 flex-none">
-        <CardTitle className="text-lg sm:text-xl font-extrabold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-cyan-300 transition-colors">
+        <CardTitle className="text-lg sm:text-xl font-extrabold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
           {title}
         </CardTitle>
       </CardHeader>
@@ -63,7 +63,7 @@ export function ServiceCard({
 
         <Link
           href={href}
-          className="inline-flex items-center text-xs font-bold text-primary dark:text-cyan-400 group-hover:text-primary/80 dark:group-hover:text-cyan-300 transition-colors mt-5 pt-3 border-t border-border/40 dark:border-slate-800/60 w-full justify-between"
+          className="inline-flex items-center text-xs font-bold text-primary dark:text-blue-400 group-hover:text-primary/80 dark:group-hover:text-blue-300 transition-colors mt-5 pt-3 border-t border-border/40 dark:border-slate-800/60 w-full justify-between"
         >
           <span>Explore Service</span>
           <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />

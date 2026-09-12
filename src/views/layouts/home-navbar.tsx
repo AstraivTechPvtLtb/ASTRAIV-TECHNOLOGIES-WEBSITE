@@ -111,7 +111,7 @@ export function HomeNavbar() {
               <a
                 key={link.label}
                 href={link.href}
-                className="px-3.5 py-1.5 text-xs lg:text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-cyan-400 rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/60 transition-all duration-200 select-none"
+                className="px-3.5 py-1.5 text-xs lg:text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400 rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/60 transition-all duration-200 select-none"
               >
                 {link.label}
               </a>
@@ -129,7 +129,7 @@ export function HomeNavbar() {
                 title="Theme selection is temporarily locked to Dark mode"
                 className="h-9 w-9 rounded-full flex items-center justify-center text-slate-400 bg-slate-100 dark:bg-slate-800/80 border border-border/60 dark:border-slate-700/60 opacity-60 cursor-not-allowed"
               >
-                <Moon className="h-4 w-4 text-cyan-400" />
+                <Moon className="h-4 w-4 text-blue-400" />
               </button>
             )}
 
@@ -153,7 +153,7 @@ export function HomeNavbar() {
                 title="Theme selection is temporarily locked to Dark mode"
                 className="h-8 w-8 rounded-full flex items-center justify-center text-slate-400 bg-slate-100 dark:bg-slate-800 border border-border/60 opacity-60 cursor-not-allowed"
               >
-                <Moon className="h-3.5 w-3.5 text-cyan-400" />
+                <Moon className="h-3.5 w-3.5 text-blue-400" />
               </button>
             )}
 
@@ -190,7 +190,7 @@ export function HomeNavbar() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.05, duration: 0.3 }}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between px-4 py-3.5 text-base font-semibold text-foreground hover:text-primary dark:hover:text-cyan-400 rounded-xl hover:bg-muted/50 border border-transparent hover:border-border/40 transition-all"
+                  className="flex items-center justify-between px-4 py-3.5 text-base font-semibold text-foreground hover:text-primary dark:hover:text-blue-400 rounded-xl hover:bg-muted/50 border border-transparent hover:border-border/40 transition-all"
                 >
                   <span>{link.label}</span>
                   <ArrowRight className="h-4 w-4 opacity-50" />
