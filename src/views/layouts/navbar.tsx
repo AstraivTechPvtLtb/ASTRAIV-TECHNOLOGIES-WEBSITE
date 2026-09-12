@@ -361,7 +361,7 @@ export function Navbar() {
             className="rounded-full object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/15 group-hover:ring-primary/40"
           />
           <div className="flex flex-col items-start leading-tight">
-            <span className="font-heading font-extrabold text-[19px] tracking-wider bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent pb-0.5">
+            <span className="font-heading font-extrabold text-[19px] tracking-wider bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#00F0FF] dark:via-[#38BDF8] dark:to-[#818CF8] bg-clip-text text-transparent pb-0.5">
               ASTRAIV
             </span>
             <span className="text-[7.5px] uppercase tracking-[0.28em] font-black text-black dark:text-white dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.85)]">
