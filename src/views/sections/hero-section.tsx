@@ -142,7 +142,7 @@ export function HeroSection({
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 max-w-5xl xl:max-w-6xl mx-auto flex flex-col items-center text-center px-2"
+        className="relative z-10 w-full max-w-6xl xl:max-w-7xl mx-auto flex flex-col items-center text-center px-4"
       >
         {/* 1. Animated Badge */}
         {badgeText && (
@@ -159,7 +159,7 @@ export function HeroSection({
         {/* 2. Large Premium Headline */}
         <motion.h1
           variants={itemVariants}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[64px] font-display font-extrabold tracking-tight md:tracking-[-0.02em] text-foreground leading-[1.16] max-w-5xl xl:max-w-6xl text-center mb-4 md:mb-5"
+          className="text-2xl sm:text-[30px] md:text-4xl lg:text-[46px] xl:text-[52px] 2xl:text-[58px] font-display font-extrabold tracking-tight md:tracking-[-0.02em] text-foreground leading-[1.2] w-full text-center mb-4 md:mb-5 whitespace-normal sm:whitespace-nowrap"
         >
           {(() => {
             let charCounter = 0;
