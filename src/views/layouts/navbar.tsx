@@ -199,7 +199,7 @@ export function Navbar() {
 
     if (config.type === 'mega-3col') {
       return (
-        <div className="w-[880px] lg:w-[940px] rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl p-6 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] grid grid-cols-12 gap-6">
+        <div className="w-[880px] lg:w-[940px] rounded-2xl border border-slate-200/90 dark:border-white/10 bg-white/95 dark:bg-[#0D1320]/95 backdrop-blur-2xl p-6 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] grid grid-cols-12 gap-6">
           {/* Main 3 Columns */}
           <div className="col-span-8 lg:col-span-9 grid grid-cols-3 gap-5">
             {config.groups?.map((group) => (
@@ -213,7 +213,7 @@ export function Navbar() {
                       key={sub.name}
                       href={sub.href}
                       onClick={() => setActiveDropdown(null)}
-                      className="group/item flex flex-col p-2 rounded-lg hover:bg-slate-100/90 dark:hover:bg-slate-900/80 transition-all duration-150"
+                      className="group/item flex flex-col p-2 rounded-lg hover:bg-slate-100/90 dark:hover:bg-[#172033]/80 transition-all duration-150"
                     >
                       <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 group-hover/item:text-primary dark:group-hover/item:text-accent transition-colors flex items-center justify-between">
                         <span>{sub.name}</span>
@@ -305,13 +305,13 @@ export function Navbar() {
     // Standard Curated Dropdown (Insights, Company)
     if (config.type === 'dropdown') {
       return (
-        <div className="w-72 rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-white dark:bg-slate-950 backdrop-blur-2xl p-2 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col gap-1">
+        <div className="w-72 rounded-xl border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#0D1320] backdrop-blur-2xl p-2 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col gap-1">
           {config.items?.map((sub) => (
             <Link
               key={sub.name}
               href={sub.href}
               onClick={() => setActiveDropdown(null)}
-              className="group/drop px-3 py-2.5 rounded-lg hover:bg-slate-100/90 dark:hover:bg-slate-900/80 transition-colors flex flex-col"
+              className="group/drop px-3 py-2.5 rounded-lg hover:bg-slate-100/90 dark:hover:bg-[#172033]/80 transition-colors flex flex-col"
             >
               <span className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover/drop:text-primary dark:group-hover/drop:text-accent transition-colors flex items-center justify-between">
                 <span>{sub.name}</span>
@@ -337,8 +337,8 @@ export function Navbar() {
       className={cn(
         'fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b backdrop-blur-2xl py-0',
         scrolled
-          ? 'bg-slate-100/85 dark:bg-slate-950/90 border-slate-200 dark:border-slate-800 shadow-md dark:shadow-[0_10px_30px_-10px_rgba(91,95,239,0.25)]'
-          : 'bg-slate-100/55 dark:bg-slate-950/50 border-slate-200/80 dark:border-slate-800/60 shadow-xs'
+          ? 'bg-slate-100/85 dark:bg-[#080C14]/90 border-slate-200 dark:border-white/10 shadow-md dark:shadow-[0_10px_30px_-10px_rgba(0,240,255,0.1)]'
+          : 'bg-slate-100/55 dark:bg-[#080C14]/60 border-slate-200/80 dark:border-white/5 shadow-xs'
       )}
       onMouseLeave={handleNavMouseLeave}
     >
@@ -520,7 +520,7 @@ export function Navbar() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -2, scale: 0.98 }}
                   transition={{ duration: 0.15, ease: 'easeOut' }}
-                  className="absolute right-0 top-full w-52 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 backdrop-blur-xl p-2 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)] z-50 text-xs flex flex-col gap-1"
+                  className="absolute right-0 top-full w-52 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0D1320] backdrop-blur-xl p-2 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)] z-50 text-xs flex flex-col gap-1"
                 >
                   {/* Language Selector Header */}
                   <button
@@ -692,7 +692,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: 'calc(100vh - 4.5rem)' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="lg:hidden absolute top-full left-0 w-full bg-white/98 dark:bg-slate-950/98 backdrop-blur-2xl border-b border-slate-200 dark:border-slate-800 shadow-2xl overflow-y-auto px-6 py-6 flex flex-col justify-between"
+            className="lg:hidden absolute top-full left-0 w-full bg-white/98 dark:bg-[#080C14]/98 backdrop-blur-2xl border-b border-slate-200 dark:border-white/10 shadow-2xl overflow-y-auto px-6 py-6 flex flex-col justify-between"
           >
             <div className="flex flex-col gap-1 divide-y divide-slate-100 dark:divide-slate-800/80">
               {NAV_ITEMS.map((item) => {

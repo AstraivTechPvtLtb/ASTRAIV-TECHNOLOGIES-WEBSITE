@@ -39,7 +39,7 @@ export async function Footer() {
   ];
 
   return (
-    <footer className="relative z-30 bg-slate-950 text-slate-100 border-t border-slate-900 py-16 px-6">
+    <footer className="relative z-30 bg-[#080C14] text-[#F8FAFC] border-t border-white/10 py-16 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.9fr_0.9fr_0.9fr_1.5fr] gap-8 lg:gap-8 xl:gap-10 items-start text-left">
         {/* Brand details and dynamic social icons (Left Column) */}
         <div className="flex flex-col gap-4 text-left">
@@ -54,7 +54,7 @@ export async function Footer() {
             />
           </Link>
 
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#94A3B8] leading-relaxed">
             {footerData.brandTagline}
           </p>
 
@@ -66,7 +66,7 @@ export async function Footer() {
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="h-8 w-8 rounded-lg bg-slate-900 border border-slate-800 hover:border-accent hover:text-accent text-slate-400 flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-xs"
+                className="h-8 w-8 rounded-lg bg-[#111827] border border-[#1E293B] hover:border-accent hover:text-accent text-[#94A3B8] flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-xs"
                 aria-label={social.name}
                 title={social.name}
               >
@@ -160,7 +160,7 @@ export async function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="max-w-7xl mx-auto mt-14 pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div className="max-w-7xl mx-auto mt-14 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
         <p>
           &copy; {currentYear} {footerData.copyrightText}
         </p>

@@ -61,7 +61,7 @@ export function CircuitBackground() {
     const isDark = resolvedTheme === 'dark';
 
     // Theme-optimized color palette
-    const primaryColor = isDark ? '#6366F1' : '#4F46E5'; // Astraiv Indigo / Violet
+    const primaryColor = isDark ? '#3B82F6' : '#4F46E5'; // Supporting Tech Blue (Dark) / Tech Indigo (Light)
     const accentColor = isDark ? '#00F0FF' : '#0284C7';  // Electric Cyan (Dark) / Tech Sapphire Blue (Light)
 
     // Fit canvas to parent container with High-DPI support
