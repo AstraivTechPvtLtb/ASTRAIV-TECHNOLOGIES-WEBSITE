@@ -599,43 +599,41 @@ export function Navbar() {
 
                   <div className="border-t border-slate-200 dark:border-slate-800 my-1" />
 
-                  {/* Theme Toggle Slider Section */}
+                  {/* Theme Toggle Slider Section - TEMPORARILY DISABLED: Locked to Dark mode */}
                   <div
                     onClick={(e) => {
                       e.stopPropagation();
-                      setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
+                      // Temporarily disabled: Theme switching locked to Dark mode
+                      // To re-enable: setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
                     }}
-                    className="w-full text-left px-3 py-2 rounded-md font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors flex items-center justify-between cursor-pointer text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs select-none group"
+                    className="w-full text-left px-3 py-2 rounded-md font-semibold flex items-center justify-between cursor-not-allowed opacity-60 text-slate-700 dark:text-slate-300 text-xs select-none group"
                     role="button"
-                    tabIndex={0}
-                    aria-label="Toggle theme"
+                    tabIndex={-1}
+                    aria-label="Theme toggle (disabled)"
+                    aria-disabled="true"
+                    title="Theme selection is temporarily locked to Dark mode"
                   >
                     <div className="flex items-center gap-1.5">
                       <span>Theme</span>
                       <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">
-                        {mounted ? (resolvedTheme === 'dark' ? 'Dark' : 'Light') : ''}
+                        Dark
                       </span>
                     </div>
 
                     {/* Smooth sliding toggle button */}
                     <div
-                      className={cn(
-                        'relative w-10 h-5.5 rounded-full p-0.5 transition-colors duration-300 flex items-center border cursor-pointer',
-                        mounted && resolvedTheme === 'dark'
-                          ? 'bg-slate-800/90 border-slate-700 shadow-inner'
-                          : 'bg-slate-200/90 border-slate-300 shadow-inner'
-                      )}
+                      className="relative w-10 h-5.5 rounded-full p-0.5 transition-colors duration-300 flex items-center border cursor-not-allowed bg-slate-800/90 border-slate-700 shadow-inner"
                     >
                       <div className="absolute inset-0 flex items-center justify-between px-1 pointer-events-none">
-                        <Sun className="h-2.5 w-2.5 text-amber-500/50" />
-                        <Moon className="h-2.5 w-2.5 text-cyan-400/50" />
+                        <Sun className="h-2.5 w-2.5 text-amber-500/40" />
+                        <Moon className="h-2.5 w-2.5 text-cyan-400/80" />
                       </div>
 
                       <motion.div
                         initial={false}
                         className="relative z-10 w-4.5 h-4.5 rounded-full bg-white dark:bg-slate-950 shadow-xs flex items-center justify-center border border-slate-200/80 dark:border-cyan-500/40"
                         animate={{
-                          x: mounted && resolvedTheme === 'dark' ? 18 : 0,
+                          x: 18,
                         }}
                         transition={{
                           type: 'spring',
@@ -643,12 +641,7 @@ export function Navbar() {
                           damping: 32,
                         }}
                       >
-                        {mounted &&
-                          (resolvedTheme === 'dark' ? (
-                            <Moon className="h-2.5 w-2.5 text-cyan-400" />
-                          ) : (
-                            <Sun className="h-2.5 w-2.5 text-amber-500" />
-                          ))}
+                        <Moon className="h-2.5 w-2.5 text-cyan-400" />
                       </motion.div>
                     </div>
                   </div>
@@ -669,18 +662,16 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Menu Trigger & Theme Quick Switch */}
+        {/* Mobile Menu Trigger & Theme Quick Switch - TEMPORARILY DISABLED: Locked to Dark mode */}
         <div className="flex lg:hidden items-center gap-2">
           <button
-            onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-            className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-colors"
-            aria-label="Toggle Theme"
+            disabled
+            aria-disabled="true"
+            aria-label="Theme toggle (disabled)"
+            title="Theme selection is temporarily locked to Dark mode"
+            className="p-2 rounded-lg text-slate-400 dark:text-slate-400 opacity-60 cursor-not-allowed transition-colors"
           >
-            {mounted && resolvedTheme === 'dark' ? (
-              <Sun className="h-5 w-5 text-amber-400" />
-            ) : (
-              <Moon className="h-5 w-5 text-slate-700" />
-            )}
+            <Moon className="h-5 w-5 text-cyan-400" />
           </button>
           <button
             onClick={() => setIsOpen(!isOpen)}
