@@ -64,12 +64,12 @@ export function CircuitBackground() {
     const primaryColor = isDark ? '#3B82F6' : '#4F46E5'; // Supporting Tech Blue (Dark) / Tech Indigo (Light)
     const accentColor = isDark ? '#2563EB' : '#0284C7';  // Royal Blue (Dark) / Tech Sapphire Blue (Light)
 
-    // Fit canvas to parent container with High-DPI support
+    // Fit canvas to parent hero section with High-DPI support
     const resizeCanvas = () => {
-      const parent = canvas.parentElement;
+      const heroEl = canvas.closest('section') || canvas.parentElement;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const width = parent?.clientWidth || window.innerWidth;
-      const height = parent?.clientHeight || window.innerHeight;
+      const width = heroEl?.clientWidth || window.innerWidth;
+      const height = heroEl?.clientHeight || window.innerHeight;
 
       canvas.width = width * dpr;
       canvas.height = height * dpr;
@@ -179,9 +179,12 @@ export function CircuitBackground() {
     observer.observe(canvas);
 
     // Handle mouse events strictly within the hero bounds
+    const heroSection = canvas.closest('section') || canvas.parentElement;
+
     const handleMouseMove = (e: MouseEvent) => {
       if (!isVisible) return;
-      const rect = canvas.getBoundingClientRect();
+      const heroEl = canvas.closest('section') || canvas.parentElement || canvas;
+      const rect = heroEl.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       
@@ -224,8 +227,6 @@ export function CircuitBackground() {
       setIsHovered(false);
     };
 
-    const parent = canvas.parentElement;
-
     // Check media queries
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
@@ -234,9 +235,9 @@ export function CircuitBackground() {
     window.addEventListener('resize', resizeCanvas, { passive: true });
     if (!isTouchDevice && !prefersReducedMotion) {
       window.addEventListener('mousemove', handleMouseMove, { passive: true });
-      if (parent) {
-        parent.addEventListener('mouseenter', handleMouseEnter);
-        parent.addEventListener('mouseleave', handleMouseLeave);
+      if (heroSection) {
+        heroSection.addEventListener('mouseenter', handleMouseEnter);
+        heroSection.addEventListener('mouseleave', handleMouseLeave);
       }
     }
 
@@ -269,8 +270,9 @@ export function CircuitBackground() {
       if (dt > 0.1) dt = 0.1;
       if (dt <= 0) dt = 0.016;
 
-      const parentWidth = canvas.parentElement?.clientWidth || window.innerWidth;
-      const parentHeight = canvas.parentElement?.clientHeight || window.innerHeight;
+      const heroEl = canvas.closest('section') || canvas.parentElement;
+      const parentWidth = heroEl?.clientWidth || window.innerWidth;
+      const parentHeight = heroEl?.clientHeight || window.innerHeight;
       ctx.clearRect(0, 0, parentWidth, parentHeight);
 
       // Update physics for mouse positioning using spring physics
@@ -441,9 +443,9 @@ export function CircuitBackground() {
       clearInterval(idlePulseInterval);
       window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('mousemove', handleMouseMove);
-      if (parent) {
-        parent.removeEventListener('mouseenter', handleMouseEnter);
-        parent.removeEventListener('mouseleave', handleMouseLeave);
+      if (heroSection) {
+        heroSection.removeEventListener('mouseenter', handleMouseEnter);
+        heroSection.removeEventListener('mouseleave', handleMouseLeave);
       }
     };
   }, [mounted, resolvedTheme]);
