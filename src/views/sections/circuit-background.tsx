@@ -35,13 +35,6 @@ export function CircuitBackground() {
   const lastSpawnRef = useRef({ x: -9999, y: -9999 });
   const pathIdCounter = useRef(0);
 
-  // Physics simulation refs
-  const interpX = useRef(-9999);
-  const interpY = useRef(-9999);
-  const springX = useRef(-9999);
-  const springY = useRef(-9999);
-  const vx = useRef(0);
-  const vy = useRef(0);
 
   useEffect(() => {
     setMounted(true);
@@ -140,13 +133,9 @@ export function CircuitBackground() {
       });
     };
 
-    const stiffness = 150;
-    const damping = 22;
-    const maxOffset = 30; // Clamp parallax movement to 30px
-    const followSpeed = 0.1; // Smooth follow amount: 0.1
-
     let isVisible = true;
     let isLoopRunning = false;
+    let lastTime: number | null = null;
 
     const startAnimationLoop = () => {
       if (!isLoopRunning && isVisible) {
@@ -178,6 +167,17 @@ export function CircuitBackground() {
 
     observer.observe(canvas);
 
+    // Check media queries
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+
+    // Direct listener on canvas to capture exact 3D-unprojected offsetX and offsetY
+    const handleCanvasMouseMove = (e: MouseEvent) => {
+      mouseRef.current.x = e.offsetX;
+      mouseRef.current.y = e.offsetY;
+    };
+    canvas.addEventListener('mousemove', handleCanvasMouseMove);
+
     // Handle mouse events strictly within the hero bounds
     const heroSection = canvas.closest('section') || canvas.parentElement;
 
@@ -185,32 +185,47 @@ export function CircuitBackground() {
       if (!isVisible) return;
       const heroEl = canvas.closest('section') || canvas.parentElement || canvas;
       const rect = heroEl.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const isInside = x >= 0 && x <= rect.width && y >= 0 && y <= rect.height;
-      
+      const isInside =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
+
       if (isInside) {
-        if (!mouseRef.current.isHovering) {
-          // Initialize spring position to avoid abrupt jump from -9999
-          if (mouseRef.current.x === -9999) {
-            interpX.current = x;
-            interpY.current = y;
-            springX.current = x;
-            springY.current = y;
-            vx.current = 0;
-            vy.current = 0;
-            lastSpawnRef.current = { x, y };
-          }
+        // Query exact 3D unprojected canvas coordinates from browser layout engine
+        canvas.dispatchEvent(
+          new MouseEvent('mousemove', {
+            clientX: e.clientX,
+            clientY: e.clientY,
+            bubbles: false,
+          })
+        );
+
+        const currentX = mouseRef.current.x;
+        const currentY = mouseRef.current.y;
+
+        if (!mouseRef.current.isHovering || lastSpawnRef.current.x === -9999) {
+          mouseRef.current.isHovering = true;
           setIsHovered(true);
+          lastSpawnRef.current = { x: currentX, y: currentY };
+          spawnPath(currentX, currentY);
+        } else {
+          const distFromLast = Math.hypot(
+            currentX - lastSpawnRef.current.x,
+            currentY - lastSpawnRef.current.y
+          );
+          if (distFromLast > 18) {
+            spawnPath(currentX, currentY);
+            lastSpawnRef.current = { x: currentX, y: currentY };
+          }
         }
-        mouseRef.current.x = x;
-        mouseRef.current.y = y;
-        mouseRef.current.isHovering = true;
         startAnimationLoop();
       } else {
         if (mouseRef.current.isHovering) {
           mouseRef.current.isHovering = false;
+          mouseRef.current.x = -9999;
+          mouseRef.current.y = -9999;
+          lastSpawnRef.current = { x: -9999, y: -9999 };
           setIsHovered(false);
         }
       }
@@ -224,12 +239,11 @@ export function CircuitBackground() {
 
     const handleMouseLeave = () => {
       mouseRef.current.isHovering = false;
+      mouseRef.current.x = -9999;
+      mouseRef.current.y = -9999;
+      lastSpawnRef.current = { x: -9999, y: -9999 };
       setIsHovered(false);
     };
-
-    // Check media queries
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas, { passive: true });
@@ -243,19 +257,23 @@ export function CircuitBackground() {
 
     // Periodically pulse a background path at the cursor if the user is hovering
     const idlePulseInterval = setInterval(() => {
-      if (isVisible && mouseRef.current.isHovering && springX.current !== -9999 && !prefersReducedMotion) {
-        spawnPath(springX.current, springY.current);
+      if (
+        isVisible &&
+        mouseRef.current.isHovering &&
+        mouseRef.current.x !== -9999 &&
+        !prefersReducedMotion
+      ) {
+        spawnPath(mouseRef.current.x, mouseRef.current.y);
         if (Math.random() > 0.6) {
-          spawnPath(springX.current, springY.current);
+          spawnPath(mouseRef.current.x, mouseRef.current.y);
         }
         startAnimationLoop();
       }
     }, 280);
 
-    let lastTime: number | null = null;
     // Animation Loop
-    const animate = (timestamp: number) => {
-      if (!isVisible) {
+    function animate(timestamp: number) {
+      if (!canvas || !ctx || !isVisible) {
         isLoopRunning = false;
         return;
       }
@@ -274,57 +292,6 @@ export function CircuitBackground() {
       const parentWidth = heroEl?.clientWidth || window.innerWidth;
       const parentHeight = heroEl?.clientHeight || window.innerHeight;
       ctx.clearRect(0, 0, parentWidth, parentHeight);
-
-      // Update physics for mouse positioning using spring physics
-      const targetX = mouseRef.current.x;
-      const targetY = mouseRef.current.y;
-
-      if (targetX !== -9999 && targetY !== -9999) {
-        // 1. Target interpolation with smooth follow amount 0.1
-        interpX.current += (targetX - interpX.current) * followSpeed;
-        interpY.current += (targetY - interpY.current) * followSpeed;
-
-        // 2. Spring-based physics: stiffness 150, damping 22
-        const ax = stiffness * (interpX.current - springX.current) - damping * vx.current;
-        const ay = stiffness * (interpY.current - springY.current) - damping * vy.current;
-
-        vx.current += ax * dt;
-        vy.current += ay * dt;
-
-        springX.current += vx.current * dt;
-        springY.current += vy.current * dt;
-
-        // 3. Maximum parallax movement clamp to 30px
-        const dx = springX.current - targetX;
-        const dy = springY.current - targetY;
-        const dist = Math.hypot(dx, dy);
-
-        if (dist > maxOffset) {
-          springX.current = targetX + (dx / dist) * maxOffset;
-          springY.current = targetY + (dy / dist) * maxOffset;
-        }
-
-        // 4. Smooth settling check (rest delta)
-        const restDelta = 0.001;
-        if (
-          Math.hypot(interpX.current - springX.current, interpY.current - springY.current) < restDelta &&
-          Math.hypot(vx.current, vy.current) < restDelta
-        ) {
-          springX.current = interpX.current;
-          springY.current = interpY.current;
-          vx.current = 0;
-          vy.current = 0;
-        }
-
-        // 5. Spawn paths with subtle momentum preserved
-        if (mouseRef.current.isHovering) {
-          const distFromLast = Math.hypot(springX.current - lastSpawnRef.current.x, springY.current - lastSpawnRef.current.y);
-          if (distFromLast > 18) {
-            spawnPath(springX.current, springY.current);
-            lastSpawnRef.current = { x: springX.current, y: springY.current };
-          }
-        }
-      }
 
       // Update and draw active traces with organic momentum
       activePaths.forEach((path) => {
@@ -441,6 +408,7 @@ export function CircuitBackground() {
       stopAnimationLoop();
       observer.disconnect();
       clearInterval(idlePulseInterval);
+      canvas.removeEventListener('mousemove', handleCanvasMouseMove);
       window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('mousemove', handleMouseMove);
       if (heroSection) {
