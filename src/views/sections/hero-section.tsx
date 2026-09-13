@@ -146,7 +146,7 @@ export function HeroSection({
     <section
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative flex flex-col items-center justify-center min-h-[88vh] sm:min-h-[90vh] lg:min-h-[92vh] pt-28 pb-16 sm:pt-36 sm:pb-20 md:pt-40 md:pb-24 lg:pt-44 lg:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-background border-b border-border/40"
+      className="relative flex flex-col items-center justify-center min-h-[88vh] sm:min-h-[90vh] lg:min-h-[92vh] overflow-hidden bg-background border-b border-border/40"
       style={{
         isolation: 'isolate',
         perspective: '1200px',
@@ -155,7 +155,7 @@ export function HeroSection({
     >
       {/* 3D Preserved Perspective Stage: tilts smoothly with mouse movement to reveal dramatic depth */}
       <motion.div
-        className="relative w-full h-full flex flex-col items-center justify-center pointer-events-auto"
+        className="relative w-full min-h-[88vh] sm:min-h-[90vh] lg:min-h-[92vh] flex flex-col items-center justify-center pt-28 pb-16 sm:pt-36 sm:pb-20 md:pt-40 md:pb-24 lg:pt-44 lg:pb-28 px-4 sm:px-6 lg:px-8 pointer-events-auto"
         style={{
           transformStyle: 'preserve-3d',
           rotateX: shouldReduceMotion ? 0 : rotateX,
