@@ -4,6 +4,7 @@
  */
 
 import { db } from '@/models/db';
+import { isSupabaseConfigured, createClient as createSupabaseClient } from '@/lib/supabase/server';
 
 export interface BlogCategory {
   id: string;
@@ -164,6 +165,7 @@ export const FALLBACK_BLOG_POSTS: BlogPost[] = [
  * Fetch all published blog posts with fallback safety for production
  */
 export async function getBlogPosts(): Promise<BlogPost[]> {
+  // 1. Primary: PostgreSQL / Prisma DB
   try {
     const posts = await db.blogPost.findMany({
       where: { published: true },
@@ -179,11 +181,47 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       orderBy: { createdAt: 'desc' },
     });
 
-    if (posts && posts.length > 0) {
-      return posts as unknown as BlogPost[];
-    }
+    // If query succeeded, return database posts directly (including empty array if all hidden)
+    return posts as unknown as BlogPost[];
   } catch (error) {
-    console.warn('⚠️ Database query for blog posts failed or DB is offline. Using fallback posts.', error);
+    console.warn('⚠️ Database query for blog posts failed or DB is offline. Checking fallback.', error);
+  }
+
+  // 2. Secondary: Supabase client fallback
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = await createSupabaseClient();
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('*')
+        .eq('status', 'published')
+        .order('created_at', { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        return data.map((p) => ({
+          id: p.id,
+          title: p.title,
+          slug: p.slug,
+          summary: p.excerpt || p.title,
+          content: p.content,
+          published: true,
+          featuredImage: p.cover_image || null,
+          createdAt: p.created_at || new Date().toISOString(),
+          categoryId: p.category || 'tech',
+          category: {
+            id: p.category || 'tech',
+            name: p.category || 'Engineering',
+            slug: (p.category || 'tech').toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+          },
+          author: {
+            name: p.author || 'AstraIV Engineering Team',
+            image: null,
+          },
+        }));
+      }
+    } catch (supaErr) {
+      console.warn('[Client Supabase Blog Notice]:', supaErr);
+    }
   }
 
   return FALLBACK_BLOG_POSTS;
@@ -212,6 +250,7 @@ export async function getBlogCategories(): Promise<BlogCategory[]> {
  * Fetch a single blog post by slug with fallback safety
  */
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+  let dbError = false;
   try {
     const post = await db.blogPost.findFirst({
       where: { slug, published: true },
@@ -229,12 +268,58 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
     if (post) {
       return post as unknown as BlogPost;
     }
+    // If query succeeded and returned null, article doesn't exist or is unpublished/hidden
+    return null;
   } catch (error) {
+    dbError = true;
     console.warn(`⚠️ Database query for blog post slug "${slug}" failed. Checking fallback posts.`, error);
   }
 
-  const fallback = FALLBACK_BLOG_POSTS.find((p) => p.slug === slug);
-  return fallback || null;
+  // Fallback to Supabase if DB errored
+  if (dbError && isSupabaseConfigured()) {
+    try {
+      const supabase = await createSupabaseClient();
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('*')
+        .eq('slug', slug)
+        .eq('status', 'published')
+        .single();
+
+      if (!error && data) {
+        return {
+          id: data.id,
+          title: data.title,
+          slug: data.slug,
+          summary: data.excerpt || data.title,
+          content: data.content,
+          published: true,
+          featuredImage: data.cover_image || null,
+          createdAt: data.created_at || new Date().toISOString(),
+          categoryId: data.category || 'tech',
+          category: {
+            id: data.category || 'tech',
+            name: data.category || 'Engineering',
+            slug: (data.category || 'tech').toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+          },
+          author: {
+            name: data.author || 'AstraIV Engineering Team',
+            image: null,
+          },
+        };
+      }
+    } catch (supaErr) {
+      console.warn('[Client Supabase Single Post Notice]:', supaErr);
+    }
+  }
+
+  // Only fall back to mock posts if DB is offline
+  if (dbError) {
+    const fallback = FALLBACK_BLOG_POSTS.find((p) => p.slug === slug);
+    return fallback || null;
+  }
+
+  return null;
 }
 
 /**

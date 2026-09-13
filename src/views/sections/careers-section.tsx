@@ -106,7 +106,7 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
                   All active positions are currently filled. However, we are always eager to meet exceptional engineering talent. Send us your portfolio!
                 </p>
                 <Link
-                  href="/contact"
+                  href={`/contact?role=${encodeURIComponent('General Engineering Application')}`}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 mt-2 transition-all shadow-xs"
                 >
                   <span>Connect with Engineering</span>
@@ -152,7 +152,7 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
                   </div>
 
                   <Link
-                    href="/contact"
+                    href={`/contact?role=${encodeURIComponent(role.title)}`}
                     className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs bg-primary hover:bg-primary/90 text-primary-foreground shadow-xs hover:shadow-md transition-all duration-200 shrink-0 select-none active:scale-95 group/btn"
                   >
                     <span>Apply for Role</span>
