@@ -16,10 +16,14 @@ export interface ContactFormInput {
   email: string;
   phone?: string;
   company?: string;
-  service: string;
+  service?: string;
   budget?: string;
-  message: string;
+  message?: string;
   source?: string;
+  role?: string;
+  resumeName?: string;
+  resumeUrl?: string;
+  resumeData?: string;
 }
 
 /**

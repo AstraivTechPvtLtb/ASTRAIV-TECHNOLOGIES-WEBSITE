@@ -1,6 +1,7 @@
 'use client';
 
-import { Mail, Phone, MapPin, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Suspense } from 'react';
+import { Mail, Phone, MapPin, ArrowRight, ShieldCheck, Loader2 } from 'lucide-react';
 import { ContactForm } from './contact-form';
 import { motion } from 'framer-motion';
 import { Link } from '@/i18n/routing';
@@ -124,7 +125,15 @@ export function ContactSection() {
         {/* Right Column: Interactive Contact Form */}
         <motion.div id="contact-form-box" variants={itemVariants} className="lg:col-span-6 relative w-full">
           <div className="absolute inset-0 bg-primary/10 dark:bg-blue-600/10 rounded-3xl blur-2xl pointer-events-none" />
-          <ContactForm />
+          <Suspense
+            fallback={
+              <div className="w-full max-w-xl mx-auto p-12 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-slate-900/40 backdrop-blur-md flex items-center justify-center min-h-[450px]">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              </div>
+            }
+          >
+            <ContactForm />
+          </Suspense>
         </motion.div>
       </motion.div>
     </section>
