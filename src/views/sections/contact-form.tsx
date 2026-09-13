@@ -92,7 +92,7 @@ export function ContactForm() {
           <div>
             <label className="block text-[10px] font-bold text-foreground/80 mb-1.5 uppercase tracking-wider">Full Name</label>
             <Input 
-              placeholder="John Doe" 
+              placeholder="Enter Your Name" 
               {...register('name')} 
               className={cn(
                 "h-11 px-3.5 bg-slate-100/30 hover:bg-slate-100/50 focus:bg-white dark:bg-slate-950/20 dark:hover:bg-slate-950/40 dark:focus:bg-slate-950/80 text-foreground transition-all duration-200 border-border/50 dark:border-border/30",
@@ -106,7 +106,7 @@ export function ContactForm() {
             <label className="block text-[10px] font-bold text-foreground/80 mb-1.5 uppercase tracking-wider">Email Address</label>
             <Input 
               type="email" 
-              placeholder="john@example.com" 
+              placeholder="Enter your Email Address" 
               {...register('email')} 
               className={cn(
                 "h-11 px-3.5 bg-slate-100/30 hover:bg-slate-100/50 focus:bg-white dark:bg-slate-950/20 dark:hover:bg-slate-950/40 dark:focus:bg-slate-950/80 text-foreground transition-all duration-200 border-border/50 dark:border-border/30",
@@ -127,6 +127,7 @@ export function ContactForm() {
                 <CountryPhoneInput
                   value={field.value}
                   onChange={field.onChange}
+                  placeholder="0000000000"
                 />
               )}
             />
@@ -135,7 +136,6 @@ export function ContactForm() {
           <div>
             <label className="block text-[10px] font-bold text-foreground/80 mb-1.5 uppercase tracking-wider">Company (Optional)</label>
             <Input 
-              placeholder="Acme Corp" 
               {...register('company')} 
               className="h-11 px-3.5 bg-slate-100/30 hover:bg-slate-100/50 focus:bg-white dark:bg-slate-950/20 dark:hover:bg-slate-950/40 dark:focus:bg-slate-950/80 text-foreground transition-all duration-200 border-border/50 dark:border-border/30"
             />
