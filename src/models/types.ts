@@ -325,3 +325,22 @@ export const DEFAULT_PRICING_PLANS: PublicPricingPlan[] = [
     orderIndex: 3,
   },
 ];
+
+/**
+ * ISO Compliance & Performance Metrics Configuration
+ */
+export interface PublicComplianceSettings {
+  id?: string;
+  isoNumber: string;
+  isoLabel: string;
+  showIsoBadge: boolean;
+  showIsoSection: boolean;
+  uptimeValue: string;
+  uptimeLabel: string;
+  savingsValue: string;
+  savingsLabel: string;
+  actionsValue: string;
+  actionsLabel: string;
+  slaValue: string;
+  slaLabel: string;
+}

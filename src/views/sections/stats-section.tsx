@@ -3,6 +3,41 @@
 import { useEffect, useRef } from 'react';
 import { motion, useInView, useMotionValue, useSpring, useReducedMotion } from 'framer-motion';
 import { ShieldCheck } from 'lucide-react';
+import { PublicComplianceSettings } from '@/models/types';
+
+function parseStat(
+  raw: string | undefined,
+  defaultTarget: number,
+  defaultSuffix: string,
+  defaultDecimals: number
+) {
+  if (!raw) {
+    return {
+      targetValue: defaultTarget,
+      decimals: defaultDecimals,
+      suffix: defaultSuffix,
+      num: `${defaultTarget}${defaultSuffix}`,
+    };
+  }
+  const match = raw.trim().match(/^([0-9]+(?:\.[0-9]+)?)(.*)$/);
+  if (match) {
+    const val = parseFloat(match[1]);
+    const suf = match[2];
+    const dec = match[1].includes('.') ? match[1].split('.')[1].length : 0;
+    return {
+      targetValue: isNaN(val) ? defaultTarget : val,
+      decimals: dec,
+      suffix: suf,
+      num: raw,
+    };
+  }
+  return {
+    targetValue: defaultTarget,
+    decimals: defaultDecimals,
+    suffix: defaultSuffix,
+    num: raw,
+  };
+}
 
 function AnimatedStatValue({
   value,
@@ -54,37 +89,43 @@ function AnimatedStatValue({
   );
 }
 
-export function StatsSection() {
+interface StatsSectionProps {
+  initialSettings?: PublicComplianceSettings;
+}
+
+export function StatsSection({ initialSettings }: StatsSectionProps) {
   const shouldReduceMotion = useReducedMotion();
+
+  const showIsoSection = initialSettings?.showIsoSection ?? true;
+  const showIsoBadge = initialSettings?.showIsoBadge ?? true;
+  const isoNumber = initialSettings?.isoNumber || 'ISO 27001:2022';
+  const isoLabel = initialSettings?.isoLabel !== undefined ? initialSettings.isoLabel : 'Certified';
+
+  if (!showIsoSection) {
+    return null;
+  }
+
+  const stat1 = parseStat(initialSettings?.uptimeValue, 99.99, '%', 2);
+  const stat2 = parseStat(initialSettings?.savingsValue, 40, '%+', 0);
+  const stat3 = parseStat(initialSettings?.actionsValue, 10, 'M+', 0);
+  const stat4 = parseStat(initialSettings?.slaValue, 100, '%', 0);
 
   const stats = [
     {
-      num: '99.99%',
-      targetValue: 99.99,
-      decimals: 2,
-      suffix: '%',
-      label: 'Server Uptime',
+      ...stat1,
+      label: initialSettings?.uptimeLabel || 'Server Uptime',
     },
     {
-      num: '40%+',
-      targetValue: 40,
-      decimals: 0,
-      suffix: '%+',
-      label: 'Infrastructure Saving',
+      ...stat2,
+      label: initialSettings?.savingsLabel || 'Infrastructure Saving',
     },
     {
-      num: '10M+',
-      targetValue: 10,
-      decimals: 0,
-      suffix: 'M+',
-      label: 'API Actions',
+      ...stat3,
+      label: initialSettings?.actionsLabel || 'API Actions',
     },
     {
-      num: '100%',
-      targetValue: 100,
-      decimals: 0,
-      suffix: '%',
-      label: 'On-Time SLA Delivery',
+      ...stat4,
+      label: initialSettings?.slaLabel || 'On-Time SLA Delivery',
     },
   ];
 
@@ -116,7 +157,7 @@ export function StatsSection() {
   };
 
   return (
-    <section className="py-8 md:py-12 px-6 bg-transparent relative overflow-hidden border-y border-border/20">
+    <section id="stats" className="py-8 md:py-12 px-6 bg-transparent relative overflow-hidden border-y border-border/20">
       {/* Decorative accent glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[180px] bg-primary/10 dark:bg-accent/10 rounded-full blur-[110px] pointer-events-none" />
 
@@ -141,22 +182,26 @@ export function StatsSection() {
           <div className="absolute -top-12 -right-12 w-36 h-36 bg-accent/20 dark:bg-blue-400/20 rounded-full blur-2xl pointer-events-none animate-pulse" />
           <div className="absolute -bottom-12 -left-12 w-36 h-36 bg-primary/20 dark:bg-primary/25 rounded-full blur-2xl pointer-events-none animate-pulse" />
 
-          {/* ISO 27001:2022 Certification Seal - Preserves exact tile height & width */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 z-20 select-none pointer-events-none">
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-0.5 sm:py-1 rounded-b-xl border-x border-b border-slate-200/90 dark:border-blue-600/35 bg-slate-100/95 dark:bg-slate-900/95 backdrop-blur-md shadow-[0_4px_12px_rgba(15,23,42,0.06)] dark:shadow-[0_4px_14px_rgba(37, 99, 235,0.18)]">
-              <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-emerald-500" />
-              </span>
-              <ShieldCheck className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-emerald-600 dark:text-blue-400 shrink-0" />
-              <span className="font-mono text-[10px] sm:text-[11px] font-extrabold tracking-wider text-slate-800 dark:text-blue-200 uppercase">
-                ISO 27001:2022
-              </span>
-              <span className="text-[9px] sm:text-[10px] font-bold text-slate-500 dark:text-slate-400 tracking-wider uppercase hidden xs:inline sm:inline">
-                Certified
-              </span>
+          {/* ISO Certification Seal - Preserves exact tile height & width */}
+          {showIsoBadge && (
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-20 select-none pointer-events-none">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-0.5 sm:py-1 rounded-b-xl border-x border-b border-slate-200/90 dark:border-blue-600/35 bg-slate-100/95 dark:bg-slate-900/95 backdrop-blur-md shadow-[0_4px_12px_rgba(15,23,42,0.06)] dark:shadow-[0_4px_14px_rgba(37, 99, 235,0.18)]">
+                <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-emerald-500" />
+                </span>
+                <ShieldCheck className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-emerald-600 dark:text-blue-400 shrink-0" />
+                <span className="font-mono text-[10px] sm:text-[11px] font-extrabold tracking-wider text-slate-800 dark:text-blue-200 uppercase">
+                  {isoNumber}
+                </span>
+                {isoLabel && (
+                  <span className="text-[9px] sm:text-[10px] font-bold text-slate-500 dark:text-slate-400 tracking-wider uppercase hidden xs:inline sm:inline">
+                    {isoLabel}
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 items-center divide-y sm:divide-y-0 sm:divide-x divide-border/40 dark:divide-slate-800/80">
             {stats.map((stat, index) => (
