@@ -46,6 +46,22 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
   },
 ];
 
+interface SupabaseReviewRow {
+  id: string;
+  client_name?: string | null;
+  company_name?: string | null;
+  company?: string | null;
+  designation?: string | null;
+  review_text?: string | null;
+  review?: string | null;
+  average_rating?: number | null;
+  display_rating?: number | null;
+  rating?: number | null;
+  identity_display_permission?: string | null;
+  image_url?: string | null;
+  [key: string]: unknown;
+}
+
 /**
  * Retrieves public testimonials approved by the Astraiv admin team.
  */
@@ -122,7 +138,7 @@ export async function getPublicApprovedReviews(): Promise<TestimonialItem[]> {
       return DEFAULT_TESTIMONIALS;
     }
 
-    return reviews.map((r: any) => {
+    return (reviews as unknown as SupabaseReviewRow[]).map((r) => {
       const perm = (r.identity_display_permission || 'Yes').trim();
       const rawName = (r.client_name || 'Astraiv Client').trim();
       const rawCompany = (r.company_name || r.company || '').trim();
@@ -155,7 +171,7 @@ export async function getPublicApprovedReviews(): Promise<TestimonialItem[]> {
 
       return {
         id: r.id,
-        quote: r.review_text || r.review,
+        quote: r.review_text || r.review || '',
         authorName,
         authorRole,
         authorCompany,
@@ -323,13 +339,47 @@ const DEFAULT_COMPLIANCE_SETTINGS: PublicComplianceSettings = {
   slaLabel: 'ON-TIME SLA DELIVERY',
 };
 
+interface ComplianceDbRecord {
+  id?: string;
+  isoNumber?: string;
+  iso_number?: string;
+  isoLabel?: string;
+  iso_label?: string;
+  showIsoBadge?: boolean;
+  show_iso_badge?: boolean;
+  showIsoSection?: boolean;
+  show_iso_section?: boolean;
+  uptimeValue?: string;
+  uptime_value?: string;
+  uptimeLabel?: string;
+  uptime_label?: string;
+  savingsValue?: string;
+  savings_value?: string;
+  savingsLabel?: string;
+  savings_label?: string;
+  actionsValue?: string;
+  actions_value?: string;
+  actionsLabel?: string;
+  actions_label?: string;
+  slaValue?: string;
+  sla_value?: string;
+  slaLabel?: string;
+  sla_label?: string;
+}
+
+interface PrismaWithCompliance {
+  complianceSetting?: {
+    findFirst: () => Promise<ComplianceDbRecord | null>;
+  };
+}
+
 /**
  * Retrieves client website ISO compliance certification and metrics settings.
  */
 export async function getPublicComplianceSettings(): Promise<PublicComplianceSettings> {
   try {
-    const complianceModel = (db as any).complianceSetting;
-    let record: any = null;
+    const complianceModel = (db as unknown as PrismaWithCompliance).complianceSetting;
+    let record: ComplianceDbRecord | null = null;
 
     if (complianceModel && typeof complianceModel.findFirst === 'function') {
       record = await complianceModel.findFirst();
@@ -337,7 +387,7 @@ export async function getPublicComplianceSettings(): Promise<PublicComplianceSet
 
     if (!record) {
       // Fallback: direct raw query from PostgreSQL table (vital if server process has cached prisma instance)
-      const rows: any[] = await db.$queryRaw`
+      const rows = await db.$queryRaw<ComplianceDbRecord[]>`
         SELECT 
           id, 
           iso_number, 

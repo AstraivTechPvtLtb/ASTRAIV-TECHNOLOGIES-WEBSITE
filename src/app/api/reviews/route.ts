@@ -17,6 +17,23 @@ export interface SanitizedPublicReview {
   publishedAt: string | null;
 }
 
+interface SupabaseReviewRow {
+  id: string;
+  client_name?: string | null;
+  company_name?: string | null;
+  company?: string | null;
+  designation?: string | null;
+  review_text?: string | null;
+  review?: string | null;
+  average_rating?: number | null;
+  display_rating?: number | null;
+  rating?: number | null;
+  identity_display_permission?: string | null;
+  image_url?: string | null;
+  published_at?: string | Date | null;
+  [key: string]: unknown;
+}
+
 /**
  * Server-side privacy transformer.
  * Strictly strips all private feedback, emails, and restricts names/companies based on customer permission.
@@ -148,16 +165,16 @@ export async function GET(req: NextRequest) {
       const { data, error } = await query;
 
       if (!error && data) {
-        const sanitized = data.map((r: any) =>
+        const sanitized = (data as unknown as SupabaseReviewRow[]).map((r) =>
           sanitizeReviewForPublic({
             id: r.id,
-            clientName: r.client_name,
+            clientName: r.client_name || 'Astraiv Client',
             companyName: r.company_name,
             company: r.company,
             designation: r.designation,
             reviewText: r.review_text,
             review: r.review,
-            averageRating: r.average_rating,
+            averageRating: r.average_rating ?? undefined,
             displayRating: r.display_rating,
             rating: r.rating,
             identityDisplayPermission: r.identity_display_permission,

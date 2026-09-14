@@ -5,7 +5,6 @@ import { Menu, X, Sun, Moon, ChevronDown, ArrowRight, Sparkles } from 'lucide-re
 import Image from 'next/image';
 import { Link, usePathname, useRouter } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
-import { useTheme } from 'next-themes';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { NAV_ITEMS, NavItem, MegaMenuConfig } from './nav-data';
@@ -20,8 +19,6 @@ export function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const locale = useLocale();
-  const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
 
   // 3-lines Custom Options Dropdown states
   const [showOptionsDropdown, setShowOptionsDropdown] = useState(false);
@@ -33,7 +30,6 @@ export function Navbar() {
   const closeOptionsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    setMounted(true);
     return () => {
       if (closeDropdownTimeoutRef.current) clearTimeout(closeDropdownTimeoutRef.current);
       if (closeOptionsTimeoutRef.current) clearTimeout(closeOptionsTimeoutRef.current);
