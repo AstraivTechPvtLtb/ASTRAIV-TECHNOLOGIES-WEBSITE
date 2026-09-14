@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { Card, CardContent, CardHeader } from '@/views/ui/card';
 import { Quote, Star } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface TestimonialCardProps {
   quote: string;
@@ -19,16 +20,27 @@ export function TestimonialCard({
   avatarUrl,
   rating = 5,
 }: TestimonialCardProps) {
+  // Ensure rating is an integer between 1 and 5
+  const activeStars = Math.min(5, Math.max(1, Math.round(rating)));
+
   return (
     <Card className="group relative bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-blue-400/40 rounded-[22px] shadow-xs hover:shadow-[0_16px_36px_-10px_rgba(11,61,145,0.1)] dark:hover:shadow-[0_16px_36px_-10px_rgba(37, 99, 235,0.1)] transition-all duration-300 transform-gpu hover:-translate-y-1 overflow-hidden p-6 sm:p-8 flex flex-col justify-between h-full select-none">
       {/* Background Quote Watermark */}
       <Quote className="absolute right-6 top-6 h-16 w-16 text-primary/5 dark:text-blue-400/5 pointer-events-none group-hover:text-primary/10 transition-colors" />
 
       <div>
-        {/* Star Rating Row */}
-        <div className="flex items-center gap-1 mb-5">
-          {Array.from({ length: rating }).map((_, i) => (
-            <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
+        {/* Star Rating Row (Always 5 stars total with filled & unfilled presentation) */}
+        <div className="flex items-center gap-1 mb-5" aria-label={`${activeStars} out of 5 stars`}>
+          {[1, 2, 3, 4, 5].map((starIdx) => (
+            <Star
+              key={starIdx}
+              className={cn(
+                'h-4 w-4 transition-colors',
+                starIdx <= activeStars
+                  ? 'fill-amber-400 text-amber-400'
+                  : 'fill-slate-200 dark:fill-slate-800 text-slate-300 dark:text-slate-700'
+              )}
+            />
           ))}
         </div>
 
@@ -62,7 +74,15 @@ export function TestimonialCard({
             {authorName}
           </h4>
           <p className="text-xs text-muted-foreground font-medium">
-            {authorRole} • <span className="font-semibold text-secondary dark:text-indigo-400">{authorCompany}</span>
+            {authorRole && authorCompany ? (
+              <>
+                {authorRole} • <span className="font-semibold text-secondary dark:text-indigo-400">{authorCompany}</span>
+              </>
+            ) : authorCompany ? (
+              <span className="font-semibold text-secondary dark:text-indigo-400">{authorCompany}</span>
+            ) : (
+              authorRole || 'Client Partner'
+            )}
           </p>
         </div>
       </CardHeader>

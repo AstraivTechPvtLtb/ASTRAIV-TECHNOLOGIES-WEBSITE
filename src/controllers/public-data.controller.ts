@@ -13,6 +13,7 @@ import {
   PublicPricingPlan,
   DEFAULT_PRICING_PLANS,
   TestimonialItem,
+  PublicComplianceSettings,
 } from '@/models/types';
 
 const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
@@ -52,7 +53,10 @@ export async function getPublicApprovedReviews(): Promise<TestimonialItem[]> {
   try {
     if (!isSupabaseConfigured()) {
       const approvedReviews = await db.review.findMany({
-        where: { status: 'approved' },
+        where: {
+          status: 'approved',
+          canPublishReview: true,
+        },
         orderBy: [{ featured: 'desc' }, { createdAt: 'desc' }],
         take: 6,
       });
@@ -61,15 +65,47 @@ export async function getPublicApprovedReviews(): Promise<TestimonialItem[]> {
         return DEFAULT_TESTIMONIALS;
       }
 
-      return approvedReviews.map((r) => ({
-        id: r.id,
-        quote: r.review,
-        authorName: r.clientName,
-        authorRole: r.designation || 'Client Partner',
-        authorCompany: r.company || 'Direct Client',
-        rating: r.rating,
-        avatarUrl: r.imageUrl || undefined,
-      }));
+      return approvedReviews.map((r) => {
+        const perm = (r.identityDisplayPermission || 'Yes').trim();
+        const rawName = (r.clientName || 'Astraiv Client').trim();
+        const rawCompany = (r.companyName || r.company || '').trim();
+        const rawDesignation = (r.designation || '').trim();
+
+        let authorName = 'Astraiv Client';
+        let authorCompany = '';
+        let authorRole = '';
+
+        if (perm === 'Yes' || perm.toLowerCase() === 'yes') {
+          authorName = rawName;
+          authorCompany = rawCompany || 'Direct Client';
+          authorRole = rawDesignation || 'Client Partner';
+        } else if (
+          perm.toLowerCase().includes('first name') ||
+          perm === 'Display only my first name with review.'
+        ) {
+          authorName = rawName.split(/\s+/)[0] || 'Client';
+          authorCompany = rawCompany || 'Client Partner';
+          authorRole = rawDesignation || '';
+        } else {
+          // Perm is 'No'
+          authorName = 'Astraiv Client';
+          authorCompany = '';
+          authorRole = 'Client Partner';
+        }
+
+        const avgRating = Number(r.averageRating ?? r.rating ?? 5.0);
+        const displayRating = r.displayRating || r.rating || Math.min(5, Math.max(1, Math.round(avgRating)));
+
+        return {
+          id: r.id,
+          quote: r.reviewText || r.review,
+          authorName,
+          authorRole,
+          authorCompany,
+          rating: displayRating,
+          avatarUrl: r.imageUrl || undefined,
+        };
+      });
     }
 
     const supabase = await createSupabaseClient();
@@ -77,6 +113,7 @@ export async function getPublicApprovedReviews(): Promise<TestimonialItem[]> {
       .from('reviews')
       .select('*')
       .eq('status', 'approved')
+      .eq('can_publish_review', true)
       .order('featured', { ascending: false })
       .order('created_at', { ascending: false })
       .limit(6);
@@ -85,15 +122,48 @@ export async function getPublicApprovedReviews(): Promise<TestimonialItem[]> {
       return DEFAULT_TESTIMONIALS;
     }
 
-    return reviews.map((r) => ({
-      id: r.id,
-      quote: r.review,
-      authorName: r.client_name,
-      authorRole: r.designation || 'Client Partner',
-      authorCompany: r.company || 'Direct Client',
-      rating: r.rating,
-      avatarUrl: r.image_url || undefined,
-    }));
+    return reviews.map((r: any) => {
+      const perm = (r.identity_display_permission || 'Yes').trim();
+      const rawName = (r.client_name || 'Astraiv Client').trim();
+      const rawCompany = (r.company_name || r.company || '').trim();
+      const rawDesignation = (r.designation || '').trim();
+
+      let authorName = 'Astraiv Client';
+      let authorCompany = '';
+      let authorRole = '';
+
+      if (perm === 'Yes' || perm.toLowerCase() === 'yes') {
+        authorName = rawName;
+        authorCompany = rawCompany || 'Direct Client';
+        authorRole = rawDesignation || 'Client Partner';
+      } else if (
+        perm.toLowerCase().includes('first name') ||
+        perm === 'Display only my first name with review.'
+      ) {
+        authorName = rawName.split(/\s+/)[0] || 'Client';
+        authorCompany = rawCompany || 'Client Partner';
+        authorRole = rawDesignation || '';
+      } else {
+        // Perm is 'No'
+        authorName = 'Astraiv Client';
+        authorCompany = '';
+        authorRole = 'Client Partner';
+      }
+
+      const avgRating = Number(r.average_rating ?? r.rating ?? 5.0);
+      const displayRating = r.display_rating || r.rating || Math.min(5, Math.max(1, Math.round(avgRating)));
+
+      return {
+        id: r.id,
+        quote: r.review_text || r.review,
+        authorName,
+        authorRole,
+        authorCompany,
+        rating: displayRating,
+        avatarUrl: r.image_url || undefined,
+      };
+    });
+
   } catch (error) {
     console.error('[Public Reviews Controller Error]:', error);
     return DEFAULT_TESTIMONIALS;
@@ -237,3 +307,100 @@ export async function getPublicPricingPlans(): Promise<PublicPricingPlan[]> {
 
   return DEFAULT_PRICING_PLANS;
 }
+
+const DEFAULT_COMPLIANCE_SETTINGS: PublicComplianceSettings = {
+  isoNumber: 'ISO 27001:2022',
+  isoLabel: 'Certified',
+  showIsoBadge: true,
+  showIsoSection: true,
+  uptimeValue: '99.99%',
+  uptimeLabel: 'SERVER UPTIME',
+  savingsValue: '40%+',
+  savingsLabel: 'INFRASTRUCTURE SAVING',
+  actionsValue: '10M+',
+  actionsLabel: 'API ACTIONS',
+  slaValue: '100%',
+  slaLabel: 'ON-TIME SLA DELIVERY',
+};
+
+/**
+ * Retrieves client website ISO compliance certification and metrics settings.
+ */
+export async function getPublicComplianceSettings(): Promise<PublicComplianceSettings> {
+  try {
+    const complianceModel = (db as any).complianceSetting;
+    let record: any = null;
+
+    if (complianceModel && typeof complianceModel.findFirst === 'function') {
+      record = await complianceModel.findFirst();
+    }
+
+    if (!record) {
+      // Fallback: direct raw query from PostgreSQL table (vital if server process has cached prisma instance)
+      const rows: any[] = await db.$queryRaw`
+        SELECT 
+          id, 
+          iso_number, 
+          iso_label, 
+          show_iso_badge, 
+          show_iso_section,
+          uptime_value, 
+          uptime_label, 
+          savings_value, 
+          savings_label, 
+          actions_value, 
+          actions_label, 
+          sla_value, 
+          sla_label 
+        FROM compliance_settings 
+        LIMIT 1
+      `;
+      if (rows && rows.length > 0) {
+        record = rows[0];
+      }
+    }
+
+    if (record) {
+      // Handle both camelCase (from Prisma model) and snake_case (from raw SQL)
+      const showIsoBadge =
+        record.showIsoBadge !== undefined
+          ? Boolean(record.showIsoBadge)
+          : record.show_iso_badge !== undefined
+          ? Boolean(record.show_iso_badge)
+          : true;
+
+      const showIsoSection =
+        record.showIsoSection !== undefined
+          ? Boolean(record.showIsoSection)
+          : record.show_iso_section !== undefined
+          ? Boolean(record.show_iso_section)
+          : true;
+
+      return {
+        id: record.id,
+        isoNumber: record.isoNumber || record.iso_number || 'ISO 27001:2022',
+        isoLabel:
+          record.isoLabel !== undefined
+            ? record.isoLabel
+            : record.iso_label !== undefined
+            ? record.iso_label
+            : 'Certified',
+        showIsoBadge,
+        showIsoSection,
+        uptimeValue: record.uptimeValue || record.uptime_value || '99.99%',
+        uptimeLabel: record.uptimeLabel || record.uptime_label || 'SERVER UPTIME',
+        savingsValue: record.savingsValue || record.savings_value || '40%+',
+        savingsLabel: record.savingsLabel || record.savings_label || 'INFRASTRUCTURE SAVING',
+        actionsValue: record.actionsValue || record.actions_value || '10M+',
+        actionsLabel: record.actionsLabel || record.actions_label || 'API ACTIONS',
+        slaValue: record.slaValue || record.sla_value || '100%',
+        slaLabel: record.slaLabel || record.sla_label || 'ON-TIME SLA DELIVERY',
+      };
+    }
+  } catch (err) {
+    console.error('getPublicComplianceSettings error:', err);
+  }
+
+  return DEFAULT_COMPLIANCE_SETTINGS;
+}
+

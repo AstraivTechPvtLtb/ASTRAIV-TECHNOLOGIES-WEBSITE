@@ -85,6 +85,7 @@ export function TestimonialsSection({ initialReviews }: TestimonialsSectionProps
                 authorRole={test.authorRole}
                 authorCompany={test.authorCompany}
                 avatarUrl={test.avatarUrl}
+                rating={test.rating}
               />
             </motion.div>
           ))}

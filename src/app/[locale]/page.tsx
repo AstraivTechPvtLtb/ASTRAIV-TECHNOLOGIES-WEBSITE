@@ -1,6 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getPublicActiveServices } from '@/controllers/services.controller';
-import { getPublicApprovedReviews } from '@/controllers/public-data.controller';
+import { getPublicApprovedReviews, getPublicComplianceSettings } from '@/controllers/public-data.controller';
 import {
   Navbar,
   Footer,
@@ -32,11 +32,12 @@ export default async function HomePage({ params }: HomePageProps) {
   // Set the request locale for server caching
   setRequestLocale(locale);
 
-  // Load language bundles, active services, and approved reviews from database
-  const [t, services, reviews] = await Promise.all([
+  // Load language bundles, active services, approved reviews, and compliance/ISO settings from database
+  const [t, services, reviews, complianceSettings] = await Promise.all([
     getTranslations('Home'),
     getPublicActiveServices(),
     getPublicApprovedReviews(),
+    getPublicComplianceSettings(),
   ]);
 
   return (
@@ -56,7 +57,7 @@ export default async function HomePage({ params }: HomePageProps) {
         <ClientsSection />
 
         {/* 4. Crucial Performance Metrics & Value Strip */}
-        <StatsSection />
+        <StatsSection initialSettings={complianceSettings} />
 
         {/* 3. Services */}
         <ServicesSection initialServices={services} />
