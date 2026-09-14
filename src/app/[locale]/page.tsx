@@ -53,10 +53,7 @@ export default async function HomePage({ params }: HomePageProps) {
           subheadline={t('heroSubheadline')}
         />
 
-        {/* 3. Trusted Enterprise Network */}
-        <ClientsSection />
-
-        {/* 4. Crucial Performance Metrics & Value Strip */}
+        {/* 3. Metrics & Enterprise Client Proof Banner */}
         <StatsSection initialSettings={complianceSettings} />
 
         {/* 3. Services */}
