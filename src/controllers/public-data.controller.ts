@@ -326,6 +326,15 @@ export async function getPublicPricingPlans(): Promise<PublicPricingPlan[]> {
   return DEFAULT_PRICING_PLANS;
 }
 
+const DEFAULT_CLIENT_LOGOS = [
+  { id: 'acme', name: 'ACME CORP', iconKey: 'acme', imageUrl: null },
+  { id: 'globex', name: 'GLOBEX', iconKey: 'globex', imageUrl: null },
+  { id: 'initech', name: 'INITECH', iconKey: 'initech', imageUrl: null },
+  { id: 'umbrella', name: 'UMBRELLA', iconKey: 'umbrella', imageUrl: null },
+  { id: 'hooli', name: 'HOOLI', iconKey: 'hooli', imageUrl: null },
+  { id: 'stark', name: 'STARK INDUSTRIES', iconKey: 'stark', imageUrl: null },
+];
+
 const DEFAULT_COMPLIANCE_SETTINGS: PublicComplianceSettings = {
   isoNumber: 'ISO 27001:2022',
   isoLabel: 'Certified',
@@ -339,6 +348,7 @@ const DEFAULT_COMPLIANCE_SETTINGS: PublicComplianceSettings = {
   actionsLabel: 'API ACTIONS',
   slaValue: '100%',
   slaLabel: 'ON-TIME SLA DELIVERY',
+  clientLogos: DEFAULT_CLIENT_LOGOS,
 };
 
 interface ComplianceDbRecord {
@@ -367,6 +377,8 @@ interface ComplianceDbRecord {
   sla_value?: string;
   slaLabel?: string;
   sla_label?: string;
+  clientLogos?: string | null;
+  client_logos?: string | null;
 }
 
 interface PrismaWithCompliance {
@@ -408,7 +420,8 @@ export async function getPublicComplianceSettings(): Promise<PublicComplianceSet
             actions_value, 
             actions_label, 
             sla_value, 
-            sla_label 
+            sla_label,
+            client_logos
           FROM compliance_settings 
           LIMIT 1
         `;
@@ -436,6 +449,19 @@ export async function getPublicComplianceSettings(): Promise<PublicComplianceSet
           ? Boolean(record.show_iso_section)
           : true;
 
+      let parsedClientLogos = DEFAULT_CLIENT_LOGOS;
+      const rawLogos = record.clientLogos || record.client_logos;
+      if (rawLogos) {
+        try {
+          const parsed = typeof rawLogos === 'string' ? JSON.parse(rawLogos) : rawLogos;
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            parsedClientLogos = parsed;
+          }
+        } catch {
+          // Fallback to default client logos
+        }
+      }
+
       return {
         id: record.id,
         isoNumber: record.isoNumber || record.iso_number || 'ISO 27001:2022',
@@ -455,6 +481,7 @@ export async function getPublicComplianceSettings(): Promise<PublicComplianceSet
         actionsLabel: record.actionsLabel || record.actions_label || 'API ACTIONS',
         slaValue: record.slaValue || record.sla_value || '100%',
         slaLabel: record.slaLabel || record.sla_label || 'ON-TIME SLA DELIVERY',
+        clientLogos: parsedClientLogos,
       };
     }
   } catch (err) {
