@@ -384,31 +384,39 @@ export async function getPublicComplianceSettings(): Promise<PublicComplianceSet
     let record: ComplianceDbRecord | null = null;
 
     if (complianceModel && typeof complianceModel.findFirst === 'function') {
-      record = await complianceModel.findFirst();
+      try {
+        record = await complianceModel.findFirst();
+      } catch {
+        // Fallback to raw query if model fails
+      }
     }
 
     if (!record) {
       // Fallback: direct raw query from PostgreSQL table (vital if server process has cached prisma instance)
-      const rows = await db.$queryRaw<ComplianceDbRecord[]>`
-        SELECT 
-          id, 
-          iso_number, 
-          iso_label, 
-          show_iso_badge, 
-          show_iso_section,
-          uptime_value, 
-          uptime_label, 
-          savings_value, 
-          savings_label, 
-          actions_value, 
-          actions_label, 
-          sla_value, 
-          sla_label 
-        FROM compliance_settings 
-        LIMIT 1
-      `;
-      if (rows && rows.length > 0) {
-        record = rows[0];
+      try {
+        const rows = await db.$queryRaw<ComplianceDbRecord[]>`
+          SELECT 
+            id, 
+            iso_number, 
+            iso_label, 
+            show_iso_badge, 
+            show_iso_section,
+            uptime_value, 
+            uptime_label, 
+            savings_value, 
+            savings_label, 
+            actions_value, 
+            actions_label, 
+            sla_value, 
+            sla_label 
+          FROM compliance_settings 
+          LIMIT 1
+        `;
+        if (rows && rows.length > 0) {
+          record = rows[0];
+        }
+      } catch {
+        // Table or query not available
       }
     }
 
@@ -450,7 +458,7 @@ export async function getPublicComplianceSettings(): Promise<PublicComplianceSet
       };
     }
   } catch (err) {
-    console.error('getPublicComplianceSettings error:', err);
+    console.warn('getPublicComplianceSettings notice:', err);
   }
 
   return DEFAULT_COMPLIANCE_SETTINGS;
