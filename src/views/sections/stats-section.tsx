@@ -103,14 +103,22 @@ function StarkIndustriesLogo({ className = 'w-5 h-5' }: { className?: string }) 
   );
 }
 
-// Enterprise client partner list
-const clientLogos = [
-  { name: 'ACME CORP', Logo: AcmeLogo },
-  { name: 'GLOBEX', Logo: GlobexLogo },
-  { name: 'INITECH', Logo: InitechLogo },
-  { name: 'UMBRELLA', Logo: UmbrellaLogo },
-  { name: 'HOOLI', Logo: HooliLogo },
-  { name: 'STARK INDUSTRIES', Logo: StarkIndustriesLogo },
+const DEFAULT_LOGOS_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+  acme: AcmeLogo,
+  globex: GlobexLogo,
+  initech: InitechLogo,
+  umbrella: UmbrellaLogo,
+  hooli: HooliLogo,
+  stark: StarkIndustriesLogo,
+};
+
+const DEFAULT_CLIENT_LOGOS = [
+  { id: 'acme', name: 'ACME CORP', iconKey: 'acme', imageUrl: null },
+  { id: 'globex', name: 'GLOBEX', iconKey: 'globex', imageUrl: null },
+  { id: 'initech', name: 'INITECH', iconKey: 'initech', imageUrl: null },
+  { id: 'umbrella', name: 'UMBRELLA', iconKey: 'umbrella', imageUrl: null },
+  { id: 'hooli', name: 'HOOLI', iconKey: 'hooli', imageUrl: null },
+  { id: 'stark', name: 'STARK INDUSTRIES', iconKey: 'stark', imageUrl: null },
 ];
 
 // Helper to format title to clean Title Case matching Screenshot 2
@@ -235,6 +243,11 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
   const stat2 = parseStat(initialSettings?.savingsValue, 40, '%+', 0);
   const stat3 = parseStat(initialSettings?.actionsValue, 10, 'M+', 0);
   const stat4 = parseStat(initialSettings?.slaValue, 100, '%', 0);
+
+  const logosList =
+    initialSettings?.clientLogos && initialSettings.clientLogos.length > 0
+      ? initialSettings.clientLogos
+      : DEFAULT_CLIENT_LOGOS;
 
   const cards = [
     {
@@ -389,7 +402,7 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        className="mt-8 sm:mt-10 w-full flex flex-nowrap items-center justify-between gap-3 sm:gap-5 lg:gap-8 overflow-x-auto no-scrollbar relative z-10"
+        className="mt-8 sm:mt-10 w-full flex flex-nowrap items-center justify-between gap-3 sm:gap-5 lg:gap-8 overflow-x-auto no-scrollbar relative z-10 py-3 sm:py-3.5"
         data-purpose="client-logos-ticker"
       >
         {/* Section Tagline / Category Label */}
@@ -399,17 +412,31 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
           </span>
         </div>
 
-        {/* Enterprise Client Wordmarks with Authentic Original Logos in ONE line */}
-        <div className="flex flex-nowrap items-center justify-end gap-3.5 sm:gap-5 md:gap-6 lg:gap-7 xl:gap-8 shrink-0">
-          {clientLogos.map((client) => {
-            const Icon = client.Logo;
+        {/* Enterprise Client Wordmarks with Small Circle Profile Picture Type Logos in ONE line */}
+        <div className="flex flex-nowrap items-center justify-end gap-3.5 sm:gap-5 md:gap-6 lg:gap-7 xl:gap-8 shrink-0 py-1">
+          {logosList.map((client) => {
+            const iconKey = (client.iconKey || client.id || client.name.toLowerCase().split(' ')[0] || '').toLowerCase();
+            const Icon = DEFAULT_LOGOS_MAP[iconKey] || null;
             return (
               <div
-                key={client.name}
-                className="group flex items-center gap-1.5 sm:gap-2 cursor-default select-none shrink-0"
+                key={client.id || client.name}
+                className="group flex items-center gap-2 sm:gap-2.5 cursor-default select-none shrink-0"
               >
-                <div className="shrink-0 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.4)] transition-[filter] duration-300">
-                  <Icon className="w-4 h-4 sm:w-[17px] sm:h-[17px] shrink-0 transition-transform duration-300 group-hover:scale-110" />
+                {/* Small Circle Profile Picture Type Container */}
+                <div className="w-7 h-7 sm:w-7 sm:h-7 md:w-7 md:h-7 aspect-square rounded-full bg-[#101726] border border-slate-700/80 flex items-center justify-center overflow-hidden shrink-0 shadow-sm ring-1 ring-white/10 group-hover:border-cyan-400/60 group-hover:ring-cyan-500/30 group-hover:shadow-[0_0_10px_rgba(0,242,254,0.35)] transition-all duration-300">
+                  {client.imageUrl ? (
+                    <img
+                      src={client.imageUrl}
+                      alt={client.name}
+                      className="w-full h-full object-cover rounded-full aspect-square"
+                    />
+                  ) : Icon ? (
+                    <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform duration-300 group-hover:scale-110" />
+                  ) : (
+                    <span className="text-[10px] sm:text-[11px] font-bold text-cyan-400 font-mono">
+                      {client.name.charAt(0)}
+                    </span>
+                  )}
                 </div>
                 <span className="font-heading font-extrabold text-xs sm:text-[12.5px] lg:text-[13px] text-slate-300 group-hover:text-white tracking-wider whitespace-nowrap transition-colors duration-200">
                   {client.name}

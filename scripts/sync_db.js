@@ -67,6 +67,7 @@ async function sync() {
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
         updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       );
+      ALTER TABLE compliance_settings ADD COLUMN IF NOT EXISTS client_logos TEXT;
     `);
     console.log('✔ compliance_settings table ensured');
 
