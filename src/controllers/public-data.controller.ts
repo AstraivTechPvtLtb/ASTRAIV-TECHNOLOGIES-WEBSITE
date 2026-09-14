@@ -67,7 +67,8 @@ interface SupabaseReviewRow {
  */
 export async function getPublicApprovedReviews(): Promise<TestimonialItem[]> {
   try {
-    if (!isSupabaseConfigured()) {
+    // 1. Primary PostgreSQL lookup via Prisma ORM
+    try {
       const approvedReviews = await db.review.findMany({
         where: {
           status: 'approved',
@@ -77,109 +78,110 @@ export async function getPublicApprovedReviews(): Promise<TestimonialItem[]> {
         take: 6,
       });
 
-      if (approvedReviews.length === 0) {
-        return DEFAULT_TESTIMONIALS;
+      if (approvedReviews && approvedReviews.length > 0) {
+        return approvedReviews.map((r) => {
+          const perm = (r.identityDisplayPermission || 'Yes').trim();
+          const rawName = (r.clientName || 'Astraiv Client').trim();
+          const rawCompany = (r.companyName || r.company || '').trim();
+          const rawDesignation = (r.designation || '').trim();
+
+          let authorName = 'Astraiv Client';
+          let authorCompany = '';
+          let authorRole = '';
+
+          if (perm === 'Yes' || perm.toLowerCase() === 'yes') {
+            authorName = rawName;
+            authorCompany = rawCompany || 'Direct Client';
+            authorRole = rawDesignation || 'Client Partner';
+          } else if (
+            perm.toLowerCase().includes('first name') ||
+            perm === 'Display only my first name with review.'
+          ) {
+            authorName = rawName.split(/\s+/)[0] || 'Client';
+            authorCompany = rawCompany || 'Client Partner';
+            authorRole = rawDesignation || '';
+          } else {
+            // Perm is 'No'
+            authorName = 'Astraiv Client';
+            authorCompany = '';
+            authorRole = 'Client Partner';
+          }
+
+          const avgRating = Number(r.averageRating ?? r.rating ?? 5.0);
+          const displayRating = r.displayRating || r.rating || Math.min(5, Math.max(1, Math.round(avgRating)));
+
+          return {
+            id: r.id,
+            quote: r.reviewText || r.review || '',
+            authorName,
+            authorRole,
+            authorCompany,
+            rating: displayRating,
+            avatarUrl: r.imageUrl || undefined,
+          };
+        });
       }
-
-      return approvedReviews.map((r) => {
-        const perm = (r.identityDisplayPermission || 'Yes').trim();
-        const rawName = (r.clientName || 'Astraiv Client').trim();
-        const rawCompany = (r.companyName || r.company || '').trim();
-        const rawDesignation = (r.designation || '').trim();
-
-        let authorName = 'Astraiv Client';
-        let authorCompany = '';
-        let authorRole = '';
-
-        if (perm === 'Yes' || perm.toLowerCase() === 'yes') {
-          authorName = rawName;
-          authorCompany = rawCompany || 'Direct Client';
-          authorRole = rawDesignation || 'Client Partner';
-        } else if (
-          perm.toLowerCase().includes('first name') ||
-          perm === 'Display only my first name with review.'
-        ) {
-          authorName = rawName.split(/\s+/)[0] || 'Client';
-          authorCompany = rawCompany || 'Client Partner';
-          authorRole = rawDesignation || '';
-        } else {
-          // Perm is 'No'
-          authorName = 'Astraiv Client';
-          authorCompany = '';
-          authorRole = 'Client Partner';
-        }
-
-        const avgRating = Number(r.averageRating ?? r.rating ?? 5.0);
-        const displayRating = r.displayRating || r.rating || Math.min(5, Math.max(1, Math.round(avgRating)));
-
-        return {
-          id: r.id,
-          quote: r.reviewText || r.review,
-          authorName,
-          authorRole,
-          authorCompany,
-          rating: displayRating,
-          avatarUrl: r.imageUrl || undefined,
-        };
-      });
+    } catch (prismaErr) {
+      console.warn('[Public Reviews Prisma Notice - Falling back to Supabase]:', (prismaErr as Error)?.message || prismaErr);
     }
 
-    const supabase = await createSupabaseClient();
-    const { data: reviews, error } = await supabase
-      .from('reviews')
-      .select('*')
-      .eq('status', 'approved')
-      .eq('can_publish_review', true)
-      .order('featured', { ascending: false })
-      .order('created_at', { ascending: false })
-      .limit(6);
+    // 2. Supabase Cloud Fallback
+    if (isSupabaseConfigured()) {
+      const supabase = await createSupabaseClient();
+      const { data: reviews, error } = await supabase
+        .from('reviews')
+        .select('*')
+        .eq('status', 'approved')
+        .eq('can_publish_review', true)
+        .order('featured', { ascending: false })
+        .order('created_at', { ascending: false })
+        .limit(6);
 
-    if (error || !reviews || reviews.length === 0) {
-      return DEFAULT_TESTIMONIALS;
+      if (!error && reviews && reviews.length > 0) {
+        return (reviews as unknown as SupabaseReviewRow[]).map((r) => {
+          const perm = (r.identity_display_permission || 'Yes').trim();
+          const rawName = (r.client_name || 'Astraiv Client').trim();
+          const rawCompany = (r.company_name || r.company || '').trim();
+          const rawDesignation = (r.designation || '').trim();
+
+          let authorName = 'Astraiv Client';
+          let authorCompany = '';
+          let authorRole = '';
+
+          if (perm === 'Yes' || perm.toLowerCase() === 'yes') {
+            authorName = rawName;
+            authorCompany = rawCompany || 'Direct Client';
+            authorRole = rawDesignation || 'Client Partner';
+          } else if (
+            perm.toLowerCase().includes('first name') ||
+            perm === 'Display only my first name with review.'
+          ) {
+            authorName = rawName.split(/\s+/)[0] || 'Client';
+            authorCompany = rawCompany || 'Client Partner';
+            authorRole = rawDesignation || '';
+          } else {
+            authorName = 'Astraiv Client';
+            authorCompany = '';
+            authorRole = 'Client Partner';
+          }
+
+          const avgRating = Number(r.average_rating ?? r.rating ?? 5.0);
+          const displayRating = r.display_rating || r.rating || Math.min(5, Math.max(1, Math.round(avgRating)));
+
+          return {
+            id: r.id,
+            quote: r.review_text || r.review || '',
+            authorName,
+            authorRole,
+            authorCompany,
+            rating: displayRating,
+            avatarUrl: r.image_url || undefined,
+          };
+        });
+      }
     }
 
-    return (reviews as unknown as SupabaseReviewRow[]).map((r) => {
-      const perm = (r.identity_display_permission || 'Yes').trim();
-      const rawName = (r.client_name || 'Astraiv Client').trim();
-      const rawCompany = (r.company_name || r.company || '').trim();
-      const rawDesignation = (r.designation || '').trim();
-
-      let authorName = 'Astraiv Client';
-      let authorCompany = '';
-      let authorRole = '';
-
-      if (perm === 'Yes' || perm.toLowerCase() === 'yes') {
-        authorName = rawName;
-        authorCompany = rawCompany || 'Direct Client';
-        authorRole = rawDesignation || 'Client Partner';
-      } else if (
-        perm.toLowerCase().includes('first name') ||
-        perm === 'Display only my first name with review.'
-      ) {
-        authorName = rawName.split(/\s+/)[0] || 'Client';
-        authorCompany = rawCompany || 'Client Partner';
-        authorRole = rawDesignation || '';
-      } else {
-        // Perm is 'No'
-        authorName = 'Astraiv Client';
-        authorCompany = '';
-        authorRole = 'Client Partner';
-      }
-
-      const avgRating = Number(r.average_rating ?? r.rating ?? 5.0);
-      const displayRating = r.display_rating || r.rating || Math.min(5, Math.max(1, Math.round(avgRating)));
-
-      return {
-        id: r.id,
-        quote: r.review_text || r.review || '',
-        authorName,
-        authorRole,
-        authorCompany,
-        rating: displayRating,
-        avatarUrl: r.image_url || undefined,
-      };
-    });
-
+    return DEFAULT_TESTIMONIALS;
   } catch (error) {
     console.error('[Public Reviews Controller Error]:', error);
     return DEFAULT_TESTIMONIALS;
