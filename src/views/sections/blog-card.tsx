@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/views/ui/card';
 import { Link } from '@/i18n/routing';
+import { ROUTES } from '@/routes';
 
 interface BlogCardProps {
   title: string;
@@ -49,7 +50,7 @@ export function BlogCard({
           <span>{readTime}</span>
         </div>
         <CardTitle className="text-lg font-bold tracking-tight text-foreground group-hover:text-primary transition-colors line-clamp-2">
-          <Link href={`/blog/${slug}`} className="after:absolute after:inset-0 after:z-10">{title}</Link>
+          <Link href={ROUTES.PUBLIC.BLOG_DETAIL(slug)} className="after:absolute after:inset-0 after:z-10">{title}</Link>
         </CardTitle>
         <p className="text-sm text-muted-foreground leading-relaxed mt-3 line-clamp-3 flex-1">
           {summary}

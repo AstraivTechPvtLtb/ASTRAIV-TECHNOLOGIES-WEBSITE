@@ -5,6 +5,7 @@ import { DashboardLayout } from '@/views/layouts/dashboard-layout';
 import { DashboardRole } from '@/views/layouts/sidebar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/views/ui/card';
 import { Globe, Bell } from 'lucide-react';
+import { ROUTES, getLocalizedPath } from '@/routes';
 
 interface SettingsPageProps {
   params: Promise<{ locale: string }>;
@@ -17,13 +18,13 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   });
 
   if (!session) {
-    redirect(`/${locale}/auth/login`);
+    redirect(getLocalizedPath(ROUTES.AUTH.LOGIN, locale));
   }
 
   const user = session.user;
 
   const breadcrumbs = [
-    { label: 'Dashboard', href: '/dashboard' },
+    { label: 'Dashboard', href: ROUTES.PORTAL.DASHBOARD },
     { label: 'Settings' },
   ];
 
