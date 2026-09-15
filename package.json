@@ -9,6 +9,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "postinstall": "prisma generate",
+    "db:pull-supabase": "powershell -ExecutionPolicy Bypass -File ./scripts/pull-from-supabase.ps1",
     "test": "vitest run"
   },
   "dependencies": {
