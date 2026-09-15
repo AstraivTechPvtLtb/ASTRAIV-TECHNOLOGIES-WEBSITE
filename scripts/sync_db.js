@@ -108,13 +108,15 @@ async function sync() {
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
         updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       );
+      ALTER TABLE footer_settings ALTER COLUMN updated_at SET DEFAULT NOW();
+      ALTER TABLE footer_settings ALTER COLUMN created_at SET DEFAULT NOW();
     `);
     console.log('✔ footer_settings table ensured');
 
     // 6. Insert default footer record
     await client.query(`
       INSERT INTO footer_settings (
-        id, brand_tagline, phone, email, address, map_url, copyright_text
+        id, brand_tagline, phone, email, address, map_url, copyright_text, created_at, updated_at
       ) VALUES (
         'default-footer-id',
         'Your trusted partner for AI, enterprise software, and scalable cloud systems.',
@@ -122,7 +124,9 @@ async function sync() {
         'info@astraivtechnologies.com',
         'Ashoknagar, Kolkata',
         'https://maps.google.com/?q=Ashoknagar,+Kolkata',
-        'Astraiv Technologies. All rights reserved.'
+        'Astraiv Technologies. All rights reserved.',
+        NOW(),
+        NOW()
       ) ON CONFLICT (id) DO NOTHING;
     `);
     console.log('✔ footer_settings default record verified');
@@ -140,17 +144,19 @@ async function sync() {
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
         updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       );
+      ALTER TABLE social_links ALTER COLUMN updated_at SET DEFAULT NOW();
+      ALTER TABLE social_links ALTER COLUMN created_at SET DEFAULT NOW();
     `);
     console.log('✔ social_links table ensured');
 
     // Default social links
     await client.query(`
-      INSERT INTO social_links (id, platform, name, url, icon, active, order_index)
+      INSERT INTO social_links (id, platform, name, url, icon, active, order_index, created_at, updated_at)
       VALUES 
-        ('social-github', 'github', 'GitHub', 'https://github.com/astraiv', 'github', true, 1),
-        ('social-linkedin', 'linkedin', 'LinkedIn', 'https://linkedin.com/company/astraiv', 'linkedin', true, 2),
-        ('social-twitter', 'twitter', 'Twitter', 'https://twitter.com/astraiv', 'twitter', true, 3),
-        ('social-whatsapp', 'whatsapp', 'WhatsApp', 'https://wa.me/918167409664', 'phone', true, 4)
+        ('social-github', 'github', 'GitHub', 'https://github.com/astraiv', 'github', true, 1, NOW(), NOW()),
+        ('social-linkedin', 'linkedin', 'LinkedIn', 'https://linkedin.com/company/astraiv', 'linkedin', true, 2, NOW(), NOW()),
+        ('social-twitter', 'twitter', 'Twitter', 'https://twitter.com/astraiv', 'twitter', true, 3, NOW(), NOW()),
+        ('social-whatsapp', 'whatsapp', 'WhatsApp', 'https://wa.me/918167409664', 'phone', true, 4, NOW(), NOW())
       ON CONFLICT (id) DO NOTHING;
     `);
     console.log('✔ default social_links verified');

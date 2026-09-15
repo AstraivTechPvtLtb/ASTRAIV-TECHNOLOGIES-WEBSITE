@@ -429,7 +429,32 @@ export async function getPublicComplianceSettings(): Promise<PublicComplianceSet
           record = rows[0];
         }
       } catch {
-        // Table or query not available
+        // If client_logos column was missing, query core metrics safely
+        try {
+          const rows = await db.$queryRaw<ComplianceDbRecord[]>`
+            SELECT 
+              id, 
+              iso_number, 
+              iso_label, 
+              show_iso_badge, 
+              show_iso_section,
+              uptime_value, 
+              uptime_label, 
+              savings_value, 
+              savings_label, 
+              actions_value, 
+              actions_label, 
+              sla_value, 
+              sla_label
+            FROM compliance_settings 
+            LIMIT 1
+          `;
+          if (rows && rows.length > 0) {
+            record = rows[0];
+          }
+        } catch {
+          // Table not available
+        }
       }
     }
 
