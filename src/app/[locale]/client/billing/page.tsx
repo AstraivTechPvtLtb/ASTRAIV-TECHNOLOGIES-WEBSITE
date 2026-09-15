@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/vie
 import { ArrowUpRight, CheckCircle2, Download } from 'lucide-react';
 import { Button } from '@/views/ui/button';
 import { formatCurrency, formatDate } from '@/utils';
+import { ROUTES, getLocalizedPath } from '@/routes';
 
 interface ClientBillingPageProps {
   params: Promise<{ locale: string }>;
@@ -19,14 +20,14 @@ export default async function ClientBillingPage({ params }: ClientBillingPagePro
   });
 
   if (!session) {
-    redirect(`/${locale}/auth/login`);
+    redirect(getLocalizedPath(ROUTES.AUTH.LOGIN, locale));
   }
 
   const user = session.user;
 
   // Protect client route
   if (user.role !== 'CLIENT' && user.role !== 'ADMIN') {
-    redirect(`/${locale}/dashboard`);
+    redirect(getLocalizedPath(ROUTES.PORTAL.DASHBOARD, locale));
   }
 
   // Simulated billing logs (Stripe placeholder representation)
@@ -37,7 +38,7 @@ export default async function ClientBillingPage({ params }: ClientBillingPagePro
   ];
 
   const breadcrumbs = [
-    { label: 'Dashboard', href: '/dashboard' },
+    { label: 'Dashboard', href: ROUTES.PORTAL.DASHBOARD },
     { label: 'Billing & Invoices' },
   ];
 

@@ -1,61 +1,26 @@
 import type { MetadataRoute } from 'next';
+import { ROUTES, getLocalizedPath } from '@/routes';
+import { siteConfig } from '@/config/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.astraivtechnologies.com';
-  return [
-    {
-      url: `${baseUrl}/en`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/en/services`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/en/solutions`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/en/technology`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/en/industries`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/en/portfolio`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/en/company`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/en/blog`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/en/contact`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
+  const baseUrl = siteConfig.url;
+
+  const publicPages = [
+    { path: ROUTES.PUBLIC.HOME, priority: 1.0, changeFrequency: 'daily' as const },
+    { path: ROUTES.PUBLIC.SERVICES, priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: ROUTES.PUBLIC.SOLUTIONS, priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: ROUTES.PUBLIC.TECHNOLOGY, priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: ROUTES.PUBLIC.INDUSTRIES, priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: ROUTES.PUBLIC.PORTFOLIO, priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: ROUTES.PUBLIC.COMPANY, priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: ROUTES.PUBLIC.BLOG, priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: ROUTES.PUBLIC.CONTACT, priority: 0.7, changeFrequency: 'monthly' as const },
   ];
+
+  return publicPages.map((page) => ({
+    url: `${baseUrl}${getLocalizedPath(page.path, 'en')}`,
+    lastModified: new Date(),
+    changeFrequency: page.changeFrequency,
+    priority: page.priority,
+  }));
 }

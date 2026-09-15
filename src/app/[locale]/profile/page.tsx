@@ -7,6 +7,7 @@ import { DashboardRole } from '@/views/layouts/sidebar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/views/ui/card';
 import { User, Mail, ShieldAlert, Calendar } from 'lucide-react';
 import { formatDate } from '@/utils';
+import { ROUTES, getLocalizedPath } from '@/routes';
 
 interface ProfilePageProps {
   params: Promise<{ locale: string }>;
@@ -19,13 +20,13 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
   });
 
   if (!session) {
-    redirect(`/${locale}/auth/login`);
+    redirect(getLocalizedPath(ROUTES.AUTH.LOGIN, locale));
   }
 
   const user = session.user;
 
   const breadcrumbs = [
-    { label: 'Dashboard', href: '/dashboard' },
+    { label: 'Dashboard', href: ROUTES.PORTAL.DASHBOARD },
     { label: 'Profile' },
   ];
 
