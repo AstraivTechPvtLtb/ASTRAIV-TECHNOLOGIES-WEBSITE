@@ -361,6 +361,68 @@
   animation: ambient-drift-4 36s ease-in-out infinite;
 }
 
+/* Holographic Blueprint Keyframes & Utilities */
+@keyframes shimmer-btn {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes radar-pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
+}
+
+@utility hologram-glow {
+  box-shadow: 0 0 50px -10px rgba(0, 242, 254, 0.18), 0 0 0 1px rgba(0, 242, 254, 0.32);
+  transition: box-shadow 0.4s ease;
+  &:hover {
+    box-shadow: 0 0 75px -5px rgba(0, 242, 254, 0.35), 0 0 0 1px rgba(0, 242, 254, 0.6);
+  }
+}
+
+@utility cyber-btn-shine {
+  background-size: 200% auto;
+  background-image: linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.45) 45%, rgba(0,242,254,0.6) 55%, transparent 75%);
+}
+
+@utility cyber-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+@utility animate-shimmer-btn {
+  animation: shimmer-btn 3s infinite;
+}
+
+@utility animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+
+@utility animate-radar-pulse {
+  animation: radar-pulse 3s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-ambient-drift-1,
   .animate-ambient-drift-2,
@@ -370,9 +432,13 @@
   .animate-blob-2,
   .animate-blob-3,
   .animate-scan-beam,
-  .animate-text-shimmer {
+  .animate-text-shimmer,
+  .animate-shimmer-btn,
+  .animate-float-slow,
+  .animate-radar-pulse {
     animation: none !important;
     transform: none !important;
   }
 }
+
 
