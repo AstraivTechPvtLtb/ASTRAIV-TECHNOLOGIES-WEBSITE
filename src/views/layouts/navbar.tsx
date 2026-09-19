@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { NAV_ITEMS, NavItem, MegaMenuConfig } from './nav-data';
+import { ROUTES, isActiveRoute } from '@/routes';
 
 export function Navbar() {
   const tNav = useTranslations('Nav');
@@ -163,30 +164,16 @@ export function Navbar() {
       return false;
     }
 
-    // 2. Dedicated page checks
-    if (pathname === '/company' || pathname.startsWith('/company')) {
-      return item.id === 'company';
-    }
-    if (pathname === '/portfolio' || pathname.startsWith('/portfolio')) {
-      return item.id === 'portfolio';
-    }
-    if (pathname === '/services' || pathname.startsWith('/services')) {
-      return item.id === 'services';
-    }
-    if (pathname === '/solutions' || pathname.startsWith('/solutions')) {
-      return item.id === 'solutions';
-    }
-    if (pathname === '/technology' || pathname.startsWith('/technology')) {
-      return item.id === 'technologies';
-    }
-    if (pathname === '/industries' || pathname.startsWith('/industries')) {
-      return item.id === 'industries';
-    }
-    if (pathname.startsWith('/blog') || pathname === '/faq') {
-      return item.id === 'insights';
+    // 2. Insights menu covers blog and faq
+    if (item.id === 'insights') {
+      return (
+        isActiveRoute(pathname, ROUTES.PUBLIC.BLOG) ||
+        isActiveRoute(pathname, ROUTES.PUBLIC.FAQ)
+      );
     }
 
-    return false;
+    // 3. Match against item's route href
+    return isActiveRoute(pathname, item.href);
   };
 
   // Render Mega Menu or Dropdown Panel for Desktop
@@ -265,7 +252,7 @@ export function Navbar() {
               Industry Verticals & Domains
             </span>
             <Link
-              href="/industries"
+              href={ROUTES.PUBLIC.INDUSTRIES}
               onClick={() => setActiveDropdown(null)}
               className="text-xs font-bold text-primary dark:text-accent hover:underline flex items-center gap-1"
             >
@@ -346,7 +333,7 @@ export function Navbar() {
       >
         {/* Brand Logo */}
         <Link
-          href="/"
+          href={ROUTES.PUBLIC.HOME}
           className="flex items-center gap-2.5 font-bold tracking-tight text-foreground group select-none shrink-0"
         >
           <Image
@@ -468,13 +455,13 @@ export function Navbar() {
         {/* Right Side: CTA and Preserved 3-Lines Options Button */}
         <div className="hidden lg:flex items-center gap-3 h-full">
           {/* Primary Enterprise CTA: Let's Connect → */}
-          <Link href="/contact" className="relative group inline-block">
+          <Link href={ROUTES.PUBLIC.CONTACT} className="relative group inline-block">
             <button
               className={cn(
                 'relative cursor-pointer font-bold rounded-md px-4.5 h-9 text-[12px] tracking-wide transition-all duration-200 shadow-sm flex items-center justify-center gap-2 border outline-none select-none active:scale-95',
                 'text-white bg-[#0B3D91] hover:bg-[#082d6c] border-blue-900/20 hover:shadow-md hover:shadow-[#0B3D91]/25',
                 'dark:bg-blue-600 dark:hover:bg-blue-500 dark:border-blue-400/30 dark:shadow-[0_0_16px_-2px_rgba(59,130,246,0.35)] dark:hover:shadow-[0_0_22px_-1px_rgba(59,130,246,0.55)]',
-                pathname === '/contact' ? 'bg-[#093275] ring-2 ring-blue-500/40 dark:bg-blue-500 dark:ring-blue-400/50' : ''
+                pathname === ROUTES.PUBLIC.CONTACT ? 'bg-[#093275] ring-2 ring-blue-500/40 dark:bg-blue-500 dark:ring-blue-400/50' : ''
               )}
             >
               <span className="h-1.5 w-1.5 rounded-full bg-blue-400 dark:bg-blue-400 shadow-[0_0_6px_rgba(59,130,246,0.9)] animate-pulse" />
@@ -646,7 +633,7 @@ export function Navbar() {
 
                   {/* Login Link */}
                   <Link
-                    href="/auth/login"
+                    href={ROUTES.AUTH.LOGIN}
                     onClick={() => setShowOptionsDropdown(false)}
                     className="w-full text-left px-3 py-2 rounded-md font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-950 dark:hover:text-white transition-colors flex items-center justify-between cursor-pointer text-xs select-none active:scale-[0.99]"
                   >

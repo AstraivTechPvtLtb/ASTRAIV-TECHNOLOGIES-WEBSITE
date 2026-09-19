@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/vie
 import { Briefcase, Calendar, DollarSign, UserCheck } from 'lucide-react';
 import { formatCurrency, formatDate } from '@/utils';
 import { cn } from '@/lib/utils';
+import { ROUTES, getLocalizedPath } from '@/routes';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,12 +22,12 @@ export default async function ClientProjectsPage({ params }: ClientProjectsPageP
   const user = await getCurrentUserSession();
 
   if (!user) {
-    redirect(`/${locale}/auth/login`);
+    redirect(getLocalizedPath(ROUTES.AUTH.LOGIN, locale));
   }
 
   // Protect client route
   if (user.role !== 'CLIENT' && user.role !== 'ADMIN' && user.role !== 'PROJECT_MANAGER') {
-    redirect(`/${locale}/dashboard`);
+    redirect(getLocalizedPath(ROUTES.PORTAL.DASHBOARD, locale));
   }
 
   // Fetch client projects via Projects Controller
@@ -61,7 +62,7 @@ export default async function ClientProjectsPage({ params }: ClientProjectsPageP
   };
 
   const breadcrumbs = [
-    { label: 'Dashboard', href: '/dashboard' },
+    { label: 'Dashboard', href: ROUTES.PORTAL.DASHBOARD },
     { label: 'My Projects' },
   ];
 

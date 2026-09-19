@@ -3,6 +3,7 @@ import { getCurrentUserSession, getClientTickets } from '@/controllers';
 import { DashboardLayout } from '@/views/layouts/dashboard-layout';
 import { DashboardRole } from '@/views/layouts/sidebar';
 import { TicketsView } from '@/views/portal/tickets-view';
+import { ROUTES, getLocalizedPath } from '@/routes';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,19 +18,19 @@ export default async function ClientTicketsPage({ params }: ClientTicketsPagePro
   const user = await getCurrentUserSession();
 
   if (!user) {
-    redirect(`/${locale}/auth/login`);
+    redirect(getLocalizedPath(ROUTES.AUTH.LOGIN, locale));
   }
 
   // Protect client route - only client and admin profiles are allowed
   if (user.role !== 'CLIENT' && user.role !== 'ADMIN' && user.role !== 'PROJECT_MANAGER') {
-    redirect(`/${locale}/dashboard`);
+    redirect(getLocalizedPath(ROUTES.PORTAL.DASHBOARD, locale));
   }
 
   // Fetch client tickets via Tickets Controller
   const tickets = await getClientTickets(user);
 
   const breadcrumbs = [
-    { label: 'Dashboard', href: '/dashboard' },
+    { label: 'Dashboard', href: ROUTES.PORTAL.DASHBOARD },
     { label: 'Support Desk' },
   ];
 

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { SocialPlatformIcon } from '@/views/ui/icons';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { getPublicFooterData } from '@/controllers/footer.controller';
+import { ROUTES } from '@/routes';
 
 export async function Footer() {
   const currentYear = new Date().getFullYear();
@@ -12,28 +13,28 @@ export async function Footer() {
     {
       title: 'Services',
       links: [
-        { label: 'AI Solutions & RAG', href: '/services#ai-intelligent-systems' },
-        { label: 'SaaS Development', href: '/services#saas-development' },
-        { label: 'Custom Systems', href: '/services#custom-software' },
-        { label: 'Cloud & Infrastructure', href: '/services#cloud-infrastructure' },
+        { label: 'AI Solutions & RAG', href: ROUTES.PUBLIC.SERVICES_ANCHORS.AI_INTELLIGENT_SYSTEMS },
+        { label: 'SaaS Development', href: ROUTES.PUBLIC.SERVICES_ANCHORS.SAAS_DEVELOPMENT },
+        { label: 'Custom Systems', href: ROUTES.PUBLIC.SERVICES_ANCHORS.CUSTOM_SOFTWARE },
+        { label: 'Cloud & Infrastructure', href: ROUTES.PUBLIC.SERVICES_ANCHORS.CLOUD_INFRASTRUCTURE },
       ],
     },
     {
       title: 'Platform',
       links: [
-        { label: 'Why Astraiv', href: '/company#why-us' },
-        { label: 'Industries We Serve', href: '/industries' },
-        { label: 'Our Technologies', href: '/technology#technologies' },
-        { label: 'AI Capabilities', href: '/technology#ai-expertise' },
+        { label: 'Why Astraiv', href: ROUTES.PUBLIC.COMPANY_ANCHORS.WHY_US },
+        { label: 'Industries We Serve', href: ROUTES.PUBLIC.INDUSTRIES },
+        { label: 'Our Technologies', href: ROUTES.PUBLIC.TECHNOLOGY_ANCHORS.ALL_TECHNOLOGIES },
+        { label: 'AI Capabilities', href: ROUTES.PUBLIC.TECHNOLOGY_ANCHORS.AI_EXPERTISE },
       ],
     },
     {
       title: 'Company',
       links: [
-        { label: 'Development Process', href: '/company#process' },
-        { label: 'Portfolio', href: '/portfolio' },
-        { label: 'Flexible Pricing', href: '/company#pricing' },
-        { label: 'Frequently Asked Qs', href: '/blog#faq' },
+        { label: 'Development Process', href: ROUTES.PUBLIC.COMPANY_ANCHORS.PROCESS },
+        { label: 'Portfolio', href: ROUTES.PUBLIC.PORTFOLIO },
+        { label: 'Flexible Pricing', href: ROUTES.PUBLIC.COMPANY_ANCHORS.PRICING },
+        { label: 'Frequently Asked Qs', href: ROUTES.PUBLIC.BLOG_FAQ_ANCHOR },
       ],
     },
   ];
@@ -43,7 +44,7 @@ export async function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.9fr_0.9fr_0.9fr_1.5fr] gap-8 lg:gap-8 xl:gap-10 items-start text-left">
         {/* Brand details and dynamic social icons (Left Column) */}
         <div className="flex flex-col gap-4 text-left">
-          <Link href="/" className="inline-block">
+          <Link href={ROUTES.PUBLIC.HOME} className="inline-block">
             <Image
               src="/logo-full.png"
               alt="Astraiv Technologies Logo"
@@ -166,10 +167,10 @@ export async function Footer() {
         </p>
 
         <div className="flex items-center gap-6">
-          <Link href="/faq" className="hover:text-slate-300 transition-colors">
+          <Link href={ROUTES.PUBLIC.FAQ} className="hover:text-slate-300 transition-colors">
             Privacy Policy
           </Link>
-          <Link href="/faq" className="hover:text-slate-300 transition-colors">
+          <Link href={ROUTES.PUBLIC.FAQ} className="hover:text-slate-300 transition-colors">
             Terms of Service
           </Link>
         </div>

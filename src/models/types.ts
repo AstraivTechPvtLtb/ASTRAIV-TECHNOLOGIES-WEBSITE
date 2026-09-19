@@ -327,6 +327,16 @@ export const DEFAULT_PRICING_PLANS: PublicPricingPlan[] = [
 ];
 
 /**
+ * Enterprise client partner logo item for the proof ticker
+ */
+export interface ClientLogoItem {
+  id: string;
+  name: string;
+  imageUrl?: string | null;
+  iconKey?: string;
+}
+
+/**
  * ISO Compliance & Performance Metrics Configuration
  */
 export interface PublicComplianceSettings {
@@ -343,4 +353,5 @@ export interface PublicComplianceSettings {
   actionsLabel: string;
   slaValue: string;
   slaLabel: string;
+  clientLogos?: ClientLogoItem[];
 }

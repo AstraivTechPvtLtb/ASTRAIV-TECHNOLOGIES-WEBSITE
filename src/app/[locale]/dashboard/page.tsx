@@ -3,6 +3,7 @@ import { getCurrentUserSession, getDashboardData } from '@/controllers';
 import { DashboardView } from '@/views/portal/dashboard-view';
 import { DashboardLayout } from '@/views/layouts/dashboard-layout';
 import { DashboardRole } from '@/views/layouts/sidebar';
+import { ROUTES, getLocalizedPath } from '@/routes';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,7 +19,7 @@ export default async function DashboardPage({ params }: DashboardPageProps) {
 
   // Protect dashboard page from unauthorized users
   if (!user) {
-    redirect(`/${locale}/auth/login`);
+    redirect(getLocalizedPath(ROUTES.AUTH.LOGIN, locale));
   }
 
   // Obtain dashboard telemetry via Dashboard Controller

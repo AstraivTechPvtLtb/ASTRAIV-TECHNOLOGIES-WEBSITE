@@ -5,22 +5,11 @@ import Image from 'next/image';
 import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import { Button } from '@/views/ui/button';
-import {
-  LayoutDashboard,
-  Users,
-  FolderKanban,
-  LifeBuoy,
-  Settings,
-  CreditCard,
-  User,
-  LogOut,
-  ChevronLeft,
-  ChevronRight,
-  TrendingUp,
-  FileText,
-} from 'lucide-react';
+import { LogOut, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ROUTES, getRoleNavLinks } from '@/routes';
+import type { DashboardRole } from '@/routes';
 
-export type DashboardRole = 'ADMIN' | 'PROJECT_MANAGER' | 'CLIENT' | 'USER';
+export type { DashboardRole };
 
 interface SidebarProps {
   role?: DashboardRole;
@@ -38,51 +27,7 @@ export function Sidebar({
   const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
 
-  // Define navigation sections depending on the role
-  const getNavLinks = () => {
-    const commonLinks = [
-      { label: 'Overview', href: '/dashboard', icon: LayoutDashboard },
-      { label: 'Profile', href: '/profile', icon: User },
-      { label: 'Billing', href: '/billing', icon: CreditCard },
-    ];
-
-    switch (role) {
-      case 'ADMIN':
-        return [
-          { label: 'Admin Panel', href: '/admin', icon: LayoutDashboard },
-          { label: 'User Directory', href: '/admin/users', icon: Users },
-          { label: 'Projects Manager', href: '/admin/projects', icon: FolderKanban },
-          { label: 'CRM Leads', href: '/admin/leads', icon: TrendingUp },
-          { label: 'Support Tickets', href: '/admin/tickets', icon: LifeBuoy },
-          { label: 'Blog CMS', href: '/admin/blog', icon: FileText },
-          { label: 'Settings', href: '/admin/settings', icon: Settings },
-        ];
-      case 'PROJECT_MANAGER':
-        return [
-          { label: 'Manager Home', href: '/manager', icon: LayoutDashboard },
-          { label: 'Assigned Projects', href: '/manager/projects', icon: FolderKanban },
-          { label: 'Support Tickets', href: '/manager/tickets', icon: LifeBuoy },
-          { label: 'Settings', href: '/manager/settings', icon: Settings },
-        ];
-      case 'CLIENT':
-        return [
-          { label: 'Client Home', href: '/client', icon: LayoutDashboard },
-          { label: 'My Projects', href: '/client/projects', icon: FolderKanban },
-          { label: 'Support Tickets', href: '/client/tickets', icon: LifeBuoy },
-          { label: 'Billing & Invoices', href: '/client/billing', icon: CreditCard },
-          { label: 'Settings', href: '/client/settings', icon: Settings },
-        ];
-      case 'USER':
-      default:
-        return [
-          ...commonLinks,
-          { label: 'Help Desk', href: '/support', icon: LifeBuoy },
-          { label: 'Account Settings', href: '/settings', icon: Settings },
-        ];
-    }
-  };
-
-  const links = getNavLinks();
+  const links = getRoleNavLinks(role);
 
   return (
     <aside
@@ -93,7 +38,7 @@ export function Sidebar({
     >
       {/* Sidebar Header */}
       <div className="flex items-center justify-between p-6 border-b border-border/10">
-        <Link href="/" className="flex items-center gap-2.5 font-bold text-lg tracking-tight text-foreground overflow-hidden">
+        <Link href={ROUTES.PUBLIC.HOME} className="flex items-center gap-2.5 font-bold text-lg tracking-tight text-foreground overflow-hidden">
           <Image
             src="/logo-icon.jpg"
             alt="Astraiv Logo"
