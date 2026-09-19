@@ -1,35 +1,7 @@
-export interface NavSubItem {
-  name: string;
-  href: string;
-  description?: string;
-  badge?: string;
-}
+import { ROUTES } from '@/routes';
+import type { NavSubItem, NavGroup, MegaMenuConfig, NavItem } from '@/routes';
 
-export interface NavGroup {
-  title: string;
-  items: NavSubItem[];
-}
-
-export interface MegaMenuConfig {
-  type: 'mega-3col' | 'mega-industries' | 'dropdown' | 'simple';
-  featured?: {
-    tagline: string;
-    description: string;
-    ctaLabel: string;
-    ctaHref: string;
-  };
-  groups?: NavGroup[];
-  items?: NavSubItem[];
-}
-
-export interface NavItem {
-  id: string;
-  labelKey: string;
-  defaultLabel: string;
-  href: string;
-  hasDropdown: boolean;
-  megaMenu?: MegaMenuConfig;
-}
+export type { NavSubItem, NavGroup, MegaMenuConfig, NavItem };
 
 export const SERVICES_MEGA: MegaMenuConfig = {
   type: 'mega-3col',
@@ -37,7 +9,7 @@ export const SERVICES_MEGA: MegaMenuConfig = {
     tagline: 'Build something exceptional.',
     description: 'From AI systems to scalable enterprise applications, we engineer technology around your business.',
     ctaLabel: 'Explore All Services',
-    ctaHref: '/services',
+    ctaHref: ROUTES.PUBLIC.SERVICES,
   },
   groups: [
     {
@@ -45,22 +17,22 @@ export const SERVICES_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'AI & Intelligent Systems',
-          href: '/services#ai-intelligent-systems',
+          href: ROUTES.PUBLIC.SERVICES_ANCHORS.AI_INTELLIGENT_SYSTEMS,
           description: 'Autonomous agents, cognitive workflows & predictive engines.',
         },
         {
           name: 'SaaS Development',
-          href: '/services#saas-development',
+          href: ROUTES.PUBLIC.SERVICES_ANCHORS.SAAS_DEVELOPMENT,
           description: 'Scalable multi-tenant platforms built for high user growth.',
         },
         {
           name: 'Custom Software Development',
-          href: '/services#custom-software',
+          href: ROUTES.PUBLIC.SERVICES_ANCHORS.CUSTOM_SOFTWARE,
           description: 'Tailored enterprise architectures engineered for your workflows.',
         },
         {
           name: 'Enterprise Software',
-          href: '/services#enterprise-software',
+          href: ROUTES.PUBLIC.SERVICES_ANCHORS.ENTERPRISE_SOFTWARE,
           description: 'Mission-critical portals, microservices & legacy migrations.',
         },
       ],
@@ -70,17 +42,17 @@ export const SERVICES_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'Web Application Development',
-          href: '/services#web-development',
+          href: ROUTES.PUBLIC.SERVICES_ANCHORS.WEB_DEVELOPMENT,
           description: 'Modern Next.js & React apps with sub-second performance.',
         },
         {
           name: 'Mobile App Development',
-          href: '/services#mobile-apps',
+          href: ROUTES.PUBLIC.SERVICES_ANCHORS.MOBILE_APPS,
           description: 'Native-feel iOS & Android apps with seamless UX.',
         },
         {
           name: 'UI/UX Design',
-          href: '/services#uiux-design',
+          href: ROUTES.PUBLIC.SERVICES_ANCHORS.UIUX_DESIGN,
           description: 'High-conversion design systems & micro-interactions.',
         },
       ],
@@ -90,17 +62,17 @@ export const SERVICES_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'Cloud & Infrastructure',
-          href: '/services#cloud-infrastructure',
+          href: ROUTES.PUBLIC.SERVICES_ANCHORS.CLOUD_INFRASTRUCTURE,
           description: 'Reliable AWS & Cloudflare setups with 99.99% availability.',
         },
         {
           name: 'DevOps & CI/CD',
-          href: '/services#devops-cicd',
+          href: ROUTES.PUBLIC.SERVICES_ANCHORS.DEVOPS_CICD,
           description: 'Automated test-and-deploy pipelines & container orchestration.',
         },
         {
           name: 'Business Automation',
-          href: '/services#business-automation',
+          href: ROUTES.PUBLIC.SERVICES_ANCHORS.BUSINESS_AUTOMATION,
           description: 'Automated CRM, billing pipelines & operational bots.',
         },
       ],
@@ -114,7 +86,7 @@ export const SOLUTIONS_MEGA: MegaMenuConfig = {
     tagline: 'Engineered for Impact.',
     description: 'Purpose-built technical architectures solving high-stakes enterprise bottlenecks.',
     ctaLabel: 'View All Solutions',
-    ctaHref: '/solutions',
+    ctaHref: ROUTES.PUBLIC.SOLUTIONS,
   },
   groups: [
     {
@@ -122,17 +94,17 @@ export const SOLUTIONS_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'AI Agents & Automation',
-          href: '/solutions#ai-agents',
+          href: ROUTES.PUBLIC.SOLUTIONS_ANCHORS.AI_AGENTS,
           description: 'Autonomous decision pipelines & goal-driven task bots.',
         },
         {
           name: 'RAG & Knowledge Systems',
-          href: '/solutions#rag-knowledge',
+          href: ROUTES.PUBLIC.SOLUTIONS_ANCHORS.RAG_KNOWLEDGE,
           description: 'Enterprise search across complex multi-format document lakes.',
         },
         {
           name: 'Data & Analytics',
-          href: '/solutions#data-analytics',
+          href: ROUTES.PUBLIC.SOLUTIONS_ANCHORS.DATA_ANALYTICS,
           description: 'Real-time metrics, telemetry & executive predictive dashboards.',
         },
       ],
@@ -142,17 +114,17 @@ export const SOLUTIONS_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'SaaS Platforms',
-          href: '/solutions#saas-platforms',
+          href: ROUTES.PUBLIC.SOLUTIONS_ANCHORS.SAAS_PLATFORMS,
           description: 'Enterprise recurring revenue engines & customer portals.',
         },
         {
           name: 'Enterprise Applications',
-          href: '/solutions#enterprise-applications',
+          href: ROUTES.PUBLIC.SOLUTIONS_ANCHORS.ENTERPRISE_APPLICATIONS,
           description: 'High-throughput business operations & unified command centers.',
         },
         {
           name: 'Business Process Automation',
-          href: '/solutions#business-process-automation',
+          href: ROUTES.PUBLIC.SOLUTIONS_ANCHORS.WORKFLOW_AUTOMATION,
           description: 'End-to-end integration workflows eliminating manual labor.',
         },
       ],
@@ -162,12 +134,12 @@ export const SOLUTIONS_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'System Integration',
-          href: '/solutions#system-integration',
+          href: ROUTES.PUBLIC.SOLUTIONS_ANCHORS.CUSTOMER_EXPERIENCE,
           description: 'Robust API gateways, event buses & microservice links.',
         },
         {
           name: 'Legacy Modernization',
-          href: '/solutions#legacy-modernization',
+          href: ROUTES.PUBLIC.SOLUTIONS_ANCHORS.CLOUD_MIGRATION,
           description: 'Zero-downtime refactoring into modern serverless stacks.',
         },
       ],
@@ -181,33 +153,33 @@ export const TECHNOLOGIES_MEGA: MegaMenuConfig = {
     tagline: 'Modern Technical Stack.',
     description: 'Battle-tested frameworks and cloud primitives engineered for enterprise scale.',
     ctaLabel: 'Explore Technology Stack',
-    ctaHref: '/technology',
+    ctaHref: ROUTES.PUBLIC.TECHNOLOGY,
   },
   groups: [
     {
       title: 'AI & DATA',
       items: [
-        { name: 'AI & Machine Learning', href: '/technology#ai-expertise', description: 'PyTorch, custom fine-tuning & inference.' },
-        { name: 'LLMs & Generative AI', href: '/technology#ai-expertise', description: 'OpenAI, Anthropic & private local models.' },
-        { name: 'RAG & Vector Systems', href: '/technology#ai-expertise', description: 'Pinecone, pgvector & contextual search.' },
-        { name: 'Data Engineering', href: '/technology#technologies', description: 'Data pipelines, warehousing & ETL flows.' },
+        { name: 'AI & Machine Learning', href: ROUTES.PUBLIC.TECHNOLOGY_ANCHORS.AI_EXPERTISE, description: 'PyTorch, custom fine-tuning & inference.' },
+        { name: 'LLMs & Generative AI', href: ROUTES.PUBLIC.TECHNOLOGY_ANCHORS.AI_EXPERTISE, description: 'OpenAI, Anthropic & private local models.' },
+        { name: 'RAG & Vector Systems', href: ROUTES.PUBLIC.TECHNOLOGY_ANCHORS.AI_EXPERTISE, description: 'Pinecone, pgvector & contextual search.' },
+        { name: 'Data Engineering', href: ROUTES.PUBLIC.TECHNOLOGY_ANCHORS.ALL_TECHNOLOGIES, description: 'Data pipelines, warehousing & ETL flows.' },
       ],
     },
     {
       title: 'APPLICATION ENGINEERING',
       items: [
-        { name: 'Next.js / React', href: '/technology#technologies', description: 'App router, streaming SSR & reactivity.' },
-        { name: 'TypeScript', href: '/technology#technologies', description: 'Strict end-to-end type safety & contracts.' },
-        { name: 'Node.js & Python', href: '/technology#technologies', description: 'FastAPI, async workers & API gateways.' },
-        { name: 'APIs & Integrations', href: '/technology#technologies', description: 'REST, GraphQL, WebSockets & webhooks.' },
+        { name: 'Next.js / React', href: ROUTES.PUBLIC.TECHNOLOGY_ANCHORS.ALL_TECHNOLOGIES, description: 'App router, streaming SSR & reactivity.' },
+        { name: 'TypeScript', href: ROUTES.PUBLIC.TECHNOLOGY_ANCHORS.ALL_TECHNOLOGIES, description: 'Strict end-to-end type safety & contracts.' },
+        { name: 'Node.js & Python', href: ROUTES.PUBLIC.TECHNOLOGY_ANCHORS.ALL_TECHNOLOGIES, description: 'FastAPI, async workers & API gateways.' },
+        { name: 'APIs & Integrations', href: ROUTES.PUBLIC.TECHNOLOGY_ANCHORS.ALL_TECHNOLOGIES, description: 'REST, GraphQL, WebSockets & webhooks.' },
       ],
     },
     {
       title: 'DATA & INFRASTRUCTURE',
       items: [
-        { name: 'PostgreSQL & MongoDB', href: '/technology#technologies', description: 'ACID transactional data & dynamic schemas.' },
-        { name: 'AWS & Cloud Infrastructure', href: '/technology#technologies', description: 'Cloudflare edge, Lambda & S3 architecture.' },
-        { name: 'Docker / DevOps', href: '/technology#technologies', description: 'Automated CI/CD, staging & container runs.' },
+        { name: 'PostgreSQL & MongoDB', href: ROUTES.PUBLIC.TECHNOLOGY_ANCHORS.ALL_TECHNOLOGIES, description: 'ACID transactional data & dynamic schemas.' },
+        { name: 'AWS & Cloud Infrastructure', href: ROUTES.PUBLIC.TECHNOLOGY_ANCHORS.ALL_TECHNOLOGIES, description: 'Cloudflare edge, Lambda & S3 architecture.' },
+        { name: 'Docker / DevOps', href: ROUTES.PUBLIC.TECHNOLOGY_ANCHORS.ALL_TECHNOLOGIES, description: 'Automated CI/CD, staging & container runs.' },
       ],
     },
   ],
@@ -218,12 +190,12 @@ export const INDUSTRIES_MEGA: MegaMenuConfig = {
   items: [
     {
       name: 'FinTech',
-      href: '/industries#fintech',
+      href: ROUTES.PUBLIC.INDUSTRIES_ANCHORS.FINTECH,
       description: 'Secure financial platforms and intelligent transaction systems.',
     },
     {
       name: 'HealthTech',
-      href: '/industries#healthtech',
+      href: ROUTES.PUBLIC.INDUSTRIES_ANCHORS.HEALTHCARE,
       description: 'HIPAA-compliant healthcare software and clinical data workflows.',
     },
     {
@@ -233,17 +205,17 @@ export const INDUSTRIES_MEGA: MegaMenuConfig = {
     },
     {
       name: 'E-commerce',
-      href: '/industries#ecommerce',
+      href: ROUTES.PUBLIC.INDUSTRIES_ANCHORS.ECOMMERCE,
       description: 'Headless digital commerce engines with sub-second checkout speeds.',
     },
     {
       name: 'Logistics',
-      href: '/industries#logistics',
+      href: ROUTES.PUBLIC.INDUSTRIES_ANCHORS.LOGISTICS,
       description: 'Intelligent fleet tracking, telemetry & automated supply chains.',
     },
     {
       name: 'EdTech',
-      href: '/industries#edtech',
+      href: ROUTES.PUBLIC.INDUSTRIES_ANCHORS.EDUCATION,
       description: 'Interactive learning management systems and virtual student portals.',
     },
     {
@@ -284,7 +256,7 @@ export const INSIGHTS_DROPDOWN: MegaMenuConfig = {
     },
     {
       name: 'FAQs',
-      href: '/blog#faq',
+      href: ROUTES.PUBLIC.BLOG_FAQ_ANCHOR,
       description: 'Answers about our delivery velocity, SLAs & security.',
     },
     {
@@ -300,17 +272,17 @@ export const COMPANY_DROPDOWN: MegaMenuConfig = {
   items: [
     {
       name: 'About Astraiv',
-      href: '/company#about',
+      href: ROUTES.PUBLIC.COMPANY_ANCHORS.ABOUT,
       description: 'Our engineering philosophy and global mission.',
     },
     {
       name: 'Why Astraiv',
-      href: '/company#why-us',
+      href: ROUTES.PUBLIC.COMPANY_ANCHORS.WHY_US,
       description: 'Architectural rigor, speed, and proven delivery track record.',
     },
     {
       name: 'Our Process',
-      href: '/company#process',
+      href: ROUTES.PUBLIC.COMPANY_ANCHORS.PROCESS,
       description: 'Agile execution, rigorous code QA & transparent sprint cadence.',
     },
     {
@@ -320,17 +292,17 @@ export const COMPANY_DROPDOWN: MegaMenuConfig = {
     },
     {
       name: 'Careers',
-      href: '/company#careers',
+      href: ROUTES.PUBLIC.COMPANY_ANCHORS.CAREERS,
       description: 'Join our team of elite full-stack engineers and architects.',
     },
     {
       name: 'Pricing & Models',
-      href: '/company#pricing',
+      href: ROUTES.PUBLIC.COMPANY_ANCHORS.PRICING,
       description: 'Dedicated squads, staff augmentation & fixed sprint models.',
     },
     {
       name: 'Contact',
-      href: '/company#contact',
+      href: ROUTES.PUBLIC.CONTACT,
       description: 'Schedule a direct architectural consultation with our team.',
     },
   ],
@@ -341,7 +313,7 @@ export const NAV_ITEMS: NavItem[] = [
     id: 'company',
     labelKey: 'aboutUs',
     defaultLabel: 'About Us',
-    href: '/company',
+    href: ROUTES.PUBLIC.COMPANY,
     hasDropdown: true,
     megaMenu: COMPANY_DROPDOWN,
   },
@@ -349,7 +321,7 @@ export const NAV_ITEMS: NavItem[] = [
     id: 'services',
     labelKey: 'services',
     defaultLabel: 'Services',
-    href: '/services',
+    href: ROUTES.PUBLIC.SERVICES,
     hasDropdown: true,
     megaMenu: SERVICES_MEGA,
   },
@@ -357,7 +329,7 @@ export const NAV_ITEMS: NavItem[] = [
     id: 'solutions',
     labelKey: 'solutions',
     defaultLabel: 'Solutions',
-    href: '/solutions',
+    href: ROUTES.PUBLIC.SOLUTIONS,
     hasDropdown: true,
     megaMenu: SOLUTIONS_MEGA,
   },
@@ -365,7 +337,7 @@ export const NAV_ITEMS: NavItem[] = [
     id: 'technologies',
     labelKey: 'technologies',
     defaultLabel: 'Technologies',
-    href: '/technology',
+    href: ROUTES.PUBLIC.TECHNOLOGY,
     hasDropdown: true,
     megaMenu: TECHNOLOGIES_MEGA,
   },
@@ -373,7 +345,7 @@ export const NAV_ITEMS: NavItem[] = [
     id: 'industries',
     labelKey: 'industries',
     defaultLabel: 'Industries',
-    href: '/industries',
+    href: ROUTES.PUBLIC.INDUSTRIES,
     hasDropdown: true,
     megaMenu: INDUSTRIES_MEGA,
   },
@@ -381,14 +353,14 @@ export const NAV_ITEMS: NavItem[] = [
     id: 'portfolio',
     labelKey: 'portfolio',
     defaultLabel: 'Portfolio',
-    href: '/portfolio',
+    href: ROUTES.PUBLIC.PORTFOLIO,
     hasDropdown: false,
   },
   {
     id: 'insights',
     labelKey: 'insights',
     defaultLabel: 'Insights',
-    href: '/blog',
+    href: ROUTES.PUBLIC.BLOG,
     hasDropdown: true,
     megaMenu: INSIGHTS_DROPDOWN,
   },

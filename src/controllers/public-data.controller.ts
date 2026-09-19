@@ -326,6 +326,15 @@ export async function getPublicPricingPlans(): Promise<PublicPricingPlan[]> {
   return DEFAULT_PRICING_PLANS;
 }
 
+const DEFAULT_CLIENT_LOGOS = [
+  { id: 'acme', name: 'ACME CORP', iconKey: 'acme', imageUrl: null },
+  { id: 'globex', name: 'GLOBEX', iconKey: 'globex', imageUrl: null },
+  { id: 'initech', name: 'INITECH', iconKey: 'initech', imageUrl: null },
+  { id: 'umbrella', name: 'UMBRELLA', iconKey: 'umbrella', imageUrl: null },
+  { id: 'hooli', name: 'HOOLI', iconKey: 'hooli', imageUrl: null },
+  { id: 'stark', name: 'STARK INDUSTRIES', iconKey: 'stark', imageUrl: null },
+];
+
 const DEFAULT_COMPLIANCE_SETTINGS: PublicComplianceSettings = {
   isoNumber: 'ISO 27001:2022',
   isoLabel: 'Certified',
@@ -339,6 +348,7 @@ const DEFAULT_COMPLIANCE_SETTINGS: PublicComplianceSettings = {
   actionsLabel: 'API ACTIONS',
   slaValue: '100%',
   slaLabel: 'ON-TIME SLA DELIVERY',
+  clientLogos: DEFAULT_CLIENT_LOGOS,
 };
 
 interface ComplianceDbRecord {
@@ -367,6 +377,8 @@ interface ComplianceDbRecord {
   sla_value?: string;
   slaLabel?: string;
   sla_label?: string;
+  clientLogos?: string | null;
+  client_logos?: string | null;
 }
 
 interface PrismaWithCompliance {
@@ -384,31 +396,65 @@ export async function getPublicComplianceSettings(): Promise<PublicComplianceSet
     let record: ComplianceDbRecord | null = null;
 
     if (complianceModel && typeof complianceModel.findFirst === 'function') {
-      record = await complianceModel.findFirst();
+      try {
+        record = await complianceModel.findFirst();
+      } catch {
+        // Fallback to raw query if model fails
+      }
     }
 
     if (!record) {
       // Fallback: direct raw query from PostgreSQL table (vital if server process has cached prisma instance)
-      const rows = await db.$queryRaw<ComplianceDbRecord[]>`
-        SELECT 
-          id, 
-          iso_number, 
-          iso_label, 
-          show_iso_badge, 
-          show_iso_section,
-          uptime_value, 
-          uptime_label, 
-          savings_value, 
-          savings_label, 
-          actions_value, 
-          actions_label, 
-          sla_value, 
-          sla_label 
-        FROM compliance_settings 
-        LIMIT 1
-      `;
-      if (rows && rows.length > 0) {
-        record = rows[0];
+      try {
+        const rows = await db.$queryRaw<ComplianceDbRecord[]>`
+          SELECT 
+            id, 
+            iso_number, 
+            iso_label, 
+            show_iso_badge, 
+            show_iso_section,
+            uptime_value, 
+            uptime_label, 
+            savings_value, 
+            savings_label, 
+            actions_value, 
+            actions_label, 
+            sla_value, 
+            sla_label,
+            client_logos
+          FROM compliance_settings 
+          LIMIT 1
+        `;
+        if (rows && rows.length > 0) {
+          record = rows[0];
+        }
+      } catch {
+        // If client_logos column was missing, query core metrics safely
+        try {
+          const rows = await db.$queryRaw<ComplianceDbRecord[]>`
+            SELECT 
+              id, 
+              iso_number, 
+              iso_label, 
+              show_iso_badge, 
+              show_iso_section,
+              uptime_value, 
+              uptime_label, 
+              savings_value, 
+              savings_label, 
+              actions_value, 
+              actions_label, 
+              sla_value, 
+              sla_label
+            FROM compliance_settings 
+            LIMIT 1
+          `;
+          if (rows && rows.length > 0) {
+            record = rows[0];
+          }
+        } catch {
+          // Table not available
+        }
       }
     }
 
@@ -427,6 +473,19 @@ export async function getPublicComplianceSettings(): Promise<PublicComplianceSet
           : record.show_iso_section !== undefined
           ? Boolean(record.show_iso_section)
           : true;
+
+      let parsedClientLogos = DEFAULT_CLIENT_LOGOS;
+      const rawLogos = record.clientLogos || record.client_logos;
+      if (rawLogos) {
+        try {
+          const parsed = typeof rawLogos === 'string' ? JSON.parse(rawLogos) : rawLogos;
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            parsedClientLogos = parsed;
+          }
+        } catch {
+          // Fallback to default client logos
+        }
+      }
 
       return {
         id: record.id,
@@ -447,10 +506,11 @@ export async function getPublicComplianceSettings(): Promise<PublicComplianceSet
         actionsLabel: record.actionsLabel || record.actions_label || 'API ACTIONS',
         slaValue: record.slaValue || record.sla_value || '100%',
         slaLabel: record.slaLabel || record.sla_label || 'ON-TIME SLA DELIVERY',
+        clientLogos: parsedClientLogos,
       };
     }
   } catch (err) {
-    console.error('getPublicComplianceSettings error:', err);
+    console.warn('getPublicComplianceSettings notice:', err);
   }
 
   return DEFAULT_COMPLIANCE_SETTINGS;
