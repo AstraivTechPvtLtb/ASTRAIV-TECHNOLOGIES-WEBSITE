@@ -38,3 +38,6 @@ export * from './sections/industries-view';
 export * from './portal/dashboard-view';
 export * from './portal/tickets-view';
 export * from './portal/data-card';
+
+// Analytics
+export * from './analytics/google-analytics';
