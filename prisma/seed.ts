@@ -30,7 +30,7 @@ async function main() {
   const adminUser = await prisma.user.create({
     data: {
       name: 'Astraiv Admin',
-      email: 'admin@astraiv.com',
+      email: 'astraivtechnologies@gmail.com',
       emailVerified: true,
       role: Role.ADMIN,
       image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&h=256&fit=crop',
