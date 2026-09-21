@@ -93,7 +93,7 @@ export default function LoginPage() {
     setErrorMsg(null);
     setSuccessMsg(null);
     const credentials = {
-      admin: { email: 'admin@astraiv.com', password: 'Password123' },
+      admin: { email: 'astraivtechnologies@gmail.com', password: 'Password123' },
       pm: { email: 'pm@astraiv.com', password: 'Password123' },
       client: { email: 'client@astraiv.com', password: 'Password123' },
       user: { email: 'user@astraiv.com', password: 'Password123' },
