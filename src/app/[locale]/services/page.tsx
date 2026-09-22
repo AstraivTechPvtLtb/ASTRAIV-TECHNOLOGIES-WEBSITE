@@ -1,7 +1,8 @@
 import { setRequestLocale } from 'next-intl/server';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { Navbar, Footer, ServicesView } from '@/views';
 import { getPublicActiveServices } from '@/controllers/services.controller';
+import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -11,12 +12,14 @@ interface ServicesPageProps {
 }
 
 export async function generateMetadata({ params }: ServicesPageProps): Promise<Metadata> {
-  await params;
-  return {
+  const { locale } = await params;
+  return createPageMetadata({
     title: 'Engineering Services | Astraiv Technologies',
     description:
-      'Explore Astraiv Technologies engineering services: AI & Intelligent Systems, SaaS Development, Custom Software, Enterprise Software, Web & Mobile Applications, UI/UX Design, Cloud & Infrastructure, DevOps, and Automation.',
-  };
+      'Explore Astraiv Technologies engineering services: AI & Intelligent Systems, Custom Software, Web Applications, Mobile Apps, Cloud Engineering, DevOps, and UI/UX Design.',
+    path: '/services',
+    locale,
+  });
 }
 
 export default async function ServicesPage({ params }: ServicesPageProps) {
@@ -27,6 +30,12 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground flex flex-col justify-between relative overflow-hidden">
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'Services', path: '/services' },
+        ]}
+      />
       {/* Global Navigation */}
       <Navbar />
 

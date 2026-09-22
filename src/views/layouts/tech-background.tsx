@@ -492,14 +492,25 @@ function LiveTypewriterPanel({
   const [charIndex, setCharIndex] = useState(0);
   const [isDone, setIsDone] = useState(false);
   const [started, setStarted] = useState(initialDelay === 0);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mq.matches);
+    const listener = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mq.addEventListener('change', listener);
+    return () => mq.removeEventListener('change', listener);
+  }, []);
 
   // Initial delay stagger
   useEffect(() => {
+    if (prefersReducedMotion) return;
     if (initialDelay > 0 && !started) {
       const startTimer = setTimeout(() => setStarted(true), initialDelay);
       return () => clearTimeout(startTimer);
     }
-  }, [initialDelay, started]);
+  }, [initialDelay, started, prefersReducedMotion]);
 
   const activeSnippetIndex = snippetIndex % snippets.length;
   const snippet = snippets[activeSnippetIndex];
@@ -515,6 +526,7 @@ function LiveTypewriterPanel({
 
   // Main indestructible typing loop
   useEffect(() => {
+    if (prefersReducedMotion) return;
     if (!started || !snippet) return;
 
     // 1. Completion state: hold success message then advance snippet
@@ -594,9 +606,9 @@ function LiveTypewriterPanel({
   return (
     <div className={`p-3 font-mono leading-relaxed text-slate-700 dark:text-slate-300 overflow-hidden ${fontSizeClass}`}>
       {snippet.lines.map((tokens, idx) => {
-        if (idx > lineIndex) return null;
-        const isCurrentLine = idx === lineIndex && !isDone;
-        const maxChars = isCurrentLine ? charIndex : tokens.map((t) => t.text).join('').length;
+        if (!prefersReducedMotion && idx > lineIndex) return null;
+        const isCurrentLine = !prefersReducedMotion && idx === lineIndex && !isDone;
+        const maxChars = prefersReducedMotion ? tokens.map((t) => t.text).join('').length : (isCurrentLine ? charIndex : tokens.map((t) => t.text).join('').length);
 
         return (
           <div key={idx} className="flex items-start gap-2 min-h-[17px]">

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeader } from './section-header';
 import { Link } from '@/i18n/routing';
@@ -11,6 +12,7 @@ import {
   Globe2,
   Sparkles,
   ShieldCheck,
+  Search,
 } from 'lucide-react';
 
 import { PublicJobOpening, DEFAULT_JOB_OPENINGS } from '@/models/types';
@@ -20,6 +22,9 @@ interface CareersSectionProps {
 }
 
 export function CareersSection({ initialRoles }: CareersSectionProps) {
+  const [selectedDept, setSelectedDept] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
   const perks = [
     {
       icon: <Globe2 className="h-5 w-5 text-primary" />,
@@ -43,7 +48,27 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
     },
   ];
 
-  const roles = initialRoles !== undefined ? initialRoles : DEFAULT_JOB_OPENINGS;
+  const allRoles = initialRoles !== undefined ? initialRoles : DEFAULT_JOB_OPENINGS;
+
+  const departments = useMemo(() => {
+    const depts = new Set<string>();
+    allRoles.forEach((r) => {
+      if (r.department) depts.add(r.department);
+    });
+    return ['all', ...Array.from(depts)];
+  }, [allRoles]);
+
+  const filteredRoles = useMemo(() => {
+    return allRoles.filter((r) => {
+      const matchesDept = selectedDept === 'all' || r.department.toLowerCase() === selectedDept.toLowerCase();
+      const matchesSearch =
+        !searchQuery.trim() ||
+        r.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        r.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        r.skills.some((s) => s.toLowerCase().includes(searchQuery.toLowerCase()));
+      return matchesDept && matchesSearch;
+    });
+  }, [allRoles, selectedDept, searchQuery]);
 
   return (
     <section id="careers" className="py-20 md:py-28 px-6 bg-slate-50/60 dark:bg-slate-900/20 border-y border-border/30 relative scroll-mt-24">
@@ -78,9 +103,9 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
           ))}
         </div>
 
-        {/* Open Positions */}
+        {/* Open Positions Directory */}
         <div className="max-w-5xl mx-auto w-full flex flex-col gap-6 text-left">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-border/40">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-border/40">
             <div>
               <h3 className="text-2xl font-extrabold tracking-tight text-foreground">
                 Current Open Opportunities
@@ -89,38 +114,75 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
                 Direct applications reviewed within 48 business hours by our engineering founders.
               </p>
             </div>
-            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-accent bg-primary/10 dark:bg-primary/20 px-3 py-1.5 rounded-full w-fit">
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-accent bg-primary/10 dark:bg-primary/20 px-3.5 py-1.5 rounded-full w-fit">
               <Sparkles className="h-3 w-3" />
-              {roles.length} Open Roles
+              {filteredRoles.length} Active {filteredRoles.length === 1 ? 'Role' : 'Roles'}
             </span>
           </div>
 
-          <div className="flex flex-col gap-4">
-            {roles.length === 0 ? (
+          {/* Filtering Controls: Search & Department Tabs */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
+            {/* Department Pills */}
+            <div className="flex flex-wrap items-center gap-1.5">
+              {departments.map((dept) => (
+                <button
+                  key={dept}
+                  type="button"
+                  onClick={() => setSelectedDept(dept)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold capitalize transition-all cursor-pointer ${
+                    selectedDept === dept
+                      ? 'bg-primary text-primary-foreground shadow-xs'
+                      : 'bg-card dark:bg-slate-900 text-muted-foreground hover:text-foreground border border-border/60'
+                  }`}
+                >
+                  {dept === 'all' ? 'All Roles' : dept}
+                </button>
+              ))}
+            </div>
+
+            {/* Keyword Search Input */}
+            <div className="relative w-full sm:w-64">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search skills, title..."
+                className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-card dark:bg-slate-900 border border-border/60 text-xs text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:border-primary transition-colors"
+              />
+            </div>
+          </div>
+
+          {/* Roles List */}
+          <div className="flex flex-col gap-4 mt-2">
+            {filteredRoles.length === 0 ? (
               <div className="p-10 bg-card/70 dark:bg-slate-900/60 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-2xl text-center flex flex-col items-center justify-center gap-3">
                 <div className="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-1">
                   <Briefcase className="h-6 w-6" />
                 </div>
-                <h4 className="text-lg font-bold text-foreground">No Current Open Positions</h4>
+                <h4 className="text-lg font-bold text-foreground">No Roles Found Matching Criteria</h4>
                 <p className="text-xs sm:text-sm text-muted-foreground max-w-md leading-relaxed">
-                  All active positions are currently filled. However, we are always eager to meet exceptional engineering talent. Send us your portfolio!
+                  No active openings match your current search or filter. Clear the filter or submit a speculative application below.
                 </p>
-                <Link
-                  href={`/contact?role=${encodeURIComponent('General Engineering Application')}`}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 mt-2 transition-all shadow-xs"
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedDept('all');
+                    setSearchQuery('');
+                  }}
+                  className="px-4 py-2 rounded-xl text-xs font-bold bg-muted hover:bg-muted/80 text-foreground transition-colors cursor-pointer"
                 >
-                  <span>Connect with Engineering</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
+                  Reset Filters
+                </button>
               </div>
             ) : (
-              roles.map((role, idx) => (
+              filteredRoles.map((role, idx) => (
                 <motion.div
                   key={role.slug || role.id || role.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1, duration: 0.5 }}
+                  transition={{ delay: idx * 0.08, duration: 0.5 }}
                   className="p-6 sm:p-7 bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-2xl hover:border-primary/40 dark:hover:border-accent/40 shadow-xs hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-6 group"
                 >
                   <div className="flex flex-col gap-2.5 max-w-2xl">
@@ -132,6 +194,11 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
                         <Briefcase className="h-3 w-3" />
                         {role.type}
                       </span>
+                      {role.salary && (
+                        <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold font-mono">
+                          {role.salary}
+                        </span>
+                      )}
                     </div>
                     <h4 className="text-lg sm:text-xl font-bold text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors">
                       {role.title}
@@ -152,10 +219,10 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
                   </div>
 
                   <Link
-                    href={`/contact?role=${encodeURIComponent(role.title)}`}
+                    href={`/careers/${role.slug}`}
                     className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs bg-primary hover:bg-primary/90 text-primary-foreground shadow-xs hover:shadow-md transition-all duration-200 shrink-0 select-none active:scale-95 group/btn"
                   >
-                    <span>Apply for Role</span>
+                    <span>View Role & Apply</span>
                     <ArrowRight className="h-3.5 w-3.5 group-hover/btn:translate-x-0.5 transition-transform" />
                   </Link>
                 </motion.div>

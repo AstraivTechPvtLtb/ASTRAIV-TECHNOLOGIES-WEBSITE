@@ -27,6 +27,84 @@ export interface ContactFormInput {
 }
 
 /**
+ * Canonical Project Types for the Start a Project wizard.
+ */
+export type StartProjectType =
+  | 'AI Solution'
+  | 'Custom Software'
+  | 'Web Application'
+  | 'Mobile Application'
+  | 'Cloud / DevOps'
+  | 'UI/UX'
+  | 'Business Automation'
+  | 'Technology Consulting'
+  | 'Not Sure';
+
+/**
+ * Canonical Lead Lifecycle Status.
+ */
+export type LeadLifecycleStatus =
+  | 'NEW'
+  | 'QUALIFIED'
+  | 'CONTACTED'
+  | 'PROPOSAL'
+  | 'NEGOTIATION'
+  | 'WON'
+  | 'LOST';
+
+/**
+ * Payload collected throughout the 5-step Start a Project wizard.
+ */
+export interface StartProjectFormInput {
+  // Step 1: Project Type
+  projectType: StartProjectType;
+
+  // Step 2: Project Scope & Context
+  projectDescription: string;
+  industry: string;
+  productType: string; // 'Brand New Product' | 'Existing Product Modernization' | 'Scaling & Expansion' | string
+  challenges: string[]; // List of key technical/business challenges
+
+  // Step 3: Parameters
+  budgetRange: string;
+  timeline: string;
+  projectStage: string;
+
+  // Step 4: Contact Information
+  name: string;
+  email: string;
+  company: string;
+  phone?: string;
+  preferredContact?: string;
+
+  // Attribution & Origin Telemetry
+  sourcePage?: string; // e.g. /services/ai-development
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  serviceId?: string;
+  solutionId?: string;
+  industryId?: string;
+
+  // Anti-Spam & Duplicate Prevention Metadata
+  honeypot?: string; // Hidden trap field - must remain empty
+  clientTimestamp?: number; // Time when wizard was mounted
+  idempotencyKey?: string; // Unique client token to avoid duplicate submissions
+}
+
+/**
+ * Response payload returned upon successful project brief ingestion.
+ */
+export interface StartProjectSubmissionResponse {
+  id: string;
+  leadNumber?: string;
+  referenceId: string;
+  message: string;
+  projectType: string;
+  submittedAt: string;
+}
+
+/**
  * Public review submission payload.
  */
 export interface PublicReviewInput {
@@ -139,18 +217,39 @@ export interface ClientActionResponse<T = unknown> {
   message?: string;
 }
 
+export type TestimonialStatus = 'pending' | 'approved' | 'rejected';
+
 /**
- * Public Testimonial contract.
+ * Canonical Public Testimonial contract.
+ * Strictly enforces single-source-of-truth across Homepage, Work, Case Studies, and Services.
  */
-export interface TestimonialItem {
+export interface Testimonial {
   id: string;
+  client_name: string;
+  company: string;
+  role: string;
+  avatar?: string | null;
+  review_text: string;
+  rating: number;
+  project_id?: string | null;
+  service_id?: string | null;
+  industry_id?: string | null;
+  status: TestimonialStatus;
+  featured: boolean;
+  published_at?: string | null;
+
+  // Backward compatibility convenience aliases for existing card views
   quote: string;
   authorName: string;
   authorRole: string;
   authorCompany: string;
-  rating: number;
   avatarUrl?: string;
 }
+
+/**
+ * Backward compatibility alias for Testimonial
+ */
+export type TestimonialItem = Testimonial;
 
 /**
  * Public Job Opening contract.
@@ -169,6 +268,10 @@ export interface PublicJobOpening {
   applyUrl?: string | null;
   active: boolean;
   orderIndex: number;
+  responsibilities?: string[];
+  requirements?: string[];
+  niceToHave?: string[];
+  benefits?: string[];
 }
 
 export const DEFAULT_JOB_OPENINGS: PublicJobOpening[] = [
@@ -178,15 +281,41 @@ export const DEFAULT_JOB_OPENINGS: PublicJobOpening[] = [
     slug: 'senior-full-stack-architect',
     department: 'Engineering',
     type: 'Full-Time / Remote',
-    location: 'Remote',
+    location: 'Remote (Worldwide)',
     experience: '5+ Years',
     description:
       'Lead high-throughput web applications and SaaS portal architectures using Next.js App Router, TypeScript, and Postgres.',
     skills: ['Next.js', 'React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Prisma'],
-    salary: 'Top Market / Competitive',
-    applyUrl: '/contact',
+    salary: '$120,000 - $160,000 + Equity Options',
+    applyUrl: '/careers/senior-full-stack-architect#apply',
     active: true,
     orderIndex: 1,
+    responsibilities: [
+      'Design and build high-concurrency full-stack web applications using Next.js App Router, React Server Components, and TypeScript.',
+      'Architect robust PostgreSQL database schemas with Prisma ORM and enforce strict ACID transaction boundaries.',
+      'Lead architectural RFCs and system design reviews, rejecting low-quality technical debt in favor of clean modular boundaries.',
+      'Partner directly with enterprise clients and technical founders to translate business workflows into deterministic software architectures.',
+      'Implement automated end-to-end testing, continuous integration checks, and sub-second page performance optimizations.',
+    ],
+    requirements: [
+      '5+ years of production experience building and deploying modern full-stack web platforms at scale.',
+      'Deep mastery of TypeScript, Next.js (App Router), React, and server-side state management patterns.',
+      'Proven expertise in relational database design (PostgreSQL), index optimization, and migration pipelines.',
+      'Strong understanding of web security fundamentals (CSRF, XSS, OAuth 2.0, RBAC, JWT revocation).',
+      'Excellent written communication and asynchronous RFC authoring skills.',
+    ],
+    niceToHave: [
+      'Experience with Rust or Go microservices for performance-critical background tasks.',
+      'Familiarity with cloud-native primitives on AWS, Cloudflare Workers, and serverless Docker runtimes.',
+      'Prior experience working in high-trust, asynchronous, distributed engineering squads.',
+    ],
+    benefits: [
+      '100% remote work autonomy with flexible hours and no micromanagement.',
+      'Top-of-market base compensation plus meaningful equity participation.',
+      '$3,500 home office & latest Apple hardware stipend upon joining.',
+      'Annual $2,000 continuous learning & technical conference budget.',
+      'Comprehensive health coverage & generous paid time off.',
+    ],
   },
   {
     id: 'seed-job-2',
@@ -194,15 +323,41 @@ export const DEFAULT_JOB_OPENINGS: PublicJobOpening[] = [
     slug: 'ai-systems-llm-engineer',
     department: 'AI & Automation',
     type: 'Full-Time / Remote',
-    location: 'Remote',
+    location: 'Remote (Worldwide)',
     experience: '3+ Years',
     description:
       'Design and deploy state-of-the-art cognitive agents, hybrid vector retrieval (RAG), and asynchronous task queues.',
     skills: ['Python', 'FastAPI', 'LangChain', 'Vector DBs', 'PyTorch', 'Agentic Workflows'],
-    salary: 'Top Market / Competitive',
-    applyUrl: '/contact',
+    salary: '$130,000 - $175,000 + Equity Options',
+    applyUrl: '/careers/ai-systems-llm-engineer#apply',
     active: true,
     orderIndex: 2,
+    responsibilities: [
+      'Architect and deploy multi-agent cognitive pipelines, contextual RAG systems, and autonomous task swarms.',
+      'Develop high-throughput asynchronous inference APIs using Python, FastAPI, Redis, and Celery.',
+      'Implement hybrid search engines combining dense vector embeddings (Pinecone, pgvector) with BM25 keyword rankings.',
+      'Optimize token efficiency, latency budgets, and caching layers across open-source and proprietary foundation models.',
+      'Establish automated model evaluation frameworks, regression benchmarks, and hallucination guardrails.',
+    ],
+    requirements: [
+      '3+ years of hands-on experience building production AI, ML, or NLP applications.',
+      'Strong programming proficiency in Python, modern async programming, and typed APIs.',
+      'Demonstrated experience with embedding models, vector databases (Qdrant, Milvus, pgvector), and retrieval techniques.',
+      'Practical understanding of LLM fine-tuning, prompt optimization, and agentic orchestration architectures.',
+      'Solid foundations in system architecture, Docker containerization, and cloud deployment.',
+    ],
+    niceToHave: [
+      'Contributions to open-source AI frameworks or published research in retrieval or agent architectures.',
+      'Experience with local model deployment using vLLM, TensorRT-LLM, or Ollama.',
+      'Knowledge of enterprise compliance standards (SOC-2, HIPAA) for AI data processing.',
+    ],
+    benefits: [
+      'Dedicated cloud compute credits and high-end workstation access for experiments.',
+      '100% remote-first autonomy with async-first collaboration.',
+      'Competitive salary with generous equity grant.',
+      'Comprehensive healthcare, dental, and wellness coverage.',
+      'Generous parental leave and flexible paid vacation.',
+    ],
   },
   {
     id: 'seed-job-3',
@@ -210,15 +365,41 @@ export const DEFAULT_JOB_OPENINGS: PublicJobOpening[] = [
     slug: 'cloud-devops-infrastructure-lead',
     department: 'Cloud Ops',
     type: 'Full-Time / Remote',
-    location: 'Remote',
+    location: 'Remote (Worldwide)',
     experience: '4+ Years',
     description:
       'Engineer zero-downtime CI/CD pipelines, container orchestration, edge caching on Cloudflare R2, and AWS infrastructure.',
     skills: ['AWS', 'Cloudflare Workers/R2', 'Docker', 'Terraform', 'Turborepo', 'Security Hardening'],
-    salary: 'Top Market / Competitive',
-    applyUrl: '/contact',
+    salary: '$125,000 - $165,000 + Equity Options',
+    applyUrl: '/careers/cloud-devops-infrastructure-lead#apply',
     active: true,
     orderIndex: 3,
+    responsibilities: [
+      'Design, provision, and maintain multi-region infrastructure as code using Terraform and AWS / Cloudflare.',
+      'Build zero-downtime CI/CD deployment pipelines with automated rollback capabilities and canary releases.',
+      'Enforce enterprise cloud security standards, IAM principle of least privilege, and ISO 27001 / SOC-2 compliance.',
+      'Configure real-time distributed telemetry, Prometheus/Grafana dashboards, and automated incident response runbooks.',
+      'Optimize cloud infrastructure expenditure, implementing auto-scaling policies that cut redundant resource burn.',
+    ],
+    requirements: [
+      '4+ years managing production cloud infrastructure across AWS, GCP, or Cloudflare edge environments.',
+      'Proficiency in declarative Infrastructure as Code (Terraform, OpenTofu, AWS CDK).',
+      'Hands-on experience with container orchestration (Docker, ECS, EKS) and modern build tooling (Turborepo, GitHub Actions).',
+      'Deep understanding of networking, DNS, TLS termination, CDN caching, and edge routing.',
+      'Experience participating in on-call rotations with a focus on blameless post-mortems.',
+    ],
+    niceToHave: [
+      'AWS Certified Solutions Architect - Professional or equivalent certification.',
+      'Experience securing financial or healthcare environments requiring strict compliance audit trails.',
+      'Familiarity with Kubernetes operator patterns and GitOps workflows (ArgoCD / Flux).',
+    ],
+    benefits: [
+      'Work from anywhere in the world with full remote equipment support.',
+      'Competitive global compensation with annual performance bonus.',
+      'Flexible time-off policy and company-wide recharge weeks.',
+      'Access to premium continuous learning platforms and certification sponsorship.',
+      'Comprehensive international health insurance coverage.',
+    ],
   },
 ];
 
@@ -267,7 +448,7 @@ export const DEFAULT_PRICING_PLANS: PublicPricingPlan[] = [
       'Production Deployment & CI/CD',
       'Dedicated Email Support',
     ],
-    buttonText: 'Start Building',
+    buttonText: 'Start a Project',
     buttonUrl: '/contact',
     active: true,
     orderIndex: 1,
@@ -293,7 +474,7 @@ export const DEFAULT_PRICING_PLANS: PublicPricingPlan[] = [
       '2 weeks post-launch SLA support',
       'Dedicated Slack support channel',
     ],
-    buttonText: 'Hire Our Architects',
+    buttonText: 'Start a Project',
     buttonUrl: '/contact',
     active: true,
     orderIndex: 2,
@@ -319,7 +500,7 @@ export const DEFAULT_PRICING_PLANS: PublicPricingPlan[] = [
       'Priority SLA 24/7 Response time',
       'Unlimited revision approvals',
     ],
-    buttonText: 'Book a Consultation',
+    buttonText: 'Talk to an Expert',
     buttonUrl: '/contact',
     active: true,
     orderIndex: 3,
@@ -354,4 +535,59 @@ export interface PublicComplianceSettings {
   slaValue: string;
   slaLabel: string;
   clientLogos?: ClientLogoItem[];
+}
+
+/**
+ * Relational CMS Publication & Governance Types
+ */
+export type CmsPublicationStatus = 'published' | 'draft' | 'archived';
+
+export interface CmsSeoMetadata {
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  canonical?: string | null;
+  ogImage?: string | null;
+  keywords?: string[];
+}
+
+export interface CmsTechnology {
+  id: string;
+  name: string;
+  slug: string;
+  category: string;
+  icon: string;
+  description?: string | null;
+  status: CmsPublicationStatus;
+  featured: boolean;
+  orderIndex: number;
+}
+
+export interface CmsAward {
+  id: string;
+  type: string;
+  title: string;
+  organization: string;
+  year: string;
+  category: string;
+  description: string;
+  achievement: string;
+  verificationUrl?: string | null;
+  verificationLabel?: string | null;
+  badgeText: string;
+  status: string;
+  published: boolean;
+  featured: boolean;
+  orderIndex: number;
+  icon: string;
+  highlights: string[];
+}
+
+export interface CmsFaq {
+  id: string;
+  category: string;
+  question: string;
+  answer: string;
+  isFeatured: boolean;
+  status: string;
+  orderIndex: number;
 }

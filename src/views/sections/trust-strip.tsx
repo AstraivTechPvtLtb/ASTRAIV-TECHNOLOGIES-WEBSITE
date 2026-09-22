@@ -1,136 +1,150 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { motion, useInView, useMotionValue, useSpring, useReducedMotion } from 'framer-motion';
-import { CheckCircle2, ShieldCheck, Zap, Globe2 } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import {
+  ShieldCheck,
+  Award,
+  CheckCircle2,
+  Sparkles,
+  Cloud,
+  Star,
+  ArrowRight,
+  ExternalLink,
+} from 'lucide-react';
+import { Link } from '@/i18n/routing';
+import { ROUTES } from '@/routes';
+import { PublicComplianceSettings } from '@/models/types';
 
-function AnimatedCounter({
-  value,
-  decimals = 0,
-  prefix = '',
-  suffix = '',
-  displayRaw,
-}: {
-  value: number;
-  decimals?: number;
-  prefix?: string;
-  suffix?: string;
-  displayRaw: string;
-}) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const shouldReduceMotion = useReducedMotion();
-  const motionValue = useMotionValue(0);
-  const springValue = useSpring(motionValue, {
-    damping: 30,
-    stiffness: 80,
-  });
-  const isInView = useInView(ref, { once: true, margin: '-40px' });
-
-  useEffect(() => {
-    if (shouldReduceMotion) return;
-    if (isInView) {
-      motionValue.set(value);
-    }
-  }, [isInView, value, motionValue, shouldReduceMotion]);
-
-  useEffect(() => {
-    if (shouldReduceMotion) return;
-    const unsubscribe = springValue.on('change', (latest) => {
-      if (ref.current) {
-        ref.current.textContent = `${prefix}${latest.toFixed(decimals)}${suffix}`;
-      }
-    });
-    return () => unsubscribe();
-  }, [springValue, decimals, prefix, suffix, shouldReduceMotion]);
-
-  if (shouldReduceMotion) {
-    return <span>{displayRaw}</span>;
-  }
-
-  return (
-    <span ref={ref}>
-      {prefix}0{suffix}
-    </span>
-  );
+export interface TrustStripProps {
+  initialSettings?: PublicComplianceSettings;
 }
 
-export function TrustStrip() {
+export function TrustStrip({ initialSettings }: TrustStripProps) {
   const shouldReduceMotion = useReducedMotion();
 
-  const metrics = [
+  const isoNumber = initialSettings?.isoNumber || 'ISO 27001:2022';
+  const isoLabel = initialSettings?.isoLabel !== undefined ? initialSettings.isoLabel : 'Certified';
+  const showIsoBadge = initialSettings?.showIsoBadge ?? true;
+
+  const trustBadges = [
+    ...(showIsoBadge
+      ? [
+          {
+            id: 'iso-security',
+            icon: <ShieldCheck className="h-4 w-4 text-cyan-400" />,
+            badge: `${isoNumber} ${isoLabel}`.trim(),
+            subtext: 'Information Security & Data Protection',
+            category: 'Security Standard',
+            href: ROUTES.PUBLIC.REWARDS_ACCOLADES,
+          },
+        ]
+      : []),
     {
-      target: 99.99,
-      decimals: 2,
-      suffix: '%',
-      displayRaw: '99.99%',
-      label: 'Server Uptime SLA',
-      description: 'Zero-downtime edge network',
-      icon: <Globe2 className="h-4 w-4 text-primary dark:text-blue-400" />,
+      id: 'iso-quality',
+      icon: <CheckCircle2 className="h-4 w-4 text-emerald-400" />,
+      badge: 'ISO 9001:2015 Quality',
+      subtext: 'Standardized SDLC & Zero-Drift Delivery',
+      category: 'Quality Governance',
+      href: ROUTES.PUBLIC.REWARDS_ACCOLADES,
     },
     {
-      target: 40,
-      decimals: 0,
-      suffix: '%+',
-      displayRaw: '40%+',
-      label: 'Infrastructure Savings',
-      description: 'Optimized cloud footprint',
-      icon: <Zap className="h-4 w-4 text-secondary dark:text-indigo-400" />,
+      id: 'soc2-ready',
+      icon: <ShieldCheck className="h-4 w-4 text-blue-400" />,
+      badge: 'SOC-2 Type II Ready',
+      subtext: 'Audited Tenant Isolation & Access Controls',
+      category: 'Compliance Posture',
+      href: ROUTES.PUBLIC.REWARDS_ACCOLADES,
     },
     {
-      target: 10,
-      decimals: 0,
-      suffix: 'M+',
-      displayRaw: '10M+',
-      label: 'API Actions Executed',
-      description: 'Mission-critical pipelines',
-      icon: <CheckCircle2 className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />,
+      id: 'award-craftsmanship',
+      icon: <Award className="h-4 w-4 text-purple-400" />,
+      badge: 'Enterprise Craftsmanship',
+      subtext: 'High-Performance Architecture Honoree',
+      category: 'Verified Award',
+      href: ROUTES.PUBLIC.REWARDS_ACCOLADES,
     },
     {
-      target: 100,
-      decimals: 0,
-      suffix: '%',
-      displayRaw: '100%',
-      label: 'On-Time SLA Delivery',
-      description: 'Guaranteed sprint velocity',
-      icon: <ShieldCheck className="h-4 w-4 text-blue-500 dark:text-blue-400" />,
+      id: 'cloud-partners',
+      icon: <Cloud className="h-4 w-4 text-amber-400" />,
+      badge: 'AWS & Cloudflare Partners',
+      subtext: 'Multi-Region High Availability & Edge CDN',
+      category: 'Cloud Architecture',
+      href: ROUTES.PUBLIC.REWARDS_ACCOLADES,
+    },
+    {
+      id: 'client-rating',
+      icon: <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />,
+      badge: '5.0 / 5.0 Star Client Rating',
+      subtext: '100% Retained Client Satisfaction Score',
+      category: 'Verified Reviews',
+      href: ROUTES.PUBLIC.WORK_TESTIMONIALS,
     },
   ];
 
   return (
-    <section className="relative z-10 py-10 md:py-12 px-4 sm:px-6 lg:px-8 border-y border-border/40 bg-card/40 dark:bg-slate-950/40 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-border/40">
-          {metrics.map((item, index) => (
-            <motion.div
-              key={item.label}
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ delay: index * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className={`flex flex-col text-left ${index > 0 ? 'pt-5 sm:pt-0 sm:pl-6 lg:pl-8' : ''}`}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <div className="h-7 w-7 rounded-lg bg-slate-100 dark:bg-slate-900 border border-border/50 dark:border-slate-800 flex items-center justify-center">
-                  {item.icon}
-                </div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground font-mono">
-                  Verified Metric
+    <section
+      id="trust-recognition-strip"
+      aria-label="Verified Awards, Certifications, and Industry Recognitions"
+      className="w-full max-w-[1400px] xl:max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-2 relative z-20 select-none"
+    >
+      <div className="rounded-2xl bg-[#0b101b]/90 border border-slate-800/90 backdrop-blur-xl p-3 sm:p-4 shadow-xl">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-3 lg:gap-5">
+          {/* Left: Verified Category Label & Directory Link */}
+          <div className="flex items-center gap-2.5 shrink-0 self-start lg:self-center">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
+              <Award className="h-4 w-4" />
+            </div>
+            <div className="flex flex-col text-left">
+              <div className="flex items-center gap-1.5">
+                <span className="text-[10.5px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-400">
+                  Verified Institutional Trust
                 </span>
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
               </div>
+              <span className="text-[11px] sm:text-xs text-slate-400 font-medium">
+                Audited Standards & Accolades
+              </span>
+            </div>
+          </div>
 
-              <div className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight text-foreground font-mono mb-1">
-                <AnimatedCounter
-                  value={item.target}
-                  decimals={item.decimals}
-                  suffix={item.suffix}
-                  displayRaw={item.displayRaw}
-                />
-              </div>
+          {/* Center: Concise Trust Badges Horizontal Scroll / Wrap */}
+          <div className="w-full lg:w-auto flex-1 flex items-center gap-2 sm:gap-2.5 overflow-x-auto no-scrollbar py-0.5">
+            {trustBadges.map((badge, idx) => (
+              <motion.div
+                key={badge.id}
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  delay: shouldReduceMotion ? 0 : idx * 0.05,
+                  duration: 0.35,
+                }}
+                className="group relative shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/40 hover:bg-slate-900 transition-all cursor-default"
+                title={`${badge.badge} · ${badge.subtext}`}
+              >
+                <div className="shrink-0">{badge.icon}</div>
+                <div className="flex flex-col text-left">
+                  <span className="text-[11.5px] sm:text-xs font-bold text-slate-200 group-hover:text-white transition-colors whitespace-nowrap">
+                    {badge.badge}
+                  </span>
+                  <span className="text-[9.5px] sm:text-[10px] text-slate-400 group-hover:text-slate-300 font-medium whitespace-nowrap">
+                    {badge.subtext}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
 
-              <span className="text-sm font-bold text-foreground mb-0.5">{item.label}</span>
-              <span className="text-xs text-muted-foreground">{item.description}</span>
-            </motion.div>
-          ))}
+          {/* Right: Quick Action Link to Full Rewards & Accolades Page */}
+          <div className="shrink-0 self-end lg:self-center">
+            <Link
+              href={ROUTES.PUBLIC.REWARDS_ACCOLADES}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-cyan-400 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 hover:border-cyan-500/60 transition-all group"
+            >
+              <span>View All Accolades</span>
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            </Link>
+          </div>
         </div>
       </div>
     </section>

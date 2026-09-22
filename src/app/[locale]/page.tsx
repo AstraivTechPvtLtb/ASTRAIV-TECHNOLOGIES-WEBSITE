@@ -1,22 +1,24 @@
+import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getPublicActiveServices } from '@/controllers/services.controller';
-import { getPublicApprovedReviews, getPublicComplianceSettings } from '@/controllers/public-data.controller';
+import { getFeaturedTestimonials, getPublicComplianceSettings } from '@/controllers/public-data.controller';
+import { ROUTES } from '@/routes';
+import { createPageMetadata, getWebSiteJsonLd } from '@/lib/seo';
 import {
   Navbar,
   Footer,
   HeroSection,
-  ClientsSection,
-  StatsSection,
+  TrustStrip,
   ServicesSection,
-  WhySection,
-  TechSection,
-  IndustriesSection,
-  ProcessSection,
+  SolutionsSection,
   CaseStudiesSection,
-  AiSection,
+  IndustriesSection,
+  TechSection,
+  WhySection,
+  ProcessSection,
   TestimonialsSection,
-  FaqSection,
-  ContactSection,
+  InsightsSection,
+  FinalCtaSection,
 } from '@/views';
 
 export const dynamic = 'force-dynamic';
@@ -26,68 +28,87 @@ interface HomePageProps {
   params: Promise<{ locale: string }>;
 }
 
+export async function generateMetadata({ params }: HomePageProps): Promise<Metadata> {
+  const { locale } = await params;
+  return createPageMetadata({
+    title: 'Astraiv Technologies | Enterprise Software Engineering & AI Solutions',
+    description:
+      'Enterprise-grade website development, cloud infrastructure, AI solutions, and business automation built with clean architecture.',
+    path: '',
+    locale,
+  });
+}
+
 export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
   
   // Set the request locale for server caching
   setRequestLocale(locale);
 
-  // Load language bundles, active services, approved reviews, and compliance/ISO settings from database
+  // Load language bundles, active services, selected/featured approved testimonials (3 items), and compliance/ISO settings
   const [t, services, reviews, complianceSettings] = await Promise.all([
     getTranslations('Home'),
     getPublicActiveServices(),
-    getPublicApprovedReviews(),
+    getFeaturedTestimonials(3),
     getPublicComplianceSettings(),
   ]);
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground">
-      {/* 1. Global Navigation Header */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getWebSiteJsonLd()) }}
+      />
+      {/* Global Navigation Header */}
       <Navbar />
 
       <main className="flex-1 w-full overflow-x-hidden">
-        {/* 2. Hero Section (Kept 100% as is per requirement) */}
+        {/* 1. HERO */}
         <HeroSection
           badgeText={t('heroBadge')}
           headline={t('heroHeadline')}
           subheadline={t('heroSubheadline')}
+          ctaText="Start a Project"
+          ctaHref={ROUTES.PUBLIC.START_PROJECT}
+          secondaryCtaText="Explore Case Studies"
+          secondaryCtaHref="/work/case-studies"
         />
 
-        {/* 3. Metrics & Enterprise Client Proof Banner */}
-        <StatsSection initialSettings={complianceSettings} />
+        {/* 2. TRUST / REWARDS & ACCOLADES */}
+        <TrustStrip initialSettings={complianceSettings} />
 
-        {/* 3. Services */}
+        {/* 3. SERVICES */}
         <ServicesSection initialServices={services} />
 
-        {/* 6. Why Businesses Choose AstraIV */}
-        <WhySection />
+        {/* 4. SOLUTIONS */}
+        <SolutionsSection />
 
-        {/* 7. Categorized Technology Stack */}
-        <TechSection />
-
-        {/* 8. Industries We Serve with Picture Showcases */}
-        <IndustriesSection />
-
-        {/* 9. Execution Process & Roadmap */}
-        <ProcessSection />
-
-        {/* 10. Featured Work & Case Studies with Pictures */}
+        {/* 5. FEATURED CASE STUDIES */}
         <CaseStudiesSection />
 
-        {/* 11. AI & Innovation Spotlight */}
-        <AiSection />
+        {/* 6. INDUSTRIES */}
+        <IndustriesSection />
 
-        {/* 12. Client Testimonials & Leadership Endorsements */}
+        {/* 7. TECHNOLOGIES SUMMARY */}
+        <TechSection />
+
+        {/* 8. WHY ASTRAIV (Summary Variant) */}
+        <WhySection variant="summary" />
+
+        {/* 9. OUR PROCESS (Summary Variant) */}
+        <ProcessSection variant="summary" />
+
+        {/* 9. TESTIMONIALS */}
         <TestimonialsSection initialReviews={reviews} />
 
-        {/* 13. Frequently Asked Questions */}
-        <FaqSection />
+        {/* 10. LATEST INSIGHTS */}
+        <InsightsSection />
 
-        {/* 14. Final Conversion CTA & Contact Form */}
-        <ContactSection />
+        {/* 11. FINAL CONVERSION CTA */}
+        <FinalCtaSection />
       </main>
 
-      {/* 15. Global Solid Enterprise Footer */}
+      {/* 12. FOOTER */}
       <Footer />
     </div>
   );

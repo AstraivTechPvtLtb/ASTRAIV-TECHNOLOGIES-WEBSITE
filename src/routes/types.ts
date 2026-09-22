@@ -28,7 +28,7 @@ export interface NavGroup {
 }
 
 export interface MegaMenuConfig {
-  type: 'mega-3col' | 'mega-industries' | 'dropdown' | 'simple';
+  type: 'mega-3col' | 'mega-industries' | 'mega-work' | 'mega-insights' | 'mega-company' | 'dropdown' | 'simple';
   featured?: {
     tagline: string;
     description: string;

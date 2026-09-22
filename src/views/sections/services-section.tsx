@@ -8,90 +8,14 @@
  */
 
 import React, { useState, useEffect, useRef, useTransition } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Link } from '@/i18n/routing';
 import { ArrowRight } from 'lucide-react';
-import { PublicServiceItem } from '@/controllers/services.controller';
+import { DEFAULT_SERVICES, type PublicServiceItem } from '@/lib/services-data';
 import { getServiceImage } from '@/lib/services-utils';
 
 export { getServiceImage };
-
-export interface StaticServiceItem {
-  id: string;
-  icon?: React.ReactNode;
-  title: string;
-  badge: string;
-  description: string;
-  imageSrc: string;
-  href: string;
-}
-
-export const STATIC_SERVICES: StaticServiceItem[] = [
-  {
-    id: 'ai-intelligent-systems',
-    title: 'AI & Machine Learning',
-    badge: 'Cognitive Engine',
-    description: 'Autonomous multi-agent workflows, enterprise RAG pipelines, and customized LLM fine-tuning for domain operations.',
-    imageSrc: '/images/services/service-ai.jpg',
-    href: '/services#ai-intelligent-systems',
-  },
-  {
-    id: 'custom-software',
-    title: 'Custom Software Development',
-    badge: 'Bespoke Engineering',
-    description: 'Mission-critical distributed systems, scalable microservices, and typesafe enterprise business applications.',
-    imageSrc: '/images/services/service-software.jpg',
-    href: '/services#custom-software',
-  },
-  {
-    id: 'web-development',
-    title: 'Web Application Development',
-    badge: 'Fullstack Next.js',
-    description: 'High-velocity modern SaaS platforms, client portals, and real-time dashboards utilizing Server Actions & Edge caching.',
-    imageSrc: '/images/services/service-web.jpg',
-    href: '/services#web-development',
-  },
-  {
-    id: 'mobile-development',
-    title: 'Mobile App Development',
-    badge: 'iOS & Android',
-    description: 'High-performance cross-platform mobile experiences with offline caching, push notifications, and biometric security.',
-    imageSrc: '/images/services/service-mobile.jpg',
-    href: '/services#mobile-development',
-  },
-  {
-    id: 'cloud-infrastructure',
-    title: 'Cloud & DevOps Infrastructure',
-    badge: 'Zero-Downtime',
-    description: 'Automated CI/CD pipelines, Kubernetes container orchestration, and multi-region AWS / Cloudflare global edge setups.',
-    imageSrc: '/images/services/service-cloud.jpg',
-    href: '/services#cloud-infrastructure',
-  },
-  {
-    id: 'ui-ux-design',
-    title: 'UI/UX & Product Engineering',
-    badge: 'Design System',
-    description: 'Stripe-grade interfaces engineered with strict visual hierarchy, WCAG accessibility, and fluid micro-interactions.',
-    imageSrc: '/images/services/service-uiux.jpg',
-    href: '/services#ui-ux-design',
-  },
-  {
-    id: 'api-integration',
-    title: 'API & System Integration',
-    badge: 'Connected Systems',
-    description: 'High-throughput transactional APIs, secure banking ledgers, webhook relays, and legacy ERP data synchronizations.',
-    imageSrc: '/images/services/service-api.jpg',
-    href: '/services#api-integration',
-  },
-  {
-    id: 'digital-transformation',
-    title: 'Digital Transformation',
-    badge: 'Modernization',
-    description: 'Migrating legacy architectures to modern cloud networks, automating manual workflows, and securing company data.',
-    imageSrc: '/images/services/service-transformation.jpg',
-    href: '/services#digital-transformation',
-  },
-];
 
 export interface ServicesSectionProps {
   initialServices?: PublicServiceItem[];
@@ -104,61 +28,11 @@ interface CapabilityItem {
   specs: string;
   desc: string;
   latency: string;
+  href: string;
 }
 
-const CAPABILITIES: CapabilityItem[] = [
-  {
-    id: 'custom-software',
-    label: 'Custom Software',
-    badge: 'ENGINEERING EXCELLENCE',
-    specs: 'Bespoke Architecture · Microservices · High-Throughput APIs',
-    desc: 'Custom-crafted software platforms tailored for complex enterprise logic, proprietary workflows, and mission-critical execution.',
-    latency: '8ms',
-  },
-  {
-    id: 'web-apps',
-    label: 'Web Applications',
-    badge: 'MODERN WEB SYSTEMS',
-    specs: 'React · Next.js · Distributed Edge · Zero-Downtime',
-    desc: 'Lightning-fast, ultra-responsive web applications built with modern frontend architecture and scalable cloud backends.',
-    latency: '11ms',
-  },
-  {
-    id: 'ai-solutions',
-    label: 'AI Solutions',
-    badge: 'COMPREHENSIVE SUITE',
-    specs: 'Enterprise · Strategy · Automation · Design',
-    desc: 'Engineered for resilient deployment, modern digital infrastructure, and intelligence-driven scale.',
-    latency: '14ms',
-  },
-  {
-    id: 'cloud-solutions',
-    label: 'Cloud Solutions',
-    badge: 'CLOUD NATIVE INFRA',
-    specs: 'AWS · Azure · GCP · Multi-Region Hybrid · FinOps',
-    desc: 'Elastic cloud ecosystems designed for maximum fault-tolerance, global elasticity, automated failover, and optimized cost efficiency.',
-    latency: '9ms',
-  },
-  {
-    id: 'mobile-apps',
-    label: 'Mobile Apps',
-    badge: 'CROSS-PLATFORM & NATIVE',
-    specs: 'iOS · Android · Flutter · Offline-First · Biometrics',
-    desc: 'Fluid, gesture-rich mobile applications providing seamless user experiences with high security benchmarks and instant synchronization.',
-    latency: '15ms',
-  },
-  {
-    id: 'devops',
-    label: 'DevOps & CI/CD',
-    badge: 'CONTINUOUS ACCELERATION',
-    specs: 'Kubernetes · Terraform · GitOps · Automated Pipelines',
-    desc: 'Hardened continuous delivery pipelines reducing cycle times with immutable infrastructure and proactive security guardrails.',
-    latency: '6ms',
-  },
-];
-
 export function ServicesSection({ initialServices = [] }: ServicesSectionProps) {
-  const [activeTab, setActiveTab] = useState<string>('ai-solutions');
+  const [activeTab, setActiveTab] = useState<string>('ai-development');
   const [ping, setPing] = useState<string>('12ms');
   const [isFading, setIsFading] = useState<boolean>(false);
   const [, startTransition] = useTransition();
@@ -166,7 +40,25 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
   const billboardRef = useRef<HTMLElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
 
-  const activeCapability = CAPABILITIES.find((c) => c.id === activeTab) || CAPABILITIES[2];
+  const servicesList = initialServices && initialServices.length > 0 ? initialServices : DEFAULT_SERVICES;
+  const seenSlugs = new Set<string>();
+  const uniqueServices = servicesList.filter((s) => {
+    if (seenSlugs.has(s.slug)) return false;
+    seenSlugs.add(s.slug);
+    return true;
+  });
+
+  const capabilities: CapabilityItem[] = uniqueServices.slice(0, 6).map((s, idx) => ({
+    id: s.slug,
+    label: s.title,
+    badge: (s.badge || 'ENGINEERING EXCELLENCE').toUpperCase(),
+    specs: s.techStack ? s.techStack.join(' · ') : s.features.slice(0, 3).join(' · '),
+    desc: s.shortDesc,
+    latency: ['12ms', '8ms', '11ms', '14ms', '9ms', '7ms'][idx % 6],
+    href: `/services/${s.slug}`,
+  }));
+
+  const activeCapability = capabilities.find((c) => c.id === activeTab) || capabilities[0];
 
   // Telemetry Ping simulation for live authentic feel
   useEffect(() => {
@@ -250,24 +142,24 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400" />
             </span>
-            CAPABILITIES BLUEPRINT
+            OUR SERVICES & CAPABILITIES
           </span>
         </div>
 
         {/* Main Heading and Contextual Subtitle */}
         <div className="flex flex-col lg:flex-row justify-between gap-6 lg:items-center">
           <h2
-            className="text-3xl sm:text-4xl lg:text-[50px] font-extrabold tracking-tight text-white max-w-3xl leading-[1.2] lg:leading-[1.22]"
+            className="text-3xl sm:text-4xl lg:text-[48px] font-extrabold tracking-tight text-white max-w-3xl leading-[1.2] lg:leading-[1.22]"
             id="blueprint-heading"
           >
-            Technology solutions that
+            What can Astraiv
             <br />
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-400">
-              move Your Business forward
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-white">
+              build & engineer for you?
             </span>
           </h2>
-          <p className="text-slate-400 text-sm sm:text-[15px] max-w-md leading-relaxed lg:text-left lg:self-center">
-            From idea to deployment, Astraiv Technologies designs, builds, modernizes, and scales mission-critical digital products.
+          <p className="text-slate-300 text-sm sm:text-[15px] max-w-md leading-relaxed lg:text-left lg:self-center">
+            From autonomous AI systems and custom enterprise SaaS to high-velocity web platforms and zero-downtime cloud networks, we design, build, and scale mission-critical software.
           </p>
         </div>
       </header>
@@ -303,10 +195,12 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
           <div className="relative w-full min-h-[580px] sm:min-h-[560px] lg:h-[630px] overflow-hidden flex flex-col justify-between">
             {/* Background Image Layer */}
             <div className="absolute inset-0 w-full h-full">
-              <img
+              <Image
                 src="/images/services/capabilities-command-center.jpg"
                 alt="Astraiv Technologies Engineering Operations Center"
                 id="command-img"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
                 className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-1000 ease-out brightness-[0.80] contrast-[1.10]"
               />
               {/* Cyberpunk Obsidian & Cyan Vignette Gradients */}
@@ -350,7 +244,7 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
                 aria-label="Technology Capabilities"
                 className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-2.5 lg:gap-3 mb-6 sm:mb-7"
               >
-                {CAPABILITIES.map((cap) => {
+                {capabilities.map((cap) => {
                   const isActive = cap.id === activeTab;
                   return (
                     <button

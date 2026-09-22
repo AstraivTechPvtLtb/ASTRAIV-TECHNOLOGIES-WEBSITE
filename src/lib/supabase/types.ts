@@ -72,6 +72,9 @@ export type Database = {
           review_text: string
           review: string
           image_url: string | null
+          project_id?: string | null
+          service_id?: string | null
+          industry_id?: string | null
           website_publish_permission: string | null
           can_publish_review: boolean
           identity_display_permission: string | null
@@ -106,6 +109,9 @@ export type Database = {
           review_text?: string
           review?: string
           image_url?: string | null
+          project_id?: string | null
+          service_id?: string | null
+          industry_id?: string | null
           website_publish_permission?: string | null
           can_publish_review?: boolean
           identity_display_permission?: string | null
@@ -140,6 +146,9 @@ export type Database = {
           review_text?: string
           review?: string
           image_url?: string | null
+          project_id?: string | null
+          service_id?: string | null
+          industry_id?: string | null
           website_publish_permission?: string | null
           can_publish_review?: boolean
           identity_display_permission?: string | null

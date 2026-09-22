@@ -2,7 +2,9 @@
   "Common": {
     "title": "أسترايف تكنولوجيز",
     "tagline": "حلول تكنولوجيا المعلومات والبرمجيات الخدمية للمؤسسات من الجيل القادم",
-    "getStarted": "ابدأ الآن",
+    "startProject": "ابدأ مشروعاً",
+    "projectInquiry": "استفسار عن المشروع",
+    "getStarted": "ابدأ مشروعاً",
     "contactUs": "اتصل بنا",
     "loading": "جاري التحميل...",
     "search": "بحث",
@@ -30,7 +32,17 @@
     "techStack": "مجموعة التكنولوجيا",
     "aiCapabilities": "قدرات الذكاء الاصطناعي",
     "caseStudies": "دراسات الحالة",
-    "successStories": "قصص النجاح"
+    "successStories": "قصص النجاح",
+    "work": "أعمالنا",
+    "startProject": "ابدأ مشروعاً",
+    "clientPortal": "بوابة العملاء",
+    "clientPortalSignIn": "بوابة العملاء / تسجيل الدخول",
+    "rewardsAccolades": "الجوائز والتقديرات",
+    "testimonials": "آراء العملاء",
+    "engineering": "الهندسة",
+    "resources": "الموارد",
+    "whyAstraiv": "لماذا أسترايف",
+    "ourProcess": "منهجية العمل"
   },
   "Services": {
     "title": "خدماتنا",

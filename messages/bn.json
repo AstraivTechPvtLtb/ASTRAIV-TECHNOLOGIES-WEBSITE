@@ -2,7 +2,9 @@
   "Common": {
     "title": "আস্ট্রাইভ টেকনোলজিস",
     "tagline": "পরবর্তী প্রজন্মের এন্টারপ্রাইজ আইটি সলিউশন এবং SaaS",
-    "getStarted": "শুরু করুন",
+    "startProject": "প্রজেক্ট শুরু করুন",
+    "projectInquiry": "প্রজেক্ট অনুসন্ধান",
+    "getStarted": "প্রজেক্ট শুরু করুন",
     "contactUs": "যোগাযোগ করুন",
     "loading": "লোড হচ্ছে...",
     "search": "অনুসন্ধান",
@@ -30,7 +32,17 @@
     "techStack": "টেকনোলজি স্ট্যাক",
     "aiCapabilities": "এআই সক্ষমতা",
     "caseStudies": "কেস স্টাডিজ",
-    "successStories": "সাফল্যের গল্প"
+    "successStories": "সাফল্যের গল্প",
+    "work": "আমাদের কাজ",
+    "startProject": "প্রজেক্ট শুরু করুন",
+    "clientPortal": "ক্লায়েন্ট পোর্টাল",
+    "clientPortalSignIn": "ক্লায়েন্ট পোর্টাল / সাইন ইন",
+    "rewardsAccolades": "পুরস্কার ও স্বীকৃতি",
+    "testimonials": "প্রশংসাপত্র",
+    "engineering": "ইঞ্জিনিয়ারিং",
+    "resources": "রিসোর্স",
+    "whyAstraiv": "কেন অ্যাস্ট্রাইভ",
+    "ourProcess": "আমাদের প্রক্রিয়া"
   },
   "Services": {
     "title": "আমাদের পরিষেবা সমূহ",

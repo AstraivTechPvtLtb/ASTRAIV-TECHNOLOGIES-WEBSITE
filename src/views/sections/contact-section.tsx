@@ -124,6 +124,7 @@ export function ContactSection() {
 
         {/* Right Column: Interactive Contact Form */}
         <motion.div id="contact-form-box" variants={itemVariants} className="lg:col-span-6 relative w-full">
+          <span id="schedule" className="absolute -top-28 pointer-events-none" />
           <div className="absolute inset-0 bg-primary/10 dark:bg-blue-600/10 rounded-3xl blur-2xl pointer-events-none" />
           <Suspense
             fallback={

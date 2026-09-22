@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { motion, useInView, useMotionValue, useSpring, useReducedMotion } from 'framer-motion';
 import { PublicComplianceSettings } from '@/models/types';
 
@@ -8,117 +9,134 @@ import { PublicComplianceSettings } from '@/models/types';
 // Authentic Company Brand Logos (Originals)
 // ==========================================
 
-function AcmeLogo({ className = 'w-5 h-5' }: { className?: string }) {
+function AwsPartnerLogo({ className = 'w-5 h-5' }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" className={className} aria-label="Acme Corp logo">
-      {/* Acme geometric diamond/anvil icon */}
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-label="AWS Partner Network logo">
       <path
-        d="M12 2.5L3.5 17.5H8.5L9.5 21.5H14.5L15.5 17.5H20.5L12 2.5Z"
-        fill="#EF4444"
-        fillOpacity="0.2"
-        stroke="#EF4444"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
+        d="M6.5 13.5c1.8 1.4 4.5 2 7 1.5 3-.6 5-2.2 5.5-2.8.2-.2.4 0 .3.2-.8 1.1-2.8 2.6-6 3.1-2.8.5-5.8-.2-7.5-1.7-.3-.2 0-.5.7-.3z"
+        fill="#FF9900"
       />
-      <path d="M12 7.5L8.5 14H15.5L12 7.5Z" fill="#EF4444" />
-      <rect x="10.8" y="11.5" width="2.4" height="2.4" fill="#121824" />
-    </svg>
-  );
-}
-
-function GlobexLogo({ className = 'w-5 h-5' }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className={className} aria-label="Globex logo">
-      <circle cx="12" cy="12" r="7.5" stroke="#38BDF8" strokeWidth="1.6" fill="#0284C7" fillOpacity="0.18" />
-      <ellipse cx="12" cy="12" rx="3.4" ry="7.5" stroke="#38BDF8" strokeWidth="1.1" strokeOpacity="0.85" />
-      <line x1="4.5" y1="12" x2="19.5" y2="12" stroke="#38BDF8" strokeWidth="1.1" strokeOpacity="0.85" />
       <path
-        d="M3.2 8.2C5.5 5 18.5 5 20.8 8.2C23 11.5 18.5 18 15 19.8"
-        stroke="#00F2FE"
-        strokeWidth="1.8"
-        strokeLinecap="round"
+        d="M19.2 12.1c-.2-.3-.8-.2-.9.1-.2.8-.7 1.4-1.2 1.8-.2.1-.1.3.1.3.5 0 1.2-.5 1.7-1.3.2-.3.3-.7.3-.9z"
+        fill="#FF9900"
       />
-      <circle cx="20.5" cy="8.2" r="1.4" fill="#00F2FE" />
-    </svg>
-  );
-}
-
-function InitechLogo({ className = 'w-5 h-5' }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className={className} aria-label="Initech logo">
-      <path d="M3.5 18.5L8.5 5.5H11.5L6.5 18.5H3.5Z" fill="#2563EB" />
-      <path d="M9.5 18.5L14.5 5.5H17.5L12.5 18.5H9.5Z" fill="#38BDF8" />
-      <path d="M15.5 18.5L20.5 5.5H23.5L18.5 18.5H15.5Z" fill="#00F2FE" />
-    </svg>
-  );
-}
-
-function UmbrellaLogo({ className = 'w-5 h-5' }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className={className} aria-label="Umbrella Corp logo">
-      <circle cx="12" cy="12" r="9.5" stroke="#EF4444" strokeWidth="1.2" strokeOpacity="0.9" />
-      {/* 8 alternating red and white pie segments */}
-      <path d="M12 12L9.2 3.8C10.1 3.3 11 3 12 3C13 3 13.9 3.3 14.8 3.8L12 12Z" fill="#EF4444" />
-      <path d="M12 12L14.8 3.8C16.5 4.5 18 5.7 18.9 7.3L12 12Z" fill="#F8FAFC" />
-      <path d="M12 12L18.9 7.3C19.8 8.7 20.2 10.3 20.2 12C20.2 13.7 19.8 15.3 18.9 16.7L12 12Z" fill="#EF4444" />
-      <path d="M12 12L18.9 16.7C18 18.3 16.5 19.5 14.8 20.2L12 12Z" fill="#F8FAFC" />
-      <path d="M12 12L14.8 20.2C13.9 20.7 13 21 12 21C11 21 10.1 20.7 9.2 20.2L12 12Z" fill="#EF4444" />
-      <path d="M12 12L9.2 20.2C7.5 19.5 6 18.3 5.1 16.7L12 12Z" fill="#F8FAFC" />
-      <path d="M12 12L5.1 16.7C4.2 15.3 3.8 13.7 3.8 12C3.8 10.3 4.2 8.7 5.1 7.3L12 12Z" fill="#EF4444" />
-      <path d="M12 12L5.1 7.3C6 5.7 7.5 4.5 9.2 3.8L12 12Z" fill="#F8FAFC" />
-      <circle cx="12" cy="12" r="1.6" fill="#121824" stroke="#EF4444" strokeWidth="0.8" />
-    </svg>
-  );
-}
-
-function HooliLogo({ className = 'w-5 h-5' }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className={className} aria-label="Hooli logo">
-      <rect x="2.5" y="2.5" width="19" height="19" rx="4.5" fill="#10B981" fillOpacity="0.2" stroke="#10B981" strokeWidth="1.5" />
       <path
-        d="M7.5 6.5V17.5M7.5 12C8.5 9.8 10.5 9 12.8 9C15.2 9 16.5 10.5 16.5 13V17.5"
-        stroke="#10B981"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="16.5" cy="7.5" r="1.3" fill="#34D399" />
-    </svg>
-  );
-}
-
-function StarkIndustriesLogo({ className = 'w-5 h-5' }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 26 20" fill="none" className={className} aria-label="Stark Industries logo">
-      <path d="M1.5 10H13.5M1.5 5.5H17.5M1.5 14.5H17.5" stroke="#38BDF8" strokeWidth="1.8" strokeLinecap="round" />
-      <path
-        d="M11.5 2L24.5 10L11.5 18L15.5 10L11.5 2Z"
+        d="M4.5 9.5l2.5 5 1.5-3-2-4H4.5z"
         fill="#38BDF8"
-        fillOpacity="0.85"
-        stroke="#60A5FA"
-        strokeWidth="0.8"
-        strokeLinejoin="round"
       />
+      <path
+        d="M9.5 7.5h2l-2 7h-2z"
+        fill="#60A5FA"
+      />
+    </svg>
+  );
+}
+
+function CloudflareLogo({ className = 'w-5 h-5' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-label="Cloudflare logo">
+      <path
+        d="M19.5 15.5c1.4 0 2.5-1.1 2.5-2.5 0-1.2-.9-2.2-2.1-2.4-.1-2.3-2-4.1-4.4-4.1-1.6 0-3 .8-3.8 2.1-.4-.2-.8-.2-1.2-.2-1.9 0-3.5 1.6-3.5 3.5 0 .2 0 .4.1.6C5.5 12.8 4 14 4 15.5c0 1.4 1.1 2.5 2.5 2.5h13z"
+        fill="#F38020"
+        fillOpacity="0.25"
+        stroke="#F38020"
+        strokeWidth="1.4"
+      />
+      <path
+        d="M14 11.5c1.8 0 3.2 1.2 3.5 2.8H8.5c-.3-1.6 1.1-2.8 2.9-2.8h2.6z"
+        fill="#FAAD3F"
+      />
+    </svg>
+  );
+}
+
+function NextjsLogo({ className = 'w-5 h-5' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-label="Next.js logo">
+      <circle cx="12" cy="12" r="9.5" fill="#090D16" stroke="#38BDF8" strokeWidth="1.2" />
+      <path
+        d="M8.5 7.5v9h2.2v-4.8l5.3 5.3c.7-.5 1.3-1.1 1.7-1.8L10.7 7.5H8.5z"
+        fill="#F8FAFC"
+      />
+      <path d="M15.5 7.5h2.2v5.5h-2.2z" fill="#38BDF8" />
+    </svg>
+  );
+}
+
+function PostgresLogo({ className = 'w-5 h-5' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-label="PostgreSQL logo">
+      <ellipse cx="12" cy="12" rx="8" ry="7.5" fill="#336791" fillOpacity="0.2" stroke="#336791" strokeWidth="1.4" />
+      <path
+        d="M8.5 9.5c.8-1.5 2.2-2 3.5-2 2 0 3.8 1.2 4.2 3.2.5 2.3-.8 4.3-2.7 4.8-1.5.4-3.2-.2-4-1.5"
+        stroke="#38BDF8"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+      <circle cx="10" cy="11" r="1" fill="#38BDF8" />
+      <circle cx="14" cy="11" r="1" fill="#38BDF8" />
+      <path d="M11 14.5c.6.4 1.4.4 2 0" stroke="#38BDF8" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function DockerLogo({ className = 'w-5 h-5' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-label="Docker logo">
+      {/* 2x3 grid of containers */}
+      <rect x="5.5" y="10" width="2" height="2" rx=".3" fill="#2496ED" />
+      <rect x="8" y="10" width="2" height="2" rx=".3" fill="#2496ED" />
+      <rect x="10.5" y="10" width="2" height="2" rx=".3" fill="#2496ED" />
+      <rect x="8" y="7.5" width="2" height="2" rx=".3" fill="#38BDF8" />
+      <rect x="10.5" y="7.5" width="2" height="2" rx=".3" fill="#38BDF8" />
+      <rect x="13" y="10" width="2" height="2" rx=".3" fill="#2496ED" />
+      {/* Whale body */}
+      <path
+        d="M3.5 13.5c1 0 2.2.8 3.5.8 1.8 0 2.8-.8 4.5-.8 1.5 0 2.7.8 4.2.8 2.2 0 4.3-1.5 4.8-3.3.2 0 1.2.5 1.5 1.2.4.9.1 2.3-1.8 3.3-2.5 1.3-6.5 1.5-9.7 1.5-2.8 0-5.5-.8-7-2.5v-1z"
+        fill="#2496ED"
+        fillOpacity="0.85"
+      />
+    </svg>
+  );
+}
+
+function AiPartnerLogo({ className = 'w-5 h-5' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-label="Enterprise AI Ecosystem logo">
+      <circle cx="12" cy="12" r="8" stroke="#10B981" strokeWidth="1.4" fill="#10B981" fillOpacity="0.15" />
+      <circle cx="12" cy="12" r="2.5" fill="#34D399" />
+      <path d="M12 4v3M12 17v3M4 12h3M17 12h3" stroke="#34D399" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="6.5" cy="6.5" r="1" fill="#10B981" />
+      <circle cx="17.5" cy="6.5" r="1" fill="#10B981" />
+      <circle cx="6.5" cy="17.5" r="1" fill="#10B981" />
+      <circle cx="17.5" cy="17.5" r="1" fill="#10B981" />
     </svg>
   );
 }
 
 const DEFAULT_LOGOS_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
-  acme: AcmeLogo,
-  globex: GlobexLogo,
-  initech: InitechLogo,
-  umbrella: UmbrellaLogo,
-  hooli: HooliLogo,
-  stark: StarkIndustriesLogo,
+  aws: AwsPartnerLogo,
+  cloudflare: CloudflareLogo,
+  nextjs: NextjsLogo,
+  postgres: PostgresLogo,
+  docker: DockerLogo,
+  ai: AiPartnerLogo,
+  'ai-apis': AiPartnerLogo,
+  acme: AwsPartnerLogo,
+  globex: CloudflareLogo,
+  initech: NextjsLogo,
+  umbrella: PostgresLogo,
+  hooli: DockerLogo,
+  stark: AiPartnerLogo,
 };
 
 const DEFAULT_CLIENT_LOGOS = [
-  { id: 'acme', name: 'ACME CORP', iconKey: 'acme', imageUrl: null },
-  { id: 'globex', name: 'GLOBEX', iconKey: 'globex', imageUrl: null },
-  { id: 'initech', name: 'INITECH', iconKey: 'initech', imageUrl: null },
-  { id: 'umbrella', name: 'UMBRELLA', iconKey: 'umbrella', imageUrl: null },
-  { id: 'hooli', name: 'HOOLI', iconKey: 'hooli', imageUrl: null },
-  { id: 'stark', name: 'STARK INDUSTRIES', iconKey: 'stark', imageUrl: null },
+  { id: 'aws', name: 'AWS PARTNER NETWORK', iconKey: 'aws', imageUrl: null },
+  { id: 'cloudflare', name: 'CLOUDFLARE EDGE', iconKey: 'cloudflare', imageUrl: null },
+  { id: 'nextjs', name: 'NEXT.JS ENTERPRISE', iconKey: 'nextjs', imageUrl: null },
+  { id: 'postgres', name: 'POSTGRESQL CLOUD', iconKey: 'postgres', imageUrl: null },
+  { id: 'docker', name: 'DOCKER CONTAINERIZED', iconKey: 'docker', imageUrl: null },
+  { id: 'ai-apis', name: 'ENTERPRISE AI APIS', iconKey: 'ai-apis', imageUrl: null },
 ];
 
 // Helper to format title to clean Title Case matching Screenshot 2
@@ -408,7 +426,7 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
         {/* Section Tagline / Category Label */}
         <div className="shrink-0">
           <span className="text-[10px] sm:text-[10.5px] lg:text-[11px] font-mono uppercase tracking-[0.14em] sm:tracking-[0.18em] text-slate-500 font-medium whitespace-nowrap select-none">
-            POWERING HIGH-VELOCITY ENGINEERING TEAMS:
+            ENTERPRISE TECHNOLOGY ECOSYSTEM & PARTNER CLOUDS:
           </span>
         </div>
 
@@ -425,9 +443,12 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
                 {/* Small Circle Profile Picture Type Container */}
                 <div className="w-7 h-7 sm:w-7 sm:h-7 md:w-7 md:h-7 aspect-square rounded-full bg-[#101726] border border-slate-700/80 flex items-center justify-center overflow-hidden shrink-0 shadow-sm ring-1 ring-white/10 group-hover:border-cyan-400/60 group-hover:ring-cyan-500/30 group-hover:shadow-[0_0_10px_rgba(0,242,254,0.35)] transition-all duration-300">
                   {client.imageUrl ? (
-                    <img
+                    <Image
                       src={client.imageUrl}
                       alt={client.name}
+                      width={28}
+                      height={28}
+                      unoptimized
                       className="w-full h-full object-cover rounded-full aspect-square"
                     />
                   ) : Icon ? (

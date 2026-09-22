@@ -11,8 +11,11 @@ import {
   Cloud, 
   Database, 
   GitBranch, 
-  Network 
+  Network,
+  ArrowRight
 } from 'lucide-react';
+import { Link } from '@/i18n/routing';
+import { ROUTES } from '@/routes';
 
 interface TechItem {
   name: string;
@@ -186,6 +189,17 @@ export function TechSection() {
               </motion.div>
             ))}
           </AnimatePresence>
+        </div>
+
+        {/* Link to Dedicated Technology Architecture Page */}
+        <div className="mt-14 text-center">
+          <Link
+            href={ROUTES.PUBLIC.TECHNOLOGY}
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-card/85 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-border/70 dark:border-slate-700 hover:border-primary/40 dark:hover:border-blue-400 text-foreground font-bold text-sm transition-all shadow-xs hover:shadow-md hover:scale-105 active:scale-95 group"
+          >
+            <span>Explore Technology Architecture</span>
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 text-primary dark:text-blue-400" />
+          </Link>
         </div>
       </div>
     </section>

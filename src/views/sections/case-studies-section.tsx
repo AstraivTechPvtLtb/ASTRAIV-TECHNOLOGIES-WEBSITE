@@ -1,70 +1,66 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { SectionHeader } from './section-header';
-import { ArrowRight, CheckCircle2, Cpu, Zap, ShieldCheck } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Cpu, Zap, ShieldCheck, Layers, Sparkles } from 'lucide-react';
 import { Link } from '@/i18n/routing';
+import { DEFAULT_PORTFOLIO_PROJECTS, type PublicPortfolioProject } from '@/lib/portfolio-data';
+import { ROUTES } from '@/routes';
 
-export function CaseStudiesSection() {
+function ResilientSectionImage({ src, alt }: { src: string; alt: string }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  useEffect(() => {
+    setImgSrc(src);
+  }, [src]);
+
+  return (
+    <Image
+      src={imgSrc}
+      alt={alt}
+      fill
+      sizes="(max-width: 1024px) 100vw, 50vw"
+      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+      onError={() => {
+        setImgSrc('/images/portfolio/portfolio-pulsefit.jpg');
+      }}
+    />
+  );
+}
+
+interface CaseStudiesSectionProps {
+  initialProjects?: PublicPortfolioProject[];
+  title?: string;
+  badge?: string;
+  description?: string;
+  showAllCta?: boolean;
+}
+
+export function CaseStudiesSection({
+  initialProjects = DEFAULT_PORTFOLIO_PROJECTS,
+  title = 'Built to Solve Real Problems',
+  badge = 'Featured Work',
+  description = 'High-performance software engineered by Astraiv Technologies across client production environments, internal platforms, and hardened reference architectures.',
+  showAllCta = true,
+}: CaseStudiesSectionProps) {
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const categories = [
     'All',
+    'FinTech & Ledger',
     'SaaS & Analytics',
     'Logistics & AI',
-    'FinTech & Ledger',
   ];
 
-  const projects = [
-    {
-      id: 'pulsefit',
-      title: 'PulseFit Multi-Tenant Fitness Analytics Platform',
-      category: 'SaaS & Analytics',
-      categoryType: ['All', 'SaaS & Analytics'],
-      client: 'PulseFit Global',
-      imageSrc: '/images/portfolio/portfolio-pulsefit.jpg',
-      challenge: 'High database latency and slow dashboard rendering times across multi-tenant fitness centers were causing user churn.',
-      solution: 'Engineered a next-generation multi-tenant analytics dashboard in Next.js 16 with Prisma ORM, edge caching, and automated real-time database sync.',
-      technologies: ['Next.js 16', 'Prisma ORM', 'PostgreSQL', 'Tailwind CSS', 'Cloudflare R2'],
-      metric: '65% Faster Page Loads',
-      metricLabel: 'Performance Increase',
-      badgeIcon: <Zap className="h-3.5 w-3.5 text-blue-400" />,
-    },
-    {
-      id: 'aerosync',
-      title: 'AeroSync Real-Time Logistics & Parcel Coordination',
-      category: 'Logistics & AI',
-      categoryType: ['All', 'Logistics & AI'],
-      client: 'AeroSync Logistics Inc.',
-      imageSrc: '/images/portfolio/portfolio-aerosync.jpg',
-      challenge: 'Excessive route overhead, delayed dispatch updates, and manual parcel sorting across high-volume regional distribution fleets.',
-      solution: 'Developed custom scheduling software coordinating parcel distribution in real-time leveraging WebSockets for instant tracking updates and AI-optimized routes.',
-      technologies: ['WebSockets', 'AI Route Engine', 'TypeScript', 'AWS Cloud', 'Docker'],
-      metric: '-22% Route Fuel Overhead',
-      metricLabel: 'Fleet Optimization',
-      badgeIcon: <Cpu className="h-3.5 w-3.5 text-purple-400" />,
-    },
-    {
-      id: 'financeflow',
-      title: 'FinanceFlow AI-Driven Budget & Ledger Engine',
-      category: 'FinTech & Ledger',
-      categoryType: ['All', 'FinTech & Ledger'],
-      client: 'FinanceFlow Capital',
-      imageSrc: '/images/portfolio/portfolio-financeflow.jpg',
-      challenge: 'Manual financial reconciliation bottlenecks and complex bank ledger integration compliance requiring strict data isolation.',
-      solution: 'Engineered an AI-driven budget analyzer integrating LLMs with bank ledger APIs, featuring secure credential vaulting and automated reconciliation loops.',
-      technologies: ['LLM Agents', 'Bank Ledger APIs', 'pgvector', 'TypeScript', 'SOC-2 Vault'],
-      metric: '100% PCI-DSS Compliant',
-      metricLabel: 'Security Standard',
-      badgeIcon: <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />,
-    },
-  ];
+  const verifiedProjects = initialProjects.filter(
+    (p) => p.projectType === 'Client Project' && p.isRealClient
+  );
 
   const filteredProjects = selectedCategory === 'All'
-    ? projects
-    : projects.filter(p => p.categoryType.includes(selectedCategory));
+    ? (verifiedProjects.length >= 3 ? verifiedProjects.slice(0, 3) : initialProjects.slice(0, 3))
+    : initialProjects.filter((p) => p.categoryType?.includes(selectedCategory)).slice(0, 3);
 
   return (
     <section id="case-studies" className="py-20 md:py-28 px-6 bg-transparent relative overflow-hidden scroll-mt-24">
@@ -73,9 +69,9 @@ export function CaseStudiesSection() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader
-          badge="Featured Work"
-          title="Built to Solve Real Problems"
-          description="A selection of high-performance software engineered by AstraIV Technologies for industry category leaders."
+          badge={badge}
+          title={title}
+          description={description}
         />
 
         {/* Category filter tabs */}
@@ -103,6 +99,24 @@ export function CaseStudiesSection() {
           {filteredProjects.map((project, index) => {
             const isReversed = index % 2 !== 0;
 
+            const badgeIconNode =
+              project.badgeIcon === 'Zap' ? (
+                <Zap className="h-3.5 w-3.5 text-blue-400" />
+              ) : project.badgeIcon === 'Cpu' ? (
+                <Cpu className="h-3.5 w-3.5 text-purple-400" />
+              ) : (
+                <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+              );
+
+            const projectTypeColor =
+              project.projectType === 'Client Project'
+                ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                : project.projectType === 'Internal Project'
+                ? 'bg-purple-500/10 text-purple-400 border-purple-500/30'
+                : project.projectType === 'Concept Project'
+                ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'
+                : 'bg-blue-500/10 text-blue-400 border-blue-500/30';
+
             return (
               <motion.article
                 key={project.id}
@@ -117,20 +131,20 @@ export function CaseStudiesSection() {
                   <div className={`lg:col-span-6 relative w-full h-[240px] sm:h-[300px] md:h-[340px] rounded-2xl overflow-hidden shadow-inner group/preview border border-border/50 dark:border-slate-800/80 bg-slate-950 ${
                     isReversed ? 'lg:order-2' : ''
                   }`}>
-                    <Image
+                    <ResilientSectionImage
                       src={project.imageSrc}
                       alt={project.title}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/20" />
 
                     {/* Category overlay badge */}
-                    <div className="absolute top-4 left-4 flex items-center gap-2">
+                    <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2">
                       <span className="inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-extrabold tracking-wider bg-slate-950/80 backdrop-blur-md border border-blue-400/30 text-blue-300 rounded-full uppercase">
-                        {project.badgeIcon}
+                        {badgeIconNode}
                         <span>{project.category}</span>
+                      </span>
+                      <span className={`inline-flex items-center px-2.5 py-0.5 text-[9.5px] font-bold tracking-wider rounded-full border backdrop-blur-md ${projectTypeColor}`}>
+                        {project.projectType}
                       </span>
                     </div>
 
@@ -155,12 +169,12 @@ export function CaseStudiesSection() {
                     isReversed ? 'lg:order-1' : ''
                   }`}>
                     <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 border border-primary/20 dark:border-blue-400/20">
-                          Production Case Study
+                      <div className="flex flex-wrap items-center gap-2 mb-2">
+                        <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest border ${projectTypeColor}`}>
+                          {project.projectType}
                         </span>
                         <span className="text-xs font-semibold text-muted-foreground">
-                          {project.category}
+                          {project.industryName || project.category}
                         </span>
                       </div>
                       <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
@@ -168,23 +182,32 @@ export function CaseStudiesSection() {
                       </h3>
                     </div>
 
-                    {/* Problem vs Solution Split */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                      <div className="p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 border border-border/60 dark:border-slate-700/60 flex flex-col gap-1">
+                    {/* Challenge vs Solution vs Outcome */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div className="p-3 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 border border-border/60 dark:border-slate-700/60 flex flex-col gap-1">
                         <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-600 dark:text-amber-400">
                           Challenge
                         </span>
-                        <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-medium">
+                        <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-medium line-clamp-3">
                           {project.challenge}
                         </p>
                       </div>
 
-                      <div className="p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 border border-border/60 dark:border-slate-700/60 flex flex-col gap-1">
+                      <div className="p-3 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 border border-border/60 dark:border-slate-700/60 flex flex-col gap-1">
                         <span className="text-[10px] font-extrabold uppercase tracking-wider text-primary dark:text-blue-400">
-                          Engineered Solution
+                          Solution
                         </span>
-                        <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-medium">
+                        <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-medium line-clamp-3">
                           {project.solution}
+                        </p>
+                      </div>
+
+                      <div className="p-3 rounded-xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-500/20 dark:border-emerald-500/30 flex flex-col gap-1">
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                          Outcome
+                        </span>
+                        <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-medium line-clamp-3">
+                          <strong className="text-foreground dark:text-white font-mono">{project.metric}</strong> {project.metricLabel}. {project.impactOutcomes?.[0] || 'Verified production impact.'}
                         </p>
                       </div>
                     </div>
@@ -195,7 +218,7 @@ export function CaseStudiesSection() {
                         Technologies Deployed
                       </span>
                       <div className="flex flex-wrap gap-1.5">
-                        {project.technologies.map((tech, tIdx) => (
+                        {project.technologies.slice(0, 5).map((tech, tIdx) => (
                           <span
                             key={tIdx}
                             className="px-2.5 py-0.5 text-xs font-semibold rounded-md bg-slate-100 dark:bg-slate-800 border border-border/60 dark:border-slate-700 text-foreground/90 dark:text-slate-200"
@@ -210,14 +233,14 @@ export function CaseStudiesSection() {
                     <div className="pt-2 flex items-center justify-between border-t border-border/40 dark:border-slate-800/60">
                       <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
                         <CheckCircle2 className="h-4 w-4 shrink-0" />
-                        <span>Production verified</span>
+                        <span>{project.credibilityBadge}</span>
                       </div>
 
                       <Link
-                        href="/portfolio"
+                        href={ROUTES.PUBLIC.CASE_STUDY_DETAIL(project.slug)}
                         className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-extrabold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors"
                       >
-                        <span>View Project Architecture</span>
+                        <span>View Case Study</span>
                         <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                       </Link>
                     </div>
@@ -227,6 +250,20 @@ export function CaseStudiesSection() {
             );
           })}
         </div>
+
+        {/* Explore All Case Studies CTA */}
+        {showAllCta && (
+          <div className="mt-14 sm:mt-16 text-center">
+            <Link
+              href={ROUTES.PUBLIC.CASE_STUDIES}
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-primary hover:bg-primary/90 text-white font-bold text-sm shadow-lg shadow-primary/25 transition-all hover:scale-105"
+            >
+              <Layers className="h-4 w-4" />
+              <span>Explore All Case Studies</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

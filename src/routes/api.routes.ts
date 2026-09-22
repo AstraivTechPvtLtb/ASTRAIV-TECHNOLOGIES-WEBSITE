@@ -9,4 +9,5 @@ export const API_ROUTES = {
   REVIEWS: '/api/reviews',
   REVIEWS_GOOGLE_FORM: '/api/reviews/google-form',
   WEBHOOKS_GOOGLE_SHEETS: '/api/webhooks/google-sheets',
+  START_PROJECT: '/api/start-project',
 } as const;

@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from '@/i18n/routing';
+import { ROUTES } from '@/routes';
 import { cn } from '@/lib/utils';
 import {
   Bot,
@@ -40,15 +41,15 @@ interface SolutionItem {
 }
 
 const SOLUTIONS_DATA: SolutionItem[] = [
-  // INTELLIGENT SYSTEMS
+  // 1. INTELLIGENT SYSTEMS
   {
-    id: 'ai-agents',
+    id: 'ai-business-automation',
     category: 'intelligent-systems',
     categoryLabel: 'Intelligent Systems',
-    title: 'AI Agents & Automation',
-    tagline: 'Autonomous decision pipelines & goal-driven task bots.',
+    title: 'AI & Business Automation',
+    tagline: 'Autonomous decision pipelines & goal-driven multi-agent swarms.',
     description:
-      'We engineer self-orchestrating agent workflows that plan, execute, and verify multi-step tasks across external APIs, customer channels, and enterprise data backbones without human intervention.',
+      'We engineer self-orchestrating agent workflows that plan, execute, and verify multi-step tasks across external APIs, customer channels, and enterprise data backbones without human bottlenecks.',
     icon: <Bot className="h-6 w-6 text-blue-600" />,
     iconBg: 'from-blue-600/20 to-blue-500/10 border-blue-600/30',
     metric: {
@@ -61,7 +62,7 @@ const SOLUTIONS_DATA: SolutionItem[] = [
       'Human-in-the-loop audit checkpoints for mission-critical actions',
       'Self-healing execution queues with automated error recovery',
     ],
-    technologies: ['LangGraph', 'Python FastAPI', 'OpenAI / Claude 3.5', 'Redis', 'Temporal'],
+    technologies: ['LangGraph', 'Python FastAPI', 'Claude 3.5 / GPT-4o', 'Redis', 'Temporal.io'],
   },
   {
     id: 'rag-knowledge',
@@ -89,7 +90,7 @@ const SOLUTIONS_DATA: SolutionItem[] = [
     id: 'data-analytics',
     category: 'intelligent-systems',
     categoryLabel: 'Intelligent Systems',
-    title: 'Data & Analytics',
+    title: 'Data & Analytics Platforms',
     tagline: 'Real-time metrics, telemetry & executive predictive dashboards.',
     description:
       'Consolidate high-velocity transactional and event streams into lightning-fast analytical engines. Deliver executive dashboards, operational alerting, and predictive forecasts at scale.',
@@ -108,7 +109,7 @@ const SOLUTIONS_DATA: SolutionItem[] = [
     technologies: ['ClickHouse', 'Apache Kafka', 'DuckDB', 'Next.js SSR', 'Tailwind CSS'],
   },
 
-  // DIGITAL PRODUCTS
+  // 2. DIGITAL PRODUCTS
   {
     id: 'saas-platforms',
     category: 'digital-products',
@@ -130,28 +131,6 @@ const SOLUTIONS_DATA: SolutionItem[] = [
       'Custom domain support and white-label theme customization',
     ],
     technologies: ['Next.js 15', 'TypeScript', 'Prisma ORM', 'Stripe Billing', 'PostgreSQL'],
-  },
-  {
-    id: 'enterprise-applications',
-    category: 'digital-products',
-    categoryLabel: 'Digital Products',
-    title: 'Enterprise Applications',
-    tagline: 'High-throughput business operations & unified command centers.',
-    description:
-      'Tailored enterprise web applications engineered for heavy concurrent usage, complex state trees, data reconciliation, and unified cross-departmental operations.',
-    icon: <Building2 className="h-6 w-6 text-emerald-500" />,
-    iconBg: 'from-emerald-500/20 to-teal-500/10 border-emerald-500/30',
-    metric: {
-      value: '50k+',
-      label: 'Concurrent operations handled without degraded latency',
-    },
-    features: [
-      'Enterprise SSO & SAML 2.0 / Okta / Azure AD authentication integrations',
-      'Real-time state synchronization using secure WebSockets and optimistic UI',
-      'Auditing and logging engine complying with SOC2 and HIPAA standards',
-      'Modular micro-frontend architecture enabling cross-team independence',
-    ],
-    technologies: ['React', 'Next.js', 'WebSockets', 'Redis', 'Tailwind CSS', 'Zod'],
   },
   {
     id: 'business-process-automation',
@@ -176,29 +155,7 @@ const SOLUTIONS_DATA: SolutionItem[] = [
     technologies: ['BullMQ', 'Node.js', 'Temporal.io', 'FastAPI', 'Redis'],
   },
 
-  // ENGINEERING TRANSFORMATION
-  {
-    id: 'system-integration',
-    category: 'engineering-transformation',
-    categoryLabel: 'Engineering Transformation',
-    title: 'System Integration',
-    tagline: 'Robust API gateways, event buses & microservice links.',
-    description:
-      'Unify heterogeneous enterprise platforms, microservices, third-party APIs, and distributed data sources into a cohesive, high-throughput technical nervous system.',
-    icon: <Network className="h-6 w-6 text-sky-500" />,
-    iconBg: 'from-sky-500/20 to-blue-500/10 border-sky-500/30',
-    metric: {
-      value: '< 10ms',
-      label: 'Edge gateway routing overhead and protocol translation',
-    },
-    features: [
-      'High-throughput API gateway with rate-limiting & distributed token buckets',
-      'Asynchronous pub/sub event bus decoupling services and preventing cascade failures',
-      'Standardized payload normalization and bidirectional data sync contracts',
-      'Distributed OpenTelemetry tracing for complete request lifecycle visibility',
-    ],
-    technologies: ['GraphQL', 'gRPC', 'RabbitMQ', 'Apache Kafka', 'Cloudflare Workers'],
-  },
+  // 3. ENGINEERING TRANSFORMATION
   {
     id: 'legacy-modernization',
     category: 'engineering-transformation',
@@ -221,6 +178,28 @@ const SOLUTIONS_DATA: SolutionItem[] = [
     ],
     technologies: ['Docker', 'AWS ECS / Fargate', 'Next.js', 'PostgreSQL', 'Terraform'],
   },
+  {
+    id: 'digital-transformation',
+    category: 'engineering-transformation',
+    categoryLabel: 'Engineering Transformation',
+    title: 'Digital Transformation',
+    tagline: 'Transitioning analog workflows to unified, scalable cloud platforms.',
+    description:
+      'Transition your enterprise away from slow, analog workflows and fragmented spreadsheets into unified, automated cloud platforms that unlock exponential operational scale.',
+    icon: <Building2 className="h-6 w-6 text-emerald-500" />,
+    iconBg: 'from-emerald-500/20 to-teal-500/10 border-emerald-500/30',
+    metric: {
+      value: '3x Faster',
+      label: 'Operational execution velocity across key departments',
+    },
+    features: [
+      'End-to-end operational audits to identify manual bottlenecks and data traps',
+      'Phased, risk-free migration blueprint safeguarding ongoing business continuity',
+      'Unified executive command center with real-time operational KPI dashboards',
+      'Structured team onboarding, documentation, and change management support',
+    ],
+    technologies: ['Next.js', 'PostgreSQL', 'TypeScript', 'Docker', 'OpenTelemetry'],
+  },
 ];
 
 const CATEGORIES = [
@@ -232,6 +211,43 @@ const CATEGORIES = [
 
 export function SolutionsView() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (!hash) return;
+      
+      const aliasMap: Record<string, string> = {
+        'ai-agents': 'ai-business-automation',
+        'ai-solutions': 'ai-business-automation',
+        'business-automation': 'ai-business-automation',
+        'workflow-automation': 'business-process-automation',
+        'enterprise-applications': 'saas-platforms',
+        'system-integration': 'digital-transformation',
+        'customer-experience': 'digital-transformation',
+        'enterprise-transformation': 'digital-transformation',
+        'cloud-migration': 'legacy-modernization',
+        'security-compliance': 'legacy-modernization',
+      };
+
+      const targetId = aliasMap[hash] || hash;
+      const found = SOLUTIONS_DATA.find((s) => s.id === targetId || s.id === hash);
+
+      if (found) {
+        setSelectedCategory('all');
+        setTimeout(() => {
+          const el = document.getElementById(hash) || document.getElementById(targetId);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      }
+    };
+
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
 
   const filteredSolutions =
     selectedCategory === 'all'
@@ -303,7 +319,7 @@ export function SolutionsView() {
                 href="/contact"
                 className="px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm text-white bg-primary hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 transition-all flex items-center justify-center gap-2 shadow-sm shadow-primary/20"
               >
-                <span>Consult Our Architects</span>
+                <span>Talk to an Expert</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <a
@@ -366,7 +382,7 @@ export function SolutionsView() {
             </div>
           )}
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl">
             {filteredSolutions
               .filter((s) => selectedCategory !== 'all' || s.category === 'digital-products')
               .map((solution) => (
@@ -481,17 +497,23 @@ export function SolutionsView() {
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-3.5 pt-2 w-full sm:w-auto">
               <Link
-                href="/contact"
+                href={ROUTES.PUBLIC.START_PROJECT ? `${ROUTES.PUBLIC.START_PROJECT}?source_page=${encodeURIComponent('/solutions')}` : `/start-project?source_page=${encodeURIComponent('/solutions')}`}
                 className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm text-white bg-primary hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 shadow-md shadow-primary/25 transition-all flex items-center justify-center gap-2 active:scale-95"
               >
-                <span>Book Architectural Session</span>
+                <span>Start a Project</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
-                href="/portfolio"
+                href="/contact#schedule"
                 className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm text-slate-700 dark:text-slate-200 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2"
               >
-                <span>View Case Studies</span>
+                <span>Talk to an Expert</span>
+              </Link>
+              <Link
+                href={ROUTES.PUBLIC.CASE_STUDIES}
+                className="w-full sm:w-auto px-6 py-4 rounded-xl font-bold text-sm text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400 transition-colors flex items-center justify-center gap-1.5"
+              >
+                <span>View Case Studies &rarr;</span>
               </Link>
             </div>
           </div>
@@ -507,6 +529,30 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
       id={solution.id}
       className="group scroll-mt-32 p-7 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs hover:shadow-xl hover:border-primary/40 dark:hover:border-accent/40 transition-all duration-300 flex flex-col justify-between text-left relative overflow-hidden"
     >
+      {/* Secondary alias anchor points for legacy routes and navigation links */}
+      {solution.id === 'ai-business-automation' && (
+        <span id="ai-agents" className="absolute -top-32 pointer-events-none" />
+      )}
+      {solution.id === 'business-process-automation' && (
+        <span id="workflow-automation" className="absolute -top-32 pointer-events-none" />
+      )}
+      {solution.id === 'saas-platforms' && (
+        <span id="enterprise-applications" className="absolute -top-32 pointer-events-none" />
+      )}
+      {solution.id === 'legacy-modernization' && (
+        <>
+          <span id="cloud-migration" className="absolute -top-32 pointer-events-none" />
+          <span id="security-compliance" className="absolute -top-32 pointer-events-none" />
+        </>
+      )}
+      {solution.id === 'digital-transformation' && (
+        <>
+          <span id="enterprise-transformation" className="absolute -top-32 pointer-events-none" />
+          <span id="system-integration" className="absolute -top-32 pointer-events-none" />
+          <span id="customer-experience" className="absolute -top-32 pointer-events-none" />
+        </>
+      )}
+
       {/* Top ambient glow on hover */}
       <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 dark:bg-accent/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
 
@@ -529,7 +575,9 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
 
         {/* Title */}
         <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-heading tracking-tight mb-2 group-hover:text-primary dark:group-hover:text-accent transition-colors">
-          {solution.title}
+          <Link href={`/solutions/${solution.id}`}>
+            {solution.title}
+          </Link>
         </h3>
 
         {/* Tagline (original dropdown copy) */}
@@ -581,14 +629,22 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
           </div>
         </div>
 
-        {/* CTA Button */}
-        <Link
-          href="/contact"
-          className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-slate-100 hover:bg-primary hover:text-white dark:bg-slate-800 dark:hover:bg-accent dark:hover:text-slate-950 text-slate-800 dark:text-slate-200 transition-all flex items-center justify-center gap-2 group/btn"
-        >
-          <span>Consult on this Solution</span>
-          <ArrowRight className="h-3.5 w-3.5 group-hover/btn:translate-x-1 transition-transform" />
-        </Link>
+        {/* CTA Buttons: Direct Detail View + Consult */}
+        <div className="flex flex-col sm:flex-row items-center gap-2">
+          <Link
+            href={`/solutions/${solution.id}`}
+            className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-primary text-white hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 transition-all flex items-center justify-center gap-2 group/btn shadow-xs"
+          >
+            <span>Explore Solution</span>
+            <ArrowRight className="h-3.5 w-3.5 group-hover/btn:translate-x-1 transition-transform" />
+          </Link>
+          <Link
+            href={`/contact?service=Custom%20Solutions&solution=${encodeURIComponent(solution.title)}`}
+            className="w-full sm:w-auto py-2.5 px-3.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition-all flex items-center justify-center shrink-0"
+          >
+            <span>Talk to an Expert</span>
+          </Link>
+        </div>
       </div>
     </div>
   );

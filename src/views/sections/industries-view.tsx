@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
+import { ROUTES } from '@/routes';
 import { cn } from '@/lib/utils';
 import {
   DollarSign,
@@ -532,6 +533,23 @@ export function IndustriesView() {
                 id={ind.id}
                 className="scroll-mt-36 p-6 sm:p-8 md:p-12 rounded-3xl bg-card/70 dark:bg-slate-900/70 backdrop-blur-2xl border border-border/60 dark:border-slate-800/80 shadow-md hover:shadow-xl hover:border-primary/40 dark:hover:border-primary/30 transition-all duration-300 relative overflow-hidden group"
               >
+                {/* Secondary alias anchor points for navbar dropdowns and external campaign links */}
+                {ind.id === 'fintech' && <span id="fintech-banking" className="absolute -top-36 pointer-events-none" />}
+                {ind.id === 'healthtech' && (
+                  <>
+                    <span id="healthcare" className="absolute -top-36 pointer-events-none" />
+                    <span id="healthcare-healthtech" className="absolute -top-36 pointer-events-none" />
+                  </>
+                )}
+                {ind.id === 'ecommerce' && <span id="ecommerce-retail" className="absolute -top-36 pointer-events-none" />}
+                {ind.id === 'logistics' && <span id="logistics-supply-chain" className="absolute -top-36 pointer-events-none" />}
+                {ind.id === 'edtech' && (
+                  <>
+                    <span id="education" className="absolute -top-36 pointer-events-none" />
+                    <span id="education-edtech" className="absolute -top-36 pointer-events-none" />
+                  </>
+                )}
+                {ind.id === 'other-industries' && <span id="realestate-proptech" className="absolute -top-36 pointer-events-none" />}
                 {/* Background decorative watermark code */}
                 <div className="absolute top-4 right-6 text-7xl md:text-8xl font-black text-slate-200/30 dark:text-slate-800/20 select-none pointer-events-none tracking-tighter">
                   {ind.code}
@@ -682,7 +700,7 @@ export function IndustriesView() {
                         href={`/contact?vertical=${ind.id}`}
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-xs group/btn"
                       >
-                        <span>Request {ind.label} Brief</span>
+                        <span>Talk to an Expert</span>
                         <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-1" />
                       </Link>
                     </div>
@@ -780,19 +798,25 @@ export function IndustriesView() {
 
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-md shadow-primary/25 group"
+              href={ROUTES.PUBLIC.START_PROJECT ? `${ROUTES.PUBLIC.START_PROJECT}?source_page=${encodeURIComponent('/industries')}` : `/start-project?source_page=${encodeURIComponent('/industries')}`}
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-md shadow-primary/25 group hover:scale-105"
             >
-              <span>Schedule Architecture Review</span>
+              <span>Start a Project</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
 
             <Link
-              href="/portfolio"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold bg-card dark:bg-slate-800 text-foreground hover:bg-slate-100 dark:hover:bg-slate-700 border border-border dark:border-slate-700 transition-all"
+              href="/contact#schedule"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold bg-card dark:bg-slate-800 text-foreground hover:bg-slate-100 dark:hover:bg-slate-700 border border-border dark:border-slate-700 transition-all hover:scale-105"
             >
-              <span>View Case Studies</span>
-              <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
+              <span>Talk to an Expert</span>
+            </Link>
+
+            <Link
+              href={ROUTES.PUBLIC.CASE_STUDIES}
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-muted-foreground hover:text-primary transition-colors"
+            >
+              <span>View Case Studies &rarr;</span>
             </Link>
           </div>
         </div>
