@@ -2,7 +2,8 @@
 
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
+import { ROUTES } from '@/routes';
 import { Sparkles, ArrowRight, ShieldCheck, Cpu, Cloud, Zap, Layers } from 'lucide-react';
 
 interface FeatureCard {
@@ -224,18 +225,18 @@ export function ScrollHorizontal() {
 
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
             <Link
-              href="/contact"
+              href={ROUTES.PUBLIC.START_PROJECT}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white bg-primary hover:bg-primary/90 dark:bg-accent dark:text-slate-950 dark:hover:bg-blue-300 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
             >
-              <span>Schedule Architecture Call</span>
+              <span>Start a Project</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
 
             <Link
-              href="/services"
+              href={ROUTES.PUBLIC.SERVICES}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-slate-700 dark:text-slate-200 bg-white/80 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300/80 dark:border-slate-800 shadow-xs transition-all transform hover:-translate-y-0.5"
             >
-              <span>Explore All Services</span>
+              <span>Explore Services</span>
             </Link>
           </div>
         </div>

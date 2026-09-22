@@ -7,6 +7,9 @@ import { Link, usePathname } from '@/i18n/routing';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
+/**
+ * @deprecated Superseded by unified enterprise Navbar in `navbar.tsx`. Kept for backwards reference only.
+ */
 export function HomeNavbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
+import { ROUTES } from '@/routes';
 import { cn } from '@/lib/utils';
 import {
   Search,
@@ -69,6 +70,23 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
   const [emailSubscribed, setEmailSubscribed] = useState(false);
   const [subscriberEmail, setSubscriberEmail] = useState('');
   const [copiedResource, setCopiedResource] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (!hash) return;
+      const el = document.getElementById(hash);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 80);
+      }
+    };
+
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
 
   // Quick navigation anchors matching dropdown items
   const quickNavItems = [
@@ -174,6 +192,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
   // Case Studies summaries
   const caseStudyHighlights = [
     {
+      slug: 'pulsefit',
       client: 'PulseFit Global',
       metric: '65% Faster Page Loads',
       category: 'SaaS & HealthTech',
@@ -182,6 +201,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop',
     },
     {
+      slug: 'aerosync',
       client: 'AeroSync Logistics',
       metric: '-18% Route Fuel Overhead',
       category: 'Logistics AI & Fleet Sync',
@@ -190,6 +210,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop',
     },
     {
+      slug: 'financeflow',
       client: 'FinanceFlow Capital',
       metric: 'SOC-2 Compliant Vault',
       category: 'FinTech & Cognitive AI',
@@ -380,7 +401,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                   </div>
 
                   <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors mb-4 leading-tight">
-                    <Link href={`/blog/${featuredPost.slug}`}>{featuredPost.title}</Link>
+                    <Link href={`/insights/${featuredPost.slug}`}>{featuredPost.title}</Link>
                   </h2>
 
                   <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-medium mb-6">
@@ -410,7 +431,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                   </div>
 
                   <Link
-                    href={`/blog/${featuredPost.slug}`}
+                    href={`/insights/${featuredPost.slug}`}
                     className="inline-flex items-center gap-1.5 text-xs font-extrabold text-primary hover:text-primary/80 dark:text-accent dark:hover:text-accent/80 transition-colors group/cta"
                   >
                     <span>Read Deep Dive</span>
@@ -669,10 +690,10 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
               </h2>
             </div>
             <Link
-              href="/portfolio#case-studies"
+              href={ROUTES.PUBLIC.CASE_STUDIES}
               className="inline-flex items-center gap-2 text-xs font-extrabold text-primary dark:text-accent hover:underline"
             >
-              <span>Explore All Portfolio Case Studies</span>
+              <span>Explore Case Studies</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
@@ -713,10 +734,10 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                   </div>
 
                   <Link
-                    href="/portfolio#case-studies"
+                    href={ROUTES.PUBLIC.CASE_STUDY_DETAIL(study.slug)}
                     className="inline-flex items-center gap-1.5 text-xs font-extrabold text-primary dark:text-accent hover:underline pt-4 border-t border-border/40 dark:border-slate-800"
                   >
-                    <span>Read Architecture Brief</span>
+                    <span>View Case Study</span>
                     <ArrowRight className="h-3 w-3" />
                   </Link>
                 </div>
@@ -853,10 +874,10 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
               <p className="text-xs text-muted-foreground">Our principal engineers can review your stack specifications.</p>
             </div>
             <Link
-              href="/contact"
+              href={ROUTES.PUBLIC.CONTACT}
               className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-xs font-extrabold hover:bg-primary/90 transition-all active:scale-95 shrink-0"
             >
-              <span>Schedule Architecture Consultation</span>
+              <span>Talk to an Expert</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>

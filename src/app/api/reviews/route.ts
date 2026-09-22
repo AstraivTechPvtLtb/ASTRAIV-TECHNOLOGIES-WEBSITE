@@ -14,6 +14,9 @@ export interface SanitizedPublicReview {
   displayRating: number;
   review: string;
   imageUrl?: string | null;
+  projectId?: string | null;
+  serviceId?: string | null;
+  industryId?: string | null;
   publishedAt: string | null;
 }
 
@@ -30,6 +33,9 @@ interface SupabaseReviewRow {
   rating?: number | null;
   identity_display_permission?: string | null;
   image_url?: string | null;
+  project_id?: string | null;
+  service_id?: string | null;
+  industry_id?: string | null;
   published_at?: string | Date | null;
   [key: string]: unknown;
 }
@@ -37,6 +43,7 @@ interface SupabaseReviewRow {
 /**
  * Server-side privacy transformer.
  * Strictly strips all private feedback, emails, and restricts names/companies based on customer permission.
+ * Never exposes admin notes publicly.
  */
 export function sanitizeReviewForPublic(r: {
   id: string;
@@ -47,6 +54,9 @@ export function sanitizeReviewForPublic(r: {
   reviewText?: string | null;
   review?: string | null;
   imageUrl?: string | null;
+  projectId?: string | null;
+  serviceId?: string | null;
+  industryId?: string | null;
   averageRating?: Prisma.Decimal | number;
   displayRating?: number | null;
   rating?: number | null;
@@ -92,6 +102,9 @@ export function sanitizeReviewForPublic(r: {
     displayRating: displayRatingNum,
     review: r.reviewText || r.review || '',
     imageUrl: r.imageUrl || null,
+    projectId: r.projectId || null,
+    serviceId: r.serviceId || null,
+    industryId: r.industryId || null,
     publishedAt: r.publishedAt ? new Date(r.publishedAt).toISOString() : null,
   };
 }
@@ -100,6 +113,9 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const featuredOnly = searchParams.get('featured') === 'true';
+    const projectId = searchParams.get('projectId');
+    const serviceId = searchParams.get('serviceId');
+    const industryId = searchParams.get('industryId');
     const limit = Math.min(50, Math.max(1, parseInt(searchParams.get('limit') || '10', 10)));
 
     // 1. Primary PostgreSQL via Prisma ORM
@@ -111,6 +127,15 @@ export async function GET(req: NextRequest) {
 
       if (featuredOnly) {
         where.featured = true;
+      }
+      if (projectId) {
+        where.projectId = projectId;
+      }
+      if (serviceId) {
+        where.serviceId = serviceId;
+      }
+      if (industryId) {
+        where.industryId = industryId;
       }
 
       const reviews = await db.review.findMany({
@@ -133,6 +158,9 @@ export async function GET(req: NextRequest) {
           rating: r.rating,
           identityDisplayPermission: r.identityDisplayPermission,
           imageUrl: r.imageUrl,
+          projectId: r.projectId,
+          serviceId: r.serviceId,
+          industryId: r.industryId,
           publishedAt: r.publishedAt,
         })
       );

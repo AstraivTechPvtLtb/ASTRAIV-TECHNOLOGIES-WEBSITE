@@ -46,14 +46,18 @@ interface HeroSectionProps {
   subheadline: string;
   ctaText?: string;
   ctaHref?: string;
+  secondaryCtaText?: string;
+  secondaryCtaHref?: string;
 }
 
 export function HeroSection({
   badgeText,
   headline,
   subheadline,
-  ctaText = 'Get Started',
-  ctaHref = '/auth/signup',
+  ctaText = 'Start a Project',
+  ctaHref = '/contact',
+  secondaryCtaText = 'Explore Case Studies',
+  secondaryCtaHref = '/work/case-studies',
 }: HeroSectionProps) {
   const parsedWords = parseHeadline(headline);
   const shouldReduceMotion = useReducedMotion();
@@ -335,17 +339,29 @@ export function HeroSection({
             {subheadline}
           </motion.p>
 
-          {/* 4. Interactive CTA Button */}
-          <motion.div variants={itemVariants} className="flex justify-center w-full">
+          {/* 4. Interactive CTA Buttons (Primary: Start a Project, Secondary: Explore Our Work) */}
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full max-w-md sm:max-w-none">
             <Link
               href={ctaHref}
-              className="relative group inline-block"
+              className="relative group w-full sm:w-auto inline-block"
             >
               <button
-                className="relative cursor-pointer font-bold rounded-md px-10 h-13 text-sm tracking-wide text-white bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 dark:hover:bg-blue-500 active:scale-95 transition-all duration-300 shadow-md hover:shadow-lg dark:border dark:border-blue-400/30 dark:shadow-[0_0_16px_-2px_rgba(59,130,246,0.35)] dark:hover:shadow-[0_0_22px_-1px_rgba(59,130,246,0.55)] flex items-center justify-center gap-2 outline-none select-none"
+                className="w-full sm:w-auto relative cursor-pointer font-bold rounded-xl px-8 sm:px-10 h-13 text-sm tracking-wide text-white bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 dark:hover:bg-blue-500 active:scale-95 transition-all duration-300 shadow-md hover:shadow-lg dark:border dark:border-blue-400/30 dark:shadow-[0_0_16px_-2px_rgba(59,130,246,0.35)] dark:hover:shadow-[0_0_22px_-1px_rgba(59,130,246,0.55)] flex items-center justify-center gap-2 outline-none select-none"
               >
                 <span>{ctaText}</span>
                 <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </button>
+            </Link>
+
+            <Link
+              href={secondaryCtaHref}
+              className="relative group w-full sm:w-auto inline-block"
+            >
+              <button
+                className="w-full sm:w-auto relative cursor-pointer font-bold rounded-xl px-8 sm:px-10 h-13 text-sm tracking-wide text-foreground bg-card/85 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-border/70 dark:border-slate-700 hover:border-primary/40 dark:hover:border-blue-400/40 active:scale-95 transition-all duration-300 shadow-xs flex items-center justify-center gap-2 outline-none select-none"
+              >
+                <span>{secondaryCtaText}</span>
+                <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1 text-primary dark:text-blue-400" />
               </button>
             </Link>
           </motion.div>

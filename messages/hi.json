@@ -2,7 +2,9 @@
   "Common": {
     "title": "एस्ट्राइव टेक्नोलॉजीज",
     "tagline": "अगली पीढ़ी के एंटरप्राइज़ आईटी सॉल्यूशंस और SaaS",
-    "getStarted": "शुरू करें",
+    "startProject": "प्रोजेक्ट शुरू करें",
+    "projectInquiry": "प्रोजेक्ट पूछताछ",
+    "getStarted": "प्रोजेक्ट शुरू करें",
     "contactUs": "संपर्क करें",
     "loading": "लोड हो रहा है...",
     "search": "खोजें",
@@ -30,7 +32,17 @@
     "techStack": "प्रौद्योगिकी स्टैक",
     "aiCapabilities": "एआई क्षमताएं",
     "caseStudies": "केस स्टडीज",
-    "successStories": "सफलता की कहानियां"
+    "successStories": "सफलता की कहानियां",
+    "work": "हमारा कार्य",
+    "startProject": "प्रोजेक्ट शुरू करें",
+    "clientPortal": "क्लाइंट पोर्टल",
+    "clientPortalSignIn": "क्लाइंट पोर्टल / साइन इन",
+    "rewardsAccolades": "पुरस्कार एवं सम्मान",
+    "testimonials": "प्रशंसापत्र",
+    "engineering": "इंजीनियरिंग",
+    "resources": "संसाधन",
+    "whyAstraiv": "एस्ट्राइव क्यों",
+    "ourProcess": "हमारी प्रक्रिया"
   },
   "Services": {
     "title": "हमारी सेवाएं",

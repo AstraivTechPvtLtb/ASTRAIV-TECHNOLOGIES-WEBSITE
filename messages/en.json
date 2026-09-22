@@ -2,7 +2,9 @@
   "Common": {
     "title": "Astraiv Technologies",
     "tagline": "Next-Gen Enterprise IT Solutions & SaaS",
-    "getStarted": "Get Started",
+    "startProject": "Start a Project",
+    "projectInquiry": "Project Inquiry",
+    "getStarted": "Start a Project",
     "contactUs": "Contact Us",
     "loading": "Loading...",
     "search": "Search",
@@ -30,7 +32,17 @@
     "techStack": "Technology Stack",
     "aiCapabilities": "AI Capabilities",
     "caseStudies": "Case Studies",
-    "successStories": "Success Stories"
+    "successStories": "Success Stories",
+    "work": "Work",
+    "startProject": "Start a Project",
+    "clientPortal": "Client Portal",
+    "clientPortalSignIn": "Client Portal / Sign In",
+    "rewardsAccolades": "Rewards & Accolades",
+    "testimonials": "Testimonials",
+    "engineering": "Engineering",
+    "resources": "Resources",
+    "whyAstraiv": "Why Astraiv",
+    "ourProcess": "Our Process"
   },
   "Services": {
     "title": "Our Services",
@@ -60,9 +72,9 @@
     "alreadyHaveAccount": "Already have an account? Sign in"
   },
   "Home": {
-    "heroBadge": "Announcing Astraiv Platform 1.0",
+    "heroBadge": "Institutional Engineering & Enterprise AI Architecture",
     "heroHeadline": "We engineer the [digital future]",
-    "heroSubheadline": "Astraiv Technologies is an enterprise-grade IT firm and SaaS engine. We craft premium websites, high-performance web applications, custom AI automations, and modern cloud infrastructure.",
+    "heroSubheadline": "We partner with ambitious startups, growth enterprises, and industry leaders to build mission-critical web applications, autonomous AI automations, and resilient cloud architectures that accelerate engineering velocity and drive measurable business growth.",
     "trustedBy": "Trusted by industry leaders and high-growth engineering teams",
     "platformTitle": "Unified SaaS Engine",
     "platformSubtitle": "Manage your projects, submit support tickets, track billing, and automate CRM leads from a premium dashboard.",

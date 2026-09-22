@@ -12,3 +12,6 @@ export * from './public-data.controller';
 export * from './blog.controller';
 export * from './services.controller';
 export * from './footer.controller';
+export * from './portfolio.controller';
+export * from './start-project.controller';
+export * from './cms.controller';

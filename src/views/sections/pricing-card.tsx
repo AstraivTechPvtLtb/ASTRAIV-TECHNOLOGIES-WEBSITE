@@ -1,7 +1,8 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/views/ui/card';
-import { Button } from '@/views/ui/button';
+import { Button, buttonVariants } from '@/views/ui/button';
 import { Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Link } from '@/i18n/routing';
 
 interface PricingCardProps {
   name: string;
@@ -12,6 +13,7 @@ interface PricingCardProps {
   buttonText: string;
   isPopular?: boolean;
   onSelectPlan?: () => void;
+  href?: string;
 }
 
 export function PricingCard({
@@ -23,6 +25,7 @@ export function PricingCard({
   buttonText,
   isPopular = false,
   onSelectPlan,
+  href,
 }: PricingCardProps) {
   return (
     <Card
@@ -60,13 +63,25 @@ export function PricingCard({
       </CardContent>
       
       <CardFooter className="p-6 pt-0 mt-auto">
-        <Button
-          onClick={onSelectPlan}
-          variant={isPopular ? 'default' : 'outline'}
-          className="w-full font-semibold h-11 rounded-xl cursor-pointer"
-        >
-          {buttonText}
-        </Button>
+        {href ? (
+          <Link
+            href={href}
+            className={cn(
+              buttonVariants({ variant: isPopular ? 'default' : 'outline' }),
+              'w-full font-semibold h-11 rounded-xl cursor-pointer'
+            )}
+          >
+            {buttonText}
+          </Link>
+        ) : (
+          <Button
+            onClick={onSelectPlan}
+            variant={isPopular ? 'default' : 'outline'}
+            className="w-full font-semibold h-11 rounded-xl cursor-pointer"
+          >
+            {buttonText}
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );

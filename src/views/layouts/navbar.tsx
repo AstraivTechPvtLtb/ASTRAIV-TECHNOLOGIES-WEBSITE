@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Menu, X, Sun, Moon, ChevronDown, ArrowRight, Sparkles } from 'lucide-react';
+import { Menu, X, Sun, Moon, ChevronDown, ArrowRight, Sparkles, LogIn } from 'lucide-react';
 import Image from 'next/image';
 import { Link, usePathname, useRouter } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
@@ -164,27 +164,88 @@ export function Navbar() {
       return false;
     }
 
-    // 2. Insights menu covers blog and faq
+    // 2. Work covers /work and /portfolio
+    if (item.id === 'work') {
+      return (
+        isActiveRoute(pathname, ROUTES.PUBLIC.WORK) ||
+        isActiveRoute(pathname, ROUTES.PUBLIC.PORTFOLIO)
+      );
+    }
+
+    // 3. Insights covers /insights, /blog, /technology, and /faq
     if (item.id === 'insights') {
       return (
+        isActiveRoute(pathname, ROUTES.PUBLIC.INSIGHTS) ||
+        isActiveRoute(pathname, ROUTES.PUBLIC.INSIGHTS_BLOG) ||
         isActiveRoute(pathname, ROUTES.PUBLIC.BLOG) ||
+        isActiveRoute(pathname, ROUTES.PUBLIC.TECHNOLOGY) ||
         isActiveRoute(pathname, ROUTES.PUBLIC.FAQ)
       );
     }
 
-    // 3. Match against item's route href
+    // 4. Company covers /company, /careers, and /pricing
+    if (item.id === 'company') {
+      return (
+        isActiveRoute(pathname, ROUTES.PUBLIC.COMPANY) ||
+        isActiveRoute(pathname, ROUTES.PUBLIC.CAREERS) ||
+        isActiveRoute(pathname, ROUTES.PUBLIC.PRICING)
+      );
+    }
+
+    // 5. Match against item's route href
     return isActiveRoute(pathname, item.href);
+  };
+
+  const getDropdownPositionClass = (itemId: string) => {
+    switch (itemId) {
+      case 'services':
+        return '-left-8';
+      case 'solutions':
+        return '-left-28';
+      case 'industries':
+        return '-left-44';
+      case 'work':
+        return '-left-56';
+      case 'insights':
+        return '-left-72';
+      case 'company':
+        return 'right-0';
+      default:
+        return 'left-1/2 -translate-x-1/2';
+    }
   };
 
   // Render Mega Menu or Dropdown Panel for Desktop
   const renderMegaMenu = (config?: MegaMenuConfig) => {
     if (!config) return null;
 
-    if (config.type === 'mega-3col') {
+    // Group-based Mega Menus (mega-3col, mega-work, mega-insights, mega-company)
+    if (
+      config.type === 'mega-3col' ||
+      config.type === 'mega-work' ||
+      config.type === 'mega-insights' ||
+      config.type === 'mega-company' ||
+      config.groups
+    ) {
+      const isTwoCol = config.groups && config.groups.length === 2;
+
       return (
-        <div className="w-[880px] lg:w-[940px] rounded-2xl border border-slate-200/90 dark:border-white/10 bg-white/95 dark:bg-[#0D1320]/95 backdrop-blur-2xl p-6 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] grid grid-cols-12 gap-6">
-          {/* Main 3 Columns */}
-          <div className="col-span-8 lg:col-span-9 grid grid-cols-3 gap-5">
+        <div
+          role="menu"
+          className={cn(
+            'rounded-2xl border border-slate-200/90 dark:border-white/10 bg-white/95 dark:bg-[#0D1320]/95 backdrop-blur-2xl p-6 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] grid grid-cols-12 gap-6',
+            isTwoCol ? 'w-[820px] lg:w-[880px]' : 'w-[880px] lg:w-[940px]'
+          )}
+        >
+          {/* Main Groups Columns */}
+          <div
+            className={cn(
+              'gap-5',
+              isTwoCol
+                ? 'col-span-8 grid grid-cols-2'
+                : 'col-span-8 lg:col-span-9 grid grid-cols-3'
+            )}
+          >
             {config.groups?.map((group) => (
               <div key={group.title} className="flex flex-col gap-2">
                 <div className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 pb-1.5 border-b border-slate-100 dark:border-slate-800/80">
@@ -195,12 +256,20 @@ export function Navbar() {
                     <Link
                       key={sub.name}
                       href={sub.href}
+                      role="menuitem"
                       onClick={() => setActiveDropdown(null)}
-                      className="group/item flex flex-col p-2 rounded-lg hover:bg-slate-100/90 dark:hover:bg-[#172033]/80 transition-all duration-150"
+                      className="group/item flex flex-col p-2 rounded-lg hover:bg-slate-100/90 dark:hover:bg-[#172033]/80 transition-all duration-150 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
                     >
-                      <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 group-hover/item:text-primary dark:group-hover/item:text-accent transition-colors flex items-center justify-between">
-                        <span>{sub.name}</span>
-                        <ArrowRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-primary dark:text-accent" />
+                      <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 group-hover/item:text-primary dark:group-hover/item:text-accent transition-colors flex items-center justify-between gap-1">
+                        <span className="flex items-center gap-1.5 flex-wrap">
+                          <span>{sub.name}</span>
+                          {sub.badge && (
+                            <span className="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded bg-primary/10 dark:bg-accent/15 text-primary dark:text-accent border border-primary/20 dark:border-accent/25 shrink-0">
+                              {sub.badge}
+                            </span>
+                          )}
+                        </span>
+                        <ArrowRight className="h-3 w-3 shrink-0 opacity-0 -translate-x-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-primary dark:text-accent" />
                       </span>
                       {sub.description && (
                         <span className="text-[10.5px] text-slate-500 dark:text-slate-400 line-clamp-1 leading-normal mt-0.5">
@@ -216,11 +285,16 @@ export function Navbar() {
 
           {/* Featured Right Panel */}
           {config.featured && (
-            <div className="col-span-4 lg:col-span-3 rounded-xl border border-primary/15 dark:border-primary/25 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 dark:from-primary/10 dark:via-secondary/10 dark:to-accent/5 p-4 flex flex-col justify-between">
+            <div
+              className={cn(
+                'rounded-xl border border-primary/15 dark:border-primary/25 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 dark:from-primary/10 dark:via-secondary/10 dark:to-accent/5 p-4 flex flex-col justify-between',
+                isTwoCol ? 'col-span-4' : 'col-span-4 lg:col-span-3'
+              )}
+            >
               <div>
                 <div className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-primary dark:text-accent mb-2 px-2 py-0.5 rounded-full bg-primary/10 dark:bg-accent/10 border border-primary/20 dark:border-accent/20">
                   <Sparkles className="h-2.5 w-2.5" />
-                  Enterprise IT
+                  Astraiv Corporate
                 </div>
                 <h4 className="text-sm font-bold text-slate-900 dark:text-white leading-snug mb-1.5">
                   {config.featured.tagline}
@@ -233,7 +307,7 @@ export function Navbar() {
               <Link
                 href={config.featured.ctaHref}
                 onClick={() => setActiveDropdown(null)}
-                className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-accent hover:underline group/cta"
+                className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-accent hover:underline group/cta focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary rounded-xs"
               >
                 <span>{config.featured.ctaLabel}</span>
                 <ArrowRight className="h-3 w-3 group-hover/cta:translate-x-1 transition-transform" />
@@ -246,7 +320,10 @@ export function Navbar() {
 
     if (config.type === 'mega-industries') {
       return (
-        <div className="w-[780px] lg:w-[840px] rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl p-6 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col gap-4">
+        <div
+          role="menu"
+          className="w-[780px] lg:w-[840px] rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl p-6 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col gap-4"
+        >
           <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800/80">
             <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500">
               Industry Verticals & Domains
@@ -254,7 +331,7 @@ export function Navbar() {
             <Link
               href={ROUTES.PUBLIC.INDUSTRIES}
               onClick={() => setActiveDropdown(null)}
-              className="text-xs font-bold text-primary dark:text-accent hover:underline flex items-center gap-1"
+              className="text-xs font-bold text-primary dark:text-accent hover:underline flex items-center gap-1 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary rounded-xs"
             >
               <span>Explore All Industries</span>
               <ArrowRight className="h-3 w-3" />
@@ -266,8 +343,9 @@ export function Navbar() {
               <Link
                 key={sub.name}
                 href={sub.href}
+                role="menuitem"
                 onClick={() => setActiveDropdown(null)}
-                className="group/ind p-3 rounded-xl hover:bg-slate-100/90 dark:hover:bg-slate-900/80 border border-transparent hover:border-slate-200/60 dark:hover:border-slate-800/60 transition-all duration-150 flex flex-col"
+                className="group/ind p-3 rounded-xl hover:bg-slate-100/90 dark:hover:bg-slate-900/80 border border-transparent hover:border-slate-200/60 dark:hover:border-slate-800/60 transition-all duration-150 flex flex-col focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
               >
                 <span className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover/ind:text-primary dark:group-hover/ind:text-accent transition-colors flex items-center justify-between">
                   <span>{sub.name}</span>
@@ -285,16 +363,20 @@ export function Navbar() {
       );
     }
 
-    // Standard Curated Dropdown (Insights, Company)
+    // Standard Curated Dropdown
     if (config.type === 'dropdown') {
       return (
-        <div className="w-72 rounded-xl border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#0D1320] backdrop-blur-2xl p-2 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col gap-1">
+        <div
+          role="menu"
+          className="w-72 rounded-xl border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#0D1320] backdrop-blur-2xl p-2 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col gap-1"
+        >
           {config.items?.map((sub) => (
             <Link
               key={sub.name}
               href={sub.href}
+              role="menuitem"
               onClick={() => setActiveDropdown(null)}
-              className="group/drop px-3 py-2.5 rounded-lg hover:bg-slate-100/90 dark:hover:bg-[#172033]/80 transition-colors flex flex-col"
+              className="group/drop px-3 py-2.5 rounded-lg hover:bg-slate-100/90 dark:hover:bg-[#172033]/80 transition-colors flex flex-col focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
             >
               <span className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover/drop:text-primary dark:group-hover/drop:text-accent transition-colors flex items-center justify-between">
                 <span>{sub.name}</span>
@@ -370,7 +452,6 @@ export function Navbar() {
                   href={item.href}
                   onClick={() => {
                     if (item.hasDropdown) {
-                      // Allow toggling dropdown via click on desktop
                       if (activeDropdown === item.id) {
                         setActiveDropdown(null);
                       } else {
@@ -378,8 +459,20 @@ export function Navbar() {
                       }
                     }
                   }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      if (item.hasDropdown) {
+                        setActiveDropdown(activeDropdown === item.id ? null : item.id);
+                      } else {
+                        router.push(item.href);
+                      }
+                    } else if (e.key === 'Escape') {
+                      setActiveDropdown(null);
+                    }
+                  }}
                   className={cn(
-                    'text-[13px] font-semibold tracking-wide transition-all duration-200 relative h-full flex items-center gap-1 px-3 group/link select-none',
+                    'text-[13px] font-semibold tracking-wide transition-all duration-200 relative h-full flex items-center gap-1 px-3 group/link select-none focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400 rounded-md',
                     active
                       ? 'text-primary dark:text-accent font-bold'
                       : isDropdownOpen
@@ -427,19 +520,7 @@ export function Navbar() {
                         transition={{ duration: 0.18, ease: 'easeOut' }}
                         className={cn(
                           'absolute top-full z-50 pt-2',
-                          item.megaMenu?.type === 'dropdown'
-                            ? item.id === 'insights'
-                              ? 'right-0'
-                              : 'left-0'
-                            : item.id === 'services'
-                            ? '-left-24'
-                            : item.id === 'solutions'
-                            ? '-left-48'
-                            : item.id === 'technologies'
-                            ? '-left-64'
-                            : item.id === 'industries'
-                            ? '-left-48'
-                            : 'left-1/2 -translate-x-1/2'
+                          getDropdownPositionClass(item.id)
                         )}
                       >
                         {renderMegaMenu(item.megaMenu)}
@@ -452,20 +533,30 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* Right Side: CTA and Preserved 3-Lines Options Button */}
-        <div className="hidden lg:flex items-center gap-3 h-full">
-          {/* Primary Enterprise CTA: Let's Connect → */}
-          <Link href={ROUTES.PUBLIC.CONTACT} className="relative group inline-block">
+        {/* Right Side: Secondary Utility, Primary CTA, and Preserved 3-Lines Options Button */}
+        <div className="hidden lg:flex items-center gap-2.5 xl:gap-3 h-full">
+          {/* Secondary Utility: Client Portal / Sign In */}
+          <Link
+            href={ROUTES.AUTH.LOGIN}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[12px] font-semibold text-slate-700 dark:text-slate-300 hover:text-foreground hover:bg-slate-200/60 dark:hover:bg-white/10 transition-colors border border-transparent hover:border-slate-300/80 dark:hover:border-white/10 select-none cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
+            title="Client Portal / Sign In"
+          >
+            <LogIn className="h-3.5 w-3.5 text-primary dark:text-accent" />
+            <span>{tNav.has('clientPortalSignIn') ? tNav('clientPortalSignIn') : 'Client Portal / Sign In'}</span>
+          </Link>
+
+          {/* Primary Enterprise CTA: Start a Project */}
+          <Link href={ROUTES.PUBLIC.START_PROJECT} className="relative group inline-block">
             <button
               className={cn(
-                'relative cursor-pointer font-bold rounded-md px-4.5 h-9 text-[12px] tracking-wide transition-all duration-200 shadow-sm flex items-center justify-center gap-2 border outline-none select-none active:scale-95',
+                'relative cursor-pointer font-bold rounded-md px-4.5 h-9 text-[12px] tracking-wide transition-all duration-200 shadow-sm flex items-center justify-center gap-2 border outline-none select-none active:scale-95 focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400',
                 'text-white bg-[#0B3D91] hover:bg-[#082d6c] border-blue-900/20 hover:shadow-md hover:shadow-[#0B3D91]/25',
                 'dark:bg-blue-600 dark:hover:bg-blue-500 dark:border-blue-400/30 dark:shadow-[0_0_16px_-2px_rgba(59,130,246,0.35)] dark:hover:shadow-[0_0_22px_-1px_rgba(59,130,246,0.55)]',
-                pathname === ROUTES.PUBLIC.CONTACT ? 'bg-[#093275] ring-2 ring-blue-500/40 dark:bg-blue-500 dark:ring-blue-400/50' : ''
+                pathname === ROUTES.PUBLIC.START_PROJECT ? 'bg-[#093275] ring-2 ring-blue-500/40 dark:bg-blue-500 dark:ring-blue-400/50' : ''
               )}
             >
               <span className="h-1.5 w-1.5 rounded-full bg-blue-400 dark:bg-blue-400 shadow-[0_0_6px_rgba(59,130,246,0.9)] animate-pulse" />
-              <span>{tNav.has('letsTalk') ? tNav('letsTalk') : "Let's Connect"}</span>
+              <span>{tNav.has('startProject') ? tNav('startProject') : 'Start a Project'}</span>
               <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
             </button>
           </Link>
@@ -661,6 +752,7 @@ export function Navbar() {
             className="p-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-colors"
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isOpen}
+            aria-controls="mobile-navigation-drawer"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -671,6 +763,7 @@ export function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="mobile-navigation-drawer"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'calc(100vh - 4.5rem)' }}
             exit={{ opacity: 0, height: 0 }}
@@ -689,6 +782,8 @@ export function Navbar() {
                       <div className="flex flex-col">
                         <button
                           onClick={() => setExpandedMobileItem(isExpanded ? null : item.id)}
+                          aria-expanded={isExpanded}
+                          aria-controls={`mobile-menu-${item.id}`}
                           className={cn(
                             'w-full flex items-center justify-between text-left text-base font-bold transition-colors py-1.5',
                             active
@@ -707,7 +802,7 @@ export function Navbar() {
 
                         {/* Accordion Expandable Content */}
                         {isExpanded && item.megaMenu && (
-                          <div className="mt-2 pl-3 border-l-2 border-primary/20 dark:border-accent/20 flex flex-col gap-3 py-1 animate-fade-in">
+                          <div id={`mobile-menu-${item.id}`} className="mt-2 pl-3 border-l-2 border-primary/20 dark:border-accent/20 flex flex-col gap-3 py-1 animate-fade-in">
                             {/* For 3-column mega menus */}
                             {item.megaMenu.groups &&
                               item.megaMenu.groups.map((grp) => (
@@ -720,9 +815,17 @@ export function Navbar() {
                                       key={sub.name}
                                       href={sub.href}
                                       onClick={() => setIsOpen(false)}
-                                      className="text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-accent py-1"
+                                      className="flex items-center justify-between text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-accent py-1.5 px-2 rounded-lg hover:bg-slate-100/80 dark:hover:bg-slate-900/80 transition-colors"
                                     >
-                                      {sub.name}
+                                      <span className="flex items-center gap-1.5">
+                                        <span>{sub.name}</span>
+                                        {sub.badge && (
+                                          <span className="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded bg-primary/10 dark:bg-accent/15 text-primary dark:text-accent border border-primary/20 dark:border-accent/25">
+                                            {sub.badge}
+                                          </span>
+                                        )}
+                                      </span>
+                                      <ArrowRight className="h-3 w-3 opacity-40" />
                                     </Link>
                                   ))}
                                 </div>
@@ -736,13 +839,14 @@ export function Navbar() {
                                     key={sub.name}
                                     href={sub.href}
                                     onClick={() => setIsOpen(false)}
-                                    className="flex flex-col py-1 group/mitem"
+                                    className="flex flex-col py-1.5 px-2 rounded-lg hover:bg-slate-100/80 dark:hover:bg-slate-900/80 group/mitem"
                                   >
-                                    <span className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover/mitem:text-primary dark:group-hover/mitem:text-accent">
-                                      {sub.name}
+                                    <span className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover/mitem:text-primary dark:group-hover/mitem:text-accent flex items-center justify-between">
+                                      <span>{sub.name}</span>
+                                      <ArrowRight className="h-3 w-3 opacity-40" />
                                     </span>
                                     {sub.description && (
-                                      <span className="text-[10.5px] text-slate-500 dark:text-slate-400 line-clamp-1">
+                                      <span className="text-[10.5px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
                                         {sub.description}
                                       </span>
                                     )}
@@ -788,21 +892,31 @@ export function Navbar() {
             </div>
 
             {/* Mobile Bottom Utilities */}
-            <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-4">
-              {/* Primary Mobile CTA */}
+            <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-3">
+              {/* Primary Mobile CTA: Start a Project */}
               <Link
-                href="/contact"
+                href={ROUTES.PUBLIC.START_PROJECT}
                 onClick={() => setIsOpen(false)}
                 className={cn(
                   'w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm text-white transition-all duration-200 select-none active:scale-[0.98]',
                   'bg-[#0B3D91] hover:bg-[#082d6c] border border-blue-900/20 shadow-sm hover:shadow-md hover:shadow-[#0B3D91]/25',
                   'dark:bg-blue-600 dark:hover:bg-blue-500 dark:border-blue-400/30 dark:shadow-[0_0_16px_-2px_rgba(59,130,246,0.35)]',
-                  pathname === '/contact' ? 'bg-[#093275] ring-2 ring-blue-500/40 dark:bg-blue-500 dark:ring-blue-400/50' : ''
+                  pathname === ROUTES.PUBLIC.START_PROJECT ? 'bg-[#093275] ring-2 ring-blue-500/40 dark:bg-blue-500 dark:ring-blue-400/50' : ''
                 )}
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-blue-400 dark:bg-blue-400 shadow-[0_0_6px_rgba(59,130,246,0.9)] animate-pulse" />
-                <span>{tNav.has('letsTalk') ? tNav('letsTalk') : "Let's Connect"}</span>
+                <span>{tNav.has('startProject') ? tNav('startProject') : 'Start a Project'}</span>
                 <ArrowRight className="h-4 w-4" />
+              </Link>
+
+              {/* Secondary Mobile Utility: Client Portal / Sign In */}
+              <Link
+                href={ROUTES.AUTH.LOGIN}
+                onClick={() => setIsOpen(false)}
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-semibold text-xs text-foreground bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-900 dark:hover:bg-slate-800 border border-border/60 transition-colors select-none"
+              >
+                <LogIn className="h-3.5 w-3.5 text-primary dark:text-accent" />
+                <span>{tNav.has('clientPortalSignIn') ? tNav('clientPortalSignIn') : 'Client Portal / Sign In'}</span>
               </Link>
 
               {/* Mobile Language Selector */}

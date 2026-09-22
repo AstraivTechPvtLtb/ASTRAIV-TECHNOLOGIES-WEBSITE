@@ -55,9 +55,16 @@ const pool =
   });
 const adapter = new PrismaPg(pool);
 
-// If Prisma client was cached in memory before complianceSetting model was added, discard it
-if (globalForPrisma.prisma && !(globalForPrisma.prisma as unknown as { complianceSetting?: unknown }).complianceSetting) {
-  globalForPrisma.prisma = undefined;
+// Discard cached PrismaClient if Review model does not have the new relational fields
+if (globalForPrisma.prisma) {
+  try {
+    const fields = (globalForPrisma.prisma as unknown as { _runtimeDataModel?: { models?: { Review?: { fields?: Array<{ name: string }> } } } })?._runtimeDataModel?.models?.Review?.fields;
+    if (!fields || !fields.some((f) => f.name === 'projectId')) {
+      globalForPrisma.prisma = undefined;
+    }
+  } catch {
+    globalForPrisma.prisma = undefined;
+  }
 }
 
 export const db =

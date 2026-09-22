@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { TechBackground, GoogleAnalytics } from '@/views';
+import { AstraivMotionProvider } from '@/providers/motion-provider';
+import { getOrganizationJsonLd } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: {
@@ -12,7 +14,6 @@ export const metadata: Metadata = {
     template: '%s | Astraiv Technologies',
   },
   description: 'Enterprise-grade website development, cloud infrastructure, AI solutions, and business automation built with clean architecture.',
-  metadataBase: new URL('https://www.astraivtechnologies.com'),
   openGraph: {
     title: 'Astraiv Technologies',
     description: 'Enterprise-grade IT Solutions & SaaS platform built for performance.',
@@ -24,22 +25,13 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-  },
-  icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icon-48.png', sizes: '48x48', type: 'image/png' },
-      { url: '/icon-96.png', sizes: '96x96', type: 'image/png' },
-      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
-    ],
-    shortcut: '/favicon.ico',
-    apple: [
-      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
-    ],
-  },
-  verification: {
-    google: 'vOihYvEytgm-hcOnX7P5sfCpcV1Zj3ZdfpYrXV756C4',
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -66,15 +58,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   // Load language translation bundle
   const messages = await getMessages();
 
-  const orgSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'Astraiv Technologies',
-    url: 'https://www.astraivtechnologies.com',
-    logo: 'https://www.astraivtechnologies.com/icon-512.png',
-    image: 'https://www.astraivtechnologies.com/icon-512.png',
-    description: 'Enterprise-grade website development, cloud infrastructure, AI solutions, and business automation built with clean architecture.',
-  };
+  const orgSchema = getOrganizationJsonLd();
 
   return (
     <NextIntlClientProvider messages={messages}>
@@ -91,8 +75,10 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
         enableSystem={false}
         disableTransitionOnChange
       >
-        <TechBackground />
-        {children}
+        <AstraivMotionProvider>
+          <TechBackground />
+          {children}
+        </AstraivMotionProvider>
       </ThemeProvider>
     </NextIntlClientProvider>
   );

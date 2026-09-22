@@ -2,7 +2,9 @@
   "Common": {
     "title": "Astraiv Technologies",
     "tagline": "Soluciones de TI y SaaS Empresariales de Próxima Generación",
-    "getStarted": "Empezar",
+    "startProject": "Iniciar un Proyecto",
+    "projectInquiry": "Consulta de Proyecto",
+    "getStarted": "Iniciar un Proyecto",
     "contactUs": "Contáctenos",
     "loading": "Cargando...",
     "search": "Buscar",
@@ -30,7 +32,17 @@
     "techStack": "Pila de Tecnología",
     "aiCapabilities": "Capacidades de IA",
     "caseStudies": "Casos de Estudio",
-    "successStories": "Historias de Éxito"
+    "successStories": "Historias de Éxito",
+    "work": "Trabajo",
+    "startProject": "Iniciar un Proyecto",
+    "clientPortal": "Portal de Clientes",
+    "clientPortalSignIn": "Portal de Clientes / Iniciar Sesión",
+    "rewardsAccolades": "Premios y Reconocimientos",
+    "testimonials": "Testimonios",
+    "engineering": "Ingeniería",
+    "resources": "Recursos",
+    "whyAstraiv": "Por qué Astraiv",
+    "ourProcess": "Nuestro Proceso"
   },
   "Services": {
     "title": "Nuestros Servicios",
@@ -60,9 +72,9 @@
     "alreadyHaveAccount": "¿Ya tiene una cuenta? Inicie sesión"
   },
   "Home": {
-    "heroBadge": "Presentamos Astraiv Platform 1.0",
+    "heroBadge": "Ingeniería Institucional y Arquitectura de IA Empresarial",
     "heroHeadline": "Diseñamos el [futuro digital]",
-    "heroSubheadline": "Astraiv Technologies es una empresa de TI empresarial y motor SaaS. Creamos sitios web premium, aplicaciones web de alto rendimiento, automatizaciones de IA personalizadas e infraestructura de nube moderna.",
+    "heroSubheadline": "Nos asociamos con empresas de alto crecimiento y líderes de la industria para crear aplicaciones web críticas, automatizaciones de IA y arquitecturas en la nube que aceleran la velocidad y generan crecimiento.",
     "trustedBy": "Con la confianza de líderes de la industria y equipos de ingeniería de alto crecimiento",
     "platformTitle": "Motor SaaS Unificado",
     "platformSubtitle": "Administre sus proyectos, envíe tickets de soporte, realice un seguimiento de la facturación y automatice los clientes potenciales de CRM desde un panel de control premium.",

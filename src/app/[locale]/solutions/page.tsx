@@ -1,18 +1,21 @@
 import { setRequestLocale } from 'next-intl/server';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { Navbar, Footer, SolutionsView } from '@/views';
+import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';
 
 interface SolutionsPageProps {
   params: Promise<{ locale: string }>;
 }
 
 export async function generateMetadata({ params }: SolutionsPageProps): Promise<Metadata> {
-  await params;
-  return {
+  const { locale } = await params;
+  return createPageMetadata({
     title: 'Enterprise Solutions | Astraiv Technologies',
     description:
       'Explore Astraiv Technologies solutions: AI Agents & Automation, RAG & Knowledge Systems, Data & Analytics, SaaS Platforms, Enterprise Applications, Business Automation, System Integration, and Legacy Modernization.',
-  };
+    path: '/solutions',
+    locale,
+  });
 }
 
 export default async function SolutionsPage({ params }: SolutionsPageProps) {
@@ -21,6 +24,12 @@ export default async function SolutionsPage({ params }: SolutionsPageProps) {
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground flex flex-col justify-between relative overflow-hidden">
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'Solutions', path: '/solutions' },
+        ]}
+      />
       {/* Global Navigation */}
       <Navbar />
 

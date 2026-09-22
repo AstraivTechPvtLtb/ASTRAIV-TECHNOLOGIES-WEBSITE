@@ -14,6 +14,7 @@ import {
   Activity
 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
+import { ROUTES } from '@/routes';
 
 export function IndustriesSection() {
   const [activeTab, setActiveTab] = useState(0);
@@ -198,19 +199,30 @@ export function IndustriesSection() {
                   </div>
                 </div>
 
-                {/* Action CTA */}
+                {/* Action CTA Linking to Industry Detail Page */}
                 <div className="pt-2 flex items-center justify-between">
                   <Link
-                    href="/contact"
+                    href={ROUTES.PUBLIC.INDUSTRY_DETAIL(industries[activeTab].id)}
                     className="inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group"
                   >
-                    <span>Request {industries[activeTab].label} Solution Brief</span>
+                    <span>Explore {industries[activeTab].label} Solutions</span>
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>
               </div>
             </motion.div>
           </AnimatePresence>
+        </div>
+
+        {/* Explore All Industries Section CTA */}
+        <div className="mt-12 sm:mt-14 text-center">
+          <Link
+            href={ROUTES.PUBLIC.INDUSTRIES}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-foreground hover:text-primary dark:hover:text-blue-400 bg-card/80 hover:bg-card border border-border/60 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all shadow-xs hover:shadow-md group"
+          >
+            <span>Explore All Industries</span>
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+          </Link>
         </div>
       </div>
     </section>

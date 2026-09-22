@@ -337,7 +337,7 @@ export function PricingSection({ initialPlans }: PricingSectionProps) {
               href="/contact"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-md transition-all cursor-pointer"
             >
-              <span>Schedule Architecture Review</span>
+              <span>Talk to an Expert</span>
             </Link>
           </div>
         ) : (
@@ -359,6 +359,7 @@ export function PricingSection({ initialPlans }: PricingSectionProps) {
                   features={plan.features}
                   buttonText={plan.buttonText}
                   isPopular={plan.isPopular}
+                  href={`/contact?plan=${encodeURIComponent(plan.name)}`}
                 />
               </motion.div>
             ))}

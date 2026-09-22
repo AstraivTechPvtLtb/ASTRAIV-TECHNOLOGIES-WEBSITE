@@ -11,6 +11,9 @@ import { SectionHeader } from './section-header';
 import { TestimonialCard } from './testimonial-card';
 import { type TestimonialItem } from '@/models/types';
 import { getPublicApprovedReviews } from '@/controllers/public-data.controller';
+import { Link } from '@/i18n/routing';
+import { ROUTES } from '@/routes';
+import { ArrowRight } from 'lucide-react';
 
 interface TestimonialsSectionProps {
   initialReviews?: TestimonialItem[];
@@ -18,37 +21,7 @@ interface TestimonialsSectionProps {
 
 export function TestimonialsSection({ initialReviews }: TestimonialsSectionProps) {
   const [reviews, setReviews] = useState<TestimonialItem[]>(
-    initialReviews && initialReviews.length > 0
-      ? initialReviews
-      : [
-          {
-            id: '1',
-            quote:
-              "Astraiv's team is exceptional. They restructured our entire cloud architecture on AWS using Next.js and reduced our server overhead by 42%. The UI aesthetics are Stripe-level premium.",
-            authorName: 'Sarah Jenkins',
-            authorRole: 'VP of Engineering',
-            authorCompany: 'Vercel Staging Partner',
-            rating: 5,
-          },
-          {
-            id: '2',
-            quote:
-              'Working with Astraiv Technologies has automated our entire CRM sync pipeline and customer portal. The project was delivered ahead of schedule and the codebase is flawlessly typed.',
-            authorName: 'Marcus Vance',
-            authorRole: 'Founder',
-            authorCompany: 'Linear Integrations',
-            rating: 5,
-          },
-          {
-            id: '3',
-            quote:
-              'Their attention to design details, micro-animations, and WCAG accessibility is unmatched. Our clients have commented on the dashboard speed. It feels incredibly premium.',
-            authorName: 'Elena Rostova',
-            authorRole: 'CTO',
-            authorCompany: 'Framer Modules',
-            rating: 5,
-          },
-        ]
+    initialReviews && initialReviews.length > 0 ? initialReviews : []
   );
 
   useEffect(() => {
@@ -89,6 +62,17 @@ export function TestimonialsSection({ initialReviews }: TestimonialsSectionProps
               />
             </motion.div>
           ))}
+        </div>
+
+        {/* Link to Dedicated Testimonials Directory Under WORK */}
+        <div className="mt-14 text-center">
+          <Link
+            href={ROUTES.PUBLIC.WORK_TESTIMONIALS}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-foreground hover:text-primary dark:hover:text-blue-400 bg-card/80 hover:bg-card border border-border/60 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-200 shadow-xs hover:shadow-md group"
+          >
+            <span>Read Client Stories / View Testimonials</span>
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+          </Link>
         </div>
       </div>
     </section>

@@ -49,11 +49,61 @@ export function ContactForm() {
   const searchParams = useSearchParams();
   const roleParam = searchParams.get('role');
   const typeParam = searchParams.get('type');
+  const serviceParam = searchParams.get('service');
+  const planParam = searchParams.get('plan');
+  const caseStudyParam = searchParams.get('caseStudy');
+  const verticalParam = searchParams.get('vertical');
+  const solutionParam = searchParams.get('solution');
   const isApplying = Boolean(roleParam || typeParam === 'apply');
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState<boolean | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Map incoming service query param to exact select values
+  const normalizeServiceParam = (param: string | null): string => {
+    if (!param) {
+      if (solutionParam) {
+        const sol = solutionParam.toLowerCase();
+        if (sol.includes('agent') || sol.includes('rag') || sol.includes('ai')) return 'ai-solutions';
+        if (sol.includes('saas') || sol.includes('platform')) return 'web-applications';
+        if (sol.includes('automation') || sol.includes('process')) return 'business-automation';
+        return 'custom-software';
+      }
+      if (verticalParam) {
+        const vert = verticalParam.toLowerCase();
+        if (vert.includes('saas')) return 'web-applications';
+        return 'custom-software';
+      }
+      return '';
+    }
+    const clean = param.toLowerCase().trim();
+    if (clean.includes('ai') || clean.includes('agent')) return 'ai-solutions';
+    if (clean.includes('saas') || clean.includes('app')) return 'web-applications';
+    if (clean.includes('custom') || clean.includes('bespoke')) return 'custom-software';
+    if (clean.includes('cloud') || clean.includes('infra')) return 'cloud-solutions';
+    if (clean.includes('site') || clean.includes('web-dev')) return 'website-development';
+    if (clean.includes('mobile') || clean.includes('ios') || clean.includes('android')) return 'mobile-apps';
+    if (clean.includes('design') || clean.includes('ui') || clean.includes('ux')) return 'ui-ux-design';
+    if (clean.includes('devops') || clean.includes('cicd') || clean.includes('kubernetes')) return 'devops-ci-cd';
+    if (clean.includes('automation') || clean.includes('process')) return 'business-automation';
+    if (clean.includes('enterprise') || clean.includes('microservice')) return 'enterprise-software';
+    if (clean.includes('transform') || clean.includes('modern')) return 'digital-transformation';
+    if (clean.includes('consult') || clean.includes('audit')) return 'it-consulting';
+    return clean;
+  };
+
+  const initialService = normalizeServiceParam(serviceParam);
+  let initialMessage = '';
+  if (planParam) {
+    initialMessage = `Inquiry regarding the ${planParam.toUpperCase()} engagement model. We would like to discuss scope, timeline, and squad allocation.`;
+  } else if (caseStudyParam) {
+    initialMessage = `Inquiry inspired by the ${caseStudyParam.toUpperCase()} case study. We are looking to engineer a similar high-performance architecture.`;
+  } else if (solutionParam) {
+    initialMessage = `Inquiry regarding ${solutionParam}. We are looking to assess requirements, timeline, and architectural implementation.`;
+  } else if (verticalParam) {
+    initialMessage = `Inquiry regarding engineering solutions for the ${verticalParam.toUpperCase()} sector. We would like to schedule an architectural scoping session.`;
+  }
 
   // Resume states for job applications
   const [resumeFile, setResumeFile] = useState<{
@@ -72,6 +122,7 @@ export function ContactForm() {
     handleSubmit,
     control,
     setValue,
+    watch,
     reset,
     formState: { errors },
   } = useForm<ContactFormValues>({
@@ -81,16 +132,24 @@ export function ContactForm() {
       email: '',
       phone: '',
       company: '',
-      service: '',
-      message: '',
+      service: initialService,
+      message: initialMessage,
       isApplying,
     },
   });
 
-  // Sync isApplying flag to form values whenever URL params change
+  // Sync isApplying flag and pre-filled parameters to form values whenever URL params change
   useEffect(() => {
     setValue('isApplying', isApplying);
-  }, [isApplying, setValue]);
+    if (initialService) {
+      setValue('service', initialService);
+    }
+    if (initialMessage) {
+      setValue('message', initialMessage);
+    }
+  }, [isApplying, initialService, initialMessage, setValue]);
+
+  const selectedService = watch('service');
 
   const handleFileChange = (file: File | null) => {
     if (!file) return;
@@ -218,7 +277,7 @@ export function ContactForm() {
         </div>
       ) : (
         <div className="mb-6">
-          <h3 className="text-xl font-bold tracking-tight text-foreground mb-1.5">Request a Quote</h3>
+          <h3 className="text-xl font-bold tracking-tight text-foreground mb-1.5">Project Inquiry</h3>
           <p className="text-sm text-muted-foreground font-medium">
             Let&apos;s discuss how we can build, scale, or automate your technology needs.
           </p>
@@ -226,7 +285,7 @@ export function ContactForm() {
       )}
 
       {submitSuccess === true && (
-        <div className="p-4 mb-6 rounded-lg bg-green-500/10 border border-green-500/20 text-green-500 text-sm font-medium">
+        <div role="status" aria-live="polite" className="p-4 mb-6 rounded-lg bg-green-500/10 border border-green-500/20 text-green-500 text-sm font-medium">
           {isApplying
             ? 'Thank you! Your job application has been submitted successfully. Our engineering recruitment team will review your profile and reach out within 48 business hours.'
             : 'Thank you! Your message has been sent successfully. We will get back to you within 24 hours.'}
@@ -234,66 +293,83 @@ export function ContactForm() {
       )}
 
       {submitSuccess === false && (
-        <div className="p-4 mb-6 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm font-medium">
+        <div role="alert" aria-live="assertive" className="p-4 mb-6 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm font-medium">
           {errorMessage || 'Something went wrong. Please try again or email us directly at info@astraivtechnologies.com.'}
         </div>
       )}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
         {/* Full Name & Email */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-[10px] font-bold text-foreground/80 mb-1.5 uppercase tracking-wider">
-              Full Name
+            <label htmlFor="contact-name" className="block text-[10px] font-bold text-foreground/80 mb-1.5 uppercase tracking-wider">
+              Full Name <span className="text-destructive">*</span>
             </label>
             <Input
+              id="contact-name"
               placeholder="Enter Your Name"
+              aria-required="true"
+              aria-invalid={Boolean(errors.name)}
+              aria-describedby={errors.name ? 'contact-name-error' : undefined}
               {...register('name')}
               className={cn(
                 'h-11 px-3.5 bg-slate-100/30 hover:bg-slate-100/50 focus:bg-white dark:bg-slate-950/20 dark:hover:bg-slate-950/40 dark:focus:bg-slate-950/80 text-foreground transition-all duration-200 border-border/50 dark:border-border/30',
                 errors.name ? 'border-destructive focus-visible:ring-destructive focus-visible:border-destructive' : ''
               )}
             />
-            {errors.name && <p className="text-xs text-destructive mt-1.5 font-semibold">{errors.name.message}</p>}
+            {errors.name && (
+              <p id="contact-name-error" role="alert" className="text-xs text-destructive mt-1.5 font-semibold">
+                {errors.name.message}
+              </p>
+            )}
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold text-foreground/80 mb-1.5 uppercase tracking-wider">
-              Email Address
+            <label htmlFor="contact-email" className="block text-[10px] font-bold text-foreground/80 mb-1.5 uppercase tracking-wider">
+              Email Address <span className="text-destructive">*</span>
             </label>
             <Input
+              id="contact-email"
               type="email"
               placeholder="Enter your Email Address"
+              aria-required="true"
+              aria-invalid={Boolean(errors.email)}
+              aria-describedby={errors.email ? 'contact-email-error' : undefined}
               {...register('email')}
               className={cn(
                 'h-11 px-3.5 bg-slate-100/30 hover:bg-slate-100/50 focus:bg-white dark:bg-slate-950/20 dark:hover:bg-slate-950/40 dark:focus:bg-slate-950/80 text-foreground transition-all duration-200 border-border/50 dark:border-border/30',
                 errors.email ? 'border-destructive focus-visible:ring-destructive focus-visible:border-destructive' : ''
               )}
             />
-            {errors.email && <p className="text-xs text-destructive mt-1.5 font-semibold">{errors.email.message}</p>}
+            {errors.email && (
+              <p id="contact-email-error" role="alert" className="text-xs text-destructive mt-1.5 font-semibold">
+                {errors.email.message}
+              </p>
+            )}
           </div>
         </div>
 
         {/* Phone & Company */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-[10px] font-bold text-foreground/80 mb-1.5 uppercase tracking-wider">
+            <label htmlFor="contact-phone" className="block text-[10px] font-bold text-foreground/80 mb-1.5 uppercase tracking-wider">
               Phone (Optional)
             </label>
             <Controller
               name="phone"
               control={control}
               render={({ field }) => (
-                <CountryPhoneInput value={field.value} onChange={field.onChange} placeholder="0000000000" />
+                <CountryPhoneInput id="contact-phone" value={field.value} onChange={field.onChange} placeholder="0000000000" />
               )}
             />
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold text-foreground/80 mb-1.5 uppercase tracking-wider">
+            <label htmlFor="contact-company" className="block text-[10px] font-bold text-foreground/80 mb-1.5 uppercase tracking-wider">
               Company (Optional)
             </label>
             <Input
+              id="contact-company"
               {...register('company')}
               className="h-11 px-3.5 bg-slate-100/30 hover:bg-slate-100/50 focus:bg-white dark:bg-slate-950/20 dark:hover:bg-slate-950/40 dark:focus:bg-slate-950/80 text-foreground transition-all duration-200 border-border/50 dark:border-border/30"
             />
@@ -305,7 +381,7 @@ export function ContactForm() {
           /* ADD YOUR RESUME FIELD */
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <label className="block text-[10px] font-bold text-foreground/80 uppercase tracking-wider">
+              <label htmlFor={resumeMode === 'link' ? 'contact-resume-link' : 'contact-resume-upload'} className="block text-[10px] font-bold text-foreground/80 uppercase tracking-wider">
                 Add Your Resume <span className="text-destructive">*</span>
               </label>
               <button
@@ -331,6 +407,7 @@ export function ContactForm() {
             {resumeMode === 'upload' ? (
               <div>
                 <input
+                  id="contact-resume-upload"
                   type="file"
                   ref={fileInputRef}
                   accept=".pdf,.doc,.docx"
@@ -343,12 +420,21 @@ export function ContactForm() {
                 />
                 {!resumeFile ? (
                   <div
+                    tabIndex={0}
+                    role="button"
+                    aria-label="Click to upload resume file or drag and drop"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        fileInputRef.current?.click();
+                      }
+                    }}
                     onClick={() => fileInputRef.current?.click()}
                     onDragOver={onDragOver}
                     onDragLeave={onDragLeave}
                     onDrop={onDrop}
                     className={cn(
-                      'cursor-pointer border-2 border-dashed rounded-xl p-5 text-center transition-all duration-200 flex flex-col items-center justify-center gap-2',
+                      'cursor-pointer border-2 border-dashed rounded-xl p-5 text-center transition-all duration-200 flex flex-col items-center justify-center gap-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary',
                       isDragging
                         ? 'border-primary bg-primary/10'
                         : 'border-slate-300/80 dark:border-slate-700/70 bg-slate-100/30 hover:bg-slate-100/60 dark:bg-slate-950/20 dark:hover:bg-slate-950/40'
@@ -380,6 +466,7 @@ export function ContactForm() {
                       onClick={() => setResumeFile(null)}
                       className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
                       title="Remove file"
+                      aria-label="Remove uploaded resume file"
                     >
                       <X className="h-4 w-4" />
                     </button>
@@ -389,9 +476,12 @@ export function ContactForm() {
             ) : (
               <div className="space-y-1">
                 <Input
+                  id="contact-resume-link"
                   type="url"
                   placeholder="https://drive.google.com/... or linkedin.com/in/..."
                   value={resumeLink}
+                  aria-invalid={Boolean(resumeError)}
+                  aria-describedby={resumeError ? 'contact-resume-error' : undefined}
                   onChange={(e) => {
                     setResumeLink(e.target.value);
                     if (resumeError) setResumeError(null);
@@ -404,17 +494,28 @@ export function ContactForm() {
               </div>
             )}
 
-            {resumeError && <p className="text-xs text-destructive mt-1.5 font-semibold">{resumeError}</p>}
+            {resumeError && (
+              <p id="contact-resume-error" role="alert" className="text-xs text-destructive mt-1.5 font-semibold">
+                {resumeError}
+              </p>
+            )}
           </div>
         ) : (
           /* STANDARD FORM: REQUESTED SERVICE & PROJECT DETAILS */
           <>
             <div>
-              <label className="block text-[10px] font-bold text-foreground/80 mb-1.5 uppercase tracking-wider">
-                Requested Service
+              <label htmlFor="contact-service" className="block text-[10px] font-bold text-foreground/80 mb-1.5 uppercase tracking-wider">
+                Requested Service <span className="text-destructive">*</span>
               </label>
-              <Select onValueChange={(val) => setValue('service', val as string)}>
+              <Select
+                value={selectedService}
+                onValueChange={(val) => setValue('service', val as string, { shouldValidate: true })}
+              >
                 <SelectTrigger
+                  id="contact-service"
+                  aria-required="true"
+                  aria-invalid={Boolean(errors.service)}
+                  aria-describedby={errors.service ? 'contact-service-error' : undefined}
                   className={cn(
                     'w-full h-11 px-3.5 bg-slate-100/30 hover:bg-slate-100/50 focus:bg-white dark:bg-slate-950/20 dark:hover:bg-slate-950/40 dark:focus:bg-slate-950/80 text-foreground transition-all duration-200 border-border/50 dark:border-border/30 text-left justify-between',
                     errors.service ? 'border-destructive focus:ring-destructive border-destructive' : ''
@@ -423,32 +524,50 @@ export function ContactForm() {
                   <SelectValue placeholder="Select a Service" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="web-development">Website Development</SelectItem>
-                  <SelectItem value="web-applications">Web Applications</SelectItem>
-                  <SelectItem value="ui-ux-design">UI/UX Design</SelectItem>
-                  <SelectItem value="brand-identity">Brand Identity</SelectItem>
-                  <SelectItem value="ai-solutions">AI Solutions</SelectItem>
-                  <SelectItem value="cloud-solutions">Cloud Solutions</SelectItem>
-                  <SelectItem value="business-automation">Business Automation</SelectItem>
+                  <SelectItem value="ai-solutions">AI Solutions & Autonomous Agents</SelectItem>
+                  <SelectItem value="web-applications">Web Applications & SaaS Platforms</SelectItem>
+                  <SelectItem value="custom-software">Custom Software Development</SelectItem>
+                  <SelectItem value="cloud-solutions">Cloud Solutions & Infrastructure</SelectItem>
+                  <SelectItem value="website-development">Corporate Website Development</SelectItem>
+                  <SelectItem value="mobile-apps">Mobile Applications (iOS & Android)</SelectItem>
+                  <SelectItem value="ui-ux-design">UI/UX Design & Design Systems</SelectItem>
+                  <SelectItem value="devops-ci-cd">DevOps, CI/CD & Kubernetes</SelectItem>
+                  <SelectItem value="business-automation">Business Process Automation</SelectItem>
+                  <SelectItem value="enterprise-software">Enterprise Software & Microservices</SelectItem>
+                  <SelectItem value="digital-transformation">Digital Transformation & Modernization</SelectItem>
+                  <SelectItem value="it-consulting">IT Consulting & Architecture Audits</SelectItem>
+                  <SelectItem value="general-inquiry">Other / Custom Engineering Project</SelectItem>
                 </SelectContent>
               </Select>
-              {errors.service && <p className="text-xs text-destructive mt-1.5 font-semibold">{errors.service.message}</p>}
+              {errors.service && (
+                <p id="contact-service-error" role="alert" className="text-xs text-destructive mt-1.5 font-semibold">
+                  {errors.service.message}
+                </p>
+              )}
             </div>
 
             <div>
-              <label className="block text-[10px] font-bold text-foreground/80 mb-1.5 uppercase tracking-wider">
-                Project Details / Message
+              <label htmlFor="contact-message" className="block text-[10px] font-bold text-foreground/80 mb-1.5 uppercase tracking-wider">
+                Project Details / Message <span className="text-destructive">*</span>
               </label>
               <textarea
+                id="contact-message"
                 rows={4}
                 placeholder="Tell us about your project requirements..."
+                aria-required="true"
+                aria-invalid={Boolean(errors.message)}
+                aria-describedby={errors.message ? 'contact-message-error' : undefined}
                 {...register('message')}
                 className={cn(
                   'flex w-full rounded-lg border bg-slate-100/30 hover:bg-slate-100/50 focus:bg-white dark:bg-slate-950/20 dark:hover:bg-slate-950/40 dark:focus:bg-slate-950/80 border-border/50 dark:border-border/30 px-3.5 py-2.5 text-sm shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 resize-none text-foreground',
                   errors.message ? 'border-destructive focus-visible:ring-destructive focus-visible:border-destructive' : ''
                 )}
               />
-              {errors.message && <p className="text-xs text-destructive mt-1.5 font-semibold">{errors.message.message}</p>}
+              {errors.message && (
+                <p id="contact-message-error" role="alert" className="text-xs text-destructive mt-1.5 font-semibold">
+                  {errors.message.message}
+                </p>
+              )}
             </div>
           </>
         )}
@@ -458,12 +577,12 @@ export function ContactForm() {
           {isSubmitting ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />{' '}
-              {isApplying ? 'Submitting Application...' : 'Sending Request...'}
+              {isApplying ? 'Submitting Application...' : 'Submitting Project Inquiry...'}
             </>
           ) : isApplying ? (
             'Submit Application'
           ) : (
-            'Send Request'
+            'Submit Project Inquiry'
           )}
         </Button>
       </form>

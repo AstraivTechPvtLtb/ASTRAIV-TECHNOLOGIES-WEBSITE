@@ -13,35 +13,60 @@ export async function Footer() {
     {
       title: 'Services',
       links: [
-        { label: 'AI Solutions & RAG', href: ROUTES.PUBLIC.SERVICES_ANCHORS.AI_INTELLIGENT_SYSTEMS },
-        { label: 'SaaS Development', href: ROUTES.PUBLIC.SERVICES_ANCHORS.SAAS_DEVELOPMENT },
-        { label: 'Custom Systems', href: ROUTES.PUBLIC.SERVICES_ANCHORS.CUSTOM_SOFTWARE },
-        { label: 'Cloud & Infrastructure', href: ROUTES.PUBLIC.SERVICES_ANCHORS.CLOUD_INFRASTRUCTURE },
+        { label: 'AI Development', href: '/services/ai-development' },
+        { label: 'Custom Software', href: '/services/custom-software' },
+        { label: 'Web Applications', href: '/services/web-development' },
+        { label: 'Cloud Engineering', href: '/services/cloud-engineering' },
+        { label: 'DevOps & CI/CD', href: '/services/devops' },
+        { label: 'UI/UX Design', href: '/services/ui-ux-design' },
+        { label: 'Explore Services', href: ROUTES.PUBLIC.SERVICES },
       ],
     },
     {
-      title: 'Platform',
+      title: 'Solutions',
       links: [
-        { label: 'Why Astraiv', href: ROUTES.PUBLIC.COMPANY_ANCHORS.WHY_US },
+        { label: 'AI & Business Automation', href: '/solutions/ai-business-automation' },
+        { label: 'Cloud Modernization', href: '/solutions/cloud-migration-modernization' },
+        { label: 'Enterprise SaaS Engine', href: '/solutions/enterprise-saas-engineering' },
+        { label: 'Security & Compliance', href: '/solutions/security-compliance-architecture' },
+        { label: 'Data Intelligence', href: '/solutions/data-intelligence-analytics' },
+        { label: 'Explore Solutions', href: ROUTES.PUBLIC.SOLUTIONS },
+      ],
+    },
+    {
+      title: 'Work & Trust',
+      links: [
+        { label: 'Featured Case Studies', href: ROUTES.PUBLIC.CASE_STUDIES },
+        { label: 'Client Testimonials', href: ROUTES.PUBLIC.WORK_TESTIMONIALS },
+        { label: 'Rewards & Accolades', href: ROUTES.PUBLIC.REWARDS_ACCOLADES },
         { label: 'Industries We Serve', href: ROUTES.PUBLIC.INDUSTRIES },
-        { label: 'Our Technologies', href: ROUTES.PUBLIC.TECHNOLOGY_ANCHORS.ALL_TECHNOLOGIES },
-        { label: 'AI Capabilities', href: ROUTES.PUBLIC.TECHNOLOGY_ANCHORS.AI_EXPERTISE },
+        { label: 'Client Portal', href: ROUTES.PUBLIC.CLIENT_PORTAL },
       ],
     },
     {
       title: 'Company',
       links: [
-        { label: 'Development Process', href: ROUTES.PUBLIC.COMPANY_ANCHORS.PROCESS },
-        { label: 'Portfolio', href: ROUTES.PUBLIC.PORTFOLIO },
-        { label: 'Flexible Pricing', href: ROUTES.PUBLIC.COMPANY_ANCHORS.PRICING },
-        { label: 'Frequently Asked Qs', href: ROUTES.PUBLIC.BLOG_FAQ_ANCHOR },
+        { label: 'Why Astraiv', href: ROUTES.PUBLIC.COMPANY_ANCHORS.WHY_US },
+        { label: 'Our Process', href: ROUTES.PUBLIC.COMPANY_ANCHORS.PROCESS },
+        { label: 'Tech Insights & Blog', href: ROUTES.PUBLIC.INSIGHTS },
+        { label: 'Flexible Pricing', href: ROUTES.PUBLIC.PRICING },
+        { label: 'FAQs', href: ROUTES.PUBLIC.FAQ },
+        { label: 'Careers', href: ROUTES.PUBLIC.CAREERS },
       ],
     },
   ];
 
   return (
-    <footer className="relative z-30 bg-[#080C14] text-[#F8FAFC] border-t border-white/10 py-16 px-6">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.9fr_0.9fr_0.9fr_1.5fr] gap-8 lg:gap-8 xl:gap-10 items-start text-left">
+    <footer
+      style={{
+        isolation: 'isolate',
+        position: 'relative',
+        zIndex: 40,
+        backgroundColor: '#060911',
+      }}
+      className="relative z-40 bg-[#060911] text-[#F8FAFC] border-t border-slate-800/80 py-16 px-6"
+    >
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[1.3fr_0.85fr_0.85fr_0.85fr_0.85fr_1.3fr] gap-8 xl:gap-9 items-start text-left">
         {/* Brand details and dynamic social icons (Left Column) */}
         <div className="flex flex-col gap-4 text-left">
           <Link href={ROUTES.PUBLIC.HOME} className="inline-block">
@@ -167,10 +192,10 @@ export async function Footer() {
         </p>
 
         <div className="flex items-center gap-6">
-          <Link href={ROUTES.PUBLIC.FAQ} className="hover:text-slate-300 transition-colors">
+          <Link href={ROUTES.PUBLIC.PRIVACY} className="hover:text-slate-300 transition-colors">
             Privacy Policy
           </Link>
-          <Link href={ROUTES.PUBLIC.FAQ} className="hover:text-slate-300 transition-colors">
+          <Link href={ROUTES.PUBLIC.TERMS} className="hover:text-slate-300 transition-colors">
             Terms of Service
           </Link>
         </div>

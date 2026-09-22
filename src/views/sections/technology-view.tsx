@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from '@/i18n/routing';
+import { ROUTES } from '@/routes';
 import { cn } from '@/lib/utils';
 import {
   Brain,
@@ -619,7 +620,7 @@ export function TechnologyView({
                   href="/contact"
                   className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-muted/70 hover:bg-muted text-foreground font-semibold text-sm border border-border/60 transition-all"
                 >
-                  <span>Request Stack Audit</span>
+                  <span>Talk to an Expert</span>
                   <ExternalLink className="h-3.5 w-3.5" />
                 </Link>
               </div>
@@ -631,7 +632,7 @@ export function TechnologyView({
       {/* =========================================================================
           INTERACTIVE ARCHITECTURAL SYSTEM BLUEPRINT (UNIQUE FEATURE)
           ========================================================================= */}
-      <section className="py-12 px-4 sm:px-6 max-w-7xl mx-auto relative z-10 border-t border-border/30">
+      <section id="architecture" className="py-12 px-4 sm:px-6 max-w-7xl mx-auto relative z-10 border-t border-border/30 scroll-mt-24">
         <div className="flex flex-col items-center text-center gap-2 mb-10">
           <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
             System Topology
@@ -881,8 +882,13 @@ export function TechnologyView({
       {/* =========================================================================
           FULL TECHNOLOGY SPECTRUM MATRIX (With Dynamic Filter & Live Search)
           ========================================================================= */}
-      <section id="tech-matrix" className="py-16 px-4 sm:px-6 max-w-7xl mx-auto relative z-10 border-t border-border/30">
-        <div id="technologies" className="flex flex-col items-center text-center gap-2 mb-10">
+      <section id="tech-matrix" className="py-16 px-4 sm:px-6 max-w-7xl mx-auto relative z-10 border-t border-border/30 scroll-mt-24">
+        {/* Category alias anchors for navigation and external links */}
+        <span id="frontend" className="absolute -top-24 pointer-events-none" />
+        <span id="backend" className="absolute -top-24 pointer-events-none" />
+        <span id="cloud" className="absolute -top-24 pointer-events-none" />
+        <span id="database" className="absolute -top-24 pointer-events-none" />
+        <div id="technologies" className="flex flex-col items-center text-center gap-2 mb-10 scroll-mt-28">
           <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20">
             Technology Stack
           </span>
@@ -1103,11 +1109,23 @@ export function TechnologyView({
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-2">
             <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold text-sm shadow-md hover:shadow-primary/25 hover:scale-[1.02] transition-all"
+              href={ROUTES.PUBLIC.START_PROJECT ? `${ROUTES.PUBLIC.START_PROJECT}?source_page=${encodeURIComponent('/technology')}` : `/start-project?source_page=${encodeURIComponent('/technology')}`}
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-primary-foreground font-bold text-sm shadow-md hover:shadow-primary/25 hover:scale-[1.02] transition-all"
             >
-              <span>Schedule Architecture Consultation</span>
+              <span>Start a Project</span>
               <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/contact#schedule"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-card dark:bg-slate-800 text-foreground hover:bg-slate-100 dark:hover:bg-slate-700 border border-border dark:border-slate-700 transition-all font-bold text-sm"
+            >
+              <span>Talk to an Expert</span>
+            </Link>
+            <Link
+              href={ROUTES.PUBLIC.CASE_STUDIES}
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-muted-foreground hover:text-primary transition-colors"
+            >
+              <span>Explore Case Studies &rarr;</span>
             </Link>
           </div>
         </div>
