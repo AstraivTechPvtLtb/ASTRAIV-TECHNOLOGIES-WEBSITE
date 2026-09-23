@@ -12,17 +12,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Star,
   Quote,
-  ShieldCheck,
   ArrowRight,
-  Filter,
-  Sparkles,
-  Building2,
   CheckCircle2,
-  ExternalLink,
 } from 'lucide-react';
 import { Testimonial } from '@/models/types';
 import { cn } from '@/lib/utils';
-import { ROUTES } from '@/routes';
 
 interface TestimonialsDirectoryProps {
   testimonials: Testimonial[];

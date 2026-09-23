@@ -284,7 +284,7 @@ export function getJobPostingJsonLd(
     salary?: string;
     createdAt?: string | Date;
   },
-  locale: string = 'en'
+  _locale: string = 'en'
 ) {
   const baseUrl = siteConfig.url.replace(/\/$/, '');
   const datePosted = job.createdAt

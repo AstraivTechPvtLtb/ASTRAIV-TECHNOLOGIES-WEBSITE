@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import type { PublicPortfolioProject } from '@/lib/portfolio-data';
 import { ROUTES } from '@/routes';

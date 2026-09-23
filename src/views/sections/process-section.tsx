@@ -11,12 +11,11 @@ import {
   Rocket, 
   LineChart,
   ArrowRight,
-  CheckCircle2,
   ShieldCheck
 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
-import { CANONICAL_PROCESS_STAGES, ProcessStage } from '@/lib/process-data';
+import { CANONICAL_PROCESS_STAGES } from '@/lib/process-data';
 
 interface ProcessSectionProps {
   variant?: 'summary' | 'detailed';

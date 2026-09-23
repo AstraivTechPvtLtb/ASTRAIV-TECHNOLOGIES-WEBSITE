@@ -9,10 +9,7 @@ import { ROUTES } from '@/routes';
 import {
   Star,
   ShieldCheck,
-  Award,
-  Clock,
   ArrowRight,
-  MessageSquare,
   Sparkles,
   ChevronRight,
 } from 'lucide-react';

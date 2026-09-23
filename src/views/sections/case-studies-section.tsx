@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { SectionHeader } from './section-header';
-import { ArrowRight, CheckCircle2, Cpu, Zap, ShieldCheck, Layers, Sparkles } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Cpu, Zap, ShieldCheck, Layers } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { DEFAULT_PORTFOLIO_PROJECTS, type PublicPortfolioProject } from '@/lib/portfolio-data';
 import { ROUTES } from '@/routes';

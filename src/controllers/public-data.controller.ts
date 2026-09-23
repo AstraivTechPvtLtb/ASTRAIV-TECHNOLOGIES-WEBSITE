@@ -13,7 +13,6 @@ import {
   PublicPricingPlan,
   DEFAULT_PRICING_PLANS,
   Testimonial,
-  TestimonialItem,
   TestimonialStatus,
   PublicComplianceSettings,
 } from '@/models/types';

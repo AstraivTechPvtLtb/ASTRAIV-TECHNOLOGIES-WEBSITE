@@ -5,20 +5,16 @@
  * @description [VIEW] Post-submission confirmation experience with next steps and recommended explorations.
  */
 
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
   CheckCircle2,
   ArrowRight,
   Clock,
-  ShieldCheck,
-  FileCheck,
-  Compass,
   BookOpen,
   Mail,
   Phone,
-  MessageSquare,
-  Sparkles,
   Layers,
 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
@@ -26,7 +22,16 @@ import { ROUTES } from '@/routes';
 
 export function ThankYouView() {
   const searchParams = useSearchParams();
-  const refId = searchParams.get('ref') || 'AST-PRJ-' + Math.random().toString(36).substring(2, 7).toUpperCase();
+  const refParam = searchParams.get('ref');
+  const [fallbackRef, setFallbackRef] = useState('AST-PRJ-PENDING');
+
+  useEffect(() => {
+    if (!refParam) {
+      setFallbackRef('AST-PRJ-' + Math.random().toString(36).substring(2, 7).toUpperCase());
+    }
+  }, [refParam]);
+
+  const refId = refParam || fallbackRef;
   const projectType = searchParams.get('type') || 'Custom Project';
 
   return (

@@ -4,9 +4,8 @@ import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { Navbar, Footer, CareersSection } from '@/views';
 import { getPublicJobOpenings } from '@/controllers/public-data.controller';
-import { Users, HeartHandshake, Compass, Sparkles, Send } from 'lucide-react';
+import { Users, HeartHandshake, Compass, Send } from 'lucide-react';
 import { Link } from '@/i18n/routing';
-import { ROUTES } from '@/routes';
 import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';

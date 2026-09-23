@@ -2,7 +2,7 @@ import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { Navbar, Footer, CaseStudiesSection, TestimonialsSection, ContactSection } from '@/views';
 import { getPublicApprovedReviews } from '@/controllers/public-data.controller';
-import { Briefcase, ArrowRight, Star, Layers, ShieldCheck, Cpu, Code2, Sparkles } from 'lucide-react';
+import { Briefcase, ArrowRight, Star, Layers, ShieldCheck, Code2 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';

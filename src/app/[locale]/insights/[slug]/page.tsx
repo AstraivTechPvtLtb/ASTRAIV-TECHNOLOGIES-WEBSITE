@@ -22,7 +22,6 @@ import {
 } from 'lucide-react';
 import { formatDate } from '@/utils';
 import type { Metadata } from 'next';
-import { siteConfig } from '@/config/site';
 import {
   getPublishedArticleBySlug,
   getArticleRelationalContext,

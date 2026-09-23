@@ -5,11 +5,9 @@ import {
   ShieldCheck,
   Award,
   CheckCircle2,
-  Sparkles,
   Cloud,
   Star,
   ArrowRight,
-  ExternalLink,
 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';

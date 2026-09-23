@@ -8,8 +8,8 @@
  * TECHNOLOGIES (Hardened Production Primitives)
  */
 
-import { getSolutionBySlug, getAllSolutions, SolutionDetail } from '@/lib/solutions-data';
-import { getIndustryBySlug, getAllIndustries, IndustryDetail } from '@/lib/industries-data';
+import { getSolutionBySlug, SolutionDetail } from '@/lib/solutions-data';
+import { getIndustryBySlug, IndustryDetail } from '@/lib/industries-data';
 import { DEFAULT_PORTFOLIO_PROJECTS, PublicPortfolioProject } from '@/lib/portfolio-data';
 import { DEFAULT_SERVICES, PublicServiceItem } from '@/lib/services-data';
 

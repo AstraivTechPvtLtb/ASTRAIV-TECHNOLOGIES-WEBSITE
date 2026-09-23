@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { Navbar, Footer, FaqSection } from '@/views';
-import { HelpCircle, MessageSquare, ArrowRight, ShieldCheck, Cpu, DollarSign } from 'lucide-react';
+import { MessageSquare, ArrowRight, ShieldCheck, Cpu, DollarSign } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';
@@ -26,7 +26,6 @@ export async function generateMetadata({ params }: FaqPageProps): Promise<Metada
 }
 
 import { getPublishedFaqs } from '@/controllers/cms.controller';
-import { type FaqCategory } from '@/lib/faq-data';
 
 export default async function FaqPage({ params }: FaqPageProps) {
   const { locale } = await params;

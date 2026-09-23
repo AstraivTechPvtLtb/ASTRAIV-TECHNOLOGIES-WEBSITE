@@ -51,7 +51,7 @@ describe('Start a Project Controller & Validation Layer', () => {
       expect(() => {
         startProjectSchema.parse({
           ...validFormData,
-          projectType: 'Quantum Teleportation' as any,
+          projectType: 'Quantum Teleportation' as never,
         });
       }).toThrow();
     });

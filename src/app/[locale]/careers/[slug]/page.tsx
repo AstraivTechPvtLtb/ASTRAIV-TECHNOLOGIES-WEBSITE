@@ -8,17 +8,14 @@ import { JobApplicationForm } from '@/views/sections/job-application-form';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import {
-  Briefcase,
   MapPin,
   Clock,
-  DollarSign,
   ChevronRight,
   CheckCircle2,
   Sparkles,
   ArrowRight,
   ShieldCheck,
   Zap,
-  Users,
   Terminal,
   Cpu,
   Laptop,

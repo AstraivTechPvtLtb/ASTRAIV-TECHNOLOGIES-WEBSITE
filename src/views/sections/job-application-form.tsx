@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { useRouter } from '@/i18n/routing';
 import { motion } from 'framer-motion';
 import {
@@ -10,7 +10,6 @@ import {
   Upload,
   Link as LinkIcon,
   CheckCircle2,
-  FileText,
   User,
   Mail,
   Phone,
@@ -29,11 +28,10 @@ interface JobApplicationFormProps {
 
 export function JobApplicationForm({
   roleTitle,
-  roleSlug,
+  roleSlug: _roleSlug,
   department,
 }: JobApplicationFormProps) {
   const router = useRouter();
-  const formLoadTimeRef = useRef<number>(Date.now());
 
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');

@@ -575,6 +575,7 @@ function LiveTypewriterPanel({
     lineDelay,
     typingSpeed,
     snippets.length,
+    prefersReducedMotion,
   ]);
 
   // Tab visibility listener: guarantees instant resumption if tab is switched
