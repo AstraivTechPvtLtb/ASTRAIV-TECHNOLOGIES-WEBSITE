@@ -21,11 +21,6 @@ import {
   Clock,
   Users,
   Compass,
-  Code2,
-  Cpu,
-  FileCheck,
-  ExternalLink,
-  ChevronRight,
 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';

@@ -1,28 +1,30 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
   CheckCircle2,
   Clock,
-  ShieldCheck,
   ArrowRight,
   Terminal,
-  BookOpen,
-  Briefcase,
-  Home,
-  MessageSquare,
   Sparkles,
-  Award,
 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 
 export function CareersConfirmationView() {
   const searchParams = useSearchParams();
-  const refId =
-    searchParams.get('ref') ||
-    'AST-APP-' + Math.random().toString(36).substring(2, 7).toUpperCase();
+  const refParam = searchParams.get('ref');
+  const [fallbackRef, setFallbackRef] = useState('AST-APP-PENDING');
+
+  useEffect(() => {
+    if (!refParam) {
+      setFallbackRef('AST-APP-' + Math.random().toString(36).substring(2, 7).toUpperCase());
+    }
+  }, [refParam]);
+
+  const refId = refParam || fallbackRef;
   const roleName = searchParams.get('role') || 'Engineering Position';
 
   const nextSteps = [

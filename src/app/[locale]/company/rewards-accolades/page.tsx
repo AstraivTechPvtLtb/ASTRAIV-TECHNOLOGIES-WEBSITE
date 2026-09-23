@@ -16,9 +16,6 @@ import {
   Sparkles,
   ArrowRight,
   ChevronRight,
-  ShieldAlert,
-  Calendar,
-  Building2,
   FileCheck2,
 } from 'lucide-react';
 

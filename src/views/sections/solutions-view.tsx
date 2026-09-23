@@ -11,7 +11,6 @@ import {
   Cloud,
   Building2,
   Workflow,
-  Network,
   RefreshCw,
   Sparkles,
   ArrowRight,

@@ -18,7 +18,6 @@
 import { db } from '@/models/db';
 import type {
   CmsDbClient,
-  DbServiceItem,
   DbSolutionItem,
   DbIndustryItem,
   DbTechnologyItem,
@@ -65,11 +64,9 @@ import {
   getTestimonialByProject,
 } from '@/controllers/public-data.controller';
 import {
-  type Testimonial,
   type CmsTechnology,
   type CmsAward,
   type CmsFaq,
-  type CmsSeoMetadata,
 } from '@/models/types';
 import {
   normalizeServiceSlug,

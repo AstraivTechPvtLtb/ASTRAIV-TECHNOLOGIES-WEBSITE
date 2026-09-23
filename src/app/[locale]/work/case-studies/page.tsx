@@ -2,7 +2,7 @@ import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { Navbar, Footer, CaseStudiesDirectory } from '@/views';
 import { getPublicCaseStudies } from '@/controllers/portfolio.controller';
-import { Layers, ArrowLeft, ShieldCheck } from 'lucide-react';
+import { Layers } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';

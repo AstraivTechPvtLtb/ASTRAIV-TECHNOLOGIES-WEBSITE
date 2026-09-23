@@ -35,7 +35,6 @@ export interface BlogPost {
 import {
   INSIGHT_CATEGORIES,
   INSIGHT_ARTICLES,
-  type InsightArticle,
 } from '@/lib/insights-data';
 
 export const FALLBACK_BLOG_CATEGORIES: BlogCategory[] = INSIGHT_CATEGORIES.map((cat) => ({

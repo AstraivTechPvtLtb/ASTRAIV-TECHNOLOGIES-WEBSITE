@@ -249,7 +249,18 @@ export async function submitStartProject(
     } else {
       // Supabase Cloud Fallback
       const supabase = await createSupabaseClient();
-      const { data: leadData, error: leadError } = await (supabase as any)
+      type DynamicSupabaseClient = {
+        from: (table: string) => {
+          insert: (values: Record<string, unknown>) => {
+            select: (columns?: string) => {
+              single: () => Promise<{ data: { id: string } | null; error: Error | null }>;
+            };
+          };
+        };
+      };
+      const { data: leadData, error: leadError } = await (
+        supabase as unknown as DynamicSupabaseClient
+      )
         .from('crm_lead')
         .insert({
           lead_number: leadNumber,
@@ -275,6 +286,7 @@ export async function submitStartProject(
         .single();
 
       if (leadError) throw leadError;
+      if (!leadData) throw new Error('Failed to create lead record');
       submissionId = leadData.id;
 
       // Sync with contact_submissions

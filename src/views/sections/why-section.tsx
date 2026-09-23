@@ -9,8 +9,7 @@ import {
   Bot, 
   ShieldCheck,
   ArrowRight,
-  CheckCircle2,
-  Sparkles
+  CheckCircle2
 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';

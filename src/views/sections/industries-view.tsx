@@ -20,7 +20,6 @@ import {
   Activity,
   Lock,
   Compass,
-  ArrowUpRight,
   Sparkles,
 } from 'lucide-react';
 

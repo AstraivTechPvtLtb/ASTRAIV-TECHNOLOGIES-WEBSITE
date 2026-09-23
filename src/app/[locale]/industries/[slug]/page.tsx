@@ -15,7 +15,7 @@ import {
 } from '@/controllers/cms.controller';
 import { routing } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
-import { ArrowLeft, ArrowRight, ShieldCheck, CheckCircle2, Sparkles, Building, Activity, MessageSquare } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ShieldCheck, Sparkles, Activity, MessageSquare } from 'lucide-react';
 import { ROUTES } from '@/routes';
 import { BreadcrumbSchema, getServiceJsonLd, createPageMetadata } from '@/lib/seo';
 

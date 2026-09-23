@@ -5,7 +5,7 @@
  * @description [VIEW] Enterprise 5-step interactive project scoping wizard.
  */
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from '@/i18n/routing';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -183,7 +183,7 @@ export function StartProjectWizard() {
 
   // Parse initial project type from query params (e.g. ?type=ai-solution)
   const initialTypeParam = searchParams.get('type') || searchParams.get('discipline') || searchParams.get('service');
-  const resolveInitialType = (): StartProjectType => {
+  const resolveInitialType = useCallback((): StartProjectType => {
     if (!initialTypeParam) return 'AI Solution';
     const clean = initialTypeParam.toLowerCase();
     if (clean.includes('ai') || clean.includes('agent')) return 'AI Solution';
@@ -195,7 +195,7 @@ export function StartProjectWizard() {
     if (clean.includes('auto') || clean.includes('process')) return 'Business Automation';
     if (clean.includes('consult')) return 'Technology Consulting';
     return 'AI Solution';
-  };
+  }, [initialTypeParam]);
 
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [formData, setFormData] = useState<StartProjectFormInput>({
@@ -291,7 +291,7 @@ export function StartProjectWizard() {
     if (initialTypeParam) {
       setFormData((prev) => ({ ...prev, projectType: resolveInitialType() }));
     }
-  }, [initialTypeParam]);
+  }, [initialTypeParam, resolveInitialType]);
 
   // Scroll to top of wizard container when step changes
   const wizardTopRef = useRef<HTMLDivElement>(null);

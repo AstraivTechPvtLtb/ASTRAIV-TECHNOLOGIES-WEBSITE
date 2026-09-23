@@ -9,9 +9,7 @@
 
 import React, { useState, useEffect, useRef, useTransition } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { Link } from '@/i18n/routing';
-import { ArrowRight } from 'lucide-react';
 import { DEFAULT_SERVICES, type PublicServiceItem } from '@/lib/services-data';
 import { getServiceImage } from '@/lib/services-utils';
 

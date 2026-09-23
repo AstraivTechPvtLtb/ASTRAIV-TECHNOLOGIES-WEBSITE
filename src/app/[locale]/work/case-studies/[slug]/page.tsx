@@ -11,27 +11,23 @@ import {
 } from '@/controllers/cms.controller';
 import { getCaseStudyRelationships } from '@/lib/relationships';
 import {
-  ArrowLeft,
   ArrowRight,
   CheckCircle2,
   Cpu,
   Zap,
   ShieldCheck,
   Building2,
-  Calendar,
   Layers,
   Sparkles,
   Quote,
   Clock,
   Code2,
-  Server,
   FileCheck2,
   AlertCircle,
   TrendingUp,
   Workflow,
   Wrench,
   Boxes,
-  Lock,
   MessageSquare,
 } from 'lucide-react';
 import { ROUTES } from '@/routes';

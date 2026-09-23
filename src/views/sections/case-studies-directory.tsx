@@ -2,26 +2,20 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Search,
   CheckCircle2,
-  Cpu,
-  Zap,
   ShieldCheck,
   ArrowRight,
   Filter,
   X,
   Layers,
-  Sparkles,
   Building2,
-  FolderGit2,
-  Terminal,
-  ExternalLink,
 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
-import type { PublicPortfolioProject, ProjectType } from '@/lib/portfolio-data';
+import type { PublicPortfolioProject } from '@/lib/portfolio-data';
 
 function ResilientCardImage({ src, alt }: { src: string; alt: string }) {
   const [imgSrc, setImgSrc] = useState(src);
