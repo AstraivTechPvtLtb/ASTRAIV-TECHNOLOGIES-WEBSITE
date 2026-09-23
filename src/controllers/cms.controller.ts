@@ -777,30 +777,28 @@ export async function getPublishedFaqs(category?: string): Promise<CmsFaq[]> {
  */
 export async function getServiceRelationalContext(rawSlug: string) {
   const canonical = normalizeServiceSlug(rawSlug);
-  const service = await getPublishedServiceBySlug(canonical);
   const baseConfig = SERVICE_RELATIONSHIPS[canonical] || SERVICE_RELATIONSHIPS['ai-development'];
 
-  // 1. Resolve published solutions
-  const allSolutions = await getPublishedSolutions();
+  const [service, allSolutions, allIndustries, allCaseStudies, testimonials] = await Promise.all([
+    getPublishedServiceBySlug(canonical),
+    getPublishedSolutions(),
+    getPublishedIndustries(),
+    getPublishedCaseStudies(),
+    getTestimonialsByService(canonical),
+  ]);
+
   const relatedSolutions = allSolutions.filter((sol) =>
     baseConfig.relatedSolutionSlugs.some((s) => normalizeSolutionSlug(s) === normalizeSolutionSlug(sol.slug))
   );
 
-  // 2. Resolve published industries
-  const allIndustries = await getPublishedIndustries();
   const relevantIndustries = allIndustries.filter((ind) =>
     baseConfig.relevantIndustrySlugs.some((s) => normalizeIndustrySlug(s) === normalizeIndustrySlug(ind.slug))
   );
 
-  // 3. Resolve published case studies
-  const allCaseStudies = await getPublishedCaseStudies();
   const relatedCaseStudies = allCaseStudies.filter((cs) =>
     cs.relatedServiceSlugs?.some((s) => normalizeServiceSlug(s) === canonical) ||
     baseConfig.relatedCaseStudySlugs.includes(cs.slug)
   );
-
-  // 4. Resolve testimonials
-  const testimonials = await getTestimonialsByService(canonical);
 
   return {
     service,
@@ -819,23 +817,23 @@ export async function getServiceRelationalContext(rawSlug: string) {
  */
 export async function getSolutionRelationalContext(rawSlug: string) {
   const canonical = normalizeSolutionSlug(rawSlug);
-  const solution = await getPublishedSolutionBySlug(canonical);
   const baseConfig = SOLUTION_RELATIONSHIPS[canonical] || SOLUTION_RELATIONSHIPS['ai-business-automation'];
 
-  // 1. Resolve published services
-  const allServices = await getPublishedServices();
+  const [solution, allServices, allIndustries, allCaseStudies] = await Promise.all([
+    getPublishedSolutionBySlug(canonical),
+    getPublishedServices(),
+    getPublishedIndustries(),
+    getPublishedCaseStudies(),
+  ]);
+
   const relatedServices = allServices.filter((srv) =>
     baseConfig.relatedServiceSlugs.some((s) => normalizeServiceSlug(s) === normalizeServiceSlug(srv.slug))
   );
 
-  // 2. Resolve published industries
-  const allIndustries = await getPublishedIndustries();
   const relevantIndustries = allIndustries.filter((ind) =>
     baseConfig.relevantIndustrySlugs.some((s) => normalizeIndustrySlug(s) === normalizeIndustrySlug(ind.slug))
   );
 
-  // 3. Resolve published case studies
-  const allCaseStudies = await getPublishedCaseStudies();
   const relatedCaseStudies = allCaseStudies.filter((cs) =>
     cs.relatedSolutionSlugs?.some((s) => normalizeSolutionSlug(s) === canonical) ||
     baseConfig.relatedCaseStudySlugs.includes(cs.slug)
@@ -856,24 +854,24 @@ export async function getSolutionRelationalContext(rawSlug: string) {
  */
 export async function getIndustryRelationalContext(rawSlug: string) {
   const canonical = normalizeIndustrySlug(rawSlug);
-  const industry = await getPublishedIndustryBySlug(canonical);
 
-  // 1. Resolve related published services
-  const allServices = await getPublishedServices();
+  const [industry, allServices, allSolutions, allCaseStudies] = await Promise.all([
+    getPublishedIndustryBySlug(canonical),
+    getPublishedServices(),
+    getPublishedSolutions(),
+    getPublishedCaseStudies(),
+  ]);
+
   const relatedServices = allServices.filter((srv) => {
     const rel = SERVICE_RELATIONSHIPS[srv.slug];
     return rel?.relevantIndustrySlugs.some((i) => normalizeIndustrySlug(i) === canonical);
   });
 
-  // 2. Resolve related published solutions
-  const allSolutions = await getPublishedSolutions();
   const relatedSolutions = allSolutions.filter((sol) => {
     const rel = SOLUTION_RELATIONSHIPS[sol.slug];
     return rel?.relevantIndustrySlugs.some((i) => normalizeIndustrySlug(i) === canonical);
   });
 
-  // 3. Resolve related published case studies
-  const allCaseStudies = await getPublishedCaseStudies();
   const relatedCaseStudies = allCaseStudies.filter(
     (cs) => normalizeIndustrySlug(cs.industrySlug) === canonical
   );
@@ -894,27 +892,23 @@ export async function getCaseStudyRelationalContext(slug: string) {
   const project = await getPublishedCaseStudyBySlug(slug);
   if (!project) return null;
 
-  // 1. Resolve related published services
-  const allServices = await getPublishedServices();
+  const [allServices, allSolutions, relatedIndustry, allCaseStudies, testimonial] = await Promise.all([
+    getPublishedServices(),
+    getPublishedSolutions(),
+    getPublishedIndustryBySlug(project.industrySlug),
+    getPublishedCaseStudies(),
+    getTestimonialByProject(project.id || project.slug),
+  ]);
+
   const relatedServices = allServices.filter((srv) =>
     (project.relatedServiceSlugs || []).some((s) => normalizeServiceSlug(s) === normalizeServiceSlug(srv.slug))
   );
 
-  // 2. Resolve related published solutions
-  const allSolutions = await getPublishedSolutions();
   const relatedSolutions = allSolutions.filter((sol) =>
     (project.relatedSolutionSlugs || []).some((s) => normalizeSolutionSlug(s) === normalizeSolutionSlug(sol.slug))
   );
 
-  // 3. Resolve related published industry
-  const relatedIndustry = await getPublishedIndustryBySlug(project.industrySlug);
-
-  // 4. Resolve companion case studies
-  const allCaseStudies = await getPublishedCaseStudies();
   const relatedCaseStudies = allCaseStudies.filter((cs) => cs.slug !== project.slug).slice(0, 2);
-
-  // 5. Resolve testimonial (strictly approved only)
-  const testimonial = await getTestimonialByProject(project.id || project.slug);
 
   return {
     project,
@@ -934,26 +928,25 @@ export async function getArticleRelationalContext(slug: string) {
   const article = await getPublishedArticleBySlug(slug);
   if (!article) return null;
 
-  // 1. Resolve related published services
-  const allServices = await getPublishedServices();
+  const [allServices, allSolutions, allIndustries, allCaseStudies] = await Promise.all([
+    getPublishedServices(),
+    getPublishedSolutions(),
+    getPublishedIndustries(),
+    getPublishedCaseStudies(),
+  ]);
+
   const relatedServices = allServices.filter((srv) =>
     (article.relatedServiceSlugs || []).some((s) => normalizeServiceSlug(s) === normalizeServiceSlug(srv.slug))
   );
 
-  // 2. Resolve related published solutions
-  const allSolutions = await getPublishedSolutions();
   const relatedSolutions = allSolutions.filter((sol) =>
     (article.relatedSolutionSlugs || []).some((s) => normalizeSolutionSlug(s) === normalizeSolutionSlug(sol.slug))
   );
 
-  // 3. Resolve related published industries
-  const allIndustries = await getPublishedIndustries();
   const relatedIndustries = allIndustries.filter((ind) =>
     (article.relatedIndustrySlugs || []).some((i) => normalizeIndustrySlug(i) === normalizeIndustrySlug(ind.slug))
   );
 
-  // 4. Resolve related published case studies
-  const allCaseStudies = await getPublishedCaseStudies();
   const relatedCaseStudies = allCaseStudies.filter((cs) =>
     (article.relatedCaseStudySlugs || []).includes(cs.slug)
   );
