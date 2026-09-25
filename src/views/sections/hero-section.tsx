@@ -1,14 +1,15 @@
 'use client';
 
-import { Fragment, useMemo } from 'react';
+import { Fragment } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Sparkles, Shield, Cpu } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import { CircuitBackground } from './circuit-background';
 
-const TOTAL_INTERMEDIATE_LAYERS = 400;
-const MAX_DEPTH = 2000; // Deep Z-axis depth coordinate in px
+import { EASE_OUT_EXPO, MOTION_DURATIONS } from '@/lib/motion';
+
+const MAX_DEPTH = 800; // Deep Z-axis perspective depth coordinate in px
 
 function parseHeadline(text: string) {
   const words: { word: string; isHighlighted: boolean }[] = [];
@@ -62,17 +63,17 @@ export function HeroSection({
   const parsedWords = parseHeadline(headline);
   const shouldReduceMotion = useReducedMotion();
 
-  // Mouse tracking for interactive 3D perspective depth effect
+  // Mouse tracking for subtle, refined 3D perspective depth effect
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
 
-  const springConfig = { damping: 25, stiffness: 120, mass: 0.5 };
+  const springConfig = { damping: 30, stiffness: 100, mass: 0.4 };
   const smoothMouseX = useSpring(mouseX, springConfig);
   const smoothMouseY = useSpring(mouseY, springConfig);
 
-  // Dynamic 3D tilt angles calculated smoothly from cursor position
-  const rotateX = useTransform(smoothMouseY, [0, 1], [7, -7]);
-  const rotateY = useTransform(smoothMouseX, [0, 1], [-8, 8]);
+  // Restrained, dignified tilt angles (subtle +/- 2.2 deg to prevent dizzying text distortion)
+  const rotateX = useTransform(smoothMouseY, [0, 1], [2.2, -2.2]);
+  const rotateY = useTransform(smoothMouseX, [0, 1], [-2.5, 2.5]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (shouldReduceMotion) return;
@@ -88,60 +89,45 @@ export function HeroSection({
     mouseY.set(0.5);
   };
 
-  // Generate 400 discrete depth layers between Layer 1 (foreground) and Layer 402 (deep hover animation)
-  const intermediateLayers = useMemo(() => {
-    return Array.from({ length: TOTAL_INTERMEDIATE_LAYERS }, (_, idx) => {
-      const layerNum = idx + 2; // Layers 2 through 401 (exactly 400 layers)
-      const depthRatio = (layerNum - 1) / (TOTAL_INTERMEDIATE_LAYERS + 1);
-      const z = -(depthRatio * MAX_DEPTH);
-      return {
-        layerNum,
-        z: Number(z.toFixed(2)),
-      };
-    });
-  }, []);
-
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
+        staggerChildren: 0.12,
+        delayChildren: 0.08,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 25 },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 14 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1] as const, // easeOutExpo
+        duration: MOTION_DURATIONS.hero,
+        ease: EASE_OUT_EXPO,
       },
     },
   };
 
-  // Refined slow, sequential letter reveal animation (left-to-right)
-  const letterVariants = {
+  // Controlled, clean word reveal without heavy per-letter blur filters
+  const wordVariants = {
     hidden: { 
       opacity: 0, 
-      x: shouldReduceMotion ? 0 : -6,
-      filter: shouldReduceMotion ? 'none' : 'blur(4px)',
+      y: shouldReduceMotion ? 0 : 10,
     },
     visible: (i: number) => ({
       opacity: 1,
-      x: 0,
-      filter: 'blur(0px)',
+      y: 0,
       transition: shouldReduceMotion
         ? { duration: 0 }
         : {
-            delay: 0.25 + i * 0.058, // ~58ms stagger between consecutive letters
-            duration: 0.6,          // 600ms smooth individual character entrance
-            ease: [0.16, 1, 0.3, 1] as const, // Silky smooth ease-out curve
+            delay: 0.18 + i * 0.038,
+            duration: 0.48,
+            ease: EASE_OUT_EXPO,
           },
     }),
   };
@@ -150,7 +136,7 @@ export function HeroSection({
     <section
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative flex flex-col items-center justify-center min-h-[88vh] sm:min-h-[90vh] lg:min-h-[92vh] overflow-hidden bg-background border-b border-border/40"
+      className="relative flex flex-col items-center justify-center min-h-[80vh] sm:min-h-[85vh] lg:min-h-[88vh] overflow-hidden bg-background border-b border-border/40"
       style={{
         isolation: 'isolate',
         perspective: '1200px',
@@ -159,7 +145,7 @@ export function HeroSection({
     >
       {/* 3D Preserved Perspective Stage: tilts smoothly with mouse movement to reveal dramatic depth */}
       <motion.div
-        className="relative w-full min-h-[88vh] sm:min-h-[90vh] lg:min-h-[92vh] flex flex-col items-center justify-center pt-28 pb-16 sm:pt-36 sm:pb-20 md:pt-40 md:pb-24 lg:pt-44 lg:pb-28 px-4 sm:px-6 lg:px-8 pointer-events-auto"
+        className="relative w-full min-h-[80vh] sm:min-h-[85vh] lg:min-h-[88vh] flex flex-col items-center justify-center pt-24 pb-12 sm:pt-32 sm:pb-16 md:pt-36 md:pb-20 lg:pt-38 lg:pb-24 px-4 sm:px-6 lg:px-8 pointer-events-auto"
         style={{
           transformStyle: 'preserve-3d',
           rotateX: shouldReduceMotion ? 0 : rotateX,
@@ -197,56 +183,32 @@ export function HeroSection({
           <CircuitBackground />
         </div>
 
-        {/* ========================================================================= */}
-        {/* LAYERS 2–401 — 400 INTERMEDIATE 3D DEPTH LAYERS                           */}
-        {/* Exactly 400 real depth planes separating Layer 1 (foreground) and         */}
-        {/* Layer 402 (hover animation) to deliver immense continuous 3D spatial depth*/}
-        {/* ========================================================================= */}
-        {intermediateLayers.map(({ layerNum, z }) => (
-          <div
-            key={layerNum}
-            data-depth-layer={layerNum}
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 select-none"
-            style={{
-              transform: `translateZ(${z}px)`,
-              transformStyle: 'preserve-3d',
-              background: 'transparent',
-              border: 'none',
-              boxShadow: 'none',
-              filter: 'none',
-              pointerEvents: 'none',
-            }}
-          />
-        ))}
 
         {/* ========================================================================= */}
         {/* LAYER 1 — FOREGROUND / CONTENT PLANE (ELEVATED IN 3D Z-SPACE)             */}
-        {/* Hero badges, headline, subheadline, CTA elevated at Z=+35px for maximum   */}
-        {/* stereoscopic contrast against the deep -1200px background plane           */}
+        {/* Hero badges, headline, subheadline, CTA elevated at Z=+35px for crisp     */}
+        {/* depth against the background canvas                                       */}
         {/* ========================================================================= */}
-        {/* Floating Cognitive Shapes */}
+        {/* Cognitive Badges - enter stably on large screens without constant floating */}
         <div
           data-depth-layer="1-badges"
           className="absolute inset-0 pointer-events-none select-none overflow-hidden"
           style={{ transform: 'translateZ(20px)', transformStyle: 'preserve-3d' }}
         >
           <motion.div 
-            className="absolute top-[22%] left-[6%] lg:left-[10%] hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-card border border-border/40 shadow-xs backdrop-blur-xs"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            variants={itemVariants}
+            className="absolute top-[18%] lg:top-[22%] left-[4%] lg:left-[8%] xl:left-[10%] hidden xl:flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 shadow-card backdrop-blur-md"
           >
-            <Cpu className="h-4 w-4 text-secondary dark:text-blue-400" />
-            <span className="text-xs font-semibold text-muted-foreground">Autonomous Agents</span>
+            <Cpu className="h-4 w-4 text-primary dark:text-blue-400" />
+            <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">Autonomous Agents</span>
           </motion.div>
           
           <motion.div 
-            className="absolute bottom-[22%] right-[6%] lg:right-[10%] hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-card border border-border/40 shadow-xs backdrop-blur-xs"
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            variants={itemVariants}
+            className="absolute bottom-[18%] lg:bottom-[22%] right-[4%] lg:right-[8%] xl:right-[10%] hidden xl:flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 shadow-card backdrop-blur-md"
           >
             <Shield className="h-4 w-4 text-primary dark:text-blue-400" />
-            <span className="text-xs font-semibold text-muted-foreground">Enterprise Secure</span>
+            <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">Enterprise Secure</span>
           </motion.div>
         </div>
 
@@ -254,119 +216,79 @@ export function HeroSection({
         <motion.div
           data-depth-layer="1-content"
           variants={containerVariants}
-          initial="hidden"
+          initial={false}
           animate="visible"
-          className="relative z-10 w-full max-w-6xl xl:max-w-7xl mx-auto flex flex-col items-center text-center px-4"
+          className="relative z-10 w-full max-w-5xl xl:max-w-6xl mx-auto flex flex-col items-center text-center px-0 sm:px-4"
           style={{ transform: 'translateZ(35px)', transformStyle: 'preserve-3d' }}
         >
           {/* 1. Animated Badge */}
           {badgeText && (
             <motion.div 
               variants={itemVariants} 
-              className="inline-flex items-center gap-2 px-4 py-1.5 mb-5 md:mb-6 text-xs font-mono font-bold text-slate-800 dark:text-blue-300 bg-secondary/10 dark:bg-blue-600/10 border border-secondary/20 dark:border-blue-500/30 rounded-full shadow-[0_2px_10px_rgba(37,99,235,0.05)] select-none hover:border-blue-500/40 transition-colors"
+              className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-1.5 mb-4 md:mb-5 text-[11px] sm:text-xs font-mono font-bold text-primary dark:text-blue-300 bg-primary/10 dark:bg-blue-600/15 border border-primary/20 dark:border-blue-500/30 rounded-full shadow-2xs select-none hover:border-primary/40 dark:hover:border-blue-500/40 transition-colors text-center"
             >
-              <Sparkles className="h-3.5 w-3.5 text-secondary dark:text-blue-400 animate-pulse" />
-              <span>{badgeText}</span>
-              <ArrowRight className="h-3.5 w-3.5 text-secondary dark:text-blue-400" />
+              <Sparkles className="h-3.5 w-3.5 text-primary dark:text-blue-400 shrink-0 animate-pulse" />
+              <span className="truncate max-w-[260px] sm:max-w-none">{badgeText}</span>
+              <ArrowRight className="h-3.5 w-3.5 text-primary dark:text-blue-400 shrink-0" />
             </motion.div>
           )}
 
-          {/* 2. Large Premium Headline */}
+          {/* 2. Large Premium Headline - Fluid Clamp Scaling and Restrained Word Entrance */}
           <motion.h1
             variants={itemVariants}
-            className="text-2xl sm:text-[30px] md:text-4xl lg:text-[46px] xl:text-[52px] 2xl:text-[58px] font-display font-extrabold tracking-tight md:tracking-[-0.02em] text-foreground leading-[1.2] w-full text-center mb-4 md:mb-5 whitespace-normal sm:whitespace-nowrap"
+            className="text-[clamp(1.35rem,4.2vw+0.35rem,3.75rem)] font-display font-extrabold tracking-tight md:tracking-[-0.02em] text-foreground leading-[1.18] sm:leading-[1.2] w-full text-center mb-4 md:mb-5 whitespace-normal break-words"
+            style={{ textWrap: 'balance' }}
           >
-            {(() => {
-              let charCounter = 0;
-              return parsedWords.map((item, index) => {
-                const letters = item.word.split('');
-                const wordStartIdx = charCounter;
-                return (
-                  <Fragment key={index}>
-                    <span
-                      className={cn(
-                        "inline-block whitespace-nowrap pb-1",
-                        item.isHighlighted && "relative"
-                      )}
-                    >
-                      {item.isHighlighted && (
-                        <motion.span
-                          aria-hidden="true"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={
-                            shouldReduceMotion 
-                              ? { duration: 0 } 
-                              : { delay: 0.25 + wordStartIdx * 0.058, duration: 0.9, ease: "easeOut" }
-                          }
-                          className="absolute -inset-x-2 -inset-y-1 bg-gradient-to-r from-blue-500/15 via-indigo-500/20 to-blue-400/20 dark:from-blue-600/25 dark:via-blue-500/20 dark:to-indigo-500/25 blur-xl rounded-full pointer-events-none -z-10 animate-pulse"
-                          style={{ animationDuration: '4s' }}
-                        />
-                      )}
-                      {letters.map((char, charIdx) => {
-                        const currentIdx = charCounter++;
-                        return (
-                          <motion.span
-                            key={charIdx}
-                            custom={currentIdx}
-                            variants={letterVariants}
-                            initial="hidden"
-                            animate="visible"
-                            className={cn(
-                              "inline-block origin-bottom pb-1",
-                              item.isHighlighted 
-                                ? "bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer dark:drop-shadow-[0_0_20px_rgba(37,99,235,0.35)]"
-                                : "text-foreground"
-                            )}
-                          >
-                            {char}
-                          </motion.span>
-                        );
-                      })}
-                    </span>
-                    {index < parsedWords.length - 1 && ' '}
-                  </Fragment>
-                );
-              });
-            })()}
+            {parsedWords.map((item, index) => (
+              <Fragment key={index}>
+                <motion.span
+                  custom={index}
+                  variants={wordVariants}
+                  initial={false}
+                  animate="visible"
+                  className={cn(
+                    "inline-block whitespace-nowrap pb-0.5",
+                    item.isHighlighted
+                      ? "relative bg-gradient-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] dark:from-[#3B82F6] dark:via-[#60A5FA] dark:to-[#93C5FD] bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer font-black"
+                      : "text-foreground"
+                  )}
+                >
+                  {item.word}
+                </motion.span>
+                {index < parsedWords.length - 1 && ' '}
+              </Fragment>
+            ))}
           </motion.h1>
 
           {/* 3. Supporting Subheadline */}
           <motion.p
             variants={itemVariants}
-            className="text-base sm:text-lg md:text-[19px] lg:text-[20px] text-muted-foreground font-medium max-w-3xl leading-relaxed mb-8 md:mb-10"
+            className="text-sm sm:text-base md:text-lg lg:text-[19px] text-muted-foreground font-medium max-w-2xl lg:max-w-3xl leading-relaxed mb-6 sm:mb-8 md:mb-10 px-1"
           >
             {subheadline}
           </motion.p>
 
           {/* 4. Interactive CTA Buttons (Primary: Start a Project, Secondary: Explore Our Work) */}
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full max-w-md sm:max-w-none">
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-xs sm:max-w-none">
             <Link
               href={ctaHref}
-              className="relative group w-full sm:w-auto inline-block"
+              className="w-full sm:w-auto relative group cursor-pointer font-bold rounded-xl px-6 sm:px-9 h-12 sm:h-13 text-xs sm:text-sm tracking-wide text-white bg-primary hover:bg-[#082d6c] dark:bg-blue-600 dark:hover:bg-blue-500 active:scale-[0.98] transition-all duration-200 shadow-sm hover:shadow-md border border-blue-900/20 dark:border-blue-400/30 inline-flex items-center justify-center gap-2 outline-none select-none min-h-[44px] focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
             >
-              <button
-                className="w-full sm:w-auto relative cursor-pointer font-bold rounded-xl px-8 sm:px-10 h-13 text-sm tracking-wide text-white bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 dark:hover:bg-blue-500 active:scale-95 transition-all duration-300 shadow-md hover:shadow-lg dark:border dark:border-blue-400/30 dark:shadow-[0_0_16px_-2px_rgba(59,130,246,0.35)] dark:hover:shadow-[0_0_22px_-1px_rgba(59,130,246,0.55)] flex items-center justify-center gap-2 outline-none select-none"
-              >
-                <span>{ctaText}</span>
-                <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </button>
+              <span>{ctaText}</span>
+              <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-1" />
             </Link>
 
             <Link
               href={secondaryCtaHref}
-              className="relative group w-full sm:w-auto inline-block"
+              className="w-full sm:w-auto relative group cursor-pointer font-bold rounded-xl px-6 sm:px-9 h-12 sm:h-13 text-xs sm:text-sm tracking-wide text-foreground bg-card/90 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-white/15 hover:border-primary/40 dark:hover:border-blue-400/40 active:scale-[0.98] transition-all duration-200 shadow-xs inline-flex items-center justify-center gap-2 outline-none select-none min-h-[44px] focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
             >
-              <button
-                className="w-full sm:w-auto relative cursor-pointer font-bold rounded-xl px-8 sm:px-10 h-13 text-sm tracking-wide text-foreground bg-card/85 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-border/70 dark:border-slate-700 hover:border-primary/40 dark:hover:border-blue-400/40 active:scale-95 transition-all duration-300 shadow-xs flex items-center justify-center gap-2 outline-none select-none"
-              >
-                <span>{secondaryCtaText}</span>
-                <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1 text-primary dark:text-blue-400" />
-              </button>
+              <span>{secondaryCtaText}</span>
+              <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-1 text-primary dark:text-blue-400" />
             </Link>
           </motion.div>
         </motion.div>
       </motion.div>
+
     </section>
   );
 }

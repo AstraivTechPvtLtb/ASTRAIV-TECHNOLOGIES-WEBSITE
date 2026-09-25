@@ -13,12 +13,14 @@ import {
   RECLASSIFIED_SERVICES_TO_SOLUTIONS,
 } from '@/lib/services-data';
 
+import { safeCache } from '@/lib/cache';
+
 export type { PublicServiceItem };
 
 /**
  * Retrieves all publicly active services sorted by display order.
  */
-export async function getPublicActiveServices(): Promise<PublicServiceItem[]> {
+async function fetchPublicActiveServices(): Promise<PublicServiceItem[]> {
   try {
     const records = await db.serviceItem.findMany({
       where: { active: true },
@@ -123,6 +125,12 @@ export async function getPublicActiveServices(): Promise<PublicServiceItem[]> {
 
   return DEFAULT_SERVICES;
 }
+
+export const getPublicActiveServices = safeCache(
+  fetchPublicActiveServices,
+  ['public-active-services'],
+  { revalidate: 300, tags: ['public-services'] }
+);
 
 /**
  * Retrieves a single service by slug if active.

@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { motion, useInView, useMotionValue, useSpring, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { PublicComplianceSettings } from '@/models/types';
 
 // ==========================================
@@ -192,55 +191,8 @@ function parseStat(
   };
 }
 
-function AnimatedStatValue({
-  value,
-  decimals = 0,
-  prefix = '',
-  suffix = '',
-  displayRaw,
-}: {
-  value: number;
-  decimals?: number;
-  prefix?: string;
-  suffix?: string;
-  displayRaw: string;
-}) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const shouldReduceMotion = useReducedMotion();
-  const motionValue = useMotionValue(0);
-  const springValue = useSpring(motionValue, {
-    damping: 28,
-    stiffness: 75,
-  });
-  const isInView = useInView(ref, { once: true, margin: '-30px' });
-
-  useEffect(() => {
-    if (shouldReduceMotion) return;
-    if (isInView) {
-      motionValue.set(value);
-    }
-  }, [isInView, value, motionValue, shouldReduceMotion]);
-
-  useEffect(() => {
-    if (shouldReduceMotion) return;
-    const unsubscribe = springValue.on('change', (latest) => {
-      if (ref.current) {
-        ref.current.textContent = `${prefix}${latest.toFixed(decimals)}${suffix}`;
-      }
-    });
-    return () => unsubscribe();
-  }, [springValue, decimals, prefix, suffix, shouldReduceMotion]);
-
-  if (shouldReduceMotion) {
-    return <span>{displayRaw}</span>;
-  }
-
-  return (
-    <span ref={ref}>
-      {prefix}0{decimals > 0 ? '.' + '0'.repeat(decimals) : ''}{suffix}
-    </span>
-  );
-}
+import { CountUp } from '@/views/ui/motion-reveal';
+import { EASE_OUT_EXPO, MOTION_DURATIONS } from '@/lib/motion';
 
 export interface StatsSectionProps {
   initialSettings?: PublicComplianceSettings;
@@ -273,36 +225,36 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
       stat: stat1,
       title: formatTitle(initialSettings?.uptimeLabel, 'Server Uptime'),
       description: `${isoNumber} ${isoLabel} infrastructure ensuring non-stop operations.`,
-      color: '#00f2fe',
-      colorClass: 'text-[#00f2fe]',
-      indicatorBg: 'bg-[#00f2fe]',
-      indicatorShadow: 'shadow-[0_0_12px_rgba(0,242,254,0.5)]',
-      hoverBorder: 'hover:border-[#00f2fe]/40',
-      hoverShadow: 'hover:shadow-[0_8px_30px_-6px_rgba(0,242,254,0.2)]',
+      color: '#0284c7',
+      colorClass: 'text-sky-600 dark:text-sky-400',
+      indicatorBg: 'bg-sky-500',
+      indicatorShadow: 'shadow-sm',
+      hoverBorder: 'hover:border-sky-500/40',
+      hoverShadow: 'hover:shadow-card-hover',
     },
     {
       id: 'savings',
       stat: stat2,
       title: formatTitle(initialSettings?.savingsLabel, 'Infrastructure Saving'),
       description: 'Automated resource autoscaling and edge cache deduplication.',
-      color: '#38bdf8',
-      colorClass: 'text-[#38bdf8]',
-      indicatorBg: 'bg-[#3b82f6]',
-      indicatorShadow: 'shadow-[0_0_12px_rgba(59,130,246,0.5)]',
-      hoverBorder: 'hover:border-[#38bdf8]/40',
-      hoverShadow: 'hover:shadow-[0_8px_30px_-6px_rgba(56,189,248,0.2)]',
+      color: '#2563eb',
+      colorClass: 'text-blue-600 dark:text-blue-400',
+      indicatorBg: 'bg-blue-600',
+      indicatorShadow: 'shadow-sm',
+      hoverBorder: 'hover:border-blue-500/40',
+      hoverShadow: 'hover:shadow-card-hover',
     },
     {
       id: 'actions',
       stat: stat3,
       title: formatTitle(initialSettings?.actionsLabel, 'API Actions'),
       description: 'Processed daily across distributed edge pipelines with sub-millisecond p99.',
-      color: '#00f2fe',
-      colorClass: 'text-[#00f2fe]',
-      indicatorBg: 'bg-[#00f2fe]',
-      indicatorShadow: 'shadow-[0_0_12px_rgba(0,242,254,0.5)]',
-      hoverBorder: 'hover:border-[#00f2fe]/40',
-      hoverShadow: 'hover:shadow-[0_8px_30px_-6px_rgba(0,242,254,0.2)]',
+      color: '#6366f1',
+      colorClass: 'text-indigo-600 dark:text-indigo-400',
+      indicatorBg: 'bg-indigo-500',
+      indicatorShadow: 'shadow-sm',
+      hoverBorder: 'hover:border-indigo-500/40',
+      hoverShadow: 'hover:shadow-card-hover',
     },
     {
       id: 'sla',
@@ -310,11 +262,11 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
       title: formatTitle(initialSettings?.slaLabel, 'On-Time SLA Delivery'),
       description: 'Strict sprint governance, zero architectural debt, and reliable sprints.',
       color: '#10b981',
-      colorClass: 'text-[#10b981]',
-      indicatorBg: 'bg-[#10b981]',
-      indicatorShadow: 'shadow-[0_0_12px_rgba(16,185,129,0.5)]',
-      hoverBorder: 'hover:border-[#10b981]/40',
-      hoverShadow: 'hover:shadow-[0_8px_30px_-6px_rgba(16,185,129,0.2)]',
+      colorClass: 'text-emerald-600 dark:text-emerald-400',
+      indicatorBg: 'bg-emerald-500',
+      indicatorShadow: 'shadow-sm',
+      hoverBorder: 'hover:border-emerald-500/40',
+      hoverShadow: 'hover:shadow-card-hover',
     },
   ];
 
@@ -322,17 +274,15 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
   const cardVariants = {
     hidden: {
       opacity: 0,
-      y: shouldReduceMotion ? 0 : 16,
-      scale: shouldReduceMotion ? 1 : 0.98,
+      y: shouldReduceMotion ? 0 : 14,
     },
     visible: (index: number) => ({
       opacity: 1,
       y: 0,
-      scale: 1,
       transition: {
-        delay: shouldReduceMotion ? 0 : index * 0.07,
-        duration: 0.5,
-        ease: [0.16, 1, 0.3, 1] as const,
+        delay: shouldReduceMotion ? 0 : index * 0.06,
+        duration: MOTION_DURATIONS.reveal,
+        ease: EASE_OUT_EXPO,
       },
     }),
   };
@@ -343,9 +293,9 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
       opacity: 1,
       y: 0,
       transition: {
-        delay: shouldReduceMotion ? 0 : 0.3,
-        duration: 0.55,
-        ease: [0.16, 1, 0.3, 1] as const,
+        delay: shouldReduceMotion ? 0 : 0.2,
+        duration: MOTION_DURATIONS.reveal,
+        ease: EASE_OUT_EXPO,
       },
     },
   };
@@ -353,13 +303,10 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
   return (
     <section
       id="metrics-and-proof"
-      className="w-full max-w-[1400px] xl:max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 relative z-10 select-none"
+      className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 relative z-10 select-none"
       data-purpose="metrics-and-social-proof"
     >
-      {/* Subtle background ambient glow for cyber aesthetics */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[260px] bg-blue-600/[0.04] dark:bg-cyan-500/[0.04] rounded-full blur-[130px] pointer-events-none" />
-
-      {/* BEGIN: MetricCardsGrid - Sleek rectangular cards matching Screenshot 2 */}
+      {/* MetricCardsGrid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-4.5 lg:gap-5 relative z-10">
         {cards.map((card, index) => (
           <motion.article
@@ -369,8 +316,9 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
-            whileHover={shouldReduceMotion ? {} : { y: -3, transition: { duration: 0.22, ease: 'easeOut' } }}
-            className={`group relative overflow-hidden rounded-xl bg-[#0c121e] border border-[#1e293b]/75 px-5 py-4 sm:px-5.5 sm:py-4.5 lg:px-6 lg:py-4.5 flex flex-col justify-start transition-[border-color,background-color,box-shadow] duration-300 ${card.hoverBorder} hover:bg-[#101726] ${card.hoverShadow} will-change-transform`}
+            whileHover={shouldReduceMotion ? {} : { y: -2, transition: { duration: MOTION_DURATIONS.fast, ease: EASE_OUT_EXPO } }}
+            whileTap={shouldReduceMotion ? {} : { scale: 0.99 }}
+            className={`group relative overflow-hidden rounded-2xl bg-card/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 px-5 py-4 sm:px-5.5 sm:py-4.5 lg:px-6 lg:py-4.5 flex flex-col justify-start transition-all duration-300 shadow-card hover:shadow-card-hover ${card.hoverBorder} will-change-transform`}
             data-purpose="metric-card"
           >
             {/* Ambient Corner Radial on Hover */}
@@ -380,18 +328,18 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
             />
 
             {/* Shimmer Light Sweep on Hover */}
-            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/[0.04] to-transparent transition-transform duration-1000 ease-in-out pointer-events-none" />
+            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-foreground/[0.03] to-transparent transition-transform duration-1000 ease-in-out pointer-events-none" />
 
             {/* Indicator Vertical Pill */}
             <span
               aria-hidden="true"
-              className={`absolute left-0 top-3.5 bottom-3.5 w-1 sm:w-[4px] rounded-r-md ${card.indicatorBg} ${card.indicatorShadow} group-hover:w-[5px] transition-all duration-300`}
+              className={`absolute left-0 top-3.5 bottom-3.5 w-1 sm:w-[4px] rounded-r-md ${card.indicatorBg} group-hover:w-[5px] transition-all duration-300`}
             />
 
             <div className="pl-2 sm:pl-2.5 relative z-10">
               {/* Metric Number */}
-              <div className="text-3xl sm:text-[32px] lg:text-[36px] font-extrabold text-white leading-none tracking-tight font-heading group-hover:scale-[1.01] transition-transform duration-300 origin-left">
-                <AnimatedStatValue
+              <div className="text-3xl sm:text-[32px] lg:text-[36px] font-extrabold text-foreground leading-none tracking-tight font-heading group-hover:scale-[1.01] transition-transform duration-300 origin-left">
+                <CountUp
                   value={card.stat.targetValue}
                   decimals={card.stat.decimals}
                   suffix={card.stat.suffix}
@@ -400,12 +348,12 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
               </div>
 
               {/* Metric Title */}
-              <h3 className={`mt-2 sm:mt-2.5 text-[13.5px] sm:text-[14px] font-medium ${card.colorClass} tracking-normal`}>
+              <h3 className={`mt-2 sm:mt-2.5 text-[13.5px] sm:text-[14px] font-semibold ${card.colorClass} tracking-normal`}>
                 {card.title}
               </h3>
 
               {/* Metric Description */}
-              <p className="mt-1 sm:mt-1.5 text-xs sm:text-[12.5px] leading-snug sm:leading-relaxed text-slate-400 font-normal">
+              <p className="mt-1 sm:mt-1.5 text-xs sm:text-[12.5px] leading-snug sm:leading-relaxed text-muted-foreground font-normal">
                 {card.description}
               </p>
             </div>
@@ -414,7 +362,7 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
       </div>
       {/* END: MetricCardsGrid */}
 
-      {/* BEGIN: ClientLogosTicker - Always guaranteed single line with full STARK INDUSTRIES */}
+      {/* BEGIN: ClientLogosTicker */}
       <motion.div
         variants={tickerVariants}
         initial="hidden"
@@ -425,7 +373,7 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
       >
         {/* Section Tagline / Category Label */}
         <div className="shrink-0">
-          <span className="text-[10px] sm:text-[10.5px] lg:text-[11px] font-mono uppercase tracking-[0.14em] sm:tracking-[0.18em] text-slate-500 font-medium whitespace-nowrap select-none">
+          <span className="text-[10px] sm:text-[10.5px] lg:text-[11px] font-mono uppercase tracking-[0.14em] sm:tracking-[0.18em] text-muted-foreground font-medium whitespace-nowrap select-none">
             ENTERPRISE TECHNOLOGY ECOSYSTEM & PARTNER CLOUDS:
           </span>
         </div>
@@ -440,8 +388,8 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
                 key={client.id || client.name}
                 className="group flex items-center gap-2 sm:gap-2.5 cursor-default select-none shrink-0"
               >
-                {/* Small Circle Profile Picture Type Container */}
-                <div className="w-7 h-7 sm:w-7 sm:h-7 md:w-7 md:h-7 aspect-square rounded-full bg-[#101726] border border-slate-700/80 flex items-center justify-center overflow-hidden shrink-0 shadow-sm ring-1 ring-white/10 group-hover:border-cyan-400/60 group-hover:ring-cyan-500/30 group-hover:shadow-[0_0_10px_rgba(0,242,254,0.35)] transition-all duration-300">
+                {/* Small Circle Container */}
+                <div className="w-7 h-7 sm:w-7 sm:h-7 md:w-7 md:h-7 aspect-square rounded-full bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 flex items-center justify-center overflow-hidden shrink-0 shadow-xs group-hover:border-primary/50 group-hover:shadow-card-hover transition-all duration-300">
                   {client.imageUrl ? (
                     <Image
                       src={client.imageUrl}
@@ -452,14 +400,14 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
                       className="w-full h-full object-cover rounded-full aspect-square"
                     />
                   ) : Icon ? (
-                    <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform duration-300 group-hover:scale-110" />
+                    <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform duration-300 group-hover:scale-110 text-foreground" />
                   ) : (
-                    <span className="text-[10px] sm:text-[11px] font-bold text-cyan-400 font-mono">
+                    <span className="text-[10px] sm:text-[11px] font-bold text-primary font-mono">
                       {client.name.charAt(0)}
                     </span>
                   )}
                 </div>
-                <span className="font-heading font-extrabold text-xs sm:text-[12.5px] lg:text-[13px] text-slate-300 group-hover:text-white tracking-wider whitespace-nowrap transition-colors duration-200">
+                <span className="font-heading font-extrabold text-xs sm:text-[12.5px] lg:text-[13px] text-foreground/80 group-hover:text-foreground tracking-wider whitespace-nowrap transition-colors duration-200">
                   {client.name}
                 </span>
               </div>

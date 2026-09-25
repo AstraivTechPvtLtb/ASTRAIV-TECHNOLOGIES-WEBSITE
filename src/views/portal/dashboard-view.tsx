@@ -1,6 +1,6 @@
 'use client';
 
-import { Project, ClientTicket, CRMLead, User } from '@prisma/client';
+import type { Project, ClientTicket, CRMLead, User } from '@prisma/client';
 
 type ProjectWithRelations = Project & {
   client?: User | null;

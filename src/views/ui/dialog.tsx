@@ -62,6 +62,7 @@ function DialogContent({
         {showCloseButton && (
           <DialogPrimitive.Close
             data-slot="dialog-close"
+            aria-label="Close dialog"
             render={
               <Button
                 variant="ghost"

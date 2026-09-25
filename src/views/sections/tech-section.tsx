@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { SectionHeader } from './section-header';
 import { 
   Globe2, 
@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
+import { EASE_OUT_EXPO, MOTION_DURATIONS } from '@/lib/motion';
 
 interface TechItem {
   name: string;
@@ -26,6 +27,7 @@ interface TechItem {
 }
 
 export function TechSection() {
+  const shouldReduceMotion = useReducedMotion();
   const [activeCategory, setActiveCategory] = useState('All');
 
   const categories = [
@@ -134,10 +136,10 @@ export function TechSection() {
               <button
                 key={cat.label}
                 onClick={() => setActiveCategory(cat.label)}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-300 cursor-pointer select-none ${
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 cursor-pointer select-none ${
                   isActive
-                    ? 'bg-primary text-white shadow-sm shadow-primary/20 scale-105'
-                    : 'bg-card/90 dark:bg-slate-900/70 border border-border/70 dark:border-slate-800/80 text-muted-foreground hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40'
+                    ? 'bg-primary text-white shadow-sm shadow-primary/20 ring-2 ring-primary/20'
+                    : 'bg-card/90 dark:bg-slate-900/70 border border-border/70 dark:border-slate-800/80 text-muted-foreground hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40 active:scale-[0.98]'
                 }`}
               >
                 {cat.icon}
@@ -154,11 +156,12 @@ export function TechSection() {
               <motion.div
                 key={tech.name}
                 layout
-                initial={{ opacity: 0, scale: 0.96 }}
+                initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] as const }}
-                className="group relative p-6 bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-[20px] shadow-xs hover:shadow-[0_16px_36px_-10px_rgba(11,61,145,0.1)] dark:hover:shadow-[0_16px_36px_-10px_rgba(37, 99, 235,0.1)] hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-300 transform-gpu hover:-translate-y-1 flex flex-col justify-between"
+                exit={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.98 }}
+                transition={{ duration: MOTION_DURATIONS.normal, ease: EASE_OUT_EXPO }}
+                whileHover={shouldReduceMotion ? {} : { y: -2, transition: { duration: MOTION_DURATIONS.fast, ease: EASE_OUT_EXPO } }}
+                className="group relative p-6 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-card hover:shadow-card-hover hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-200 transform-gpu flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">

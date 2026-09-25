@@ -23,13 +23,11 @@ export * from './sections/faq-section';
 export * from './sections/contact-section';
 export * from './sections/final-cta-section';
 export * from './sections/contact-form';
-export * from './sections/clients-section';
 export * from './sections/stats-section';
 export * from './sections/trust-strip';
 export * from './sections/industries-section';
 export * from './sections/process-section';
 export * from './sections/careers-section';
-export * from './sections/blog-list';
 export * from './sections/solutions-view';
 export * from './sections/solutions-section';
 export * from './sections/services-view';
@@ -48,10 +46,13 @@ export * from './sections/start-project/thank-you-view';
 export * from './sections/careers-confirmation-view';
 export * from './sections/job-application-form';
 
-// Portal Views
-export * from './portal/dashboard-view';
-export * from './portal/tickets-view';
-export * from './portal/data-card';
-
 // Analytics
 export * from './analytics/google-analytics';
+
+// Motion System
+export * from './ui/motion-reveal';
+
+// Loading & Resilient Performance Primitives
+export * from './ui/skeleton';
+export * from './ui/resilient-image';
+export * from './ui/route-progress-bar';

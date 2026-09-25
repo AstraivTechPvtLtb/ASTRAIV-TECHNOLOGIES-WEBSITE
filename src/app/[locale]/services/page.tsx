@@ -1,11 +1,17 @@
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
-import { Navbar, Footer, ServicesView } from '@/views';
+import { routing } from '@/i18n/routing';
+import { Navbar } from '@/views/layouts/navbar';
+import { Footer } from '@/views/layouts/footer';
+import { ServicesView } from '@/views/sections/services-view';
 import { getPublicActiveServices } from '@/controllers/services.controller';
 import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export const revalidate = 300;
 
 interface ServicesPageProps {
   params: Promise<{ locale: string }>;

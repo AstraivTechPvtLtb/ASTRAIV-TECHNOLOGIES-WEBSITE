@@ -3,8 +3,7 @@
  * @description Centralized Type Definitions & Domain Re-exports for AstraIV Technologies.
  */
 
-export * from './admin';
-export * from './client';
+export * from '@/models/types';
 
 /**
  * Standard generic API & Server Action response format.

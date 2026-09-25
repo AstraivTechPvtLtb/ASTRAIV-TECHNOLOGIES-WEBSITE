@@ -1,14 +1,22 @@
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
-import { Navbar, Footer, CaseStudiesSection, TestimonialsSection, ContactSection } from '@/views';
+import { routing } from '@/i18n/routing';
+import { Navbar } from '@/views/layouts/navbar';
+import { Footer } from '@/views/layouts/footer';
+import { CaseStudiesSection } from '@/views/sections/case-studies-section';
+import { TestimonialsSection } from '@/views/sections/testimonials-section';
+import { ContactSection } from '@/views/sections/contact-section';
 import { getPublicApprovedReviews } from '@/controllers/public-data.controller';
 import { Briefcase, ArrowRight, Star, Layers, ShieldCheck, Code2 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export const revalidate = 300;
 
 interface WorkPageProps {
   params: Promise<{ locale: string }>;

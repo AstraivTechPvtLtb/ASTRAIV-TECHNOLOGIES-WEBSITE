@@ -24,6 +24,7 @@ export interface ContactFormInput {
   resumeName?: string;
   resumeUrl?: string;
   resumeData?: string;
+  honeypot?: string;
 }
 
 /**

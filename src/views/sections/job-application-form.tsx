@@ -172,6 +172,8 @@ export function JobApplicationForm({
 
           {errorMessage && (
             <motion.div
+              role="alert"
+              aria-live="assertive"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               className="p-4 rounded-xl bg-destructive/10 border border-destructive/30 text-destructive text-xs sm:text-sm font-medium flex items-start gap-3 mb-8"
@@ -190,41 +192,46 @@ export function JobApplicationForm({
               onChange={(e) => setHoneypot(e.target.value)}
               tabIndex={-1}
               autoComplete="off"
+              aria-hidden="true"
               className="hidden"
             />
 
             {/* Row 1: Full Name & Email */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs font-bold text-foreground uppercase tracking-wider mb-2">
+                <label htmlFor="job-fullname" className="block text-xs font-semibold text-foreground/90 uppercase tracking-wider mb-2">
                   Full Name <span className="text-primary">*</span>
                 </label>
                 <div className="relative">
-                  <User className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <User className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                   <input
+                    id="job-fullname"
                     type="text"
                     required
+                    aria-required="true"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="e.g. Alex Morgan"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-border/80 dark:border-slate-800 text-foreground placeholder:text-muted-foreground text-sm focus:outline-hidden focus:border-primary transition-colors"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-background/50 hover:bg-background/80 focus:bg-background border border-border/80 dark:border-border/40 text-foreground placeholder:text-muted-foreground text-sm focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-1 focus:border-primary transition-all duration-200"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-foreground uppercase tracking-wider mb-2">
+                <label htmlFor="job-email" className="block text-xs font-semibold text-foreground/90 uppercase tracking-wider mb-2">
                   Email Address <span className="text-primary">*</span>
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                   <input
+                    id="job-email"
                     type="email"
                     required
+                    aria-required="true"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="alex@domain.com"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-border/80 dark:border-slate-800 text-foreground placeholder:text-muted-foreground text-sm focus:outline-hidden focus:border-primary transition-colors"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-background/50 hover:bg-background/80 focus:bg-background border border-border/80 dark:border-border/40 text-foreground placeholder:text-muted-foreground text-sm focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-1 focus:border-primary transition-all duration-200"
                   />
                 </div>
               </div>
@@ -233,34 +240,37 @@ export function JobApplicationForm({
             {/* Row 2: Phone & Location */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs font-bold text-foreground uppercase tracking-wider mb-2">
+                <label htmlFor="job-phone" className="block text-xs font-semibold text-foreground/90 uppercase tracking-wider mb-2">
                   Phone / WhatsApp (Optional)
                 </label>
                 <div className="relative">
-                  <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                   <input
+                    id="job-phone"
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+1 (555) 000-0000"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-border/80 dark:border-slate-800 text-foreground placeholder:text-muted-foreground text-sm focus:outline-hidden focus:border-primary transition-colors"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-background/50 hover:bg-background/80 focus:bg-background border border-border/80 dark:border-border/40 text-foreground placeholder:text-muted-foreground text-sm focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-1 focus:border-primary transition-all duration-200"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-foreground uppercase tracking-wider mb-2">
+                <label htmlFor="job-location" className="block text-xs font-semibold text-foreground/90 uppercase tracking-wider mb-2">
                   Location & Timezone <span className="text-primary">*</span>
                 </label>
                 <div className="relative">
-                  <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                   <input
+                    id="job-location"
                     type="text"
                     required
+                    aria-required="true"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     placeholder="e.g. London, UK (UTC+0) / Berlin, Germany"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-border/80 dark:border-slate-800 text-foreground placeholder:text-muted-foreground text-sm focus:outline-hidden focus:border-primary transition-colors"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-background/50 hover:bg-background/80 focus:bg-background border border-border/80 dark:border-border/40 text-foreground placeholder:text-muted-foreground text-sm focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-1 focus:border-primary transition-all duration-200"
                   />
                 </div>
               </div>
@@ -269,13 +279,14 @@ export function JobApplicationForm({
             {/* Row 3: Experience & GitHub */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs font-bold text-foreground uppercase tracking-wider mb-2">
+                <label htmlFor="job-experience" className="block text-xs font-semibold text-foreground/90 uppercase tracking-wider mb-2">
                   Relevant Experience
                 </label>
                 <select
+                  id="job-experience"
                   value={experience}
                   onChange={(e) => setExperience(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-border/80 dark:border-slate-800 text-foreground text-sm focus:outline-hidden focus:border-primary transition-colors"
+                  className="w-full px-4 py-3 rounded-xl bg-background/50 hover:bg-background/80 focus:bg-background border border-border/80 dark:border-border/40 text-foreground text-sm focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-1 focus:border-primary transition-all duration-200"
                 >
                   <option value="1-3 years">1 - 3 Years</option>
                   <option value="3-5 years">3 - 5 Years</option>
@@ -285,17 +296,18 @@ export function JobApplicationForm({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-foreground uppercase tracking-wider mb-2">
+                <label htmlFor="job-github" className="block text-xs font-semibold text-foreground/90 uppercase tracking-wider mb-2">
                   GitHub Profile URL
                 </label>
                 <div className="relative">
-                  <GithubIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <GithubIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                   <input
+                    id="job-github"
                     type="url"
                     value={githubUrl}
                     onChange={(e) => setGithubUrl(e.target.value)}
                     placeholder="https://github.com/username"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-border/80 dark:border-slate-800 text-foreground placeholder:text-muted-foreground text-sm focus:outline-hidden focus:border-primary transition-colors"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-background/50 hover:bg-background/80 focus:bg-background border border-border/80 dark:border-border/40 text-foreground placeholder:text-muted-foreground text-sm focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-1 focus:border-primary transition-all duration-200"
                   />
                 </div>
               </div>
@@ -303,17 +315,18 @@ export function JobApplicationForm({
 
             {/* Row 4: LinkedIn or Portfolio */}
             <div>
-              <label className="block text-xs font-bold text-foreground uppercase tracking-wider mb-2">
+              <label htmlFor="job-portfolio" className="block text-xs font-semibold text-foreground/90 uppercase tracking-wider mb-2">
                 Portfolio or LinkedIn URL
               </label>
               <div className="relative">
-                <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                 <input
+                  id="job-portfolio"
                   type="url"
                   value={portfolioUrl}
                   onChange={(e) => setPortfolioUrl(e.target.value)}
                   placeholder="https://linkedin.com/in/username or https://myportfolio.dev"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-border/80 dark:border-slate-800 text-foreground placeholder:text-muted-foreground text-sm focus:outline-hidden focus:border-primary transition-colors"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-background/50 hover:bg-background/80 focus:bg-background border border-border/80 dark:border-border/40 text-foreground placeholder:text-muted-foreground text-sm focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-1 focus:border-primary transition-all duration-200"
                 />
               </div>
             </div>
@@ -321,12 +334,14 @@ export function JobApplicationForm({
             {/* Resume Upload / Link Selector */}
             <div className="p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-950/70 border border-border/70 dark:border-slate-800">
               <div className="flex items-center justify-between mb-3">
-                <label className="text-xs font-bold text-foreground uppercase tracking-wider">
+                <label htmlFor={resumeMode === 'upload' ? 'job-resume-file' : 'job-resume-url'} className="text-xs font-bold text-foreground uppercase tracking-wider">
                   Resume / Curriculum Vitae <span className="text-primary">*</span>
                 </label>
-                <div className="flex items-center gap-1 bg-muted p-1 rounded-lg text-xs font-semibold">
+                <div role="tablist" aria-label="Resume submission mode" className="flex items-center gap-1 bg-muted p-1 rounded-lg text-xs font-semibold">
                   <button
                     type="button"
+                    role="tab"
+                    aria-selected={resumeMode === 'upload'}
                     onClick={() => setResumeMode('upload')}
                     className={`px-2.5 py-1 rounded-md transition-all ${
                       resumeMode === 'upload'
@@ -338,6 +353,8 @@ export function JobApplicationForm({
                   </button>
                   <button
                     type="button"
+                    role="tab"
+                    aria-selected={resumeMode === 'link'}
                     onClick={() => setResumeMode('link')}
                     className={`px-2.5 py-1 rounded-md transition-all ${
                       resumeMode === 'link'
@@ -353,8 +370,10 @@ export function JobApplicationForm({
               {resumeMode === 'upload' ? (
                 <div className="relative border-2 border-dashed border-border/80 dark:border-slate-800 rounded-xl p-6 text-center hover:border-primary/50 transition-colors">
                   <input
+                    id="job-resume-file"
                     type="file"
                     accept=".pdf,.doc,.docx"
+                    aria-label="Upload resume file in PDF, DOC, or DOCX format"
                     onChange={handleFileUpload}
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                   />
@@ -374,13 +393,15 @@ export function JobApplicationForm({
                 </div>
               ) : (
                 <div className="relative">
-                  <LinkIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <LinkIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                   <input
+                    id="job-resume-url"
                     type="url"
+                    aria-label="Resume URL or cloud document link"
                     value={resumeUrl}
                     onChange={(e) => setResumeUrl(e.target.value)}
                     placeholder="https://drive.google.com/file/d/... or https://notion.so/resume"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-card border border-border/80 dark:border-slate-800 text-foreground placeholder:text-muted-foreground text-sm focus:outline-hidden focus:border-primary transition-colors"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-background/50 hover:bg-background/80 focus:bg-background border border-border/80 dark:border-border/40 text-foreground placeholder:text-muted-foreground text-sm focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-1 focus:border-primary transition-all duration-200"
                   />
                 </div>
               )}
@@ -388,15 +409,16 @@ export function JobApplicationForm({
 
             {/* Candidate Cover Note */}
             <div>
-              <label className="block text-xs font-bold text-foreground uppercase tracking-wider mb-2">
+              <label htmlFor="job-cover-note" className="block text-xs font-semibold text-foreground/90 uppercase tracking-wider mb-2">
                 Why Astraiv & Recent Accomplishment (Optional)
               </label>
               <textarea
+                id="job-cover-note"
                 rows={4}
                 value={coverNote}
                 onChange={(e) => setCoverNote(e.target.value)}
                 placeholder="Tell us about a complex architecture problem you solved recently or why you want to build with us..."
-                className="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-border/80 dark:border-slate-800 text-foreground placeholder:text-muted-foreground text-sm focus:outline-hidden focus:border-primary transition-colors resize-none"
+                className="w-full p-4 rounded-xl bg-background/50 hover:bg-background/80 focus:bg-background border border-border/80 dark:border-border/40 text-foreground placeholder:text-muted-foreground text-sm focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-1 focus:border-primary transition-all duration-200 resize-none"
               />
             </div>
 
@@ -404,7 +426,7 @@ export function JobApplicationForm({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-4 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-sm transition-all shadow-md shadow-primary/20 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed group active:scale-[0.99]"
+              className="w-full h-12 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-sm transition-all shadow-md shadow-primary/20 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed group active:scale-[0.99]"
             >
               {isSubmitting ? (
                 <>
@@ -419,7 +441,7 @@ export function JobApplicationForm({
               )}
             </button>
 
-            <p className="text-[11px] text-center text-muted-foreground">
+            <p className="text-xs text-center text-muted-foreground">
               By submitting, your data is processed strictly under our NDA protocols and privacy policy. No unsolicited third-party disclosure.
             </p>
           </form>

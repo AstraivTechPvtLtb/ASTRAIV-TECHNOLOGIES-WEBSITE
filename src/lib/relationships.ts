@@ -69,8 +69,8 @@ export const SERVICE_RELATIONSHIPS: Record<string, ServiceRelationshipConfig> = 
       href: '/contact?service=Custom%20Software%20Development',
     },
   },
-  'web-applications': {
-    serviceSlug: 'web-applications',
+  'web-development': {
+    serviceSlug: 'web-development',
     relatedSolutionSlugs: ['saas-platforms', 'data-analytics', 'digital-transformation'],
     relevantIndustrySlugs: ['saas', 'ecommerce', 'edtech', 'healthtech'],
     technologies: [
@@ -217,7 +217,7 @@ export const SOLUTION_RELATIONSHIPS: Record<string, SolutionRelationshipConfig> 
   },
   'saas-platforms': {
     solutionSlug: 'saas-platforms',
-    relatedServiceSlugs: ['web-applications', 'custom-software', 'cloud-engineering', 'ui-ux-design'],
+    relatedServiceSlugs: ['web-development', 'custom-software', 'cloud-engineering', 'ui-ux-design'],
     relevantIndustrySlugs: ['saas', 'fintech', 'edtech', 'ecommerce'],
     relatedCaseStudySlugs: ['pulsefit'],
     cta: {
@@ -265,7 +265,7 @@ export const SOLUTION_RELATIONSHIPS: Record<string, SolutionRelationshipConfig> 
   },
   'digital-transformation': {
     solutionSlug: 'digital-transformation',
-    relatedServiceSlugs: ['technology-consulting', 'web-applications', 'mobile-development', 'ui-ux-design'],
+    relatedServiceSlugs: ['technology-consulting', 'web-development', 'mobile-development', 'ui-ux-design'],
     relevantIndustrySlugs: ['professional-services', 'healthtech', 'logistics', 'edtech'],
     relatedCaseStudySlugs: ['pulsefit', 'aerosync'],
     cta: {
@@ -288,9 +288,9 @@ const CANONICAL_SERVICE_SLUG_MAP: Record<string, string> = {
   'custom-software': 'custom-software',
   'custom-software-development': 'custom-software',
   'enterprise-software': 'custom-software',
-  'web-applications': 'web-applications',
-  'web-development': 'web-applications',
-  'website-development': 'web-applications',
+  'web-applications': 'web-development',
+  'web-development': 'web-development',
+  'website-development': 'web-development',
   'mobile-apps': 'mobile-development',
   'mobile-development': 'mobile-development',
   'cloud-solutions': 'cloud-engineering',
@@ -517,7 +517,7 @@ export function getCaseStudyRelationships(project: PublicPortfolioProject) {
     title: 'Need Something Similar?',
     subtitle: `Consult directly with our principal software architects to engineer a ${project.category} solution tailored to your operational scale.`,
     buttonText: 'Start a Project',
-    href: `/contact?service=${encodeURIComponent(project.category)}&caseStudy=${encodeURIComponent(project.slug)}`,
+    href: `/start-project?service=${encodeURIComponent(project.category)}&caseStudy=${encodeURIComponent(project.slug)}`,
   };
 
   return {

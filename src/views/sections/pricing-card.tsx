@@ -30,26 +30,26 @@ export function PricingCard({
   return (
     <Card
       className={cn(
-        'relative flex flex-col h-full bg-card/85 dark:bg-slate-900/85 backdrop-blur-xl border card-hover overflow-hidden rounded-[20px] shadow-sm transition-all duration-300',
-        isPopular ? 'border-primary/80 dark:border-accent/80 shadow-lg ring-1 ring-primary/25 bg-card/90 dark:bg-slate-900/90' : 'border-border/50'
+        'relative flex flex-col h-full bg-card/90 dark:bg-card/70 backdrop-blur-xl border overflow-hidden rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300',
+        isPopular ? 'border-primary/60 dark:border-primary/50 shadow-card-hover ring-1 ring-primary/20' : 'border-border/70 dark:border-border/40'
       )}
     >
       {isPopular && (
-        <div className="absolute top-0 right-0 bg-primary px-3.5 py-1 rounded-bl-lg text-xs font-semibold text-primary-foreground tracking-wider uppercase z-10">
+        <div className="absolute top-0 right-0 bg-primary px-3.5 py-1 rounded-bl-xl text-[10px] sm:text-xs font-semibold text-primary-foreground tracking-wider uppercase z-10">
           Most Popular
         </div>
       )}
       
-      <CardHeader className="p-6 pb-0 flex flex-col">
-        <CardTitle className="text-xl font-bold tracking-tight text-foreground">{name}</CardTitle>
-        <p className="text-sm text-muted-foreground mt-2 min-h-[40px] leading-relaxed">{description}</p>
-        <div className="flex items-baseline gap-1 mt-4 pt-2 border-t border-border/20">
-          <span className="text-4xl font-extrabold tracking-tight text-foreground">{price}</span>
-          {price !== 'Custom' && <span className="text-sm text-muted-foreground font-medium">{period}</span>}
+      <CardHeader className="p-5 sm:p-6 pb-0 flex flex-col">
+        <CardTitle className="text-lg sm:text-xl font-bold tracking-tight text-foreground">{name}</CardTitle>
+        <p className="text-xs sm:text-sm text-muted-foreground mt-2 min-h-[38px] leading-relaxed">{description}</p>
+        <div className="flex items-baseline gap-1 mt-4 pt-3 border-t border-border/40 flex-wrap">
+          <span className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground font-heading">{price}</span>
+          {price !== 'Custom' && <span className="text-xs sm:text-sm text-muted-foreground font-medium">{period}</span>}
         </div>
       </CardHeader>
       
-      <CardContent className="flex-1 flex flex-col p-6">
+      <CardContent className="flex-1 flex flex-col p-5 sm:p-6">
         <ul className="flex flex-col gap-3.5 my-auto">
           {features.map((feature, index) => (
             <li key={index} className="flex items-start gap-3 text-sm text-foreground/80 leading-snug">
@@ -67,7 +67,7 @@ export function PricingCard({
           <Link
             href={href}
             className={cn(
-              buttonVariants({ variant: isPopular ? 'default' : 'outline' }),
+              buttonVariants({ variant: isPopular ? 'enterprise' : 'outline' }),
               'w-full font-semibold h-11 rounded-xl cursor-pointer'
             )}
           >
@@ -76,7 +76,7 @@ export function PricingCard({
         ) : (
           <Button
             onClick={onSelectPlan}
-            variant={isPopular ? 'default' : 'outline'}
+            variant={isPopular ? 'enterprise' : 'outline'}
             className="w-full font-semibold h-11 rounded-xl cursor-pointer"
           >
             {buttonText}

@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import { Navbar, Footer } from '@/views';
 import { routing } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
-import { ArrowLeft, ArrowRight, Cpu, Sparkles } from 'lucide-react';
+import { ArrowRight, Cpu, Sparkles } from 'lucide-react';
 import { ROUTES } from '@/routes';
 import {
   getPublishedSolutionBySlug,
@@ -94,14 +94,18 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
         <div className="absolute top-96 right-10 w-[400px] h-[300px] bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="max-w-5xl mx-auto px-6 py-8">
-          {/* Back Navigation */}
-          <Link
-            href={ROUTES.PUBLIC.SOLUTIONS}
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-400 hover:text-primary transition-all duration-300 mb-8 group"
-          >
-            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-            <span>Back to All Solutions</span>
-          </Link>
+          {/* Visual Breadcrumb Trail */}
+          <div className="flex flex-wrap items-center gap-2 mb-8 text-xs font-semibold text-slate-400">
+            <Link href={ROUTES.PUBLIC.HOME} className="hover:text-primary transition-colors">
+              Home
+            </Link>
+            <span>/</span>
+            <Link href={ROUTES.PUBLIC.SOLUTIONS} className="hover:text-primary transition-colors">
+              Solutions
+            </Link>
+            <span>/</span>
+            <span className="text-slate-200 font-bold truncate max-w-xs">{solution.title}</span>
+          </div>
 
           {/* 1. SOLUTION HERO CARD */}
           <div className="relative overflow-hidden rounded-3xl bg-slate-900/80 border border-slate-800 backdrop-blur-xl p-8 sm:p-12 mb-12 shadow-2xl">
@@ -146,13 +150,21 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
                     {solution.metric?.label || 'Production Efficiency'}
                   </span>
                 </div>
-                <Link
-                  href={`/contact?solution=${encodeURIComponent(solution.title)}`}
-                  className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-bold shadow-md transition-all flex items-center gap-1.5 active:scale-95"
-                >
-                  <span>Talk to an Expert</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Link
+                    href={`/start-project?solution=${encodeURIComponent(solution.slug)}`}
+                    className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-bold shadow-md transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer"
+                  >
+                    <span>Start a Project</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                  <Link
+                    href={`/contact?solution=${encodeURIComponent(solution.title)}`}
+                    className="px-4 py-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5"
+                  >
+                    <span>Talk to Expert</span>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

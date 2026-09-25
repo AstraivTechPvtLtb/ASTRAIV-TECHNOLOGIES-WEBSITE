@@ -6,7 +6,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { SectionHeader } from './section-header';
 import { TestimonialCard } from './testimonial-card';
 import { type TestimonialItem } from '@/models/types';
@@ -14,12 +14,14 @@ import { getPublicApprovedReviews } from '@/controllers/public-data.controller';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import { ArrowRight } from 'lucide-react';
+import { EASE_OUT_EXPO, MOTION_DURATIONS, MOTION_VIEWPORT } from '@/lib/motion';
 
 interface TestimonialsSectionProps {
   initialReviews?: TestimonialItem[];
 }
 
 export function TestimonialsSection({ initialReviews }: TestimonialsSectionProps) {
+  const shouldReduceMotion = useReducedMotion();
   const [reviews, setReviews] = useState<TestimonialItem[]>(
     initialReviews && initialReviews.length > 0 ? initialReviews : []
   );
@@ -43,14 +45,14 @@ export function TestimonialsSection({ initialReviews }: TestimonialsSectionProps
           description="Hear from engineering VP, founders, and CTOs who trust Astraiv with their complex software architectures."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mt-12 sm:mt-16 max-w-6xl mx-auto">
           {reviews.map((test, index) => (
             <motion.div
               key={test.id || index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: index * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
+              viewport={MOTION_VIEWPORT.once}
+              transition={{ delay: shouldReduceMotion ? 0 : index * 0.08, duration: MOTION_DURATIONS.reveal, ease: EASE_OUT_EXPO }}
             >
               <TestimonialCard
                 quote={test.quote}

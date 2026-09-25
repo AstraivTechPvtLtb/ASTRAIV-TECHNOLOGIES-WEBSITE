@@ -1,5 +1,3 @@
-'use client';
-
 import { ReactNode } from 'react';
 import { Sidebar, DashboardRole } from './sidebar';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/views/ui/breadcrumb';

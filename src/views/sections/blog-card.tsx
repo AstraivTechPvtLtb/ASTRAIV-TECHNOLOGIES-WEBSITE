@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { ResilientImage } from '@/views/ui/resilient-image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/views/ui/card';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
@@ -26,7 +26,7 @@ export function BlogCard({
     <Card className="group relative flex flex-col overflow-hidden bg-card border border-border/40 hover:border-primary/20 card-hover h-full">
       <CardHeader className="p-0 relative aspect-video overflow-hidden bg-muted">
         {imageUrl ? (
-          <Image
+          <ResilientImage
             src={imageUrl}
             alt={title}
             fill

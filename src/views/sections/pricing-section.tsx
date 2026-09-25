@@ -202,6 +202,7 @@ export function PricingSection({ initialPlans }: PricingSectionProps) {
               className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-medium bg-card/90 dark:bg-slate-800/90 hover:bg-muted/80 dark:hover:bg-slate-700/80 border border-border shadow-xs text-foreground backdrop-blur-md transition-all cursor-pointer select-none"
               aria-haspopup="listbox"
               aria-expanded={isDropdownOpen}
+              aria-controls="pricing-currency-listbox"
               aria-label="Select pricing currency"
             >
               <Globe className="w-3.5 h-3.5 text-primary dark:text-accent shrink-0" />
@@ -224,11 +225,12 @@ export function PricingSection({ initialPlans }: PricingSectionProps) {
             <AnimatePresence>
               {isDropdownOpen && (
                 <motion.div
+                  id="pricing-currency-listbox"
                   initial={{ opacity: 0, y: -8, scale: 0.96 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -8, scale: 0.96 }}
                   transition={{ duration: 0.18, ease: 'easeOut' }}
-                  className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-72 sm:w-84 max-w-[90vw] z-50 bg-white/98 dark:bg-slate-900/98 border border-border rounded-2xl shadow-xl shadow-black/10 dark:shadow-black/60 backdrop-blur-2xl overflow-hidden flex flex-col"
+                  className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-72 sm:w-84 max-w-[calc(100vw-2rem)] z-50 bg-white/98 dark:bg-slate-900/98 border border-border rounded-2xl shadow-xl shadow-black/10 dark:shadow-black/60 backdrop-blur-2xl overflow-hidden flex flex-col"
                   role="listbox"
                 >
                   {/* Search Input */}
@@ -241,12 +243,14 @@ export function PricingSection({ initialPlans }: PricingSectionProps) {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Search country or currency..."
+                        aria-label="Search country or currency"
                         className="w-full pl-8 pr-8 py-1.5 text-xs rounded-lg bg-card dark:bg-slate-800/80 border border-border/80 text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-primary dark:focus:ring-accent"
                       />
                       {searchQuery && (
                         <button
                           type="button"
                           onClick={() => setSearchQuery('')}
+                          aria-label="Clear currency search query"
                           className="absolute right-2.5 p-0.5 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground"
                         >
                           <X className="w-3 h-3" />
@@ -305,13 +309,16 @@ export function PricingSection({ initialPlans }: PricingSectionProps) {
               Monthly
             </span>
             <button
-              aria-label="Toggle billing cycle"
+              type="button"
+              role="switch"
+              aria-checked={billingCycle === 'yearly'}
+              aria-label="Toggle annual billing (save 20%)"
               onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'yearly' : 'monthly')}
-              className="w-14 h-8 bg-slate-200/80 dark:bg-slate-800/80 backdrop-blur-xs rounded-full p-1 transition-colors duration-300 relative focus:outline-hidden cursor-pointer"
+              className="w-14 h-8 bg-muted rounded-full p-1 transition-colors duration-300 relative focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
             >
               <motion.div
                 layout
-                className="w-6 h-6 bg-primary dark:bg-accent rounded-full"
+                className="w-6 h-6 bg-primary rounded-full shadow-sm"
                 animate={{ x: billingCycle === 'monthly' ? 0 : 24 }}
                 transition={{ type: 'spring', stiffness: 500, damping: 30 }}
               />
@@ -341,7 +348,7 @@ export function PricingSection({ initialPlans }: PricingSectionProps) {
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 max-w-6xl mx-auto items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mt-8 max-w-6xl mx-auto items-stretch">
             {plans.map((plan, index) => (
               <motion.div
                 key={plan.name || index}

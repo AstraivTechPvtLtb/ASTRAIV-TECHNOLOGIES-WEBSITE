@@ -51,28 +51,28 @@
 
 :root {
   --background: #F8FAFC;
-  --foreground: #1E293B;
+  --foreground: #0F172A;
   --card: #FFFFFF;
-  --card-foreground: #1E293B;
+  --card-foreground: #0F172A;
   --popover: #FFFFFF;
-  --popover-foreground: #1E293B;
+  --popover-foreground: #0F172A;
   --primary: #0B3D91;
   --primary-foreground: #FFFFFF;
-  --secondary: #5B5FEF;
+  --secondary: #312E81;
   --secondary-foreground: #FFFFFF;
   --muted: #F1F5F9;
-  --muted-foreground: #64748B;
-  --accent: #00C2FF;
-  --accent-foreground: #0B3D91;
-  --destructive: #EF4444;
+  --muted-foreground: #475569;
+  --accent: #1D4ED8;
+  --accent-foreground: #FFFFFF;
+  --destructive: #DC2626;
   --destructive-foreground: #FFFFFF;
   --border: #E2E8F0;
-  --input: #E2E8F0;
-  --ring: rgba(11, 61, 145, 0.4);
+  --input: #CBD5E1;
+  --ring: #1D4ED8;
   --radius: 0.75rem; /* 12px for standard elements/buttons */
   
   --sidebar: #FFFFFF;
-  --sidebar-foreground: #1E293B;
+  --sidebar-foreground: #0F172A;
   --sidebar-primary: #0B3D91;
   --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: #F1F5F9;
@@ -80,31 +80,31 @@
   --sidebar-border: #E2E8F0;
   --sidebar-ring: rgba(11, 61, 145, 0.4);
 
-  /* Astraiv Light Tokens */
+  /* Astraiv Normalized Light Tokens */
   --astraiv-bg: #F8FAFC;
   --astraiv-surface: #FFFFFF;
-  --astraiv-surface-elevated: #F1F5F9;
-  --astraiv-text-primary: #1E293B;
-  --astraiv-text-secondary: #64748B;
-  --astraiv-text-muted: #94A3B8;
-  --astraiv-accent: #00C2FF;
+  --astraiv-surface-elevated: #F8FAFC;
+  --astraiv-text-primary: #0F172A;
+  --astraiv-text-secondary: #334155;
+  --astraiv-text-muted: #64748B;
+  --astraiv-accent: #1D4ED8;
   --astraiv-accent-secondary: #0B3D91;
   --astraiv-blue: #0B3D91;
-  --astraiv-violet: #5B5FEF;
+  --astraiv-violet: #4338CA;
   --astraiv-border: #E2E8F0;
 
   /* Gradient Stops */
   --gradient-start: #0B3D91;
-  --gradient-mid: #5B5FEF;
-  --gradient-end: #00C2FF;
+  --gradient-mid: #1D4ED8;
+  --gradient-end: #3B82F6;
 }
 
 .dark {
   --background: #080C14;
   --foreground: #F8FAFC;
-  --card: #111827;
+  --card: #0D1320;
   --card-foreground: #F8FAFC;
-  --popover: #111827;
+  --popover: #0D1320;
   --popover-foreground: #F8FAFC;
   --primary: #2563EB;
   --primary-foreground: #FFFFFF;
@@ -112,13 +112,13 @@
   --secondary-foreground: #F8FAFC;
   --muted: #111827;
   --muted-foreground: #94A3B8;
-  --accent: #2563EB;
-  --accent-foreground: #FFFFFF;
+  --accent: #38BDF8;
+  --accent-foreground: #080C14;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: rgba(255, 255, 255, 0.10);
-  --input: rgba(255, 255, 255, 0.10);
-  --ring: rgba(37, 99, 235, 0.4);
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.12);
+  --ring: #3B82F6;
   
   --sidebar: #0D1320;
   --sidebar-foreground: #F8FAFC;
@@ -126,21 +126,21 @@
   --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: #172033;
   --sidebar-accent-foreground: #3B82F6;
-  --sidebar-border: rgba(255, 255, 255, 0.10);
+  --sidebar-border: rgba(255, 255, 255, 0.08);
   --sidebar-ring: rgba(37, 99, 235, 0.4);
 
   /* Astraiv Centralized Dark Tokens */
   --astraiv-bg: #080C14;
-  --astraiv-surface: #111827;
+  --astraiv-surface: #0D1320;
   --astraiv-surface-elevated: #172033;
   --astraiv-text-primary: #F8FAFC;
   --astraiv-text-secondary: #94A3B8;
   --astraiv-text-muted: #64748B;
-  --astraiv-accent: #2563EB;
+  --astraiv-accent: #38BDF8;
   --astraiv-accent-secondary: #3B82F6;
   --astraiv-blue: #2563EB;
-  --astraiv-violet: #8B5CF6;
-  --astraiv-border: rgba(255, 255, 255, 0.10);
+  --astraiv-violet: #818CF8;
+  --astraiv-border: rgba(255, 255, 255, 0.08);
 
   /* Gradient Stops */
   --gradient-start: #2563EB;
@@ -200,10 +200,11 @@
 }
 
 @utility card-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease-out;
+  will-change: transform;
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.08);
   }
 }
 
@@ -391,24 +392,49 @@
   }
 }
 
-@utility hologram-glow {
-  box-shadow: 0 0 50px -10px rgba(0, 242, 254, 0.18), 0 0 0 1px rgba(0, 242, 254, 0.32);
-  transition: box-shadow 0.4s ease;
-  &:hover {
-    box-shadow: 0 0 75px -5px rgba(0, 242, 254, 0.35), 0 0 0 1px rgba(0, 242, 254, 0.6);
-  }
+@utility shadow-card {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+}
+
+@utility shadow-card-hover {
+  box-shadow: 0 16px 36px -10px rgba(11, 61, 145, 0.08), 0 4px 12px -2px rgba(11, 61, 145, 0.04);
+}
+
+@utility enterprise-card-glow {
+  box-shadow: 0 12px 32px -8px rgba(11, 61, 145, 0.08);
+  border: 1px solid rgba(11, 61, 145, 0.15);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @utility cyber-btn-shine {
   background-size: 200% auto;
-  background-image: linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.45) 45%, rgba(0,242,254,0.6) 55%, transparent 75%);
+  background-image: linear-gradient(115deg, transparent 25%, rgba(255,255,255,0.2) 50%, transparent 75%);
 }
 
 @utility cyber-grid-pattern {
   background-size: 40px 40px;
   background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+}
+
+.dark .cyber-grid-pattern {
+  background-image: 
     linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+.dark .shadow-card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.dark .shadow-card-hover {
+  box-shadow: 0 20px 45px -12px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.dark .enterprise-card-glow {
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(37, 99, 235, 0.2);
+  border: 1px solid rgba(37, 99, 235, 0.25);
 }
 
 @utility animate-shimmer-btn {
@@ -423,9 +449,9 @@
   animation: radar-pulse 3s ease-in-out infinite;
 }
 
-/* Accessible Keyboard Focus Indicators */
+/* Accessible, Professional Keyboard Focus Indicators */
 :focus-visible {
-  outline: 2px solid #00f2fe;
+  outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
 
@@ -436,9 +462,25 @@ textarea:focus-visible,
 select:focus-visible,
 [role="button"]:focus-visible,
 [tabindex]:focus-visible {
-  outline: 2px solid #00f2fe !important;
-  outline-offset: 3px !important;
-  box-shadow: 0 0 12px rgba(0, 242, 254, 0.4) !important;
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Mobile Performance Guard: Disable continuous background GPU drifts on screens < 768px */
+@media (max-width: 767px) {
+  .animate-ambient-drift-1,
+  .animate-ambient-drift-2,
+  .animate-ambient-drift-3,
+  .animate-ambient-drift-4,
+  .animate-blob-1,
+  .animate-blob-2,
+  .animate-blob-3,
+  .animate-scan-beam,
+  .animate-float-slow,
+  .animate-radar-pulse {
+    animation: none !important;
+    transform: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -465,6 +507,18 @@ select:focus-visible,
   .animate-radar-pulse {
     animation: none !important;
     transform: none !important;
+  }
+}
+
+@keyframes route-progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
   }
 }
 

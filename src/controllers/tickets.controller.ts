@@ -66,6 +66,19 @@ export async function updateClientTicket(
       return { success: false, error: 'Unauthorized.' };
     }
 
+    const ticket = await db.clientTicket.findUnique({
+      where: { id: ticketId },
+    });
+
+    if (!ticket) {
+      return { success: false, error: 'Support ticket not found.' };
+    }
+
+    const isStaff = session.user.role === 'ADMIN' || session.user.role === 'PROJECT_MANAGER';
+    if (!isStaff && ticket.clientId !== session.user.id) {
+      return { success: false, error: 'Forbidden: You do not have permission to modify this ticket.' };
+    }
+
     await db.clientTicket.update({
       where: { id: ticketId },
       data: updates,
@@ -82,25 +95,48 @@ export async function updateClientTicket(
 }
 
 /**
- * Server action to create a support ticket with specific client ID.
+ * Server action to create a support ticket with session-derived identity.
  */
 export async function createTicketAction(data: {
   subject: string;
   description: string;
-  priority: string;
-  clientId: string;
+  priority?: string;
+  clientId?: string;
 }) {
-  if (!data.subject || !data.description || !data.clientId) {
-    throw new Error('Missing required fields for ticket creation.');
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session || !session.user) {
+    throw new Error('Unauthorized: You must be logged in to create a support ticket.');
   }
+
+  const subject = data.subject?.trim();
+  const description = data.description?.trim();
+
+  if (!subject || !description) {
+    throw new Error('Subject and description are required for ticket creation.');
+  }
+
+  if (subject.length > 200) {
+    throw new Error('Subject must be 200 characters or fewer.');
+  }
+
+  if (description.length > 10000) {
+    throw new Error('Description must be 10,000 characters or fewer.');
+  }
+
+  // Prevent client ID spoofing: strictly enforce authenticated session user ID
+  const clientId = session.user.id;
+  const priority = data.priority || 'MEDIUM';
 
   try {
     const ticket = await db.clientTicket.create({
       data: {
-        subject: data.subject,
-        description: data.description,
-        priority: data.priority,
-        clientId: data.clientId,
+        subject,
+        description,
+        priority,
+        clientId,
         status: 'OPEN',
       },
     });
@@ -111,8 +147,7 @@ export async function createTicketAction(data: {
     return { success: true, ticket };
   } catch (error: unknown) {
     console.error('Error creating support ticket:', error);
-    const message = error instanceof Error ? error.message : 'Failed to submit the ticket to the database.';
-    throw new Error(message);
+    throw new Error('Failed to submit the ticket to the database. Please try again.');
   }
 }
 

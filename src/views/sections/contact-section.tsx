@@ -6,7 +6,11 @@ import { ContactForm } from './contact-form';
 import { motion } from 'framer-motion';
 import { Link } from '@/i18n/routing';
 
-export function ContactSection() {
+interface ContactSectionProps {
+  isPageHero?: boolean;
+}
+
+export function ContactSection({ isPageHero = false }: ContactSectionProps) {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -49,12 +53,21 @@ export function ContactSection() {
             Start Your Next Build
           </span>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading leading-tight text-foreground">
-            Have an Idea? <br />
-            <span className="bg-gradient-to-r from-primary via-secondary to-accent dark:from-blue-400 dark:via-blue-400 dark:to-indigo-300 bg-clip-text text-transparent">
-              Let&apos;s Build It.
-            </span>
-          </h2>
+          {isPageHero ? (
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading leading-tight text-foreground">
+              Have an Idea? <br />
+              <span className="bg-gradient-to-r from-primary via-secondary to-accent dark:from-blue-400 dark:via-blue-400 dark:to-indigo-300 bg-clip-text text-transparent">
+                Let&apos;s Build It.
+              </span>
+            </h1>
+          ) : (
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading leading-tight text-foreground">
+              Have an Idea? <br />
+              <span className="bg-gradient-to-r from-primary via-secondary to-accent dark:from-blue-400 dark:via-blue-400 dark:to-indigo-300 bg-clip-text text-transparent">
+                Let&apos;s Build It.
+              </span>
+            </h2>
+          )}
 
           <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl font-medium">
             Tell us what you&apos;re building, what you&apos;re solving, or where you want to go next. We&apos;ll help you turn the vision into a scalable, high-conversion digital reality.

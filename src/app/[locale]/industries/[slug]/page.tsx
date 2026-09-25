@@ -15,7 +15,7 @@ import {
 } from '@/controllers/cms.controller';
 import { routing } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
-import { ArrowLeft, ArrowRight, ShieldCheck, Sparkles, Activity, MessageSquare } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Sparkles, Activity, MessageSquare } from 'lucide-react';
 import { ROUTES } from '@/routes';
 import { BreadcrumbSchema, getServiceJsonLd, createPageMetadata } from '@/lib/seo';
 
@@ -97,14 +97,18 @@ export default async function IndustryDetailPage({ params }: IndustryDetailPageP
         <div className="absolute top-96 right-10 w-[400px] h-[300px] bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="max-w-5xl mx-auto px-6 py-8">
-          {/* Back Navigation */}
-          <Link
-            href={ROUTES.PUBLIC.INDUSTRIES}
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-400 hover:text-primary transition-all duration-300 mb-8 group"
-          >
-            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-            <span>Back to All Industries</span>
-          </Link>
+          {/* Visual Breadcrumb Trail */}
+          <div className="flex flex-wrap items-center gap-2 mb-8 text-xs font-semibold text-slate-400">
+            <Link href={ROUTES.PUBLIC.HOME} className="hover:text-primary transition-colors">
+              Home
+            </Link>
+            <span>/</span>
+            <Link href={ROUTES.PUBLIC.INDUSTRIES} className="hover:text-primary transition-colors">
+              Industries
+            </Link>
+            <span>/</span>
+            <span className="text-slate-200 font-bold truncate max-w-xs">{industry.label}</span>
+          </div>
 
           {/* Header Billboard */}
           <div className="relative overflow-hidden rounded-3xl bg-slate-900/80 border border-slate-800 backdrop-blur-xl p-8 sm:p-12 mb-12 shadow-2xl">

@@ -95,7 +95,7 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 shrink-0 border border-border/40 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-colors">
                 {perk.icon}
               </div>
-              <h4 className="text-base font-bold text-foreground tracking-tight">{perk.title}</h4>
+              <h3 className="text-base font-bold text-foreground tracking-tight">{perk.title}</h3>
               <p className="text-xs text-muted-foreground leading-relaxed font-medium">
                 {perk.description}
               </p>
@@ -145,6 +145,9 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
               <input
                 type="text"
+                id="careers-search-roles"
+                name="careers_search_roles"
+                aria-label="Search skills or job title"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search skills, title..."
@@ -160,7 +163,7 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
                 <div className="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-1">
                   <Briefcase className="h-6 w-6" />
                 </div>
-                <h4 className="text-lg font-bold text-foreground">No Roles Found Matching Criteria</h4>
+                <h3 className="text-lg font-bold text-foreground">No Roles Found Matching Criteria</h3>
                 <p className="text-xs sm:text-sm text-muted-foreground max-w-md leading-relaxed">
                   No active openings match your current search or filter. Clear the filter or submit a speculative application below.
                 </p>

@@ -1,0 +1,294 @@
+{
+  "totalChecks": 47,
+  "passedChecks": 47,
+  "failedChecks": 0,
+  "browserConsoleErrors": [
+    "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\n%s%s https://react.dev/link/hydration-mismatch \n\n  ...\n    <HTTPAccessFallbackErrorBoundary pathname=\"/en\" notFound={<SegmentViewNode>} forbidden={undefined} ...>\n      <RedirectBoundary>\n        <RedirectErrorBoundary router={{...}}>\n          <InnerLayoutRouter url=\"/en\" tree={[...]} params={{locale:\"en\"}} cacheNode={{rsc:{...}, ...}} ...>\n            <SegmentViewNode type=\"page\" pagePath=\"[locale]/p...\">\n              <SegmentTrieNode>\n              <HomePage>\n                <div className=\"flex flex-...\">\n                  <script>\n                  <Navbar>\n                  <main id=\"main-content\" className=\"flex-1 w-f...\">\n                    <HeroSection>\n                    <section>\n                    <ServicesSection>\n                    <SolutionsSection>\n                      <section id=\"solutions\" aria-label=\"What Busin...\" className=\"py-20 md:p...\">\n                        <div>\n                        <div className=\"max-w-7xl ...\">\n                          <div>\n                          <div className=\"grid grid-...\">\n                            <motion.article initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <article\n                                className=\"group relative p-5 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl ...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(16px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.article initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <article\n                                className=\"group relative p-5 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl ...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(16px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.article initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <article\n                                className=\"group relative p-5 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl ...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(16px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.article initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <article\n                                className=\"group relative p-5 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl ...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(16px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                          ...\n                    <CaseStudiesSection>\n                      <section id=\"case-studies\" className=\"py-20 md:p...\">\n                        <div>\n                        <div className=\"max-w-7xl ...\">\n                          <SectionHeader>\n                          <div>\n                          <div className=\"mt-12 sm:m...\">\n                            <motion.article initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <article\n                                className=\"group relative bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border bord...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(16px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.article initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <article\n                                className=\"group relative bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border bord...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(16px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.article initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <article\n                                className=\"group relative bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border bord...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(16px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                          ...\n                    ...\n                      <PresenceChild isPresent={true} initial={undefined} custom={undefined} presenceAffectsLayout={true} ...>\n                        <PopChild pop={false} isPresent={true} anchorX=\"left\" anchorY=\"top\" root={undefined}>\n                          <PopChildMeasure isPresent={true} childRef={{current:null}} sizeRef={{...}} pop={false}>\n                            <motion.div initial={{opacity:0,y:0}} animate={{opacity:1,y:0}} exit={{opacity:0,y:0}} ...>\n                              <div\n                                className=\"grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 p-5 sm:p-8 md:p-10 items-c...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(8px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                    ...\n                      <AnimatePresence mode=\"popLayout\">\n                        ...\n                          <PopChild pop={true} isPresent={true} anchorX=\"left\" anchorY=\"top\" root={undefined}>\n                            <PopChildMeasure isPresent={true} childRef={{current:null}} sizeRef={{...}} pop={true}>\n                              <motion.div layout={true} initial={{opacity:0,scale:1}} animate={{opacity:1,scale:1}} ...>\n                                <MeasureLayout>\n                                <div\n                                  className=\"group relative p-6 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl borde...\"\n+                                 style={{opacity:0,transform:\"none\"}}\n-                                 style={{opacity:\"0\",transform:\"scale(0.98)\"}}\n                                  ref={function useMotionRef.useCallback}\n                                >\n                        ...\n                          <PopChild pop={true} isPresent={true} anchorX=\"left\" anchorY=\"top\" root={undefined}>\n                            <PopChildMeasure isPresent={true} childRef={{current:null}} sizeRef={{...}} pop={true}>\n                              <motion.div layout={true} initial={{opacity:0,scale:1}} animate={{opacity:1,scale:1}} ...>\n                                <MeasureLayout>\n                                <div\n                                  className=\"group relative p-6 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl borde...\"\n+                                 style={{opacity:0,transform:\"none\"}}\n-                                 style={{opacity:\"0\",transform:\"scale(0.98)\"}}\n                                  ref={function useMotionRef.useCallback}\n                                >\n                        ...\n                          <PopChild pop={true} isPresent={true} anchorX=\"left\" anchorY=\"top\" root={undefined}>\n                            <PopChildMeasure isPresent={true} childRef={{current:null}} sizeRef={{...}} pop={true}>\n                              <motion.div layout={true} initial={{opacity:0,scale:1}} animate={{opacity:1,scale:1}} ...>\n                                <MeasureLayout>\n                                <div\n                                  className=\"group relative p-6 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl borde...\"\n+                                 style={{opacity:0,transform:\"none\"}}\n-                                 style={{opacity:\"0\",transform:\"scale(0.98)\"}}\n                                  ref={function useMotionRef.useCallback}\n                                >\n                        ...\n                          <PopChild pop={true} isPresent={true} anchorX=\"left\" anchorY=\"top\" root={undefined}>\n                            <PopChildMeasure isPresent={true} childRef={{current:null}} sizeRef={{...}} pop={true}>\n                              <motion.div layout={true} initial={{opacity:0,scale:1}} animate={{opacity:1,scale:1}} ...>\n                                <MeasureLayout>\n                                <div\n                                  className=\"group relative p-6 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl borde...\"\n+                                 style={{opacity:0,transform:\"none\"}}\n-                                 style={{opacity:\"0\",transform:\"scale(0.98)\"}}\n                                  ref={function useMotionRef.useCallback}\n                                >\n                        ...\n                          <PopChild pop={true} isPresent={true} anchorX=\"left\" anchorY=\"top\" root={undefined}>\n                            <PopChildMeasure isPresent={true} childRef={{current:null}} sizeRef={{...}} pop={true}>\n                              <motion.div layout={true} initial={{opacity:0,scale:1}} animate={{opacity:1,scale:1}} ...>\n                                <MeasureLayout>\n                                <div\n                                  className=\"group relative p-6 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl borde...\"\n+                                 style={{opacity:0,transform:\"none\"}}\n-                                 style={{opacity:\"0\",transform:\"scale(0.98)\"}}\n                                  ref={function useMotionRef.useCallback}\n                                >\n                        ...\n                          <PopChild pop={true} isPresent={true} anchorX=\"left\" anchorY=\"top\" root={undefined}>\n                            <PopChildMeasure isPresent={true} childRef={{current:null}} sizeRef={{...}} pop={true}>\n                              <motion.div layout={true} initial={{opacity:0,scale:1}} animate={{opacity:1,scale:1}} ...>\n                                <MeasureLayout>\n                                <div\n                                  className=\"group relative p-6 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl borde...\"\n+                                 style={{opacity:0,transform:\"none\"}}\n-                                 style={{opacity:\"0\",transform:\"scale(0.98)\"}}\n                                  ref={function useMotionRef.useCallback}\n                                >\n                        ...\n                          <PopChild pop={true} isPresent={true} anchorX=\"left\" anchorY=\"top\" root={undefined}>\n                            <PopChildMeasure isPresent={true} childRef={{current:null}} sizeRef={{...}} pop={true}>\n                              <motion.div layout={true} initial={{opacity:0,scale:1}} animate={{opacity:1,scale:1}} ...>\n                                <MeasureLayout>\n                                <div\n                                  className=\"group relative p-6 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl borde...\"\n+                                 style={{opacity:0,transform:\"none\"}}\n-                                 style={{opacity:\"0\",transform:\"scale(0.98)\"}}\n                                  ref={function useMotionRef.useCallback}\n                                >\n                        ...\n                          <PopChild pop={true} isPresent={true} anchorX=\"left\" anchorY=\"top\" root={undefined}>\n                            <PopChildMeasure isPresent={true} childRef={{current:null}} sizeRef={{...}} pop={true}>\n                              <motion.div layout={true} initial={{opacity:0,scale:1}} animate={{opacity:1,scale:1}} ...>\n                                <MeasureLayout>\n                                <div\n                                  className=\"group relative p-6 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl borde...\"\n+                                 style={{opacity:0,transform:\"none\"}}\n-                                 style={{opacity:\"0\",transform:\"scale(0.98)\"}}\n                                  ref={function useMotionRef.useCallback}\n                                >\n                        ...\n                          <PopChild pop={true} isPresent={true} anchorX=\"left\" anchorY=\"top\" root={undefined}>\n                            <PopChildMeasure isPresent={true} childRef={{current:null}} sizeRef={{...}} pop={true}>\n                              <motion.div layout={true} initial={{opacity:0,scale:1}} animate={{opacity:1,scale:1}} ...>\n                                <MeasureLayout>\n                                <div\n                                  className=\"group relative p-6 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl borde...\"\n+                                 style={{opacity:0,transform:\"none\"}}\n-                                 style={{opacity:\"0\",transform:\"scale(0.98)\"}}\n                                  ref={function useMotionRef.useCallback}\n                                >\n                        ...\n                          <PopChild pop={true} isPresent={true} anchorX=\"left\" anchorY=\"top\" root={undefined}>\n                            <PopChildMeasure isPresent={true} childRef={{current:null}} sizeRef={{...}} pop={true}>\n                              <motion.div layout={true} initial={{opacity:0,scale:1}} animate={{opacity:1,scale:1}} ...>\n                                <MeasureLayout>\n                                <div\n                                  className=\"group relative p-6 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl borde...\"\n+                                 style={{opacity:0,transform:\"none\"}}\n-                                 style={{opacity:\"0\",transform:\"scale(0.98)\"}}\n                                  ref={function useMotionRef.useCallback}\n                                >\n                    <WhySection variant=\"summary\">\n                      <section id=\"why-us\" className=\"py-20 md:p...\">\n                        <div>\n                        <div className=\"max-w-7xl ...\">\n                          <SectionHeader>\n                          <div className=\"grid grid-...\">\n                            <motion.div initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <div\n                                className=\"group relative p-5 sm:p-6 lg:p-7 bg-card/90 dark:bg-slate-900/85 backdrop-b...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(14px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.div initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <div\n                                className=\"group relative p-5 sm:p-6 lg:p-7 bg-card/90 dark:bg-slate-900/85 backdrop-b...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(14px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.div initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <div\n                                className=\"group relative p-5 sm:p-6 lg:p-7 bg-card/90 dark:bg-slate-900/85 backdrop-b...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(14px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.div initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <div\n                                className=\"group relative p-5 sm:p-6 lg:p-7 bg-card/90 dark:bg-slate-900/85 backdrop-b...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(14px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                          ...\n                    <ProcessSection variant=\"summary\">\n                      <section id=\"process\" className=\"py-20 md:p...\">\n                        <div>\n                        <div className=\"max-w-7xl ...\">\n                          <SectionHeader>\n                          <div className=\"grid grid-...\">\n                            <motion.div initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <div\n                                className=\"group relative p-7 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl ...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(14px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.div initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <div\n                                className=\"group relative p-7 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl ...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(14px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.div initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <div\n                                className=\"group relative p-7 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl ...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(14px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.div initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <div\n                                className=\"group relative p-7 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl ...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(14px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.div initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <div\n                                className=\"group relative p-7 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl ...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(14px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.div initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <div\n                                className=\"group relative p-7 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl ...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(14px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                          ...\n                    <TestimonialsSection initialReviews={[...]}>\n                      <section id=\"testimonials\" className=\"py-20 md:p...\">\n                        <div className=\"max-w-7xl ...\">\n                          <SectionHeader>\n                          <div className=\"grid grid-...\">\n                            <motion.div initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <div\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(16px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.div initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <div\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(16px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.div initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <div\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(16px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                          ...\n                    <InsightsSection>\n                      <section id=\"insights\" aria-label=\"Latest Tec...\" className=\"py-20 md:p...\">\n                        <div className=\"max-w-7xl ...\">\n                          <div>\n                          <div className=\"grid grid-...\">\n                            <motion.article initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <article\n                                className=\"group flex flex-col justify-between p-6 sm:p-7 rounded-3xl bg-card/85 dark:...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(16px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.article initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <article\n                                className=\"group flex flex-col justify-between p-6 sm:p-7 rounded-3xl bg-card/85 dark:...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(16px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.article initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <article\n                                className=\"group flex flex-col justify-between p-6 sm:p-7 rounded-3xl bg-card/85 dark:...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(16px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                          ...\n                    <FinalCtaSection>\n                      <section id=\"final-conv...\" aria-label=\"Start a Pr...\" className=\"relative z...\">\n                        <div className=\"max-w-7xl ...\">\n                          <div>\n                          <div>\n                          <div className=\"relative z...\">\n                            <motion.div initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <div\n                                className=\"inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(12px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            <motion.h2 initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <h2\n                                className=\"text-2xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-tig...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(16px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n+                               Ready to build something extraordinary? Start a project with Astraiv.\n                            <motion.p initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} viewport={{once:true, ...}} ...>\n                              <p\n                                className=\"text-sm sm:text-base md:text-lg text-blue-100/85 max-w-2xl leading-relaxed ...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(12px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n+                               Whether you are engineering high-velocity web platforms, deploying autonomous AI agent ...\n                            <motion.div initial={{opacity:0,y:0}} whileInView={{opacity:1,y:0}} ...>\n                              <div\n                                className=\"flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md...\"\n                                style={{\n+                                 opacity: 0\n-                                 opacity: \"0\"\n+                                 transform: \"none\"\n-                                 transform: \"translateY(12px)\"\n                                }}\n                                ref={function useMotionRef.useCallback}\n                              >\n                            ...\n                  ...\n            ...\n          ...\n"
+  ],
+  "networkFailures": [],
+  "runtimeErrors": [],
+  "details": [
+    {
+      "category": "Direct URL Entry",
+      "name": "Home Landing",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Services Directory",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Service Detail (AI Development)",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Solutions Hub",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Solution Detail (AI Enterprise)",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Industries Directory",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Industry Detail (Fintech)",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Work Overview",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Case Studies Directory",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Case Study Detail (FinanceFlow)",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Testimonials Directory",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Company Overview",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Rewards & Accolades",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Careers Portal",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Contact Us",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Start Project Wizard",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Pricing Calculator",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "FAQ Page",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Insights Hub",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Technical Article Detail",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Client Portal Sign In",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Direct URL Entry",
+      "name": "Client Portal Sign Up",
+      "passed": true,
+      "notes": "status: 200, h1 count: 1"
+    },
+    {
+      "category": "Dynamic Route Refresh",
+      "name": "/en/services/ai-development",
+      "passed": true,
+      "notes": "title: \"AI Development | Astraiv Services...\""
+    },
+    {
+      "category": "Dynamic Route Refresh",
+      "name": "/en/work/case-studies/financeflow",
+      "passed": true,
+      "notes": "title: \"FinanceFlow: Institutional Ledger E...\""
+    },
+    {
+      "category": "Dynamic Route Refresh",
+      "name": "/en/insights/how-rag-systems-improve-enterprise-knowledge",
+      "passed": true,
+      "notes": "title: \"How RAG Systems Improve Enterprise ...\""
+    },
+    {
+      "category": "404 Error Handling",
+      "name": "Custom 404 Page and Return CTA",
+      "passed": true,
+      "notes": "H1: \"Route Not Found\""
+    },
+    {
+      "category": "Viewport Responsive",
+      "name": "Mobile SE (375x667)",
+      "passed": true,
+      "notes": "overflowX: false, navVisible: true"
+    },
+    {
+      "category": "Viewport Responsive",
+      "name": "Mobile iPhone 14 (390x844)",
+      "passed": true,
+      "notes": "overflowX: false, navVisible: true"
+    },
+    {
+      "category": "Viewport Responsive",
+      "name": "Tablet iPad (768x1024)",
+      "passed": true,
+      "notes": "overflowX: false, navVisible: true"
+    },
+    {
+      "category": "Viewport Responsive",
+      "name": "Laptop (1280x800)",
+      "passed": true,
+      "notes": "overflowX: false, navVisible: true"
+    },
+    {
+      "category": "Viewport Responsive",
+      "name": "Desktop (1440x900)",
+      "passed": true,
+      "notes": "overflowX: false, navVisible: true"
+    },
+    {
+      "category": "Viewport Responsive",
+      "name": "Large Desktop FHD (1920x1080)",
+      "passed": true,
+      "notes": "overflowX: false, navVisible: true"
+    },
+    {
+      "category": "Theme Switching",
+      "name": "Dark / Light Theme Toggle",
+      "passed": true,
+      "notes": "dark -> light -> dark"
+    },
+    {
+      "category": "Keyboard Navigation",
+      "name": "Skip Link Activates on First Tab",
+      "passed": true,
+      "notes": "active: \"Skip to main content\" (#main-content)"
+    },
+    {
+      "category": "Keyboard Navigation",
+      "name": "Sequential Tab Navigation Traversal",
+      "passed": true,
+      "notes": "traversed: 5/5"
+    },
+    {
+      "category": "Accessibility",
+      "name": "prefers-reduced-motion: reduce recognized",
+      "passed": true,
+      "notes": "matches: true"
+    },
+    {
+      "category": "Slow Network Resilience",
+      "name": "Page loads without crashes under throttling",
+      "passed": true,
+      "notes": "loaded in 2172ms"
+    },
+    {
+      "category": "Form Validation",
+      "name": "Contact Form Empty Submission Prevented",
+      "passed": true,
+      "notes": "validation triggered"
+    },
+    {
+      "category": "Critical Journey 1",
+      "name": "Home → Service → Case Study → Start Project → Thank You",
+      "passed": true,
+      "notes": "TY: \"Project Brief Received!\""
+    },
+    {
+      "category": "Critical Journey 2",
+      "name": "Home → Solution → Related Service",
+      "passed": true,
+      "notes": "target: /en/services/ai-development"
+    },
+    {
+      "category": "Critical Journey 3",
+      "name": "Home → Industry → Related Solution/Service",
+      "passed": true,
+      "notes": "target: /en/solutions/ai-business-automation"
+    },
+    {
+      "category": "Critical Journey 4",
+      "name": "Insights → Blog → Article → Related Content",
+      "passed": true,
+      "notes": "article: \"How RAG Systems Improve Enterp...\""
+    },
+    {
+      "category": "Critical Journey 5",
+      "name": "Work → Case Studies",
+      "passed": true,
+      "notes": "case study links found: 8"
+    },
+    {
+      "category": "Critical Journey 6",
+      "name": "Work → Testimonials",
+      "passed": true,
+      "notes": "title: \"Executive Endorsements & Client Testimonials\""
+    },
+    {
+      "category": "Critical Journey 7",
+      "name": "Company → Rewards & Accolades",
+      "passed": true,
+      "notes": "title: \"Rewards, Certifications & Industry Accolades\""
+    },
+    {
+      "category": "Critical Journey 8",
+      "name": "Company → Careers",
+      "passed": true,
+      "notes": "title: \"Work With Architects, Not Bureaucrats.\""
+    },
+    {
+      "category": "Critical Journey 9",
+      "name": "Client Portal → Sign In Gate",
+      "passed": true,
+      "notes": "portal: \"Client Portal & Sprint Co...\", inputs verified: true"
+    }
+  ]
+}

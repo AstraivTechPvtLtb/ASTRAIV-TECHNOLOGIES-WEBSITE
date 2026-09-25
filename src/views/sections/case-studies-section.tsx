@@ -1,34 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { SectionHeader } from './section-header';
 import { ArrowRight, CheckCircle2, Cpu, Zap, ShieldCheck, Layers } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { DEFAULT_PORTFOLIO_PROJECTS, type PublicPortfolioProject } from '@/lib/portfolio-data';
 import { ROUTES } from '@/routes';
+import { EASE_OUT_EXPO, MOTION_DURATIONS, MOTION_VIEWPORT } from '@/lib/motion';
 
-function ResilientSectionImage({ src, alt }: { src: string; alt: string }) {
-  const [imgSrc, setImgSrc] = useState(src);
-
-  useEffect(() => {
-    setImgSrc(src);
-  }, [src]);
-
-  return (
-    <Image
-      src={imgSrc}
-      alt={alt}
-      fill
-      sizes="(max-width: 1024px) 100vw, 50vw"
-      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-      onError={() => {
-        setImgSrc('/images/portfolio/portfolio-pulsefit.jpg');
-      }}
-    />
-  );
-}
+import { ResilientImage } from '@/views/ui/resilient-image';
 
 interface CaseStudiesSectionProps {
   initialProjects?: PublicPortfolioProject[];
@@ -46,6 +27,7 @@ export function CaseStudiesSection({
   showAllCta = true,
 }: CaseStudiesSectionProps) {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const shouldReduceMotion = useReducedMotion();
 
   const categories = [
     'All',
@@ -82,10 +64,10 @@ export function CaseStudiesSection({
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-300 select-none cursor-pointer ${
+                className={`px-4 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 select-none cursor-pointer ${
                   isActive
-                    ? 'bg-primary text-white shadow-sm shadow-primary/20 scale-105'
-                    : 'bg-card/90 dark:bg-slate-900/70 border border-border/70 dark:border-slate-800/80 text-muted-foreground hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40'
+                    ? 'bg-primary text-white shadow-sm shadow-primary/20 ring-2 ring-primary/30'
+                    : 'bg-card/90 dark:bg-slate-900/70 border border-border/70 dark:border-slate-800/80 text-muted-foreground hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40 active:scale-[0.98]'
                 }`}
               >
                 {cat}
@@ -120,20 +102,24 @@ export function CaseStudiesSection({
             return (
               <motion.article
                 key={project.id}
-                initial={{ opacity: 0, y: 25 }}
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
-                className="group relative bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-blue-400/40 rounded-[24px] sm:rounded-[28px] shadow-xs hover:shadow-[0_20px_50px_-15px_rgba(11,61,145,0.12)] dark:hover:shadow-[0_20px_50px_-15px_rgba(37, 99, 235,0.12)] overflow-hidden transition-all duration-500 transform-gpu hover:-translate-y-1"
+                viewport={MOTION_VIEWPORT.once}
+                transition={{ duration: MOTION_DURATIONS.reveal, ease: EASE_OUT_EXPO }}
+                whileHover={shouldReduceMotion ? {} : { y: -2, transition: { duration: MOTION_DURATIONS.fast, ease: EASE_OUT_EXPO } }}
+                className="group relative bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 hover:border-primary/40 dark:hover:border-blue-400/40 rounded-2xl sm:rounded-3xl shadow-card hover:shadow-card-hover overflow-hidden transition-all duration-300 transform-gpu"
               >
                 <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 p-6 sm:p-8 md:p-10 items-center">
                   {/* Left Column: Visual Image Showcase */}
                   <div className={`lg:col-span-6 relative w-full h-[240px] sm:h-[300px] md:h-[340px] rounded-2xl overflow-hidden shadow-inner group/preview border border-border/50 dark:border-slate-800/80 bg-slate-950 ${
                     isReversed ? 'lg:order-2' : ''
                   }`}>
-                    <ResilientSectionImage
+                    <ResilientImage
                       src={project.imageSrc}
                       alt={project.title}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] will-change-transform"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/20" />
 
@@ -238,7 +224,7 @@ export function CaseStudiesSection({
 
                       <Link
                         href={ROUTES.PUBLIC.CASE_STUDY_DETAIL(project.slug)}
-                        className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-extrabold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors"
+                        className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-extrabold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors min-h-[28px] py-1"
                       >
                         <span>View Case Study</span>
                         <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />

@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { auth } from '@/models';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -8,6 +9,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/vie
 import { User, Mail, ShieldAlert, Calendar } from 'lucide-react';
 import { formatDate } from '@/utils';
 import { ROUTES, getLocalizedPath } from '@/routes';
+
+export const metadata: Metadata = {
+  title: 'Profile | Astraiv Technologies',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 interface ProfilePageProps {
   params: Promise<{ locale: string }>;

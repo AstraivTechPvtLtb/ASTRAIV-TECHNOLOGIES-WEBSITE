@@ -1,6 +1,5 @@
-import { redirect } from 'next/navigation';
+import { permanentRedirect, notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,6 +14,6 @@ export default async function BlogPage({ params }: BlogPageProps) {
     notFound();
   }
 
-  // Canonical 308 redirect from legacy /blog to scalable /insights hub
-  redirect(`/${locale}/insights`);
+  // Canonical 308 redirect from legacy /blog to scalable /insights/blog hub
+  permanentRedirect(`/${locale}/insights/blog`);
 }

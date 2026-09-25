@@ -6,6 +6,7 @@ import { ArrowRight, Sparkles, Clock } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { INSIGHT_ARTICLES, type InsightArticle } from '@/lib/insights-data';
 import { ROUTES } from '@/routes';
+import { EASE_OUT_EXPO, MOTION_DURATIONS, MOTION_VIEWPORT } from '@/lib/motion';
 
 interface InsightsSectionProps {
   initialArticles?: InsightArticle[];
@@ -53,11 +54,12 @@ export function InsightsSection({ initialArticles }: InsightsSectionProps) {
           {articles.map((article, idx) => (
             <motion.article
               key={article.id || article.slug}
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ delay: idx * 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="group flex flex-col justify-between p-6 sm:p-7 rounded-3xl bg-card/85 dark:bg-slate-900/80 border border-border/70 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-300 shadow-xs hover:shadow-xl hover:-translate-y-1 overflow-hidden"
+              viewport={MOTION_VIEWPORT.once}
+              transition={{ delay: shouldReduceMotion ? 0 : idx * 0.08, duration: MOTION_DURATIONS.reveal, ease: EASE_OUT_EXPO }}
+              whileHover={shouldReduceMotion ? {} : { y: -2, transition: { duration: MOTION_DURATIONS.fast, ease: EASE_OUT_EXPO } }}
+              className="group flex flex-col justify-between p-6 sm:p-7 rounded-3xl bg-card/85 dark:bg-slate-900/80 border border-border/70 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-300 shadow-xs hover:shadow-card-hover overflow-hidden transform-gpu"
             >
               <div>
                 {/* Article Cover Image */}
@@ -67,7 +69,7 @@ export function InsightsSection({ initialArticles }: InsightsSectionProps) {
                     alt={article.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] will-change-transform"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
                 </div>
@@ -108,7 +110,7 @@ export function InsightsSection({ initialArticles }: InsightsSectionProps) {
 
                 <Link
                   href={ROUTES.PUBLIC.INSIGHTS_DETAIL(article.slug)}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group/link"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group/link min-h-[28px] py-1"
                 >
                   <span>Read Article</span>
                   <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-1" />

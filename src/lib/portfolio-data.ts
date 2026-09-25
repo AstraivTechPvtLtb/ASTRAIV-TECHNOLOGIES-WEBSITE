@@ -262,7 +262,7 @@ export const DEFAULT_PORTFOLIO_PROJECTS: PublicPortfolioProject[] = [
     categoryType: ['All', 'SaaS & Analytics'],
     industrySlug: 'saas',
     industryName: 'SaaS & Technology',
-    relatedServiceSlugs: ['custom-software', 'web-applications', 'cloud-engineering'],
+    relatedServiceSlugs: ['custom-software', 'web-development', 'cloud-engineering'],
     relatedSolutionSlugs: ['saas-platforms', 'data-analytics'],
     imageSrc: '/images/portfolio/portfolio-pulsefit.jpg',
     challenge:

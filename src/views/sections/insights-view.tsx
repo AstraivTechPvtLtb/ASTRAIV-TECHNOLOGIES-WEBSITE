@@ -29,6 +29,7 @@ import {
   Layers,
   Send,
   Check,
+  Loader2,
 } from 'lucide-react';
 import { BlogCard } from './blog-card';
 import { formatDate } from '@/utils';
@@ -68,6 +69,8 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [emailSubscribed, setEmailSubscribed] = useState(false);
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [subscribeError, setSubscribeError] = useState<string | null>(null);
   const [subscriberEmail, setSubscriberEmail] = useState('');
   const [copiedResource, setCopiedResource] = useState<string | null>(null);
 
@@ -283,13 +286,28 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
     },
   ];
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!subscriberEmail || !subscriberEmail.includes('@')) return;
-    setEmailSubscribed(true);
-    setTimeout(() => {
+    setSubscribeError(null);
+
+    const emailTrimmed = subscriberEmail.trim();
+    if (!emailTrimmed || !emailTrimmed.includes('@') || !emailTrimmed.includes('.')) {
+      setSubscribeError('Please enter a valid business email address.');
+      return;
+    }
+
+    setIsSubscribing(true);
+
+    try {
+      // Simulate network transmission or API endpoint
+      await new Promise((resolve) => setTimeout(resolve, 350));
+      setEmailSubscribed(true);
       setSubscriberEmail('');
-    }, 4000);
+    } catch {
+      setSubscribeError('Subscription transmission failed. Please try again or email info@astraiv.com.');
+    } finally {
+      setIsSubscribing(false);
+    }
   };
 
   const handleResourceClick = (resourceId: string) => {
@@ -903,27 +921,54 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
             </p>
 
             {emailSubscribed ? (
-              <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold text-sm flex items-center justify-center gap-2">
-                <CheckCircle2 className="h-5 w-5" />
-                <span>Thank you! You are now subscribed to the Astraiv Engineering Dispatch.</span>
+              <div role="status" aria-live="polite" className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-foreground text-left space-y-3">
+                <div className="flex items-center gap-2.5 text-emerald-600 dark:text-emerald-400 font-bold text-sm">
+                  <CheckCircle2 className="h-5 w-5 shrink-0" />
+                  <span>Subscribed! Welcome to the Astraiv Engineering Dispatch.</span>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  You will receive our next monthly architecture deep dive. In the meantime, you can explore our production case studies or inspect our technical blueprints above.
+                </p>
+                <div className="pt-2 flex items-center gap-3 text-xs">
+                  <Link href={ROUTES.PUBLIC.CASE_STUDIES} className="font-bold text-primary hover:underline flex items-center gap-1">
+                    <span>Explore Case Studies</span>
+                    <ArrowRight className="h-3 w-3" />
+                  </Link>
+                </div>
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter your work email address"
-                  value={subscriberEmail}
-                  onChange={(e) => setSubscriberEmail(e.target.value)}
-                  className="flex-1 px-4 py-3 rounded-xl bg-card border border-border/80 dark:border-slate-700 text-xs sm:text-sm outline-none focus:border-primary dark:focus:border-accent text-foreground font-medium placeholder:text-muted-foreground shadow-inner"
-                />
-                <button
-                  type="submit"
-                  className="px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-extrabold text-xs tracking-wide transition-all active:scale-95 shadow-xs cursor-pointer"
-                >
-                  Subscribe
-                </button>
-              </form>
+              <div className="space-y-3">
+                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" noValidate>
+                  <input
+                    type="email"
+                    required
+                    disabled={isSubscribing}
+                    placeholder="Enter your work email address"
+                    value={subscriberEmail}
+                    onChange={(e) => setSubscriberEmail(e.target.value)}
+                    className="flex-1 px-4 py-3 rounded-xl bg-card border border-border/80 dark:border-slate-700 text-xs sm:text-sm outline-none focus:border-primary dark:focus:border-accent text-foreground font-medium placeholder:text-muted-foreground shadow-inner disabled:opacity-50"
+                  />
+                  <button
+                    type="submit"
+                    disabled={isSubscribing}
+                    className="px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed text-primary-foreground font-extrabold text-xs tracking-wide transition-all active:scale-95 shadow-xs cursor-pointer flex items-center justify-center gap-2 min-w-[120px]"
+                  >
+                    {isSubscribing ? (
+                      <>
+                        <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                        <span>Subscribing...</span>
+                      </>
+                    ) : (
+                      'Subscribe'
+                    )}
+                  </button>
+                </form>
+                {subscribeError && (
+                  <p role="alert" className="text-xs text-destructive font-semibold">
+                    {subscribeError}
+                  </p>
+                )}
+              </div>
             )}
           </div>
         </div>

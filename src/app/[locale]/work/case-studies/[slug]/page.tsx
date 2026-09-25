@@ -1,6 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
+import { ResilientImage } from '@/views/ui/resilient-image';
 import { routing } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
 import { Navbar, Footer } from '@/views';
@@ -212,7 +212,7 @@ export default async function CaseStudyDetailPage({ params }: CaseStudyDetailPag
 
             {/* Visual Hero Showcase with Metric Pill */}
             <div className="relative w-full h-[300px] sm:h-[400px] md:h-[460px] rounded-3xl overflow-hidden border border-border/70 dark:border-slate-800 bg-slate-950 shadow-xl">
-              <Image
+              <ResilientImage
                 src={project.imageSrc}
                 alt={project.title}
                 fill
@@ -681,12 +681,13 @@ export default async function CaseStudyDetailPage({ params }: CaseStudyDetailPag
                     <div className="flex items-center gap-3.5">
                       {'avatar' in testimonialData && testimonialData.avatar ? (
                         <div className="relative h-11 w-11 rounded-full overflow-hidden shrink-0 border border-border/60">
-                          <Image
+                          <ResilientImage
                             src={testimonialData.avatar}
                             alt={testimonialData.author}
                             fill
                             sizes="44px"
                             className="object-cover"
+                            fallbackSrc="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&h=256&fit=crop"
                           />
                         </div>
                       ) : (

@@ -36,7 +36,7 @@ export const startProjectSchema = z.object({
 
   // Step 4
   name: z.string().min(2, 'Full name must be at least 2 characters long.').max(120),
-  email: z.string().email('Please provide a valid business email address.').toLowerCase().trim(),
+  email: z.string().trim().toLowerCase().email('Please provide a valid business email address.'),
   company: z.string().min(2, 'Company or organization name must be at least 2 characters long.').max(150),
   phone: z.string().optional(),
   preferredContact: z.string().optional(),

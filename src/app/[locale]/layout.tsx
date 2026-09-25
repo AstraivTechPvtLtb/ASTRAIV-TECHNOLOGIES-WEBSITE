@@ -4,9 +4,13 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { ThemeProvider } from '@/providers/theme-provider';
-import { TechBackground, GoogleAnalytics } from '@/views';
+import { TechBackground } from '@/views/layouts/tech-background';
+import { GoogleAnalytics } from '@/views/analytics/google-analytics';
 import { AstraivMotionProvider } from '@/providers/motion-provider';
 import { getOrganizationJsonLd } from '@/lib/seo';
+
+import { SkipLink } from '@/views/ui/skip-link';
+import { RouteProgressBar } from '@/views/ui/route-progress-bar';
 
 export const metadata: Metadata = {
   title: {
@@ -67,15 +71,22 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
       />
-      {/* Temporarily locked to Dark theme as requested */}
+      {/* Synchronize HTML lang and direction attributes for multi-locale rendering */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `document.documentElement.lang='${locale}';document.documentElement.dir='${locale === 'ar' ? 'rtl' : 'ltr'}';`,
+        }}
+      />
+      {/* Dual theme enabled with high-contrast intentional light and dark tokens */}
       <ThemeProvider
         attribute="class"
         defaultTheme="dark"
-        forcedTheme="dark"
-        enableSystem={false}
+        enableSystem={true}
         disableTransitionOnChange
       >
         <AstraivMotionProvider>
+          <SkipLink />
+          <RouteProgressBar />
           <TechBackground />
           {children}
         </AstraivMotionProvider>

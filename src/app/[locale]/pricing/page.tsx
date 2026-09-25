@@ -2,15 +2,21 @@ import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
-import { Navbar, Footer, PricingSection, FaqSection } from '@/views';
+import { Navbar } from '@/views/layouts/navbar';
+import { Footer } from '@/views/layouts/footer';
+import { PricingSection } from '@/views/sections/pricing-section';
+import { FaqSection } from '@/views/sections/faq-section';
 import { getPublicPricingPlans } from '@/controllers/public-data.controller';
 import { DollarSign, ShieldCheck, Zap, Headphones, ArrowRight, Sparkles } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export const revalidate = 300;
 
 interface PricingPageProps {
   params: Promise<{ locale: string }>;

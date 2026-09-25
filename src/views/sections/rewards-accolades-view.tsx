@@ -46,17 +46,17 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
   const getIconComponent = (iconName: string) => {
     switch (iconName) {
       case 'ShieldCheck':
-        return <ShieldCheck className="h-6 w-6 text-cyan-400" />;
+        return <ShieldCheck className="h-6 w-6 text-sky-600 dark:text-sky-400" />;
       case 'CheckCircle2':
-        return <CheckCircle2 className="h-6 w-6 text-emerald-400" />;
+        return <CheckCircle2 className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />;
       case 'Lock':
-        return <Lock className="h-6 w-6 text-blue-400" />;
+        return <Lock className="h-6 w-6 text-blue-600 dark:text-blue-400" />;
       case 'Cloud':
-        return <Cloud className="h-6 w-6 text-amber-400" />;
+        return <Cloud className="h-6 w-6 text-amber-600 dark:text-amber-400" />;
       case 'Sparkles':
-        return <Sparkles className="h-6 w-6 text-purple-400" />;
+        return <Sparkles className="h-6 w-6 text-purple-600 dark:text-purple-400" />;
       case 'Star':
-        return <Star className="h-6 w-6 text-yellow-400 fill-yellow-400/30" />;
+        return <Star className="h-6 w-6 text-amber-500 fill-amber-500/30 dark:text-amber-400" />;
       case 'Award':
       default:
         return <Award className="h-6 w-6 text-primary" />;
@@ -67,20 +67,20 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
     switch (status) {
       case 'verified':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-bold">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-[11px] font-bold">
             <Check className="h-3 w-3" /> Audited & Verified
           </span>
         );
       case 'contractual':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-[11px] font-bold">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 text-[11px] font-bold">
             <Shield className="h-3 w-3" /> Contractual SLA
           </span>
         );
       case 'active':
       default:
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20 text-[11px] font-bold">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 text-[11px] font-bold">
             <FileCheck className="h-3 w-3" /> Active Alliance
           </span>
         );
@@ -97,15 +97,15 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-20px' }}
         transition={{ duration: 0.4 }}
-        className="group relative flex flex-col justify-between rounded-2xl bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 p-6 sm:p-7 shadow-xs hover:shadow-xl hover:border-cyan-500/40 transition-all duration-300"
+        className="group relative flex flex-col justify-between rounded-2xl bg-card/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 p-6 sm:p-7 shadow-card hover:shadow-card-hover hover:border-primary/40 transition-all duration-300"
       >
         {/* Glow ambient background on hover */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/[0.03] rounded-full blur-2xl pointer-events-none group-hover:bg-cyan-500/[0.08] transition-colors" />
+        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/[0.04] rounded-full blur-2xl pointer-events-none group-hover:bg-primary/[0.08] transition-colors" />
 
         <div>
           {/* Top Row: Category Badge + Status Badge */}
           <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-            <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-primary/10 dark:bg-cyan-500/10 text-primary dark:text-cyan-400 border border-primary/20 dark:border-cyan-500/20">
+            <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-primary/10 text-primary border border-primary/20">
               {item.category}
             </span>
             {getStatusBadge(item.status)}
@@ -123,7 +123,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
               <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 mt-1 text-xs text-muted-foreground font-medium">
                 <span className="text-foreground/90 font-semibold">{item.organization}</span>
                 <span>•</span>
-                <span className="font-mono text-cyan-500 dark:text-cyan-400">{item.year}</span>
+                <span className="font-mono text-primary dark:text-blue-400 font-semibold">{item.year}</span>
               </div>
             </div>
           </div>
@@ -177,7 +177,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
                 href={item.verificationUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs font-bold text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 transition-colors"
+                className="inline-flex items-center gap-1 text-xs font-bold text-primary dark:text-blue-400 hover:underline transition-colors"
               >
                 <span>{item.verificationLabel || 'Verify Credential'}</span>
                 <ExternalLink className="h-3 w-3" />

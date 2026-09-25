@@ -66,15 +66,22 @@ export const CountryPhoneInput = React.forwardRef<HTMLInputElement, CountryPhone
       }
     }, [value, selectedCountry.dialCode, selectedCountry.format]);
 
-    // Handle outside clicks to close the dropdown
+    // Handle outside clicks and Escape key to close the dropdown
     React.useEffect(() => {
       function handleClickOutside(event: MouseEvent) {
         if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
           setIsOpen(false);
         }
       }
+      function handleKeyDown(event: KeyboardEvent) {
+        if (event.key === 'Escape') {
+          setIsOpen(false);
+          containerRef.current?.querySelector<HTMLButtonElement>('#country-code-selector')?.focus();
+        }
+      }
       if (isOpen) {
         document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('keydown', handleKeyDown);
         // Focus search input when open
         setTimeout(() => {
           searchInputRef.current?.focus();
@@ -82,6 +89,7 @@ export const CountryPhoneInput = React.forwardRef<HTMLInputElement, CountryPhone
       }
       return () => {
         document.removeEventListener('mousedown', handleClickOutside);
+        document.removeEventListener('keydown', handleKeyDown);
       };
     }, [isOpen]);
 
@@ -163,11 +171,13 @@ export const CountryPhoneInput = React.forwardRef<HTMLInputElement, CountryPhone
           <button
             type="button"
             id="country-code-selector"
-            aria-label="Select country code"
+            aria-label={`Country dial code, selected: ${selectedCountry.name} ${selectedCountry.dialCode}`}
             aria-expanded={isOpen}
+            aria-haspopup="listbox"
+            aria-controls="country-code-listbox"
             onClick={() => setIsOpen((prev) => !prev)}
             disabled={disabled}
-            className="flex items-center gap-1.5 px-3 py-2 bg-slate-200/50 dark:bg-slate-900/60 hover:bg-slate-200/80 dark:hover:bg-slate-800/80 text-foreground border-r border-slate-200 dark:border-slate-800 transition-colors shrink-0 text-sm font-medium select-none cursor-pointer outline-none"
+            className="flex items-center gap-1.5 px-3 py-2 bg-slate-200/50 dark:bg-slate-900/60 hover:bg-slate-200/80 dark:hover:bg-slate-800/80 text-foreground border-r border-slate-200 dark:border-slate-800 transition-colors shrink-0 text-sm font-medium select-none cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-primary"
           >
             <span className="text-base leading-none" role="img" aria-label={selectedCountry.name}>
               {selectedCountry.flag}
@@ -199,7 +209,12 @@ export const CountryPhoneInput = React.forwardRef<HTMLInputElement, CountryPhone
 
         {/* Dropdown Popover */}
         {isOpen && (
-          <div className="absolute top-[calc(100%+6px)] left-0 z-50 w-72 sm:w-84 rounded-xl border border-slate-200/80 dark:border-slate-800/90 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl shadow-2xl p-2 animate-in fade-in-0 zoom-in-95 duration-150">
+          <div
+            id="country-code-listbox"
+            role="listbox"
+            aria-label="Country dial code options"
+            className="absolute top-[calc(100%+6px)] left-0 z-50 w-72 sm:w-84 max-w-[calc(100vw-2.5rem)] rounded-xl border border-slate-200/80 dark:border-slate-800/90 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl shadow-2xl p-2 animate-in fade-in-0 zoom-in-95 duration-150"
+          >
             {/* Search Box */}
             <div className="relative mb-2">
               <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
@@ -209,6 +224,7 @@ export const CountryPhoneInput = React.forwardRef<HTMLInputElement, CountryPhone
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search country or code..."
+                aria-label="Search countries or dialing codes"
                 className="w-full h-9 pl-8 pr-3 text-xs rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-950/60 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
               />
             </div>
@@ -226,6 +242,8 @@ export const CountryPhoneInput = React.forwardRef<HTMLInputElement, CountryPhone
                     <button
                       key={`${c.code}-${c.dialCode}`}
                       type="button"
+                      role="option"
+                      aria-selected={isSelected}
                       onClick={() => handleCountrySelect(c)}
                       className={cn(
                         'w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs transition-colors text-left cursor-pointer',

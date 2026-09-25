@@ -199,35 +199,59 @@ export async function submitStartProject(
     const industryId = validated.industryId?.trim() || slugify(validated.industry);
 
     // Generate readable lead number
-    const leadNumber = await generateLeadNumber();
-    const formattedBrief = formatProjectBrief(validated, leadNumber, sourcePage);
+    let leadNumber = await generateLeadNumber();
+    let formattedBrief = formatProjectBrief(validated, leadNumber, sourcePage);
     let submissionId = '';
 
     // 5. Database Ingestion: Primary Local PostgreSQL via Prisma
     if (!isSupabaseConfigured()) {
-      // Ingest into CRMLead (primary lead lifecycle table)
-      const lead = await db.cRMLead.create({
-        data: {
-          leadNumber,
-          name: validated.name,
-          email: validated.email,
-          phone: validated.phone || null,
-          company: validated.company,
-          serviceId,
-          solutionId: validated.solutionId || null,
-          industryId,
-          projectDescription: validated.projectDescription,
-          budgetRange: validated.budgetRange,
-          timeline: validated.timeline,
-          sourcePage,
-          utmSource: validated.utmSource || null,
-          utmMedium: validated.utmMedium || null,
-          utmCampaign: validated.utmCampaign || null,
-          status: 'NEW', // Initial lifecycle stage
-          source: 'WEBSITE_START_PROJECT',
-          notes: formattedBrief,
-        },
-      });
+      let lead;
+      let attempts = 0;
+      while (attempts < 3) {
+        try {
+          lead = await db.cRMLead.create({
+            data: {
+              leadNumber,
+              name: validated.name,
+              email: validated.email,
+              phone: validated.phone || null,
+              company: validated.company,
+              serviceId,
+              solutionId: validated.solutionId || null,
+              industryId,
+              projectDescription: validated.projectDescription,
+              budgetRange: validated.budgetRange,
+              timeline: validated.timeline,
+              sourcePage,
+              utmSource: validated.utmSource || null,
+              utmMedium: validated.utmMedium || null,
+              utmCampaign: validated.utmCampaign || null,
+              status: 'NEW', // Initial lifecycle stage
+              source: 'WEBSITE_START_PROJECT',
+              notes: formattedBrief,
+            },
+          });
+          break;
+        } catch (dbErr: unknown) {
+          const isUniqueConstraint =
+            typeof dbErr === 'object' &&
+            dbErr !== null &&
+            'code' in dbErr &&
+            (dbErr as { code: string }).code === 'P2002';
+          if (isUniqueConstraint && attempts < 2) {
+            attempts++;
+            // On concurrent race condition collision, query fresh sequence with jitter
+            const freshBase = await generateLeadNumber();
+            const jitter = Math.floor(10 + Math.random() * 900);
+            const baseSeq = parseInt(freshBase.replace('AST-LEAD-', ''), 10) || 1000;
+            leadNumber = `AST-LEAD-${baseSeq + jitter}`;
+            formattedBrief = formatProjectBrief(validated, leadNumber, sourcePage);
+            continue;
+          }
+          throw dbErr;
+        }
+      }
+      if (!lead) throw new Error('Failed to record CRM lead.');
       submissionId = lead.id;
 
       // Also create contact_submissions record for inquiry cross-referencing

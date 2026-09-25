@@ -43,6 +43,16 @@ export async function submitContactForm(
   formData: ContactFormInput
 ): Promise<ClientActionResponse<{ id: string }>> {
   try {
+    // 1. Anti-Spam: Honeypot check
+    if (formData.honeypot && formData.honeypot.trim().length > 0) {
+      console.warn('[Spam Detected]: Contact form honeypot populated.');
+      return {
+        success: true,
+        data: { id: 'spm-' + Math.random().toString(36).substring(2, 9) },
+        message: 'Your inquiry has been received. Our solutions architect will contact you within 24 hours.',
+      };
+    }
+
     const isJobApplication = Boolean(formData.role || formData.resumeName || formData.resumeUrl || formData.resumeData);
 
     let finalService = formData.service || '';
@@ -64,16 +74,35 @@ export async function submitContactForm(
 
       let resumeLink = validated.resumeUrl || '';
 
-      // If a file was uploaded as base64, save to public/uploads/resumes/
+      // If a file was uploaded as base64, strictly validate format, size, and sanitize filename
       if (validated.resumeData && validated.resumeName) {
+        const ext = path.extname(validated.resumeName).toLowerCase();
+        const allowedExtensions = ['.pdf', '.doc', '.docx'];
+
+        if (!allowedExtensions.includes(ext)) {
+          return {
+            success: false,
+            error: 'Invalid file format. Only PDF, DOC, and DOCX resume attachments are permitted.',
+          };
+        }
+
+        const base64Data = validated.resumeData.replace(/^data:[^;]+;base64,/, '');
+        // Approximate size check: 5MB maximum
+        if (base64Data.length > 5 * 1024 * 1024 * 1.37) {
+          return {
+            success: false,
+            error: 'Resume attachment exceeds the 5MB size limit.',
+          };
+        }
+
         try {
           const uploadsDir = path.join(process.cwd(), 'public', 'uploads', 'resumes');
           await fs.mkdir(uploadsDir, { recursive: true });
 
-          const safeFilename = `${Date.now()}-${validated.resumeName.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+          const baseName = path.basename(validated.resumeName, ext).replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 50);
+          const safeFilename = `${Date.now()}-${baseName}${ext}`;
           const filePath = path.join(uploadsDir, safeFilename);
 
-          const base64Data = validated.resumeData.replace(/^data:[^;]+;base64,/, '');
           await fs.writeFile(filePath, Buffer.from(base64Data, 'base64'));
 
           resumeLink = `/uploads/resumes/${safeFilename}`;
