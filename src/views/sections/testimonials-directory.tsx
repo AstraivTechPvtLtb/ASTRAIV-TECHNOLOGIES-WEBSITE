@@ -6,7 +6,7 @@
  */
 
 import { useState, useMemo } from 'react';
-import Image from 'next/image';
+import { ResilientImage } from '@/views/ui/resilient-image';
 import { Link } from '@/i18n/routing';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -50,6 +50,7 @@ export function TestimonialsDirectory({ testimonials }: TestimonialsDirectoryPro
           item.service_id?.includes('web') ||
           item.industry_id === 'saas' ||
           item.project_id === 'pulsefit' ||
+          item.project_id === 'nova-crm-saas' ||
           item.project_id === 'nova-crm' ||
           item.project_id === 'lumina-brand-strategy';
         if (!isSaas) return false;
@@ -236,12 +237,13 @@ export function TestimonialsDirectory({ testimonials }: TestimonialsDirectoryPro
                       {/* Avatar */}
                       <div className="relative h-11 w-11 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-800 border border-border/60 dark:border-slate-700/60 shrink-0">
                         {item.avatar ? (
-                          <Image
+                          <ResilientImage
                             src={item.avatar}
                             alt={item.client_name}
                             fill
                             sizes="44px"
                             className="object-cover"
+                            fallbackSrc="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&h=256&fit=crop"
                           />
                         ) : (
                           <div className="h-full w-full flex items-center justify-center bg-primary/10 dark:bg-blue-400/10 text-primary dark:text-blue-300 font-bold text-xs font-mono">

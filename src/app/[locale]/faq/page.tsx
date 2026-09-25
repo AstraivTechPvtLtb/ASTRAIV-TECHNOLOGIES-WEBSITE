@@ -2,13 +2,19 @@ import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from 'next';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
-import { Navbar, Footer, FaqSection } from '@/views';
+import { Navbar } from '@/views/layouts/navbar';
+import { Footer } from '@/views/layouts/footer';
+import { FaqSection } from '@/views/sections/faq-section';
 import { MessageSquare, ArrowRight, ShieldCheck, Cpu, DollarSign } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';
 
-export const dynamic = 'force-dynamic';
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export const revalidate = 300;
 
 interface FaqPageProps {
   params: Promise<{ locale: string }>;
@@ -122,7 +128,7 @@ export default async function FaqPage({ params }: FaqPageProps) {
           </div>
 
           {/* Embedded FAQ Section */}
-          <FaqSection showCategoryFilter={true} items={publishedFaqs as unknown as import('@/lib/faq-data').FaqItem[]} />
+          <FaqSection asH1={true} showCategoryFilter={true} items={publishedFaqs as unknown as import('@/lib/faq-data').FaqItem[]} />
 
           {/* Dedicated Still Have Questions CTA */}
           <div className="mt-12 p-8 rounded-3xl bg-gradient-to-br from-primary/10 via-card to-card border border-primary/20 text-center flex flex-col items-center justify-center relative overflow-hidden shadow-sm">

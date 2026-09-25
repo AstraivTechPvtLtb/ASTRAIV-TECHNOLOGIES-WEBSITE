@@ -45,3 +45,15 @@ export const signupSchema = z
   });
 
 export type SignupInput = z.infer<typeof signupSchema>;
+
+/**
+ * Validation schema for forgot password form.
+ */
+export const forgotPasswordSchema = z.object({
+  email: z
+    .string()
+    .min(1, { message: 'Email is required' })
+    .email({ message: 'Please enter a valid email address.' }),
+});
+
+export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;

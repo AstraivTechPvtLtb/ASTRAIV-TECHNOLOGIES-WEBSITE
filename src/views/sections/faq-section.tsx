@@ -19,6 +19,7 @@ export interface FaqSectionProps {
   description?: string;
   className?: string;
   showCategoryFilter?: boolean;
+  asH1?: boolean;
 }
 
 export function FaqSection({
@@ -30,6 +31,7 @@ export function FaqSection({
   description = 'Clear answers regarding our technology architecture, engagement models, delivery pipelines, and IP ownership.',
   className,
   showCategoryFilter = false,
+  asH1 = false,
 }: FaqSectionProps) {
   const [activeCategory, setActiveCategory] = useState<FaqCategory | 'all'>(category);
 
@@ -59,6 +61,7 @@ export function FaqSection({
           badge={badge}
           title={title}
           description={description}
+          asH1={asH1}
         />
 
         {showCategoryFilter && !items && (

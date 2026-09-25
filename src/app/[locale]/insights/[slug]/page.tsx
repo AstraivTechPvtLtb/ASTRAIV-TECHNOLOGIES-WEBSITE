@@ -8,6 +8,7 @@ import { Navbar, Footer, ArticleFunnelSection, ArticleSchema } from '@/views';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
+import { ResilientImage } from '@/views/ui/resilient-image';
 import { Link } from '@/i18n/routing';
 import {
   ArrowLeft,
@@ -192,7 +193,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
           {/* Featured Hero Cover Image */}
           {article.coverImage && (
             <div className="relative aspect-[16/9] rounded-3xl overflow-hidden mb-12 shadow-2xl border border-border/60 dark:border-slate-800 bg-slate-950">
-              <Image
+              <ResilientImage
                 src={article.coverImage}
                 alt={article.title}
                 fill

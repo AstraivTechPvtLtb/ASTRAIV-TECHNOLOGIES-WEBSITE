@@ -7,12 +7,20 @@ import { Link, usePathname, useRouter } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
 import { NAV_ITEMS, NavItem, MegaMenuConfig } from './nav-data';
 import { ROUTES, isActiveRoute } from '@/routes';
+import { dropdownMenuVariants, mobileDrawerVariants, MOTION_SPRINGS } from '@/lib/motion';
 
 export function Navbar() {
   const tNav = useTranslations('Nav');
+  const { setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false); // Mobile menu state
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [expandedMobileItem, setExpandedMobileItem] = useState<string | null>(null);
@@ -199,15 +207,15 @@ export function Navbar() {
   const getDropdownPositionClass = (itemId: string) => {
     switch (itemId) {
       case 'services':
-        return '-left-8';
+        return '-left-4 lg:-left-6 xl:-left-8';
       case 'solutions':
-        return '-left-28';
+        return '-left-12 lg:-left-20 xl:-left-28';
       case 'industries':
-        return '-left-44';
+        return '-left-20 lg:-left-36 xl:-left-44';
       case 'work':
-        return '-left-56';
+        return 'right-0 lg:-right-16 xl:-left-56';
       case 'insights':
-        return '-left-72';
+        return 'right-0 lg:right-0 xl:-left-72';
       case 'company':
         return 'right-0';
       default:
@@ -231,10 +239,9 @@ export function Navbar() {
 
       return (
         <div
-          role="menu"
           className={cn(
             'rounded-2xl border border-slate-200/90 dark:border-white/10 bg-white/95 dark:bg-[#0D1320]/95 backdrop-blur-2xl p-6 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] grid grid-cols-12 gap-6',
-            isTwoCol ? 'w-[820px] lg:w-[880px]' : 'w-[880px] lg:w-[940px]'
+            isTwoCol ? 'w-[min(820px,calc(100vw-3rem))] max-w-[calc(100vw-2rem)]' : 'w-[min(920px,calc(100vw-3rem))] max-w-[calc(100vw-2rem)]'
           )}
         >
           {/* Main Groups Columns */}
@@ -256,7 +263,6 @@ export function Navbar() {
                     <Link
                       key={sub.name}
                       href={sub.href}
-                      role="menuitem"
                       onClick={() => setActiveDropdown(null)}
                       className="group/item flex flex-col p-2 rounded-lg hover:bg-slate-100/90 dark:hover:bg-[#172033]/80 transition-all duration-150 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
                     >
@@ -321,8 +327,7 @@ export function Navbar() {
     if (config.type === 'mega-industries') {
       return (
         <div
-          role="menu"
-          className="w-[780px] lg:w-[840px] rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl p-6 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col gap-4"
+          className="w-[min(840px,calc(100vw-3rem))] max-w-[calc(100vw-2rem)] rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl p-6 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col gap-4"
         >
           <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800/80">
             <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500">
@@ -343,7 +348,6 @@ export function Navbar() {
               <Link
                 key={sub.name}
                 href={sub.href}
-                role="menuitem"
                 onClick={() => setActiveDropdown(null)}
                 className="group/ind p-3 rounded-xl hover:bg-slate-100/90 dark:hover:bg-slate-900/80 border border-transparent hover:border-slate-200/60 dark:hover:border-slate-800/60 transition-all duration-150 flex flex-col focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
               >
@@ -367,14 +371,12 @@ export function Navbar() {
     if (config.type === 'dropdown') {
       return (
         <div
-          role="menu"
           className="w-72 rounded-xl border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#0D1320] backdrop-blur-2xl p-2 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col gap-1"
         >
           {config.items?.map((sub) => (
             <Link
               key={sub.name}
               href={sub.href}
-              role="menuitem"
               onClick={() => setActiveDropdown(null)}
               className="group/drop px-3 py-2.5 rounded-lg hover:bg-slate-100/90 dark:hover:bg-[#172033]/80 transition-colors flex flex-col focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
             >
@@ -416,6 +418,7 @@ export function Navbar() {
         {/* Brand Logo */}
         <Link
           href={ROUTES.PUBLIC.HOME}
+          aria-current={pathname === '/en' || pathname === '/' ? 'page' : undefined}
           className="flex items-center gap-2.5 font-bold tracking-tight text-foreground group select-none shrink-0"
         >
           <Image
@@ -423,6 +426,7 @@ export function Navbar() {
             alt="AstraIV Logo"
             width={34}
             height={34}
+            priority
             className="rounded-full object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/15 group-hover:ring-primary/40"
           />
           <div className="flex flex-col items-start leading-tight">
@@ -450,12 +454,14 @@ export function Navbar() {
               >
                 <Link
                   href={item.href}
-                  onClick={() => {
+                  onClick={(e) => {
                     if (item.hasDropdown) {
-                      if (activeDropdown === item.id) {
-                        setActiveDropdown(null);
-                      } else {
+                      // On touch/hybrid devices, first tap opens the dropdown instead of navigating away
+                      if (activeDropdown !== item.id) {
+                        e.preventDefault();
                         setActiveDropdown(item.id);
+                      } else {
+                        setActiveDropdown(null);
                       }
                     }
                   }}
@@ -479,8 +485,10 @@ export function Navbar() {
                       ? 'text-foreground font-semibold'
                       : 'text-slate-600 dark:text-slate-300 hover:text-foreground'
                   )}
+                  aria-current={active ? 'page' : undefined}
                   aria-expanded={item.hasDropdown ? isDropdownOpen : undefined}
                   aria-haspopup={item.hasDropdown ? 'true' : undefined}
+                  aria-controls={item.hasDropdown ? `nav-dropdown-${item.id}` : undefined}
                 >
                   <span>{translatedLabel}</span>
                   {item.hasDropdown && (
@@ -498,12 +506,12 @@ export function Navbar() {
                       <motion.span
                         layoutId="activeNavIndicator"
                         className="absolute bottom-0 left-0 w-full h-[2.5px] rounded-full bg-gradient-to-r from-primary via-secondary to-accent dark:from-accent dark:via-primary dark:to-blue-400 z-10 shadow-[0_1px_6px_rgba(11,61,145,0.35)] dark:shadow-[0_0_12px_rgba(37,99,235,0.7)]"
-                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                        transition={MOTION_SPRINGS.snappy}
                       />
                       <motion.span
                         layoutId="activeNavGlow"
                         className="absolute bottom-0 left-0 w-full h-10 bg-gradient-to-t from-primary/15 via-accent/5 to-transparent dark:from-accent/25 dark:via-primary/15 dark:to-transparent blur-[8px] z-0 pointer-events-none"
-                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                        transition={MOTION_SPRINGS.snappy}
                       />
                     </>
                   )}
@@ -514,10 +522,11 @@ export function Navbar() {
                   <AnimatePresence>
                     {isDropdownOpen && (
                       <motion.div
-                        initial={{ opacity: 0, y: 6, scale: 0.99 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 4, scale: 0.99 }}
-                        transition={{ duration: 0.18, ease: 'easeOut' }}
+                        id={`nav-dropdown-${item.id}`}
+                        variants={dropdownMenuVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
                         className={cn(
                           'absolute top-full z-50 pt-2',
                           getDropdownPositionClass(item.id)
@@ -546,19 +555,18 @@ export function Navbar() {
           </Link>
 
           {/* Primary Enterprise CTA: Start a Project */}
-          <Link href={ROUTES.PUBLIC.START_PROJECT} className="relative group inline-block">
-            <button
-              className={cn(
-                'relative cursor-pointer font-bold rounded-md px-4.5 h-9 text-[12px] tracking-wide transition-all duration-200 shadow-sm flex items-center justify-center gap-2 border outline-none select-none active:scale-95 focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400',
-                'text-white bg-[#0B3D91] hover:bg-[#082d6c] border-blue-900/20 hover:shadow-md hover:shadow-[#0B3D91]/25',
-                'dark:bg-blue-600 dark:hover:bg-blue-500 dark:border-blue-400/30 dark:shadow-[0_0_16px_-2px_rgba(59,130,246,0.35)] dark:hover:shadow-[0_0_22px_-1px_rgba(59,130,246,0.55)]',
-                pathname === ROUTES.PUBLIC.START_PROJECT ? 'bg-[#093275] ring-2 ring-blue-500/40 dark:bg-blue-500 dark:ring-blue-400/50' : ''
-              )}
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-blue-400 dark:bg-blue-400 shadow-[0_0_6px_rgba(59,130,246,0.9)] animate-pulse" />
-              <span>{tNav.has('startProject') ? tNav('startProject') : 'Start a Project'}</span>
-              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
-            </button>
+          <Link
+            href={ROUTES.PUBLIC.START_PROJECT}
+            className={cn(
+              'relative cursor-pointer font-bold rounded-md px-4.5 h-9 text-[12px] tracking-wide transition-all duration-200 shadow-sm inline-flex items-center justify-center gap-2 border outline-none select-none active:scale-95 focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400',
+              'text-white bg-[#0B3D91] hover:bg-[#082d6c] border-blue-900/20 hover:shadow-md hover:shadow-[#0B3D91]/25',
+              'dark:bg-blue-600 dark:hover:bg-blue-500 dark:border-blue-400/30 dark:shadow-[0_0_16px_-2px_rgba(59,130,246,0.35)] dark:hover:shadow-[0_0_22px_-1px_rgba(59,130,246,0.55)]',
+              pathname === ROUTES.PUBLIC.START_PROJECT ? 'bg-[#093275] ring-2 ring-blue-500/40 dark:bg-blue-500 dark:ring-blue-400/50' : ''
+            )}
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-blue-400 dark:bg-blue-400 shadow-[0_0_6px_rgba(59,130,246,0.9)] animate-pulse" />
+            <span>{tNav.has('startProject') ? tNav('startProject') : 'Start a Project'}</span>
+            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
           </Link>
 
           {/* Custom Options Dropdown ("three lines" - strictly preserved) */}
@@ -590,11 +598,11 @@ export function Navbar() {
             <AnimatePresence>
               {showOptionsDropdown && (
                 <motion.div
-                  initial={{ opacity: 0, y: -2, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -2, scale: 0.98 }}
-                  transition={{ duration: 0.15, ease: 'easeOut' }}
-                  className="absolute right-0 top-full w-52 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0D1320] backdrop-blur-xl p-2 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)] z-50 text-xs flex flex-col gap-1"
+                  variants={dropdownMenuVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className="absolute right-0 top-full w-52 max-w-[calc(100vw-1.5rem)] rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0D1320] backdrop-blur-xl p-2 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)] z-50 text-xs flex flex-col gap-1"
                 >
                   {/* Language Selector Header */}
                   <button
@@ -673,41 +681,37 @@ export function Navbar() {
 
                   <div className="border-t border-slate-200 dark:border-slate-800 my-1" />
 
-                  {/* Theme Toggle Slider Section - TEMPORARILY DISABLED: Locked to Dark mode */}
-                  <div
+                  {/* Theme Toggle Slider Section */}
+                  <button
+                    type="button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      // Temporarily disabled: Theme switching locked to Dark mode
-                      // To re-enable: setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
+                      setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
                     }}
-                    className="w-full text-left px-3 py-2 rounded-md font-semibold flex items-center justify-between cursor-not-allowed opacity-60 text-slate-700 dark:text-slate-300 text-xs select-none group"
-                    role="button"
-                    tabIndex={-1}
-                    aria-label="Theme toggle (disabled)"
-                    aria-disabled="true"
-                    title="Theme selection is temporarily locked to Dark mode"
+                    className="w-full text-left px-3 py-2 rounded-md font-semibold flex items-center justify-between cursor-pointer text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900 text-xs select-none group transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary"
+                    aria-label={`Toggle theme (currently ${mounted ? (resolvedTheme === 'dark' ? 'Dark' : 'Light') : 'Theme'})`}
                   >
                     <div className="flex items-center gap-1.5">
                       <span>Theme</span>
                       <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">
-                        Dark
+                        {mounted ? (resolvedTheme === 'dark' ? 'Dark' : 'Light') : 'Theme'}
                       </span>
                     </div>
 
                     {/* Smooth sliding toggle button */}
                     <div
-                      className="relative w-10 h-5.5 rounded-full p-0.5 transition-colors duration-300 flex items-center border cursor-not-allowed bg-slate-800/90 border-slate-700 shadow-inner"
+                      className="relative w-10 h-5.5 rounded-full p-0.5 transition-colors duration-300 flex items-center border bg-slate-200 dark:bg-slate-800 border-slate-300 dark:border-slate-700 shadow-inner"
                     >
                       <div className="absolute inset-0 flex items-center justify-between px-1 pointer-events-none">
-                        <Sun className="h-2.5 w-2.5 text-amber-500/40" />
-                        <Moon className="h-2.5 w-2.5 text-blue-400/80" />
+                        <Sun className="h-2.5 w-2.5 text-amber-500" />
+                        <Moon className="h-2.5 w-2.5 text-blue-400" />
                       </div>
 
                       <motion.div
                         initial={false}
-                        className="relative z-10 w-4.5 h-4.5 rounded-full bg-white dark:bg-slate-950 shadow-xs flex items-center justify-center border border-slate-200/80 dark:border-blue-500/40"
+                        className="relative z-10 w-4.5 h-4.5 rounded-full bg-white dark:bg-slate-950 shadow-xs flex items-center justify-center border border-slate-200 dark:border-blue-500/40"
                         animate={{
-                          x: 18,
+                          x: mounted && resolvedTheme === 'dark' ? 18 : 0,
                         }}
                         transition={{
                           type: 'spring',
@@ -715,10 +719,14 @@ export function Navbar() {
                           damping: 32,
                         }}
                       >
-                        <Moon className="h-2.5 w-2.5 text-blue-400" />
+                        {mounted && resolvedTheme === 'dark' ? (
+                          <Moon className="h-2.5 w-2.5 text-blue-400" />
+                        ) : (
+                          <Sun className="h-2.5 w-2.5 text-amber-500" />
+                        )}
                       </motion.div>
                     </div>
-                  </div>
+                  </button>
 
                   <div className="border-t border-slate-200 dark:border-slate-800 my-1" />
 
@@ -736,16 +744,19 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Menu Trigger & Theme Quick Switch - TEMPORARILY DISABLED: Locked to Dark mode */}
+        {/* Mobile Menu Trigger & Theme Quick Switch */}
         <div className="flex lg:hidden items-center gap-2">
           <button
-            disabled
-            aria-disabled="true"
-            aria-label="Theme toggle (disabled)"
-            title="Theme selection is temporarily locked to Dark mode"
-            className="p-2 rounded-lg text-slate-400 dark:text-slate-400 opacity-60 cursor-not-allowed transition-colors"
+            onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+            aria-label="Toggle theme"
+            title="Toggle between Dark and Light mode"
+            className="p-2 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-colors cursor-pointer"
           >
-            <Moon className="h-5 w-5 text-blue-400" />
+            {mounted && resolvedTheme === 'dark' ? (
+              <Sun className="h-5 w-5 text-amber-400" />
+            ) : (
+              <Moon className="h-5 w-5 text-blue-600" />
+            )}
           </button>
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -764,13 +775,30 @@ export function Navbar() {
         {isOpen && (
           <motion.div
             id="mobile-navigation-drawer"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'calc(100vh - 4.5rem)' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="lg:hidden absolute top-full left-0 w-full bg-white/98 dark:bg-[#080C14]/98 backdrop-blur-2xl border-b border-slate-200 dark:border-white/10 shadow-2xl overflow-y-auto px-6 py-6 flex flex-col justify-between"
+            variants={mobileDrawerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="lg:hidden absolute top-full left-0 w-full h-[calc(100dvh-4.5rem)] max-h-[calc(100dvh-4.5rem)] bg-white/98 dark:bg-[#080C14]/98 backdrop-blur-2xl border-b border-slate-200 dark:border-white/10 shadow-2xl overflow-y-auto px-5 sm:px-6 py-6 flex flex-col justify-between overscroll-contain"
           >
             <div className="flex flex-col gap-1 divide-y divide-slate-100 dark:divide-slate-800/80">
+              {/* Explicit Home link in mobile drawer */}
+              <div className="py-2.5">
+                <Link
+                  href={ROUTES.PUBLIC.HOME}
+                  onClick={() => setIsOpen(false)}
+                  aria-current={pathname === '/en' || pathname === '/' ? 'page' : undefined}
+                  className={cn(
+                    'text-base font-bold transition-colors hover:text-primary block py-1.5',
+                    pathname === '/en' || pathname === '/'
+                      ? 'text-primary dark:text-accent'
+                      : 'text-slate-800 dark:text-slate-200'
+                  )}
+                >
+                  <span>Home</span>
+                </Link>
+              </div>
+
               {NAV_ITEMS.map((item) => {
                 const active = isItemActive(item);
                 const isExpanded = expandedMobileItem === item.id;
@@ -780,25 +808,36 @@ export function Navbar() {
                   <div key={item.id} className="py-2.5">
                     {item.hasDropdown ? (
                       <div className="flex flex-col">
-                        <button
-                          onClick={() => setExpandedMobileItem(isExpanded ? null : item.id)}
-                          aria-expanded={isExpanded}
-                          aria-controls={`mobile-menu-${item.id}`}
-                          className={cn(
-                            'w-full flex items-center justify-between text-left text-base font-bold transition-colors py-1.5',
-                            active
-                              ? 'text-primary dark:text-accent'
-                              : 'text-slate-800 dark:text-slate-200'
-                          )}
-                        >
-                          <span>{translatedLabel}</span>
-                          <ChevronDown
+                        <div className="w-full flex items-center justify-between py-1.5">
+                          <Link
+                            href={item.href}
+                            onClick={() => setIsOpen(false)}
+                            aria-current={active ? 'page' : undefined}
                             className={cn(
-                              'h-4 w-4 transition-transform duration-200 text-slate-400',
-                              isExpanded ? 'rotate-180 text-primary dark:text-accent' : ''
+                              'text-base font-bold transition-colors hover:text-primary',
+                              active
+                                ? 'text-primary dark:text-accent'
+                                : 'text-slate-800 dark:text-slate-200'
                             )}
-                          />
-                        </button>
+                          >
+                            <span>{translatedLabel}</span>
+                          </Link>
+                          <button
+                            type="button"
+                            onClick={() => setExpandedMobileItem(isExpanded ? null : item.id)}
+                            aria-expanded={isExpanded}
+                            aria-controls={`mobile-menu-${item.id}`}
+                            aria-label={`Toggle ${translatedLabel} menu`}
+                            className="min-h-[44px] min-w-[44px] p-2 flex items-center justify-center rounded-md text-slate-400 hover:text-foreground hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                          >
+                            <ChevronDown
+                              className={cn(
+                                'h-4 w-4 transition-transform duration-200',
+                                isExpanded ? 'rotate-180 text-primary dark:text-accent' : ''
+                              )}
+                            />
+                          </button>
+                        </div>
 
                         {/* Accordion Expandable Content */}
                         {isExpanded && item.megaMenu && (
@@ -873,6 +912,7 @@ export function Navbar() {
                       <Link
                         href={item.href}
                         onClick={() => setIsOpen(false)}
+                        aria-current={active ? 'page' : undefined}
                         className={cn(
                           'flex items-center justify-between text-base font-bold py-1.5',
                           active

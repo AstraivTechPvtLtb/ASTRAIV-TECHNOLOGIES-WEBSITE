@@ -43,17 +43,23 @@ export function SolutionCTASection({
 
           <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
             <Link
-              href={targetHref}
-              className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-xl shadow-blue-500/25 transition-all duration-300 group active:scale-95"
+              href={`/start-project?solution=${encodeURIComponent(solutionName || '')}`}
+              className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-xl shadow-blue-500/25 transition-all duration-300 group active:scale-95 cursor-pointer"
             >
-              <span>{buttonText}</span>
+              <span>Start a Project</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
-              href={ROUTES.PUBLIC.SOLUTIONS}
-              className="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-bold text-sm transition-colors"
+              href={targetHref}
+              className="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-white border border-slate-700/80 font-bold text-sm transition-colors cursor-pointer"
             >
-              <span>Explore All Solutions</span>
+              <span>{buttonText}</span>
+            </Link>
+            <Link
+              href={ROUTES.PUBLIC.SOLUTIONS}
+              className="inline-flex items-center gap-2 px-5 py-4 rounded-xl bg-transparent hover:bg-slate-900/60 text-slate-400 hover:text-slate-200 text-sm font-semibold transition-colors"
+            >
+              <span>Explore All Solutions →</span>
             </Link>
           </div>
         </div>

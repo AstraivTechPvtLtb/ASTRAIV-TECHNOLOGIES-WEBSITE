@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { SectionHeader } from './section-header';
 import { 
   Compass, 
@@ -16,6 +16,7 @@ import {
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import { CANONICAL_PROCESS_STAGES } from '@/lib/process-data';
+import { EASE_OUT_EXPO, MOTION_DURATIONS, MOTION_VIEWPORT } from '@/lib/motion';
 
 interface ProcessSectionProps {
   variant?: 'summary' | 'detailed';
@@ -41,6 +42,7 @@ function getStageIcon(iconName: string, className = "h-5 w-5") {
 
 export function ProcessSection({ variant = 'summary' }: ProcessSectionProps) {
   const isDetailed = variant === 'detailed';
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section id="process" className="py-20 md:py-28 px-6 bg-transparent border-y border-border/30 dark:border-slate-800/60 relative scroll-mt-24 overflow-hidden">
@@ -63,11 +65,12 @@ export function ProcessSection({ variant = 'summary' }: ProcessSectionProps) {
           {CANONICAL_PROCESS_STAGES.map((step, index) => (
             <motion.div
               key={step.num}
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: index * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
-              className="group relative p-7 sm:p-8 bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-[24px] shadow-xs hover:shadow-[0_16px_36px_-10px_rgba(11,61,145,0.1)] dark:hover:shadow-[0_16px_36px_-10px_rgba(37, 99, 235,0.1)] hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-300 transform-gpu hover:-translate-y-1 flex flex-col justify-between"
+              viewport={MOTION_VIEWPORT.once}
+              transition={{ delay: shouldReduceMotion ? 0 : index * 0.05, duration: MOTION_DURATIONS.reveal, ease: EASE_OUT_EXPO }}
+              whileHover={shouldReduceMotion ? {} : { y: -2, transition: { duration: MOTION_DURATIONS.fast, ease: EASE_OUT_EXPO } }}
+              className="group relative p-7 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-card hover:shadow-card-hover hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-300 transform-gpu flex flex-col justify-between"
             >
               <div>
                 {/* Top Row: Stage & Icon */}
@@ -149,6 +152,25 @@ export function ProcessSection({ variant = 'summary' }: ProcessSectionProps) {
             >
               <span>Explore Full 6-Stage Process &amp; Quality Gates</span>
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+        )}
+
+        {/* High-Intent Conversion CTA (Shown on Detailed variant) */}
+        {isDetailed && (
+          <div className="mt-14 sm:mt-16 text-center flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href={ROUTES.PUBLIC.START_PROJECT}
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-xs sm:text-sm font-bold shadow-md shadow-primary/20 transition-all group cursor-pointer"
+            >
+              <span>Scope Your Project With This Process</span>
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+            <Link
+              href={ROUTES.PUBLIC.CONTACT}
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-card border border-border hover:border-primary/60 text-xs sm:text-sm font-bold text-foreground hover:text-primary transition-all shadow-2xs group cursor-pointer"
+            >
+              <span>Talk to an Architect</span>
             </Link>
           </div>
         )}

@@ -3,7 +3,8 @@ import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { Navbar, Footer } from '@/views';
 import { StartProjectWizard } from '@/views/sections/start-project/start-project-wizard';
-import { Loader2, Sparkles } from 'lucide-react';
+import { StartProjectSkeleton } from './loading';
+import { Sparkles } from 'lucide-react';
 import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';
 
 interface StartProjectPageProps {
@@ -35,7 +36,7 @@ export default async function StartProjectPage({ params }: StartProjectPageProps
       />
       <Navbar />
 
-      <main className="pt-28 pb-16 flex-grow z-10 relative">
+      <main id="main-content" className="pt-28 pb-16 flex-grow z-10 relative">
         {/* Page Hero Header */}
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 mb-4 sm:mb-8">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 border border-primary/20 dark:border-blue-400/20 mb-4 select-none">
@@ -55,14 +56,7 @@ export default async function StartProjectPage({ params }: StartProjectPageProps
           </p>
         </div>
 
-        {/* Multi-Step Wizard Container */}
-        <Suspense
-          fallback={
-            <div className="w-full min-h-[400px] flex items-center justify-center">
-              <Loader2 className="w-8 h-8 text-primary animate-spin" />
-            </div>
-          }
-        >
+        <Suspense fallback={<StartProjectSkeleton />}>
           <StartProjectWizard />
         </Suspense>
       </main>

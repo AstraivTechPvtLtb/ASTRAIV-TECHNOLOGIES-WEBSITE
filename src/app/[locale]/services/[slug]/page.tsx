@@ -2,9 +2,9 @@ import { setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import { Navbar, Footer } from '@/views';
 import { routing } from '@/i18n/routing';
-import { notFound, redirect } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { Link } from '@/i18n/routing';
-import { ArrowLeft, ArrowRight, CheckCircle2, Sparkles, Wrench, Star, Quote } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Sparkles, Wrench, Star, Quote } from 'lucide-react';
 import { ServiceIcon } from '@/views/ui/service-icon';
 import {
   getPublishedServiceBySlug,
@@ -20,6 +20,7 @@ import {
 } from '@/views/sections/relationships';
 import { ROUTES } from '@/routes';
 import { BreadcrumbSchema, getServiceJsonLd, createPageMetadata } from '@/lib/seo';
+import { RECLASSIFIED_SERVICES_TO_SOLUTIONS, SLUG_ALIASES } from '@/lib/services-data';
 
 export const dynamic = 'force-dynamic';
 
@@ -29,18 +30,13 @@ interface ServiceDetailPageProps {
 
 export async function generateMetadata({ params }: ServiceDetailPageProps) {
   const { locale, slug } = await params;
+  const normalizedSlug = slug.toLowerCase().trim();
 
-  if (slug === 'digital-transformation') {
+  const reclassifiedPath = RECLASSIFIED_SERVICES_TO_SOLUTIONS[normalizedSlug];
+  if (reclassifiedPath) {
     return createPageMetadata({
-      title: 'Digital Transformation | Astraiv Solutions',
-      path: '/solutions/digital-transformation',
-      locale,
-    });
-  }
-  if (slug === 'business-automation') {
-    return createPageMetadata({
-      title: 'Business Process Automation | Astraiv Solutions',
-      path: '/solutions/business-process-automation',
+      title: 'Astraiv Solutions',
+      path: reclassifiedPath,
       locale,
     });
   }
@@ -151,12 +147,18 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
 
   setRequestLocale(locale);
 
-  // Seamless redirect for items reclassified to Solutions
-  if (slug === 'digital-transformation') {
-    redirect(`/${locale}/solutions/digital-transformation`);
+  const normalizedSlug = slug.toLowerCase().trim();
+
+  // Seamless permanent 308 redirect for items reclassified to Solutions
+  const reclassifiedPath = RECLASSIFIED_SERVICES_TO_SOLUTIONS[normalizedSlug];
+  if (reclassifiedPath) {
+    permanentRedirect(`/${locale}${reclassifiedPath}`);
   }
-  if (slug === 'business-automation') {
-    redirect(`/${locale}/solutions/business-process-automation`);
+
+  // Seamless permanent 308 redirect for legacy aliases
+  const canonicalAlias = SLUG_ALIASES[normalizedSlug];
+  if (canonicalAlias && canonicalAlias !== normalizedSlug) {
+    permanentRedirect(`/${locale}/services/${canonicalAlias}`);
   }
 
   // Retrieve published service and resolved relational context from Relational CMS
@@ -205,14 +207,18 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
         <div className="absolute top-96 right-10 w-[400px] h-[300px] bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="max-w-5xl mx-auto px-6 py-8">
-          {/* Back Navigation */}
-          <Link
-            href={ROUTES.PUBLIC.SERVICES}
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-400 hover:text-primary transition-all duration-300 mb-8 group"
-          >
-            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-            <span>Back to All Services</span>
-          </Link>
+          {/* Visual Breadcrumb Trail */}
+          <div className="flex flex-wrap items-center gap-2 mb-8 text-xs font-semibold text-slate-400">
+            <Link href={ROUTES.PUBLIC.HOME} className="hover:text-primary transition-colors">
+              Home
+            </Link>
+            <span>/</span>
+            <Link href={ROUTES.PUBLIC.SERVICES} className="hover:text-primary transition-colors">
+              Services
+            </Link>
+            <span>/</span>
+            <span className="text-slate-200 font-bold truncate max-w-xs">{service.title}</span>
+          </div>
 
           {/* 1. SERVICE HERO CARD */}
           <div className="relative overflow-hidden rounded-3xl bg-slate-900/80 border border-slate-800 backdrop-blur-xl p-8 sm:p-12 mb-12 shadow-2xl">

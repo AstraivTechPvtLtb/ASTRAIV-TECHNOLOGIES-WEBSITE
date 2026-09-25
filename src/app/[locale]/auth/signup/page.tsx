@@ -96,9 +96,9 @@ export default function SignupPage() {
                 <span className="text-[7px] uppercase tracking-[0.28em] font-black text-white/90">TECHNOLOGIES</span>
               </div>
             </Link>
-            <h2 className="font-heading font-extrabold text-2xl tracking-tight text-white mb-1.5">
+            <h1 className="font-heading font-extrabold text-2xl tracking-tight text-white mb-1.5">
               Create an Account
-            </h2>
+            </h1>
             <p className="text-xs text-muted-foreground/80 font-medium">
               Join Astraiv and deploy your next-gen code
             </p>

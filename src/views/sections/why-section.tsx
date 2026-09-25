@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { SectionHeader } from './section-header';
 import { 
   TrendingUp, 
@@ -14,6 +14,7 @@ import {
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import { WHY_ASTRAIV_PILLARS } from '@/lib/why-astraiv-data';
+import { EASE_OUT_EXPO, MOTION_DURATIONS, MOTION_VIEWPORT } from '@/lib/motion';
 
 interface WhySectionProps {
   variant?: 'summary' | 'detailed';
@@ -35,6 +36,7 @@ function getPillarIcon(iconName: string, className = "h-5 w-5") {
 
 export function WhySection({ variant = 'summary' }: WhySectionProps) {
   const isDetailed = variant === 'detailed';
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section id="why-us" className="py-20 md:py-28 px-6 bg-transparent border-y border-border/30 dark:border-slate-800/60 relative scroll-mt-24 overflow-hidden">
@@ -57,20 +59,21 @@ export function WhySection({ variant = 'summary' }: WhySectionProps) {
           {WHY_ASTRAIV_PILLARS.map((pillar, index) => (
             <motion.div
               key={pillar.id}
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: index * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
-              className="group relative p-6 sm:p-8 bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-[24px] shadow-xs hover:shadow-[0_16px_36px_-10px_rgba(11,61,145,0.1)] dark:hover:shadow-[0_16px_36px_-10px_rgba(37, 99, 235,0.1)] hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-300 transform-gpu hover:-translate-y-1 flex flex-col justify-between"
+              viewport={MOTION_VIEWPORT.once}
+              transition={{ delay: shouldReduceMotion ? 0 : index * 0.06, duration: MOTION_DURATIONS.reveal, ease: EASE_OUT_EXPO }}
+              whileHover={shouldReduceMotion ? {} : { y: -2, transition: { duration: MOTION_DURATIONS.fast, ease: EASE_OUT_EXPO } }}
+              className="group relative p-5 sm:p-6 lg:p-7 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-card hover:shadow-card-hover hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-300 transform-gpu flex flex-col justify-between"
             >
               <div>
                 {/* Top Row: Number, Icon & Badge */}
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-xl sm:text-2xl font-black font-mono text-slate-300/80 dark:text-slate-700/80 group-hover:text-primary dark:group-hover:text-blue-400 transition-colors">
+                    <span className="text-xl sm:text-2xl font-black font-mono text-slate-400 dark:text-slate-600 group-hover:text-primary dark:group-hover:text-blue-400 transition-colors">
                       {pillar.num}
                     </span>
-                    <span className="px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase rounded-md bg-primary/10 text-primary dark:text-blue-400 border border-primary/20">
+                    <span className="px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase rounded-md bg-primary/10 text-primary dark:text-blue-300 border border-primary/20">
                       {pillar.badge}
                     </span>
                   </div>
@@ -128,10 +131,10 @@ export function WhySection({ variant = 'summary' }: WhySectionProps) {
           <div className="mt-12 sm:mt-14 text-center">
             <Link
               href={ROUTES.PUBLIC.COMPANY_ANCHORS.WHY_US}
-              className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-card/85 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-border/70 dark:border-slate-700 hover:border-primary/40 dark:hover:border-blue-400 text-foreground font-bold text-sm transition-all shadow-xs hover:shadow-md hover:scale-105 active:scale-95 group"
+              className="inline-flex items-center justify-center gap-2.5 w-full max-w-md sm:w-auto px-5 sm:px-8 py-3.5 rounded-xl bg-card/85 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-border/70 dark:border-slate-700 hover:border-primary/40 dark:hover:border-blue-400 text-foreground font-bold text-xs sm:text-sm text-center leading-snug transition-all shadow-xs hover:shadow-md hover:scale-105 active:scale-95 group"
             >
               <span>Why Astraiv: Explore Technical Tenets &amp; Philosophy</span>
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 text-primary dark:text-blue-400" />
+              <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1 text-primary dark:text-blue-400" />
             </Link>
           </div>
         )}

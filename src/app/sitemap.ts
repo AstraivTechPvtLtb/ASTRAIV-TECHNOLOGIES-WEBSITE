@@ -118,14 +118,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const allPages: SitemapPageItem[] = [...staticPages, ...dynamicPages];
   const entries: MetadataRoute.Sitemap = [];
 
-  // Generate localized URLs for all supported languages
+  // Generate localized URLs for all supported languages with alternates hreflang
   for (const page of allPages) {
+    const languages: Record<string, string> = {
+      'x-default': `${baseUrl}${getLocalizedPath(page.path, 'en')}`,
+    };
+    for (const loc of locales) {
+      languages[loc] = `${baseUrl}${getLocalizedPath(page.path, loc)}`;
+    }
+
     for (const locale of locales) {
       entries.push({
         url: `${baseUrl}${getLocalizedPath(page.path, locale)}`,
         lastModified: page.lastModified || new Date(),
         changeFrequency: page.changeFrequency,
         priority: page.priority,
+        alternates: {
+          languages,
+        },
       });
     }
   }

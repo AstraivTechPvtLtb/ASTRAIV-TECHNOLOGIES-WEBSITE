@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { auth } from '@/models';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -6,6 +7,14 @@ import { DashboardRole } from '@/views/layouts/sidebar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/views/ui/card';
 import { Globe, Bell } from 'lucide-react';
 import { ROUTES, getLocalizedPath } from '@/routes';
+
+export const metadata: Metadata = {
+  title: 'Settings | Astraiv Technologies',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 interface SettingsPageProps {
   params: Promise<{ locale: string }>;

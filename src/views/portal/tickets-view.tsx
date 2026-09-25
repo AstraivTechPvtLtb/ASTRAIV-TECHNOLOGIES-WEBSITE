@@ -1,6 +1,6 @@
 'use client';
 
-import { ClientTicket } from '@prisma/client';
+import type { ClientTicket } from '@prisma/client';
 
 type TicketWithRelations = ClientTicket & {
   client?: {

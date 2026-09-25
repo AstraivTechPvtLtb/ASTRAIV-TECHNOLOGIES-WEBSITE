@@ -401,7 +401,7 @@ async function main() {
         originalReview: 'Astraiv Technologies rebuilt our entire broker core without a single minute of downtime. The speed and real-time collaboration have transformed how our trading desks close deals.',
         rating: 5,
         displayRating: 5,
-        projectId: 'nova-crm',
+        projectId: 'nova-crm-saas',
         serviceId: 'web-development',
         industryId: 'fintech',
         imageUrl: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=256&h=256&fit=crop',

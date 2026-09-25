@@ -33,6 +33,7 @@ import {
   FileEdit,
   AlertCircle,
   Zap,
+  RotateCcw,
 } from 'lucide-react';
 import { Button } from '@/views/ui/button';
 import { Input } from '@/views/ui/input';
@@ -551,20 +552,13 @@ export function StartProjectWizard() {
                   const Icon = opt.icon;
                   const isSelected = formData.projectType === opt.type;
                   return (
-                    <div
+                    <button
+                      type="button"
                       key={opt.type}
-                      role="button"
-                      tabIndex={0}
                       aria-pressed={isSelected}
                       onClick={() => updateField('projectType', opt.type)}
-                      onKeyDown={(e) => {
-                        if (e.key === ' ' || e.key === 'Enter') {
-                          e.preventDefault();
-                          updateField('projectType', opt.type);
-                        }
-                      }}
                       className={cn(
-                        'group relative p-5 rounded-2xl border text-left cursor-pointer transition-all duration-200 select-none flex flex-col justify-between',
+                        'group relative p-5 rounded-2xl border text-left cursor-pointer transition-all duration-200 select-none flex flex-col justify-between w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-500',
                         isSelected
                           ? 'bg-primary/5 dark:bg-blue-600/10 border-primary dark:border-blue-500 ring-2 ring-primary/20 dark:ring-blue-500/30 shadow-lg'
                           : 'bg-card/50 dark:bg-slate-900/50 border-border/70 dark:border-slate-800 hover:border-primary/40 dark:hover:border-blue-400/50 hover:bg-card dark:hover:bg-slate-800/40'
@@ -609,7 +603,7 @@ export function StartProjectWizard() {
                           {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
                         </div>
                       </div>
-                    </div>
+                    </button>
                   );
                 })}
               </div>
@@ -710,27 +704,20 @@ export function StartProjectWizard() {
                   {PRODUCT_STATES.map((ps) => {
                     const isSelected = formData.productType === ps.id;
                     return (
-                      <div
+                      <button
+                        type="button"
                         key={ps.id}
-                        role="button"
-                        tabIndex={0}
                         aria-pressed={isSelected}
                         onClick={() => updateField('productType', ps.id)}
-                        onKeyDown={(e) => {
-                          if (e.key === ' ' || e.key === 'Enter') {
-                            e.preventDefault();
-                            updateField('productType', ps.id);
-                          }
-                        }}
                         className={cn(
-                          'p-4 rounded-xl border cursor-pointer transition-all select-none text-left',
+                          'p-4 rounded-xl border cursor-pointer transition-all select-none text-left w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-500',
                           isSelected
                             ? 'bg-primary/5 dark:bg-blue-600/10 border-primary dark:border-blue-500 ring-2 ring-primary/20 dark:ring-blue-500/30'
                             : 'bg-card/40 dark:bg-slate-900/40 border-border/60 dark:border-slate-800 hover:border-primary/40'
                         )}
                       >
-                        <div className="flex items-center justify-between mb-1.5">
-                          <h4 className="font-bold text-xs sm:text-sm text-foreground">{ps.title}</h4>
+                        <div className="flex items-center justify-between mb-1.5 w-full">
+                          <span className="font-bold text-xs sm:text-sm text-foreground">{ps.title}</span>
                           <span
                             className={cn(
                               'w-3.5 h-3.5 rounded-full border',
@@ -741,7 +728,7 @@ export function StartProjectWizard() {
                           />
                         </div>
                         <p className="text-xs text-muted-foreground leading-relaxed">{ps.desc}</p>
-                      </div>
+                      </button>
                     );
                   })}
                 </div>
@@ -850,27 +837,20 @@ export function StartProjectWizard() {
                   {TIMELINES.map((t) => {
                     const isSelected = formData.timeline === t.label;
                     return (
-                      <div
+                      <button
+                        type="button"
                         key={t.label}
-                        role="button"
-                        tabIndex={0}
                         aria-pressed={isSelected}
                         onClick={() => updateField('timeline', t.label)}
-                        onKeyDown={(e) => {
-                          if (e.key === ' ' || e.key === 'Enter') {
-                            e.preventDefault();
-                            updateField('timeline', t.label);
-                          }
-                        }}
                         className={cn(
-                          'p-4 rounded-xl border cursor-pointer transition-all select-none text-left',
+                          'p-4 rounded-xl border cursor-pointer transition-all select-none text-left w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-500',
                           isSelected
                             ? 'bg-primary/5 dark:bg-blue-600/10 border-primary dark:border-blue-500 ring-2 ring-primary/20 dark:ring-blue-500/30'
                             : 'bg-card/40 dark:bg-slate-900/40 border-border/60 dark:border-slate-800 hover:border-primary/40'
                         )}
                       >
-                        <div className="flex items-center justify-between mb-1">
-                          <h4 className="font-bold text-sm text-foreground">{t.label}</h4>
+                        <div className="flex items-center justify-between mb-1 w-full">
+                          <span className="font-bold text-sm text-foreground">{t.label}</span>
                           <span
                             className={cn(
                               'w-3.5 h-3.5 rounded-full border',
@@ -881,7 +861,7 @@ export function StartProjectWizard() {
                           />
                         </div>
                         <p className="text-xs text-muted-foreground">{t.desc}</p>
-                      </div>
+                      </button>
                     );
                   })}
                 </div>
@@ -896,30 +876,23 @@ export function StartProjectWizard() {
                   {PROJECT_STAGES.map((ps) => {
                     const isSelected = formData.projectStage === ps.id;
                     return (
-                      <div
+                      <button
+                        type="button"
                         key={ps.id}
-                        role="button"
-                        tabIndex={0}
                         aria-pressed={isSelected}
                         onClick={() => updateField('projectStage', ps.id)}
-                        onKeyDown={(e) => {
-                          if (e.key === ' ' || e.key === 'Enter') {
-                            e.preventDefault();
-                            updateField('projectStage', ps.id);
-                          }
-                        }}
                         className={cn(
-                          'p-4 rounded-xl border cursor-pointer transition-all select-none text-left flex flex-col justify-between',
+                          'p-4 rounded-xl border cursor-pointer transition-all select-none text-left flex flex-col justify-between w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-500',
                           isSelected
                             ? 'bg-primary/5 dark:bg-blue-600/10 border-primary dark:border-blue-500 ring-2 ring-primary/20 dark:ring-blue-500/30'
                             : 'bg-card/40 dark:bg-slate-900/40 border-border/60 dark:border-slate-800 hover:border-primary/40'
                         )}
                       >
                         <div>
-                          <h4 className="font-bold text-xs sm:text-sm text-foreground mb-1">{ps.title}</h4>
+                          <span className="block font-bold text-xs sm:text-sm text-foreground mb-1">{ps.title}</span>
                           <p className="text-xs text-muted-foreground leading-relaxed">{ps.desc}</p>
                         </div>
-                        <div className="mt-3 flex justify-end">
+                        <div className="mt-3 flex justify-end w-full">
                           <span
                             className={cn(
                               'w-3.5 h-3.5 rounded-full border',
@@ -929,7 +902,7 @@ export function StartProjectWizard() {
                             )}
                           />
                         </div>
-                      </div>
+                      </button>
                     );
                   })}
                 </div>
@@ -1228,9 +1201,34 @@ export function StartProjectWizard() {
               </div>
 
               {submissionError && (
-                <div className="p-4 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-xs font-semibold flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 shrink-0" />
-                  <span>{submissionError}</span>
+                <div role="alert" aria-live="assertive" className="p-4 sm:p-5 rounded-2xl bg-destructive/10 border border-destructive/20 text-destructive text-xs font-semibold space-y-2.5">
+                  <div className="flex items-start gap-2.5">
+                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                    <div className="space-y-0.5">
+                      <span className="font-bold text-foreground">Project Brief Transmission Not Completed</span>
+                      <p className="text-[11px] text-muted-foreground font-normal">
+                        {submissionError} (All your brief details and parameters remain safely saved above.)
+                      </p>
+                    </div>
+                  </div>
+                  <div className="pt-2 border-t border-destructive/15 flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={handleSubmit}
+                      disabled={isSubmitting}
+                      className="font-bold text-primary hover:underline cursor-pointer flex items-center gap-1.5"
+                    >
+                      <RotateCcw className="w-3.5 h-3.5" />
+                      <span>Retry Brief Submission</span>
+                    </button>
+                    <span className="text-muted-foreground/40">•</span>
+                    <a
+                      href="mailto:info@astraivtechnologies.com"
+                      className="text-muted-foreground hover:text-foreground underline underline-offset-2"
+                    >
+                      Email info@astraivtechnologies.com
+                    </a>
+                  </div>
                 </div>
               )}
             </motion.div>
@@ -1238,7 +1236,7 @@ export function StartProjectWizard() {
         </AnimatePresence>
 
         {/* Action Controls Bar */}
-        <div className="mt-10 pt-6 border-t border-border/50 dark:border-slate-800/80 flex items-center justify-between gap-4 relative z-10">
+        <div className="mt-10 pt-6 border-t border-border/50 dark:border-slate-800/80 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 relative z-10">
           <div>
             {currentStep > 1 && (
               <Button
@@ -1246,7 +1244,7 @@ export function StartProjectWizard() {
                 variant="outline"
                 onClick={handleBack}
                 disabled={isSubmitting}
-                className="gap-2 px-5 rounded-xl text-xs font-bold border-border/70 hover:bg-card"
+                className="w-full sm:w-auto min-h-[44px] gap-2 px-5 rounded-xl text-xs font-bold border-border/70 hover:bg-card justify-center"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Back</span>
@@ -1259,9 +1257,10 @@ export function StartProjectWizard() {
               <Button
                 type="button"
                 onClick={handleNext}
-                className="gap-2 px-7 py-5 rounded-xl font-extrabold text-xs sm:text-sm bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/25 active:scale-95 transition-all"
+                className="w-full sm:w-auto min-h-[44px] gap-2 px-6 sm:px-7 py-3.5 sm:py-5 rounded-xl font-extrabold text-xs sm:text-sm bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/25 active:scale-95 transition-all justify-center"
               >
-                <span>Continue to Step {currentStep + 1}</span>
+                <span className="hidden sm:inline">Continue to Step {currentStep + 1}</span>
+                <span className="sm:hidden">Next Step</span>
                 <ArrowRight className="w-4 h-4" />
               </Button>
             ) : (
@@ -1269,7 +1268,7 @@ export function StartProjectWizard() {
                 type="button"
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="gap-2 px-8 py-5 rounded-xl font-extrabold text-xs sm:text-sm bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 dark:hover:bg-blue-500 text-white shadow-xl shadow-blue-500/25 active:scale-95 transition-all select-none"
+                className="w-full sm:w-auto min-h-[44px] gap-2 px-8 py-3.5 sm:py-5 rounded-xl font-extrabold text-xs sm:text-sm bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 dark:hover:bg-blue-500 text-white shadow-xl shadow-blue-500/25 active:scale-95 transition-all select-none justify-center"
               >
                 {isSubmitting ? (
                   <>

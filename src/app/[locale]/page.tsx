@@ -4,25 +4,28 @@ import { getPublicActiveServices } from '@/controllers/services.controller';
 import { getFeaturedTestimonials, getPublicComplianceSettings } from '@/controllers/public-data.controller';
 import { ROUTES } from '@/routes';
 import { createPageMetadata, getWebSiteJsonLd } from '@/lib/seo';
-import {
-  Navbar,
-  Footer,
-  HeroSection,
-  TrustStrip,
-  ServicesSection,
-  SolutionsSection,
-  CaseStudiesSection,
-  IndustriesSection,
-  TechSection,
-  WhySection,
-  ProcessSection,
-  TestimonialsSection,
-  InsightsSection,
-  FinalCtaSection,
-} from '@/views';
+import { Navbar } from '@/views/layouts/navbar';
+import { Footer } from '@/views/layouts/footer';
+import { HeroSection } from '@/views/sections/hero-section';
+import { TrustStrip } from '@/views/sections/trust-strip';
+import { ServicesSection } from '@/views/sections/services-section';
+import { SolutionsSection } from '@/views/sections/solutions-section';
+import { CaseStudiesSection } from '@/views/sections/case-studies-section';
+import { IndustriesSection } from '@/views/sections/industries-section';
+import { TechSection } from '@/views/sections/tech-section';
+import { WhySection } from '@/views/sections/why-section';
+import { ProcessSection } from '@/views/sections/process-section';
+import { TestimonialsSection } from '@/views/sections/testimonials-section';
+import { InsightsSection } from '@/views/sections/insights-section';
+import { FinalCtaSection } from '@/views/sections/final-cta-section';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+import { routing } from '@/i18n/routing';
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export const revalidate = 300;
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -57,12 +60,12 @@ export default async function HomePage({ params }: HomePageProps) {
     <div className="flex flex-col min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(getWebSiteJsonLd()) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getWebSiteJsonLd(locale)) }}
       />
       {/* Global Navigation Header */}
       <Navbar />
 
-      <main className="flex-1 w-full overflow-x-hidden">
+      <main id="main-content" className="flex-1 w-full overflow-x-hidden">
         {/* 1. HERO */}
         <HeroSection
           badgeText={t('heroBadge')}

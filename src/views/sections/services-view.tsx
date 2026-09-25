@@ -322,14 +322,15 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
               >
                 {service.id === 'ai-development' && <span id="ai-intelligent-systems" className="absolute -top-28 pointer-events-none" />}
                 {service.id === 'ai-solutions' && <span id="ai-intelligent-systems" className="absolute -top-28 pointer-events-none" />}
-                {service.id === 'web-applications' && (
+                {(service.id === 'web-development' || service.id === 'web-applications') && (
                   <>
+                    <span id="web-applications" className="absolute -top-28 pointer-events-none" />
                     <span id="web-development" className="absolute -top-28 pointer-events-none" />
                     <span id="saas-development" className="absolute -top-28 pointer-events-none" />
+                    <span id="website-development" className="absolute -top-28 pointer-events-none" />
                   </>
                 )}
                 {service.id === 'custom-software' && <span id="enterprise-software" className="absolute -top-28 pointer-events-none" />}
-                {service.id === 'web-development' && <span id="website-development" className="absolute -top-28 pointer-events-none" />}
                 {service.id === 'cloud-infrastructure' && <span id="cloud-solutions" className="absolute -top-28 pointer-events-none" />}
                 {service.id === 'cloud-engineering' && <span id="cloud-infrastructure" className="absolute -top-28 pointer-events-none" />}
                 {service.id === 'ui-ux-design' && <span id="uiux-design" className="absolute -top-28 pointer-events-none" />}

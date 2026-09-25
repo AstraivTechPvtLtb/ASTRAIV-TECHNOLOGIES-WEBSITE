@@ -106,7 +106,9 @@ export async function getPublishedServices(): Promise<PublicServiceItem[]> {
         if (seen.has(canonical)) continue;
         seen.add(canonical);
 
-        const defaultMeta = DEFAULT_SERVICES.find((d) => d.slug === canonical);
+        const defaultMeta = DEFAULT_SERVICES.find(
+          (d) => d.slug === canonical || normalizeServiceSlug(d.slug) === canonical
+        );
         results.push({
           id: s.id,
           title: defaultMeta?.title || s.title,
@@ -155,7 +157,9 @@ export async function getPublishedServiceBySlug(rawSlug: string): Promise<Public
     });
 
     if (s) {
-      const defaultMeta = DEFAULT_SERVICES.find((d) => d.slug === canonical);
+      const defaultMeta = DEFAULT_SERVICES.find(
+        (d) => d.slug === canonical || d.slug === rawSlug || normalizeServiceSlug(d.slug) === canonical
+      );
       return {
         id: s.id,
         title: defaultMeta?.title || s.title,
@@ -177,8 +181,16 @@ export async function getPublishedServiceBySlug(rawSlug: string): Promise<Public
     console.warn('[CMS Controller - Service slug fallback]:', (err as Error)?.message || err);
   }
 
-  const defaultMeta = DEFAULT_SERVICES.find((d) => d.slug === canonical);
-  return defaultMeta || null;
+  const defaultMeta = DEFAULT_SERVICES.find(
+    (d) => d.slug === canonical || d.slug === rawSlug || normalizeServiceSlug(d.slug) === canonical
+  );
+  if (defaultMeta) {
+    return {
+      ...defaultMeta,
+      slug: canonical,
+    };
+  }
+  return null;
 }
 
 /* ========================================================================== */

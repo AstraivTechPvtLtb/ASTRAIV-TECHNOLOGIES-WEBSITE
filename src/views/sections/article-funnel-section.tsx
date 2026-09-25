@@ -1,5 +1,3 @@
-'use client';
-
 import { Link } from '@/i18n/routing';
 import { ArrowRight, Sparkles, CheckCircle2, Layers, Cpu, BarChart3, MessageSquareCode } from 'lucide-react';
 import type { ArticleFunnelRelationships } from '@/lib/insights-data';

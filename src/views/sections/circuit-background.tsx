@@ -73,8 +73,9 @@ export function CircuitBackground() {
       ctx.scale(dpr, dpr);
     };
 
-    // Function to spawn a circuit trace path at coordinates
+    // Function to spawn a circuit trace path at coordinates (capped at 10 max for smooth 60fps)
     const spawnPath = (x: number, y: number) => {
+      if (activePaths.length >= 10) return;
       pathIdCounter.current += 1;
       
       const isAccent = Math.random() > 0.45;

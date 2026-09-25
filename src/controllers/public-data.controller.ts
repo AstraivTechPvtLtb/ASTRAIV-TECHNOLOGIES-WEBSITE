@@ -6,6 +6,7 @@
  */
 
 import { db } from '@/models/db';
+import { safeCache } from '@/lib/cache';
 import { isSupabaseConfigured, createClient as createSupabaseClient } from '@/lib/supabase/server';
 import {
   PublicJobOpening,
@@ -138,7 +139,7 @@ const VERIFIED_CANONICAL_FALLBACK: Testimonial[] = [
     avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=256&h=256&fit=crop',
     review_text: 'Astraiv Technologies rebuilt our entire broker core without a single minute of downtime. The speed and real-time collaboration have transformed how our trading desks close deals.',
     rating: 5,
-    project_id: 'nova-crm',
+    project_id: 'nova-crm-saas',
     service_id: 'web-development',
     industry_id: 'fintech',
     status: 'approved',
@@ -272,7 +273,7 @@ function mapRowToTestimonial(r: {
  * Retrieves public testimonials approved by the Astraiv admin team.
  * Never exposes admin notes or private submitter data publicly.
  */
-export async function getApprovedTestimonials(
+async function fetchApprovedTestimonials(
   options: GetApprovedTestimonialsOptions = {}
 ): Promise<Testimonial[]> {
   const { featuredOnly = false, projectId, serviceId, industryId, limit } = options;
@@ -397,6 +398,17 @@ export async function getApprovedTestimonials(
     console.error('[Public Reviews Controller Error]:', error);
     return VERIFIED_CANONICAL_FALLBACK.slice(0, limit || 6);
   }
+}
+
+export async function getApprovedTestimonials(
+  options: GetApprovedTestimonialsOptions = {}
+): Promise<Testimonial[]> {
+  const cacheKey = JSON.stringify(options);
+  return safeCache(
+    () => fetchApprovedTestimonials(options),
+    ['approved-testimonials', cacheKey],
+    { revalidate: 300, tags: ['public-testimonials'] }
+  )();
 }
 
 /**
@@ -736,7 +748,7 @@ interface PrismaWithCompliance {
 /**
  * Retrieves client website ISO compliance certification and metrics settings.
  */
-export async function getPublicComplianceSettings(): Promise<PublicComplianceSettings> {
+async function fetchPublicComplianceSettings(): Promise<PublicComplianceSettings> {
   try {
     const complianceModel = (db as unknown as PrismaWithCompliance).complianceSetting;
     let record: ComplianceDbRecord | null = null;
@@ -861,4 +873,10 @@ export async function getPublicComplianceSettings(): Promise<PublicComplianceSet
 
   return DEFAULT_COMPLIANCE_SETTINGS;
 }
+
+export const getPublicComplianceSettings = safeCache(
+  fetchPublicComplianceSettings,
+  ['public-compliance-settings'],
+  { revalidate: 300, tags: ['compliance-settings'] }
+);
 

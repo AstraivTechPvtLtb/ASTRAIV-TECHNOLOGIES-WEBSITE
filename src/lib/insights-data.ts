@@ -327,7 +327,7 @@ export const INSIGHT_ARTICLES: InsightArticle[] = [
     category: INSIGHT_CATEGORIES[3], // Web Development
     readingTime: '8 min read',
     tags: ['Next.js 16', 'React 19', 'PPR', 'Server Actions', 'Web Performance', 'Tailwind CSS'],
-    relatedServiceSlugs: ['web-applications'],
+    relatedServiceSlugs: ['web-development'],
     relatedSolutionSlugs: ['saas-platforms'],
     relatedIndustrySlugs: ['saas', 'edtech'],
     relatedCaseStudySlugs: ['pulsefit'],

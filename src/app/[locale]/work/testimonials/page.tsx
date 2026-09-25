@@ -50,36 +50,40 @@ export default async function TestimonialsPage({ params }: TestimonialsPageProps
   const averageRating =
     totalReviews > 0
       ? (testimonials.reduce((sum, t) => sum + (t.rating || 5), 0) / totalReviews).toFixed(1)
-      : '5.0';
+      : null;
 
-  // Schema.org JSON-LD Structured Data
-  const jsonLd = {
+  // Schema.org JSON-LD Structured Data (strictly omit aggregate rating if no verified reviews to prevent fabrication)
+  const jsonLd: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Astraiv Technologies',
     url: 'https://www.astraivtechnologies.com',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: averageRating,
-      bestRating: '5',
-      worstRating: '1',
-      ratingCount: totalReviews,
-    },
-    review: testimonials.map((t) => ({
-      '@type': 'Review',
-      author: {
-        '@type': 'Person',
-        name: t.client_name,
-      },
-      reviewBody: t.review_text,
-      reviewRating: {
-        '@type': 'Rating',
-        ratingValue: t.rating || 5,
-        bestRating: '5',
-        worstRating: '1',
-      },
-      datePublished: t.published_at || new Date().toISOString(),
-    })),
+    ...(totalReviews > 0 && averageRating
+      ? {
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: averageRating,
+            bestRating: '5',
+            worstRating: '1',
+            ratingCount: totalReviews,
+          },
+          review: testimonials.map((t) => ({
+            '@type': 'Review',
+            author: {
+              '@type': 'Person',
+              name: t.client_name,
+            },
+            reviewBody: t.review_text,
+            reviewRating: {
+              '@type': 'Rating',
+              ratingValue: t.rating || 5,
+              bestRating: '5',
+              worstRating: '1',
+            },
+            datePublished: t.published_at || new Date().toISOString(),
+          })),
+        }
+      : {}),
   };
 
   return (

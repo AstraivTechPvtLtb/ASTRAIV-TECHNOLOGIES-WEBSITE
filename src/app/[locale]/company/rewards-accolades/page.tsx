@@ -137,7 +137,7 @@ export default async function RewardsAccoladesPage({ params }: RewardsAccoladesP
 
           {/* Hero Header Section */}
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 dark:bg-cyan-500/10 border border-primary/20 dark:border-cyan-500/20 text-primary dark:text-cyan-400 text-xs font-mono font-bold uppercase tracking-wider mb-5">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-mono font-bold uppercase tracking-wider mb-5">
               <Award className="h-4 w-4" />
               <span>Governance, Honors & Certifications</span>
             </div>
@@ -153,8 +153,8 @@ export default async function RewardsAccoladesPage({ params }: RewardsAccoladesP
 
           {/* Quick Metrics & Operational Reliability Ribbon */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-5 mb-12 sm:mb-16">
-            <div className="p-4 sm:p-5 rounded-2xl bg-card/85 dark:bg-slate-900/80 border border-border/50 dark:border-slate-800/80 backdrop-blur-xl text-left shadow-xs">
-              <div className="flex items-center gap-2 mb-1.5 text-cyan-500 dark:text-cyan-400">
+            <div className="p-4 sm:p-5 rounded-2xl bg-card/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl text-left shadow-card">
+              <div className="flex items-center gap-2 mb-1.5 text-sky-600 dark:text-sky-400">
                 <ShieldCheck className="h-4 w-4" />
                 <span className="text-[10.5px] font-mono uppercase font-bold tracking-wider">
                   Information Security
@@ -166,8 +166,8 @@ export default async function RewardsAccoladesPage({ params }: RewardsAccoladesP
               <div className="text-xs text-muted-foreground mt-0.5">{isoLab} ISMS Standard</div>
             </div>
 
-            <div className="p-4 sm:p-5 rounded-2xl bg-card/85 dark:bg-slate-900/80 border border-border/50 dark:border-slate-800/80 backdrop-blur-xl text-left shadow-xs">
-              <div className="flex items-center gap-2 mb-1.5 text-emerald-500 dark:text-emerald-400">
+            <div className="p-4 sm:p-5 rounded-2xl bg-card/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl text-left shadow-card">
+              <div className="flex items-center gap-2 mb-1.5 text-emerald-600 dark:text-emerald-400">
                 <CheckCircle2 className="h-4 w-4" />
                 <span className="text-[10.5px] font-mono uppercase font-bold tracking-wider">
                   Quality Management
@@ -179,8 +179,8 @@ export default async function RewardsAccoladesPage({ params }: RewardsAccoladesP
               <div className="text-xs text-muted-foreground mt-0.5">SDLC Quality Governance</div>
             </div>
 
-            <div className="p-4 sm:p-5 rounded-2xl bg-card/85 dark:bg-slate-900/80 border border-border/50 dark:border-slate-800/80 backdrop-blur-xl text-left shadow-xs">
-              <div className="flex items-center gap-2 mb-1.5 text-amber-500 dark:text-amber-400">
+            <div className="p-4 sm:p-5 rounded-2xl bg-card/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl text-left shadow-card">
+              <div className="flex items-center gap-2 mb-1.5 text-amber-600 dark:text-amber-400">
                 <Lock className="h-4 w-4" />
                 <span className="text-[10.5px] font-mono uppercase font-bold tracking-wider">
                   Operational SLA
@@ -192,8 +192,8 @@ export default async function RewardsAccoladesPage({ params }: RewardsAccoladesP
               <div className="text-xs text-muted-foreground mt-0.5">Sprint Burndown Rate</div>
             </div>
 
-            <div className="p-4 sm:p-5 rounded-2xl bg-card/85 dark:bg-slate-900/80 border border-border/50 dark:border-slate-800/80 backdrop-blur-xl text-left shadow-xs">
-              <div className="flex items-center gap-2 mb-1.5 text-yellow-500 dark:text-yellow-400">
+            <div className="p-4 sm:p-5 rounded-2xl bg-card/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl text-left shadow-card">
+              <div className="flex items-center gap-2 mb-1.5 text-amber-500 dark:text-amber-400">
                 <Sparkles className="h-4 w-4" />
                 <span className="text-[10.5px] font-mono uppercase font-bold tracking-wider">
                   Client Rating

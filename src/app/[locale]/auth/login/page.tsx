@@ -127,9 +127,9 @@ export default function LoginPage() {
                 <span className="text-[7px] uppercase tracking-[0.28em] font-black text-white/90">TECHNOLOGIES</span>
               </div>
             </Link>
-            <h2 className="font-heading font-extrabold text-2xl tracking-tight text-white mb-2">
+            <h1 className="font-heading font-extrabold text-2xl tracking-tight text-white mb-2">
               Welcome Back
-            </h2>
+            </h1>
             <p className="text-sm text-muted-foreground/80 font-medium">
               Access your engineering cockpit
             </p>

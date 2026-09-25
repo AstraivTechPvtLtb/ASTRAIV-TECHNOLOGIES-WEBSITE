@@ -1,11 +1,11 @@
 import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from 'next';
-import {
-  Navbar,
-  Footer,
-  WhySection,
-  ContactSection,
-} from '@/views';
+import { routing } from '@/i18n/routing';
+import { Navbar } from '@/views/layouts/navbar';
+import { Footer } from '@/views/layouts/footer';
+import { WhySection } from '@/views/sections/why-section';
+import { ProcessSection } from '@/views/sections/process-section';
+import { ContactSection } from '@/views/sections/contact-section';
 import { getPublicJobOpenings } from '@/controllers/public-data.controller';
 import {
   Zap,
@@ -26,8 +26,11 @@ import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export const revalidate = 300;
 
 interface CompanyPageProps {
   params: Promise<{ locale: string }>;
@@ -321,63 +324,53 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
           </div>
         </div>
 
-        {/* 3. Our Process: Streamlined Collaboration Framework */}
-        <section
-          id="process"
-          className="py-20 md:py-28 px-6 bg-slate-50/50 dark:bg-slate-900/20 border-y border-border/30 dark:border-slate-800/60 relative scroll-mt-24 overflow-hidden"
-        >
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 dark:bg-accent/10 border border-primary/20 dark:border-accent/20 text-primary dark:text-accent text-xs font-bold uppercase tracking-wider mb-3">
-                <Compass className="h-3.5 w-3.5" />
-                <span>Our Collaborative Rhythm</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading mb-4">
-                How We Collaborate & Deliver
-              </h2>
-              <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-medium">
-                We remove corporate friction through high-trust, asynchronous communication, automated verification, and predictable sprint delivery.
-              </p>
-            </div>
+        {/* 3. Our Process: 6-Stage Engineering Lifecycle & Quality Gates */}
+        <div id="process" className="scroll-mt-24">
+          <ProcessSection variant="detailed" />
 
-            {/* 4-Phase Executive Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 text-left">
-              {collaborationPhases.map((phase) => (
-                <div
-                  key={phase.step}
-                  className="p-7 bg-card/90 dark:bg-slate-900/80 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-2xl shadow-xs hover:border-primary/40 transition-all flex flex-col justify-between"
-                >
-                  <div>
-                    <span className="text-xs font-mono font-extrabold text-primary block mb-3">
-                      Phase {phase.step}
-                    </span>
-                    <h3 className="text-base font-bold text-foreground mb-2 leading-snug">
-                      {phase.title}
-                    </h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed mb-6 font-medium">
-                      {phase.summary}
-                    </p>
-                  </div>
-                  <div className="pt-4 border-t border-border/40 text-[11px] font-semibold text-primary/90 flex items-center gap-1.5">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
-                    <span>{phase.deliverable}</span>
-                  </div>
+          {/* Execution Cadence & Sprint Delivery */}
+          <div className="max-w-7xl mx-auto px-6 pb-20">
+            <div className="p-8 sm:p-10 rounded-3xl bg-card/60 dark:bg-slate-900/40 border border-border/60 dark:border-slate-800/80">
+              <div className="text-center max-w-3xl mx-auto mb-10">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 dark:bg-accent/10 border border-primary/20 dark:border-accent/20 text-primary dark:text-accent text-xs font-bold uppercase tracking-wider mb-2">
+                  <Compass className="h-3.5 w-3.5" />
+                  <span>Execution Cadence</span>
                 </div>
-              ))}
-            </div>
+                <h3 className="text-xl sm:text-2xl font-bold tracking-tight font-heading">
+                  Asynchronous Sprint Cadence &amp; Transparency
+                </h3>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1.5">
+                  How our distributed squad stays locked in alignment with your executive and engineering leaders.
+                </p>
+              </div>
 
-            {/* Canonical Linkout to Full Process on Homepage */}
-            <div className="text-center">
-              <Link
-                href="/#process"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-card border border-border hover:border-primary/60 text-xs sm:text-sm font-bold text-foreground hover:text-primary transition-all shadow-2xs group"
-              >
-                <span>Inspect Full 6-Stage Engineering Lifecycle & Quality Gates on Homepage</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
+                {collaborationPhases.map((phase) => (
+                  <div
+                    key={phase.step}
+                    className="p-5 bg-card/90 dark:bg-slate-900/80 border border-border/60 dark:border-slate-800/80 rounded-xl flex flex-col justify-between"
+                  >
+                    <div>
+                      <span className="text-xs font-mono font-bold text-primary block mb-2">
+                        Phase {phase.step}
+                      </span>
+                      <h4 className="text-sm font-bold text-foreground mb-1">
+                        {phase.title}
+                      </h4>
+                      <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+                        {phase.summary}
+                      </p>
+                    </div>
+                    <div className="pt-3 border-t border-border/40 text-[11px] font-semibold text-primary/90 flex items-center gap-1.5">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                      <span>{phase.deliverable}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </section>
+        </div>
 
         {/* 4. Rewards, Accolades & Governance */}
         <section

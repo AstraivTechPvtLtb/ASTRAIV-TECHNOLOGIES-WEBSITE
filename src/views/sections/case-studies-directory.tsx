@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
-import Image from 'next/image';
+import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import {
   Search,
@@ -17,26 +16,7 @@ import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import type { PublicPortfolioProject } from '@/lib/portfolio-data';
 
-function ResilientCardImage({ src, alt }: { src: string; alt: string }) {
-  const [imgSrc, setImgSrc] = useState(src);
-
-  useEffect(() => {
-    setImgSrc(src);
-  }, [src]);
-
-  return (
-    <Image
-      src={imgSrc}
-      alt={alt}
-      fill
-      sizes="(max-width: 1024px) 100vw, 50vw"
-      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-      onError={() => {
-        setImgSrc('/images/portfolio/portfolio-pulsefit.jpg');
-      }}
-    />
-  );
-}
+import { ResilientImage } from '@/views/ui/resilient-image';
 
 interface CaseStudiesDirectoryProps {
   initialProjects: PublicPortfolioProject[];
@@ -252,9 +232,12 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
               >
                 {/* Card Hero Visual */}
                 <div className="relative w-full h-[220px] sm:h-[260px] bg-slate-950 overflow-hidden border-b border-border/50 dark:border-slate-800/80">
-                  <ResilientCardImage
+                  <ResilientImage
                     src={project.imageSrc}
                     alt={project.title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
 

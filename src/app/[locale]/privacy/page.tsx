@@ -2,12 +2,17 @@ import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from 'next';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
-import { Navbar, Footer } from '@/views';
+import { Navbar } from '@/views/layouts/navbar';
+import { Footer } from '@/views/layouts/footer';
 import { ShieldCheck, Lock, Eye, Database, Globe, Mail } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';
 
-export const dynamic = 'force-dynamic';
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export const revalidate = 86400;
 
 interface PrivacyPageProps {
   params: Promise<{ locale: string }>;

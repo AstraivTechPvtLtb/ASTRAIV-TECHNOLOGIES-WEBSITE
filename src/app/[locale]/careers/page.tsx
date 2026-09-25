@@ -65,7 +65,7 @@ export default async function CareersPage({ params }: CareersPageProps) {
       />
       <Navbar />
 
-      <main className="pt-28 pb-20 flex-grow z-10 relative">
+      <main id="main-content" className="pt-28 pb-20 flex-grow z-10 relative">
         {/* Ambient lighting */}
         <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-primary/10 rounded-full blur-[160px] pointer-events-none" />
 
@@ -88,6 +88,7 @@ export default async function CareersPage({ params }: CareersPageProps) {
           </div>
 
           {/* Core Values */}
+          <h2 className="sr-only">Core Engineering Values</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             {values.map((val, idx) => (
               <div

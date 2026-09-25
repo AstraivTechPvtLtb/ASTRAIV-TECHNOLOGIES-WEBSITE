@@ -9,7 +9,8 @@ import { db } from '@/models/db';
 import { CRMLead } from '@prisma/client';
 import { ProjectWithRelations } from './projects.controller';
 import { TicketWithRelations } from './tickets.controller';
-
+import { auth } from '@/models/auth';
+import { headers } from 'next/headers';
 
 export interface DashboardStats {
   totalProjects: number;
@@ -32,13 +33,40 @@ export interface DashboardData {
 /**
  * Aggregates all telemetry and relation lists required for the dashboard view.
  */
-export async function getDashboardData(user: { id: string; role: string }): Promise<DashboardData> {
+export async function getDashboardData(user?: { id: string; role: string }): Promise<DashboardData> {
   try {
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    }).catch(() => null);
+
+    // Prioritize verified session from cookie/headers over untrusted caller input
+    const activeUser = session?.user
+      ? { id: session.user.id, role: session.user.role || 'USER' }
+      : user;
+
+    if (!activeUser || !activeUser.id) {
+      return {
+        stats: {
+          totalProjects: 0,
+          activeProjects: 0,
+          totalTickets: 0,
+          openTickets: 0,
+          totalLeads: 0,
+          wonLeads: 0,
+          totalClients: 0,
+          totalBudget: 0,
+        },
+        projects: [],
+        tickets: [],
+        leads: [],
+      };
+    }
+
     let projects: ProjectWithRelations[] = [];
     let tickets: TicketWithRelations[] = [];
     let leads: CRMLead[] = [];
 
-    if (user.role === 'ADMIN') {
+    if (activeUser.role === 'ADMIN') {
       projects = await db.project.findMany({
         include: { client: true, manager: true },
         orderBy: { updatedAt: 'desc' },
@@ -53,46 +81,46 @@ export async function getDashboardData(user: { id: string; role: string }): Prom
         orderBy: { updatedAt: 'desc' },
         take: 5,
       });
-    } else if (user.role === 'PROJECT_MANAGER') {
+    } else if (activeUser.role === 'PROJECT_MANAGER') {
       projects = await db.project.findMany({
-        where: { managerId: user.id },
+        where: { managerId: activeUser.id },
         include: { client: true },
         orderBy: { updatedAt: 'desc' },
         take: 5,
       });
       tickets = await db.clientTicket.findMany({
-        where: { assignedToId: user.id },
+        where: { assignedToId: activeUser.id },
         include: { client: true },
         orderBy: { updatedAt: 'desc' },
         take: 5,
       });
-    } else if (user.role === 'CLIENT') {
+    } else if (activeUser.role === 'CLIENT') {
       projects = await db.project.findMany({
-        where: { clientId: user.id },
+        where: { clientId: activeUser.id },
         include: { manager: true },
         orderBy: { updatedAt: 'desc' },
       });
       tickets = await db.clientTicket.findMany({
-        where: { clientId: user.id },
+        where: { clientId: activeUser.id },
         include: { assignedTo: true },
         orderBy: { updatedAt: 'desc' },
       });
     }
 
     const stats: DashboardStats = {
-      totalProjects: user.role === 'ADMIN' ? await db.project.count() : projects.length,
+      totalProjects: activeUser.role === 'ADMIN' ? await db.project.count() : projects.length,
       activeProjects:
-        user.role === 'ADMIN'
+        activeUser.role === 'ADMIN'
           ? await db.project.count({ where: { status: 'ACTIVE' } })
           : projects.filter((p) => p.status === 'ACTIVE').length,
-      totalTickets: user.role === 'ADMIN' ? await db.clientTicket.count() : tickets.length,
+      totalTickets: activeUser.role === 'ADMIN' ? await db.clientTicket.count() : tickets.length,
       openTickets:
-        user.role === 'ADMIN'
+        activeUser.role === 'ADMIN'
           ? await db.clientTicket.count({ where: { status: 'OPEN' } })
           : tickets.filter((t) => t.status === 'OPEN').length,
-      totalLeads: user.role === 'ADMIN' ? await db.cRMLead.count() : 0,
-      wonLeads: user.role === 'ADMIN' ? await db.cRMLead.count({ where: { status: 'WON' } }) : 0,
-      totalClients: user.role === 'ADMIN' ? await db.user.count({ where: { role: 'CLIENT' } }) : 0,
+      totalLeads: activeUser.role === 'ADMIN' ? await db.cRMLead.count() : 0,
+      wonLeads: activeUser.role === 'ADMIN' ? await db.cRMLead.count({ where: { status: 'WON' } }) : 0,
+      totalClients: activeUser.role === 'ADMIN' ? await db.user.count({ where: { role: 'CLIENT' } }) : 0,
       totalBudget: projects.reduce((acc, p) => acc + (p.budget || 0), 0),
     };
 

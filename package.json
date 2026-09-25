@@ -9,8 +9,12 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "postinstall": "prisma generate",
-    "db:pull-supabase": "powershell -ExecutionPolicy Bypass -File ./scripts/pull-from-supabase.ps1",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:unit": "vitest run src/utils src/lib src/models",
+    "test:integration": "vitest run tests/integration",
+    "test:e2e": "vitest run tests/e2e",
+    "test:ci": "vitest run --exclude 'tests/e2e/**'",
+    "test:all": "vitest run"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -19,7 +23,6 @@
     "@prisma/client": "^7.8.0",
     "@supabase/ssr": "^0.12.5",
     "@supabase/supabase-js": "^2.112.4",
-    "@tanstack/react-table": "^8.21.3",
     "better-auth": "^1.6.22",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
