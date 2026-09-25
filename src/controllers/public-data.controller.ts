@@ -259,6 +259,7 @@ function mapRowToTestimonial(r: {
     status: (r.status as TestimonialStatus) || 'approved',
     featured: Boolean(r.featured),
     published_at: r.publishedAt ? new Date(r.publishedAt).toISOString() : null,
+    identityDisplayPermission: perm,
 
     // Aliases
     quote: reviewText,
@@ -267,6 +268,21 @@ function mapRowToTestimonial(r: {
     authorCompany,
     avatarUrl: r.imageUrl || undefined,
   };
+}
+
+let reviewsPrismaDisabled = false;
+let reviewsSupabaseDisabled = false;
+
+function isReviewsSchemaMismatch(err: unknown): boolean {
+  if (!err) return false;
+  const error = err as { code?: string; message?: string };
+  if (error.code === 'P2021' || error.code === 'P2022' || error.code === '42703' || error.code === '42P01') return true;
+  const msg = error.message || String(err);
+  return (
+    msg.includes('does not exist') ||
+    msg.includes('UndefinedColumn') ||
+    msg.includes('UndefinedTable')
+  );
 }
 
 /**
@@ -280,62 +296,69 @@ async function fetchApprovedTestimonials(
 
   try {
     // 1. Primary PostgreSQL lookup via Prisma ORM
-    try {
-      const where: Prisma.ReviewWhereInput = {
-        status: 'approved',
-        canPublishReview: true,
-      };
+    if (!reviewsPrismaDisabled) {
+      try {
+        const where: Prisma.ReviewWhereInput = {
+          status: 'approved',
+          canPublishReview: true,
+        };
 
-      if (featuredOnly) {
-        where.featured = true;
-      }
-      if (projectId) {
-        where.projectId = projectId;
-      }
-      if (serviceId) {
-        const relatedSlugs = getRelatedServiceSlugs(serviceId);
-        where.serviceId = { in: relatedSlugs };
-      }
-      if (industryId) {
-        where.industryId = industryId;
-      }
+        if (featuredOnly) {
+          where.featured = true;
+        }
+        if (projectId) {
+          where.projectId = projectId;
+        }
+        if (serviceId) {
+          const relatedSlugs = getRelatedServiceSlugs(serviceId);
+          where.serviceId = { in: relatedSlugs };
+        }
+        if (industryId) {
+          where.industryId = industryId;
+        }
 
-      const approvedReviews = await db.review.findMany({
-        where,
-        orderBy: [{ featured: 'desc' }, { createdAt: 'desc' }],
-        take: limit,
-      });
+        const approvedReviews = await db.review.findMany({
+          where,
+          orderBy: [{ featured: 'desc' }, { createdAt: 'desc' }],
+          take: limit,
+        });
 
-      if (approvedReviews && approvedReviews.length > 0) {
-        return approvedReviews.map((r) =>
-          mapRowToTestimonial({
-            id: r.id,
-            clientName: r.clientName,
-            companyName: r.companyName,
-            company: r.company,
-            designation: r.designation,
-            reviewText: r.reviewText,
-            review: r.review,
-            averageRating: r.averageRating,
-            displayRating: r.displayRating,
-            rating: r.rating,
-            imageUrl: r.imageUrl,
-            projectId: r.projectId,
-            serviceId: r.serviceId,
-            industryId: r.industryId,
-            status: r.status,
-            featured: r.featured,
-            publishedAt: r.publishedAt,
-            identityDisplayPermission: r.identityDisplayPermission,
-          })
-        );
+        if (approvedReviews && approvedReviews.length > 0) {
+          return approvedReviews.map((r) =>
+            mapRowToTestimonial({
+              id: r.id,
+              clientName: r.clientName,
+              companyName: r.companyName,
+              company: r.company,
+              designation: r.designation,
+              reviewText: r.reviewText,
+              review: r.review,
+              averageRating: r.averageRating,
+              displayRating: r.displayRating,
+              rating: r.rating,
+              imageUrl: r.imageUrl,
+              projectId: r.projectId,
+              serviceId: r.serviceId,
+              industryId: r.industryId,
+              status: r.status,
+              featured: r.featured,
+              publishedAt: r.publishedAt,
+              identityDisplayPermission: r.identityDisplayPermission,
+            })
+          );
+        }
+      } catch (prismaErr) {
+        if (isReviewsSchemaMismatch(prismaErr)) {
+          reviewsPrismaDisabled = true;
+        }
+        if (process.env.NODE_ENV !== 'test' && !process.env.VITEST) {
+          console.warn('[Public Reviews Prisma Notice - Falling back to Supabase]:', (prismaErr as Error)?.message || prismaErr);
+        }
       }
-    } catch (prismaErr) {
-      console.warn('[Public Reviews Prisma Notice - Falling back to Supabase]:', (prismaErr as Error)?.message || prismaErr);
     }
 
     // 2. Supabase Cloud Fallback
-    if (isSupabaseConfigured()) {
+    if (!reviewsSupabaseDisabled && isSupabaseConfigured()) {
       const supabase = await createSupabaseClient();
       let query = supabase
         .from('reviews')
@@ -356,7 +379,11 @@ async function fetchApprovedTestimonials(
 
       const { data: reviews, error } = await query;
 
-      if (!error && reviews && reviews.length > 0) {
+      if (error) {
+        if (isReviewsSchemaMismatch(error)) {
+          reviewsSupabaseDisabled = true;
+        }
+      } else if (reviews && reviews.length > 0) {
         return (reviews as unknown as SupabaseReviewRow[]).map((r) =>
           mapRowToTestimonial({
             id: r.id,

@@ -67,11 +67,13 @@ if (globalForPrisma.prisma) {
   }
 }
 
+const isTest = Boolean(process.env.VITEST) || process.env.NODE_ENV === 'test';
+
 export const db =
   globalForPrisma.prisma ??
   new PrismaClient({
     adapter,
-    log: process.env.NODE_ENV === 'development' ? ['warn', 'error'] : ['error'],
+    log: isTest ? [] : process.env.NODE_ENV === 'development' ? ['warn', 'error'] : ['error'],
   });
 
 globalForPrisma.prisma = db;

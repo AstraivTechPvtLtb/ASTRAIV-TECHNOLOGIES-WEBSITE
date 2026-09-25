@@ -238,6 +238,7 @@ export interface Testimonial {
   status: TestimonialStatus;
   featured: boolean;
   published_at?: string | null;
+  identityDisplayPermission?: string | null;
 
   // Backward compatibility convenience aliases for existing card views
   quote: string;

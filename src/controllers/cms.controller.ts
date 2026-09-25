@@ -28,6 +28,36 @@ import type {
 } from '@/models/cms-db.types';
 
 const cmsDb = db as unknown as CmsDbClient;
+
+/**
+ * Circuit-breaker cache: if an entity table or column does not exist in the database (e.g. CI/remote pooler),
+ * we record it here to avoid repetitive, latency-heavy network round-trips and console error dumps.
+ */
+const disabledEntities = new Set<string>();
+
+function isSchemaMismatch(err: unknown): boolean {
+  if (!err) return false;
+  const error = err as { code?: string; message?: string };
+  if (error.code === 'P2021' || error.code === 'P2022') return true;
+  const msg = error.message || String(err);
+  return (
+    msg.includes('does not exist') ||
+    msg.includes('UndefinedColumn') ||
+    msg.includes('UndefinedTable') ||
+    msg.includes('42703') ||
+    msg.includes('42P01')
+  );
+}
+
+function handlePrismaError(entity: string, err: unknown, context: string): void {
+  if (isSchemaMismatch(err)) {
+    disabledEntities.add(entity);
+  }
+  if (process.env.NODE_ENV !== 'test' && !process.env.VITEST) {
+    console.warn(`[CMS Controller - ${context} fallback]:`, (err as Error)?.message || err);
+  }
+}
+
 import {
   type PublicServiceItem,
   DEFAULT_SERVICES,
@@ -84,6 +114,12 @@ import {
  * Retrieves all publicly approved and published services ordered by display order.
  */
 export async function getPublishedServices(): Promise<PublicServiceItem[]> {
+  if (disabledEntities.has('services')) {
+    return DEFAULT_SERVICES.filter(
+      (s) => !RECLASSIFIED_SERVICES_TO_SOLUTIONS[s.slug.toLowerCase().trim()]
+    );
+  }
+
   try {
     const rows = await cmsDb.serviceItem.findMany({
       where: {
@@ -132,7 +168,7 @@ export async function getPublishedServices(): Promise<PublicServiceItem[]> {
       }
     }
   } catch (err) {
-    console.warn('[CMS Controller - Services fallback]:', (err as Error)?.message || err);
+    handlePrismaError('services', err, 'Services');
   }
 
   // Graceful fallback to verified canonical services
@@ -146,6 +182,19 @@ export async function getPublishedServices(): Promise<PublicServiceItem[]> {
  */
 export async function getPublishedServiceBySlug(rawSlug: string): Promise<PublicServiceItem | null> {
   const canonical = normalizeServiceSlug(rawSlug);
+
+  if (disabledEntities.has('services')) {
+    const defaultMeta = DEFAULT_SERVICES.find(
+      (d) => d.slug === canonical || d.slug === rawSlug || normalizeServiceSlug(d.slug) === canonical
+    );
+    if (defaultMeta) {
+      return {
+        ...defaultMeta,
+        slug: canonical,
+      };
+    }
+    return null;
+  }
 
   try {
     const s = await cmsDb.serviceItem.findFirst({
@@ -178,7 +227,7 @@ export async function getPublishedServiceBySlug(rawSlug: string): Promise<Public
       };
     }
   } catch (err) {
-    console.warn('[CMS Controller - Service slug fallback]:', (err as Error)?.message || err);
+    handlePrismaError('services', err, 'Service slug');
   }
 
   const defaultMeta = DEFAULT_SERVICES.find(
@@ -201,6 +250,10 @@ export async function getPublishedServiceBySlug(rawSlug: string): Promise<Public
  * Retrieves all publicly approved and published solutions.
  */
 export async function getPublishedSolutions(): Promise<SolutionDetail[]> {
+  if (disabledEntities.has('solutions')) {
+    return SOLUTIONS_LIST;
+  }
+
   try {
     const rows = await cmsDb.solutionItem.findMany({
       where: {
@@ -257,7 +310,7 @@ export async function getPublishedSolutions(): Promise<SolutionDetail[]> {
       });
     }
   } catch (err) {
-    console.warn('[CMS Controller - Solutions fallback]:', (err as Error)?.message || err);
+    handlePrismaError('solutions', err, 'Solutions');
   }
 
   return SOLUTIONS_LIST;
@@ -268,6 +321,14 @@ export async function getPublishedSolutions(): Promise<SolutionDetail[]> {
  */
 export async function getPublishedSolutionBySlug(rawSlug: string): Promise<SolutionDetail | null> {
   const canonical = normalizeSolutionSlug(rawSlug);
+
+  if (disabledEntities.has('solutions')) {
+    return (
+      getStaticSolutionBySlug(canonical) ||
+      SOLUTIONS_LIST.find((s) => s.slug === canonical) ||
+      null
+    );
+  }
 
   try {
     const r = await cmsDb.solutionItem.findFirst({
@@ -326,7 +387,7 @@ export async function getPublishedSolutionBySlug(rawSlug: string): Promise<Solut
       };
     }
   } catch (err) {
-    console.warn('[CMS Controller - Solution slug fallback]:', (err as Error)?.message || err);
+    handlePrismaError('solutions', err, 'Solution slug');
   }
 
   return getStaticSolutionBySlug(canonical) || null;
@@ -340,6 +401,10 @@ export async function getPublishedSolutionBySlug(rawSlug: string): Promise<Solut
  * Retrieves all published industries.
  */
 export async function getPublishedIndustries(): Promise<IndustryDetail[]> {
+  if (disabledEntities.has('industries')) {
+    return INDUSTRIES_LIST;
+  }
+
   try {
     const rows = await cmsDb.industryItem.findMany({
       where: {
@@ -372,7 +437,7 @@ export async function getPublishedIndustries(): Promise<IndustryDetail[]> {
       });
     }
   } catch (err) {
-    console.warn('[CMS Controller - Industries fallback]:', (err as Error)?.message || err);
+    handlePrismaError('industries', err, 'Industries');
   }
 
   return INDUSTRIES_LIST;
@@ -383,6 +448,10 @@ export async function getPublishedIndustries(): Promise<IndustryDetail[]> {
  */
 export async function getPublishedIndustryBySlug(rawSlug: string): Promise<IndustryDetail | null> {
   const canonical = normalizeIndustrySlug(rawSlug);
+
+  if (disabledEntities.has('industries')) {
+    return getStaticIndustryBySlug(canonical) || null;
+  }
 
   try {
     const r = await cmsDb.industryItem.findFirst({
@@ -414,7 +483,7 @@ export async function getPublishedIndustryBySlug(rawSlug: string): Promise<Indus
       };
     }
   } catch (err) {
-    console.warn('[CMS Controller - Industry slug fallback]:', (err as Error)?.message || err);
+    handlePrismaError('industries', err, 'Industry slug');
   }
 
   return getStaticIndustryBySlug(canonical) || null;
@@ -428,6 +497,10 @@ export async function getPublishedIndustryBySlug(rawSlug: string): Promise<Indus
  * Retrieves all published technologies grouped or ordered by display order.
  */
 export async function getPublishedTechnologies(): Promise<CmsTechnology[]> {
+  if (disabledEntities.has('technologies')) {
+    return [];
+  }
+
   try {
     const rows = await cmsDb.technologyItem.findMany({
       where: {
@@ -451,7 +524,7 @@ export async function getPublishedTechnologies(): Promise<CmsTechnology[]> {
       }));
     }
   } catch (err) {
-    console.warn('[CMS Controller - Technologies fallback]:', (err as Error)?.message || err);
+    handlePrismaError('technologies', err, 'Technologies');
   }
 
   return [];
@@ -465,6 +538,10 @@ export async function getPublishedTechnologies(): Promise<CmsTechnology[]> {
  * Retrieves all published case studies / portfolio projects.
  */
 export async function getPublishedCaseStudies(): Promise<PublicPortfolioProject[]> {
+  if (disabledEntities.has('caseStudies')) {
+    return DEFAULT_PORTFOLIO_PROJECTS;
+  }
+
   try {
     const rows = await cmsDb.portfolioProject.findMany({
       where: {
@@ -513,7 +590,7 @@ export async function getPublishedCaseStudies(): Promise<PublicPortfolioProject[
       });
     }
   } catch (err) {
-    console.warn('[CMS Controller - Case studies fallback]:', (err as Error)?.message || err);
+    handlePrismaError('caseStudies', err, 'Case studies');
   }
 
   return DEFAULT_PORTFOLIO_PROJECTS;
@@ -523,6 +600,11 @@ export async function getPublishedCaseStudies(): Promise<PublicPortfolioProject[
  * Retrieves a single published case study by slug.
  */
 export async function getPublishedCaseStudyBySlug(slug: string): Promise<PublicPortfolioProject | null> {
+  if (disabledEntities.has('caseStudies')) {
+    const defaultMatch = DEFAULT_PORTFOLIO_PROJECTS.find((d) => d.slug === slug);
+    return defaultMatch || null;
+  }
+
   try {
     const r = await cmsDb.portfolioProject.findFirst({
       where: {
@@ -569,7 +651,7 @@ export async function getPublishedCaseStudyBySlug(slug: string): Promise<PublicP
       };
     }
   } catch (err) {
-    console.warn('[CMS Controller - Case study slug fallback]:', (err as Error)?.message || err);
+    handlePrismaError('caseStudies', err, 'Case study slug');
   }
 
   const defaultMatch = DEFAULT_PORTFOLIO_PROJECTS.find((d) => d.slug === slug);
@@ -584,6 +666,10 @@ export async function getPublishedCaseStudyBySlug(slug: string): Promise<PublicP
  * Retrieves all published insights / blog posts.
  */
 export async function getPublishedArticles(): Promise<InsightArticle[]> {
+  if (disabledEntities.has('blogPosts')) {
+    return INSIGHT_ARTICLES;
+  }
+
   try {
     const rows = await cmsDb.blogPost.findMany({
       where: {
@@ -626,7 +712,7 @@ export async function getPublishedArticles(): Promise<InsightArticle[]> {
       });
     }
   } catch (err) {
-    console.warn('[CMS Controller - Articles fallback]:', (err as Error)?.message || err);
+    handlePrismaError('blogPosts', err, 'Articles');
   }
 
   return INSIGHT_ARTICLES;
@@ -636,6 +722,10 @@ export async function getPublishedArticles(): Promise<InsightArticle[]> {
  * Retrieves a single published article by slug.
  */
 export async function getPublishedArticleBySlug(slug: string): Promise<InsightArticle | null> {
+  if (disabledEntities.has('blogPosts')) {
+    return getStaticInsightArticleBySlug(slug) || null;
+  }
+
   try {
     const r = await cmsDb.blogPost.findFirst({
       where: {
@@ -676,7 +766,7 @@ export async function getPublishedArticleBySlug(slug: string): Promise<InsightAr
       };
     }
   } catch (err) {
-    console.warn('[CMS Controller - Article slug fallback]:', (err as Error)?.message || err);
+    handlePrismaError('blogPosts', err, 'Article slug');
   }
 
   return getStaticInsightArticleBySlug(slug) || null;
@@ -690,6 +780,15 @@ export async function getPublishedArticleBySlug(slug: string): Promise<InsightAr
  * Retrieves all verified and published awards/certifications.
  */
 export async function getPublishedAwards(): Promise<CmsAward[]> {
+  if (disabledEntities.has('awards')) {
+    return RAW_ACCOLADES_DATA.map((a, idx) => ({
+      ...a,
+      published: true,
+      featured: true,
+      orderIndex: idx + 1,
+    }));
+  }
+
   try {
     const rows = await cmsDb.awardItem.findMany({
       where: {
@@ -721,7 +820,7 @@ export async function getPublishedAwards(): Promise<CmsAward[]> {
       }));
     }
   } catch (err) {
-    console.warn('[CMS Controller - Awards fallback]:', (err as Error)?.message || err);
+    handlePrismaError('awards', err, 'Awards');
   }
 
   return RAW_ACCOLADES_DATA.map((a, idx) => ({
@@ -740,6 +839,22 @@ export async function getPublishedAwards(): Promise<CmsAward[]> {
  * Retrieves all published FAQs, optionally filtered by category.
  */
 export async function getPublishedFaqs(category?: string): Promise<CmsFaq[]> {
+  if (disabledEntities.has('faqs')) {
+    const filtered = category && category !== 'all'
+      ? CANONICAL_FAQS.filter((f) => f.category === category)
+      : CANONICAL_FAQS;
+
+    return filtered.map((f, idx) => ({
+      id: f.id,
+      category: f.category,
+      question: f.question,
+      answer: f.answer,
+      isFeatured: f.isFeatured ?? false,
+      status: 'published',
+      orderIndex: idx + 1,
+    }));
+  }
+
   try {
     const rows = await cmsDb.faqItem.findMany({
       where: {
@@ -761,7 +876,7 @@ export async function getPublishedFaqs(category?: string): Promise<CmsFaq[]> {
       }));
     }
   } catch (err) {
-    console.warn('[CMS Controller - FAQs fallback]:', (err as Error)?.message || err);
+    handlePrismaError('faqs', err, 'FAQs');
   }
 
   const filtered = category && category !== 'all'
