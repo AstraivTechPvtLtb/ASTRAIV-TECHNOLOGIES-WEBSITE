@@ -30,6 +30,10 @@ async function sync() {
       ALTER TABLE reviews ADD COLUMN IF NOT EXISTS can_publish_review BOOLEAN DEFAULT false;
       ALTER TABLE reviews ADD COLUMN IF NOT EXISTS identity_display_permission TEXT DEFAULT 'Yes';
       ALTER TABLE reviews ADD COLUMN IF NOT EXISTS submitted_at TIMESTAMPTZ;
+      ALTER TABLE reviews ADD COLUMN IF NOT EXISTS project_id TEXT;
+      ALTER TABLE reviews ADD COLUMN IF NOT EXISTS service_id TEXT;
+      ALTER TABLE reviews ADD COLUMN IF NOT EXISTS industry_id TEXT;
+      ALTER TABLE reviews ADD COLUMN IF NOT EXISTS order_index INTEGER DEFAULT 0;
     `);
     console.log('✔ reviews columns synchronized');
 

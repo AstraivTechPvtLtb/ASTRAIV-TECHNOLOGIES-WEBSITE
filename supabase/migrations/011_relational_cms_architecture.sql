@@ -129,7 +129,10 @@ CREATE INDEX IF NOT EXISTS idx_portfolio_project_order ON public.portfolio_proje
 
 -- 6. Enhance reviews (Testimonials)
 ALTER TABLE public.reviews
-    ADD COLUMN IF NOT EXISTS order_index INTEGER NOT NULL DEFAULT 0;
+    ADD COLUMN IF NOT EXISTS order_index INTEGER NOT NULL DEFAULT 0,
+    ADD COLUMN IF NOT EXISTS project_id TEXT,
+    ADD COLUMN IF NOT EXISTS service_id TEXT,
+    ADD COLUMN IF NOT EXISTS industry_id TEXT;
 
 -- 7. Enhance blog_post (Articles / Insights)
 ALTER TABLE public.blog_post
