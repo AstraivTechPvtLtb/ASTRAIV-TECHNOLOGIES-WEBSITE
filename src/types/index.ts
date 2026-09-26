@@ -1,6 +1,6 @@
 /**
  * @file src/types/index.ts
- * @description Centralized Type Definitions & Domain Re-exports for AstraIV Technologies.
+ * @description Centralized Type Definitions & Domain Re-exports for Astraiv Technologies.
  */
 
 export * from '@/models/types';

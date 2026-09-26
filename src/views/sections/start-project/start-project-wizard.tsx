@@ -143,26 +143,6 @@ const PRODUCT_STATES = [
   },
 ];
 
-const COMMON_CHALLENGES = [
-  'Fast time-to-market required',
-  'AI / LLM agent integration needed',
-  'Database or infrastructure scalability',
-  'Legacy codebase refactoring',
-  'High cloud costs / DevOps bottlenecks',
-  'UI/UX modernization & low conversion',
-  'Strict security & compliance (ISO/SOC2)',
-  'Lack of senior in-house engineers',
-];
-
-const BUDGET_RANGES = [
-  { label: '< $10,000', desc: 'Proof of Concept / Rapid MVP' },
-  { label: '$10,000 - $25,000', desc: 'Targeted Core Feature Sprint' },
-  { label: '$25,000 - $50,000', desc: 'Complete Production Application' },
-  { label: '$50,000 - $100,000', desc: 'Enterprise Grade Multi-Module Platform' },
-  { label: '$100,000+', desc: 'Multi-Squad Long-Term Engagement' },
-  { label: 'Flexible / Scoping Needed', desc: 'Determine during architectural discovery' },
-];
-
 const TIMELINES = [
   { label: 'Urgent (< 1 month)', desc: 'Immediate kickoff, dedicated sprint team' },
   { label: '1 - 3 months', desc: 'Standard agile development cycle' },
@@ -204,8 +184,8 @@ export function StartProjectWizard() {
     projectDescription: '',
     industry: 'Fintech & Banking',
     productType: 'Brand New Product',
-    challenges: ['Fast time-to-market required'],
-    budgetRange: '$25,000 - $50,000',
+    challenges: [],
+    budgetRange: 'Flexible / Scoping Needed',
     timeline: '1 - 3 months',
     projectStage: 'Idea / Concept',
     name: '',
@@ -314,18 +294,6 @@ export function StartProjectWizard() {
     }
   };
 
-  const toggleChallenge = (challenge: string) => {
-    setFormData((prev) => {
-      const exists = prev.challenges.includes(challenge);
-      return {
-        ...prev,
-        challenges: exists
-          ? prev.challenges.filter((c) => c !== challenge)
-          : [...prev.challenges, challenge],
-      };
-    });
-  };
-
   // Validation per step
   const validateCurrentStep = (): boolean => {
     const errors: Record<string, string> = {};
@@ -345,9 +313,6 @@ export function StartProjectWizard() {
         errors.productType = 'Please select your current product state.';
       }
     } else if (currentStep === 3) {
-      if (!formData.budgetRange) {
-        errors.budgetRange = 'Please choose an estimated budget range.';
-      }
       if (!formData.timeline) {
         errors.timeline = 'Please select your target timeline.';
       }
@@ -631,7 +596,7 @@ export function StartProjectWizard() {
                   Tell us about your project
                 </h2>
                 <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-2xl">
-                  Provide context regarding what you are building, your industry domain, and the core bottlenecks you want to resolve.
+                  Provide context regarding what you are building, your industry domain, and product lifecycle stage.
                 </p>
               </div>
 
@@ -733,36 +698,6 @@ export function StartProjectWizard() {
                   })}
                 </div>
               </div>
-
-              {/* Current Challenges */}
-              <div className="space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <label className="text-sm font-bold text-foreground">
-                    Current challenges to solve <span className="text-xs text-muted-foreground font-normal">(Select all that apply)</span>
-                  </label>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {COMMON_CHALLENGES.map((ch) => {
-                    const isSelected = formData.challenges.includes(ch);
-                    return (
-                      <button
-                        key={ch}
-                        type="button"
-                        onClick={() => toggleChallenge(ch)}
-                        className={cn(
-                          'px-3 py-1.5 rounded-full text-xs font-medium border transition-all select-none flex items-center gap-1.5',
-                          isSelected
-                            ? 'bg-primary/15 dark:bg-blue-500/20 text-primary dark:text-blue-300 border-primary/30 dark:border-blue-400/40'
-                            : 'bg-card/40 dark:bg-slate-900/40 text-muted-foreground border-border/60 dark:border-slate-800 hover:border-primary/30'
-                        )}
-                      >
-                        {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-primary dark:text-blue-400" />}
-                        <span>{ch}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
             </motion.div>
           )}
 
@@ -789,43 +724,6 @@ export function StartProjectWizard() {
                 <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-2xl">
                   Helps our engineering leads plan delivery sprints, infrastructure provisioning, and team velocity.
                 </p>
-              </div>
-
-              {/* Estimated Budget Range */}
-              <div className="space-y-3">
-                <label className="text-sm font-bold text-foreground">
-                  Estimated budget range <span className="text-destructive">*</span>
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {BUDGET_RANGES.map((b) => {
-                    const isSelected = formData.budgetRange === b.label;
-                    return (
-                      <div
-                        key={b.label}
-                        onClick={() => updateField('budgetRange', b.label)}
-                        className={cn(
-                          'p-4 rounded-xl border cursor-pointer transition-all select-none text-left',
-                          isSelected
-                            ? 'bg-primary/5 dark:bg-blue-600/10 border-primary dark:border-blue-500 ring-2 ring-primary/20 dark:ring-blue-500/30'
-                            : 'bg-card/40 dark:bg-slate-900/40 border-border/60 dark:border-slate-800 hover:border-primary/40'
-                        )}
-                      >
-                        <div className="flex items-center justify-between mb-1">
-                          <h4 className="font-bold text-sm text-foreground">{b.label}</h4>
-                          <span
-                            className={cn(
-                              'w-3.5 h-3.5 rounded-full border',
-                              isSelected
-                                ? 'border-primary dark:border-blue-400 bg-primary dark:bg-blue-400'
-                                : 'border-muted-foreground/40'
-                            )}
-                          />
-                        </div>
-                        <p className="text-xs text-muted-foreground">{b.desc}</p>
-                      </div>
-                    );
-                  })}
-                </div>
               </div>
 
               {/* Target Timeline */}
@@ -1038,7 +936,7 @@ export function StartProjectWizard() {
                   Preferred Contact Method
                 </label>
                 <div className="flex flex-wrap gap-3">
-                  {['Email', 'Video Call / Discovery Session', 'Phone Call', 'WhatsApp'].map((m) => {
+                  {['Email', 'Phone Call', 'WhatsApp'].map((m) => {
                     const isSelected = formData.preferredContact === m;
                     return (
                       <button
@@ -1122,7 +1020,7 @@ export function StartProjectWizard() {
                   </div>
                 </div>
 
-                {/* 2. Scope & Challenges */}
+                {/* 2. Scope & Status */}
                 <div className="p-5 rounded-2xl border border-border/70 dark:border-slate-800 bg-card/40 dark:bg-slate-900/40 relative">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-xs font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-400">
@@ -1140,12 +1038,6 @@ export function StartProjectWizard() {
                   <p className="text-xs text-muted-foreground mt-2 line-clamp-2 italic">
                     &ldquo;{formData.projectDescription}&rdquo;
                   </p>
-                  {formData.challenges.length > 0 && (
-                    <div className="mt-2 text-[11px] text-muted-foreground">
-                      Challenges: <span className="font-semibold text-foreground">{formData.challenges.slice(0, 2).join(', ')}</span>
-                      {formData.challenges.length > 2 && ` +${formData.challenges.length - 2} more`}
-                    </div>
-                  )}
                 </div>
 
                 {/* 3. Parameters */}
@@ -1163,7 +1055,6 @@ export function StartProjectWizard() {
                     </button>
                   </div>
                   <div className="text-xs space-y-1">
-                    <div>Budget: <strong className="text-foreground">{formData.budgetRange}</strong></div>
                     <div>Timeline: <strong className="text-foreground">{formData.timeline}</strong></div>
                     <div>Stage: <strong className="text-foreground">{formData.projectStage}</strong></div>
                   </div>

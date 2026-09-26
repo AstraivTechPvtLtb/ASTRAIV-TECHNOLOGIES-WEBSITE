@@ -1,6 +1,6 @@
 /**
  * @file client/src/lib/why-astraiv-data.ts
- * @description Canonical Data Source for Why AstraIV.
+ * @description Canonical Data Source for Why Astraiv.
  * Powers both Homepage (concise summary) and Company Page (complete technical explanation).
  */
 

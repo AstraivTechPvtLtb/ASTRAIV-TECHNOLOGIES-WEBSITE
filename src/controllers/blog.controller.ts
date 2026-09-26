@@ -117,7 +117,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
             slug: (p.category || 'tech').toLowerCase().replace(/[^a-z0-9]+/g, '-'),
           },
           author: {
-            name: p.author || 'AstraIV Engineering Team',
+            name: p.author || 'Astraiv Engineering Team',
             image: null,
           },
         }));
@@ -206,7 +206,7 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
             slug: (data.category || 'tech').toLowerCase().replace(/[^a-z0-9]+/g, '-'),
           },
           author: {
-            name: data.author || 'AstraIV Engineering Team',
+            name: data.author || 'Astraiv Engineering Team',
             image: null,
           },
         };

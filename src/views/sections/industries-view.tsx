@@ -15,6 +15,7 @@ import {
   Briefcase,
   Cpu,
   ArrowRight,
+  ArrowUp,
   ShieldCheck,
   CheckCircle2,
   Activity,
@@ -438,6 +439,8 @@ const REGULATORY_MATRIX = [
 
 export function IndustriesView() {
   const [activeVertical, setActiveVertical] = useState<string>('fintech');
+  const [hasSelectedSector, setHasSelectedSector] = useState<boolean>(false);
+  const [isScrollingUp, setIsScrollingUp] = useState<boolean>(false);
 
   // Listen to hash changes if user navigated with anchor
   useEffect(() => {
@@ -445,6 +448,7 @@ export function IndustriesView() {
       const hash = window.location.hash.replace('#', '');
       if (hash && INDUSTRIES_DATA.some((ind) => ind.id === hash)) {
         setActiveVertical(hash);
+        setHasSelectedSector(true);
         const el = document.getElementById(hash);
         if (el) {
           el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -457,18 +461,69 @@ export function IndustriesView() {
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
 
+  // Reset selected state if user manually scrolls back to top
+  useEffect(() => {
+    const handleScroll = () => {
+      const dockAnchor = document.getElementById('sectors-dock-anchor');
+      const threshold = dockAnchor ? dockAnchor.offsetTop - 50 : 200;
+      if (window.scrollY <= threshold) {
+        setHasSelectedSector(false);
+        setActiveVertical(INDUSTRIES_DATA[0].id);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const scrollToIndustry = (id: string) => {
     setActiveVertical(id);
+    setHasSelectedSector(true);
     const element = document.getElementById(id);
     if (element) {
-      const navOffset = 100;
+      const navOffset = 140;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - navOffset;
       window.scrollTo({
-        top: offsetPosition,
+        top: Math.max(0, offsetPosition),
         behavior: 'smooth',
       });
     }
+  };
+
+  const scrollToSectors = () => {
+    setIsScrollingUp(true);
+    // Whenever user clicks up arrow, selected sector resets to the first sector whose case study is visible
+    setActiveVertical(INDUSTRIES_DATA[0].id);
+    setHasSelectedSector(false);
+
+    // Scroll dock tabs container horizontally back to the first tab
+    const dockContainer = document.getElementById('sectors-dock-container');
+    if (dockContainer) {
+      dockContainer.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+
+    const anchor = document.getElementById('sectors-dock-anchor');
+    if (anchor) {
+      const navOffset = 85;
+      const offsetPosition = anchor.offsetTop - navOffset;
+      window.scrollTo({
+        top: Math.max(0, offsetPosition),
+        behavior: 'smooth',
+      });
+    } else {
+      const element = document.getElementById('sectors-dock');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // Elevator glide animation completes
+    setTimeout(() => {
+      setIsScrollingUp(false);
+    }, 850);
   };
 
   return (
@@ -486,8 +541,12 @@ export function IndustriesView() {
       {/* ==================================================================== */}
       {/* 2. STICKY COMMAND DOCK (QUICK SCROLL JUMP)                          */}
       {/* ==================================================================== */}
-      <section className="sticky top-20 z-30 py-3 bg-background/80 dark:bg-slate-950/80 backdrop-blur-xl border-y border-border/50 dark:border-slate-800/70 shadow-xs">
-        <div className="max-w-7xl mx-auto px-6 overflow-x-auto no-scrollbar">
+      <div id="sectors-dock-anchor" className="scroll-mt-24 pointer-events-none" />
+      <section
+        id="sectors-dock"
+        className="sticky top-20 z-30 py-3 bg-background/80 dark:bg-slate-950/80 backdrop-blur-xl border-y border-border/50 dark:border-slate-800/70 shadow-xs scroll-mt-24"
+      >
+        <div id="sectors-dock-container" className="max-w-7xl mx-auto px-6 overflow-x-auto no-scrollbar">
           <div className="flex items-center justify-start lg:justify-center gap-2 min-w-max py-1">
             <span className="text-xs font-extrabold uppercase tracking-widest text-slate-400 dark:text-slate-500 mr-2 flex items-center gap-1">
               <Compass className="h-3.5 w-3.5" />
@@ -501,15 +560,12 @@ export function IndustriesView() {
                   key={ind.id}
                   onClick={() => scrollToIndustry(ind.id)}
                   className={cn(
-                    'flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold tracking-wide transition-all duration-200 cursor-pointer whitespace-nowrap',
+                    'flex items-center justify-center px-3.5 py-1.5 rounded-xl text-xs font-bold tracking-wide transition-all duration-200 cursor-pointer whitespace-nowrap',
                     isActive
                       ? 'bg-primary text-primary-foreground shadow-sm shadow-primary/30 border border-primary scale-[1.02]'
                       : 'bg-card/70 dark:bg-slate-900/60 text-muted-foreground hover:text-foreground hover:bg-slate-200/60 dark:hover:bg-slate-800/60 border border-border/50 dark:border-slate-800/80'
                   )}
                 >
-                  <span className={cn('transition-colors', isActive ? 'text-primary-foreground' : ind.accentColor)}>
-                    {ind.icon}
-                  </span>
                   <span>{ind.label}</span>
                 </button>
               );
@@ -617,14 +673,13 @@ export function IndustriesView() {
                       <div className="flex items-center gap-2 mb-2">
                         <span
                           className={cn(
-                            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold tracking-wide uppercase',
+                            'inline-flex items-center px-3 py-1 rounded-full text-xs font-extrabold tracking-wide uppercase',
                             ind.accentBg,
                             ind.accentColor,
                             ind.accentBorder,
                             'border'
                           )}
                         >
-                          {ind.icon}
                           <span>{ind.label} Vertical</span>
                         </span>
                         <span className="text-xs font-semibold text-muted-foreground">{ind.tagline}</span>
@@ -678,36 +733,89 @@ export function IndustriesView() {
                         ))}
                       </div>
                     </div>
+                  </div>
+                </div>
 
-                    {/* Tech Stack Chips & Action Link */}
-                    <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-border/40 dark:border-slate-800/80">
-                      <div className="flex flex-wrap items-center gap-1.5">
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mr-1">
-                          Stack:
-                        </span>
-                        {ind.techStack.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-border/50 dark:border-slate-700/60"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-
-                      <Link
-                        href={`/contact?vertical=${ind.id}`}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-xs group/btn"
+                {/* Unified Full-Width Card Footer (Identical alignment & styling across ALL case studies) */}
+                <div className="mt-8 pt-5 border-t border-border/50 dark:border-slate-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative z-10">
+                  <div className="flex flex-wrap items-center gap-1.5 min-w-0">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mr-1 shrink-0">
+                      Stack:
+                    </span>
+                    {ind.techStack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-border/50 dark:border-slate-700/60"
                       >
-                        <span>Talk to an Expert</span>
-                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-1" />
-                      </Link>
-                    </div>
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center gap-3 shrink-0 self-end sm:self-auto ml-auto">
+                    {hasSelectedSector && (
+                      <button
+                        type="button"
+                        onClick={scrollToSectors}
+                        className={cn(
+                          "group/up flex items-center justify-center h-10 w-10 rounded-xl cursor-pointer transition-all duration-200 shrink-0",
+                          "bg-slate-100 hover:bg-primary dark:bg-slate-800/90 dark:hover:bg-blue-600",
+                          "text-slate-700 hover:text-white dark:text-slate-200 dark:hover:text-white",
+                          "border border-border/70 dark:border-slate-700/80 hover:border-primary dark:hover:border-blue-500",
+                          "shadow-2xs hover:shadow-sm hover:shadow-primary/25 active:scale-95",
+                          isScrollingUp && "bg-primary text-white dark:bg-blue-600 border-primary ring-2 ring-primary/30"
+                        )}
+                        title="Scroll back to sectors"
+                        aria-label={`Scroll back to sectors from ${ind.label}`}
+                      >
+                        <ArrowUp
+                          className={cn(
+                            "h-4.5 w-4.5 stroke-[2.25] transition-transform duration-200",
+                            isScrollingUp ? "animate-arrow-glide" : "group-hover/up:-translate-y-0.5"
+                          )}
+                        />
+                      </button>
+                    )}
+
+                    <Link
+                      href={`/contact?vertical=${ind.id}`}
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-xs group/btn whitespace-nowrap"
+                    >
+                      <span>Talk to an Expert</span>
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                    </Link>
                   </div>
                 </div>
               </div>
             );
           })}
+
+          {/* Bottom of Last Case Studies: Shown when user scrolled manually without selecting a sector */}
+          {!hasSelectedSector && (
+            <div className="flex items-center justify-center pt-8 pb-4">
+              <button
+                type="button"
+                onClick={scrollToSectors}
+                className={cn(
+                  "group/up flex items-center justify-center h-12 w-12 sm:h-13 sm:w-13 rounded-full cursor-pointer transition-all duration-200",
+                  "bg-card/90 dark:bg-slate-900/90 hover:bg-primary dark:hover:bg-blue-600",
+                  "text-slate-700 hover:text-white dark:text-slate-200 dark:hover:text-white",
+                  "border border-border/80 dark:border-slate-800 hover:border-primary dark:hover:border-blue-500",
+                  "shadow-sm hover:shadow-md hover:shadow-primary/25 hover:scale-105 active:scale-95",
+                  isScrollingUp && "bg-primary text-white dark:bg-blue-600 border-primary ring-2 ring-primary/30 scale-105"
+                )}
+                title="Scroll back to sectors"
+                aria-label="Scroll back to sectors"
+              >
+                <ArrowUp
+                  className={cn(
+                    "h-5 w-5 sm:h-6 sm:w-6 stroke-[2.25] transition-transform duration-200",
+                    isScrollingUp ? "animate-arrow-glide" : "group-hover/up:-translate-y-0.5"
+                  )}
+                />
+              </button>
+            </div>
+          )}
         </div>
       </section>
 

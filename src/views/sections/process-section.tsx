@@ -52,7 +52,7 @@ export function ProcessSection({ variant = 'summary' }: ProcessSectionProps) {
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader
           badge={isDetailed ? "Canonical Engineering Lifecycle" : "How We Work"}
-          title={isDetailed ? "The AstraIV 6-Stage Engineering Roadmap" : "From Idea to Impact"}
+          title={isDetailed ? "The Astraiv 6-Stage Engineering Roadmap" : "From Idea to Impact"}
           description={
             isDetailed
               ? "Every engagement strictly adheres to our deterministic 6-stage lifecycle. Each stage is gated by automated verification benchmarks, peer architecture reviews, and immutable deliverables."

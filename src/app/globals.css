@@ -208,6 +208,100 @@
   }
 }
 
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Accolades Enterprise Continuous Marquee */
+@keyframes accolade-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@utility animate-accolade-marquee {
+  animation: accolade-marquee 38s linear infinite;
+  will-change: transform;
+}
+
+.accolade-marquee-viewport:hover .marquee-group,
+.accolade-marquee-viewport:focus-within .marquee-group,
+.accolade-marquee-viewport[data-paused="true"] .marquee-group {
+  animation-play-state: paused !important;
+}
+
+/* Accolades Modal Glowing Border Animation - Circulates clockwise: top -> right -> down -> left -> up */
+@keyframes modal-border-spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes modal-glow-pulse {
+  0%, 100% {
+    opacity: 0.45;
+    filter: blur(16px);
+    transform: scale(0.99);
+  }
+  50% {
+    opacity: 0.75;
+    filter: blur(22px);
+    transform: scale(1.01);
+  }
+}
+
+@utility animate-modal-border-spin {
+  animation: modal-border-spin 14s linear infinite;
+  will-change: transform;
+}
+
+@utility animate-modal-glow-pulse {
+  animation: modal-glow-pulse 6s ease-in-out infinite;
+  will-change: opacity, filter, transform;
+}
+
+/* Refined Up-Arrow Elevator Glide Animation */
+@keyframes arrow-smooth-glide {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  35% {
+    transform: translateY(-16px);
+    opacity: 0;
+  }
+  36% {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  70% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  85% {
+    transform: translateY(-3px);
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@utility animate-arrow-glide {
+  animation: arrow-smooth-glide 0.7s cubic-bezier(0.16, 1, 0.3, 1) 1;
+  will-change: transform, opacity;
+}
+
 @keyframes text-shimmer-sweep {
   0% {
     background-position: 0% 50%;
@@ -504,7 +598,9 @@ select:focus-visible,
   .animate-text-shimmer,
   .animate-shimmer-btn,
   .animate-float-slow,
-  .animate-radar-pulse {
+  .animate-radar-pulse,
+  .animate-accolade-marquee,
+  .marquee-group {
     animation: none !important;
     transform: none !important;
   }

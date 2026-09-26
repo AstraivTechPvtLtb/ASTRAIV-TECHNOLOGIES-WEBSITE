@@ -62,9 +62,9 @@ export async function Footer() {
         isolation: 'isolate',
         position: 'relative',
         zIndex: 40,
-        backgroundColor: '#060911',
+        backgroundColor: '#000a18',
       }}
-      className="relative z-40 bg-[#060911] text-[#F8FAFC] border-t border-slate-800/80 py-16 px-4 sm:px-6"
+      className="relative z-40 bg-[#000a18] text-[#F8FAFC] border-t border-[#0d2038] py-16 px-4 sm:px-6"
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-[1.3fr_0.85fr_0.85fr_0.85fr_0.85fr_1.3fr] gap-8 xl:gap-9 items-start text-left">
         {/* Brand details and dynamic social icons (Left Column) */}
@@ -77,6 +77,8 @@ export async function Footer() {
               height={40}
               style={{ width: 'auto', height: 'auto' }}
               className="object-contain hover:opacity-90 transition-opacity"
+              unoptimized
+              priority
             />
           </Link>
 
@@ -92,7 +94,7 @@ export async function Footer() {
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="h-8 w-8 rounded-lg bg-slate-900 border border-slate-800 hover:border-blue-400/40 hover:text-blue-400 text-slate-400 flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+                className="h-8 w-8 rounded-lg bg-[#00142e] border border-[#0d2a4d] hover:border-blue-400/40 hover:text-blue-400 text-slate-400 flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
                 aria-label={`${social.name} (opens in new window)`}
                 title={`${social.name} (opens in new window)`}
               >

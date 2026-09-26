@@ -304,7 +304,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       setEmailSubscribed(true);
       setSubscriberEmail('');
     } catch {
-      setSubscribeError('Subscription transmission failed. Please try again or email info@astraiv.com.');
+      setSubscribeError('Subscription transmission failed. Please try again or email info@astraivtechnologies.com.');
     } finally {
       setIsSubscribing(false);
     }

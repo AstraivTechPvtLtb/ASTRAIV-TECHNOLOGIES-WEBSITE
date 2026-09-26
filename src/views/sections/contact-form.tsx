@@ -251,7 +251,7 @@ export function ContactForm() {
     } catch (error) {
       console.error(error);
       setSubmitSuccess(false);
-      setErrorMessage('Something went wrong. Please try again or email us directly at info@astraiv.com.');
+      setErrorMessage('Something went wrong. Please try again or email us directly at info@astraivtechnologies.com.');
     } finally {
       setIsSubmitting(false);
     }
@@ -273,7 +273,7 @@ export function ContactForm() {
             )}
           </div>
           <p className="text-sm text-muted-foreground font-medium">
-            Submit your details and resume to join the AstraIV engineering team.
+            Submit your details and resume to join the Astraiv engineering team.
           </p>
         </div>
       ) : (

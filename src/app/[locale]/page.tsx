@@ -74,7 +74,7 @@ export default async function HomePage({ params }: HomePageProps) {
           ctaText="Start a Project"
           ctaHref={ROUTES.PUBLIC.START_PROJECT}
           secondaryCtaText="Explore Case Studies"
-          secondaryCtaHref="/work/case-studies"
+          secondaryCtaHref={ROUTES.PUBLIC.CASE_STUDIES}
         />
 
         {/* 2. TRUST / REWARDS & ACCOLADES */}

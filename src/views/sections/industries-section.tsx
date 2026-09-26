@@ -114,13 +114,12 @@ export function IndustriesSection() {
               <button
                 key={ind.id}
                 onClick={() => setActiveTab(idx)}
-                className={`flex items-center gap-2 px-4 lg:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold tracking-wide transition-all duration-200 cursor-pointer select-none ${
+                className={`flex items-center justify-center px-4 lg:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold tracking-wide transition-all duration-200 cursor-pointer select-none ${
                   isActive
                     ? 'text-white bg-primary shadow-md shadow-primary/25 border border-primary ring-2 ring-primary/20'
                     : 'text-muted-foreground bg-card/85 dark:bg-slate-900/70 border border-border/70 dark:border-slate-800/80 hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40 active:scale-[0.98]'
                 }`}
               >
-                {ind.icon}
                 <span>{ind.label}</span>
               </button>
             );

@@ -423,7 +423,7 @@ export function Navbar() {
         >
           <Image
             src="/logo-icon.jpg"
-            alt="AstraIV Logo"
+            alt="Astraiv Logo"
             width={34}
             height={34}
             priority

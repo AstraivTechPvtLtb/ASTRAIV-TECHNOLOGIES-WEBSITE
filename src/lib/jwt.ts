@@ -1,6 +1,6 @@
 /**
  * @file client/src/lib/jwt.ts
- * @description [UTILITY] Enterprise JWT authentication service for AstraIV Client Platform.
+ * @description [UTILITY] Enterprise JWT authentication service for Astraiv Client Platform.
  * Supports 32-byte cryptographic secret key, 60-day access token, and 30-day refresh token generation/validation.
  */
 
