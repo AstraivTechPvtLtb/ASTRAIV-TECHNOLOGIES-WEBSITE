@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { renderToString } from 'react-dom/server';
 import { ServicesSection } from './services-section';
-import { DEFAULT_SERVICES, SERVICE_VISUAL_MAP, getServiceVisual } from '@/lib/services-data';
+import { DEFAULT_SERVICES, getServiceVisual } from '@/lib/services-data';
 
 // Mock routing Link
 vi.mock('@/i18n/routing', () => ({
@@ -26,13 +26,18 @@ vi.mock('@/i18n/routing', () => ({
 vi.mock('framer-motion', () => ({
   useReducedMotion: () => false,
   motion: {
-    div: ({ children, className, style, ...props }: any) => (
+    div: ({
+      children,
+      className,
+      style,
+      ...props
+    }: React.HTMLAttributes<HTMLDivElement>) => (
       <div className={className} style={style} {...props}>
         {children}
       </div>
     ),
   },
-  AnimatePresence: ({ children }: any) => <>{children}</>,
+  AnimatePresence: ({ children }: { children?: React.ReactNode }) => <>{children}</>,
 }));
 
 describe('ServicesSection Dynamic SVG Visual System', () => {
