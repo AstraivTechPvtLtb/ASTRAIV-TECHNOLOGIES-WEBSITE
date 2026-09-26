@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from '@/i18n/routing';
 import type { PublicServiceItem } from '@/lib/services-data';
 import { ROUTES } from '@/routes';
-import { ArrowRight, Wrench } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { ServiceIcon } from '@/views/ui/service-icon';
 
 interface RelatedServicesSectionProps {
@@ -27,10 +27,7 @@ export function RelatedServicesSection({
     <section className="my-16 sm:my-20">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 mb-3">
-            <Wrench className="h-3.5 w-3.5" />
-            <span>SERVICES = WHAT ASTRAIV DOES</span>
-          </div>
+
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
             {title}
           </h2>

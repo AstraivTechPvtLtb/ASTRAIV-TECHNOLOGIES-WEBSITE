@@ -27,7 +27,6 @@ import {
   Code2,
   BarChart3,
   Layers,
-  Send,
   Check,
   Loader2,
 } from 'lucide-react';
@@ -770,10 +769,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       {/* ========================================================================= */}
       <section id="resources" className="py-16 md:py-24 px-6 max-w-7xl mx-auto scroll-mt-24">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 dark:bg-accent/10 text-primary dark:text-accent text-xs font-bold uppercase tracking-wider mb-3">
-            <FileText className="h-3.5 w-3.5" />
-            <span>Blueprints & Documentation</span>
-          </div>
+
           <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight font-heading mb-4">
             Technical Resources & Architecture Guides
           </h2>
@@ -857,10 +853,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       >
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 dark:bg-accent/10 text-primary dark:text-accent text-xs font-bold uppercase tracking-wider mb-3">
-              <HelpCircle className="h-3.5 w-3.5" />
-              <span>Frequently Answered Inquiries</span>
-            </div>
+
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight font-heading mb-3">
               Frequently Asked Questions
             </h2>
@@ -908,10 +901,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       <section className="py-16 px-6 max-w-7xl mx-auto text-center">
         <div className="relative overflow-hidden rounded-[28px] border border-border/80 dark:border-slate-800 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 dark:from-primary/10 dark:via-secondary/10 dark:to-accent/5 p-8 sm:p-12">
           <div className="max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 dark:bg-accent/10 text-primary dark:text-accent text-xs font-bold uppercase tracking-wider mb-4">
-              <Send className="h-3 w-3" />
-              <span>Monthly Technical Dispatch</span>
-            </div>
+
             <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-heading mb-3">
               Subscribe to the Astraiv Engineering Dispatch
             </h3>

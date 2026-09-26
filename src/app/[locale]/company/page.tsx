@@ -17,10 +17,8 @@ import {
   CheckCircle2,
   Sparkles,
   ArrowRight,
-  DollarSign,
   Clock,
   Users,
-  Compass,
 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
@@ -201,10 +199,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
 
           {/* Eyebrow & Hero Statement */}
           <div className="max-w-3xl mx-auto mb-14">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 dark:bg-accent/10 border border-primary/20 dark:border-accent/20 text-primary dark:text-accent text-xs font-bold uppercase tracking-wider mb-4">
-              <Sparkles className="h-3.5 w-3.5" />
-              <span>Organizational Identity & Values</span>
-            </div>
+
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading mb-4 text-foreground">
               Engineering Intelligent Systems <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">
@@ -332,10 +327,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
           <div className="max-w-7xl mx-auto px-6 pb-20">
             <div className="p-8 sm:p-10 rounded-3xl bg-card/60 dark:bg-slate-900/40 border border-border/60 dark:border-slate-800/80">
               <div className="text-center max-w-3xl mx-auto mb-10">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 dark:bg-accent/10 border border-primary/20 dark:border-accent/20 text-primary dark:text-accent text-xs font-bold uppercase tracking-wider mb-2">
-                  <Compass className="h-3.5 w-3.5" />
-                  <span>Execution Cadence</span>
-                </div>
+
                 <h3 className="text-xl sm:text-2xl font-bold tracking-tight font-heading">
                   Asynchronous Sprint Cadence &amp; Transparency
                 </h3>
@@ -379,10 +371,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
         >
           <div className="max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 dark:bg-accent/10 border border-primary/20 dark:border-accent/20 text-primary dark:text-accent text-xs font-bold uppercase tracking-wider mb-3">
-                <Award className="h-3.5 w-3.5" />
-                <span>Industry Standards & Governance</span>
-              </div>
+
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading mb-4">
                 Rewards, Certifications & Accolades
               </h2>
@@ -447,10 +436,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
 
           <div className="max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 dark:bg-accent/10 border border-primary/20 dark:border-accent/20 text-primary dark:text-accent text-xs font-bold uppercase tracking-wider mb-3">
-                <DollarSign className="h-3.5 w-3.5" />
-                <span>Commercial Frameworks</span>
-              </div>
+
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading mb-4">
                 Flexible Engagement Models
               </h2>
@@ -572,10 +558,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
           <div className="max-w-6xl mx-auto text-left">
             <div className="p-8 sm:p-14 rounded-3xl bg-gradient-to-br from-card via-card/90 to-primary/10 border border-border/80 dark:border-slate-800 shadow-md flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
               <div className="max-w-2xl space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20">
-                  <Users className="h-3.5 w-3.5" />
-                  <span>Careers & Team Culture</span>
-                </div>
+
 
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground font-heading">
                   Work With Senior Architects, <br />
@@ -605,10 +588,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
               </div>
 
               <div className="flex flex-col items-start lg:items-end gap-3 shrink-0">
-                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/20">
-                  <Sparkles className="h-3.5 w-3.5" />
-                  <span>{jobOpenings.length} Active Positions Open</span>
-                </span>
+
 
                 <Link
                   href={ROUTES.PUBLIC.CAREERS}

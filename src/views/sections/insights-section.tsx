@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, Sparkles, Clock } from 'lucide-react';
+import { ArrowRight, Clock } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { INSIGHT_ARTICLES, type InsightArticle } from '@/lib/insights-data';
 import { ROUTES } from '@/routes';
@@ -28,10 +28,7 @@ export function InsightsSection({ initialArticles }: InsightsSectionProps) {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-14 gap-6 text-left">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold text-slate-800 dark:text-blue-300 bg-secondary/10 dark:bg-blue-600/10 border border-secondary/20 dark:border-blue-500/20 mb-4 select-none">
-              <Sparkles className="h-3.5 w-3.5 text-secondary dark:text-blue-400" />
-              <span>LATEST INSIGHTS &amp; PUBLICATIONS</span>
-            </div>
+
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-tight">
               Software Architecture, AI &amp; Cloud Insights
             </h2>

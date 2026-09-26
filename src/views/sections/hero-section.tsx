@@ -2,7 +2,7 @@
 
 import { Fragment } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
-import { ArrowRight, Sparkles, Shield, Cpu } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import { cn } from '@/lib/utils';
@@ -180,28 +180,7 @@ export function HeroSection({
           <CircuitBackground />
         </div>
 
-        {/* Cognitive Badges - enter stably on large screens without constant floating */}
-        <div
-          data-depth-layer="1-badges"
-          className="absolute inset-0 pointer-events-none select-none overflow-hidden"
-          style={{ transform: 'translateZ(20px)', transformStyle: 'preserve-3d' }}
-        >
-          <motion.div 
-            variants={itemVariants}
-            className="absolute top-[18%] lg:top-[22%] left-[4%] lg:left-[8%] xl:left-[10%] hidden xl:flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 shadow-card backdrop-blur-md"
-          >
-            <Cpu className="h-4 w-4 text-primary dark:text-blue-400" />
-            <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">Autonomous Agents</span>
-          </motion.div>
-          
-          <motion.div 
-            variants={itemVariants}
-            className="absolute bottom-[18%] lg:bottom-[22%] right-[4%] lg:right-[8%] xl:right-[10%] hidden xl:flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 shadow-card backdrop-blur-md"
-          >
-            <Shield className="h-4 w-4 text-primary dark:text-blue-400" />
-            <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">Enterprise Secure</span>
-          </motion.div>
-        </div>
+
       </motion.div>
 
       {/* Foreground Hero Content Group: 100% stable interaction plane for buttons and text */}
@@ -212,17 +191,7 @@ export function HeroSection({
         animate="visible"
         className="relative z-20 w-full max-w-5xl xl:max-w-6xl mx-auto flex flex-col items-center text-center pt-24 pb-12 sm:pt-32 sm:pb-16 md:pt-36 md:pb-20 lg:pt-38 lg:pb-24 px-4 sm:px-6 lg:px-8 pointer-events-auto"
       >
-        {/* 1. Animated Badge */}
-        {badgeText && (
-          <motion.div 
-            variants={itemVariants} 
-            className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-1.5 mb-4 md:mb-5 text-[11px] sm:text-xs font-mono font-bold text-primary dark:text-blue-300 bg-primary/10 dark:bg-blue-600/15 border border-primary/20 dark:border-blue-500/30 rounded-full shadow-2xs select-none hover:border-primary/40 dark:hover:border-blue-500/40 transition-colors text-center"
-          >
-            <Sparkles className="h-3.5 w-3.5 text-primary dark:text-blue-400 shrink-0 animate-pulse" />
-            <span className="truncate max-w-[260px] sm:max-w-none">{badgeText}</span>
-            <ArrowRight className="h-3.5 w-3.5 text-primary dark:text-blue-400 shrink-0" />
-          </motion.div>
-        )}
+
 
         {/* 2. Large Premium Headline - Fluid Clamp Scaling and Restrained Word Entrance */}
         <motion.h1

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BusinessProblem } from '@/lib/solutions-data';
-import { AlertCircle, XCircle } from 'lucide-react';
+import { XCircle } from 'lucide-react';
 
 interface BusinessProblemSectionProps {
   problem: BusinessProblem;
@@ -18,10 +18,7 @@ export function BusinessProblemSection({ problem, solutionTitle }: BusinessProbl
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-red-500/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-red-500/10 text-red-400 border border-red-500/20 mb-4">
-            <AlertCircle className="h-3.5 w-3.5" />
-            <span>THE BUSINESS PROBLEM</span>
-          </div>
+
 
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">
             {problem.title}

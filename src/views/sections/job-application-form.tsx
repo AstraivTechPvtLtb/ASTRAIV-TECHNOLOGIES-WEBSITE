@@ -14,7 +14,6 @@ import {
   Mail,
   Phone,
   MapPin,
-  Briefcase,
   Globe,
 } from 'lucide-react';
 import { GithubIcon } from '@/views/ui/icons';
@@ -158,10 +157,7 @@ export function JobApplicationForm({
         <div className="relative z-10 max-w-3xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20 mb-3">
-              <Briefcase className="h-3.5 w-3.5" />
-              <span>Direct Application</span>
-            </div>
+
             <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight font-heading">
               Apply for {roleTitle}
             </h2>

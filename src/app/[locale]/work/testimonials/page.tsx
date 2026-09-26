@@ -8,9 +8,7 @@ import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import {
   Star,
-  ShieldCheck,
   ArrowRight,
-  Sparkles,
   ChevronRight,
 } from 'lucide-react';
 
@@ -127,11 +125,7 @@ export default async function TestimonialsPage({ params }: TestimonialsPageProps
             <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
 
             <div className="relative z-10 max-w-4xl">
-              {/* Header Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider bg-primary/10 border border-primary/20 text-primary mb-6">
-                <ShieldCheck className="h-3.5 w-3.5" />
-                <span>WORK • VERIFIED CLIENT ENDORSEMENTS</span>
-              </div>
+
 
               {/* Title & Tagline */}
               <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight mb-6">
@@ -185,10 +179,7 @@ export default async function TestimonialsPage({ params }: TestimonialsPageProps
 
             <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
               <div className="max-w-2xl text-left">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20 uppercase tracking-wider mb-3">
-                  <Sparkles className="h-3 w-3" />
-                  <span>Start Your Success Story</span>
-                </span>
+
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-3">
                   Ready to engineer enterprise-grade software with guaranteed outcomes?
                 </h3>

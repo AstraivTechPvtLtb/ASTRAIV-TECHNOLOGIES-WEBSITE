@@ -9,7 +9,6 @@ import { getAccoladesData, type AccoladeItem } from '@/lib/accolades-data';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import {
-  Award,
   ShieldCheck,
   CheckCircle2,
   Lock,
@@ -137,10 +136,7 @@ export default async function RewardsAccoladesPage({ params }: RewardsAccoladesP
 
           {/* Hero Header Section */}
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-mono font-bold uppercase tracking-wider mb-5">
-              <Award className="h-4 w-4" />
-              <span>Governance, Honors & Certifications</span>
-            </div>
+
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight font-heading leading-tight mb-6">
               Rewards, Certifications & Industry Accolades

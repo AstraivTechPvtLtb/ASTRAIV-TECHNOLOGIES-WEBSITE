@@ -418,9 +418,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="flex flex-col gap-3 text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-flex self-center px-3.5 py-1 text-xs font-black tracking-wider text-primary bg-primary/10 rounded-full border border-primary/20 dark:bg-blue-600/20 dark:text-blue-300 dark:border-blue-600/30 uppercase w-fit">
-              CANONICAL ROADMAP
-            </span>
+
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white font-heading">
               Our 6-Stage Engineering Delivery Process
             </h2>
@@ -548,9 +546,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
       <section className="py-20 md:py-28 px-6 max-w-5xl mx-auto w-full text-center">
         <div className="relative overflow-hidden rounded-3xl border border-primary/30 dark:border-blue-600/30 bg-gradient-to-br from-primary/10 via-card to-blue-600/10 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/40 p-10 sm:p-16 shadow-xl">
           <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
-            <span className="inline-flex px-3.5 py-1 text-xs font-black tracking-wider uppercase text-primary dark:text-blue-300 bg-primary/10 dark:bg-blue-600/20 rounded-full border border-primary/20 dark:border-blue-600/30">
-              LET&apos;S BUILD TOGETHER
-            </span>
+
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading text-slate-900 dark:text-white tracking-tight leading-tight">
               Ready to Accelerate Your Software Engineering?
             </h2>

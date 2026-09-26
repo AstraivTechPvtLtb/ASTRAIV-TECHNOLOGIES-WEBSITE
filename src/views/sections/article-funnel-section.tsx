@@ -1,5 +1,5 @@
 import { Link } from '@/i18n/routing';
-import { ArrowRight, Sparkles, CheckCircle2, Layers, Cpu, BarChart3, MessageSquareCode } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Layers, Cpu, BarChart3 } from 'lucide-react';
 import type { ArticleFunnelRelationships } from '@/lib/insights-data';
 
 interface ArticleFunnelSectionProps {
@@ -23,10 +23,7 @@ export function ArticleFunnelSection({ funnel, articleTitle }: ArticleFunnelSect
       <div className="p-8 sm:p-12 rounded-[28px] border border-border/80 dark:border-slate-800 bg-card/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-xl">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-accent/10 dark:text-accent text-xs font-black uppercase tracking-wider mb-3">
-            <Sparkles className="h-3.5 w-3.5" />
-            <span>Enterprise Implementation Funnel</span>
-          </div>
+
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-foreground font-heading">
             From Research to Production Deployment
           </h2>
@@ -177,10 +174,7 @@ export function ArticleFunnelSection({ funnel, articleTitle }: ArticleFunnelSect
         {/* STEP 4: INTERACTIVE DISCUSSION & SCOPING CTA */}
         <div className="p-8 sm:p-10 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent dark:from-blue-600/20 dark:via-slate-950 dark:to-slate-950 border border-primary/20 dark:border-blue-500/30 text-left flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-inner">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary dark:text-blue-400 text-xs font-bold uppercase tracking-wider mb-3">
-              <MessageSquareCode className="h-3.5 w-3.5" />
-              <span>Engineering Scoping Session</span>
-            </div>
+
             <h3 className="text-xl sm:text-2xl font-black text-foreground tracking-tight font-heading mb-2">
               {conversionCta.title}
             </h3>

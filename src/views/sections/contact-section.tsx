@@ -49,9 +49,7 @@ export function ContactSection({ isPageHero = false }: ContactSectionProps) {
       >
         {/* Left Column: Direct Conversation Trigger */}
         <motion.div variants={itemVariants} className="lg:col-span-6 flex flex-col gap-6 text-left">
-          <span className="inline-flex self-start px-3.5 py-1 text-xs font-extrabold tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 rounded-full border border-primary/20 dark:border-blue-400/20 uppercase w-fit select-none">
-            Start Your Next Build
-          </span>
+
 
           {isPageHero ? (
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading leading-tight text-foreground">

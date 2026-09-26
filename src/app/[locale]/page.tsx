@@ -68,7 +68,6 @@ export default async function HomePage({ params }: HomePageProps) {
       <main id="main-content" className="flex-1 w-full overflow-x-hidden">
         {/* 1. HERO */}
         <HeroSection
-          badgeText={t('heroBadge')}
           headline={t('heroHeadline')}
           subheadline={t('heroSubheadline')}
           ctaText="Start a Project"

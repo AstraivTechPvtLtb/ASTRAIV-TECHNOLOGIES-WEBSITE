@@ -12,7 +12,6 @@ import {
   Building2,
   Workflow,
   RefreshCw,
-  Sparkles,
   ArrowRight,
   CheckCircle2,
   ShieldCheck,
@@ -271,10 +270,7 @@ export function SolutionsView() {
 
           <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             <div className="flex flex-col gap-3 max-w-2xl text-left">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-black tracking-wider uppercase bg-primary/10 text-primary dark:bg-blue-600/20 dark:text-blue-300 border border-primary/20 dark:border-blue-600/40 w-fit">
-                <Sparkles className="h-3.5 w-3.5" />
-                <span>ENTERPRISE IT</span>
-              </div>
+
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white font-heading tracking-tight">
                 Engineered for Impact.
               </h2>
@@ -444,9 +440,7 @@ export function SolutionsView() {
       <section className="py-20 md:py-28 px-6 bg-slate-100/60 dark:bg-slate-900/50 border-y border-border/60 dark:border-slate-800/80">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col gap-3 text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-flex self-center px-3.5 py-1 text-xs font-bold tracking-wider text-primary bg-primary/10 rounded-full border border-primary/20 dark:bg-primary/20 dark:text-primary-foreground uppercase w-fit">
-              EXECUTION FRAMEWORK
-            </span>
+
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white font-heading">
               How Astraiv Delivers High-Stakes Solutions
             </h2>
@@ -508,9 +502,7 @@ export function SolutionsView() {
       <section className="py-20 md:py-28 px-6 max-w-5xl mx-auto w-full text-center">
         <div className="relative overflow-hidden rounded-3xl border border-primary/20 dark:border-slate-700/80 bg-gradient-to-b from-card via-card to-primary/5 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/30 p-10 sm:p-16 shadow-lg">
           <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
-            <span className="inline-flex px-3.5 py-1 text-xs font-black tracking-wider uppercase text-primary bg-primary/10 dark:bg-primary/20 rounded-full border border-primary/20">
-              READY TO ARCHITECT?
-            </span>
+
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-heading text-slate-900 dark:text-white tracking-tight leading-tight">
               Let&apos;s Solve Your Enterprise Bottlenecks
             </h2>

@@ -4,7 +4,7 @@ import { Navbar, Footer } from '@/views';
 import { routing } from '@/i18n/routing';
 import { notFound, permanentRedirect } from 'next/navigation';
 import { Link } from '@/i18n/routing';
-import { ArrowRight, CheckCircle2, Sparkles, Wrench, Star, Quote } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Sparkles, Star, Quote } from 'lucide-react';
 import { ServiceIcon } from '@/views/ui/service-icon';
 import {
   getPublishedServiceBySlug,
@@ -226,10 +226,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
 
             <div className="relative z-10">
               <div className="flex flex-wrap items-center gap-3 mb-6">
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 text-xs font-extrabold bg-primary/10 text-primary rounded-full border border-primary/20 uppercase tracking-wider">
-                  <Wrench className="h-3 w-3" />
-                  <span>SERVICES = WHAT ASTRAIV DOES</span>
-                </span>
+
                 <span className="px-3 py-1 text-xs font-bold bg-blue-500/10 text-blue-400 rounded-full border border-blue-500/20">
                   {service.category}
                 </span>

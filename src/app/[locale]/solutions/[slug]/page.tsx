@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import { Navbar, Footer } from '@/views';
 import { routing } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
-import { ArrowRight, Cpu, Sparkles } from 'lucide-react';
+import { ArrowRight, Cpu } from 'lucide-react';
 import { ROUTES } from '@/routes';
 import {
   getPublishedSolutionBySlug,
@@ -113,10 +113,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
 
             <div className="relative z-10">
               <div className="flex flex-wrap items-center gap-3 mb-6">
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 text-xs font-extrabold bg-blue-500/10 text-blue-400 rounded-full border border-blue-500/20 uppercase tracking-wider">
-                  <Sparkles className="h-3 w-3" />
-                  <span>SOLUTIONS = BUSINESS PROBLEMS WE SOLVE</span>
-                </span>
+
                 <span className="px-3 py-1 text-xs font-bold bg-slate-800 text-slate-300 rounded-full border border-slate-700">
                   {solution.categoryLabel}
                 </span>

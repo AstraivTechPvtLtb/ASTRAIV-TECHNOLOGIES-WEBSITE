@@ -241,10 +241,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
           {/* 1. AWARDS */}
           <section id="awards" className="scroll-mt-24">
             <div className="mb-6 sm:mb-8 border-b border-border/40 dark:border-slate-800/80 pb-4">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 dark:bg-cyan-500/10 text-primary dark:text-cyan-400 text-xs font-mono font-bold uppercase tracking-wider mb-2">
-                <Award className="h-3.5 w-3.5" />
-                <span>Section 1 · Awards</span>
-              </div>
+
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-heading">
                 Technical & Engineering Awards
               </h2>
@@ -260,10 +257,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
           {/* 2. CERTIFICATIONS */}
           <section id="certifications" className="scroll-mt-24">
             <div className="mb-6 sm:mb-8 border-b border-border/40 dark:border-slate-800/80 pb-4">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 dark:bg-cyan-500/10 text-primary dark:text-cyan-400 text-xs font-mono font-bold uppercase tracking-wider mb-2">
-                <ShieldCheck className="h-3.5 w-3.5" />
-                <span>Section 2 · Certifications</span>
-              </div>
+
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-heading">
                 Compliance & Security Certifications
               </h2>
@@ -279,10 +273,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
           {/* 3. PARTNERSHIPS */}
           <section id="partnerships" className="scroll-mt-24">
             <div className="mb-6 sm:mb-8 border-b border-border/40 dark:border-slate-800/80 pb-4">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 dark:bg-cyan-500/10 text-primary dark:text-cyan-400 text-xs font-mono font-bold uppercase tracking-wider mb-2">
-                <Cloud className="h-3.5 w-3.5" />
-                <span>Section 3 · Partnerships</span>
-              </div>
+
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-heading">
                 Cloud & Technology Ecosystem Partnerships
               </h2>
@@ -298,10 +289,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
           {/* 4. RECOGNITIONS */}
           <section id="recognitions" className="scroll-mt-24">
             <div className="mb-6 sm:mb-8 border-b border-border/40 dark:border-slate-800/80 pb-4">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 dark:bg-cyan-500/10 text-primary dark:text-cyan-400 text-xs font-mono font-bold uppercase tracking-wider mb-2">
-                <Star className="h-3.5 w-3.5" />
-                <span>Section 4 · Recognitions</span>
-              </div>
+
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-heading">
                 Audited Recognitions & Operational Benchmarks
               </h2>

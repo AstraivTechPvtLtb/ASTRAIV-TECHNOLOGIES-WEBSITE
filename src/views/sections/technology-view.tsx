@@ -10,7 +10,6 @@ import {
   Cpu,
   Cloud,
   Sparkles,
-  Zap,
   ShieldCheck,
   Search,
   ArrowRight,
@@ -593,13 +592,7 @@ export function TechnologyView({
             <div className="absolute top-0 right-0 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
               <div className="flex flex-col gap-2 max-w-2xl text-left">
-                <div className="flex items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wider uppercase bg-primary/20 text-primary border border-primary/30">
-                    <Zap className="h-3 w-3" />
-                    ENTERPRISE IT
-                  </span>
-                  <span className="text-xs text-muted-foreground font-semibold">Battle-Tested Primitives</span>
-                </div>
+
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
                   Modern Technical Stack Engineered for Enterprise Scale.
                 </h3>
@@ -634,9 +627,7 @@ export function TechnologyView({
           ========================================================================= */}
       <section id="architecture" className="py-12 px-4 sm:px-6 max-w-7xl mx-auto relative z-10 border-t border-border/30 scroll-mt-24">
         <div className="flex flex-col items-center text-center gap-2 mb-10">
-          <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
-            System Topology
-          </span>
+
           <h2 className="text-2xl sm:text-4xl font-extrabold text-foreground tracking-tight">
             Interactive Multi-Tier Architecture
           </h2>
@@ -751,9 +742,7 @@ export function TechnologyView({
           ========================================================================= */}
       <section id="ai-expertise" className="py-16 px-4 sm:px-6 max-w-7xl mx-auto relative z-10 border-t border-border/30">
         <div className="flex flex-col items-center text-center gap-2 mb-12">
-          <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
-            AI Capabilities
-          </span>
+
           <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">
             Cognitive AI & Enterprise Automations
           </h2>
@@ -836,9 +825,7 @@ export function TechnologyView({
                 How Astraiv Executes Real-Time Cognitive Queries
               </h3>
             </div>
-            <span className="text-xs font-mono px-3 py-1 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 self-start sm:self-auto">
-              Interactive Flow
-            </span>
+
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
@@ -889,9 +876,7 @@ export function TechnologyView({
         <span id="cloud" className="absolute -top-24 pointer-events-none" />
         <span id="database" className="absolute -top-24 pointer-events-none" />
         <div id="technologies" className="flex flex-col items-center text-center gap-2 mb-10 scroll-mt-28">
-          <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20">
-            Technology Stack
-          </span>
+
           <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">
             Elite Technologies for High Performance
           </h2>
@@ -1034,9 +1019,7 @@ export function TechnologyView({
       <section className="py-16 px-4 sm:px-6 max-w-7xl mx-auto relative z-10 border-t border-border/30">
         <div className="max-w-5xl mx-auto rounded-2xl border border-border/60 bg-gradient-to-r from-card via-card/90 to-card p-6 sm:p-10 shadow-md">
           <div className="text-center max-w-2xl mx-auto mb-8">
-            <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-              Enterprise Assurances
-            </span>
+
             <h3 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight mt-2">
               Our Architectural Commitments
             </h3>
@@ -1098,9 +1081,7 @@ export function TechnologyView({
           ========================================================================= */}
       <section className="py-16 px-4 sm:px-6 max-w-4xl mx-auto text-center relative z-10">
         <div className="p-8 sm:p-12 rounded-3xl bg-card/80 dark:bg-slate-900/80 border border-border/60 shadow-xl flex flex-col items-center gap-5">
-          <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20">
-            Build With Elite Technology
-          </span>
+
           <h3 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
             Ready to deploy an enterprise-grade technology stack?
           </h3>

@@ -51,10 +51,7 @@ export function SolutionsSection({ initialSolutions = SOLUTIONS_LIST }: Solution
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 sm:mb-16 text-left">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold text-primary dark:text-blue-300 bg-primary/10 dark:bg-blue-500/10 border border-primary/20 dark:border-blue-400/25 mb-4 select-none">
-              <Sparkles className="h-3.5 w-3.5 text-primary dark:text-blue-400" />
-              <span>SOLUTIONS ARCHITECTURE</span>
-            </div>
+
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold tracking-tight text-foreground leading-[1.2]">
               What business problems{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-600 to-indigo-600 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-300">

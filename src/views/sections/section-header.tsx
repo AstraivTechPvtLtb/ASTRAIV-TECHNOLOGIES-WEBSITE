@@ -27,17 +27,7 @@ export function SectionHeader({
         className
       )}
     >
-      {badge && (
-        <span
-          className={cn(
-            'inline-flex items-center gap-1.5 px-3.5 py-1 text-[11px] font-mono font-bold tracking-wider uppercase rounded-full select-none',
-            'bg-primary/10 text-primary border border-primary/20 dark:bg-blue-500/10 dark:text-blue-300 dark:border-blue-400/25',
-            isCenter ? 'mx-auto' : 'mx-0'
-          )}
-        >
-          {badge}
-        </span>
-      )}
+
       {asH1 ? (
         <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-display font-extrabold tracking-tight text-foreground leading-[1.2] pb-0.5">
           {title}
