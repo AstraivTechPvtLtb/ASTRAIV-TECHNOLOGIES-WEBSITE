@@ -8,10 +8,10 @@
  */
 
 import React, { useState, useRef, useTransition } from 'react';
-import Image from 'next/image';
 import { Link } from '@/i18n/routing';
-import { DEFAULT_SERVICES, type PublicServiceItem } from '@/lib/services-data';
+import { DEFAULT_SERVICES, type PublicServiceItem, type ServiceVisualInfo, getServiceVisual } from '@/lib/services-data';
 import { getServiceImage } from '@/lib/services-utils';
+import { ServiceArchitectureVisual } from './service-architecture-visual';
 
 import { useReducedMotion } from 'framer-motion';
 
@@ -29,6 +29,7 @@ interface CapabilityItem {
   desc: string;
   latency: string;
   href: string;
+  visual: ServiceVisualInfo;
 }
 
 export function ServicesSection({ initialServices = [] }: ServicesSectionProps) {
@@ -56,6 +57,7 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
     desc: s.shortDesc,
     latency: ['12ms', '8ms', '11ms', '14ms', '9ms', '7ms'][idx % 6],
     href: `/services/${s.slug}`,
+    visual: s.visual || getServiceVisual(s.slug),
   }));
 
   const activeCapability = capabilities.find((c) => c.id === activeTab) || capabilities[0];
@@ -64,12 +66,12 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
   const handleTabChange = (categoryId: string) => {
     if (categoryId === activeTab) return;
     setIsFading(true);
+    startTransition(() => {
+      setActiveTab(categoryId);
+    });
     setTimeout(() => {
-      startTransition(() => {
-        setActiveTab(categoryId);
-        setIsFading(false);
-      });
-    }, 140);
+      setIsFading(false);
+    }, 160);
   };
 
   // Holographic Mouse Spotlight & 3D Tilt interaction (restrained and desktop-only)
@@ -168,22 +170,13 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
             className="absolute inset-0 pointer-events-none z-30 transition-opacity duration-300 opacity-0 bg-[radial-gradient(circle_at_var(--mouse-x,50%)_var(--mouse-y,50%),rgba(37,99,235,0.12),transparent_45%)]"
           />
 
-          {/* Panoramic Photography with Clean Architectural Gradients */}
+          {/* Panoramic Capabilities Billboard with Dynamic Service SVG Visual System */}
           <div className="relative w-full min-h-[560px] sm:min-h-[540px] lg:h-[600px] overflow-hidden flex flex-col justify-between">
-            {/* Background Image Layer */}
-            <div className="absolute inset-0 w-full h-full">
-              <Image
-                src="/images/services/capabilities-command-center.jpg"
-                alt="Astraiv Technologies Engineering Operations Center"
-                id="command-img"
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-                className="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-1000 ease-out brightness-[0.75] contrast-[1.10]"
-              />
-              {/* Refined Obsidian Vignette Gradients */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/40" />
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-transparent to-slate-950/80" />
-            </div>
+            {/* Dynamic Service-Specific SVG Visual System */}
+            <ServiceArchitectureVisual
+              visual={activeCapability.visual}
+              serviceId={activeCapability.id}
+            />
 
             {/* Top Status Ribbon */}
             <div className="relative top-0 left-0 right-0 p-5 sm:p-6 flex flex-wrap items-center justify-between gap-3 sm:gap-4 z-20">
@@ -225,11 +218,11 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
                       onClick={() => handleTabChange(cap.id)}
                       className={`shrink-0 text-left transition-all duration-200 backdrop-blur-md px-3.5 py-2 rounded-xl flex items-center gap-2 cursor-pointer border text-xs font-semibold select-none min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
                         isActive
-                          ? 'active-tab bg-primary text-white border-primary shadow-xs'
-                          : 'bg-slate-950/70 hover:bg-slate-900/80 border-white/10 text-slate-300 hover:text-white'
+                          ? 'active-tab bg-primary text-white border-primary shadow-[0_0_14px_rgba(37,99,235,0.45)] ring-1 ring-blue-400/40'
+                          : 'bg-slate-950/70 hover:bg-slate-900/80 border-white/10 hover:border-white/20 text-slate-300 hover:text-white'
                       }`}
                     >
-                      <div className={`w-2 h-2 rounded-full shrink-0 ${isActive ? 'bg-white' : 'bg-slate-400'}`} />
+                      <div className={`w-2 h-2 rounded-full shrink-0 transition-colors duration-200 ${isActive ? 'bg-white shadow-[0_0_6px_#fff]' : 'bg-slate-400'}`} />
                       <span className="whitespace-nowrap">{cap.label}</span>
                     </button>
                   );
@@ -255,11 +248,11 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
                       onClick={() => handleTabChange(cap.id)}
                       className={`cap-tab text-left transition-all duration-200 backdrop-blur-md px-3 sm:px-3.5 py-2.5 sm:py-3 rounded-xl flex items-center gap-2 group/tab cursor-pointer border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
                         isActive
-                          ? 'active-tab bg-primary text-white border-primary shadow-sm -translate-y-0.5'
-                          : 'bg-slate-950/60 hover:bg-slate-900/80 border-white/10 text-slate-300 hover:text-white'
+                          ? 'active-tab bg-primary text-white border-primary shadow-[0_0_16px_rgba(37,99,235,0.45)] -translate-y-0.5 ring-1 ring-blue-400/40'
+                          : 'bg-slate-950/60 hover:bg-slate-900/80 border-white/10 hover:border-white/20 text-slate-300 hover:text-white hover:shadow-xs'
                       }`}
                     >
-                      <div className={`indicator w-2 h-2 rounded-full shrink-0 ${isActive ? 'bg-white' : 'bg-slate-400 group-hover/tab:bg-blue-400'}`} />
+                      <div className={`indicator w-2 h-2 rounded-full shrink-0 transition-colors duration-200 ${isActive ? 'bg-white shadow-[0_0_6px_#fff]' : 'bg-slate-400 group-hover/tab:bg-blue-400'}`} />
                       <span className="text-xs font-semibold tracking-wide truncate">
                         {cap.label}
                       </span>

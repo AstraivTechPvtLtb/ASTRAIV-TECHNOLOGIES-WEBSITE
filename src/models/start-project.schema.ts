@@ -30,7 +30,7 @@ export const startProjectSchema = z.object({
   challenges: z.array(z.string()).default([]),
 
   // Step 3
-  budgetRange: z.string().min(1, 'Please select an estimated budget range.'),
+  budgetRange: z.string().min(1, 'Please select an estimated budget range.').default('Flexible / Scoping Needed'),
   timeline: z.string().min(1, 'Please select your target timeline.'),
   projectStage: z.string().min(1, 'Please select your current project stage.'),
 

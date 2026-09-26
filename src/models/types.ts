@@ -1,6 +1,6 @@
 /**
  * @file client/src/models/types.ts
- * @description [MODEL] Domain TypeScript models and interfaces for AstraIV Technologies Client Website & Portal.
+ * @description [MODEL] Domain TypeScript models and interfaces for Astraiv Technologies Client Website & Portal.
  */
 
 export type Role = 'ADMIN' | 'PROJECT_MANAGER' | 'CLIENT' | 'USER';

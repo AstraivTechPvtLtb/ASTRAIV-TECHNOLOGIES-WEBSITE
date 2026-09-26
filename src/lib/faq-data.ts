@@ -19,15 +19,15 @@ export const CANONICAL_FAQS: FaqItem[] = [
   {
     id: 'core-services',
     category: 'general',
-    question: 'What core services does AstraIV Technologies provide?',
+    question: 'What core services does Astraiv Technologies provide?',
     answer:
-      'AstraIV Technologies provides end-to-end technology solutions: AI & machine learning integrations (multi-agent workflows, enterprise RAG), custom software development, high-velocity Next.js web applications, cross-platform mobile apps (iOS/Android), cloud infrastructure & DevOps, and legacy system modernization.',
+      'Astraiv Technologies provides end-to-end technology solutions: AI & machine learning integrations (multi-agent workflows, enterprise RAG), custom software development, high-velocity Next.js web applications, cross-platform mobile apps (iOS/Android), cloud infrastructure & DevOps, and legacy system modernization.',
     isFeatured: true,
   },
   {
     id: 'start-project',
     category: 'general',
-    question: 'How can we start a project with AstraIV Technologies?',
+    question: 'How can we start a project with Astraiv Technologies?',
     answer:
       'You can reach out directly via our contact form, email us at info@astraivtechnologies.com, or call +91 8167409664. We typically arrange an initial 30-minute discovery call within 24 hours to review your requirements and provide an architecture estimate.',
     isFeatured: true,
@@ -37,7 +37,7 @@ export const CANONICAL_FAQS: FaqItem[] = [
   {
     id: 'custom-software',
     category: 'services',
-    question: 'Can AstraIV build custom enterprise software completely from scratch?',
+    question: 'Can Astraiv build custom enterprise software completely from scratch?',
     answer:
       'Yes. We architect, design, and code bespoke systems from greenfield state through production deployment. Our senior full-stack architects establish scalable database schemas, microservices, and typesafe APIs engineered specifically for your core business operations.',
     isFeatured: true,
@@ -65,7 +65,7 @@ export const CANONICAL_FAQS: FaqItem[] = [
     category: 'process',
     question: 'How does the project development process and communication work?',
     answer:
-      'We follow our disciplined 6-stage roadmap: Discover, Strategize, Design, Build, Launch, and Scale. Clients receive access to our real-time AstraIV Client Portal to review live sprint boards, milestone releases, and communicate directly with dedicated senior architects.',
+      'We follow our disciplined 6-stage roadmap: Discover, Strategize, Design, Build, Launch, and Scale. Clients receive access to our real-time Astraiv Client Portal to review live sprint boards, milestone releases, and communicate directly with dedicated senior architects.',
     isFeatured: true,
   },
 

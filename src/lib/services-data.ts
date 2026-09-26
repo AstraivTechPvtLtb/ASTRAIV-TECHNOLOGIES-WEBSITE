@@ -4,6 +4,13 @@
  * SERVICES = WHAT ASTRAIV DOES (Engineering disciplines & technical capabilities).
  */
 
+export interface ServiceVisualInfo {
+  src: string;
+  alt: string;
+  glowGradient: string;
+  accentColor: string;
+}
+
 export interface PublicServiceItem {
   id: string;
   title: string;
@@ -16,10 +23,65 @@ export interface PublicServiceItem {
   icon: string;
   orderIndex: number;
   imageSrc?: string;
+  visual?: ServiceVisualInfo;
   deliverables?: string[];
   techStack?: string[];
   slaHighlight?: string;
 }
+
+/**
+ * Service visual asset mappings for dynamic SVG visual system.
+ */
+export const SERVICE_VISUAL_MAP: Record<string, ServiceVisualInfo> = {
+  'ai-development': {
+    src: '/images/services/ai-development.svg',
+    alt: 'AI Development & Cognitive Engineering Operations Center Photograph',
+    glowGradient: 'radial-gradient(circle at 60% 40%, rgba(56, 189, 248, 0.28) 0%, rgba(37, 99, 235, 0.18) 35%, transparent 70%)',
+    accentColor: '#38bdf8',
+  },
+  'custom-software': {
+    src: '/images/services/custom-software-development.svg',
+    alt: 'Enterprise Custom Software Architecture & Engineering Studio Photograph',
+    glowGradient: 'radial-gradient(circle at 50% 40%, rgba(20, 184, 166, 0.22) 0%, rgba(37, 99, 235, 0.2) 35%, transparent 70%)',
+    accentColor: '#14b8a6',
+  },
+  'web-development': {
+    src: '/images/services/web-application-development.svg',
+    alt: 'Modern Web Application Development & SaaS Platform Engineering Photograph',
+    glowGradient: 'radial-gradient(circle at 50% 40%, rgba(6, 182, 212, 0.25) 0%, rgba(37, 99, 235, 0.2) 35%, transparent 70%)',
+    accentColor: '#06b6d4',
+  },
+  'cloud-engineering': {
+    src: '/images/services/cloud-engineering.svg',
+    alt: 'Enterprise Cloud Infrastructure, Datacenter & Multi-Region Topology Photograph',
+    glowGradient: 'radial-gradient(circle at 55% 40%, rgba(20, 184, 166, 0.25) 0%, rgba(37, 99, 235, 0.18) 35%, transparent 70%)',
+    accentColor: '#38bdf8',
+  },
+  'mobile-development': {
+    src: '/images/services/mobile-development.svg',
+    alt: 'Mobile Application Engineering Lab & Multi-Device Testing Photograph',
+    glowGradient: 'radial-gradient(circle at 55% 40%, rgba(99, 102, 241, 0.25) 0%, rgba(59, 130, 246, 0.2) 35%, transparent 70%)',
+    accentColor: '#818cf8',
+  },
+  'devops': {
+    src: '/images/services/devops-cicd.svg',
+    alt: 'DevOps & Automated Continuous Delivery Pipeline Operations Center Photograph',
+    glowGradient: 'radial-gradient(circle at 60% 40%, rgba(168, 85, 247, 0.22) 0%, rgba(59, 130, 246, 0.2) 35%, transparent 70%)',
+    accentColor: '#a855f7',
+  },
+  'ui-ux-design': {
+    src: '/images/services/web-application-development.svg',
+    alt: 'UI/UX Design Systems & Interface Architecture Illustration',
+    glowGradient: 'radial-gradient(circle at 50% 40%, rgba(168, 85, 247, 0.25) 0%, rgba(37, 99, 235, 0.2) 35%, transparent 70%)',
+    accentColor: '#a855f7',
+  },
+  'technology-consulting': {
+    src: '/images/services/custom-software-development.svg',
+    alt: 'Technology Strategy & Executive Architecture Illustration',
+    glowGradient: 'radial-gradient(circle at 50% 40%, rgba(56, 189, 248, 0.25) 0%, rgba(37, 99, 235, 0.2) 35%, transparent 70%)',
+    accentColor: '#38bdf8',
+  },
+};
 
 /**
  * The 8 Canonical Engineering Disciplines (SERVICES = WHAT ASTRAIV DOES).
@@ -48,6 +110,7 @@ We work alongside your technical leaders to evaluate data readiness, design secu
     icon: 'Bot',
     orderIndex: 1,
     imageSrc: '/images/services/service-ai.jpg',
+    visual: SERVICE_VISUAL_MAP['ai-development'],
     deliverables: [
       'Multi-agent decision swarms & task routers',
       'Private enterprise vector databases (pgvector)',
@@ -76,6 +139,7 @@ Off-the-shelf software often forces growing enterprises into rigid, inefficient 
     icon: 'Cpu',
     orderIndex: 2,
     imageSrc: '/images/services/service-software.jpg',
+    visual: SERVICE_VISUAL_MAP['custom-software'],
     deliverables: [
       'Domain-Driven Design (DDD) architectures',
       'High-throughput internal processing queues',
@@ -104,6 +168,7 @@ We engineer high-performance, mission-critical web applications designed for hyp
     icon: 'Terminal',
     orderIndex: 3,
     imageSrc: '/images/services/service-web.jpg',
+    visual: SERVICE_VISUAL_MAP['web-development'],
     deliverables: [
       'Multi-tenant architecture & Row-Level Security',
       'Automated recurring Stripe/Paddle billing lifecycles',
@@ -132,6 +197,7 @@ Deliver fluid, engaging mobile experiences directly to your users' fingertips. W
     icon: 'Smartphone',
     orderIndex: 4,
     imageSrc: '/images/services/service-mobile.jpg',
+    visual: SERVICE_VISUAL_MAP['mobile-development'],
     deliverables: [
       'Single codebase iOS & Android applications',
       'Local SQLite caching & optimistic offline sync',
@@ -160,6 +226,7 @@ Modern digital applications require cloud architectures that scale automatically
     icon: 'Cloud',
     orderIndex: 5,
     imageSrc: '/images/services/service-cloud.jpg',
+    visual: SERVICE_VISUAL_MAP['cloud-engineering'],
     deliverables: [
       'Multi-region Terraform Infrastructure as Code',
       'Cloudflare R2 zero-egress storage & edge caching',
@@ -170,7 +237,7 @@ Modern digital applications require cloud architectures that scale automatically
   },
   {
     id: 'devops',
-    title: 'DevOps',
+    title: 'DevOps & CI/CD',
     slug: 'devops',
     category: 'Infrastructure',
     shortDesc: 'Automated CI/CD pipelines, container orchestration, and Infrastructure as Code with security guardrails.',
@@ -188,6 +255,7 @@ Accelerate your engineering release cadence while eliminating human error. We im
     icon: 'GitBranch',
     orderIndex: 6,
     imageSrc: '/images/services/service-api.jpg',
+    visual: SERVICE_VISUAL_MAP['devops'],
     deliverables: [
       'GitHub Actions automated deployment pipelines',
       'Kubernetes (EKS/GKE) cluster & Helm management',
@@ -216,6 +284,7 @@ Great software is defined by how effortless it feels to use. Our UI/UX design st
     icon: 'Layers',
     orderIndex: 7,
     imageSrc: '/images/services/service-uiux.jpg',
+    visual: SERVICE_VISUAL_MAP['ui-ux-design'],
     deliverables: [
       'Figma design tokens & modular component libraries',
       'Interactive clickable prototypes & user flows',
@@ -244,6 +313,7 @@ Navigate complex technical inflection points with battle-tested senior engineers
     icon: 'Sparkles',
     orderIndex: 8,
     imageSrc: '/images/services/service-transformation.jpg',
+    visual: SERVICE_VISUAL_MAP['technology-consulting'],
     deliverables: [
       'Deep architectural bottleneck diagnosis & code reviews',
       'Security vulnerability evaluations & SOC-2 prep',
@@ -317,4 +387,39 @@ export function getServiceBySlugSync(slug: string): PublicServiceItem | undefine
 
 export function getAllServicesSync(): PublicServiceItem[] {
   return DEFAULT_SERVICES;
+}
+
+/**
+ * Returns the corresponding ServiceVisualInfo for any slug, alias, or keyword.
+ */
+export function getServiceVisual(slugOrId?: string): ServiceVisualInfo {
+  if (!slugOrId) return SERVICE_VISUAL_MAP['ai-development'];
+  const normalized = slugOrId.toLowerCase().trim();
+  const canonical = SLUG_ALIASES[normalized] || normalized;
+
+  if (SERVICE_VISUAL_MAP[canonical]) {
+    return SERVICE_VISUAL_MAP[canonical];
+  }
+
+  // Keyword fallbacks
+  if (canonical.includes('ai') || canonical.includes('intel') || canonical.includes('model') || canonical.includes('learn') || canonical.includes('bot')) {
+    return SERVICE_VISUAL_MAP['ai-development'];
+  }
+  if (canonical.includes('software') || canonical.includes('custom') || canonical.includes('bespoke') || canonical.includes('enterprise')) {
+    return SERVICE_VISUAL_MAP['custom-software'];
+  }
+  if (canonical.includes('web') || canonical.includes('site') || canonical.includes('saas') || canonical.includes('app')) {
+    return SERVICE_VISUAL_MAP['web-development'];
+  }
+  if (canonical.includes('cloud') || canonical.includes('infra')) {
+    return SERVICE_VISUAL_MAP['cloud-engineering'];
+  }
+  if (canonical.includes('mobile') || canonical.includes('ios') || canonical.includes('android')) {
+    return SERVICE_VISUAL_MAP['mobile-development'];
+  }
+  if (canonical.includes('devops') || canonical.includes('cicd') || canonical.includes('ci-cd') || canonical.includes('pipeline')) {
+    return SERVICE_VISUAL_MAP['devops'];
+  }
+
+  return SERVICE_VISUAL_MAP['ai-development'];
 }

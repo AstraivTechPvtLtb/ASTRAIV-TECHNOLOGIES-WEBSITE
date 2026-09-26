@@ -1,6 +1,6 @@
 /**
  * @file client/src/controllers/services.controller.ts
- * @description [CONTROLLER] Business logic for retrieving public database-backed services for the AstraIV client website.
+ * @description [CONTROLLER] Business logic for retrieving public database-backed services for the Astraiv client website.
  * SERVICES = WHAT ASTRAIV DOES (Engineering disciplines & capabilities).
  */
 
@@ -11,6 +11,7 @@ import {
   DEFAULT_SERVICES,
   SLUG_ALIASES,
   RECLASSIFIED_SERVICES_TO_SOLUTIONS,
+  getServiceVisual,
 } from '@/lib/services-data';
 
 import { safeCache } from '@/lib/cache';
@@ -61,6 +62,7 @@ async function fetchPublicActiveServices(): Promise<PublicServiceItem[]> {
             deliverables: defaultMeta?.deliverables,
             techStack: defaultMeta?.techStack,
             slaHighlight: defaultMeta?.slaHighlight,
+            visual: defaultMeta?.visual || getServiceVisual(canonicalSlug),
           });
         }
 
@@ -112,6 +114,7 @@ async function fetchPublicActiveServices(): Promise<PublicServiceItem[]> {
               deliverables: defaultMeta?.deliverables,
               techStack: defaultMeta?.techStack,
               slaHighlight: defaultMeta?.slaHighlight,
+              visual: defaultMeta?.visual || getServiceVisual(canonicalSlug),
             });
           }
 

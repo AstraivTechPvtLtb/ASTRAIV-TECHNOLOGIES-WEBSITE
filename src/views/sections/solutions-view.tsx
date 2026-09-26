@@ -248,50 +248,22 @@ export function SolutionsView() {
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
 
-  const filteredSolutions =
-    selectedCategory === 'all'
-      ? SOLUTIONS_DATA
-      : SOLUTIONS_DATA.filter((item) => item.category === selectedCategory);
-
   return (
     <div className="flex flex-col w-full">
-      {/* 1. CATEGORY NAVIGATION HEADER */}
-      <section className="pt-28 pb-8 md:pt-36 md:pb-10 px-6 max-w-7xl mx-auto w-full">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white font-heading tracking-tight">
-              Enterprise Solutions
-            </h1>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-medium mt-1">
-              Purpose-built technical architectures solving high-stakes enterprise bottlenecks.
-            </p>
-          </div>
-
-          {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center gap-2 p-1.5 bg-card/90 dark:bg-slate-900/90 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs w-fit">
-            {CATEGORIES.map((cat) => {
-              const active = selectedCategory === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className={cn(
-                    'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer select-none',
-                    active
-                      ? 'bg-primary text-white shadow-xs dark:bg-blue-600 dark:text-white font-black'
-                      : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
-                  )}
-                >
-                  {cat.label}
-                </button>
-              );
-            })}
-          </div>
+      {/* 1. PAGE HEADER */}
+      <section className="pt-28 pb-6 md:pt-36 md:pb-8 px-6 max-w-7xl mx-auto w-full">
+        <div>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white font-heading tracking-tight">
+            Enterprise Solutions
+          </h1>
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-medium mt-2 max-w-3xl">
+            Purpose-built technical architectures solving high-stakes enterprise bottlenecks.
+          </p>
         </div>
       </section>
 
-      {/* 2. FEATURED SHOWCASE BANNER (From dropdown featured card) */}
-      <section className="px-6 mb-16 max-w-7xl mx-auto w-full">
+      {/* 2. FEATURED SHOWCASE BANNER ("Engineered for Impact.") */}
+      <section className="px-6 mb-8 max-w-7xl mx-auto w-full">
         <div className="relative overflow-hidden rounded-3xl border border-primary/25 dark:border-blue-600/30 bg-gradient-to-br from-blue-50/70 via-indigo-50/40 to-blue-50/50 dark:from-slate-900/95 dark:via-slate-900/90 dark:to-blue-950/40 p-8 sm:p-12 shadow-md">
           {/* Subtle decoration lines */}
           <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-primary/10 dark:bg-blue-600/10 blur-3xl pointer-events-none" />
@@ -323,7 +295,8 @@ export function SolutionsView() {
               </Link>
               <a
                 href="#all-solutions"
-                className="px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm text-slate-700 dark:text-slate-200 bg-white/90 dark:bg-slate-800/90 hover:bg-white dark:hover:bg-slate-800 border border-border/80 dark:border-slate-700/80 transition-all flex items-center justify-center gap-2 shadow-xs"
+                onClick={() => setSelectedCategory('all')}
+                className="px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm text-slate-700 dark:text-slate-200 bg-white/90 dark:bg-slate-800/90 hover:bg-white dark:hover:bg-slate-800 border border-border/80 dark:border-slate-700/80 transition-all flex items-center justify-center gap-2 shadow-xs cursor-pointer"
               >
                 <span>Browse All Categories</span>
                 <ChevronRight className="h-4 w-4" />
@@ -333,87 +306,137 @@ export function SolutionsView() {
         </div>
       </section>
 
-      {/* 3. SOLUTIONS GRID (Each item from the dropdown list) */}
+      {/* 3. ENTERPRISE SOLUTIONS CATEGORY FILTER (SINGLE LINE UNDER ENGINEERED FOR IMPACT) */}
+      <section id="solutions-filter" className="px-6 mb-12 max-w-7xl mx-auto w-full">
+        <div className="flex items-center justify-start sm:justify-center overflow-x-auto no-scrollbar py-1">
+          <div
+            role="tablist"
+            aria-label="Enterprise Solutions Categories"
+            className="inline-flex items-center flex-nowrap gap-2 p-1.5 bg-card/90 dark:bg-slate-900/90 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs whitespace-nowrap"
+          >
+            {CATEGORIES.map((cat) => {
+              const active = selectedCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  id={`filter-tab-${cat.id}`}
+                  role="tab"
+                  aria-selected={active}
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={cn(
+                    'px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer select-none whitespace-nowrap shrink-0 flex items-center gap-2',
+                    active
+                      ? 'bg-primary text-white shadow-xs dark:bg-blue-600 dark:text-white font-black'
+                      : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
+                  )}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. SOLUTIONS GRID */}
       <section id="all-solutions" className="px-6 pb-24 max-w-7xl mx-auto w-full scroll-mt-24">
         <div className="flex flex-col gap-12">
-          {/* Intelligent Systems Anchor Header */}
+          {/* CATEGORY 01: Intelligent Systems */}
           {(selectedCategory === 'all' || selectedCategory === 'intelligent-systems') && (
-            <div id="intelligent-systems" className="flex flex-col gap-3 scroll-mt-28">
-              <div className="flex items-center gap-3">
-                <span className="h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
-                <span className="text-xs font-black uppercase tracking-widest text-blue-600 dark:text-blue-400">
-                  CATEGORY 01
-                </span>
+            <div className="flex flex-col gap-8">
+              <div id="intelligent-systems" className="flex flex-col gap-3 scroll-mt-28">
+                <div className="flex items-center gap-3">
+                  <span className="h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
+                  <span className="text-xs font-black uppercase tracking-widest text-blue-600 dark:text-blue-400">
+                    CATEGORY 01
+                  </span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white font-heading">
+                  Intelligent Systems
+                </h2>
+                <p className="text-sm sm:text-base text-muted-foreground max-w-3xl">
+                  Deploy cognitive intelligence into your existing infrastructure. Autonomous agents, enterprise knowledge lakes, and predictive data systems.
+                </p>
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white font-heading">
-                Intelligent Systems
-              </h2>
-              <p className="text-sm sm:text-base text-muted-foreground max-w-3xl">
-                Deploy cognitive intelligence into your existing infrastructure. Autonomous agents, enterprise knowledge lakes, and predictive data systems.
-              </p>
+
+              {/* Solutions Cards Stream */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {SOLUTIONS_DATA
+                  .filter((s) => s.category === 'intelligent-systems')
+                  .map((solution) => (
+                    <SolutionCard key={solution.id} solution={solution} />
+                  ))}
+              </div>
             </div>
           )}
 
-          {/* Solutions Cards Stream */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {filteredSolutions
-              .filter((s) => selectedCategory !== 'all' || s.category === 'intelligent-systems')
-              .map((solution) => (
-                <SolutionCard key={solution.id} solution={solution} />
-              ))}
-          </div>
-
-          {/* Digital Products Anchor Header */}
+          {/* CATEGORY 02: Digital Products */}
           {(selectedCategory === 'all' || selectedCategory === 'digital-products') && (
-            <div id="digital-products" className="flex flex-col gap-3 pt-10 scroll-mt-28 border-t border-border/60 dark:border-slate-800/80">
-              <div className="flex items-center gap-3">
-                <span className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse" />
-                <span className="text-xs font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
-                  CATEGORY 02
-                </span>
+            <div className="flex flex-col gap-8">
+              <div
+                id="digital-products"
+                className={cn(
+                  'flex flex-col gap-3 scroll-mt-28',
+                  selectedCategory === 'all' && 'pt-10 border-t border-border/60 dark:border-slate-800/80'
+                )}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse" />
+                  <span className="text-xs font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
+                    CATEGORY 02
+                  </span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white font-heading">
+                  Digital Products
+                </h2>
+                <p className="text-sm sm:text-base text-muted-foreground max-w-3xl">
+                  High-throughput recurring revenue platforms, mission-critical command centers, and automated workflow pipelines.
+                </p>
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white font-heading">
-                Digital Products
-              </h2>
-              <p className="text-sm sm:text-base text-muted-foreground max-w-3xl">
-                High-throughput recurring revenue platforms, mission-critical command centers, and automated workflow pipelines.
-              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {SOLUTIONS_DATA
+                  .filter((s) => s.category === 'digital-products')
+                  .map((solution) => (
+                    <SolutionCard key={solution.id} solution={solution} />
+                  ))}
+              </div>
             </div>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl">
-            {filteredSolutions
-              .filter((s) => selectedCategory !== 'all' || s.category === 'digital-products')
-              .map((solution) => (
-                <SolutionCard key={solution.id} solution={solution} />
-              ))}
-          </div>
-
-          {/* Engineering Transformation Anchor Header */}
+          {/* CATEGORY 03: Engineering Transformation */}
           {(selectedCategory === 'all' || selectedCategory === 'engineering-transformation') && (
-            <div id="engineering-transformation" className="flex flex-col gap-3 pt-10 scroll-mt-28 border-t border-border/60 dark:border-slate-800/80">
-              <div className="flex items-center gap-3">
-                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-xs font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
-                  CATEGORY 03
-                </span>
+            <div className="flex flex-col gap-8">
+              <div
+                id="engineering-transformation"
+                className={cn(
+                  'flex flex-col gap-3 scroll-mt-28',
+                  selectedCategory === 'all' && 'pt-10 border-t border-border/60 dark:border-slate-800/80'
+                )}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-xs font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
+                    CATEGORY 03
+                  </span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white font-heading">
+                  Engineering Transformation
+                </h2>
+                <p className="text-sm sm:text-base text-muted-foreground max-w-3xl">
+                  Zero-downtime refactoring and high-performance system integrations bridging legacy silos to modern cloud primitives.
+                </p>
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white font-heading">
-                Engineering Transformation
-              </h2>
-              <p className="text-sm sm:text-base text-muted-foreground max-w-3xl">
-                Zero-downtime refactoring and high-performance system integrations bridging legacy silos to modern cloud primitives.
-              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {SOLUTIONS_DATA
+                  .filter((s) => s.category === 'engineering-transformation')
+                  .map((solution) => (
+                    <SolutionCard key={solution.id} solution={solution} />
+                  ))}
+              </div>
             </div>
           )}
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl">
-            {filteredSolutions
-              .filter((s) => selectedCategory !== 'all' || s.category === 'engineering-transformation')
-              .map((solution) => (
-                <SolutionCard key={solution.id} solution={solution} />
-              ))}
-          </div>
         </div>
       </section>
 
@@ -526,7 +549,7 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
   return (
     <div
       id={solution.id}
-      className="group scroll-mt-32 p-7 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs hover:shadow-xl hover:border-primary/40 dark:hover:border-accent/40 transition-all duration-300 flex flex-col justify-between text-left relative overflow-hidden"
+      className="group scroll-mt-32 p-7 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs hover:shadow-xl hover:border-primary/40 dark:hover:border-accent/40 transition-all duration-300 flex flex-col justify-between text-left relative overflow-hidden h-full min-h-[825px]"
     >
       {/* Secondary alias anchor points for legacy routes and navigation links */}
       {solution.id === 'ai-business-automation' && (
@@ -555,7 +578,7 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
       {/* Top ambient glow on hover */}
       <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 dark:bg-accent/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
 
-      <div>
+      <div className="flex flex-col flex-1">
         {/* Category Pill & Icon */}
         <div className="flex items-center justify-between mb-5">
           <div
@@ -573,24 +596,24 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
         </div>
 
         {/* Title */}
-        <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-heading tracking-tight mb-2 group-hover:text-primary dark:group-hover:text-accent transition-colors">
+        <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-heading tracking-tight mb-2 group-hover:text-primary dark:group-hover:text-accent transition-colors min-h-[60px] flex items-center">
           <Link href={`/solutions/${solution.id}`}>
             {solution.title}
           </Link>
         </h3>
 
         {/* Tagline (original dropdown copy) */}
-        <p className="text-xs sm:text-sm font-semibold text-primary dark:text-blue-400 mb-3">
+        <p className="text-xs sm:text-sm font-semibold text-primary dark:text-blue-400 mb-3 min-h-[42px] flex items-center">
           {solution.tagline}
         </p>
 
         {/* Detailed Description */}
-        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6 font-medium">
+        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6 font-medium min-h-[84px]">
           {solution.description}
         </p>
 
         {/* Metric Highlight Box */}
-        <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-border/60 dark:border-slate-800/80 mb-6 flex items-center gap-3.5">
+        <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-border/60 dark:border-slate-800/80 mb-6 flex items-center gap-3.5 min-h-[70px]">
           <span className="text-xl sm:text-2xl font-black font-heading text-slate-900 dark:text-white shrink-0">
             {solution.metric.value}
           </span>
@@ -600,22 +623,22 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
         </div>
 
         {/* Core Capabilities */}
-        <div className="flex flex-col gap-2.5 mb-6">
+        <div className="flex flex-col gap-2.5 mb-6 flex-1 justify-start">
           <span className="text-[11px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
             Core Architecture
           </span>
           {solution.features.map((feat, i) => (
             <div key={i} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300 font-medium">
               <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
-              <span>{feat}</span>
+              <span className="leading-snug">{feat}</span>
             </div>
           ))}
         </div>
       </div>
 
-      <div>
+      <div className="mt-auto">
         {/* Technologies Stack Tags */}
-        <div className="pt-4 border-t border-border/50 dark:border-slate-800/80 mb-5">
+        <div className="pt-4 border-t border-border/50 dark:border-slate-800/80 mb-5 min-h-[64px] flex items-center">
           <div className="flex flex-wrap gap-1.5">
             {solution.technologies.map((tech) => (
               <span

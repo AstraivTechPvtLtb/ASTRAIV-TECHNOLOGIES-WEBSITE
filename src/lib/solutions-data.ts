@@ -503,7 +503,7 @@ export const SOLUTIONS_LIST: SolutionDetail[] = [
     shortDesc:
       'Transition your enterprise away from slow, analog workflows and fragmented spreadsheets into unified, automated cloud platforms that unlock exponential operational scale.',
     fullDesc:
-      'Analog and spreadsheet-based operations paralyze growing enterprises. AstraIV guides businesses through phased, risk-free digital transformation roadmaps—replacing manual friction with unified web portals, automated logging, and executive telemetry.',
+      'Analog and spreadsheet-based operations paralyze growing enterprises. Astraiv guides businesses through phased, risk-free digital transformation roadmaps—replacing manual friction with unified web portals, automated logging, and executive telemetry.',
     metric: {
       value: '3x Faster',
       label: 'Operational execution velocity across key departments',
