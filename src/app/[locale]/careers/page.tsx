@@ -72,10 +72,7 @@ export default async function CareersPage({ params }: CareersPageProps) {
         <div className="max-w-6xl mx-auto px-6">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20 mb-4">
-              <Users className="h-3.5 w-3.5" />
-              <span>Elite Engineering Culture</span>
-            </div>
+
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight font-heading mb-4">
               Work With Architects, <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">

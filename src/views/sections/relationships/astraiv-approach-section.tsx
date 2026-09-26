@@ -1,6 +1,6 @@
 import React from 'react';
 import { AstraivApproach } from '@/lib/solutions-data';
-import { ShieldCheck, Layers, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 interface AstraivApproachSectionProps {
   approach: AstraivApproach;
@@ -20,10 +20,7 @@ export function AstraivApproachSection({ approach, capabilities, fullDesc }: Ast
         <div className="absolute -top-20 -left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-4">
-            <Layers className="h-3.5 w-3.5" />
-            <span>THE ASTRAIV APPROACH</span>
-          </div>
+
 
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">
             {approach.title}

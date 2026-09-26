@@ -37,17 +37,7 @@ export function FinalCtaSection({
         <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-500/25 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
-          {/* Eyebrow Pill */}
-          <motion.div
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={MOTION_VIEWPORT.once}
-            transition={{ duration: MOTION_DURATIONS.reveal, ease: EASE_OUT_EXPO }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider text-blue-200 bg-white/10 border border-white/20 backdrop-blur-md mb-6 select-none"
-          >
-            <Sparkles className="h-3.5 w-3.5 text-blue-300 animate-pulse" />
-            <span>START YOUR NEXT BUILD</span>
-          </motion.div>
+
 
           {/* Statement Headline Focused on Starting a Project */}
           <motion.h2

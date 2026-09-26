@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
-import { ArrowRight, MessageSquareCode } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface SolutionCTASectionProps {
   title?: string;
@@ -28,10 +28,7 @@ export function SolutionCTASection({
         <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-2xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-            <MessageSquareCode className="h-3.5 w-3.5" />
-            <span>ARCHITECTURAL CONSULTATION</span>
-          </div>
+
 
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
             {title}

@@ -125,12 +125,7 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
 
       {/* HEADER SECTION */}
       <header className="mb-10 sm:mb-12 lg:mb-14">
-        {/* Category Badge */}
-        <div className="inline-flex items-center mb-4">
-          <span className="px-3.5 py-1 text-[11px] font-mono font-bold tracking-wider uppercase rounded-full bg-primary/10 text-primary border border-primary/20 dark:bg-blue-500/10 dark:text-blue-300 dark:border-blue-400/25">
-            Capabilities & Architecture
-          </span>
-        </div>
+
 
         {/* Main Heading and Contextual Subtitle */}
         <div className="flex flex-col lg:flex-row justify-between gap-6 lg:items-end">

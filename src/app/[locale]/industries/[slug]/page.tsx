@@ -117,9 +117,7 @@ export default async function IndustryDetailPage({ params }: IndustryDetailPageP
                 <span className="font-mono text-xs font-bold text-slate-400 px-3 py-1 rounded-full bg-slate-800 border border-slate-700">
                   {industry.code}
                 </span>
-                <span className="px-3 py-1 text-xs font-bold bg-primary/10 text-primary rounded-full border border-primary/20 uppercase tracking-wider">
-                  Vertical Specification
-                </span>
+
                 <span className="px-3 py-1 text-xs font-bold bg-emerald-500/10 text-emerald-400 rounded-full border border-emerald-500/20 flex items-center gap-1">
                   <ShieldCheck className="h-3.5 w-3.5" />
                   {industry.complianceBadge}

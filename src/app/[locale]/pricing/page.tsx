@@ -7,7 +7,7 @@ import { Footer } from '@/views/layouts/footer';
 import { PricingSection } from '@/views/sections/pricing-section';
 import { FaqSection } from '@/views/sections/faq-section';
 import { getPublicPricingPlans } from '@/controllers/public-data.controller';
-import { DollarSign, ShieldCheck, Zap, Headphones, ArrowRight, Sparkles } from 'lucide-react';
+import { DollarSign, ShieldCheck, Zap, Headphones, ArrowRight } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';
@@ -84,10 +84,7 @@ export default async function PricingPage({ params }: PricingPageProps) {
         <div className="max-w-6xl mx-auto px-6">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-10">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20 mb-4">
-              <DollarSign className="h-3.5 w-3.5" />
-              <span>Transparent Engagement Models</span>
-            </div>
+
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight font-heading mb-4">
               Predictable Investment. <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">
@@ -153,10 +150,7 @@ export default async function PricingPage({ params }: PricingPageProps) {
           {/* Post-FAQ Next Action Conversion Section: Never a Dead End */}
           <div className="mt-20 p-8 sm:p-12 rounded-3xl bg-slate-900/80 border border-border/80 dark:border-slate-800 text-center relative overflow-hidden shadow-xl">
             <div className="relative z-10 max-w-2xl mx-auto space-y-4">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20 uppercase tracking-wider">
-                <Sparkles className="h-3.5 w-3.5" />
-                <span>Next Steps</span>
-              </span>
+
               <h3 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
                 Ready to Initiate Your Engineering Sprint?
               </h3>

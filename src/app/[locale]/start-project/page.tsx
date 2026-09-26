@@ -4,7 +4,6 @@ import { setRequestLocale } from 'next-intl/server';
 import { Navbar, Footer } from '@/views';
 import { StartProjectWizard } from '@/views/sections/start-project/start-project-wizard';
 import { StartProjectSkeleton } from './loading';
-import { Sparkles } from 'lucide-react';
 import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';
 
 interface StartProjectPageProps {
@@ -39,10 +38,7 @@ export default async function StartProjectPage({ params }: StartProjectPageProps
       <main id="main-content" className="pt-28 pb-16 flex-grow z-10 relative">
         {/* Page Hero Header */}
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 mb-4 sm:mb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 border border-primary/20 dark:border-blue-400/20 mb-4 select-none">
-            <Sparkles className="h-3.5 w-3.5" />
-            <span>ENTERPRISE PROJECT SCOPING</span>
-          </div>
+
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground font-heading">
             Start Your Project with{' '}

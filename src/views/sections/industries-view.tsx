@@ -19,9 +19,7 @@ import {
   ShieldCheck,
   CheckCircle2,
   Activity,
-  Lock,
   Compass,
-  Sparkles,
 } from 'lucide-react';
 
 /* -------------------------------------------------------------------------- */
@@ -825,10 +823,7 @@ export function IndustriesView() {
       <section className="py-20 px-6 bg-slate-50/50 dark:bg-slate-950/40 border-y border-border/60 dark:border-slate-800/80 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold tracking-wider text-secondary bg-secondary/10 dark:bg-secondary/20 border border-secondary/20 uppercase mb-4">
-              <Lock className="h-3.5 w-3.5" />
-              <span>Compliance & Security Governance</span>
-            </div>
+
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-foreground mb-4">
               Enterprise Regulatory Matrix
             </h2>
@@ -889,10 +884,7 @@ export function IndustriesView() {
           {/* Subtle glowing orb */}
           <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-48 bg-primary/20 rounded-full blur-[90px] pointer-events-none" />
 
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold tracking-wider text-accent bg-accent/10 dark:bg-accent/20 border border-accent/20 uppercase mb-6">
-            <Sparkles className="h-3.5 w-3.5" />
-            <span>Vertical Architecture Advisory</span>
-          </div>
+
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-foreground max-w-3xl leading-[1.15] mb-6">
             Have a Complex Vertical with Non-Standard Constraints?
