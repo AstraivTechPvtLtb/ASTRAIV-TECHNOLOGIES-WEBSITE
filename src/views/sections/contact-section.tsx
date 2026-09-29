@@ -52,14 +52,14 @@ export function ContactSection({ isPageHero = false }: ContactSectionProps) {
 
 
           {isPageHero ? (
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading leading-tight text-foreground">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] font-heading leading-tight text-foreground">
               Have an Idea? <br />
               <span className="bg-gradient-to-r from-primary via-secondary to-accent dark:from-blue-400 dark:via-blue-400 dark:to-indigo-300 bg-clip-text text-transparent">
                 Let&apos;s Build It.
               </span>
             </h1>
           ) : (
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading leading-tight text-foreground">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] font-heading leading-tight text-foreground">
               Have an Idea? <br />
               <span className="bg-gradient-to-r from-primary via-secondary to-accent dark:from-blue-400 dark:via-blue-400 dark:to-indigo-300 bg-clip-text text-transparent">
                 Let&apos;s Build It.
@@ -67,7 +67,7 @@ export function ContactSection({ isPageHero = false }: ContactSectionProps) {
             </h2>
           )}
 
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl font-medium">
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl font-normal">
             Tell us what you&apos;re building, what you&apos;re solving, or where you want to go next. We&apos;ll help you turn the vision into a scalable, high-conversion digital reality.
           </p>
 
@@ -75,13 +75,13 @@ export function ContactSection({ isPageHero = false }: ContactSectionProps) {
           <div className="flex flex-wrap items-center gap-3 pt-1">
             <a
               href="#contact-form-box"
-              className="px-6 py-3 rounded-xl bg-primary text-white font-bold text-xs sm:text-sm tracking-wide shadow-md shadow-primary/25 hover:bg-primary/90 transition-all active:scale-95"
+              className="px-6 py-3 rounded-xl bg-primary text-white font-semibold text-xs sm:text-sm tracking-normal shadow-md shadow-primary/25 hover:bg-primary/90 transition-all active:scale-95"
             >
               Start a Conversation
             </a>
             <Link
               href="/services"
-              className="inline-flex items-center gap-1.5 px-6 py-3 rounded-xl bg-card/85 dark:bg-slate-900/80 border border-border/70 dark:border-slate-800 text-foreground font-bold text-xs sm:text-sm hover:border-primary/40 dark:hover:border-blue-400 transition-all"
+              className="inline-flex items-center gap-1.5 px-6 py-3 rounded-xl bg-card/85 dark:bg-slate-900/80 border border-border/70 dark:border-slate-800 text-foreground font-semibold text-xs sm:text-sm hover:border-primary/40 dark:hover:border-blue-400 transition-all"
             >
               <span>Explore Our Services</span>
               <ArrowRight className="h-3.5 w-3.5" />
@@ -98,8 +98,8 @@ export function ContactSection({ isPageHero = false }: ContactSectionProps) {
                 <Mail className="h-4 w-4" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider">Email Inquiry</span>
-                <span className="text-xs sm:text-sm font-bold">info@astraivtechnologies.com</span>
+                <span className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">Email Inquiry</span>
+                <span className="text-xs sm:text-sm font-semibold">info@astraivtechnologies.com</span>
               </div>
             </a>
 
@@ -111,8 +111,8 @@ export function ContactSection({ isPageHero = false }: ContactSectionProps) {
                 <Phone className="h-4 w-4" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider">Direct Engineering Hotline</span>
-                <span className="text-xs sm:text-sm font-bold">+91 8167409664</span>
+                <span className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">Direct Engineering Hotline</span>
+                <span className="text-xs sm:text-sm font-semibold">+91 8167409664</span>
               </div>
             </a>
 

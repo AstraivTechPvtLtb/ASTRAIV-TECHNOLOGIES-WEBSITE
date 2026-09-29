@@ -45,7 +45,7 @@ export function FinalCtaSection({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={MOTION_VIEWPORT.once}
             transition={{ delay: 0.08, duration: MOTION_DURATIONS.reveal, ease: EASE_OUT_EXPO }}
-            className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-tight text-white leading-[1.18] mb-6 [text-wrap:balance] break-words"
+            className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] font-semibold tracking-[-0.025em] text-white leading-[1.12] mb-6 [text-wrap:balance] break-words font-heading"
           >
             {headline}
           </motion.h2>
@@ -56,7 +56,7 @@ export function FinalCtaSection({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={MOTION_VIEWPORT.once}
             transition={{ delay: 0.16, duration: MOTION_DURATIONS.reveal, ease: EASE_OUT_EXPO }}
-            className="text-sm sm:text-base md:text-lg text-blue-100/85 max-w-2xl leading-relaxed mb-10 font-normal"
+            className="text-sm sm:text-base md:text-lg text-blue-100/85 max-w-2xl leading-[1.62] mb-10 font-normal"
           >
             {subheadline}
           </motion.p>
@@ -77,7 +77,7 @@ export function FinalCtaSection({
                   sessionStorage.setItem('astraiv_lead_source_page', pathname);
                 }
               }}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-xl text-sm font-extrabold text-slate-950 bg-white hover:bg-slate-100 transition-all duration-200 shadow-xl hover:shadow-2xl active:scale-[0.98] select-none group"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-xl text-sm font-semibold tracking-normal text-slate-950 bg-white hover:bg-slate-100 transition-all duration-200 shadow-xl hover:shadow-2xl active:scale-[0.98] select-none group"
             >
               <span>Start a Project</span>
               <ArrowRight className="h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-1" />
@@ -86,7 +86,7 @@ export function FinalCtaSection({
             {/* Secondary CTA: Talk to an Expert */}
             <Link
               href="/contact#schedule"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-xl text-sm font-bold text-white bg-white/10 hover:bg-white/20 border border-white/25 backdrop-blur-md transition-all duration-200 active:scale-[0.98] select-none group"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-xl text-sm font-semibold tracking-normal text-white bg-white/10 hover:bg-white/20 border border-white/25 backdrop-blur-md transition-all duration-200 active:scale-[0.98] select-none group"
             >
               <MessageSquare className="h-4 w-4 text-blue-300" />
               <span>Talk to an Expert</span>

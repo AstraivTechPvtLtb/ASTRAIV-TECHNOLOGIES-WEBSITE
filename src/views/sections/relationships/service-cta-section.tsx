@@ -30,25 +30,25 @@ export function ServiceCTASection({
         <div className="relative z-10 max-w-2xl mx-auto space-y-4">
 
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-[-0.025em] leading-[1.15]">
             {title}
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl mx-auto">
+          <p className="text-sm sm:text-base text-slate-300 font-normal leading-[1.62] max-w-xl mx-auto">
             {subtitle}
           </p>
 
           <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
             <Link
               href={targetHref}
-              className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm shadow-xl shadow-primary/25 transition-all duration-300 group active:scale-95"
+              className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-sm shadow-xl shadow-primary/25 transition-all duration-300 group active:scale-95 tracking-normal"
             >
               <span>{buttonText}</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               href={ROUTES.PUBLIC.PRICING}
-              className="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-bold text-sm transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-sm transition-colors tracking-normal"
             >
               <span>View Pricing Models</span>
             </Link>

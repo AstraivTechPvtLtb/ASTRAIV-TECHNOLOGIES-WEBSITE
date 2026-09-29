@@ -151,7 +151,7 @@ export function IndustriesSection() {
                 
                 {/* Visual Overlay Tag */}
                 <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 flex flex-wrap items-center justify-between gap-2 text-white text-xs">
-                  <span className="px-3 py-1 rounded-full bg-slate-950/80 backdrop-blur-md border border-blue-400/30 text-blue-300 font-extrabold text-[11px] uppercase tracking-wider flex items-center gap-1.5">
+                  <span className="px-3 py-1 rounded-full bg-slate-950/80 backdrop-blur-md border border-blue-400/30 text-blue-300 font-semibold text-[11px] uppercase tracking-wider flex items-center gap-1.5">
                     <Activity className="h-3.5 w-3.5 animate-pulse" />
                     <span>Live Sector Architecture</span>
                   </span>
@@ -164,11 +164,11 @@ export function IndustriesSection() {
               {/* Right Column: Detailed Business & Engineering Scope */}
               <div className="lg:col-span-6 flex flex-col justify-between gap-5">
                 <div>
-                  <span className="inline-flex self-start px-3 py-1 text-[10px] font-extrabold tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 rounded-full border border-primary/20 dark:border-blue-400/20 uppercase mb-3">
+                  <span className="inline-flex self-start px-3 py-1 text-[10px] font-semibold tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 rounded-full border border-primary/20 dark:border-blue-400/20 uppercase mb-3">
                     {industries[activeTab].label} Technology
                   </span>
                   
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-foreground leading-tight">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-[-0.02em] text-foreground leading-tight">
                     {industries[activeTab].title}
                   </h3>
 
@@ -176,20 +176,20 @@ export function IndustriesSection() {
                     {industries[activeTab].subtitle}
                   </p>
 
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-medium mt-3">
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-normal mt-3">
                     {industries[activeTab].details}
                   </p>
                 </div>
 
                 {/* Operational Benchmarks Grid */}
                 <div className="p-4 sm:p-5 rounded-xl bg-slate-50/80 dark:bg-slate-800/50 border border-border/60 dark:border-slate-700/60 flex flex-col gap-3">
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-muted-foreground">
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
                     Operational Benchmarks
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {industries[activeTab].metrics.map((m, mIdx) => (
                       <div key={mIdx} className="flex flex-col">
-                        <span className="text-sm sm:text-base font-extrabold text-foreground font-mono">
+                        <span className="text-sm sm:text-base font-semibold text-foreground font-mono">
                           {m.val}
                         </span>
                         <span className="text-[11px] text-muted-foreground font-medium">
@@ -204,7 +204,7 @@ export function IndustriesSection() {
                 <div className="pt-2 flex items-center justify-between">
                   <Link
                     href={ROUTES.PUBLIC.INDUSTRY_DETAIL(industries[activeTab].id)}
-                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group min-h-[28px] py-1"
+                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group min-h-[28px] py-1"
                   >
                     <span>Explore {industries[activeTab].label} Solutions</span>
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -219,7 +219,7 @@ export function IndustriesSection() {
         <div className="mt-12 sm:mt-14 text-center">
           <Link
             href={ROUTES.PUBLIC.INDUSTRIES}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-foreground hover:text-primary dark:hover:text-blue-400 bg-card/80 hover:bg-card border border-border/60 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all shadow-xs hover:shadow-md group"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold text-foreground hover:text-primary dark:hover:text-blue-400 bg-card/80 hover:bg-card border border-border/60 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all shadow-xs hover:shadow-md group"
           >
             <span>Explore All Industries</span>
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />

@@ -1,23 +1,38 @@
 import type { Metadata } from 'next';
-import { Geist, Plus_Jakarta_Sans, Syne, JetBrains_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
+import { JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
-const geist = Geist({
-  subsets: ['latin'],
-  variable: '--font-sans',
+const generalSans = localFont({
+  src: [
+    {
+      path: '../fonts/GeneralSans-Variable.woff2',
+      style: 'normal',
+      weight: '200 700',
+    },
+    {
+      path: '../fonts/GeneralSans-VariableItalic.woff2',
+      style: 'italic',
+      weight: '200 700',
+    },
+  ],
+  variable: '--font-primary',
   display: 'swap',
-});
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  variable: '--font-heading',
-  display: 'swap',
-});
-
-const syne = Syne({
-  subsets: ['latin'],
-  variable: '--font-display',
-  display: 'swap',
+  preload: true,
+  fallback: [
+    'Fellix',
+    'General Sans',
+    'Satoshi',
+    'Plus Jakarta Sans',
+    '-apple-system',
+    'BlinkMacSystemFont',
+    'Segoe UI',
+    'Roboto',
+    'Noto Sans',
+    'Noto Sans Arabic',
+    'Noto Sans Bengali',
+    'sans-serif',
+  ],
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -60,7 +75,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body
-        className={`${geist.variable} ${plusJakartaSans.variable} ${syne.variable} ${jetbrainsMono.variable} font-sans bg-background text-foreground antialiased selection:bg-primary/20 selection:text-foreground`}
+        className={`${generalSans.variable} ${jetbrainsMono.variable} font-sans bg-background text-foreground antialiased selection:bg-primary/20 selection:text-foreground`}
         suppressHydrationWarning
       >
         {children}

@@ -46,7 +46,7 @@ export function TestimonialCard({
 
         {/* Quote Content */}
         <CardContent className="p-0">
-          <p className="text-sm sm:text-[15px] text-muted-foreground leading-relaxed font-medium">
+          <p className="text-sm sm:text-[15px] text-muted-foreground leading-[1.62] font-normal">
             &ldquo;{quote}&rdquo;
           </p>
         </CardContent>
@@ -71,16 +71,16 @@ export function TestimonialCard({
           )}
         </div>
         <div className="flex flex-col text-left">
-          <h3 className="text-sm font-extrabold text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
+          <h3 className="text-sm font-semibold tracking-[-0.01em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
             {authorName}
           </h3>
-          <p className="text-xs text-muted-foreground font-medium">
+          <p className="text-xs text-muted-foreground font-normal">
             {authorRole && authorCompany ? (
               <>
-                {authorRole} • <span className="font-semibold text-secondary dark:text-indigo-400">{authorCompany}</span>
+                {authorRole} • <span className="font-medium text-secondary dark:text-indigo-400">{authorCompany}</span>
               </>
             ) : authorCompany ? (
-              <span className="font-semibold text-secondary dark:text-indigo-400">{authorCompany}</span>
+              <span className="font-medium text-secondary dark:text-indigo-400">{authorCompany}</span>
             ) : (
               authorRole || 'Client Partner'
             )}

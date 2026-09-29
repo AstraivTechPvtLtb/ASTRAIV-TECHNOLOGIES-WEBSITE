@@ -252,10 +252,10 @@ export function SolutionsView() {
       {/* 1. PAGE HEADER */}
       <section className="pt-28 pb-6 md:pt-36 md:pb-8 px-6 max-w-7xl mx-auto w-full">
         <div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white font-heading tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.025em] leading-[1.12]">
             Enterprise Solutions
           </h1>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-medium mt-2 max-w-3xl">
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-normal leading-[1.62] mt-2 max-w-3xl">
             Purpose-built technical architectures solving high-stakes enterprise bottlenecks.
           </p>
         </div>
@@ -271,10 +271,10 @@ export function SolutionsView() {
           <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             <div className="flex flex-col gap-3 max-w-2xl text-left">
 
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white font-heading tracking-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.025em] leading-[1.15]">
                 Engineered for Impact.
               </h2>
-              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-[1.62] font-normal">
                 Purpose-built technical architectures solving high-stakes enterprise bottlenecks.
                 From mission-critical data pipelines to cognitive autonomous agents, every system is designed
                 with architectural rigor, zero vendor lock-in, and measurable business ROI.
@@ -284,7 +284,7 @@ export function SolutionsView() {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full lg:w-auto">
               <Link
                 href="/contact"
-                className="px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm text-white bg-primary hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 transition-all flex items-center justify-center gap-2 shadow-sm shadow-primary/20"
+                className="px-6 py-3.5 rounded-xl font-semibold text-xs sm:text-sm text-white bg-primary hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 transition-all flex items-center justify-center gap-2 shadow-sm shadow-primary/20 tracking-normal"
               >
                 <span>Talk to an Expert</span>
                 <ArrowRight className="h-4 w-4" />
@@ -292,7 +292,7 @@ export function SolutionsView() {
               <a
                 href="#all-solutions"
                 onClick={() => setSelectedCategory('all')}
-                className="px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm text-slate-700 dark:text-slate-200 bg-white/90 dark:bg-slate-800/90 hover:bg-white dark:hover:bg-slate-800 border border-border/80 dark:border-slate-700/80 transition-all flex items-center justify-center gap-2 shadow-xs cursor-pointer"
+                className="px-6 py-3.5 rounded-xl font-semibold text-xs sm:text-sm text-slate-700 dark:text-slate-200 bg-white/90 dark:bg-slate-800/90 hover:bg-white dark:hover:bg-slate-800 border border-border/80 dark:border-slate-700/80 transition-all flex items-center justify-center gap-2 shadow-xs cursor-pointer tracking-normal"
               >
                 <span>Browse All Categories</span>
                 <ChevronRight className="h-4 w-4" />
@@ -320,9 +320,9 @@ export function SolutionsView() {
                   aria-selected={active}
                   onClick={() => setSelectedCategory(cat.id)}
                   className={cn(
-                    'px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer select-none whitespace-nowrap shrink-0 flex items-center gap-2',
+                    'px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer select-none whitespace-nowrap shrink-0 flex items-center gap-2',
                     active
-                      ? 'bg-primary text-white shadow-xs dark:bg-blue-600 dark:text-white font-black'
+                      ? 'bg-primary text-white shadow-xs dark:bg-blue-600 dark:text-white font-semibold'
                       : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
                   )}
                 >
@@ -343,14 +343,14 @@ export function SolutionsView() {
               <div id="intelligent-systems" className="flex flex-col gap-3 scroll-mt-28">
                 <div className="flex items-center gap-3">
                   <span className="h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
-                  <span className="text-xs font-black uppercase tracking-widest text-blue-600 dark:text-blue-400">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">
                     CATEGORY 01
                   </span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white font-heading">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.025em] leading-[1.15]">
                   Intelligent Systems
                 </h2>
-                <p className="text-sm sm:text-base text-muted-foreground max-w-3xl">
+                <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] max-w-3xl">
                   Deploy cognitive intelligence into your existing infrastructure. Autonomous agents, enterprise knowledge lakes, and predictive data systems.
                 </p>
               </div>
@@ -378,14 +378,14 @@ export function SolutionsView() {
               >
                 <div className="flex items-center gap-3">
                   <span className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse" />
-                  <span className="text-xs font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
                     CATEGORY 02
                   </span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white font-heading">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.025em] leading-[1.15]">
                   Digital Products
                 </h2>
-                <p className="text-sm sm:text-base text-muted-foreground max-w-3xl">
+                <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] max-w-3xl">
                   High-throughput recurring revenue platforms, mission-critical command centers, and automated workflow pipelines.
                 </p>
               </div>
@@ -412,14 +412,14 @@ export function SolutionsView() {
               >
                 <div className="flex items-center gap-3">
                   <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-xs font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                     CATEGORY 03
                   </span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white font-heading">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.025em] leading-[1.15]">
                   Engineering Transformation
                 </h2>
-                <p className="text-sm sm:text-base text-muted-foreground max-w-3xl">
+                <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] max-w-3xl">
                   Zero-downtime refactoring and high-performance system integrations bridging legacy silos to modern cloud primitives.
                 </p>
               </div>
@@ -441,10 +441,10 @@ export function SolutionsView() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col gap-3 text-center max-w-3xl mx-auto mb-16">
 
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white font-heading">
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] text-slate-900 dark:text-white font-heading">
               How Astraiv Delivers High-Stakes Solutions
             </h2>
-            <p className="text-base text-muted-foreground leading-relaxed">
+            <p className="text-base text-muted-foreground leading-[1.62] font-normal">
               Every system follows our battle-tested engineering blueprint designed to mitigate risk, guarantee high velocity, and maintain flawless stability.
             </p>
           </div>
@@ -484,12 +484,12 @@ export function SolutionsView() {
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-border/50 group-hover:bg-primary group-hover:text-white transition-colors">
                     {phase.icon}
                   </div>
-                  <span className="text-2xl font-black font-heading text-slate-300 dark:text-slate-700">
+                  <span className="text-2xl font-semibold font-heading text-slate-300 dark:text-slate-700">
                     {phase.step}
                   </span>
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white">{phase.title}</h3>
-                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-medium">
+                <h3 className="text-lg font-semibold tracking-[-0.015em] text-slate-900 dark:text-white">{phase.title}</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-normal">
                   {phase.desc}
                 </p>
               </div>
@@ -503,16 +503,16 @@ export function SolutionsView() {
         <div className="relative overflow-hidden rounded-3xl border border-primary/20 dark:border-slate-700/80 bg-gradient-to-b from-card via-card to-primary/5 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/30 p-10 sm:p-16 shadow-lg">
           <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-heading text-slate-900 dark:text-white tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading text-slate-900 dark:text-white tracking-[-0.025em] leading-[1.12]">
               Let&apos;s Solve Your Enterprise Bottlenecks
             </h2>
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-medium">
+            <p className="text-sm sm:text-base text-muted-foreground leading-[1.62] font-normal">
               Schedule an in-depth technical scoping session with our principal engineers. We will analyze your system requirements and deliver a customized architectural roadmap.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-3.5 pt-2 w-full sm:w-auto">
               <Link
                 href={ROUTES.PUBLIC.START_PROJECT ? `${ROUTES.PUBLIC.START_PROJECT}?source_page=${encodeURIComponent('/solutions')}` : `/start-project?source_page=${encodeURIComponent('/solutions')}`}
-                className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm text-white bg-primary hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 shadow-md shadow-primary/25 transition-all flex items-center justify-center gap-2 active:scale-95"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-sm text-white bg-primary hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 shadow-md shadow-primary/25 transition-all flex items-center justify-center gap-2 active:scale-95 tracking-normal"
               >
                 <span>Start a Project</span>
                 <ArrowRight className="h-4 w-4" />
@@ -582,45 +582,45 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
             {solution.icon}
           </div>
 
-          <span className="text-[10.5px] uppercase font-black tracking-widest text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800/80 px-2.5 py-1 rounded-md border border-border/50 dark:border-slate-800">
+          <span className="text-[10.5px] uppercase font-semibold tracking-wider text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800/80 px-2.5 py-1 rounded-md border border-border/50 dark:border-slate-800">
             {solution.categoryLabel}
           </span>
         </div>
 
         {/* Title */}
-        <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-heading tracking-tight mb-2 group-hover:text-primary dark:group-hover:text-accent transition-colors min-h-[60px] flex items-center">
+        <h3 className="text-xl sm:text-2xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.015em] mb-2 group-hover:text-primary dark:group-hover:text-accent transition-colors min-h-[60px] flex items-center">
           <Link href={`/solutions/${solution.id}`}>
             {solution.title}
           </Link>
         </h3>
 
         {/* Tagline (original dropdown copy) */}
-        <p className="text-xs sm:text-sm font-semibold text-primary dark:text-blue-400 mb-3 min-h-[42px] flex items-center">
+        <p className="text-xs sm:text-sm font-medium text-primary dark:text-blue-400 mb-3 min-h-[42px] flex items-center">
           {solution.tagline}
         </p>
 
         {/* Detailed Description */}
-        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6 font-medium min-h-[84px]">
+        <p className="text-xs sm:text-sm text-muted-foreground leading-[1.62] mb-6 font-normal min-h-[84px]">
           {solution.description}
         </p>
 
         {/* Metric Highlight Box */}
         <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-border/60 dark:border-slate-800/80 mb-6 flex items-center gap-3.5 min-h-[70px]">
-          <span className="text-xl sm:text-2xl font-black font-heading text-slate-900 dark:text-white shrink-0">
+          <span className="text-xl sm:text-2xl font-semibold font-heading tracking-[-0.02em] text-slate-900 dark:text-white shrink-0">
             {solution.metric.value}
           </span>
-          <span className="text-[11.5px] sm:text-xs text-slate-600 dark:text-slate-400 font-semibold leading-tight">
+          <span className="text-[11.5px] sm:text-xs text-slate-600 dark:text-slate-400 font-medium leading-tight">
             {solution.metric.label}
           </span>
         </div>
 
         {/* Core Capabilities */}
         <div className="flex flex-col gap-2.5 mb-6 flex-1 justify-start">
-          <span className="text-[11px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
             Core Architecture
           </span>
           {solution.features.map((feat, i) => (
-            <div key={i} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300 font-medium">
+            <div key={i} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300 font-normal">
               <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
               <span className="leading-snug">{feat}</span>
             </div>
@@ -635,7 +635,7 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
             {solution.technologies.map((tech) => (
               <span
                 key={tech}
-                className="px-2 py-0.5 rounded-md text-[10.5px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-border/40 dark:border-slate-700/60"
+                className="px-2 py-0.5 rounded-md text-[10.5px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-border/40 dark:border-slate-700/60"
               >
                 {tech}
               </span>
@@ -647,14 +647,14 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
         <div className="flex flex-col sm:flex-row items-center gap-2">
           <Link
             href={`/solutions/${solution.id}`}
-            className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-primary text-white hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 transition-all flex items-center justify-center gap-2 group/btn shadow-xs"
+            className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-primary text-white hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 transition-all flex items-center justify-center gap-2 group/btn shadow-xs tracking-normal"
           >
             <span>Explore Solution</span>
             <ArrowRight className="h-3.5 w-3.5 group-hover/btn:translate-x-1 transition-transform" />
           </Link>
           <Link
             href={`/contact?service=Custom%20Solutions&solution=${encodeURIComponent(solution.title)}`}
-            className="w-full sm:w-auto py-2.5 px-3.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition-all flex items-center justify-center shrink-0"
+            className="w-full sm:w-auto py-2.5 px-3.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition-all flex items-center justify-center shrink-0 tracking-normal"
           >
             <span>Talk to an Expert</span>
           </Link>

@@ -84,10 +84,10 @@ export function WhySection({ variant = 'summary' }: WhySectionProps) {
 
                 {/* Title & Description */}
                 <div className="flex flex-col gap-2.5 text-left">
-                  <h3 className={`${isDetailed ? 'text-xl' : 'text-base sm:text-lg'} font-bold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors`}>
+                  <h3 className={`${isDetailed ? 'text-xl' : 'text-base sm:text-lg'} font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors`}>
                     {pillar.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-medium">
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-[1.62] font-normal">
                     {isDetailed ? pillar.completeDescription : pillar.summary}
                   </p>
                 </div>
@@ -117,7 +117,7 @@ export function WhySection({ variant = 'summary' }: WhySectionProps) {
                   <span>{isDetailed ? pillar.metrics.label : 'Enterprise Verified Standard'}</span>
                 </div>
                 {isDetailed && (
-                  <span className="font-mono text-foreground font-extrabold text-xs">
+                  <span className="font-mono text-foreground font-semibold text-xs">
                     {pillar.metrics.value}
                   </span>
                 )}
@@ -131,7 +131,7 @@ export function WhySection({ variant = 'summary' }: WhySectionProps) {
           <div className="mt-12 sm:mt-14 text-center">
             <Link
               href={ROUTES.PUBLIC.COMPANY_ANCHORS.WHY_US}
-              className="inline-flex items-center justify-center gap-2.5 w-full max-w-md sm:w-auto px-5 sm:px-8 py-3.5 rounded-xl bg-card/85 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-border/70 dark:border-slate-700 hover:border-primary/40 dark:hover:border-blue-400 text-foreground font-bold text-xs sm:text-sm text-center leading-snug transition-all shadow-xs hover:shadow-md hover:scale-105 active:scale-95 group"
+              className="inline-flex items-center justify-center gap-2.5 w-full max-w-md sm:w-auto px-5 sm:px-8 py-3.5 rounded-xl bg-card/85 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-border/70 dark:border-slate-700 hover:border-primary/40 dark:hover:border-blue-400 text-foreground font-semibold text-xs sm:text-sm text-center leading-snug transition-all shadow-xs hover:shadow-md hover:scale-105 active:scale-95 group"
             >
               <span>Why Astraiv: Explore Technical Tenets &amp; Philosophy</span>
               <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1 text-primary dark:text-blue-400" />

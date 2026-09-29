@@ -154,7 +154,7 @@ export function TicketsView({ tickets, clientId }: TicketsViewProps) {
       {/* Sidebar - Filters */}
       <Card className="w-full md:w-64 border border-border/40 shrink-0">
         <CardContent className="p-4 flex flex-col gap-1">
-          <div className="px-3.5 py-2 font-heading font-extrabold text-xs uppercase tracking-wider text-muted-foreground/60">
+          <div className="px-3.5 py-2 font-heading font-semibold text-xs uppercase tracking-wider text-muted-foreground/60">
             Status Filters
           </div>
 
@@ -209,8 +209,8 @@ export function TicketsView({ tickets, clientId }: TicketsViewProps) {
               </DialogTrigger>
               <DialogContent className="sm:max-w-lg glass-dark border border-slate-800 text-slate-100 rounded-[20px] p-8 max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
-                  <DialogTitle className="font-heading font-extrabold text-xl text-white">File Support Ticket</DialogTitle>
-                  <DialogDescription className="text-slate-400 font-medium text-xs mt-1">
+                  <DialogTitle className="font-heading font-semibold tracking-[-0.015em] text-xl text-white">File Support Ticket</DialogTitle>
+                  <DialogDescription className="text-slate-400 font-normal text-xs mt-1">
                     Describe your software deliverable issues. A project manager will assign a senior developer immediately.
                   </DialogDescription>
                 </DialogHeader>
@@ -389,14 +389,14 @@ export function TicketsView({ tickets, clientId }: TicketsViewProps) {
 
                       {/* Priority column */}
                       <td className="p-4">
-                        <span className={cn('text-[9px] font-extrabold px-2 py-0.5 rounded-md tracking-wider uppercase border', getPriorityColor(ticket.priority))}>
+                        <span className={cn('text-[9px] font-semibold px-2 py-0.5 rounded-md tracking-wider uppercase border', getPriorityColor(ticket.priority))}>
                           {ticket.priority}
                         </span>
                       </td>
 
                       {/* Status column */}
                       <td className="p-4">
-                        <span className={cn('text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider', getStatusBadgeClass(ticket.status))}>
+                        <span className={cn('text-[9px] font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider', getStatusBadgeClass(ticket.status))}>
                           {ticket.status}
                         </span>
                       </td>

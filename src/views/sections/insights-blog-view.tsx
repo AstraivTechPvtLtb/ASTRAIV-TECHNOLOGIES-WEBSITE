@@ -47,24 +47,24 @@ export function InsightsBlogView({
 
       {/* Hero Header */}
       <section className="pt-28 pb-10 md:pt-36 md:pb-14 px-6 max-w-7xl mx-auto text-left relative z-10">
-        <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground mb-4">
+        <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground mb-4">
           <Link href="/insights" className="hover:text-primary transition-colors">
             Insights
           </Link>
           <span>/</span>
-          <span className="text-primary font-extrabold">Engineering Blog</span>
+          <span className="text-primary font-semibold">Engineering Blog</span>
         </div>
 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-8 border-b border-border/60 dark:border-slate-800">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-accent/10 dark:text-accent text-xs font-bold uppercase tracking-wider mb-3">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-accent/10 dark:text-accent text-xs font-medium uppercase tracking-wider mb-3">
               <BookOpen className="h-3.5 w-3.5" />
               <span>Technical Publications & Systems Analysis</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading tracking-tight text-foreground">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading tracking-[-0.025em] leading-[1.12] text-foreground">
               Astraiv Engineering Blog
             </h1>
-            <p className="text-sm md:text-base text-muted-foreground font-medium mt-2 max-w-2xl leading-relaxed">
+            <p className="text-sm md:text-base text-muted-foreground font-normal mt-2 max-w-2xl leading-[1.62]">
               In-depth architectural breakdowns, production engineering tutorials, and distributed systems case studies written by senior practitioners.
             </p>
           </div>
@@ -78,12 +78,12 @@ export function InsightsBlogView({
                 placeholder="Search by topic, keyword, or tech..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-transparent border-none outline-none py-1.5 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground font-semibold"
+                className="w-full bg-transparent border-none outline-none py-1.5 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground font-normal"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="text-xs px-2.5 py-1 text-muted-foreground hover:text-foreground font-bold cursor-pointer"
+                  className="text-xs px-2.5 py-1 text-muted-foreground hover:text-foreground font-medium cursor-pointer"
                 >
                   Clear
                 </button>
@@ -97,7 +97,7 @@ export function InsightsBlogView({
           <button
             onClick={() => setSelectedCategory('all')}
             className={cn(
-              'px-4 py-2 rounded-xl text-xs font-extrabold tracking-wide transition-all select-none cursor-pointer',
+              'px-4 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all select-none cursor-pointer',
               selectedCategory === 'all'
                 ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20 scale-105'
                 : 'bg-card border border-border/70 dark:border-slate-800 text-muted-foreground hover:text-foreground'
@@ -114,7 +114,7 @@ export function InsightsBlogView({
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.slug)}
                 className={cn(
-                  'px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all select-none cursor-pointer flex items-center gap-1.5',
+                  'px-3.5 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all select-none cursor-pointer flex items-center gap-1.5',
                   isSelected
                     ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20 scale-105'
                     : 'bg-card border border-border/70 dark:border-slate-800 text-muted-foreground hover:text-foreground'
@@ -163,12 +163,12 @@ export function InsightsBlogView({
                     
                     {/* Category pill on image */}
                     <div className="absolute top-3 left-3">
-                      <span className="px-2.5 py-1 rounded-md text-[10.5px] font-black uppercase tracking-wider bg-black/70 backdrop-blur-md text-white border border-white/20">
+                      <span className="px-2.5 py-1 rounded-md text-[10.5px] font-semibold uppercase tracking-wider bg-black/70 backdrop-blur-md text-white border border-white/20">
                         {article.category.name}
                       </span>
                     </div>
 
-                    <div className="absolute bottom-3 right-3 text-white text-[11px] font-bold flex items-center gap-1 bg-black/60 px-2 py-0.5 rounded-md backdrop-blur-xs">
+                    <div className="absolute bottom-3 right-3 text-white text-[11px] font-medium flex items-center gap-1 bg-black/60 px-2 py-0.5 rounded-md backdrop-blur-xs">
                       <Clock className="h-3 w-3 text-blue-400" />
                       <span>{article.readingTime}</span>
                     </div>
@@ -176,16 +176,16 @@ export function InsightsBlogView({
 
                   {/* Body */}
                   <div className="p-6">
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground font-semibold mb-3">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground font-normal mb-3">
                       <Calendar className="h-3.5 w-3.5" />
                       <span>{formatDate(article.publishedAt)}</span>
                     </div>
 
-                    <h2 className="text-xl font-extrabold text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors leading-snug mb-3">
+                    <h2 className="text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors leading-snug mb-3">
                       <Link href={`/insights/${article.slug}`}>{article.title}</Link>
                     </h2>
 
-                    <p className="text-xs sm:text-sm text-muted-foreground font-medium leading-relaxed mb-6 line-clamp-3">
+                    <p className="text-xs sm:text-sm text-muted-foreground font-normal leading-[1.62] mb-6 line-clamp-3">
                       {article.excerpt}
                     </p>
 
@@ -201,10 +201,10 @@ export function InsightsBlogView({
                         />
                       )}
                       <div>
-                        <div className="text-xs font-bold text-foreground">
+                        <div className="text-xs font-semibold text-foreground">
                           {article.author.name}
                         </div>
-                        <div className="text-[10.5px] text-muted-foreground font-medium">
+                        <div className="text-[10.5px] text-muted-foreground font-normal">
                           {article.author.role}
                         </div>
                       </div>
@@ -216,13 +216,13 @@ export function InsightsBlogView({
                 <div className="px-6 py-4 bg-slate-50/50 dark:bg-slate-900/50 border-t border-border/50 dark:border-slate-800 flex items-center justify-between">
                   <div className="flex items-center gap-1.5">
                     {article.relatedSolutionSlugs?.[0] && (
-                      <span className="text-[10px] font-extrabold text-primary dark:text-blue-400 flex items-center gap-1">
+                      <span className="text-[10px] font-medium text-primary dark:text-blue-400 flex items-center gap-1">
                         <Layers className="h-3 w-3" />
                         <span>Solution</span>
                       </span>
                     )}
                     {article.relatedServiceSlugs?.[0] && (
-                      <span className="text-[10px] font-extrabold text-indigo-600 dark:text-indigo-400 flex items-center gap-1 ml-2">
+                      <span className="text-[10px] font-medium text-indigo-600 dark:text-indigo-400 flex items-center gap-1 ml-2">
                         <Cpu className="h-3 w-3" />
                         <span>Service</span>
                       </span>
@@ -231,7 +231,7 @@ export function InsightsBlogView({
 
                   <Link
                     href={`/insights/${article.slug}`}
-                    className="inline-flex items-center gap-1 text-xs font-extrabold text-primary dark:text-accent hover:underline group/btn"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-primary dark:text-accent hover:underline group/btn tracking-normal"
                   >
                     <span>Read Article</span>
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-1" />
@@ -242,8 +242,8 @@ export function InsightsBlogView({
           ) : (
             <div className="col-span-full py-20 text-center bg-card/60 rounded-2xl border border-border/60">
               <Sparkles className="h-8 w-8 text-muted-foreground mx-auto mb-3 opacity-60" />
-              <h3 className="text-base font-bold text-foreground mb-1">No articles found</h3>
-              <p className="text-xs text-muted-foreground font-medium">
+              <h3 className="text-base font-semibold text-foreground mb-1">No articles found</h3>
+              <p className="text-xs text-muted-foreground font-normal">
                 Try selecting &ldquo;All Disciplines&rdquo; or adjusting your search query.
               </p>
             </div>
@@ -253,20 +253,20 @@ export function InsightsBlogView({
         {/* Lead Generation CTA Banner */}
         <div className="p-8 sm:p-12 rounded-[28px] bg-gradient-to-br from-primary/10 via-card to-card dark:from-blue-600/15 dark:via-slate-900 dark:to-slate-900 border border-primary/20 dark:border-blue-500/25 text-left shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-16">
           <div>
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-400 block mb-2">
+            <span className="text-xs font-mono font-medium uppercase tracking-wider text-primary dark:text-blue-400 block mb-2">
               Astraiv Engineering Lab
             </span>
-            <h3 className="text-xl sm:text-2xl font-black text-foreground tracking-tight mb-2 font-heading">
+            <h3 className="text-xl sm:text-2xl font-semibold text-foreground tracking-[-0.02em] leading-[1.15] mb-2 font-heading">
               Have an architectural question or scaling challenge?
             </h3>
-            <p className="text-xs sm:text-sm text-muted-foreground font-medium max-w-2xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-muted-foreground font-normal max-w-2xl leading-[1.62]">
               Our principal software architects and AI systems engineers consult directly with engineering squads to evaluate tech stacks, eliminate bottlenecks, and deploy production software.
             </p>
           </div>
 
           <Link
             href={ROUTES.PUBLIC.CONTACT}
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-primary-foreground font-extrabold text-xs sm:text-sm hover:bg-primary/90 transition-all shadow-md active:scale-95 shrink-0"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold text-xs sm:text-sm hover:bg-primary/90 transition-all shadow-md active:scale-95 shrink-0 tracking-normal"
           >
             <span>Talk to an Expert</span>
             <ArrowRight className="h-4 w-4" />

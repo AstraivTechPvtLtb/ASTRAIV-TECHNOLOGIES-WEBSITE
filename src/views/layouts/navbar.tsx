@@ -255,7 +255,7 @@ export function Navbar() {
           >
             {config.groups?.map((group) => (
               <div key={group.title} className="flex flex-col gap-2">
-                <div className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 pb-1.5 border-b border-slate-100 dark:border-slate-800/80">
+                <div className="text-[11px] font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500 pb-1.5 border-b border-slate-100 dark:border-slate-800/80">
                   {group.title}
                 </div>
                 <div className="flex flex-col gap-1">
@@ -266,11 +266,11 @@ export function Navbar() {
                       onClick={() => setActiveDropdown(null)}
                       className="group/item flex flex-col p-2 rounded-lg hover:bg-slate-100/90 dark:hover:bg-[#172033]/80 transition-all duration-150 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
                     >
-                      <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 group-hover/item:text-primary dark:group-hover/item:text-accent transition-colors flex items-center justify-between gap-1">
+                      <span className="text-xs font-medium text-slate-800 dark:text-slate-200 group-hover/item:text-primary dark:group-hover/item:text-accent transition-colors flex items-center justify-between gap-1">
                         <span className="flex items-center gap-1.5 flex-wrap">
                           <span>{sub.name}</span>
                           {sub.badge && (
-                            <span className="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded bg-primary/10 dark:bg-accent/15 text-primary dark:text-accent border border-primary/20 dark:border-accent/25 shrink-0">
+                            <span className="text-[9px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded bg-primary/10 dark:bg-accent/15 text-primary dark:text-accent border border-primary/20 dark:border-accent/25 shrink-0">
                               {sub.badge}
                             </span>
                           )}
@@ -298,14 +298,14 @@ export function Navbar() {
               )}
             >
               <div>
-                <div className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-primary dark:text-accent mb-2 px-2 py-0.5 rounded-full bg-primary/10 dark:bg-accent/10 border border-primary/20 dark:border-accent/20">
+                <div className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-primary dark:text-accent mb-2 px-2 py-0.5 rounded-full bg-primary/10 dark:bg-accent/10 border border-primary/20 dark:border-accent/20">
                   <Sparkles className="h-2.5 w-2.5" />
                   Astraiv Corporate
                 </div>
-                <h4 className="text-sm font-bold text-slate-900 dark:text-white leading-snug mb-1.5">
+                <h4 className="text-sm font-semibold tracking-[-0.01em] text-slate-900 dark:text-white leading-snug mb-1.5">
                   {config.featured.tagline}
                 </h4>
-                <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
                   {config.featured.description}
                 </p>
               </div>
@@ -313,7 +313,7 @@ export function Navbar() {
               <Link
                 href={config.featured.ctaHref}
                 onClick={() => setActiveDropdown(null)}
-                className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-accent hover:underline group/cta focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary rounded-xs"
+                className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent hover:underline group/cta focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary rounded-xs"
               >
                 <span>{config.featured.ctaLabel}</span>
                 <ArrowRight className="h-3 w-3 group-hover/cta:translate-x-1 transition-transform" />
@@ -330,13 +330,13 @@ export function Navbar() {
           className="w-[min(840px,calc(100vw-3rem))] max-w-[calc(100vw-2rem)] rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl p-6 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col gap-4"
         >
           <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800/80">
-            <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+            <span className="text-[11px] font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500">
               Industry Verticals & Domains
             </span>
             <Link
               href={ROUTES.PUBLIC.INDUSTRIES}
               onClick={() => setActiveDropdown(null)}
-              className="text-xs font-bold text-primary dark:text-accent hover:underline flex items-center gap-1 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary rounded-xs"
+              className="text-xs font-medium text-primary dark:text-accent hover:underline flex items-center gap-1 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary rounded-xs"
             >
               <span>Explore All Industries</span>
               <ArrowRight className="h-3 w-3" />
@@ -351,12 +351,12 @@ export function Navbar() {
                 onClick={() => setActiveDropdown(null)}
                 className="group/ind p-3 rounded-xl hover:bg-slate-100/90 dark:hover:bg-slate-900/80 border border-transparent hover:border-slate-200/60 dark:hover:border-slate-800/60 transition-all duration-150 flex flex-col focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
               >
-                <span className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover/ind:text-primary dark:group-hover/ind:text-accent transition-colors flex items-center justify-between">
+                <span className="text-xs font-medium text-slate-800 dark:text-slate-200 group-hover/ind:text-primary dark:group-hover/ind:text-accent transition-colors flex items-center justify-between">
                   <span>{sub.name}</span>
                   <ArrowRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover/ind:opacity-100 group-hover/ind:translate-x-0 transition-all text-primary dark:text-accent" />
                 </span>
                 {sub.description && (
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug font-normal">
                     {sub.description}
                   </span>
                 )}
@@ -380,7 +380,7 @@ export function Navbar() {
               onClick={() => setActiveDropdown(null)}
               className="group/drop px-3 py-2.5 rounded-lg hover:bg-slate-100/90 dark:hover:bg-[#172033]/80 transition-colors flex flex-col focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
             >
-              <span className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover/drop:text-primary dark:group-hover/drop:text-accent transition-colors flex items-center justify-between">
+              <span className="text-xs font-medium text-slate-900 dark:text-slate-100 group-hover/drop:text-primary dark:group-hover/drop:text-accent transition-colors flex items-center justify-between">
                 <span>{sub.name}</span>
                 <ArrowRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover/drop:opacity-100 group-hover/drop:translate-x-0 transition-all text-primary dark:text-accent" />
               </span>
@@ -478,11 +478,11 @@ export function Navbar() {
                     }
                   }}
                   className={cn(
-                    'text-[13px] font-semibold tracking-wide transition-all duration-200 relative h-full flex items-center gap-1 px-3 group/link select-none focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400 rounded-md',
+                    'text-[13px] font-medium tracking-normal transition-all duration-200 relative h-full flex items-center gap-1 px-3 group/link select-none focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400 rounded-md',
                     active
-                      ? 'text-primary dark:text-accent font-bold'
+                      ? 'text-primary dark:text-accent font-semibold'
                       : isDropdownOpen
-                      ? 'text-foreground font-semibold'
+                      ? 'text-foreground font-medium'
                       : 'text-slate-600 dark:text-slate-300 hover:text-foreground'
                   )}
                   aria-current={active ? 'page' : undefined}
@@ -547,7 +547,7 @@ export function Navbar() {
           {/* Secondary Utility: Client Portal / Sign In */}
           <Link
             href={ROUTES.AUTH.LOGIN}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[12px] font-semibold text-slate-700 dark:text-slate-300 hover:text-foreground hover:bg-slate-200/60 dark:hover:bg-white/10 transition-colors border border-transparent hover:border-slate-300/80 dark:hover:border-white/10 select-none cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[12px] font-medium text-slate-700 dark:text-slate-300 hover:text-foreground hover:bg-slate-200/60 dark:hover:bg-white/10 transition-colors border border-transparent hover:border-slate-300/80 dark:hover:border-white/10 select-none cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
             title="Client Portal / Sign In"
           >
             <LogIn className="h-3.5 w-3.5 text-primary dark:text-accent" />
@@ -558,7 +558,7 @@ export function Navbar() {
           <Link
             href={ROUTES.PUBLIC.START_PROJECT}
             className={cn(
-              'relative cursor-pointer font-bold rounded-md px-4.5 h-9 text-[12px] tracking-wide transition-all duration-200 shadow-sm inline-flex items-center justify-center gap-2 border outline-none select-none active:scale-95 focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400',
+              'relative cursor-pointer font-semibold rounded-md px-4.5 h-9 text-[12px] tracking-normal transition-all duration-200 shadow-sm inline-flex items-center justify-center gap-2 border outline-none select-none active:scale-95 focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400',
               'text-white bg-[#0B3D91] hover:bg-[#082d6c] border-blue-900/20 hover:shadow-md hover:shadow-[#0B3D91]/25',
               'dark:bg-blue-600 dark:hover:bg-blue-500 dark:border-blue-400/30 dark:shadow-[0_0_16px_-2px_rgba(59,130,246,0.35)] dark:hover:shadow-[0_0_22px_-1px_rgba(59,130,246,0.55)]',
               pathname === ROUTES.PUBLIC.START_PROJECT ? 'bg-[#093275] ring-2 ring-blue-500/40 dark:bg-blue-500 dark:ring-blue-400/50' : ''
@@ -789,7 +789,7 @@ export function Navbar() {
                   onClick={() => setIsOpen(false)}
                   aria-current={pathname === '/en' || pathname === '/' ? 'page' : undefined}
                   className={cn(
-                    'text-base font-bold transition-colors hover:text-primary block py-1.5',
+                    'text-base font-semibold transition-colors hover:text-primary block py-1.5',
                     pathname === '/en' || pathname === '/'
                       ? 'text-primary dark:text-accent'
                       : 'text-slate-800 dark:text-slate-200'
@@ -814,7 +814,7 @@ export function Navbar() {
                             onClick={() => setIsOpen(false)}
                             aria-current={active ? 'page' : undefined}
                             className={cn(
-                              'text-base font-bold transition-colors hover:text-primary',
+                              'text-base font-semibold transition-colors hover:text-primary',
                               active
                                 ? 'text-primary dark:text-accent'
                                 : 'text-slate-800 dark:text-slate-200'
@@ -846,7 +846,7 @@ export function Navbar() {
                             {item.megaMenu.groups &&
                               item.megaMenu.groups.map((grp) => (
                                 <div key={grp.title} className="flex flex-col gap-1.5">
-                                  <span className="text-[10px] uppercase font-black tracking-wider text-slate-400 dark:text-slate-500">
+                                  <span className="text-[10px] uppercase font-semibold tracking-wider text-slate-400 dark:text-slate-500">
                                     {grp.title}
                                   </span>
                                   {grp.items.map((sub) => (
@@ -854,12 +854,12 @@ export function Navbar() {
                                       key={sub.name}
                                       href={sub.href}
                                       onClick={() => setIsOpen(false)}
-                                      className="flex items-center justify-between text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-accent py-1.5 px-2 rounded-lg hover:bg-slate-100/80 dark:hover:bg-slate-900/80 transition-colors"
+                                      className="flex items-center justify-between text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-accent py-1.5 px-2 rounded-lg hover:bg-slate-100/80 dark:hover:bg-slate-900/80 transition-colors"
                                     >
                                       <span className="flex items-center gap-1.5">
                                         <span>{sub.name}</span>
                                         {sub.badge && (
-                                          <span className="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded bg-primary/10 dark:bg-accent/15 text-primary dark:text-accent border border-primary/20 dark:border-accent/25">
+                                          <span className="text-[9px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded bg-primary/10 dark:bg-accent/15 text-primary dark:text-accent border border-primary/20 dark:border-accent/25">
                                             {sub.badge}
                                           </span>
                                         )}
@@ -880,12 +880,12 @@ export function Navbar() {
                                     onClick={() => setIsOpen(false)}
                                     className="flex flex-col py-1.5 px-2 rounded-lg hover:bg-slate-100/80 dark:hover:bg-slate-900/80 group/mitem"
                                   >
-                                    <span className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover/mitem:text-primary dark:group-hover/mitem:text-accent flex items-center justify-between">
+                                    <span className="text-xs font-medium text-slate-800 dark:text-slate-200 group-hover/mitem:text-primary dark:group-hover/mitem:text-accent flex items-center justify-between">
                                       <span>{sub.name}</span>
                                       <ArrowRight className="h-3 w-3 opacity-40" />
                                     </span>
                                     {sub.description && (
-                                      <span className="text-[10.5px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
+                                      <span className="text-[10.5px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5 font-normal">
                                         {sub.description}
                                       </span>
                                     )}
@@ -899,7 +899,7 @@ export function Navbar() {
                               <Link
                                 href={item.megaMenu.featured.ctaHref}
                                 onClick={() => setIsOpen(false)}
-                                className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-accent pt-1"
+                                className="inline-flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent pt-1"
                               >
                                 <span>{item.megaMenu.featured.ctaLabel}</span>
                                 <ArrowRight className="h-3 w-3" />
@@ -914,7 +914,7 @@ export function Navbar() {
                         onClick={() => setIsOpen(false)}
                         aria-current={active ? 'page' : undefined}
                         className={cn(
-                          'flex items-center justify-between text-base font-bold py-1.5',
+                          'flex items-center justify-between text-base font-semibold py-1.5',
                           active
                             ? 'text-primary dark:text-accent'
                             : 'text-slate-800 dark:text-slate-200 hover:text-primary'
@@ -938,7 +938,7 @@ export function Navbar() {
                 href={ROUTES.PUBLIC.START_PROJECT}
                 onClick={() => setIsOpen(false)}
                 className={cn(
-                  'w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm text-white transition-all duration-200 select-none active:scale-[0.98]',
+                  'w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-200 select-none active:scale-[0.98]',
                   'bg-[#0B3D91] hover:bg-[#082d6c] border border-blue-900/20 shadow-sm hover:shadow-md hover:shadow-[#0B3D91]/25',
                   'dark:bg-blue-600 dark:hover:bg-blue-500 dark:border-blue-400/30 dark:shadow-[0_0_16px_-2px_rgba(59,130,246,0.35)]',
                   pathname === ROUTES.PUBLIC.START_PROJECT ? 'bg-[#093275] ring-2 ring-blue-500/40 dark:bg-blue-500 dark:ring-blue-400/50' : ''
@@ -953,7 +953,7 @@ export function Navbar() {
               <Link
                 href={ROUTES.AUTH.LOGIN}
                 onClick={() => setIsOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-semibold text-xs text-foreground bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-900 dark:hover:bg-slate-800 border border-border/60 transition-colors select-none"
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-medium text-xs text-foreground bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-900 dark:hover:bg-slate-800 border border-border/60 transition-colors select-none"
               >
                 <LogIn className="h-3.5 w-3.5 text-primary dark:text-accent" />
                 <span>{tNav.has('clientPortalSignIn') ? tNav('clientPortalSignIn') : 'Client Portal / Sign In'}</span>
@@ -961,16 +961,16 @@ export function Navbar() {
 
               {/* Mobile Language Selector */}
               <div className="flex flex-col gap-1.5">
-                <span className="text-[10px] uppercase tracking-wider font-extrabold text-slate-400 dark:text-slate-500">
+                <span className="text-[10px] uppercase tracking-wider font-medium text-slate-400 dark:text-slate-500">
                   Language
                 </span>
                 <div className="grid grid-cols-2 gap-1.5">
                   <button
                     onClick={() => handleLanguageChange('en')}
                     className={cn(
-                      'text-left px-3 py-2 rounded-lg font-bold text-xs bg-slate-100 dark:bg-slate-900 cursor-pointer',
+                      'text-left px-3 py-2 rounded-lg font-medium text-xs bg-slate-100 dark:bg-slate-900 cursor-pointer',
                       locale === 'en'
-                        ? 'text-primary dark:text-accent font-extrabold ring-1 ring-primary/30'
+                        ? 'text-primary dark:text-accent font-semibold ring-1 ring-primary/30'
                         : 'text-slate-600 dark:text-slate-400'
                     )}
                   >
@@ -979,9 +979,9 @@ export function Navbar() {
                   <button
                     onClick={() => handleLanguageChange('es')}
                     className={cn(
-                      'text-left px-3 py-2 rounded-lg font-bold text-xs bg-slate-100 dark:bg-slate-900 cursor-pointer',
+                      'text-left px-3 py-2 rounded-lg font-medium text-xs bg-slate-100 dark:bg-slate-900 cursor-pointer',
                       locale === 'es'
-                        ? 'text-primary dark:text-accent font-extrabold ring-1 ring-primary/30'
+                        ? 'text-primary dark:text-accent font-semibold ring-1 ring-primary/30'
                         : 'text-slate-600 dark:text-slate-400'
                     )}
                   >
@@ -990,9 +990,9 @@ export function Navbar() {
                   <button
                     onClick={() => handleLanguageChange('bn')}
                     className={cn(
-                      'text-left px-3 py-2 rounded-lg font-bold text-xs bg-slate-100 dark:bg-slate-900 cursor-pointer',
+                      'text-left px-3 py-2 rounded-lg font-medium text-xs bg-slate-100 dark:bg-slate-900 cursor-pointer',
                       locale === 'bn'
-                        ? 'text-primary dark:text-accent font-extrabold ring-1 ring-primary/30'
+                        ? 'text-primary dark:text-accent font-semibold ring-1 ring-primary/30'
                         : 'text-slate-600 dark:text-slate-400'
                     )}
                   >
@@ -1001,9 +1001,9 @@ export function Navbar() {
                   <button
                     onClick={() => handleLanguageChange('hi')}
                     className={cn(
-                      'text-left px-3 py-2 rounded-lg font-bold text-xs bg-slate-100 dark:bg-slate-900 cursor-pointer',
+                      'text-left px-3 py-2 rounded-lg font-medium text-xs bg-slate-100 dark:bg-slate-900 cursor-pointer',
                       locale === 'hi'
-                        ? 'text-primary dark:text-accent font-extrabold ring-1 ring-primary/30'
+                        ? 'text-primary dark:text-accent font-semibold ring-1 ring-primary/30'
                         : 'text-slate-600 dark:text-slate-400'
                     )}
                   >
@@ -1012,9 +1012,9 @@ export function Navbar() {
                   <button
                     onClick={() => handleLanguageChange('ar')}
                     className={cn(
-                      'text-left px-3 py-2 rounded-lg font-bold text-xs bg-slate-100 dark:bg-slate-900 cursor-pointer col-span-2 text-center',
+                      'text-left px-3 py-2 rounded-lg font-medium text-xs bg-slate-100 dark:bg-slate-900 cursor-pointer col-span-2 text-center',
                       locale === 'ar'
-                        ? 'text-primary dark:text-accent font-extrabold ring-1 ring-primary/30'
+                        ? 'text-primary dark:text-accent font-semibold ring-1 ring-primary/30'
                         : 'text-slate-600 dark:text-slate-400'
                     )}
                   >
@@ -1024,7 +1024,7 @@ export function Navbar() {
               </div>
 
               {/* Quick Links */}
-              <div className="flex items-center justify-between text-xs font-bold text-slate-600 dark:text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex items-center justify-between text-xs font-medium text-slate-600 dark:text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
                 <Link href="/faq" onClick={() => setIsOpen(false)} className="hover:text-foreground">
                   FAQ
                 </Link>

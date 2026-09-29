@@ -107,14 +107,14 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
         <div className="max-w-5xl mx-auto w-full flex flex-col gap-6 text-left">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-border/40">
             <div>
-              <h3 className="text-2xl font-extrabold tracking-tight text-foreground">
+              <h3 className="text-2xl font-semibold tracking-[-0.02em] text-foreground">
                 Current Open Opportunities
               </h3>
-              <p className="text-sm text-muted-foreground font-medium">
+              <p className="text-sm text-muted-foreground font-normal">
                 Direct applications reviewed within 48 business hours by our engineering founders.
               </p>
             </div>
-            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-accent bg-primary/10 dark:bg-primary/20 px-3.5 py-1.5 rounded-full w-fit">
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary dark:text-accent bg-primary/10 dark:bg-primary/20 px-3.5 py-1.5 rounded-full w-fit">
               <Sparkles className="h-3 w-3" />
               {filteredRoles.length} Active {filteredRoles.length === 1 ? 'Role' : 'Roles'}
             </span>
@@ -129,7 +129,7 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
                   key={dept}
                   type="button"
                   onClick={() => setSelectedDept(dept)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold capitalize transition-all cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold capitalize transition-all cursor-pointer ${
                     selectedDept === dept
                       ? 'bg-primary text-primary-foreground shadow-xs'
                       : 'bg-card dark:bg-slate-900 text-muted-foreground hover:text-foreground border border-border/60'
@@ -163,8 +163,8 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
                 <div className="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-1">
                   <Briefcase className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-bold text-foreground">No Roles Found Matching Criteria</h3>
-                <p className="text-xs sm:text-sm text-muted-foreground max-w-md leading-relaxed">
+                <h3 className="text-lg font-semibold text-foreground">No Roles Found Matching Criteria</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground max-w-md leading-relaxed font-normal">
                   No active openings match your current search or filter. Clear the filter or submit a speculative application below.
                 </p>
                 <button
@@ -173,7 +173,7 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
                     setSelectedDept('all');
                     setSearchQuery('');
                   }}
-                  className="px-4 py-2 rounded-xl text-xs font-bold bg-muted hover:bg-muted/80 text-foreground transition-colors cursor-pointer"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-muted hover:bg-muted/80 text-foreground transition-colors cursor-pointer"
                 >
                   Reset Filters
                 </button>
@@ -190,7 +190,7 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
                 >
                   <div className="flex flex-col gap-2.5 max-w-2xl">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-border/40">
+                      <span className="text-[11px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-border/40">
                         {role.department}
                       </span>
                       <span className="text-xs text-muted-foreground font-semibold flex items-center gap-1">
@@ -198,15 +198,15 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
                         {role.type}
                       </span>
                       {role.salary && (
-                        <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold font-mono">
+                        <span className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold font-mono">
                           {role.salary}
                         </span>
                       )}
                     </div>
-                    <h4 className="text-lg sm:text-xl font-bold text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors">
+                    <h4 className="text-lg sm:text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors">
                       {role.title}
                     </h4>
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-normal">
                       {role.description}
                     </p>
                     <div className="flex flex-wrap gap-1.5 mt-1">
@@ -223,7 +223,7 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
 
                   <Link
                     href={`/careers/${role.slug}`}
-                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs bg-primary hover:bg-primary/90 text-primary-foreground shadow-xs hover:shadow-md transition-all duration-200 shrink-0 select-none active:scale-95 group/btn"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs bg-primary hover:bg-primary/90 text-primary-foreground shadow-xs hover:shadow-md transition-all duration-200 shrink-0 select-none active:scale-95 group/btn"
                   >
                     <span>View Role & Apply</span>
                     <ArrowRight className="h-3.5 w-3.5 group-hover/btn:translate-x-0.5 transition-transform" />

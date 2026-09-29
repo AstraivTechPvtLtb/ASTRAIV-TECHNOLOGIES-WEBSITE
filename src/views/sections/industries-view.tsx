@@ -528,10 +528,10 @@ export function IndustriesView() {
     <div className="flex flex-col w-full">
       {/* 1. HEADER */}
       <section className="pt-28 pb-4 md:pt-36 md:pb-6 px-6 max-w-7xl mx-auto w-full text-left">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white font-heading tracking-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.025em] leading-[1.12]">
           Industries We Empower
         </h1>
-        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-medium mt-1">
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-normal leading-[1.62] mt-1">
           Mission-critical software engineering architected for regulated and high-velocity sectors.
         </p>
       </section>
@@ -546,7 +546,7 @@ export function IndustriesView() {
       >
         <div id="sectors-dock-container" className="max-w-7xl mx-auto px-6 overflow-x-auto no-scrollbar">
           <div className="flex items-center justify-start lg:justify-center gap-2 min-w-max py-1">
-            <span className="text-xs font-extrabold uppercase tracking-widest text-slate-400 dark:text-slate-500 mr-2 flex items-center gap-1">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mr-2 flex items-center gap-1">
               <Compass className="h-3.5 w-3.5" />
               <span>Sectors:</span>
             </span>
@@ -558,7 +558,7 @@ export function IndustriesView() {
                   key={ind.id}
                   onClick={() => scrollToIndustry(ind.id)}
                   className={cn(
-                    'flex items-center justify-center px-3.5 py-1.5 rounded-xl text-xs font-bold tracking-wide transition-all duration-200 cursor-pointer whitespace-nowrap',
+                    'flex items-center justify-center px-3.5 py-1.5 rounded-xl text-xs font-medium tracking-wide transition-all duration-200 cursor-pointer whitespace-nowrap',
                     isActive
                       ? 'bg-primary text-primary-foreground shadow-sm shadow-primary/30 border border-primary scale-[1.02]'
                       : 'bg-card/70 dark:bg-slate-900/60 text-muted-foreground hover:text-foreground hover:bg-slate-200/60 dark:hover:bg-slate-800/60 border border-border/50 dark:border-slate-800/80'
@@ -623,24 +623,24 @@ export function IndustriesView() {
 
                       {/* Top floating badge */}
                       <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-slate-900/80 backdrop-blur-md text-white border border-white/10 shadow-xs">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-slate-900/80 backdrop-blur-md text-white border border-white/10 shadow-xs">
                           <span className={cn('h-2 w-2 rounded-full animate-ping', ind.accentBg)} />
                           <span>{ind.code}</span>
                         </span>
 
-                        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-bold text-white bg-slate-900/80 backdrop-blur-md border border-white/10 shadow-xs">
+                        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-medium text-white bg-slate-900/80 backdrop-blur-md border border-white/10 shadow-xs">
                           <ShieldCheck className="h-3 w-3 text-primary" />
                           <span>{ind.complianceBadge}</span>
                         </span>
                       </div>
 
                       {/* Bottom floating telemetry status bar */}
-                      <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-slate-950/80 backdrop-blur-md border border-white/10 text-white flex items-center justify-between text-xs font-semibold">
+                      <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-slate-950/80 backdrop-blur-md border border-white/10 text-white flex items-center justify-between text-xs font-medium">
                         <div className="flex items-center gap-2">
                           <Activity className="h-4 w-4 text-emerald-400 animate-pulse" />
                           <span className="truncate">{ind.statusText}</span>
                         </div>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-white/5 px-2 py-0.5 rounded">
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 bg-white/5 px-2 py-0.5 rounded">
                           Live Node
                         </span>
                       </div>
@@ -653,10 +653,10 @@ export function IndustriesView() {
                           key={kIdx}
                           className="p-3 rounded-xl bg-slate-100/70 dark:bg-slate-950/50 border border-border/40 dark:border-slate-800/80 flex flex-col text-center"
                         >
-                          <span className="text-lg sm:text-xl font-extrabold text-foreground font-heading">
+                          <span className="text-lg sm:text-xl font-semibold text-foreground font-heading tracking-[-0.02em]">
                             {kpi.value}
                           </span>
-                          <span className="text-[10px] sm:text-[11px] font-semibold text-muted-foreground leading-tight mt-0.5">
+                          <span className="text-[10px] sm:text-[11px] font-medium text-muted-foreground leading-tight mt-0.5">
                             {kpi.label}
                           </span>
                         </div>
@@ -671,7 +671,7 @@ export function IndustriesView() {
                       <div className="flex items-center gap-2 mb-2">
                         <span
                           className={cn(
-                            'inline-flex items-center px-3 py-1 rounded-full text-xs font-extrabold tracking-wide uppercase',
+                            'inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase',
                             ind.accentBg,
                             ind.accentColor,
                             ind.accentBorder,
@@ -680,11 +680,11 @@ export function IndustriesView() {
                         >
                           <span>{ind.label} Vertical</span>
                         </span>
-                        <span className="text-xs font-semibold text-muted-foreground">{ind.tagline}</span>
+                        <span className="text-xs font-medium text-muted-foreground">{ind.tagline}</span>
                       </div>
 
                       {/* Headline */}
-                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-foreground font-heading leading-tight">
+                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-[-0.025em] text-foreground font-heading leading-[1.15]">
                         {ind.headline}
                       </h2>
                     </div>
@@ -692,18 +692,18 @@ export function IndustriesView() {
                     {/* The Friction vs Astraiv Resolution */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-950/40 border border-border/50 dark:border-slate-800/80">
                       <div>
-                        <span className="text-[11px] font-extrabold uppercase tracking-wider text-rose-500 flex items-center gap-1 mb-1">
+                        <span className="text-[11px] font-semibold uppercase tracking-wider text-rose-500 flex items-center gap-1 mb-1">
                           <span>Legacy Friction</span>
                         </span>
-                        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-normal">
                           {ind.challenge}
                         </p>
                       </div>
                       <div>
-                        <span className="text-[11px] font-extrabold uppercase tracking-wider text-emerald-500 flex items-center gap-1 mb-1">
+                        <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-500 flex items-center gap-1 mb-1">
                           <span>Astraiv Resolution</span>
                         </span>
-                        <p className="text-xs sm:text-sm text-foreground/90 font-medium leading-relaxed">
+                        <p className="text-xs sm:text-sm text-foreground/90 font-normal leading-[1.62]">
                           {ind.solution}
                         </p>
                       </div>
@@ -711,7 +711,7 @@ export function IndustriesView() {
 
                     {/* Architectural Pillars */}
                     <div className="space-y-3">
-                      <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                         Proprietary Engineering Pillars
                       </span>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -720,11 +720,11 @@ export function IndustriesView() {
                             key={pIdx}
                             className="p-3.5 rounded-xl bg-card/90 dark:bg-slate-900/90 border border-border/60 dark:border-slate-800 shadow-2xs hover:border-primary/30 transition-all flex flex-col gap-1.5"
                           >
-                            <div className="flex items-center gap-1.5 text-xs font-bold text-foreground">
+                            <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
                               <CheckCircle2 className="h-3.5 w-3.5 text-primary shrink-0" />
                               <span className="truncate">{pillar.title}</span>
                             </div>
-                            <p className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed line-clamp-3">
+                            <p className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed line-clamp-3 font-normal">
                               {pillar.description}
                             </p>
                           </div>
@@ -824,10 +824,10 @@ export function IndustriesView() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-14">
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-foreground mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] font-heading text-foreground mb-4">
               Enterprise Regulatory Matrix
             </h2>
-            <p className="text-sm sm:text-base text-muted-foreground font-medium leading-relaxed">
+            <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62]">
               Every vertical we engineer adheres to rigid sovereign audit frameworks, deterministic encryption
               standards, and guaranteed transaction latency SLAs.
             </p>
@@ -836,7 +836,7 @@ export function IndustriesView() {
           <div className="w-full overflow-x-auto rounded-2xl border border-border/60 dark:border-slate-800/80 bg-card/90 dark:bg-slate-900/90 shadow-sm backdrop-blur-xl">
             <table className="w-full text-left border-collapse min-w-[750px]">
               <thead>
-                <tr className="border-b border-border/60 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-800/50 text-xs font-extrabold uppercase tracking-wider text-muted-foreground">
+                <tr className="border-b border-border/60 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-800/50 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                   <th className="p-4 pl-6">Sector Vertical</th>
                   <th className="p-4">Governing Frameworks</th>
                   <th className="p-4">Latency SLA</th>
@@ -850,22 +850,22 @@ export function IndustriesView() {
                     key={idx}
                     className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors group"
                   >
-                    <td className="p-4 pl-6 font-bold text-foreground flex items-center gap-2">
+                    <td className="p-4 pl-6 font-semibold text-foreground flex items-center gap-2">
                       <div className="h-2 w-2 rounded-full bg-primary group-hover:scale-125 transition-transform" />
                       <span>{row.vertical}</span>
                     </td>
-                    <td className="p-4 font-semibold text-slate-700 dark:text-slate-300">
+                    <td className="p-4 font-normal text-slate-700 dark:text-slate-300">
                       {row.certifications}
                     </td>
                     <td className="p-4">
-                      <span className="inline-flex px-2.5 py-1 rounded-md text-xs font-extrabold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                      <span className="inline-flex px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                         {row.latencyRequirement}
                       </span>
                     </td>
                     <td className="p-4 text-muted-foreground font-mono text-[11px] sm:text-xs">
                       {row.encryptionProtocol}
                     </td>
-                    <td className="p-4 pr-6 text-muted-foreground font-medium">
+                    <td className="p-4 pr-6 text-muted-foreground font-normal">
                       {row.auditLogging}
                     </td>
                   </tr>
@@ -886,11 +886,11 @@ export function IndustriesView() {
 
 
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-foreground max-w-3xl leading-[1.15] mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] font-heading text-foreground max-w-3xl leading-[1.12] mb-6">
             Have a Complex Vertical with Non-Standard Constraints?
           </h2>
 
-          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl font-medium leading-relaxed mb-10">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl font-normal leading-[1.62] mb-10">
             Our principal software architects and systems engineers work directly with your leadership to design,
             prototype, and deploy compliant software tailored exactly to your sector&apos;s parameters.
           </p>
@@ -898,7 +898,7 @@ export function IndustriesView() {
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link
               href={ROUTES.PUBLIC.START_PROJECT ? `${ROUTES.PUBLIC.START_PROJECT}?source_page=${encodeURIComponent('/industries')}` : `/start-project?source_page=${encodeURIComponent('/industries')}`}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-md shadow-primary/25 group hover:scale-105"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-md shadow-primary/25 group hover:scale-105 tracking-normal"
             >
               <span>Start a Project</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -906,14 +906,14 @@ export function IndustriesView() {
 
             <Link
               href="/contact#schedule"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold bg-card dark:bg-slate-800 text-foreground hover:bg-slate-100 dark:hover:bg-slate-700 border border-border dark:border-slate-700 transition-all hover:scale-105"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold bg-card dark:bg-slate-800 text-foreground hover:bg-slate-100 dark:hover:bg-slate-700 border border-border dark:border-slate-700 transition-all hover:scale-105 tracking-normal"
             >
               <span>Talk to an Expert</span>
             </Link>
 
             <Link
               href={ROUTES.PUBLIC.CASE_STUDIES}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-muted-foreground hover:text-primary transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold text-muted-foreground hover:text-primary transition-colors tracking-normal"
             >
               <span>View Case Studies &rarr;</span>
             </Link>

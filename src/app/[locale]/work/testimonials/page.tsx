@@ -128,7 +128,7 @@ export default async function TestimonialsPage({ params }: TestimonialsPageProps
 
 
               {/* Title & Tagline */}
-              <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight mb-6">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.025em] text-white leading-tight mb-6">
                 Executive Endorsements &amp; Client Testimonials
               </h1>
 
@@ -139,32 +139,32 @@ export default async function TestimonialsPage({ params }: TestimonialsPageProps
               {/* Trust Metric Counters */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-800/80">
                 <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
-                  <div className="flex items-center gap-1.5 text-amber-400 font-extrabold text-2xl sm:text-3xl mb-1">
+                  <div className="flex items-center gap-1.5 text-amber-400 font-semibold sm:font-bold tracking-[-0.02em] text-2xl sm:text-3xl mb-1">
                     <span>{averageRating}</span>
                     <Star className="h-5 w-5 fill-amber-400 shrink-0" />
                   </div>
-                  <span className="text-xs text-slate-400 font-medium">Average Client Rating</span>
+                  <span className="text-xs text-slate-400 font-normal">Average Client Rating</span>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
-                  <div className="text-emerald-400 font-extrabold text-2xl sm:text-3xl mb-1">
+                  <div className="text-emerald-400 font-semibold sm:font-bold tracking-[-0.02em] text-2xl sm:text-3xl mb-1">
                     100%
                   </div>
-                  <span className="text-xs text-slate-400 font-medium">Verified Client Reviews</span>
+                  <span className="text-xs text-slate-400 font-normal">Verified Client Reviews</span>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
-                  <div className="text-blue-400 font-extrabold text-2xl sm:text-3xl mb-1">
+                  <div className="text-blue-400 font-semibold sm:font-bold tracking-[-0.02em] text-2xl sm:text-3xl mb-1">
                     99.8%
                   </div>
-                  <span className="text-xs text-slate-400 font-medium">On-Time SLA Delivery</span>
+                  <span className="text-xs text-slate-400 font-normal">On-Time SLA Delivery</span>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
-                  <div className="text-purple-400 font-extrabold text-2xl sm:text-3xl mb-1">
+                  <div className="text-purple-400 font-semibold sm:font-bold tracking-[-0.02em] text-2xl sm:text-3xl mb-1">
                     {totalReviews}+
                   </div>
-                  <span className="text-xs text-slate-400 font-medium">Approved Testimonials</span>
+                  <span className="text-xs text-slate-400 font-normal">Approved Testimonials</span>
                 </div>
               </div>
             </div>
@@ -180,7 +180,7 @@ export default async function TestimonialsPage({ params }: TestimonialsPageProps
             <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
               <div className="max-w-2xl text-left">
 
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-3">
+                <h3 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] text-white mb-3">
                   Ready to engineer enterprise-grade software with guaranteed outcomes?
                 </h3>
                 <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
@@ -191,7 +191,7 @@ export default async function TestimonialsPage({ params }: TestimonialsPageProps
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full md:w-auto shrink-0">
                 <Link
                   href={ROUTES.PUBLIC.START_PROJECT ? `${ROUTES.PUBLIC.START_PROJECT}?source_page=${encodeURIComponent('/work/testimonials')}` : `/start-project?source_page=${encodeURIComponent('/work/testimonials')}`}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs font-bold text-slate-950 bg-white hover:bg-slate-100 transition-all shadow-lg hover:scale-105"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs font-semibold text-slate-950 bg-white hover:bg-slate-100 transition-all shadow-lg hover:scale-105"
                 >
                   <span>Start a Project</span>
                   <ArrowRight className="h-3.5 w-3.5" />

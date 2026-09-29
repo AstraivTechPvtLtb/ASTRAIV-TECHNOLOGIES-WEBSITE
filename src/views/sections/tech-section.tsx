@@ -165,7 +165,7 @@ export function TechSection() {
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 border border-primary/20 dark:border-blue-400/20">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 border border-primary/20 dark:border-blue-400/20">
                       {tech.category}
                     </span>
                     <span className="text-[10px] font-mono font-semibold text-muted-foreground/80 dark:text-slate-400">
@@ -173,14 +173,14 @@ export function TechSection() {
                     </span>
                   </div>
 
-                  <h3 className="text-base sm:text-lg font-bold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
+                  <h3 className="text-base sm:text-lg font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
                     {tech.name}
                   </h3>
                   <span className="text-[11px] font-semibold text-secondary dark:text-indigo-400 block mt-0.5">
                     {tech.role}
                   </span>
 
-                  <p className="text-xs text-muted-foreground leading-relaxed mt-3 font-medium">
+                  <p className="text-xs text-muted-foreground leading-relaxed mt-3 font-normal">
                     {tech.description}
                   </p>
                 </div>

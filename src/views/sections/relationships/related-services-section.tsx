@@ -28,16 +28,16 @@ export function RelatedServicesSection({
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
         <div>
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-[-0.025em] leading-[1.15]">
             {title}
           </h2>
-          <p className="text-sm sm:text-base text-slate-400 mt-1 max-w-2xl">
+          <p className="text-sm sm:text-base text-slate-400 font-normal leading-[1.62] mt-1 max-w-2xl">
             {displaySubtitle}
           </p>
         </div>
         <Link
           href={ROUTES.PUBLIC.SERVICES}
-          className="text-xs sm:text-sm font-bold text-primary dark:text-blue-400 hover:underline inline-flex items-center gap-1 shrink-0"
+          className="text-xs sm:text-sm font-medium text-primary dark:text-blue-400 hover:underline inline-flex items-center gap-1 shrink-0"
         >
           <span>All Services</span>
           <ArrowRight className="h-3.5 w-3.5" />
@@ -60,15 +60,15 @@ export function RelatedServicesSection({
                 </span>
               </div>
 
-              <h3 className="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors mb-2">
+              <h3 className="text-lg font-semibold tracking-[-0.015em] text-white group-hover:text-indigo-400 transition-colors mb-2">
                 {service.title}
               </h3>
-              <p className="text-xs sm:text-sm text-slate-400 line-clamp-3 leading-relaxed mb-4">
+              <p className="text-xs sm:text-sm text-slate-400 line-clamp-3 leading-[1.62] font-normal mb-4">
                 {service.shortDesc}
               </p>
             </div>
 
-            <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-bold text-indigo-400 group-hover:text-indigo-300">
+            <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-indigo-400 group-hover:text-indigo-300">
               <span>Explore Discipline Scope</span>
               <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
             </div>

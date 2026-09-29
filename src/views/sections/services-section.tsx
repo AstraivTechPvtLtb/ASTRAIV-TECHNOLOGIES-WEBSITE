@@ -130,7 +130,7 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
         {/* Main Heading and Contextual Subtitle */}
         <div className="flex flex-col lg:flex-row justify-between gap-6 lg:items-end">
           <h2
-            className="text-3xl sm:text-4xl lg:text-[44px] font-display font-extrabold tracking-tight text-foreground leading-[1.2] max-w-2xl"
+            className="text-3xl sm:text-4xl lg:text-[44px] font-display font-semibold tracking-[-0.025em] text-foreground leading-[1.15] max-w-2xl"
             id="blueprint-heading"
           >
             What can Astraiv{' '}
@@ -138,7 +138,7 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
               engineer for you?
             </span>
           </h2>
-          <p className="text-muted-foreground text-sm sm:text-base max-w-md leading-relaxed lg:text-left font-medium">
+          <p className="text-muted-foreground text-sm sm:text-base max-w-md leading-[1.62] lg:text-left font-normal">
             From autonomous AI systems and custom enterprise SaaS to high-velocity web platforms and zero-downtime cloud networks, we design, build, and scale mission-critical software.
           </p>
         </div>

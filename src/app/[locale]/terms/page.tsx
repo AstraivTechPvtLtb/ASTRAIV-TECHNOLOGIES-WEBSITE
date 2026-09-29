@@ -111,14 +111,14 @@ export default async function TermsPage({ params }: TermsPageProps) {
         <div className="max-w-4xl mx-auto px-6 py-6 text-left">
           {/* Header */}
           <div className="mb-12">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20 mb-4">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20 mb-4">
               <Scale className="h-3.5 w-3.5" />
               <span>Commercial & Legal Framework</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight font-heading mb-3">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-[-0.025em] font-heading mb-3">
               Terms of Service
             </h1>
-            <p className="text-sm sm:text-base text-muted-foreground font-medium leading-relaxed">
+            <p className="text-sm sm:text-base text-muted-foreground font-normal leading-relaxed">
               Last updated: September 2026. These terms govern software engineering engagements, architectural consultations, IP assignments, and support agreements with Astraiv Technologies.
             </p>
           </div>
@@ -134,12 +134,12 @@ export default async function TermsPage({ params }: TermsPageProps) {
                   <div className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-border/40">
                     {section.icon}
                   </div>
-                  <h2 className="text-xl font-bold text-foreground tracking-tight">
+                  <h2 className="text-xl font-semibold text-foreground tracking-[-0.015em]">
                     {section.title}
                   </h2>
                 </div>
 
-                <div className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-medium space-y-3 whitespace-pre-line">
+                <div className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-normal space-y-3 whitespace-pre-line">
                   {section.content}
                 </div>
               </section>
@@ -148,12 +148,12 @@ export default async function TermsPage({ params }: TermsPageProps) {
 
           {/* Bottom Call to Action */}
           <div className="mt-12 p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-border/60 text-center flex flex-col sm:flex-row items-center justify-between gap-4">
-            <span className="text-xs text-muted-foreground">
+            <span className="text-xs text-muted-foreground font-normal">
               Need custom contractual terms, a bilateral NDA, or tailored Enterprise SLA parameters?
             </span>
             <Link
               href="/contact"
-              className="px-4 py-2 rounded-xl text-xs font-bold bg-primary text-white hover:bg-primary/90 transition-colors whitespace-nowrap shadow-xs"
+              className="px-4 py-2 rounded-xl text-xs font-semibold bg-primary text-white hover:bg-primary/90 transition-colors whitespace-nowrap shadow-xs"
             >
               Request Custom MSA / NDA
             </Link>

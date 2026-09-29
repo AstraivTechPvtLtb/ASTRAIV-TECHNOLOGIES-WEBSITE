@@ -22,18 +22,18 @@ export function AstraivApproachSection({ approach, capabilities, fullDesc }: Ast
         <div className="relative z-10">
 
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-[-0.025em] leading-[1.15] mb-4">
             {approach.title}
           </h2>
 
           {approach.summary && (
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-medium mb-8 max-w-3xl">
+            <p className="text-base sm:text-lg text-slate-300 leading-[1.62] font-normal mb-8 max-w-3xl">
               {approach.summary}
             </p>
           )}
 
           {fullDesc && (
-            <p className="text-sm sm:text-base text-slate-400 leading-relaxed mb-10 max-w-3xl">
+            <p className="text-sm sm:text-base text-slate-400 leading-[1.62] font-normal mb-10 max-w-3xl">
               {fullDesc}
             </p>
           )}
@@ -41,7 +41,7 @@ export function AstraivApproachSection({ approach, capabilities, fullDesc }: Ast
           {/* 4-Phase Engineering Blueprint */}
           {steps.length > 0 && (
             <div className="pt-6 border-t border-slate-800">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 block mb-6">
+              <span className="text-xs font-mono font-medium uppercase tracking-wider text-slate-400 block mb-6">
                 Engineering Execution Lifecycle
               </span>
 
@@ -53,12 +53,12 @@ export function AstraivApproachSection({ approach, capabilities, fullDesc }: Ast
                   >
                     <div>
                       <div className="flex items-center justify-between mb-3">
-                        <span className="text-2xl font-black font-heading text-slate-500">
+                        <span className="text-2xl font-semibold font-heading text-slate-500">
                           {step.step}
                         </span>
                         <ShieldCheck className="h-4 w-4 text-blue-400" />
                       </div>
-                      <h3 className="text-sm font-bold text-white mb-2">
+                      <h3 className="text-sm font-semibold text-white mb-2">
                         {step.title}
                       </h3>
                       <p className="text-xs text-slate-400 leading-relaxed">

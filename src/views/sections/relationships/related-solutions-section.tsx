@@ -27,16 +27,16 @@ export function RelatedSolutionsSection({
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
         <div>
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-[-0.025em] leading-[1.15]">
             {title}
           </h2>
-          <p className="text-sm sm:text-base text-slate-400 mt-1 max-w-2xl">
+          <p className="text-sm sm:text-base text-slate-400 font-normal leading-[1.62] mt-1 max-w-2xl">
             {displaySubtitle}
           </p>
         </div>
         <Link
           href={ROUTES.PUBLIC.SOLUTIONS}
-          className="text-xs sm:text-sm font-bold text-primary dark:text-blue-400 hover:underline inline-flex items-center gap-1 shrink-0"
+          className="text-xs sm:text-sm font-medium text-primary dark:text-blue-400 hover:underline inline-flex items-center gap-1 shrink-0"
         >
           <span>All Enterprise Solutions</span>
           <ArrowRight className="h-3.5 w-3.5" />
@@ -53,18 +53,18 @@ export function RelatedSolutionsSection({
 
             <div>
               <div className="flex items-center justify-between gap-2 mb-3">
-                <span className="text-[10.5px] font-black uppercase tracking-wider text-blue-400 bg-blue-950/60 border border-blue-800/50 px-2.5 py-0.5 rounded-md">
+                <span className="text-[10.5px] font-semibold uppercase tracking-wider text-blue-400 bg-blue-950/60 border border-blue-800/50 px-2.5 py-0.5 rounded-md">
                   {solution.categoryLabel}
                 </span>
-                <span className="text-xs font-mono font-bold text-slate-400">
+                <span className="text-xs font-mono font-semibold text-slate-400">
                   {solution.metric.value}
                 </span>
               </div>
 
-              <h3 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors mb-2">
+              <h3 className="text-lg font-semibold tracking-[-0.015em] text-white group-hover:text-blue-400 transition-colors mb-2">
                 {solution.title}
               </h3>
-              <p className="text-xs sm:text-sm text-slate-400 line-clamp-3 leading-relaxed mb-4">
+              <p className="text-xs sm:text-sm text-slate-400 line-clamp-3 leading-[1.62] font-normal mb-4">
                 {solution.shortDesc}
               </p>
 

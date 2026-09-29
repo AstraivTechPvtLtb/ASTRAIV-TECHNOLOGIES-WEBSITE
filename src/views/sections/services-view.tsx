@@ -240,10 +240,10 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
             <span className="text-xs font-mono font-bold uppercase tracking-widest text-primary dark:text-blue-400">
               SERVICES = WHAT ASTRAIV DOES
             </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white font-heading tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.025em] leading-[1.12]">
               Our Engineering Services
             </h1>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-medium">
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-normal leading-[1.62]">
               Explore our 8 specialized technical disciplines engineered for enterprise velocity.
             </p>
           </div>
@@ -261,7 +261,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
               >
                 Clear
               </button>
@@ -279,9 +279,9 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
                 key={tab.id}
                 onClick={() => setSelectedCategory(tab.id)}
                 className={cn(
-                  'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer select-none',
+                  'px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer select-none',
                   active
-                    ? 'bg-primary text-white shadow-sm dark:bg-blue-600 dark:text-white font-black'
+                    ? 'bg-primary text-white shadow-sm dark:bg-blue-600 dark:text-white font-semibold'
                     : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800'
                 )}
               >
@@ -351,25 +351,25 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
                       >
                         {service.icon}
                       </div>
-                      <span className="text-[10px] uppercase font-black tracking-widest text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/90 px-2 py-0.5 rounded-md border border-slate-200 dark:border-slate-700/60">
+                      <span className="text-[10px] uppercase font-semibold tracking-wider text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/90 px-2 py-0.5 rounded-md border border-slate-200 dark:border-slate-700/60">
                         {service.categoryLabel}
                       </span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-lg font-bold tracking-tight text-slate-900 dark:text-white mb-2 group-hover:text-primary dark:group-hover:text-blue-400 transition-colors">
+                    <h3 className="text-lg font-semibold tracking-[-0.015em] text-slate-900 dark:text-white mb-2 group-hover:text-primary dark:group-hover:text-blue-400 transition-colors">
                       {service.title}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium mb-4">
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal mb-4">
                       {service.description}
                     </p>
 
                     {/* Deliverables Checklist */}
                     <div className="flex flex-col gap-1.5 mb-5 pt-3 border-t border-border/50 dark:border-slate-800/80">
                       {service.deliverables.map((item, dIdx) => (
-                        <div key={dIdx} className="flex items-start gap-2 text-[11px] text-slate-600 dark:text-slate-300 font-medium">
+                        <div key={dIdx} className="flex items-start gap-2 text-[11px] text-slate-600 dark:text-slate-300 font-normal">
                           <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
                           <span>{item}</span>
                         </div>
@@ -383,7 +383,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
                       {service.techStack.map((tech) => (
                         <span
                           key={tech}
-                          className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60"
+                          className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60"
                         >
                           {tech}
                         </span>
@@ -392,12 +392,12 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
 
                     {/* Footer Action */}
                     <div className="flex items-center justify-between pt-2">
-                      <span className="text-[10.5px] font-bold text-slate-500 dark:text-slate-400 font-mono">
+                      <span className="text-[10.5px] font-medium text-slate-500 dark:text-slate-400 font-mono">
                         {service.slaHighlight}
                       </span>
                       <Link
                         href={`/services/${service.id}`}
-                        className="inline-flex items-center text-xs font-black text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group/link"
+                        className="inline-flex items-center text-xs font-semibold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group/link"
                       >
                         <span>Explore Service</span>
                         <ArrowRight className="ml-1 h-3.5 w-3.5 group-hover/link:translate-x-1 transition-transform" />
@@ -419,10 +419,10 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
           {/* Header */}
           <div className="flex flex-col gap-3 text-center max-w-3xl mx-auto mb-16">
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white font-heading">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] text-slate-900 dark:text-white font-heading">
               Our 6-Stage Engineering Delivery Process
             </h2>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
               From architectural blueprinting to continuous production scaling, our engineering squads follow a deterministic, gated 6-stage roadmap.
             </p>
           </div>
@@ -438,23 +438,23 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
 
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 rounded-full border border-primary/20">
+                    <span className="px-2.5 py-1 text-[10px] font-mono font-medium uppercase tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 rounded-full border border-primary/20">
                       Stage {phase.num} • {phase.tag}
                     </span>
-                    <span className="text-2xl font-black font-heading text-slate-300 dark:text-slate-700">
+                    <span className="text-2xl font-semibold font-heading text-slate-300 dark:text-slate-700">
                       {phase.num}
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold tracking-[-0.015em] text-slate-900 dark:text-white mb-2">
                     {phase.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium mb-6">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal mb-6">
                     {phase.detailedDesc}
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-border/60 dark:border-slate-800 flex items-center justify-between text-[11px] font-semibold text-primary dark:text-blue-400">
+                <div className="pt-3 border-t border-border/60 dark:border-slate-800 flex items-center justify-between text-[11px] font-medium text-primary dark:text-blue-400">
                   <div className="flex items-center gap-1.5">
                     <Check className="h-3.5 w-3.5" />
                     <span>{phase.keyDeliverables[0]}</span>
@@ -470,7 +470,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
           <div className="mt-12 text-center">
             <Link
               href={ROUTES.PUBLIC.COMPANY_ANCHORS.PROCESS}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-foreground hover:text-primary dark:hover:text-blue-400 bg-card/80 hover:bg-card border border-border/60 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all shadow-xs hover:shadow-md group"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-medium text-foreground hover:text-primary dark:hover:text-blue-400 bg-card/80 hover:bg-card border border-border/60 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all shadow-xs hover:shadow-md group"
             >
               <span>Explore Complete 6-Stage Process, Deliverables &amp; Quality Gates</span>
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
@@ -485,54 +485,54 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
       <section className="py-20 px-6 max-w-7xl mx-auto w-full">
         <div className="p-8 sm:p-12 rounded-3xl bg-card dark:bg-slate-900/90 border border-border/80 dark:border-slate-800/80 shadow-md">
           <div className="max-w-3xl mb-12 text-left">
-            <span className="inline-flex px-3 py-1 text-xs font-black tracking-wider uppercase text-primary bg-primary/10 dark:bg-blue-600/20 dark:text-blue-300 rounded-md border border-primary/20 dark:border-blue-600/30 mb-3">
+            <span className="inline-flex px-3 py-1 text-xs font-semibold tracking-wider uppercase text-primary bg-primary/10 dark:bg-blue-600/20 dark:text-blue-300 rounded-md border border-primary/20 dark:border-blue-600/30 mb-3">
               CONTRACTUAL GUARANTEES
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 dark:text-white font-heading tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.025em] leading-[1.15]">
               Engineering Built on Trust and Rigor
             </h2>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium mt-2">
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal mt-2">
               Every project contracted with Astraiv Technologies adheres to ironclad technical standards designed to safeguard your capital and brand reputation.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
             <div className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">
-              <div className="flex items-center gap-2 text-primary dark:text-blue-400 font-bold text-sm">
+              <div className="flex items-center gap-2 text-primary dark:text-blue-400 font-semibold text-sm">
                 <Lock className="h-4 w-4" />
                 <span>100% IP Handover</span>
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
                 All source code, schemas, documentation, and infrastructure keys are transferred directly to your organization.
               </p>
             </div>
 
             <div className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">
-              <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-bold text-sm">
+              <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold text-sm">
                 <Code2 className="h-4 w-4" />
                 <span>Type-Safe Delivery</span>
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
                 End-to-end type safety eliminates runtime failures and provides automated self-documenting API structures.
               </p>
             </div>
 
             <div className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">
-              <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold text-sm">
+              <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-semibold text-sm">
                 <Workflow className="h-4 w-4" />
                 <span>Zero Vendor Lock-In</span>
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
                 Built strictly on industry-standard open-source ecosystems (Next.js, Node, Go, Docker) with no proprietary traps.
               </p>
             </div>
 
             <div className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">
-              <div className="flex items-center gap-2 text-rose-600 dark:text-rose-400 font-bold text-sm">
+              <div className="flex items-center gap-2 text-rose-600 dark:text-rose-400 font-semibold text-sm">
                 <ShieldCheck className="h-4 w-4" />
                 <span>SOC2 & HIPAA Compliant</span>
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
                 Architectures pre-configured with granular RBAC, encryption at rest and in transit, and immutable audit trails.
               </p>
             </div>
@@ -547,29 +547,29 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
         <div className="relative overflow-hidden rounded-3xl border border-primary/30 dark:border-blue-600/30 bg-gradient-to-br from-primary/10 via-card to-blue-600/10 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/40 p-10 sm:p-16 shadow-xl">
           <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading text-slate-900 dark:text-white tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading text-slate-900 dark:text-white tracking-[-0.025em] leading-[1.12]">
               Ready to Accelerate Your Software Engineering?
             </h2>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
               Schedule a direct consultation with our senior systems architects to discuss project requirements, timelines, and technical architecture.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-3.5 pt-2 w-full sm:w-auto">
               <Link
                 href={ROUTES.PUBLIC.START_PROJECT ? `${ROUTES.PUBLIC.START_PROJECT}?source_page=${encodeURIComponent('/services')}` : `/start-project?source_page=${encodeURIComponent('/services')}`}
-                className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm text-white bg-primary hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 shadow-md shadow-primary/25 transition-all flex items-center justify-center gap-2 active:scale-95 group"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-sm text-white bg-primary hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 shadow-md shadow-primary/25 transition-all flex items-center justify-center gap-2 active:scale-95 group tracking-normal"
               >
                 <span>Start a Project</span>
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/contact#schedule"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-all flex items-center justify-center gap-2 shadow-xs"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-sm text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-all flex items-center justify-center gap-2 shadow-xs tracking-normal"
               >
                 <span>Talk to an Expert</span>
               </Link>
               <Link
                 href={ROUTES.PUBLIC.CASE_STUDIES}
-                className="w-full sm:w-auto px-6 py-4 rounded-xl font-bold text-sm text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400 transition-colors flex items-center justify-center gap-1.5"
+                className="w-full sm:w-auto px-6 py-4 rounded-xl font-semibold text-sm text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400 transition-colors flex items-center justify-center gap-1.5 tracking-normal"
               >
                 <span>Explore Case Studies &rarr;</span>
               </Link>

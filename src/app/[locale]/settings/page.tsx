@@ -46,8 +46,8 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
     >
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="font-heading font-extrabold text-2xl md:text-3xl text-foreground">Account Settings</h1>
-          <p className="text-sm text-muted-foreground font-medium mt-1">
+          <h1 className="font-heading font-semibold tracking-[-0.02em] text-2xl md:text-3xl text-foreground">Account Settings</h1>
+          <p className="text-sm text-muted-foreground font-normal mt-1">
             Configure system configurations, notification priorities, and interface localization variables.
           </p>
         </div>

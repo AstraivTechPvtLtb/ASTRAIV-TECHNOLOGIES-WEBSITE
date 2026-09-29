@@ -305,7 +305,7 @@ export function PricingSection({ initialPlans }: PricingSectionProps) {
 
           {/* Billing cycle toggle */}
           <div className="flex items-center justify-center gap-4">
-            <span className={`text-sm font-bold transition-colors ${billingCycle === 'monthly' ? 'text-foreground' : 'text-muted-foreground'}`}>
+            <span className={`text-sm font-semibold transition-colors ${billingCycle === 'monthly' ? 'text-foreground' : 'text-muted-foreground'}`}>
               Monthly
             </span>
             <button
@@ -324,10 +324,10 @@ export function PricingSection({ initialPlans }: PricingSectionProps) {
               />
             </button>
             <div className="flex items-center gap-2">
-              <span className={`text-sm font-bold transition-colors ${billingCycle === 'yearly' ? 'text-foreground' : 'text-muted-foreground'}`}>
+              <span className={`text-sm font-semibold transition-colors ${billingCycle === 'yearly' ? 'text-foreground' : 'text-muted-foreground'}`}>
                 Annual
               </span>
-              <span className="px-2 py-0.5 text-[9px] font-extrabold uppercase text-emerald-600 bg-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400 rounded-md border border-emerald-500/20">
+              <span className="px-2 py-0.5 text-[9px] font-semibold uppercase text-emerald-600 bg-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400 rounded-md border border-emerald-500/20">
                 Save 20%
               </span>
             </div>
@@ -336,13 +336,13 @@ export function PricingSection({ initialPlans }: PricingSectionProps) {
 
         {plans.length === 0 ? (
           <div className="p-12 max-w-2xl mx-auto bg-card/70 dark:bg-slate-900/60 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-3xl text-center flex flex-col items-center justify-center gap-4 mt-8">
-            <h4 className="text-xl font-bold text-foreground">Custom Consultation & Scope Scoping</h4>
+            <h4 className="text-xl font-semibold tracking-[-0.015em] text-foreground">Custom Consultation & Scope Scoping</h4>
             <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-md">
               We engineer custom enterprise engagement models tailored strictly to your company&apos;s architecture, timeline, and security requirements.
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-md transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-md transition-all cursor-pointer"
             >
               <span>Talk to an Expert</span>
             </Link>
