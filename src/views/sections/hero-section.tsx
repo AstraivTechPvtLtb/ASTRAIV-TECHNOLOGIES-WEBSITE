@@ -196,7 +196,7 @@ export function HeroSection({
         {/* 2. Large Premium Headline - Fluid Clamp Scaling and Restrained Word Entrance */}
         <motion.h1
           variants={itemVariants}
-          className="text-[clamp(1.35rem,4.2vw+0.35rem,3.75rem)] font-display font-extrabold tracking-tight md:tracking-[-0.02em] text-foreground leading-[1.18] sm:leading-[1.2] w-full text-center mb-4 md:mb-5 whitespace-normal break-words"
+          className="text-[clamp(1.35rem,4.2vw+0.35rem,3.75rem)] font-display font-semibold tracking-[-0.025em] md:tracking-[-0.03em] text-foreground leading-[1.12] sm:leading-[1.15] w-full text-center mb-4 md:mb-5 whitespace-normal break-words"
           style={{ textWrap: 'balance' }}
         >
           {parsedWords.map((item, index) => (
@@ -209,7 +209,7 @@ export function HeroSection({
                 className={cn(
                   "inline-block whitespace-nowrap pb-0.5",
                   item.isHighlighted
-                    ? "relative bg-gradient-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] dark:from-[#3B82F6] dark:via-[#60A5FA] dark:to-[#93C5FD] bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer font-black"
+                    ? "relative bg-gradient-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] dark:from-[#3B82F6] dark:via-[#60A5FA] dark:to-[#93C5FD] bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer font-semibold"
                     : "text-foreground"
                 )}
               >
@@ -223,7 +223,7 @@ export function HeroSection({
         {/* 3. Supporting Subheadline */}
         <motion.p
           variants={itemVariants}
-          className="text-sm sm:text-base md:text-lg lg:text-[19px] text-muted-foreground font-medium max-w-2xl lg:max-w-3xl leading-relaxed mb-6 sm:mb-8 md:mb-10 px-1"
+          className="text-sm sm:text-base md:text-lg lg:text-[19px] text-muted-foreground font-normal max-w-2xl lg:max-w-3xl leading-[1.62] mb-6 sm:mb-8 md:mb-10 px-1"
         >
           {subheadline}
         </motion.p>
@@ -232,7 +232,7 @@ export function HeroSection({
         <motion.div variants={itemVariants} className="relative z-30 pointer-events-auto flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-xs sm:max-w-none">
           <Link
             href={ctaHref}
-            className="w-full sm:w-auto relative group cursor-pointer font-bold rounded-xl px-6 sm:px-9 h-12 sm:h-13 text-xs sm:text-sm tracking-wide text-white bg-primary hover:bg-[#082d6c] dark:bg-blue-600 dark:hover:bg-blue-500 active:scale-[0.98] transition-all duration-200 shadow-sm hover:shadow-md border border-blue-900/20 dark:border-blue-400/30 inline-flex items-center justify-center gap-2 outline-none select-none min-h-[44px] focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
+            className="w-full sm:w-auto relative group cursor-pointer font-semibold rounded-xl px-6 sm:px-9 h-12 sm:h-13 text-xs sm:text-sm tracking-normal text-white bg-primary hover:bg-[#082d6c] dark:bg-blue-600 dark:hover:bg-blue-500 active:scale-[0.98] transition-all duration-200 shadow-sm hover:shadow-md border border-blue-900/20 dark:border-blue-400/30 inline-flex items-center justify-center gap-2 outline-none select-none min-h-[44px] focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
           >
             <span>{ctaText}</span>
             <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-1" />
@@ -240,7 +240,7 @@ export function HeroSection({
 
           <Link
             href={secondaryCtaHref}
-            className="w-full sm:w-auto relative group cursor-pointer font-bold rounded-xl px-6 sm:px-9 h-12 sm:h-13 text-xs sm:text-sm tracking-wide text-foreground bg-card/90 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-white/15 hover:border-primary/40 dark:hover:border-blue-400/40 active:scale-[0.98] transition-all duration-200 shadow-xs inline-flex items-center justify-center gap-2 outline-none select-none min-h-[44px] focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
+            className="w-full sm:w-auto relative group cursor-pointer font-semibold rounded-xl px-6 sm:px-9 h-12 sm:h-13 text-xs sm:text-sm tracking-normal text-foreground bg-card/90 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-white/15 hover:border-primary/40 dark:hover:border-blue-400/40 active:scale-[0.98] transition-all duration-200 shadow-xs inline-flex items-center justify-center gap-2 outline-none select-none min-h-[44px] focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
           >
             <span>{secondaryCtaText}</span>
             <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-1 text-primary dark:text-blue-400" />

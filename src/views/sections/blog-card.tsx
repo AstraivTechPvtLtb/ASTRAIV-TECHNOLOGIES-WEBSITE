@@ -38,21 +38,21 @@ export function BlogCard({
             Astraiv Tech Insights
           </div>
         )}
-        <div className="absolute top-3 left-3 bg-background/95 backdrop-blur-xs px-2.5 py-0.5 rounded-full text-xs font-semibold text-primary border border-border">
+        <div className="absolute top-3 left-3 bg-background/95 backdrop-blur-xs px-2.5 py-0.5 rounded-full text-xs font-medium text-primary border border-border">
           {category}
         </div>
       </CardHeader>
       
       <CardContent className="flex-1 flex flex-col p-5">
-        <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3 font-medium">
+        <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3 font-normal">
           <span>{publishedAt}</span>
           <span className="h-1 w-1 rounded-full bg-muted-foreground/40" />
           <span>{readTime}</span>
         </div>
-        <CardTitle className="text-lg font-bold tracking-tight text-foreground group-hover:text-primary transition-colors line-clamp-2">
+        <CardTitle className="text-lg font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary transition-colors line-clamp-2">
           <Link href={ROUTES.PUBLIC.BLOG_DETAIL(slug)} className="after:absolute after:inset-0 after:z-10">{title}</Link>
         </CardTitle>
-        <p className="text-sm text-muted-foreground leading-relaxed mt-3 line-clamp-3 flex-1">
+        <p className="text-sm text-muted-foreground leading-[1.62] mt-3 line-clamp-3 flex-1 font-normal">
           {summary}
         </p>
       </CardContent>

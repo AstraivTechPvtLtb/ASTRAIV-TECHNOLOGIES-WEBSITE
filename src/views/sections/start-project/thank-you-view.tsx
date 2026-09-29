@@ -71,7 +71,7 @@ export function ThankYouView() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground font-heading"
+            className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] text-foreground font-heading"
           >
             Project Brief Received!
           </motion.h1>
@@ -81,7 +81,7 @@ export function ThankYouView() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-sm sm:text-base text-muted-foreground mt-4 leading-relaxed font-medium"
+            className="text-sm sm:text-base text-muted-foreground mt-4 leading-[1.62] font-normal"
           >
             Thank you for trusting Astraiv Technologies with your <strong className="text-foreground">{projectType}</strong>. Your technical specifications and parameters have been securely stored and assigned to our Senior Solutions Architecture team.
           </motion.p>
@@ -91,7 +91,7 @@ export function ThankYouView() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
-            className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 dark:bg-blue-400/10 border border-primary/20 dark:border-blue-400/20 text-xs font-bold text-primary dark:text-blue-300"
+            className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 dark:bg-blue-400/10 border border-primary/20 dark:border-blue-400/20 text-xs font-medium text-primary dark:text-blue-300"
           >
             <Clock className="w-4 h-4 text-primary dark:text-blue-400 shrink-0" />
             <span>Guaranteed Response Time: Within 24 business hours</span>
@@ -105,10 +105,10 @@ export function ThankYouView() {
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-400">
             TRANSPARENT WORKFLOW
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground font-heading mt-1">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] leading-[1.15] text-foreground font-heading mt-1">
             What Happens Next?
           </h2>
-          <p className="text-xs sm:text-sm text-muted-foreground mt-2">
+          <p className="text-xs sm:text-sm text-muted-foreground mt-2 font-normal">
             Here is our disciplined 3-step qualification process from transmission to sprint kickoff.
           </p>
         </div>
@@ -117,15 +117,15 @@ export function ThankYouView() {
           {/* Step 1 */}
           <div className="p-6 rounded-2xl border border-border/70 dark:border-slate-800 bg-card/60 dark:bg-slate-900/60 backdrop-blur-md relative flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-blue-500/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 flex items-center justify-center font-mono font-bold text-sm mb-4">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 flex items-center justify-center font-mono font-semibold text-sm mb-4">
                 01
               </div>
-              <h3 className="font-extrabold text-base text-foreground">Architectural Feasibility</h3>
-              <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
+              <h3 className="font-semibold text-base tracking-[-0.01em] text-foreground">Architectural Feasibility</h3>
+              <p className="text-xs text-muted-foreground mt-2 leading-[1.62] font-normal">
                 Our Principal Architects analyze your tech stack feasibility, infrastructure dependencies, and project scope to formulate an initial engineering dossier.
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-border/40 text-[11px] font-mono text-primary dark:text-blue-400 font-semibold">
+            <div className="mt-6 pt-4 border-t border-border/40 text-[11px] font-mono text-primary dark:text-blue-400 font-medium">
               Hours 0 — 12
             </div>
           </div>
@@ -133,15 +133,15 @@ export function ThankYouView() {
           {/* Step 2 */}
           <div className="p-6 rounded-2xl border border-border/70 dark:border-slate-800 bg-card/60 dark:bg-slate-900/60 backdrop-blur-md relative flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-indigo-500/10 dark:bg-indigo-400/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center justify-center font-mono font-bold text-sm mb-4">
+              <div className="w-10 h-10 rounded-xl bg-indigo-500/10 dark:bg-indigo-400/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center justify-center font-mono font-semibold text-sm mb-4">
                 02
               </div>
-              <h3 className="font-extrabold text-base text-foreground">Mutual NDA & Roadmap</h3>
-              <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
+              <h3 className="font-semibold text-base tracking-[-0.01em] text-foreground">Mutual NDA & Roadmap</h3>
+              <p className="text-xs text-muted-foreground mt-2 leading-[1.62] font-normal">
                 We provide a countersigned mutual Non-Disclosure Agreement (protecting all your IP) alongside an initial milestone timeline and squad allocation proposal.
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-border/40 text-[11px] font-mono text-indigo-500 dark:text-indigo-400 font-semibold">
+            <div className="mt-6 pt-4 border-t border-border/40 text-[11px] font-mono text-indigo-500 dark:text-indigo-400 font-medium">
               Hours 12 — 24
             </div>
           </div>
@@ -149,15 +149,15 @@ export function ThankYouView() {
           {/* Step 3 */}
           <div className="p-6 rounded-2xl border border-border/70 dark:border-slate-800 bg-card/60 dark:bg-slate-900/60 backdrop-blur-md relative flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 dark:bg-emerald-400/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-mono font-bold text-sm mb-4">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 dark:bg-emerald-400/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-mono font-semibold text-sm mb-4">
                 03
               </div>
-              <h3 className="font-extrabold text-base text-foreground">Discovery Strategy Session</h3>
-              <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
+              <h3 className="font-semibold text-base tracking-[-0.01em] text-foreground">Discovery Strategy Session</h3>
+              <p className="text-xs text-muted-foreground mt-2 leading-[1.62] font-normal">
                 A 30-minute high-bandwidth video conference with our Lead Systems Architect to finalize architecture choices, review mockups, and schedule sprint kickoff.
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-border/40 text-[11px] font-mono text-emerald-500 dark:text-emerald-400 font-semibold">
+            <div className="mt-6 pt-4 border-t border-border/40 text-[11px] font-mono text-emerald-500 dark:text-emerald-400 font-medium">
               Within 48 Hours
             </div>
           </div>
@@ -170,10 +170,10 @@ export function ThankYouView() {
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-400">
             WHILE YOU WAIT
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground font-heading mt-1">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] leading-[1.15] text-foreground font-heading mt-1">
             Explore How We Deliver
           </h2>
-          <p className="text-xs sm:text-sm text-muted-foreground mt-2">
+          <p className="text-xs sm:text-sm text-muted-foreground mt-2 font-normal">
             Review our verified production case studies or read our latest technical whitepapers.
           </p>
         </div>
@@ -187,14 +187,14 @@ export function ThankYouView() {
             <div className="w-12 h-12 rounded-2xl bg-blue-500/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
               <Layers className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-extrabold text-foreground group-hover:text-primary dark:group-hover:text-blue-400 transition-colors flex items-center gap-2">
+            <h3 className="text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-400 transition-colors flex items-center gap-2">
               <span>Explore Case Studies</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </h3>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-2 leading-relaxed">
+            <p className="text-xs sm:text-sm text-muted-foreground mt-2 leading-[1.62] font-normal">
               Examine our real-world deliverables, including AI-driven platforms, high-velocity SaaS apps, and scalable cloud systems engineered for high-growth enterprises.
             </p>
-            <div className="mt-6 inline-flex items-center gap-2 text-xs font-bold text-primary dark:text-blue-400">
+            <div className="mt-6 inline-flex items-center gap-2 text-xs font-medium text-primary dark:text-blue-400">
               <span>Browse Client Case Studies</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </div>
@@ -208,14 +208,14 @@ export function ThankYouView() {
             <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 dark:bg-indigo-400/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
               <BookOpen className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-extrabold text-foreground group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors flex items-center gap-2">
+            <h3 className="text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors flex items-center gap-2">
               <span>Read Engineering Insights</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </h3>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-2 leading-relaxed">
+            <p className="text-xs sm:text-sm text-muted-foreground mt-2 leading-[1.62] font-normal">
               Discover technical articles on autonomous LLM agent design, Next.js App Router performance, zero-trust cloud security, and institutional engineering standards.
             </p>
-            <div className="mt-6 inline-flex items-center gap-2 text-xs font-bold text-indigo-500 dark:text-indigo-400">
+            <div className="mt-6 inline-flex items-center gap-2 text-xs font-medium text-indigo-500 dark:text-indigo-400">
               <span>Read Technical Articles</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </div>
@@ -226,22 +226,22 @@ export function ThankYouView() {
       {/* 4. Urgent Direct Escalation Bar */}
       <div className="mt-12 p-6 sm:p-8 rounded-2xl border border-border/60 dark:border-slate-800/80 bg-muted/20 text-center flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="text-left">
-          <h4 className="font-bold text-sm text-foreground">Need immediate architectural assistance?</h4>
-          <p className="text-xs text-muted-foreground mt-0.5">
+          <h4 className="font-semibold text-sm text-foreground">Need immediate architectural assistance?</h4>
+          <p className="text-xs text-muted-foreground mt-0.5 font-normal">
             Reach our senior solutions desk directly via email or telephone.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <a
             href="mailto:info@astraivtechnologies.com"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold border border-border/70 hover:border-primary/40 bg-card hover:bg-card/80 text-foreground transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium border border-border/70 hover:border-primary/40 bg-card hover:bg-card/80 text-foreground transition-all"
           >
             <Mail className="w-3.5 h-3.5 text-primary" />
             <span>Email Solutions Desk</span>
           </a>
           <a
             href="tel:+918167409664"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold border border-border/70 hover:border-primary/40 bg-card hover:bg-card/80 text-foreground transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium border border-border/70 hover:border-primary/40 bg-card hover:bg-card/80 text-foreground transition-all"
           >
             <Phone className="w-3.5 h-3.5 text-emerald-500" />
             <span>+91 8167409664</span>

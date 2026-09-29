@@ -324,10 +324,10 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       <section className="pt-28 pb-8 md:pt-36 md:pb-10 px-6 max-w-7xl mx-auto relative z-10">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading text-slate-900 dark:text-white tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading text-slate-900 dark:text-white tracking-[-0.025em] leading-[1.12]">
               Insights & Engineering Publications
             </h1>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-medium mt-1">
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-normal leading-[1.62] mt-1">
               Technical deep dives, system architectures, and engineering case studies.
             </p>
           </div>
@@ -341,12 +341,12 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                 placeholder="Search articles or blueprints..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-transparent border-none outline-none py-1.5 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground font-semibold"
+                className="w-full bg-transparent border-none outline-none py-1.5 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground font-normal"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="text-xs px-2.5 py-1 text-muted-foreground hover:text-foreground font-bold cursor-pointer"
+                  className="text-xs px-2.5 py-1 text-muted-foreground hover:text-foreground font-medium cursor-pointer"
                 >
                   Clear
                 </button>
@@ -361,7 +361,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
             <a
               key={item.label}
               href={item.href}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-accent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all select-none"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-accent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all select-none"
             >
               {item.icon}
               <span>{item.label}</span>
@@ -395,7 +395,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:hidden" />
                 <div className="absolute top-4 left-4 z-10">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-black uppercase tracking-wider bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full">
                     <Sparkles className="h-3 w-3 text-blue-400" />
                     <span>Featured Deep Dive</span>
                   </span>
@@ -405,8 +405,8 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
               {/* Text Side */}
               <div className="lg:col-span-5 p-8 sm:p-10 flex flex-col justify-between text-left">
                 <div>
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground font-semibold mb-4">
-                    <span className="px-2.5 py-0.5 rounded-md bg-primary/10 dark:bg-accent/10 text-primary dark:text-accent font-extrabold uppercase text-[10.5px]">
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground font-medium mb-4">
+                    <span className="px-2.5 py-0.5 rounded-md bg-primary/10 dark:bg-accent/10 text-primary dark:text-accent font-semibold uppercase text-[10.5px]">
                       {featuredPost.category.name}
                     </span>
                     <span className="flex items-center gap-1">
@@ -417,11 +417,11 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                     <span>{formatDate(featuredPost.createdAt)}</span>
                   </div>
 
-                  <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors mb-4 leading-tight">
+                  <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors mb-4 leading-[1.18]">
                     <Link href={`/insights/${featuredPost.slug}`}>{featuredPost.title}</Link>
                   </h2>
 
-                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-medium mb-6">
+                  <p className="text-sm sm:text-base text-muted-foreground leading-[1.62] font-normal mb-6">
                     {featuredPost.summary}
                   </p>
                 </div>
@@ -438,10 +438,10 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                       />
                     )}
                     <div>
-                      <div className="text-xs font-bold text-foreground">
+                      <div className="text-xs font-semibold text-foreground">
                         {featuredPost.author.name}
                       </div>
-                      <div className="text-[10px] text-muted-foreground font-semibold">
+                      <div className="text-[10px] text-muted-foreground font-normal">
                         Astraiv Architecture Team
                       </div>
                     </div>
@@ -449,7 +449,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
 
                   <Link
                     href={`/insights/${featuredPost.slug}`}
-                    className="inline-flex items-center gap-1.5 text-xs font-extrabold text-primary hover:text-primary/80 dark:text-accent dark:hover:text-accent/80 transition-colors group/cta"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-primary/80 dark:text-accent dark:hover:text-accent/80 transition-colors group/cta tracking-normal"
                   >
                     <span>Read Deep Dive</span>
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/cta:translate-x-1" />
@@ -467,11 +467,11 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       <section id="blog" className="py-16 md:py-20 px-6 max-w-7xl mx-auto scroll-mt-24">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-6 border-b border-border/60 dark:border-slate-800">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-accent uppercase tracking-wider mb-2">
+            <div className="inline-flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent uppercase tracking-wider mb-2">
               <BookOpen className="h-3.5 w-3.5" />
               <span>Articles & Tutorials</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight font-heading">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-[-0.025em] leading-[1.15] font-heading">
               Latest Engineering Articles
             </h2>
           </div>
@@ -481,9 +481,9 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
             <button
               onClick={() => setSelectedCategory('all')}
               className={cn(
-                'px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition-all select-none cursor-pointer',
+                'px-4 py-2 rounded-xl text-xs font-medium tracking-wide transition-all select-none cursor-pointer',
                 selectedCategory === 'all'
-                  ? 'bg-primary text-primary-foreground shadow-sm shadow-primary/20 scale-105'
+                  ? 'bg-primary text-primary-foreground shadow-sm shadow-primary/20 scale-105 font-semibold'
                   : 'bg-card border border-border/70 dark:border-slate-800 text-muted-foreground hover:text-foreground'
               )}
             >
@@ -494,9 +494,9 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.slug)}
                 className={cn(
-                  'px-4 py-2 rounded-xl text-xs font-bold tracking-wide transition-all select-none cursor-pointer',
+                  'px-4 py-2 rounded-xl text-xs font-medium tracking-wide transition-all select-none cursor-pointer',
                   selectedCategory === cat.slug
-                    ? 'bg-primary text-primary-foreground shadow-sm shadow-primary/20 scale-105'
+                    ? 'bg-primary text-primary-foreground shadow-sm shadow-primary/20 scale-105 font-semibold'
                     : 'bg-card border border-border/70 dark:border-slate-800 text-muted-foreground hover:text-foreground'
                 )}
               >
@@ -555,10 +555,10 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
               <Bot className="h-3.5 w-3.5" />
               <span>AI Research & Breakthroughs</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight font-heading mb-4">
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] font-heading mb-4">
               Autonomous Systems & Cognitive AI
             </h2>
-            <p className="text-sm md:text-base text-muted-foreground font-medium leading-relaxed">
+            <p className="text-sm md:text-base text-muted-foreground font-normal leading-[1.62]">
               How we construct resilient production intelligence: multi-agent task execution,
               vector database architectures, and deterministic verification layers.
             </p>
@@ -575,7 +575,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-foreground/80">
+                    <span className="text-[11px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-foreground/80">
                       {insight.badge}
                     </span>
                     <div className="p-2 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 group-hover:scale-110 transition-transform">
@@ -583,11 +583,11 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                     </div>
                   </div>
 
-                  <h3 className="text-lg font-bold text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors mb-3 leading-snug">
+                  <h3 className="text-lg font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors mb-3 leading-snug">
                     {insight.title}
                   </h3>
 
-                  <p className="text-xs text-muted-foreground leading-relaxed font-medium mb-6">
+                  <p className="text-xs text-muted-foreground leading-relaxed font-normal mb-6">
                     {insight.description}
                   </p>
 
@@ -595,7 +595,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                     {insight.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800/90 text-muted-foreground border border-border/40"
+                        className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800/90 text-muted-foreground border border-border/40"
                       >
                         {tag}
                       </span>
@@ -604,12 +604,12 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                 </div>
 
                 <div className="pt-4 border-t border-border/40 dark:border-slate-800 flex items-center justify-between">
-                  <span className="text-xs font-extrabold text-emerald-600 dark:text-emerald-400">
+                  <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
                     {insight.metric}
                   </span>
                   <Link
                     href="/technology#ai-expertise"
-                    className="inline-flex items-center gap-1 text-xs font-bold text-primary dark:text-accent hover:underline"
+                    className="inline-flex items-center gap-1 text-xs font-medium text-primary dark:text-accent hover:underline"
                   >
                     <span>Inspect Stack</span>
                     <ArrowRight className="h-3 w-3" />
@@ -631,13 +631,13 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
               <Cpu className="h-3.5 w-3.5" />
               <span>Modern Cloud Practices</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight font-heading">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-[-0.025em] leading-[1.15] font-heading">
               Technology & Cloud Engineering
             </h2>
           </div>
           <Link
             href="/technology"
-            className="inline-flex items-center gap-1.5 text-xs font-extrabold text-primary dark:text-accent hover:underline"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent hover:underline"
           >
             <span>View Full Technology Spectrum</span>
             <ArrowRight className="h-3.5 w-3.5" />
@@ -655,30 +655,30 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                   <div className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 group-hover:scale-105 transition-transform">
                     {tech.icon}
                   </div>
-                  <span className="text-[10.5px] font-bold text-muted-foreground uppercase tracking-widest">
+                  <span className="text-[10.5px] font-medium text-muted-foreground uppercase tracking-wider">
                     {tech.readTime}
                   </span>
                 </div>
 
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-primary/10 dark:bg-accent/10 text-primary dark:text-accent">
+                  <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded bg-primary/10 dark:bg-accent/10 text-primary dark:text-accent">
                     {tech.tag}
                   </span>
-                  <span className="text-xs text-muted-foreground font-semibold">{tech.date}</span>
+                  <span className="text-xs text-muted-foreground font-normal">{tech.date}</span>
                 </div>
 
-                <h3 className="text-lg font-bold text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors mb-3 leading-snug">
+                <h3 className="text-lg font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors mb-3 leading-snug">
                   {tech.title}
                 </h3>
 
-                <p className="text-xs text-muted-foreground leading-relaxed font-medium mb-6">
+                <p className="text-xs text-muted-foreground leading-relaxed font-normal mb-6">
                   {tech.summary}
                 </p>
               </div>
 
               <Link
                 href="/technology#technologies"
-                className="inline-flex items-center gap-1.5 text-xs font-extrabold text-primary dark:text-accent hover:underline group/cta pt-4 border-t border-border/40 dark:border-slate-800"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary dark:text-accent hover:underline group/cta pt-4 border-t border-border/40 dark:border-slate-800 tracking-normal"
               >
                 <span>Read Cloud Brief</span>
                 <ChevronRight className="h-3.5 w-3.5 transition-transform group-hover/cta:translate-x-1" />
@@ -698,17 +698,17 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-accent uppercase tracking-wider mb-2">
+              <div className="inline-flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent uppercase tracking-wider mb-2">
                 <BarChart3 className="h-3.5 w-3.5" />
                 <span>Verified Client Outcomes</span>
               </div>
-              <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight font-heading">
+              <h2 className="text-3xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] font-heading">
                 Client Impact Case Studies
               </h2>
             </div>
             <Link
               href={ROUTES.PUBLIC.CASE_STUDIES}
-              className="inline-flex items-center gap-2 text-xs font-extrabold text-primary dark:text-accent hover:underline"
+              className="inline-flex items-center gap-2 text-xs font-medium text-primary dark:text-accent hover:underline"
             >
               <span>Explore Case Studies</span>
               <ArrowRight className="h-3.5 w-3.5" />
@@ -732,27 +732,27 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
                   <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between text-white">
                     <div>
-                      <span className="text-[10px] uppercase font-bold tracking-widest text-blue-300 block">
+                      <span className="text-[10px] uppercase font-semibold tracking-wider text-blue-300 block">
                         {study.category}
                       </span>
-                      <h4 className="text-lg font-bold leading-tight">{study.client}</h4>
+                      <h4 className="text-lg font-semibold leading-tight">{study.client}</h4>
                     </div>
                   </div>
                 </div>
 
                 <div className="p-6 flex-1 flex flex-col justify-between">
                   <div className="mb-4">
-                    <div className="inline-block px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-black tracking-tight mb-3 border border-emerald-500/20">
+                    <div className="inline-block px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-semibold tracking-normal mb-3 border border-emerald-500/20">
                       {study.metric}
                     </div>
-                    <p className="text-xs text-muted-foreground leading-relaxed font-medium">
+                    <p className="text-xs text-muted-foreground leading-relaxed font-normal">
                       {study.summary}
                     </p>
                   </div>
 
                   <Link
                     href={ROUTES.PUBLIC.CASE_STUDY_DETAIL(study.slug)}
-                    className="inline-flex items-center gap-1.5 text-xs font-extrabold text-primary dark:text-accent hover:underline pt-4 border-t border-border/40 dark:border-slate-800"
+                    className="inline-flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent hover:underline pt-4 border-t border-border/40 dark:border-slate-800"
                   >
                     <span>View Case Study</span>
                     <ArrowRight className="h-3 w-3" />
@@ -770,10 +770,10 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       <section id="resources" className="py-16 md:py-24 px-6 max-w-7xl mx-auto scroll-mt-24">
         <div className="text-center max-w-3xl mx-auto mb-14">
 
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight font-heading mb-4">
+          <h2 className="text-3xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] font-heading mb-4">
             Technical Resources & Architecture Guides
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground font-medium leading-relaxed">
+          <p className="text-sm md:text-base text-muted-foreground font-normal leading-[1.62]">
             Downloadable reference architectures, security checklists, and technical production
             blueprints created by Astraiv engineering consultants.
           </p>
@@ -790,20 +790,20 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                   <div className="p-3 rounded-2xl bg-slate-100/90 dark:bg-slate-800/90 group-hover:scale-105 transition-transform">
                     {res.icon}
                   </div>
-                  <span className="text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-muted-foreground">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-muted-foreground">
                     {res.pages}
                   </span>
                 </div>
 
-                <div className="text-[10px] font-extrabold text-primary dark:text-accent uppercase tracking-wider mb-1">
+                <div className="text-[10px] font-semibold text-primary dark:text-accent uppercase tracking-wider mb-1">
                   {res.type}
                 </div>
 
-                <h3 className="text-xl font-extrabold text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors mb-3 leading-snug">
+                <h3 className="text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors mb-3 leading-snug">
                   {res.title}
                 </h3>
 
-                <p className="text-xs text-muted-foreground leading-relaxed font-medium mb-6">
+                <p className="text-xs text-muted-foreground leading-relaxed font-normal mb-6">
                   {res.description}
                 </p>
 
@@ -811,7 +811,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                   {res.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-[10px] font-bold px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800/80 text-foreground/80 border border-border/40"
+                      className="text-[10px] font-medium px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800/80 text-foreground/80 border border-border/40"
                     >
                       {tag}
                     </span>
@@ -822,7 +822,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
               <div className="pt-5 border-t border-border/40 dark:border-slate-800 flex items-center justify-between gap-3">
                 <Link
                   href="/contact"
-                  className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-xs font-extrabold transition-all active:scale-95 shadow-xs"
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-xs font-semibold tracking-normal transition-all active:scale-95 shadow-xs"
                 >
                   <Download className="h-3.5 w-3.5" />
                   <span>Request Whitepaper</span>
@@ -854,10 +854,10 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
 
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight font-heading mb-3">
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] font-heading mb-3">
               Frequently Asked Questions
             </h2>
-            <p className="text-sm md:text-base text-muted-foreground font-medium">
+            <p className="text-sm md:text-base text-muted-foreground font-normal leading-[1.62]">
               Transparent answers regarding delivery velocity, SLAs, IP transfer, and data governance.
             </p>
           </div>
@@ -869,10 +869,10 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                 value={`faq-${index}`}
                 className="border border-border/70 dark:border-slate-800/90 rounded-2xl px-6 bg-card dark:bg-slate-900/80 backdrop-blur-md shadow-2xs"
               >
-                <AccordionTrigger className="text-sm sm:text-base font-bold text-foreground hover:no-underline py-5 text-left">
+                <AccordionTrigger className="text-sm sm:text-base font-semibold text-foreground hover:no-underline py-5 text-left">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-xs sm:text-sm text-muted-foreground leading-relaxed pb-5 font-medium">
+                <AccordionContent className="text-xs sm:text-sm text-muted-foreground leading-relaxed pb-5 font-normal">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -881,12 +881,12 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
 
           <div className="mt-12 p-6 rounded-2xl bg-card border border-border/70 dark:border-slate-800/80 text-center flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-left">
-              <h4 className="text-sm font-bold text-foreground">Have a specific architectural requirement?</h4>
-              <p className="text-xs text-muted-foreground">Our principal engineers can review your stack specifications.</p>
+              <h4 className="text-sm font-semibold text-foreground">Have a specific architectural requirement?</h4>
+              <p className="text-xs text-muted-foreground font-normal">Our principal engineers can review your stack specifications.</p>
             </div>
             <Link
               href={ROUTES.PUBLIC.CONTACT}
-              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-xs font-extrabold hover:bg-primary/90 transition-all active:scale-95 shrink-0"
+              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-xs font-semibold tracking-normal hover:bg-primary/90 transition-all active:scale-95 shrink-0"
             >
               <span>Talk to an Expert</span>
               <ArrowRight className="h-3.5 w-3.5" />
@@ -902,25 +902,25 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
         <div className="relative overflow-hidden rounded-[28px] border border-border/80 dark:border-slate-800 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 dark:from-primary/10 dark:via-secondary/10 dark:to-accent/5 p-8 sm:p-12">
           <div className="max-w-2xl mx-auto">
 
-            <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-heading mb-3">
+            <h3 className="text-2xl sm:text-3xl font-semibold tracking-[-0.025em] leading-[1.15] font-heading mb-3">
               Subscribe to the Astraiv Engineering Dispatch
             </h3>
-            <p className="text-xs sm:text-sm text-muted-foreground font-medium mb-8">
+            <p className="text-xs sm:text-sm text-muted-foreground font-normal leading-[1.62] mb-8">
               Receive curated architectural tutorials, AI benchmark studies, and cloud cost
               optimizations directly in your inbox once per month. Zero marketing noise.
             </p>
 
             {emailSubscribed ? (
               <div role="status" aria-live="polite" className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-foreground text-left space-y-3">
-                <div className="flex items-center gap-2.5 text-emerald-600 dark:text-emerald-400 font-bold text-sm">
+                <div className="flex items-center gap-2.5 text-emerald-600 dark:text-emerald-400 font-semibold text-sm">
                   <CheckCircle2 className="h-5 w-5 shrink-0" />
                   <span>Subscribed! Welcome to the Astraiv Engineering Dispatch.</span>
                 </div>
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <p className="text-xs text-muted-foreground leading-relaxed font-normal">
                   You will receive our next monthly architecture deep dive. In the meantime, you can explore our production case studies or inspect our technical blueprints above.
                 </p>
                 <div className="pt-2 flex items-center gap-3 text-xs">
-                  <Link href={ROUTES.PUBLIC.CASE_STUDIES} className="font-bold text-primary hover:underline flex items-center gap-1">
+                  <Link href={ROUTES.PUBLIC.CASE_STUDIES} className="font-semibold text-primary hover:underline flex items-center gap-1">
                     <span>Explore Case Studies</span>
                     <ArrowRight className="h-3 w-3" />
                   </Link>
@@ -936,12 +936,12 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                     placeholder="Enter your work email address"
                     value={subscriberEmail}
                     onChange={(e) => setSubscriberEmail(e.target.value)}
-                    className="flex-1 px-4 py-3 rounded-xl bg-card border border-border/80 dark:border-slate-700 text-xs sm:text-sm outline-none focus:border-primary dark:focus:border-accent text-foreground font-medium placeholder:text-muted-foreground shadow-inner disabled:opacity-50"
+                    className="flex-1 px-4 py-3 rounded-xl bg-card border border-border/80 dark:border-slate-700 text-xs sm:text-sm outline-none focus:border-primary dark:focus:border-accent text-foreground font-normal placeholder:text-muted-foreground shadow-inner disabled:opacity-50"
                   />
                   <button
                     type="submit"
                     disabled={isSubscribing}
-                    className="px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed text-primary-foreground font-extrabold text-xs tracking-wide transition-all active:scale-95 shadow-xs cursor-pointer flex items-center justify-center gap-2 min-w-[120px]"
+                    className="px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed text-primary-foreground font-semibold text-xs tracking-normal transition-all active:scale-95 shadow-xs cursor-pointer flex items-center justify-center gap-2 min-w-[120px]"
                   >
                     {isSubscribing ? (
                       <>

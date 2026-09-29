@@ -75,7 +75,7 @@ export function ProcessSection({ variant = 'summary' }: ProcessSectionProps) {
               <div>
                 {/* Top Row: Stage & Icon */}
                 <div className="flex items-center justify-between mb-5">
-                  <span className="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 rounded-full border border-primary/20 dark:border-blue-400/20">
+                  <span className="px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 rounded-full border border-primary/20 dark:border-blue-400/20">
                     Stage {step.num} • {step.tag}
                   </span>
                   <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-100/90 dark:bg-slate-800/90 text-primary dark:text-blue-400 border border-border/50 dark:border-slate-700/60 group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300">
@@ -85,10 +85,10 @@ export function ProcessSection({ variant = 'summary' }: ProcessSectionProps) {
 
                 {/* Title & Description */}
                 <div className="flex flex-col gap-2 text-left">
-                  <h3 className="text-xl font-extrabold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
+                  <h3 className="text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
                     {step.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-medium">
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-normal">
                     {isDetailed ? step.detailedDesc : step.summary}
                   </p>
                 </div>

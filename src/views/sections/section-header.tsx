@@ -29,16 +29,16 @@ export function SectionHeader({
     >
 
       {asH1 ? (
-        <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-display font-extrabold tracking-tight text-foreground leading-[1.2] pb-0.5">
+        <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-display font-semibold tracking-[-0.025em] text-foreground leading-[1.15] pb-0.5">
           {title}
         </h1>
       ) : (
-        <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-display font-extrabold tracking-tight text-foreground leading-[1.2] pb-0.5">
+        <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-display font-semibold tracking-[-0.025em] text-foreground leading-[1.15] pb-0.5">
           {title}
         </h2>
       )}
       {description && (
-        <p className="text-sm sm:text-base md:text-[17px] text-muted-foreground leading-relaxed max-w-2xl font-medium">
+        <p className="text-sm sm:text-base md:text-[17px] text-muted-foreground leading-[1.62] max-w-2xl font-normal">
           {description}
         </p>
       )}

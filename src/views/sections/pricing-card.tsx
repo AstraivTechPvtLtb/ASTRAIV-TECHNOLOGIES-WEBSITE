@@ -41,11 +41,11 @@ export function PricingCard({
       )}
       
       <CardHeader className="p-5 sm:p-6 pb-0 flex flex-col">
-        <CardTitle className="text-lg sm:text-xl font-bold tracking-tight text-foreground">{name}</CardTitle>
-        <p className="text-xs sm:text-sm text-muted-foreground mt-2 min-h-[38px] leading-relaxed">{description}</p>
+        <CardTitle className="text-lg sm:text-xl font-semibold tracking-[-0.015em] text-foreground">{name}</CardTitle>
+        <p className="text-xs sm:text-sm text-muted-foreground mt-2 min-h-[38px] leading-[1.62] font-normal">{description}</p>
         <div className="flex items-baseline gap-1 mt-4 pt-3 border-t border-border/40 flex-wrap">
-          <span className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground font-heading">{price}</span>
-          {price !== 'Custom' && <span className="text-xs sm:text-sm text-muted-foreground font-medium">{period}</span>}
+          <span className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-[-0.025em] text-foreground font-heading">{price}</span>
+          {price !== 'Custom' && <span className="text-xs sm:text-sm text-muted-foreground font-normal">{period}</span>}
         </div>
       </CardHeader>
       

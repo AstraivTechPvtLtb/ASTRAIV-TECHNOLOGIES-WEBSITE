@@ -125,7 +125,7 @@ function AccoladeMiniCard({
       {/* Content Stack */}
       <div className="flex flex-col text-left min-w-0 pr-1">
         <div className="flex items-center gap-1.5">
-          <span className="text-[12px] sm:text-[12.5px] font-bold text-foreground group-hover/card:text-primary dark:group-hover/card:text-blue-300 transition-colors whitespace-nowrap tracking-tight">
+          <span className="text-[12px] sm:text-[12.5px] font-medium text-foreground group-hover/card:text-primary dark:group-hover/card:text-blue-300 transition-colors whitespace-nowrap tracking-tight">
             {item.title}
           </span>
           {item.statusLabel && (
@@ -201,20 +201,20 @@ function AccoladeDetailModal({
     switch (item.status) {
       case 'verified':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-[10.5px] font-bold">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-[10.5px] font-medium">
             <Check className="h-3 w-3" /> Audited & Verified
           </span>
         );
       case 'contractual':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 text-[10.5px] font-bold">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 text-[10.5px] font-medium">
             <Shield className="h-3 w-3" /> Contractual SLA
           </span>
         );
       case 'active':
       default:
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 text-[10.5px] font-bold">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 text-[10.5px] font-medium">
             <FileCheck className="h-3 w-3" /> Active Alliance
           </span>
         );

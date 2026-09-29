@@ -107,13 +107,13 @@ export async function Footer() {
         {/* Link columns with aligned headers & uniform line height */}
         {columns.map((column, index) => (
           <div key={index} className="flex flex-col text-left">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-4 min-h-[20px] flex items-center">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-200 mb-4 min-h-[20px] flex items-center">
               {column.title}
             </h3>
             <ul className="flex flex-col gap-1.5">
               {column.links.map((link, linkIndex) => (
                 <li key={linkIndex}>
-                  <Link href={link.href} className="text-xs sm:text-sm text-slate-400 hover:text-white transition-colors py-1 inline-flex items-center min-h-[26px]">
+                  <Link href={link.href} className="text-xs sm:text-sm text-slate-400 hover:text-white transition-colors py-1 inline-flex items-center min-h-[26px] font-normal">
                     {link.label}
                   </Link>
                 </li>
@@ -124,7 +124,7 @@ export async function Footer() {
 
         {/* Support contacts */}
         <div className="flex flex-col text-left">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-4 min-h-[20px] flex items-center">
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-200 mb-4 min-h-[20px] flex items-center">
             Contact Us
           </h3>
           <div className="flex flex-col gap-3.5">
@@ -137,10 +137,10 @@ export async function Footer() {
                 <Phone className="h-4 w-4" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300 group-hover:text-white transition-colors">
+                <span className="text-[11px] font-medium uppercase tracking-wider text-slate-300 group-hover:text-white transition-colors">
                   Call Us
                 </span>
-                <span className="text-xs lg:text-[13px] xl:text-sm text-slate-400 group-hover:text-slate-200 transition-colors font-medium whitespace-nowrap">
+                <span className="text-xs lg:text-[13px] xl:text-sm text-slate-400 group-hover:text-slate-200 transition-colors font-normal whitespace-nowrap">
                   {footerData.phone}
                 </span>
               </div>
@@ -155,10 +155,10 @@ export async function Footer() {
                 <Mail className="h-4 w-4" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300 group-hover:text-white transition-colors">
+                <span className="text-[11px] font-medium uppercase tracking-wider text-slate-300 group-hover:text-white transition-colors">
                   Send Email
                 </span>
-                <span className="text-xs lg:text-[13px] xl:text-sm text-slate-400 group-hover:text-slate-200 transition-colors font-medium break-all sm:break-normal">
+                <span className="text-xs lg:text-[13px] xl:text-sm text-slate-400 group-hover:text-slate-200 transition-colors font-normal break-all sm:break-normal">
                   {footerData.email}
                 </span>
               </div>
@@ -175,10 +175,10 @@ export async function Footer() {
                 <MapPin className="h-4 w-4" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300 group-hover:text-white transition-colors">
+                <span className="text-[11px] font-medium uppercase tracking-wider text-slate-300 group-hover:text-white transition-colors">
                   Address
                 </span>
-                <span className="text-xs lg:text-[13px] xl:text-sm text-slate-400 group-hover:text-slate-200 transition-colors font-medium break-words">
+                <span className="text-xs lg:text-[13px] xl:text-sm text-slate-400 group-hover:text-slate-200 transition-colors font-normal break-words">
                   {footerData.address}
                 </span>
               </div>

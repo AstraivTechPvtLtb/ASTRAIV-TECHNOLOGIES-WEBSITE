@@ -117,7 +117,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
               {getIconComponent(item.icon)}
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="text-lg sm:text-xl font-bold text-foreground group-hover:text-primary dark:group-hover:text-cyan-300 transition-colors leading-snug">
+              <h3 className="text-lg sm:text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-cyan-300 transition-colors leading-snug">
                 {item.title}
               </h3>
               <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 mt-1 text-xs text-muted-foreground font-medium">
@@ -242,7 +242,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
           <section id="awards" className="scroll-mt-24">
             <div className="mb-6 sm:mb-8 border-b border-border/40 dark:border-slate-800/80 pb-4">
 
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-heading">
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] font-heading">
                 Technical & Engineering Awards
               </h2>
               <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl">
@@ -258,7 +258,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
           <section id="certifications" className="scroll-mt-24">
             <div className="mb-6 sm:mb-8 border-b border-border/40 dark:border-slate-800/80 pb-4">
 
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-heading">
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] font-heading">
                 Compliance & Security Certifications
               </h2>
               <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl">
@@ -274,7 +274,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
           <section id="partnerships" className="scroll-mt-24">
             <div className="mb-6 sm:mb-8 border-b border-border/40 dark:border-slate-800/80 pb-4">
 
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-heading">
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] font-heading">
                 Cloud & Technology Ecosystem Partnerships
               </h2>
               <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl">
@@ -290,7 +290,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
           <section id="recognitions" className="scroll-mt-24">
             <div className="mb-6 sm:mb-8 border-b border-border/40 dark:border-slate-800/80 pb-4">
 
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-heading">
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] font-heading">
                 Audited Recognitions & Operational Benchmarks
               </h2>
               <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl">

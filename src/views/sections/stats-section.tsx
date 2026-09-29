@@ -338,7 +338,7 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
 
             <div className="pl-2 sm:pl-2.5 relative z-10">
               {/* Metric Number */}
-              <div className="text-3xl sm:text-[32px] lg:text-[36px] font-extrabold text-foreground leading-none tracking-tight font-heading group-hover:scale-[1.01] transition-transform duration-300 origin-left">
+              <div className="text-3xl sm:text-[32px] lg:text-[36px] font-semibold sm:font-bold text-foreground leading-none tracking-[-0.02em] font-heading group-hover:scale-[1.01] transition-transform duration-300 origin-left">
                 <CountUp
                   value={card.stat.targetValue}
                   decimals={card.stat.decimals}
@@ -407,7 +407,7 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
                     </span>
                   )}
                 </div>
-                <span className="font-heading font-extrabold text-xs sm:text-[12.5px] lg:text-[13px] text-foreground/80 group-hover:text-foreground tracking-wider whitespace-nowrap transition-colors duration-200">
+                <span className="font-heading font-semibold text-xs sm:text-[12.5px] lg:text-[13px] text-foreground/80 group-hover:text-foreground tracking-normal whitespace-nowrap transition-colors duration-200">
                   {client.name}
                 </span>
               </div>

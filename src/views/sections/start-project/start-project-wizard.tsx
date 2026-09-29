@@ -496,10 +496,10 @@ export function StartProjectWizard() {
                   <Zap className="h-3.5 w-3.5" />
                   Step 1 of 5
                 </span>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground font-heading">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-[-0.025em] leading-[1.15] text-foreground font-heading">
                   What can we help you build?
                 </h2>
-                <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-2xl">
+                <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-2 max-w-2xl">
                   Choose the core discipline that best matches your immediate requirements. We assemble dedicated squads tailored to your exact tech stack.
                 </p>
               </div>
@@ -592,10 +592,10 @@ export function StartProjectWizard() {
                   <FileEdit className="h-3.5 w-3.5" />
                   Step 2 of 5
                 </span>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground font-heading">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-[-0.025em] leading-[1.15] text-foreground font-heading">
                   Tell us about your project
                 </h2>
-                <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-2xl">
+                <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-2 max-w-2xl">
                   Provide context regarding what you are building, your industry domain, and product lifecycle stage.
                 </p>
               </div>
@@ -718,10 +718,10 @@ export function StartProjectWizard() {
                   <Clock className="h-3.5 w-3.5" />
                   Step 3 of 5
                 </span>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground font-heading">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-[-0.025em] leading-[1.15] text-foreground font-heading">
                   Project scope & timeline
                 </h2>
-                <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-2xl">
+                <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-2 max-w-2xl">
                   Helps our engineering leads plan delivery sprints, infrastructure provisioning, and team velocity.
                 </p>
               </div>
@@ -825,10 +825,10 @@ export function StartProjectWizard() {
                   <User className="h-3.5 w-3.5" />
                   Step 4 of 5
                 </span>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground font-heading">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-[-0.025em] leading-[1.15] text-foreground font-heading">
                   How can our architects reach you?
                 </h2>
-                <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-2xl">
+                <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-2 max-w-2xl">
                   We prepare preliminary architectural notes and tech stack suggestions prior to our first conversation.
                 </p>
               </div>
@@ -976,10 +976,10 @@ export function StartProjectWizard() {
                   <ShieldCheck className="h-3.5 w-3.5" />
                   Final Step
                 </span>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground font-heading">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-[-0.025em] leading-[1.15] text-foreground font-heading">
                   Review your project specifications
                 </h2>
-                <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-2xl">
+                <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-2 max-w-2xl">
                   Please confirm your entries below before transmitting your brief. Our Lead Architects sign mutual NDAs before deeper reviews.
                 </p>
               </div>
@@ -1014,7 +1014,7 @@ export function StartProjectWizard() {
                       <span>Edit</span>
                     </button>
                   </div>
-                  <div className="text-base font-extrabold text-foreground">{formData.projectType}</div>
+                  <div className="text-base font-semibold text-foreground">{formData.projectType}</div>
                   <div className="text-xs text-muted-foreground mt-1">
                     Industry: <strong className="text-foreground">{formData.industry}</strong>
                   </div>
@@ -1148,7 +1148,7 @@ export function StartProjectWizard() {
               <Button
                 type="button"
                 onClick={handleNext}
-                className="w-full sm:w-auto min-h-[44px] gap-2 px-6 sm:px-7 py-3.5 sm:py-5 rounded-xl font-extrabold text-xs sm:text-sm bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/25 active:scale-95 transition-all justify-center"
+                className="w-full sm:w-auto min-h-[44px] gap-2 px-6 sm:px-7 py-3.5 sm:py-5 rounded-xl font-semibold text-xs sm:text-sm bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/25 active:scale-95 transition-all justify-center tracking-normal"
               >
                 <span className="hidden sm:inline">Continue to Step {currentStep + 1}</span>
                 <span className="sm:hidden">Next Step</span>
@@ -1159,7 +1159,7 @@ export function StartProjectWizard() {
                 type="button"
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="w-full sm:w-auto min-h-[44px] gap-2 px-8 py-3.5 sm:py-5 rounded-xl font-extrabold text-xs sm:text-sm bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 dark:hover:bg-blue-500 text-white shadow-xl shadow-blue-500/25 active:scale-95 transition-all select-none justify-center"
+                className="w-full sm:w-auto min-h-[44px] gap-2 px-8 py-3.5 sm:py-5 rounded-xl font-semibold text-xs sm:text-sm bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 dark:hover:bg-blue-500 text-white shadow-xl shadow-blue-500/25 active:scale-95 transition-all select-none justify-center tracking-normal"
               >
                 {isSubmitting ? (
                   <>

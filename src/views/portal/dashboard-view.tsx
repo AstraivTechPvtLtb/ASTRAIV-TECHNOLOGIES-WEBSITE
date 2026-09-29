@@ -149,10 +149,10 @@ export function DashboardView({
       {/* 1. Hey Header block */}
       <motion.div variants={itemVariants} className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="font-heading font-extrabold text-2xl md:text-3xl text-foreground flex items-center gap-2">
+          <h1 className="font-heading font-semibold tracking-[-0.02em] text-2xl md:text-3xl text-foreground flex items-center gap-2">
             Hey {user.name.split(' ')[0]} <span className="animate-pulse">👋</span>
           </h1>
-          <p className="text-sm text-muted-foreground font-medium mt-1">
+          <p className="text-sm text-muted-foreground font-normal mt-1">
             {user.role === 'ADMIN' && "Here's what's happening across Astraiv accounts today."}
             {user.role === 'PROJECT_MANAGER' && "Manage your assigned software projects and deliverables."}
             {user.role === 'CLIENT' && "Track your active software implementations and support desk."}
@@ -508,10 +508,10 @@ export function DashboardView({
                   tickets.map((ticket) => (
                     <div key={ticket.id} className="p-4.5 flex items-center justify-between hover:bg-muted/20 transition-colors">
                       <div className="flex-1 min-w-0 pr-4">
-                        <h4 className="text-xs font-bold text-foreground truncate">{ticket.subject}</h4>
+                        <h4 className="text-xs font-semibold text-foreground truncate">{ticket.subject}</h4>
                         <div className="flex items-center gap-2 mt-1">
                           <span className={cn(
-                            'text-[9px] font-extrabold px-1.5 py-0.5 rounded-sm',
+                            'text-[9px] font-semibold px-1.5 py-0.5 rounded-sm',
                             ticket.priority === 'HIGH' || ticket.priority === 'URGENT'
                               ? 'bg-destructive/10 text-destructive'
                               : ticket.priority === 'MEDIUM'

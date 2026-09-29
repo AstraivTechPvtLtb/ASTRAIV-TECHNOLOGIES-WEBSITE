@@ -20,12 +20,12 @@ export function BusinessProblemSection({ problem, solutionTitle }: BusinessProbl
         <div className="relative z-10">
 
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-[-0.025em] leading-[1.15] mb-4">
             {problem.title}
           </h2>
 
           {problem.summary && (
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-medium mb-8 max-w-3xl">
+            <p className="text-base sm:text-lg text-slate-300 font-normal leading-[1.62] mb-8 max-w-3xl">
               {problem.summary}
             </p>
           )}

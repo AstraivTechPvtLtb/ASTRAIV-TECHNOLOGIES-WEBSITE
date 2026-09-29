@@ -22,16 +22,16 @@ export function RelatedCaseStudiesSection({
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
         <div>
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-[-0.025em] leading-[1.15]">
             {title}
           </h2>
-          <p className="text-sm sm:text-base text-slate-400 mt-1 max-w-2xl">
+          <p className="text-sm sm:text-base text-slate-400 font-normal leading-[1.62] mt-1 max-w-2xl">
             {subtitle}
           </p>
         </div>
         <Link
           href={ROUTES.PUBLIC.CASE_STUDIES}
-          className="text-xs sm:text-sm font-bold text-primary dark:text-blue-400 hover:underline inline-flex items-center gap-1 shrink-0"
+          className="text-xs sm:text-sm font-medium text-primary dark:text-blue-400 hover:underline inline-flex items-center gap-1 shrink-0"
         >
           <span>All Case Studies</span>
           <ArrowRight className="h-3.5 w-3.5" />
@@ -57,27 +57,27 @@ export function RelatedCaseStudiesSection({
                     </span>
                   )}
                 </div>
-                <span className="text-xs font-bold text-slate-400">
+                <span className="text-xs font-medium text-slate-400">
                   {cs.client}
                 </span>
               </div>
 
               {/* Title */}
-              <h3 className="text-xl font-extrabold text-white group-hover:text-blue-400 transition-colors mb-3">
+              <h3 className="text-xl font-semibold tracking-[-0.015em] text-white group-hover:text-blue-400 transition-colors mb-3">
                 {cs.title}
               </h3>
 
               {/* Metric Callout Card */}
               <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800/90 flex items-center justify-between gap-4 mb-5">
                 <div>
-                  <span className="text-2xl font-black font-heading text-white block">
+                  <span className="text-2xl font-semibold font-heading tracking-[-0.02em] text-white block">
                     {cs.metric}
                   </span>
-                  <span className="text-xs text-slate-400 font-medium">
+                  <span className="text-xs text-slate-400 font-normal">
                     {cs.metricLabel}
                   </span>
                 </div>
-                <div className="flex items-center gap-1 text-xs font-semibold text-emerald-400">
+                <div className="flex items-center gap-1 text-xs font-medium text-emerald-400">
                   <CheckCircle2 className="h-4 w-4" />
                   <span>Verified ROI</span>
                 </div>

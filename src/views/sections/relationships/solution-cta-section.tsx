@@ -30,25 +30,25 @@ export function SolutionCTASection({
         <div className="relative z-10 max-w-2xl mx-auto space-y-4">
 
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-[-0.025em] leading-[1.15]">
             {title}
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl mx-auto">
+          <p className="text-sm sm:text-base text-slate-300 font-normal leading-[1.62] max-w-xl mx-auto">
             {subtitle}
           </p>
 
           <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
             <Link
               href={`/start-project?solution=${encodeURIComponent(solutionName || '')}`}
-              className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-xl shadow-blue-500/25 transition-all duration-300 group active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-xl shadow-blue-500/25 transition-all duration-300 group active:scale-95 cursor-pointer tracking-normal"
             >
               <span>Start a Project</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               href={targetHref}
-              className="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-white border border-slate-700/80 font-bold text-sm transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-white border border-slate-700/80 font-semibold text-sm transition-colors cursor-pointer tracking-normal"
             >
               <span>{buttonText}</span>
             </Link>

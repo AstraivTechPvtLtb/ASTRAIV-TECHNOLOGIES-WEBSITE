@@ -52,13 +52,13 @@ export function SolutionsSection({ initialSolutions = SOLUTIONS_LIST }: Solution
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 sm:mb-16 text-left">
           <div className="max-w-3xl">
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold tracking-tight text-foreground leading-[1.2]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-semibold tracking-[-0.025em] text-foreground leading-[1.15]">
               What business problems{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-600 to-indigo-600 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-300">
                 can Astraiv solve?
               </span>
             </h2>
-            <p className="mt-4 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl font-medium">
+            <p className="mt-4 text-sm sm:text-base text-muted-foreground leading-[1.62] max-w-2xl font-normal">
               We don&apos;t just deliver software features—we solve high-stakes operational bottlenecks, eliminate crippling infrastructure spend, and engineer scalable engines for growth.
             </p>
           </div>
@@ -66,7 +66,7 @@ export function SolutionsSection({ initialSolutions = SOLUTIONS_LIST }: Solution
           <div className="shrink-0">
             <Link
               href={ROUTES.PUBLIC.SOLUTIONS}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-card/85 dark:bg-slate-900/80 border border-slate-300 dark:border-white/15 text-foreground font-bold text-xs sm:text-sm hover:border-primary/40 dark:hover:border-blue-400/40 hover:text-primary dark:hover:text-blue-400 transition-all shadow-xs group"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-card/85 dark:bg-slate-900/80 border border-slate-300 dark:border-white/15 text-foreground font-semibold text-xs sm:text-sm tracking-normal hover:border-primary/40 dark:hover:border-blue-400/40 hover:text-primary dark:hover:text-blue-400 transition-all shadow-xs group"
             >
               <span>Explore Solutions</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -97,7 +97,7 @@ export function SolutionsSection({ initialSolutions = SOLUTIONS_LIST }: Solution
                       <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-300 block">
                         {solution.categoryLabel}
                       </span>
-                      <h3 className="text-base sm:text-xl font-bold tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
+                      <h3 className="text-base sm:text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
                         {solution.title}
                       </h3>
                     </div>

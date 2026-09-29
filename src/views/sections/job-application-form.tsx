@@ -158,7 +158,7 @@ export function JobApplicationForm({
           {/* Section Header */}
           <div className="text-center mb-10">
 
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight font-heading">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-[-0.02em] font-heading">
               Apply for {roleTitle}
             </h2>
             <p className="text-xs sm:text-sm text-muted-foreground mt-2 max-w-lg mx-auto">

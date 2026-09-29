@@ -193,7 +193,7 @@ export function TestimonialsDirectory({ testimonials }: TestimonialsDirectoryPro
                       </div>
 
                       {/* Verified Badge */}
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10.5px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10.5px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20">
                         <CheckCircle2 className="h-3 w-3 shrink-0" />
                         <span>Verified</span>
                       </span>
@@ -211,7 +211,7 @@ export function TestimonialsDirectory({ testimonials }: TestimonialsDirectoryPro
                         {item.project_id ? (
                           <Link
                             href={`/work/case-studies/${item.project_id}`}
-                            className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group/link"
+                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group/link"
                           >
                             <span>View Case Study</span>
                             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-1" />
@@ -246,7 +246,7 @@ export function TestimonialsDirectory({ testimonials }: TestimonialsDirectoryPro
                             fallbackSrc="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&h=256&fit=crop"
                           />
                         ) : (
-                          <div className="h-full w-full flex items-center justify-center bg-primary/10 dark:bg-blue-400/10 text-primary dark:text-blue-300 font-bold text-xs font-mono">
+                          <div className="h-full w-full flex items-center justify-center bg-primary/10 dark:bg-blue-400/10 text-primary dark:text-blue-300 font-semibold text-xs font-mono">
                             {item.client_name.substring(0, 2).toUpperCase()}
                           </div>
                         )}
@@ -254,7 +254,7 @@ export function TestimonialsDirectory({ testimonials }: TestimonialsDirectoryPro
 
                       {/* Name, Role & Company */}
                       <div className="flex flex-col min-w-0">
-                        <h4 className="text-sm font-extrabold text-foreground truncate">
+                        <h4 className="text-sm font-semibold text-foreground truncate">
                           {item.client_name}
                         </h4>
                         <p className="text-xs text-muted-foreground truncate">

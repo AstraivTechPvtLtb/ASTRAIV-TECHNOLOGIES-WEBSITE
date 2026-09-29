@@ -24,16 +24,16 @@ export function RelevantIndustriesSection({
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-slate-400 block mb-2">
             VERTICAL EXPERTISE
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-[-0.025em] leading-[1.15]">
             {title}
           </h2>
-          <p className="text-sm sm:text-base text-slate-400 mt-1 max-w-2xl">
+          <p className="text-sm sm:text-base text-slate-400 font-normal leading-[1.62] mt-1 max-w-2xl">
             {subtitle}
           </p>
         </div>
         <Link
           href={ROUTES.PUBLIC.INDUSTRIES}
-          className="text-xs sm:text-sm font-bold text-primary dark:text-blue-400 hover:underline inline-flex items-center gap-1 shrink-0"
+          className="text-xs sm:text-sm font-medium text-primary dark:text-blue-400 hover:underline inline-flex items-center gap-1 shrink-0"
         >
           <span>All Industries</span>
           <ArrowRight className="h-3.5 w-3.5" />
@@ -51,13 +51,13 @@ export function RelevantIndustriesSection({
                 <span className="text-[10px] font-mono text-slate-400 tracking-wider">
                   {ind.code}
                 </span>
-                <span className="text-[10px] font-bold text-emerald-400 flex items-center gap-1">
+                <span className="text-[10px] font-medium text-emerald-400 flex items-center gap-1">
                   <ShieldCheck className="h-3 w-3" />
                   <span>Compliant</span>
                 </span>
               </div>
 
-              <h3 className="text-base font-bold text-white group-hover:text-primary dark:group-hover:text-blue-400 transition-colors mb-1.5">
+              <h3 className="text-base font-semibold tracking-[-0.015em] text-white group-hover:text-primary dark:group-hover:text-blue-400 transition-colors mb-1.5">
                 {ind.label}
               </h3>
               <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed mb-4">

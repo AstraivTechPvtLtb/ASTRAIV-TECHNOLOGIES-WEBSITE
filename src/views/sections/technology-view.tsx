@@ -571,10 +571,10 @@ export function TechnologyView({
       {/* 1. HEADER */}
       <section className="pt-28 pb-8 md:pt-36 md:pb-10 px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
         <div className="max-w-5xl mx-auto text-left mb-8">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading text-slate-900 dark:text-white tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading text-slate-900 dark:text-white tracking-[-0.025em] leading-[1.12]">
             {title}
           </h1>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-medium mt-1">
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-normal leading-[1.62] mt-1">
             Foundational engineering stack, intelligent agent frameworks, and enterprise infrastructure.
           </p>
         </div>
@@ -593,10 +593,10 @@ export function TechnologyView({
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
               <div className="flex flex-col gap-2 max-w-2xl text-left">
 
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
+                <h3 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15]">
                   Modern Technical Stack Engineered for Enterprise Scale.
                 </h3>
-                <p className="text-sm sm:text-base text-muted-foreground font-normal leading-relaxed">
+                <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62]">
                   Every layer of our software architecture is selected with rigorous benchmarks: zero memory leak profiles, multi-cloud redundancy, strict zero-trust security postures, and sub-millisecond data pipelines.
                 </p>
               </div>
@@ -628,10 +628,10 @@ export function TechnologyView({
       <section id="architecture" className="py-12 px-4 sm:px-6 max-w-7xl mx-auto relative z-10 border-t border-border/30 scroll-mt-24">
         <div className="flex flex-col items-center text-center gap-2 mb-10">
 
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-foreground tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15]">
             Interactive Multi-Tier Architecture
           </h2>
-          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl font-medium">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl font-normal leading-[1.62]">
             Explore how data flows through our four core architectural tiers from client request to AI inference and cloud persistence.
           </p>
         </div>
@@ -743,10 +743,10 @@ export function TechnologyView({
       <section id="ai-expertise" className="py-16 px-4 sm:px-6 max-w-7xl mx-auto relative z-10 border-t border-border/30">
         <div className="flex flex-col items-center text-center gap-2 mb-12">
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15]">
             Cognitive AI & Enterprise Automations
           </h2>
-          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl font-medium">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl font-normal leading-[1.62]">
             We do not just wrap basic API endpoints. We build production-ready vector databases, autonomous workflows, and custom-tuned language models that optimize business margins.
           </p>
         </div>
@@ -758,12 +758,12 @@ export function TechnologyView({
               <div className="h-10 w-10 rounded-xl bg-blue-600/10 dark:bg-blue-600/20 text-blue-600 flex items-center justify-center border border-blue-600/20">
                 <Bot className="h-5 w-5" />
               </div>
-              <h3 className="text-lg font-bold text-foreground">Autonomous AI Agents</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed font-medium">
+              <h3 className="text-lg font-semibold tracking-[-0.015em] text-foreground">Autonomous AI Agents</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed font-normal">
                 We develop self-orchestrating agent workflows that execute complex multi-step processes, connect to external APIs, write to databases, and handle customer support flows autonomously.
               </p>
             </div>
-            <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 mt-4 font-bold uppercase">
+            <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 mt-4 font-semibold uppercase">
               • 85% Task Automation
             </span>
           </div>
@@ -773,12 +773,12 @@ export function TechnologyView({
               <div className="h-10 w-10 rounded-xl bg-purple-500/10 dark:bg-purple-500/20 text-purple-500 flex items-center justify-center border border-purple-500/20">
                 <DatabaseZap className="h-5 w-5" />
               </div>
-              <h3 className="text-lg font-bold text-foreground">Enterprise RAG Pipelines</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed font-medium">
+              <h3 className="text-lg font-semibold tracking-[-0.015em] text-foreground">Enterprise RAG Pipelines</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed font-normal">
                 Retrieval-Augmented Generation enables your LLM to access proprietary enterprise documentation in real-time, matching queries with semantic accuracy using vector databases like pgvector.
               </p>
             </div>
-            <span className="text-[10px] font-mono text-purple-600 dark:text-purple-400 mt-4 font-bold uppercase">
+            <span className="text-[10px] font-mono text-purple-600 dark:text-purple-400 mt-4 font-semibold uppercase">
               • 99.4% Factual Precision
             </span>
           </div>
@@ -788,12 +788,12 @@ export function TechnologyView({
               <div className="h-10 w-10 rounded-xl bg-blue-500/10 dark:bg-blue-500/20 text-blue-500 flex items-center justify-center border border-blue-500/20">
                 <Sparkles className="h-5 w-5" />
               </div>
-              <h3 className="text-lg font-bold text-foreground">LLM Fine-Tuning & Prompting</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed font-medium">
+              <h3 className="text-lg font-semibold tracking-[-0.015em] text-foreground">LLM Fine-Tuning & Prompting</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed font-normal">
                 We customize open-weight models (Llama, Mistral) for specific domain vocabularies, reducing API costs and latency while keeping your corporate data completely private.
               </p>
             </div>
-            <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 mt-4 font-bold uppercase">
+            <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 mt-4 font-semibold uppercase">
               • Zero Data Leakage
             </span>
           </div>
@@ -803,12 +803,12 @@ export function TechnologyView({
               <div className="h-10 w-10 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-500 flex items-center justify-center border border-indigo-500/20">
                 <Cpu className="h-5 w-5" />
               </div>
-              <h3 className="text-lg font-bold text-foreground">Vector Embedding Systems</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed font-medium">
+              <h3 className="text-lg font-semibold tracking-[-0.015em] text-foreground">Vector Embedding Systems</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed font-normal">
                 We set up semantic search engines that understand user intent rather than simple keywords, improving database search relevancy by up to 80%.
               </p>
             </div>
-            <span className="text-[10px] font-mono text-indigo-600 dark:text-indigo-400 mt-4 font-bold uppercase">
+            <span className="text-[10px] font-mono text-indigo-600 dark:text-indigo-400 mt-4 font-semibold uppercase">
               • Sub-10ms Cosine Distance
             </span>
           </div>
@@ -844,18 +844,18 @@ export function TechnologyView({
                 >
                   <div className="flex flex-col gap-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono font-extrabold text-primary">
+                      <span className="text-xs font-mono font-semibold text-primary">
                         STEP {item.step}
                       </span>
                       <span className="text-[10px] font-mono text-muted-foreground">
                         {item.telemetry}
                       </span>
                     </div>
-                    <h4 className="text-sm font-bold text-foreground">{item.title}</h4>
-                    <span className="text-[10px] font-semibold text-primary/80 dark:text-accent">
+                    <h4 className="text-sm font-semibold text-foreground">{item.title}</h4>
+                    <span className="text-[10px] font-medium text-primary/80 dark:text-accent">
                       {item.tech}
                     </span>
-                    <p className="text-xs text-muted-foreground leading-relaxed mt-1 font-medium">
+                    <p className="text-xs text-muted-foreground leading-relaxed mt-1 font-normal">
                       {item.desc}
                     </p>
                   </div>
@@ -877,10 +877,10 @@ export function TechnologyView({
         <span id="database" className="absolute -top-24 pointer-events-none" />
         <div id="technologies" className="flex flex-col items-center text-center gap-2 mb-10 scroll-mt-28">
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15]">
             Elite Technologies for High Performance
           </h2>
-          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl font-medium">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl font-normal leading-[1.62]">
             We build exclusively with state-of-the-art frameworks and databases, guaranteeing near-instant load speeds and bulletproof code security.
           </p>
         </div>
@@ -1020,10 +1020,10 @@ export function TechnologyView({
         <div className="max-w-5xl mx-auto rounded-2xl border border-border/60 bg-gradient-to-r from-card via-card/90 to-card p-6 sm:p-10 shadow-md">
           <div className="text-center max-w-2xl mx-auto mb-8">
 
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight mt-2">
+            <h3 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15] mt-2">
               Our Architectural Commitments
             </h3>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-2 font-medium">
+            <p className="text-xs sm:text-sm text-muted-foreground mt-2 font-normal leading-[1.62]">
               Every digital asset built by Astraiv undergoes continuous automated auditing against performance, security, and scalability benchmarks.
             </p>
           </div>
@@ -1032,10 +1032,10 @@ export function TechnologyView({
             <div className="flex flex-col gap-2 p-4 rounded-xl bg-background/60 dark:bg-slate-900/60 border border-border/40">
               <div className="flex items-center gap-2 text-emerald-500">
                 <CheckCircle2 className="h-4 w-4" />
-                <span className="text-xs font-bold uppercase tracking-wider">Performance</span>
+                <span className="text-xs font-semibold uppercase tracking-wider">Performance</span>
               </div>
-              <h4 className="text-sm font-bold text-foreground">Core Web Vitals 99+</h4>
-              <p className="text-xs text-muted-foreground font-medium">
+              <h4 className="text-sm font-semibold tracking-[-0.01em] text-foreground">Core Web Vitals 99+</h4>
+              <p className="text-xs text-muted-foreground font-normal leading-relaxed">
                 Server-rendered pages engineered for instant paint, near-zero layout shift, and minimal JS footprint.
               </p>
             </div>
@@ -1043,10 +1043,10 @@ export function TechnologyView({
             <div className="flex flex-col gap-2 p-4 rounded-xl bg-background/60 dark:bg-slate-900/60 border border-border/40">
               <div className="flex items-center gap-2 text-blue-500">
                 <ShieldCheck className="h-4 w-4" />
-                <span className="text-xs font-bold uppercase tracking-wider">Security</span>
+                <span className="text-xs font-semibold uppercase tracking-wider">Security</span>
               </div>
-              <h4 className="text-sm font-bold text-foreground">Zero-Trust & SOC2 Ready</h4>
-              <p className="text-xs text-muted-foreground font-medium">
+              <h4 className="text-sm font-semibold tracking-[-0.01em] text-foreground">Zero-Trust & SOC2 Ready</h4>
+              <p className="text-xs text-muted-foreground font-normal leading-relaxed">
                 Cryptographic session validation, automated injection guards, and role-partitioned data access.
               </p>
             </div>
@@ -1054,10 +1054,10 @@ export function TechnologyView({
             <div className="flex flex-col gap-2 p-4 rounded-xl bg-background/60 dark:bg-slate-900/60 border border-border/40">
               <div className="flex items-center gap-2 text-purple-500">
                 <Brain className="h-4 w-4" />
-                <span className="text-xs font-bold uppercase tracking-wider">AI Privacy</span>
+                <span className="text-xs font-semibold uppercase tracking-wider">AI Privacy</span>
               </div>
-              <h4 className="text-sm font-bold text-foreground">Zero Data Ingestion</h4>
-              <p className="text-xs text-muted-foreground font-medium">
+              <h4 className="text-sm font-semibold tracking-[-0.01em] text-foreground">Zero Data Ingestion</h4>
+              <p className="text-xs text-muted-foreground font-normal leading-relaxed">
                 Zero training on enterprise proprietary IP. Dedicated private vector lakes with RBAC encryption.
               </p>
             </div>
@@ -1065,10 +1065,10 @@ export function TechnologyView({
             <div className="flex flex-col gap-2 p-4 rounded-xl bg-background/60 dark:bg-slate-900/60 border border-border/40">
               <div className="flex items-center gap-2 text-amber-500">
                 <Cloud className="h-4 w-4" />
-                <span className="text-xs font-bold uppercase tracking-wider">Reliability</span>
+                <span className="text-xs font-semibold uppercase tracking-wider">Reliability</span>
               </div>
-              <h4 className="text-sm font-bold text-foreground">99.99% Availability</h4>
-              <p className="text-xs text-muted-foreground font-medium">
+              <h4 className="text-sm font-semibold tracking-[-0.01em] text-foreground">99.99% Availability</h4>
+              <p className="text-xs text-muted-foreground font-normal leading-relaxed">
                 Multi-region edge deployment with automatic failovers and zero single points of failure.
               </p>
             </div>
@@ -1082,29 +1082,29 @@ export function TechnologyView({
       <section className="py-16 px-4 sm:px-6 max-w-4xl mx-auto text-center relative z-10">
         <div className="p-8 sm:p-12 rounded-3xl bg-card/80 dark:bg-slate-900/80 border border-border/60 shadow-xl flex flex-col items-center gap-5">
 
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
+          <h3 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15]">
             Ready to deploy an enterprise-grade technology stack?
           </h3>
-          <p className="text-sm text-muted-foreground max-w-xl font-medium">
+          <p className="text-sm text-muted-foreground max-w-xl font-normal leading-[1.62]">
             Consult with our principal software architects to design, refactor, or scale your production infrastructure.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-2">
             <Link
               href={ROUTES.PUBLIC.START_PROJECT ? `${ROUTES.PUBLIC.START_PROJECT}?source_page=${encodeURIComponent('/technology')}` : `/start-project?source_page=${encodeURIComponent('/technology')}`}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-primary-foreground font-bold text-sm shadow-md hover:shadow-primary/25 hover:scale-[1.02] transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm shadow-md hover:shadow-primary/25 hover:scale-[1.02] transition-all tracking-normal"
             >
               <span>Start a Project</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/contact#schedule"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-card dark:bg-slate-800 text-foreground hover:bg-slate-100 dark:hover:bg-slate-700 border border-border dark:border-slate-700 transition-all font-bold text-sm"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-card dark:bg-slate-800 text-foreground hover:bg-slate-100 dark:hover:bg-slate-700 border border-border dark:border-slate-700 transition-all font-semibold text-sm tracking-normal"
             >
               <span>Talk to an Expert</span>
             </Link>
             <Link
               href={ROUTES.PUBLIC.CASE_STUDIES}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-muted-foreground hover:text-primary transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold text-muted-foreground hover:text-primary transition-colors tracking-normal"
             >
               <span>Explore Case Studies &rarr;</span>
             </Link>
