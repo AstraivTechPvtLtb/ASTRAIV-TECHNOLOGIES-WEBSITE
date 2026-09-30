@@ -71,20 +71,14 @@ export function ContactSection({ isPageHero = false }: ContactSectionProps) {
             Tell us what you&apos;re building, what you&apos;re solving, or where you want to go next. We&apos;ll help you turn the vision into a scalable, high-conversion digital reality.
           </p>
 
-          {/* Quick CTA buttons */}
+          {/* Quick CTA button */}
           <div className="flex flex-wrap items-center gap-3 pt-1">
-            <a
-              href="#contact-form-box"
-              className="px-6 py-3 rounded-xl bg-primary text-white font-semibold text-xs sm:text-sm tracking-normal shadow-md shadow-primary/25 hover:bg-primary/90 transition-all active:scale-95"
-            >
-              Start a Conversation
-            </a>
             <Link
               href="/services"
-              className="inline-flex items-center gap-1.5 px-6 py-3 rounded-xl bg-card/85 dark:bg-slate-900/80 border border-border/70 dark:border-slate-800 text-foreground font-semibold text-xs sm:text-sm hover:border-primary/40 dark:hover:border-blue-400 transition-all"
+              className="group inline-flex items-center justify-center gap-2 w-full sm:w-[380px] px-8 py-3.5 rounded-xl bg-primary text-white font-semibold text-xs sm:text-sm tracking-normal shadow-md shadow-primary/25 hover:bg-primary/90 transition-all active:scale-95"
             >
               <span>Explore Our Services</span>
-              <ArrowRight className="h-3.5 w-3.5" />
+              <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
           </div>
 

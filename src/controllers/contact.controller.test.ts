@@ -7,15 +7,43 @@ describe('Contact Form Controller & Validation', () => {
       const res = await submitContactForm({
         name: 'Jordan Belfort',
         email: 'jordan@investments-enterprise.com',
-        phone: '+1 555-0144',
+        phone: '+91 98765 43210',
         company: 'Wall Street Innovations',
         service: 'Custom Software Development',
-        message: 'We require a real-time portfolio management microservices backend.',
+        message:
+          'We require a real-time portfolio management microservices backend with automated compliance logging, event-driven streaming pipelines, and secure enterprise single sign-on integration for our multi-tenant users.',
       });
 
       expect(res.success).toBe(true);
       expect(res.data?.id).toBeDefined();
+      expect(res.data?.service).toBe('Contact Us');
       expect(res.message).toMatch(/Our solutions architect will contact you within 24 hours/i);
+    });
+
+    it('rejects submissions with invalid name containing numbers or symbols', async () => {
+      const res = await submitContactForm({
+        name: 'Jordan123',
+        email: 'jordan@investments-enterprise.com',
+        service: 'Custom Software Development',
+        message:
+          'We require a real-time portfolio management microservices backend with automated compliance logging, event-driven streaming pipelines, and secure enterprise single sign-on integration.',
+      });
+
+      expect(res.success).toBe(false);
+      expect(res.error).toMatch(/Name can contain letters and spaces only/i);
+    });
+
+    it('rejects submissions with name exceeding 30 characters', async () => {
+      const res = await submitContactForm({
+        name: 'Christopher Alexander Washington', // 32 characters
+        email: 'jordan@investments-enterprise.com',
+        service: 'Custom Software Development',
+        message:
+          'We require a real-time portfolio management microservices backend with automated compliance logging, event-driven streaming pipelines, and secure enterprise single sign-on integration.',
+      });
+
+      expect(res.success).toBe(false);
+      expect(res.error).toMatch(/cannot exceed 30 characters/i);
     });
 
     it('rejects submissions with invalid email format', async () => {
@@ -23,23 +51,51 @@ describe('Contact Form Controller & Validation', () => {
         name: 'Jordan Belfort',
         email: 'not-a-valid-email',
         service: 'Custom Software Development',
-        message: 'We require a real-time portfolio management backend.',
+        message:
+          'We require a real-time portfolio management microservices backend with automated compliance logging, event-driven streaming pipelines, and secure enterprise single sign-on integration.',
       });
 
       expect(res.success).toBe(false);
       expect(res.error).toMatch(/valid email/i);
     });
 
-    it('rejects submissions with message shorter than 10 characters', async () => {
+    it('rejects submissions with invalid phone number (e.g. India 9 digits)', async () => {
+      const res = await submitContactForm({
+        name: 'Jordan Belfort',
+        email: 'jordan@investments-enterprise.com',
+        phone: '+91 98765 4321', // 9 digits
+        service: 'Custom Software Development',
+        message:
+          'We require a real-time portfolio management microservices backend with automated compliance logging, event-driven streaming pipelines, and secure enterprise single sign-on integration.',
+      });
+
+      expect(res.success).toBe(false);
+      expect(res.error).toMatch(/10 digits/i);
+    });
+
+    it('rejects submissions with message shorter than 21 words', async () => {
       const res = await submitContactForm({
         name: 'Jordan Belfort',
         email: 'jordan@investments-enterprise.com',
         service: 'AI Solutions',
-        message: 'Help me',
+        message: 'This message contains only eight words right here.',
       });
 
       expect(res.success).toBe(false);
-      expect(res.error).toMatch(/at least 10 characters/i);
+      expect(res.error).toMatch(/at least 21 words/i);
+    });
+
+    it('rejects submissions with message containing 200 words or more', async () => {
+      const words200 = Array.from({ length: 200 }, (_, i) => `word${i + 1}`).join(' ');
+      const res = await submitContactForm({
+        name: 'Jordan Belfort',
+        email: 'jordan@investments-enterprise.com',
+        service: 'AI Solutions',
+        message: words200,
+      });
+
+      expect(res.success).toBe(false);
+      expect(res.error).toMatch(/fewer than 200 words/i);
     });
 
     it('rejects submissions without a chosen service', async () => {
@@ -47,7 +103,8 @@ describe('Contact Form Controller & Validation', () => {
         name: 'Jordan Belfort',
         email: 'jordan@investments-enterprise.com',
         service: '',
-        message: 'We have a detailed RFP ready for your team.',
+        message:
+          'We require a real-time portfolio management microservices backend with automated compliance logging, event-driven streaming pipelines, and secure enterprise single sign-on integration.',
       });
 
       expect(res.success).toBe(false);
@@ -58,10 +115,10 @@ describe('Contact Form Controller & Validation', () => {
   describe('Careers & Job Application Submissions', () => {
     it('processes a job application containing role and resume link', async () => {
       const res = await submitContactForm({
-        name: 'Dr. Evelyn Reed',
+        name: 'Evelyn Reed',
         email: 'evelyn.reed@ai-research.org',
         company: 'Stanford AI Lab',
-        phone: '+1 555-9876',
+        phone: '+1 (555) 012-3456',
         role: 'Lead AI Engineer',
         resumeUrl: 'https://linkedin.com/in/evelyn-reed',
       });

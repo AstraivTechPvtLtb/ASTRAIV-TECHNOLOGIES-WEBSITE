@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useForm, Controller, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/views/ui/button';
 import { Input } from '@/views/ui/input';
@@ -12,40 +11,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Loader2, UploadCloud, FileText, X, Link2, Briefcase, CheckCircle2, ArrowRight, RotateCcw, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { submitContactEnquiry } from '@/controllers/contact.controller';
+import { io } from 'socket.io-client';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
-
-const contactFormSchema = z
-  .object({
-    name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
-    email: z.string().email({ message: 'Please enter a valid email address.' }),
-    phone: z.string().optional(),
-    company: z.string().optional(),
-    service: z.string().optional(),
-    message: z.string().optional(),
-    isApplying: z.boolean().optional(),
-  })
-  .superRefine((data, ctx) => {
-    // Only validate service and message when NOT applying for a role
-    if (!data.isApplying) {
-      if (!data.service || data.service.trim() === '') {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: 'Please select a service.',
-          path: ['service'],
-        });
-      }
-      if (!data.message || data.message.trim().length < 10) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: 'Message must be at least 10 characters.',
-          path: ['message'],
-        });
-      }
-    }
-  });
-
-type ContactFormValues = z.infer<typeof contactFormSchema>;
+import {
+  contactFormSchema,
+  type ContactFormValues,
+  countWords,
+  normalizeName,
+  normalizeEmail,
+} from '@/lib/validations/contact';
 
 export function ContactForm() {
   const searchParams = useSearchParams();
@@ -117,6 +92,7 @@ export function ContactForm() {
   const [resumeMode, setResumeMode] = useState<'upload' | 'link'>('upload');
   const [isDragging, setIsDragging] = useState(false);
   const [resumeError, setResumeError] = useState<string | null>(null);
+  const [isVerifyingEmail, setIsVerifyingEmail] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const {
@@ -124,10 +100,13 @@ export function ContactForm() {
     handleSubmit,
     control,
     setValue,
+    setError,
+    clearErrors,
     reset,
     formState: { errors },
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
+    mode: 'onBlur',
     defaultValues: {
       name: '',
       email: '',
@@ -151,6 +130,8 @@ export function ContactForm() {
   }, [isApplying, initialService, initialMessage, setValue]);
 
   const selectedService = useWatch({ control, name: 'service' });
+  const watchedMessage = useWatch({ control, name: 'message' }) || '';
+  const messageWordCount = countWords(watchedMessage);
 
   const handleFileChange = (file: File | null) => {
     if (!file) return;
@@ -202,6 +183,61 @@ export function ContactForm() {
     }
   };
 
+  // Perform background deliverability verification when user leaves email input
+  const handleEmailBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
+    const rawVal = e.target.value;
+    const normalized = normalizeEmail(rawVal);
+    if (normalized !== rawVal) {
+      setValue('email', normalized);
+    }
+    if (!normalized || errors.email) return;
+
+    try {
+      setIsVerifyingEmail(true);
+      const res = await fetch('/api/verify-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: normalized }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (!data.isValid) {
+          setError('email', {
+            type: 'manual',
+            message: data.error || 'Please enter a valid and deliverable email address.',
+          });
+        }
+      }
+    } catch {
+      // Graceful fallback on client-side fetch error
+    } finally {
+      setIsVerifyingEmail(false);
+    }
+  };
+
+  // Smooth scroll and focus to the first invalid field upon form rejection
+  const onFormInvalid = useCallback((formErrors: typeof errors) => {
+    const fieldOrder: (keyof typeof formErrors)[] = ['name', 'email', 'phone', 'service', 'message'];
+    const fieldMap: Record<string, string> = {
+      name: 'contact-name',
+      email: 'contact-email',
+      phone: 'contact-phone',
+      service: 'contact-service',
+      message: 'contact-message',
+    };
+
+    for (const key of fieldOrder) {
+      if (formErrors[key]) {
+        const el = document.getElementById(fieldMap[key]);
+        if (el) {
+          el.focus();
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          break;
+        }
+      }
+    }
+  }, []);
+
   const onSubmit = async (data: ContactFormValues) => {
     if (isApplying) {
       const hasFile = Boolean(resumeFile);
@@ -217,24 +253,52 @@ export function ContactForm() {
     setErrorMessage(null);
 
     try {
+      const normalizedEmail = normalizeEmail(data.email);
+      const normalizedName = normalizeName(data.name);
+
+      // Pre-flight deliverability verification before calling submission endpoint
+      try {
+        const verifyRes = await fetch('/api/verify-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: normalizedEmail }),
+        });
+        if (verifyRes.ok) {
+          const verifyData = await verifyRes.json();
+          if (!verifyData.isValid) {
+            setError('email', {
+              type: 'manual',
+              message: verifyData.error || 'Please enter a valid and deliverable email address.',
+            });
+            setIsSubmitting(false);
+            const emailEl = document.getElementById('contact-email');
+            emailEl?.focus();
+            emailEl?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+          }
+        }
+      } catch {
+        // External verification service unreachable: continue with server submission
+      }
+
       const payload = isApplying
         ? {
-            name: data.name,
-            email: data.email,
-            phone: data.phone,
-            company: data.company,
+            name: normalizedName,
+            email: normalizedEmail,
+            phone: data.phone?.trim() || undefined,
+            company: data.company?.trim() || undefined,
             role: roleParam || 'Engineering Role',
             resumeName: resumeFile?.name,
             resumeData: resumeFile?.data,
             resumeUrl: resumeLink.trim() || undefined,
           }
         : {
-            name: data.name,
-            email: data.email,
-            phone: data.phone,
-            company: data.company,
+            name: normalizedName,
+            email: normalizedEmail,
+            phone: data.phone?.trim() || undefined,
+            company: data.company?.trim() || undefined,
             service: data.service || 'General Inquiry',
-            message: data.message || '',
+            message: data.message?.trim() || '',
           };
 
       const result = await submitContactEnquiry(payload);
@@ -244,6 +308,25 @@ export function ContactForm() {
         setResumeFile(null);
         setResumeLink('');
         setResumeError(null);
+
+        // Immediate Client-Side Socket.IO Emission for Instant Admin Alert
+        if (result.data) {
+          try {
+            const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4001';
+            const socket = io(socketUrl, {
+              transports: ['websocket', 'polling'],
+              timeout: 4000,
+            });
+            socket.on('connect', () => {
+              socket.emit('new_enquiry', result.data);
+              setTimeout(() => {
+                socket.disconnect();
+              }, 1200);
+            });
+          } catch (socketErr) {
+            console.warn('[Socket Emit Warning]:', socketErr);
+          }
+        }
       } else {
         setSubmitSuccess(false);
         setErrorMessage(result.error || 'Something went wrong. Please try again or email us directly.');
@@ -278,7 +361,7 @@ export function ContactForm() {
         </div>
       ) : (
         <div className="mb-6">
-          <h2 className="text-xl font-bold tracking-tight text-foreground mb-1.5">Project Inquiry</h2>
+          <h2 className="text-xl font-bold tracking-tight text-foreground mb-1.5">Contact Us</h2>
           <p className="text-sm text-muted-foreground font-medium">
             Let&apos;s discuss how we can build, scale, or automate your technology needs.
           </p>
@@ -358,7 +441,7 @@ export function ContactForm() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
+      <form onSubmit={handleSubmit(onSubmit, onFormInvalid)} className="space-y-5" noValidate>
         {/* Full Name & Email */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
@@ -368,10 +451,49 @@ export function ContactForm() {
             <Input
               id="contact-name"
               placeholder="Enter Your Name"
+              maxLength={30}
               aria-required="true"
               aria-invalid={Boolean(errors.name)}
               aria-describedby={errors.name ? 'contact-name-error' : undefined}
               {...register('name')}
+              onKeyDown={(e) => {
+                // Allow control and navigation keys
+                if (
+                  e.key === 'Backspace' ||
+                  e.key === 'Delete' ||
+                  e.key === 'Tab' ||
+                  e.key === 'Escape' ||
+                  e.key === 'Enter' ||
+                  e.key === 'ArrowLeft' ||
+                  e.key === 'ArrowRight' ||
+                  e.key === 'ArrowUp' ||
+                  e.key === 'ArrowDown' ||
+                  e.key === 'Home' ||
+                  e.key === 'End' ||
+                  e.ctrlKey ||
+                  e.metaKey
+                ) {
+                  return;
+                }
+                // Disallow numbers, symbols, emojis, and characters other than letters and spaces
+                if (!/^[a-zA-Z\s]$/.test(e.key)) {
+                  e.preventDefault();
+                  return;
+                }
+                // Do not exceed 30 letters
+                if (
+                  e.currentTarget.value.length >= 30 &&
+                  e.currentTarget.selectionStart === e.currentTarget.selectionEnd
+                ) {
+                  e.preventDefault();
+                }
+              }}
+              onBlur={(e) => {
+                const normalized = normalizeName(e.target.value);
+                if (normalized !== e.target.value) {
+                  setValue('name', normalized, { shouldValidate: true });
+                }
+              }}
               className={cn(
                 'h-11 px-3.5 bg-background/50 hover:bg-background/80 focus:bg-background border-border/80 dark:border-border/40 text-foreground transition-all duration-200',
                 errors.name ? 'border-destructive focus-visible:ring-destructive focus-visible:border-destructive' : ''
@@ -397,6 +519,11 @@ export function ContactForm() {
               aria-invalid={Boolean(errors.email)}
               aria-describedby={errors.email ? 'contact-email-error' : undefined}
               {...register('email')}
+              onChange={(e) => {
+                setValue('email', e.target.value);
+                if (errors.email) clearErrors('email');
+              }}
+              onBlur={handleEmailBlur}
               className={cn(
                 'h-11 px-3.5 bg-background/50 hover:bg-background/80 focus:bg-background border-border/80 dark:border-border/40 text-foreground transition-all duration-200',
                 errors.email ? 'border-destructive focus-visible:ring-destructive focus-visible:border-destructive' : ''
@@ -421,9 +548,25 @@ export function ContactForm() {
               name="phone"
               control={control}
               render={({ field }) => (
-                <CountryPhoneInput id="contact-phone" value={field.value} onChange={field.onChange} placeholder="0000000000" />
+                <CountryPhoneInput
+                  id="contact-phone"
+                  value={field.value}
+                  onChange={(val) => {
+                    field.onChange(val);
+                    if (errors.phone) clearErrors('phone');
+                  }}
+                  onBlur={field.onBlur}
+                  error={Boolean(errors.phone)}
+                  placeholder="0000000000"
+                />
               )}
             />
+            {errors.phone && (
+              <p id="contact-phone-error" role="alert" className="text-xs text-destructive mt-1.5 font-semibold flex items-center gap-1.5">
+                <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                <span>{errors.phone.message}</span>
+              </p>
+            )}
           </div>
 
           <div>
@@ -604,9 +747,29 @@ export function ContactForm() {
             </div>
 
             <div>
-              <label htmlFor="contact-message" className="block text-xs font-semibold text-foreground/90 mb-1.5 uppercase tracking-wider">
-                Project Details / Message <span className="text-destructive">*</span>
-              </label>
+              <div className="flex items-center justify-between mb-1.5">
+                <label htmlFor="contact-message" className="block text-xs font-semibold text-foreground/90 uppercase tracking-wider">
+                  Project Details / Message <span className="text-destructive">*</span>
+                </label>
+                <span
+                  className={cn(
+                    'text-[11px] font-mono transition-colors font-medium select-none',
+                    messageWordCount > 0 && messageWordCount <= 20
+                      ? 'text-amber-500 dark:text-amber-400 font-semibold'
+                      : messageWordCount >= 200
+                      ? 'text-destructive font-bold'
+                      : 'text-muted-foreground'
+                  )}
+                  aria-live="polite"
+                  aria-atomic="true"
+                >
+                  {messageWordCount > 0 && messageWordCount <= 20
+                    ? `${messageWordCount} / 199 words (min 21)`
+                    : messageWordCount >= 200
+                    ? `${messageWordCount} / 199 words (max 199)`
+                    : `${messageWordCount} / 199 words`}
+                </span>
+              </div>
               <textarea
                 id="contact-message"
                 rows={4}
@@ -614,7 +777,14 @@ export function ContactForm() {
                 aria-required="true"
                 aria-invalid={Boolean(errors.message)}
                 aria-describedby={errors.message ? 'contact-message-error' : undefined}
-                {...register('message')}
+                {...register('message', {
+                  onBlur: () => {
+                    if (watchedMessage) {
+                      const normalized = watchedMessage.trim().replace(/\s+/g, ' ');
+                      setValue('message', normalized, { shouldValidate: true });
+                    }
+                  },
+                })}
                 className={cn(
                   'flex w-full rounded-xl border bg-background/50 hover:bg-background/80 focus:bg-background border-border/80 dark:border-border/40 px-3.5 py-2.5 text-sm shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:border-primary disabled:cursor-not-allowed disabled:opacity-50 resize-none text-foreground',
                   errors.message ? 'border-destructive focus-visible:ring-destructive focus-visible:border-destructive' : ''
@@ -634,18 +804,22 @@ export function ContactForm() {
         <Button
           type="submit"
           variant="enterprise"
-          disabled={isSubmitting}
+          disabled={isSubmitting || isVerifyingEmail}
           className="w-full h-12 font-bold tracking-wide mt-2"
         >
-          {isSubmitting ? (
+          {isSubmitting || isVerifyingEmail ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />{' '}
-              {isApplying ? 'Submitting Application...' : 'Submitting Project Inquiry...'}
+              {isApplying
+                ? 'Submitting Application...'
+                : isVerifyingEmail
+                ? 'Verifying Email...'
+                : 'Submitting...'}
             </>
           ) : isApplying ? (
             'Submit Application'
           ) : (
-            'Submit Project Inquiry'
+            'Submit'
           )}
         </Button>
       </form>
