@@ -95,7 +95,8 @@ describe('Integration: Multi-Form Submissions & Processing Pipeline', () => {
         phone: '+44 20 7946 0991',
         company: 'Rostova Clean Energy',
         service: 'Cloud Engineering',
-        message: 'Looking for Kubernetes multi-region architecture setup and Terraform automation.',
+        message:
+          'Looking for Kubernetes multi-region architecture setup and Terraform automation across our distributed enterprise cloud infrastructure. We would like to schedule an architectural scoping session with your team.',
       };
 
       const res = await submitContactForm(inquiry);
