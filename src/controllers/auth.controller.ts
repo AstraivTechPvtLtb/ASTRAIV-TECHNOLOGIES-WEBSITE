@@ -42,4 +42,3 @@ export async function getCurrentUserSession(): Promise<ClientUserSession | null>
   }
 }
 
-// This is a test script
