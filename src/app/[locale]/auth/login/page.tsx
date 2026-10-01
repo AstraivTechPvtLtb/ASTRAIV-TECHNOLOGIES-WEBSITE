@@ -91,46 +91,51 @@ export default function LoginPage() {
 
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center p-4 sm:p-6 bg-background text-foreground selection:bg-primary/20 overflow-hidden transition-colors">
-      <div className="absolute inset-0 bg-radial-[circle_at_center,rgba(37,99,235,0.06),transparent_70%] dark:bg-radial-[circle_at_center,transparent_30%,rgba(15,23,42,0.9)] pointer-events-none" />
+    <div className="relative min-h-screen flex items-center justify-center p-4 sm:p-6 bg-transparent text-foreground selection:bg-primary/20 overflow-hidden transition-colors">
+      {/* Dynamic Ambient Background Glows matching the rest of the website */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-primary/10 dark:bg-blue-600/15 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute bottom-10 right-10 w-[350px] h-[350px] bg-blue-600/5 dark:bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
 
       {/* Main card viewport */}
       <motion.div
-        initial={{ opacity: 0, y: 30, scale: 0.98 }}
+        initial={{ opacity: 0, y: 25, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10 w-full max-w-md my-8"
       >
-        <div className="bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl rounded-[20px] shadow-card dark:shadow-[0_20px_50px_rgba(9,11,18,0.6)] border border-border/80 dark:border-slate-800/80 p-6 sm:p-8 transition-colors">
+        <div className="relative rounded-3xl bg-white/85 dark:bg-[#0D1320]/85 border border-slate-200/90 dark:border-white/10 backdrop-blur-2xl p-7 sm:p-10 shadow-2xl shadow-slate-900/10 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] transition-all overflow-hidden">
+          {/* Subtle top edge gradient highlight */}
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 dark:via-blue-400/40 to-transparent pointer-events-none" />
+
           {/* Header branding */}
-          <div className="flex flex-col items-center mb-8 text-center">
+          <div className="flex flex-col items-center mb-7 text-center">
             <Link href="/" className="flex items-center gap-2.5 group mb-4">
               <Image
                 src="/logo-icon.jpg"
                 alt="Astraiv Technologies Logo"
-                width={36}
-                height={36}
+                width={38}
+                height={38}
                 priority
-                className="rounded-full object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/15 group-hover:ring-primary/40"
+                className="rounded-full object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/20 dark:ring-blue-400/30 group-hover:ring-primary/50 shadow-md"
               />
               <div className="flex flex-col items-start leading-tight">
-                <span className="font-heading font-extrabold text-[19px] tracking-wider bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent pb-0.5">
+                <span className="font-heading font-extrabold text-[20px] tracking-wider bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent pb-0.5">
                   ASTRAIV
                 </span>
-                <span className="text-[7.5px] uppercase tracking-[0.28em] font-black text-black dark:text-white dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.85)]">
+                <span className="text-[8px] uppercase tracking-[0.28em] font-black text-black dark:text-white dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.85)]">
                   TECHNOLOGIES
                 </span>
               </div>
             </Link>
-            <h1 className="font-heading font-extrabold text-2xl tracking-tight text-foreground mb-2">
+            <h1 className="font-heading font-semibold text-2xl sm:text-3xl tracking-[-0.025em] text-foreground mb-1.5">
               Welcome Back
             </h1>
-            <p className="text-sm text-muted-foreground font-medium">
+            <p className="text-sm text-muted-foreground font-normal leading-relaxed">
               Access your engineering cockpit
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Status updates notifications */}
             <AnimatePresence mode="wait">
               {errorMsg && (
@@ -138,7 +143,7 @@ export default function LoginPage() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="flex items-start gap-2.5 bg-destructive/10 border border-destructive/20 text-destructive text-sm rounded-[12px] p-3.5"
+                  className="flex items-start gap-2.5 bg-destructive/10 border border-destructive/20 text-destructive text-sm rounded-xl p-3.5"
                 >
                   <AlertCircle className="h-4.5 w-4.5 shrink-0 mt-0.5" />
                   <span>{errorMsg}</span>
@@ -150,7 +155,7 @@ export default function LoginPage() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="flex items-start gap-2.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 dark:text-emerald-400 text-sm rounded-[12px] p-3.5"
+                  className="flex items-start gap-2.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 dark:text-emerald-400 text-sm rounded-xl p-3.5"
                 >
                   <Sparkles className="h-4.5 w-4.5 shrink-0 mt-0.5 animate-pulse" />
                   <span>{successMsg}</span>
@@ -160,7 +165,7 @@ export default function LoginPage() {
 
             {/* Email input field */}
             <div className="space-y-2">
-              <label htmlFor="email" className="text-xs font-bold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
+              <label htmlFor="email" className="text-xs font-semibold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
                 {t('email')}
               </label>
               <div className="relative">
@@ -173,7 +178,7 @@ export default function LoginPage() {
                   placeholder="name@company.com"
                   autoComplete="email"
                   className={cn(
-                    'pl-10.5 h-11',
+                    'pl-10.5 h-11 bg-white/70 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 text-foreground placeholder:text-muted-foreground/60 focus:bg-white dark:focus:bg-slate-900 focus:border-primary dark:focus:border-blue-400 focus:ring-2 focus:ring-primary/20 dark:focus:ring-blue-400/20 rounded-xl transition-all',
                     errors.email && 'border-destructive focus-visible:ring-destructive/30'
                   )}
                   {...register('email')}
@@ -190,12 +195,12 @@ export default function LoginPage() {
             {/* Password input field */}
             <div className="space-y-2">
               <div className="flex justify-between items-center">
-                <label htmlFor="password" className="text-xs font-bold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
+                <label htmlFor="password" className="text-xs font-semibold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
                   {t('password')}
                 </label>
                 <Link
                   href="/auth/forgot-password"
-                  className="text-xs font-bold text-primary dark:text-blue-400 hover:underline transition-colors"
+                  className="text-xs font-semibold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 hover:underline transition-colors"
                 >
                   {t('forgotPassword')}
                 </Link>
@@ -210,7 +215,7 @@ export default function LoginPage() {
                   placeholder="••••••••"
                   autoComplete="current-password"
                   className={cn(
-                    'pl-10.5 pr-10.5 h-11',
+                    'pl-10.5 pr-10.5 h-11 bg-white/70 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 text-foreground placeholder:text-muted-foreground/60 focus:bg-white dark:focus:bg-slate-900 focus:border-primary dark:focus:border-blue-400 focus:ring-2 focus:ring-primary/20 dark:focus:ring-blue-400/20 rounded-xl transition-all',
                     errors.password && 'border-destructive focus-visible:ring-destructive/30'
                   )}
                   {...register('password')}
@@ -233,11 +238,11 @@ export default function LoginPage() {
             </div>
 
             {/* Remember Me toggle check */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               <input
                 id="rememberMe"
                 type="checkbox"
-                className="h-4 w-4 rounded-sm border-input bg-card dark:bg-slate-900 text-primary focus:ring-primary focus:ring-offset-background accent-primary transition-colors cursor-pointer"
+                className="h-4 w-4 rounded-md border-slate-300 dark:border-white/20 bg-white dark:bg-slate-900 text-primary focus:ring-primary focus:ring-offset-background accent-primary transition-colors cursor-pointer"
                 {...register('rememberMe')}
               />
               <label htmlFor="rememberMe" className="text-xs font-medium text-muted-foreground hover:text-foreground select-none cursor-pointer transition-colors">
@@ -245,20 +250,20 @@ export default function LoginPage() {
               </label>
             </div>
 
-            {/* Signin CTA trigger */}
+            {/* Signin CTA trigger with Astraiv Brand Gradient */}
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full h-11 bg-gradient-to-r from-primary to-secondary hover:from-primary/95 hover:to-secondary/95 text-white font-bold tracking-wide rounded-[12px] flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-primary/20 hover:scale-[1.01] transition-all"
+              className="w-full h-11.5 bg-gradient-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] hover:from-[#082d6c] hover:via-[#1e40af] hover:to-[#1d4ed8] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] dark:hover:from-[#1d4ed8] dark:hover:via-[#2563EB] dark:hover:to-[#3b82f6] text-white font-heading font-semibold text-sm tracking-wide rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-primary/20 dark:shadow-blue-500/20 hover:shadow-primary/35 hover:scale-[1.01] active:scale-[0.99] transition-all"
             >
               {isLoading ? (
                 <>
                   <Loader2 className="h-4.5 w-4.5 animate-spin" />
-                  Signing In...
+                  <span>Signing In...</span>
                 </>
               ) : (
                 <>
-                  {t('signIn')}
+                  <span>{t('signIn')}</span>
                   <ArrowRight className="h-4 w-4 transition-transform group-hover/button:translate-x-1" />
                 </>
               )}
@@ -266,17 +271,15 @@ export default function LoginPage() {
           </form>
 
           {/* Footer swap */}
-          <div className="mt-8 pt-6 border-t border-border/60 dark:border-slate-800/60 text-center text-sm font-medium">
+          <div className="mt-8 pt-6 border-t border-slate-200/80 dark:border-white/10 text-center text-sm font-medium">
             <span className="text-muted-foreground">{t('dontHaveAccount').split('?')[0]}? </span>
             <Link
               href="/auth/signup"
-              className="text-primary dark:text-blue-400 font-bold hover:underline transition-colors ml-1"
+              className="text-primary dark:text-blue-400 font-semibold hover:underline transition-colors ml-1"
             >
               {t('signUp')}
             </Link>
           </div>
-
-
         </div>
       </motion.div>
     </div>
