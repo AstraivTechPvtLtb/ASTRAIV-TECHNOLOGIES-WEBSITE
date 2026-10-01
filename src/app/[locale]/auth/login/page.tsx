@@ -88,21 +88,6 @@ export default function LoginPage() {
     }
   };
 
-  // Helper function to quick-fill credentials for testing
-  const handleQuickFill = (role: 'admin' | 'pm' | 'client' | 'user') => {
-    setErrorMsg(null);
-    setSuccessMsg(null);
-    const credentials = {
-      admin: { email: 'astraivtechnologies@gmail.com', password: 'Password123' },
-      pm: { email: 'pm@astraiv.com', password: 'Password123' },
-      client: { email: 'client@astraiv.com', password: 'Password123' },
-      user: { email: 'user@astraiv.com', password: 'Password123' },
-    };
-
-    const cred = credentials[role];
-    setValue('email', cred.email, { shouldValidate: true });
-    setValue('password', cred.password, { shouldValidate: true });
-  };
 
   return (
     <div className="relative min-h-screen flex items-center justify-center p-4 sm:p-6 bg-background text-foreground selection:bg-primary/20 overflow-hidden transition-colors">
@@ -281,55 +266,7 @@ export default function LoginPage() {
             </Link>
           </div>
 
-          {/* Dev Quick Fill Dashboard shortcuts */}
-          <div className="mt-8 pt-6 border-t border-border/60 dark:border-slate-800/60">
-            <div className="flex items-center justify-between mb-3.5">
-              <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest block">
-                Sandbox Demo Quick Fill
-              </span>
-              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full border border-border/80">
-                Dev Mode
-              </span>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <Button
-                variant="outline"
-                size="xs"
-                type="button"
-                onClick={() => handleQuickFill('admin')}
-                className="h-8 border-border hover:border-primary/50 text-xs font-semibold text-foreground bg-slate-50/80 hover:bg-primary/10 hover:text-primary dark:bg-slate-900/80 dark:hover:bg-primary/20 dark:text-slate-300 justify-center transition-all"
-              >
-                Admin Panel
-              </Button>
-              <Button
-                variant="outline"
-                size="xs"
-                type="button"
-                onClick={() => handleQuickFill('pm')}
-                className="h-8 border-border hover:border-primary/50 text-xs font-semibold text-foreground bg-slate-50/80 hover:bg-primary/10 hover:text-primary dark:bg-slate-900/80 dark:hover:bg-primary/20 dark:text-slate-300 justify-center transition-all"
-              >
-                Project Manager
-              </Button>
-              <Button
-                variant="outline"
-                size="xs"
-                type="button"
-                onClick={() => handleQuickFill('client')}
-                className="h-8 border-border hover:border-primary/50 text-xs font-semibold text-foreground bg-slate-50/80 hover:bg-primary/10 hover:text-primary dark:bg-slate-900/80 dark:hover:bg-primary/20 dark:text-slate-300 justify-center transition-all"
-              >
-                Client Portal
-              </Button>
-              <Button
-                variant="outline"
-                size="xs"
-                type="button"
-                onClick={() => handleQuickFill('user')}
-                className="h-8 border-border hover:border-primary/50 text-xs font-semibold text-foreground bg-slate-50/80 hover:bg-primary/10 hover:text-primary dark:bg-slate-900/80 dark:hover:bg-primary/20 dark:text-slate-300 justify-center transition-all"
-              >
-                Standard User
-              </Button>
-            </div>
-          </div>
+
         </div>
       </motion.div>
     </div>
