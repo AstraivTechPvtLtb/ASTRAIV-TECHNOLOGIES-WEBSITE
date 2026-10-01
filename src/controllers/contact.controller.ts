@@ -9,39 +9,36 @@ import { db } from '@/models/db';
 import { isSupabaseConfigured, createClient as createSupabaseClient } from '@/lib/supabase/server';
 import { ContactFormInput, ClientActionResponse } from '@/models/types';
 import { z } from 'zod';
+import {
+  standardContactSchema,
+  roleApplicationSchema,
+  normalizeName,
+  normalizeEmail,
+} from '@/lib/validations/contact';
+import { verifyEmailAddress } from '@/lib/services/email-verifier';
 
 import { promises as fs } from 'fs';
 import path from 'path';
 
-const standardContactSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters long'),
-  email: z.string().email('Please enter a valid email address'),
-  phone: z.string().optional(),
-  company: z.string().optional(),
-  service: z.string().min(1, 'Please select a service'),
-  message: z.string().min(10, 'Message must be at least 10 characters long'),
-});
-
-const roleApplicationSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters long'),
-  email: z.string().email('Please enter a valid email address'),
-  phone: z.string().optional(),
-  company: z.string().optional(),
-  role: z.string().optional(),
-  resumeName: z.string().optional(),
-  resumeUrl: z.string().optional(),
-  resumeData: z.string().optional(),
-}).refine((data) => data.resumeName || data.resumeUrl || data.resumeData, {
-  message: 'Please provide your resume by uploading a file or entering a link.',
-  path: ['resumeName'],
-});
+export interface ContactSubmissionResult {
+  id: string;
+  name?: string;
+  email?: string;
+  phone?: string | null;
+  company?: string | null;
+  service?: string;
+  message?: string;
+  status?: string;
+  created_at?: string;
+  updated_at?: string;
+}
 
 /**
  * Handles submission of prospective client inquiries and job applications.
  */
 export async function submitContactForm(
   formData: ContactFormInput
-): Promise<ClientActionResponse<{ id: string }>> {
+): Promise<ClientActionResponse<ContactSubmissionResult>> {
   try {
     // 1. Anti-Spam: Honeypot check
     if (formData.honeypot && formData.honeypot.trim().length > 0) {
@@ -124,15 +121,46 @@ export async function submitContactForm(
         .join('\n');
     } else {
       const validated = standardContactSchema.parse(formData);
-      validatedName = validated.name;
-      validatedEmail = validated.email;
+      validatedName = normalizeName(validated.name);
+      validatedEmail = normalizeEmail(validated.email);
       validatedPhone = validated.phone;
       validatedCompany = validated.company;
-      finalService = validated.service;
-      finalMessage = validated.message;
+      finalService = 'Contact Us';
+
+      const serviceLabelMap: Record<string, string> = {
+        'ai-solutions': 'AI Solutions & Autonomous Agents',
+        'web-applications': 'Web Applications & SaaS Platforms',
+        'custom-software': 'Custom Software Development',
+        'cloud-solutions': 'Cloud Solutions & Infrastructure',
+        'website-development': 'Corporate Website Development',
+        'mobile-apps': 'Mobile Applications (iOS & Android)',
+        'ui-ux-design': 'UI/UX Design & Design Systems',
+        'devops-ci-cd': 'DevOps, CI/CD & Kubernetes',
+        'business-automation': 'Business Process Automation',
+        'enterprise-software': 'Enterprise Software & Microservices',
+        'digital-transformation': 'Digital Transformation & Modernization',
+        'it-consulting': 'IT Consulting & Architecture Audits',
+        'general-inquiry': 'Other / Custom Engineering Project',
+      };
+
+      const requestedTopic = serviceLabelMap[validated.service] || validated.service;
+      if (requestedTopic && requestedTopic !== 'Contact Us') {
+        finalMessage = `Requested Service: ${requestedTopic}\n\n${validated.message}`;
+      } else {
+        finalMessage = validated.message;
+      }
     }
 
-    // 1. Primary Local PostgreSQL via Prisma ORM
+    // 2. Server-side Email Deliverability & Verification check
+    const emailVerification = await verifyEmailAddress(validatedEmail);
+    if (!emailVerification.isValid) {
+      return {
+        success: false,
+        error: emailVerification.error || 'Please enter a valid and deliverable email address.',
+      };
+    }
+
+    // 3. Primary Local PostgreSQL via Prisma ORM
     if (!isSupabaseConfigured()) {
       const submission = await db.contactSubmission.create({
         data: {
@@ -146,9 +174,39 @@ export async function submitContactForm(
         },
       });
 
+      const enquiryData = {
+        id: submission.id,
+        name: submission.name,
+        email: submission.email,
+        phone: submission.phone,
+        company: submission.company,
+        service: submission.service,
+        message: submission.message,
+        status: submission.status,
+        created_at: submission.createdAt.toISOString(),
+        updated_at: submission.updatedAt.toISOString(),
+      };
+
+      // Real-Time Socket Broadcast to Admin Portal
+      try {
+        const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4001';
+        fetch(`${socketUrl}/api/broadcast`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event: 'new_enquiry',
+            data: enquiryData,
+          }),
+        }).catch((broadcastErr) => {
+          console.warn('[Socket Broadcast Warning]:', (broadcastErr as Error)?.message || broadcastErr);
+        });
+      } catch {
+        // non-blocking
+      }
+
       return {
         success: true,
-        data: { id: submission.id },
+        data: enquiryData,
         message: isJobApplication
           ? 'Your application has been received. Our engineering leads will review your resume within 48 business hours.'
           : 'Your inquiry has been received. Our solutions architect will contact you within 24 hours.',
@@ -168,14 +226,43 @@ export async function submitContactForm(
         message: finalMessage,
         status: 'pending',
       })
-      .select('id')
+      .select('id, name, email, phone, company, service, message, status, created_at, updated_at')
       .single();
 
     if (error) throw error;
 
+    const enquiryData = {
+      id: data.id,
+      name: data.name || validatedName,
+      email: data.email || validatedEmail,
+      phone: data.phone || validatedPhone || null,
+      company: data.company || validatedCompany || null,
+      service: data.service || finalService,
+      message: data.message || finalMessage,
+      status: data.status || 'pending',
+      created_at: data.created_at || new Date().toISOString(),
+      updated_at: data.updated_at || new Date().toISOString(),
+    };
+
+    try {
+      const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4001';
+      fetch(`${socketUrl}/api/broadcast`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event: 'new_enquiry',
+          data: enquiryData,
+        }),
+      }).catch((broadcastErr) => {
+        console.warn('[Socket Broadcast Warning]:', (broadcastErr as Error)?.message || broadcastErr);
+      });
+    } catch {
+      // non-blocking
+    }
+
     return {
       success: true,
-      data: { id: data.id },
+      data: enquiryData,
       message: isJobApplication
         ? 'Your application has been received. Our engineering leads will review your resume within 48 business hours.'
         : 'Your inquiry has been received. Our solutions architect will contact you within 24 hours.',

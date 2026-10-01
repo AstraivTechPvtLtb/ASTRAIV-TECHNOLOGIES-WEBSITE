@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 export interface CountryPhoneInputProps {
   value?: string;
   onChange?: (value: string) => void;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
   placeholder?: string;
   className?: string;
   disabled?: boolean;
@@ -21,6 +22,7 @@ export const CountryPhoneInput = React.forwardRef<HTMLInputElement, CountryPhone
     {
       value = '',
       onChange,
+      onBlur,
       placeholder,
       className,
       disabled = false,
@@ -201,8 +203,33 @@ export const CountryPhoneInput = React.forwardRef<HTMLInputElement, CountryPhone
             name={name}
             value={phoneNumber}
             onChange={handlePhoneChange}
+            onBlur={onBlur}
+            onKeyDown={(e) => {
+              if (
+                e.key === 'Backspace' ||
+                e.key === 'Delete' ||
+                e.key === 'Tab' ||
+                e.key === 'Escape' ||
+                e.key === 'Enter' ||
+                e.key === 'ArrowLeft' ||
+                e.key === 'ArrowRight' ||
+                e.key === 'ArrowUp' ||
+                e.key === 'ArrowDown' ||
+                e.key === 'Home' ||
+                e.key === 'End' ||
+                e.ctrlKey ||
+                e.metaKey
+              ) {
+                return;
+              }
+              if (!/^\d$/.test(e.key)) {
+                e.preventDefault();
+              }
+            }}
             placeholder={activePlaceholder}
             disabled={disabled}
+            aria-invalid={error}
+            aria-describedby={error && id ? `${id}-error` : undefined}
             className="flex-1 bg-transparent px-3.5 py-2 text-sm text-foreground placeholder:text-muted-foreground/60 dark:placeholder:text-muted-foreground/50 outline-none border-0 w-full min-w-0 font-normal selection:bg-primary/20 selection:text-foreground"
           />
         </div>
