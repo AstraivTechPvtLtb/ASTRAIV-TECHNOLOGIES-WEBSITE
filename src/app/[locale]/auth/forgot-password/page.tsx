@@ -14,6 +14,7 @@ import {
   KeyRound,
 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
+import Image from 'next/image';
 import { Button } from '@/views/ui/button';
 import { Input } from '@/views/ui/input';
 import { cn } from '@/lib/utils';
@@ -67,7 +68,7 @@ export default function ForgotPasswordPage() {
       >
         <div className="relative rounded-3xl bg-card/90 dark:bg-slate-900/80 border border-border/80 dark:border-slate-800/90 backdrop-blur-xl p-8 sm:p-10 shadow-xl dark:shadow-2xl transition-colors">
           {/* Top Brand & Back to Login */}
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center justify-between mb-6">
             <Link
               href="/auth/login"
               className="inline-flex items-center gap-1.5 text-xs font-bold text-muted-foreground hover:text-foreground transition-colors group"
@@ -76,9 +77,19 @@ export default function ForgotPasswordPage() {
               <span>Back to Login</span>
             </Link>
 
-            <span className="text-[10px] font-mono uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-              Identity Portal
-            </span>
+            <Link href="/" className="flex items-center gap-2 group">
+              <Image
+                src="/logo-icon.jpg"
+                alt="Astraiv Technologies Logo"
+                width={28}
+                height={28}
+                priority
+                className="rounded-full object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/15 group-hover:ring-primary/40"
+              />
+              <span className="font-heading font-extrabold text-sm tracking-wider bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent">
+                ASTRAIV
+              </span>
+            </Link>
           </div>
 
           <div className="text-left mb-8">
