@@ -85,7 +85,7 @@ export default async function TestimonialsPage({ params }: TestimonialsPageProps
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-primary/20 selection:text-foreground flex flex-col justify-between relative overflow-hidden">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground flex flex-col justify-between relative overflow-hidden transition-colors">
       {/* Schema.org Structured Data */}
       <BreadcrumbSchema
         items={[
@@ -103,68 +103,68 @@ export default async function TestimonialsPage({ params }: TestimonialsPageProps
 
       <main className="pt-28 pb-20 flex-grow z-10 relative">
         {/* Background ambient lighting */}
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[850px] h-[420px] bg-primary/10 rounded-full blur-[180px] pointer-events-none" />
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[850px] h-[420px] bg-primary/5 dark:bg-primary/10 rounded-full blur-[180px] pointer-events-none" />
         <div className="absolute top-96 right-10 w-[450px] h-[350px] bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 py-6">
           {/* Breadcrumb Navigation */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-8">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-semibold text-muted-foreground mb-8">
             <Link href="/" className="hover:text-primary transition-colors">
               Home
             </Link>
-            <ChevronRight className="h-3.5 w-3.5 text-slate-600" />
+            <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/60" />
             <Link href="/work" className="hover:text-primary transition-colors">
               Work
             </Link>
-            <ChevronRight className="h-3.5 w-3.5 text-slate-600" />
-            <span className="text-white font-bold">Testimonials</span>
+            <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/60" />
+            <span className="text-foreground font-bold">Testimonials</span>
           </nav>
 
           {/* Hero Section */}
-          <div className="relative overflow-hidden rounded-3xl bg-slate-900/80 border border-slate-800 backdrop-blur-xl p-8 sm:p-14 mb-12 shadow-2xl text-left">
+          <div className="relative overflow-hidden rounded-3xl bg-card/90 dark:bg-slate-900/80 border border-border/80 dark:border-slate-800 backdrop-blur-xl p-8 sm:p-14 mb-12 shadow-sm dark:shadow-2xl text-left transition-colors">
             <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
 
             <div className="relative z-10 max-w-4xl">
 
 
               {/* Title & Tagline */}
-              <h1 className="text-3xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.025em] text-white leading-tight mb-6">
-                Executive Endorsements &amp; Client Testimonials
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.025em] text-foreground leading-tight mb-6">
+                Executive Endorsements &amp; <span className="heading-gradient">Client Testimonials</span>
               </h1>
 
-              <p className="text-base sm:text-xl text-slate-300 leading-relaxed font-normal mb-10 max-w-3xl">
+              <p className="text-base sm:text-xl text-muted-foreground leading-relaxed font-normal mb-10 max-w-3xl">
                 Real feedback from Chief Technology Officers, Founders, and Engineering Vice Presidents who have trusted Astraiv Technologies to architect and deliver their highest-stakes digital platforms.
               </p>
 
               {/* Trust Metric Counters */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-800/80">
-                <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
-                  <div className="flex items-center gap-1.5 text-amber-400 font-semibold sm:font-bold tracking-[-0.02em] text-2xl sm:text-3xl mb-1">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-border/60 dark:border-slate-800/80">
+                <div className="p-4 rounded-2xl bg-slate-50/90 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80">
+                  <div className="flex items-center gap-1.5 text-primary dark:text-cyan-400 font-semibold sm:font-bold tracking-[-0.02em] text-2xl sm:text-3xl mb-1">
                     <span>{averageRating}</span>
-                    <Star className="h-5 w-5 fill-amber-400 shrink-0" />
+                    <Star className="h-5 w-5 fill-primary dark:fill-cyan-400 shrink-0" />
                   </div>
-                  <span className="text-xs text-slate-400 font-normal">Average Client Rating</span>
+                  <span className="text-xs text-muted-foreground font-normal">Average Client Rating</span>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
-                  <div className="text-emerald-400 font-semibold sm:font-bold tracking-[-0.02em] text-2xl sm:text-3xl mb-1">
+                <div className="p-4 rounded-2xl bg-slate-50/90 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80">
+                  <div className="text-primary dark:text-cyan-400 font-semibold sm:font-bold tracking-[-0.02em] text-2xl sm:text-3xl mb-1">
                     100%
                   </div>
-                  <span className="text-xs text-slate-400 font-normal">Verified Client Reviews</span>
+                  <span className="text-xs text-muted-foreground font-normal">Verified Client Reviews</span>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
-                  <div className="text-blue-400 font-semibold sm:font-bold tracking-[-0.02em] text-2xl sm:text-3xl mb-1">
+                <div className="p-4 rounded-2xl bg-slate-50/90 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80">
+                  <div className="text-primary dark:text-blue-400 font-semibold sm:font-bold tracking-[-0.02em] text-2xl sm:text-3xl mb-1">
                     99.8%
                   </div>
-                  <span className="text-xs text-slate-400 font-normal">On-Time SLA Delivery</span>
+                  <span className="text-xs text-muted-foreground font-normal">On-Time SLA Delivery</span>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
-                  <div className="text-purple-400 font-semibold sm:font-bold tracking-[-0.02em] text-2xl sm:text-3xl mb-1">
+                <div className="p-4 rounded-2xl bg-slate-50/90 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80">
+                  <div className="text-cyan-600 dark:text-cyan-400 font-semibold sm:font-bold tracking-[-0.02em] text-2xl sm:text-3xl mb-1">
                     {totalReviews}+
                   </div>
-                  <span className="text-xs text-slate-400 font-normal">Approved Testimonials</span>
+                  <span className="text-xs text-muted-foreground font-normal">Approved Testimonials</span>
                 </div>
               </div>
             </div>
@@ -174,16 +174,16 @@ export default async function TestimonialsPage({ params }: TestimonialsPageProps
           <TestimonialsDirectory testimonials={testimonials} locale={locale} />
 
           {/* Bottom Conversion & Assurance Section */}
-          <div className="mt-20 p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-slate-900/90 via-slate-900 to-slate-950 border border-primary/20 relative overflow-hidden shadow-2xl">
+          <div className="mt-20 p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-card via-card to-muted/50 dark:from-slate-900/90 dark:via-slate-900 dark:to-slate-950 border border-primary/20 relative overflow-hidden shadow-sm dark:shadow-2xl transition-colors">
             <div className="absolute right-0 top-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
               <div className="max-w-2xl text-left">
 
-                <h3 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] text-white mb-3">
+                <h3 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] text-foreground mb-3">
                   Ready to engineer enterprise-grade software with guaranteed outcomes?
                 </h3>
-                <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-normal">
                   Connect with our senior technical squad to assess your architecture, establish strict SLA guardrails, and build software that earns executive praise.
                 </p>
               </div>
@@ -191,21 +191,21 @@ export default async function TestimonialsPage({ params }: TestimonialsPageProps
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full md:w-auto shrink-0">
                 <Link
                   href={ROUTES.PUBLIC.START_PROJECT ? `${ROUTES.PUBLIC.START_PROJECT}?source_page=${encodeURIComponent('/work/testimonials')}` : `/start-project?source_page=${encodeURIComponent('/work/testimonials')}`}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs font-semibold text-slate-950 bg-white hover:bg-slate-100 transition-all shadow-lg hover:scale-105"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs font-semibold text-white bg-primary hover:bg-primary/90 transition-all shadow-md hover:scale-105"
                 >
                   <span>Start a Project</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
                 <Link
                   href={ROUTES.PUBLIC.CONTACT}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs font-bold text-white bg-primary hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs font-bold text-foreground bg-card hover:bg-muted border border-border transition-all shadow-xs"
                 >
                   <span>Talk to an Expert</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
                 <Link
                   href={ROUTES.PUBLIC.CASE_STUDIES}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 transition-all"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-xs font-bold text-muted-foreground hover:text-foreground bg-muted/60 hover:bg-muted border border-border/80 transition-all"
                 >
                   <span>Explore Case Studies</span>
                 </Link>

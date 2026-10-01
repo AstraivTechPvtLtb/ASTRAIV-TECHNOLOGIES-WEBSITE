@@ -182,7 +182,7 @@ export const ALL_TECHNOLOGY_ITEMS: TechItem[] = [
     versionOrSla: 'Claude 3.5 & GPT-4o',
     description:
       'OpenAI, Anthropic & private local models (Llama, Mistral) engineered with semantic guardrails, zero-leakage enterprise privacy, and context caching.',
-    icon: <OpenAIIcon className="h-6 w-6 text-emerald-500" />,
+    icon: <OpenAIIcon className="h-6 w-6 text-primary dark:text-cyan-400" />,
     highlights: ['Multi-provider fallbacks', 'Strict JSON schema function calling', 'Self-hosted air-gapped models', 'Prompt caching optimization'],
     metrics: { label: 'Cost Reduction', value: 'Up to 64%' },
   },
@@ -197,7 +197,7 @@ export const ALL_TECHNOLOGY_ITEMS: TechItem[] = [
     versionOrSla: 'pgvector + Pinecone',
     description:
       'Pinecone, pgvector & contextual search engines that match unstructured knowledge with exact factual citation and zero hallucination tolerances.',
-    icon: <DatabaseZap className="h-6 w-6 text-purple-500" />,
+    icon: <DatabaseZap className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
     highlights: ['Hybrid semantic + BM25 search', 'Real-time embedding synchronization', 'Multi-tenant RBAC chunk isolation', 'Cohere neural reranking'],
     metrics: { label: 'Citation Accuracy', value: '99.4%' },
   },
@@ -341,7 +341,7 @@ export const ALL_TECHNOLOGY_ITEMS: TechItem[] = [
     versionOrSla: 'v12 Hardware-Accelerated',
     description:
       'Powers custom animated card lifts, scroll reveals, spring physics, and hardware-accelerated animations that make enterprise products feel organic and responsive.',
-    icon: <InfinityIcon className="h-6 w-6 text-purple-500" />,
+    icon: <InfinityIcon className="h-6 w-6 text-primary dark:text-blue-400" />,
     highlights: ['Spring physics simulation', 'GPU-accelerated transforms', 'Scroll-linked animations', 'Accessible reduced-motion defaults'],
     metrics: { label: 'Render FPS', value: 'Solid 60-120' },
   },
@@ -356,7 +356,7 @@ export const ALL_TECHNOLOGY_ITEMS: TechItem[] = [
     versionOrSla: 'Zod 4.x + RHF 7',
     description:
       'Strict runtime validations for API requests and client inputs, optimizing security, input sanitization, and immediate user feedback with zero re-render waste.',
-    icon: <ShieldCheck className="h-6 w-6 text-rose-500" />,
+    icon: <ShieldCheck className="h-6 w-6 text-primary dark:text-cyan-400" />,
     highlights: ['Composable schema rules', 'Cross-field validation', 'Sanitized input stripping', 'Zero unnecessary rerenders'],
     metrics: { label: 'Input Sanitization', value: '100% Strict' },
   },
@@ -390,7 +390,7 @@ export const ALL_TECHNOLOGY_ITEMS: TechItem[] = [
     versionOrSla: 'Prisma v7 Rust Core',
     description:
       'Ensures typesafe relational database queries with automated connection pool management, zero SQL injection vectors, and declarative schema migrations.',
-    icon: <PrismaIcon className="h-6 w-6 text-emerald-500" />,
+    icon: <PrismaIcon className="h-6 w-6 text-primary dark:text-cyan-400" />,
     highlights: ['Zero SQL injection exposure', 'Auto-generated TypeScript client', 'Declarative schema migrations', 'Rust-powered query engine'],
     metrics: { label: 'Query Safety', value: 'Guaranteed' },
   },
@@ -461,7 +461,7 @@ const ARCHITECTURE_TIERS = [
     number: '02',
     name: 'Intelligence & Agent Orchestration',
     badge: 'Cognitive Layer',
-    color: 'from-purple-500/20 to-indigo-500/20 text-purple-400 border-purple-500/30',
+    color: 'from-blue-500/20 to-indigo-500/20 text-blue-500 border-blue-500/30',
     techNames: ['Autonomous Agents', 'Claude 3.5 & GPT-4o', 'PyTorch 2.5', 'FastAPI', 'Node.js 22'],
     summary: 'Autonomous agent swarms, function calling schemas, model routing, and fine-tuned domain vocabulary.',
     latency: '< 18ms Inference',
@@ -471,7 +471,7 @@ const ARCHITECTURE_TIERS = [
     number: '03',
     name: 'Knowledge Lake & Storage Matrix',
     badge: 'Persistence Layer',
-    color: 'from-emerald-500/20 to-teal-500/20 text-emerald-400 border-emerald-500/30',
+    color: 'from-cyan-500/20 to-blue-500/20 text-cyan-400 border-cyan-500/30',
     techNames: ['PostgreSQL 16', 'MongoDB 7', 'pgvector', 'Pinecone', 'Prisma 7'],
     summary: 'ACID transactional safety, vector similarity search, multi-tenant RBAC schemas, and streaming ETL.',
     latency: '< 0.8ms Query',
@@ -481,7 +481,7 @@ const ARCHITECTURE_TIERS = [
     number: '04',
     name: 'Cloud Backbone & Security Perimeter',
     badge: 'DevOps & Edge',
-    color: 'from-amber-500/20 to-orange-500/20 text-amber-400 border-amber-500/30',
+    color: 'from-sky-500/20 to-blue-600/20 text-sky-400 border-sky-500/30',
     techNames: ['AWS Cloud', 'Cloudflare Edge / R2', 'Docker', 'Better Auth', 'Zod Gates'],
     summary: 'Zero-trust authentication, containerized pipelines, DDoS layer protection, and automated CI/CD runs.',
     latency: '99.99% Uptime',
@@ -571,10 +571,10 @@ export function TechnologyView({
       {/* 1. HEADER */}
       <section className="pt-28 pb-8 md:pt-36 md:pb-10 px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
         <div className="max-w-5xl mx-auto text-left mb-8">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading text-slate-900 dark:text-white tracking-[-0.025em] leading-[1.12]">
-            {title}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading text-foreground tracking-[-0.025em] leading-[1.12]">
+            Next-Gen Software &amp; <span className="heading-gradient">Intelligent Systems</span>
           </h1>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-normal leading-[1.62] mt-1">
+          <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-1">
             Foundational engineering stack, intelligent agent frameworks, and enterprise infrastructure.
           </p>
         </div>
@@ -690,8 +690,8 @@ export function TechnologyView({
                 <div className="h-full rounded-2xl border border-border/60 bg-card/80 dark:bg-slate-900/60 backdrop-blur-xl p-6 sm:p-8 flex flex-col justify-between shadow-md relative overflow-hidden">
                   <div className="flex items-center justify-between pb-4 border-b border-border/40">
                     <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                      <span className="w-2.5 h-2.5 rounded-full bg-primary dark:bg-cyan-400 animate-pulse" />
+                      <span className="text-xs font-mono font-bold uppercase tracking-wider text-primary dark:text-cyan-400">
                         {currentTier.badge} Online
                       </span>
                     </div>
@@ -718,7 +718,7 @@ export function TechnologyView({
                         >
                           <span className="text-xs font-bold text-foreground">{tech}</span>
                           <span className="text-[10px] font-mono text-muted-foreground flex items-center gap-1">
-                            <Check className="h-2.5 w-2.5 text-emerald-500" />
+                            <Check className="h-2.5 w-2.5 text-primary dark:text-cyan-400" />
                             Production Verified
                           </span>
                         </div>
@@ -744,7 +744,7 @@ export function TechnologyView({
         <div className="flex flex-col items-center text-center gap-2 mb-12">
 
           <h2 className="text-3xl sm:text-4xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15]">
-            Cognitive AI & Enterprise Automations
+            Cognitive AI &amp; Enterprise Automations
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground max-w-2xl font-normal leading-[1.62]">
             We do not just wrap basic API endpoints. We build production-ready vector databases, autonomous workflows, and custom-tuned language models that optimize business margins.
@@ -768,9 +768,9 @@ export function TechnologyView({
             </span>
           </div>
 
-          <div className="p-6 rounded-2xl bg-card/70 dark:bg-slate-900/50 border border-border/50 hover:border-purple-500/40 transition-all shadow-xs flex flex-col justify-between">
+          <div className="p-6 rounded-2xl bg-card/70 dark:bg-slate-900/50 border border-border/50 hover:border-blue-500/40 transition-all shadow-xs flex flex-col justify-between">
             <div className="flex flex-col gap-3">
-              <div className="h-10 w-10 rounded-xl bg-purple-500/10 dark:bg-purple-500/20 text-purple-500 flex items-center justify-center border border-purple-500/20">
+              <div className="h-10 w-10 rounded-xl bg-blue-500/10 dark:bg-blue-500/20 text-blue-500 flex items-center justify-center border border-blue-500/20">
                 <DatabaseZap className="h-5 w-5" />
               </div>
               <h3 className="text-lg font-semibold tracking-[-0.015em] text-foreground">Enterprise RAG Pipelines</h3>
@@ -778,7 +778,7 @@ export function TechnologyView({
                 Retrieval-Augmented Generation enables your LLM to access proprietary enterprise documentation in real-time, matching queries with semantic accuracy using vector databases like pgvector.
               </p>
             </div>
-            <span className="text-[10px] font-mono text-purple-600 dark:text-purple-400 mt-4 font-semibold uppercase">
+            <span className="text-[10px] font-mono text-blue-600 dark:text-cyan-400 mt-4 font-semibold uppercase">
               • 99.4% Factual Precision
             </span>
           </div>
@@ -798,9 +798,9 @@ export function TechnologyView({
             </span>
           </div>
 
-          <div className="p-6 rounded-2xl bg-card/70 dark:bg-slate-900/50 border border-border/50 hover:border-indigo-500/40 transition-all shadow-xs flex flex-col justify-between">
+          <div className="p-6 rounded-2xl bg-card/70 dark:bg-slate-900/50 border border-border/50 hover:border-cyan-500/40 transition-all shadow-xs flex flex-col justify-between">
             <div className="flex flex-col gap-3">
-              <div className="h-10 w-10 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-500 flex items-center justify-center border border-indigo-500/20">
+              <div className="h-10 w-10 rounded-xl bg-cyan-500/10 dark:bg-cyan-500/20 text-cyan-500 flex items-center justify-center border border-cyan-500/20">
                 <Cpu className="h-5 w-5" />
               </div>
               <h3 className="text-lg font-semibold tracking-[-0.015em] text-foreground">Vector Embedding Systems</h3>
@@ -808,7 +808,7 @@ export function TechnologyView({
                 We set up semantic search engines that understand user intent rather than simple keywords, improving database search relevancy by up to 80%.
               </p>
             </div>
-            <span className="text-[10px] font-mono text-indigo-600 dark:text-indigo-400 mt-4 font-semibold uppercase">
+            <span className="text-[10px] font-mono text-blue-600 dark:text-cyan-400 mt-4 font-semibold uppercase">
               • Sub-10ms Cosine Distance
             </span>
           </div>
@@ -818,7 +818,7 @@ export function TechnologyView({
         <div className="max-w-5xl mx-auto rounded-2xl border border-border/60 bg-gradient-to-b from-card/90 to-card/50 dark:from-slate-900/70 dark:to-slate-900/40 backdrop-blur-xl p-6 sm:p-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-border/40">
             <div>
-              <span className="text-xs font-mono font-bold uppercase text-purple-600 dark:text-purple-400">
+              <span className="text-xs font-mono font-bold uppercase text-primary dark:text-cyan-400">
                 Live Execution Protocol
               </span>
               <h3 className="text-xl font-bold text-foreground mt-1">
@@ -1030,7 +1030,7 @@ export function TechnologyView({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="flex flex-col gap-2 p-4 rounded-xl bg-background/60 dark:bg-slate-900/60 border border-border/40">
-              <div className="flex items-center gap-2 text-emerald-500">
+              <div className="flex items-center gap-2 text-primary dark:text-cyan-400">
                 <CheckCircle2 className="h-4 w-4" />
                 <span className="text-xs font-semibold uppercase tracking-wider">Performance</span>
               </div>
@@ -1041,7 +1041,7 @@ export function TechnologyView({
             </div>
 
             <div className="flex flex-col gap-2 p-4 rounded-xl bg-background/60 dark:bg-slate-900/60 border border-border/40">
-              <div className="flex items-center gap-2 text-blue-500">
+              <div className="flex items-center gap-2 text-primary dark:text-blue-400">
                 <ShieldCheck className="h-4 w-4" />
                 <span className="text-xs font-semibold uppercase tracking-wider">Security</span>
               </div>
@@ -1052,7 +1052,7 @@ export function TechnologyView({
             </div>
 
             <div className="flex flex-col gap-2 p-4 rounded-xl bg-background/60 dark:bg-slate-900/60 border border-border/40">
-              <div className="flex items-center gap-2 text-purple-500">
+              <div className="flex items-center gap-2 text-primary dark:text-cyan-400">
                 <Brain className="h-4 w-4" />
                 <span className="text-xs font-semibold uppercase tracking-wider">AI Privacy</span>
               </div>
@@ -1063,7 +1063,7 @@ export function TechnologyView({
             </div>
 
             <div className="flex flex-col gap-2 p-4 rounded-xl bg-background/60 dark:bg-slate-900/60 border border-border/40">
-              <div className="flex items-center gap-2 text-amber-500">
+              <div className="flex items-center gap-2 text-primary dark:text-blue-400">
                 <Cloud className="h-4 w-4" />
                 <span className="text-xs font-semibold uppercase tracking-wider">Reliability</span>
               </div>

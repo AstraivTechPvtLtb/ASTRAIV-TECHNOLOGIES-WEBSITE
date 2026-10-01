@@ -63,9 +63,9 @@ const INDUSTRIES_DATA: IndustryData[] = [
     image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=1600&auto=format&fit=crop',
     imageAlt: 'Algorithmic financial trading monitors and quantitative data terminal',
     icon: <DollarSign className="h-5 w-5" />,
-    accentColor: 'text-emerald-500 dark:text-emerald-400',
-    accentBg: 'bg-emerald-500/10 dark:bg-emerald-500/20',
-    accentBorder: 'border-emerald-500/30',
+    accentColor: 'text-primary dark:text-cyan-400',
+    accentBg: 'bg-primary/10 dark:bg-cyan-500/10',
+    accentBorder: 'border-primary/20 dark:border-cyan-500/30',
     statusText: 'Ledger Engine: Active | 99.999% SLA',
     complianceBadge: 'PCI-DSS Level 1 • SOC-2 Type II',
     challenge:
@@ -102,9 +102,9 @@ const INDUSTRIES_DATA: IndustryData[] = [
     image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1600&auto=format&fit=crop',
     imageAlt: 'Medical doctor operating advanced laboratory robotic software interface',
     icon: <HeartPulse className="h-5 w-5" />,
-    accentColor: 'text-rose-500 dark:text-rose-400',
-    accentBg: 'bg-rose-500/10 dark:bg-rose-500/20',
-    accentBorder: 'border-rose-500/30',
+    accentColor: 'text-primary dark:text-blue-400',
+    accentBg: 'bg-primary/10 dark:bg-blue-500/10',
+    accentBorder: 'border-primary/20 dark:border-blue-500/30',
     statusText: 'FHIR v4 Active | AES-256 Vault Locked',
     complianceBadge: 'HIPAA Enforced • HITECH • GDPR Health',
     challenge:
@@ -141,9 +141,9 @@ const INDUSTRIES_DATA: IndustryData[] = [
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop',
     imageAlt: 'Sleek multi-tenant SaaS analytics command dashboard with real-time graphs',
     icon: <Layers className="h-5 w-5" />,
-    accentColor: 'text-indigo-500 dark:text-indigo-400',
-    accentBg: 'bg-indigo-500/10 dark:bg-indigo-500/20',
-    accentBorder: 'border-indigo-500/30',
+    accentColor: 'text-blue-600 dark:text-blue-400',
+    accentBg: 'bg-blue-600/10 dark:bg-blue-600/20',
+    accentBorder: 'border-blue-600/30',
     statusText: 'Tenant Isolation: Tier 4 | Distributed Edge',
     complianceBadge: 'SOC-2 Type II • ISO 27001 Architecture',
     challenge:
@@ -180,9 +180,9 @@ const INDUSTRIES_DATA: IndustryData[] = [
     image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1600&auto=format&fit=crop',
     imageAlt: 'Modern robotic automated logistics warehouse and high-speed fulfillment hub',
     icon: <ShoppingBag className="h-5 w-5" />,
-    accentColor: 'text-amber-500 dark:text-amber-400',
-    accentBg: 'bg-amber-500/10 dark:bg-amber-500/20',
-    accentBorder: 'border-amber-500/30',
+    accentColor: 'text-sky-600 dark:text-sky-400',
+    accentBg: 'bg-sky-500/10 dark:bg-sky-500/20',
+    accentBorder: 'border-sky-500/30',
     statusText: 'Checkout P99: 420ms | Flash Sale Resilient',
     complianceBadge: 'PCI-DSS • Global Taxjar • SCA Compliant',
     challenge:
@@ -258,9 +258,9 @@ const INDUSTRIES_DATA: IndustryData[] = [
     image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1600&auto=format&fit=crop',
     imageAlt: 'Students and engineers collaborating in a modern university high-tech lab',
     icon: <GraduationCap className="h-5 w-5" />,
-    accentColor: 'text-violet-500 dark:text-violet-400',
-    accentBg: 'bg-violet-500/10 dark:bg-violet-500/20',
-    accentBorder: 'border-violet-500/30',
+    accentColor: 'text-primary dark:text-cyan-400',
+    accentBg: 'bg-primary/10 dark:bg-cyan-500/10',
+    accentBorder: 'border-primary/20 dark:border-cyan-500/30',
     statusText: 'Concurrent Classrooms: 3,200 | Latency <150ms',
     complianceBadge: 'FERPA Compliant • COPPA • SCORM/LTI v1.3',
     challenge:
@@ -336,9 +336,9 @@ const INDUSTRIES_DATA: IndustryData[] = [
     image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1600&auto=format&fit=crop',
     imageAlt: 'Advanced industrial robotics and clean energy telemetry control room',
     icon: <Cpu className="h-5 w-5" />,
-    accentColor: 'text-purple-500 dark:text-purple-400',
-    accentBg: 'bg-purple-500/10 dark:bg-purple-500/20',
-    accentBorder: 'border-purple-500/30',
+    accentColor: 'text-blue-600 dark:text-cyan-400',
+    accentBg: 'bg-blue-600/10 dark:bg-cyan-500/10',
+    accentBorder: 'border-blue-600/20 dark:border-cyan-500/30',
     statusText: 'SCADA Telemetry Stream: <8ms | Air-Gapped Ready',
     complianceBadge: 'NIST 800-53 • NERC-CIP • ISO 9001',
     challenge:
@@ -528,10 +528,10 @@ export function IndustriesView() {
     <div className="flex flex-col w-full">
       {/* 1. HEADER */}
       <section className="pt-28 pb-4 md:pt-36 md:pb-6 px-6 max-w-7xl mx-auto w-full text-left">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.025em] leading-[1.12]">
-          Industries We Empower
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground font-heading tracking-[-0.025em] leading-[1.12]">
+          Industries We <span className="heading-gradient">Empower</span>
         </h1>
-        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-normal leading-[1.62] mt-1">
+        <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-1">
           Mission-critical software engineering architected for regulated and high-velocity sectors.
         </p>
       </section>
@@ -637,7 +637,7 @@ export function IndustriesView() {
                       {/* Bottom floating telemetry status bar */}
                       <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-slate-950/80 backdrop-blur-md border border-white/10 text-white flex items-center justify-between text-xs font-medium">
                         <div className="flex items-center gap-2">
-                          <Activity className="h-4 w-4 text-emerald-400 animate-pulse" />
+                          <Activity className="h-4 w-4 text-primary dark:text-cyan-400 animate-pulse" />
                           <span className="truncate">{ind.statusText}</span>
                         </div>
                         <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 bg-white/5 px-2 py-0.5 rounded">
@@ -692,7 +692,7 @@ export function IndustriesView() {
                     {/* The Friction vs Astraiv Resolution */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-950/40 border border-border/50 dark:border-slate-800/80">
                       <div>
-                        <span className="text-[11px] font-semibold uppercase tracking-wider text-rose-500 flex items-center gap-1 mb-1">
+                        <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 flex items-center gap-1 mb-1">
                           <span>Legacy Friction</span>
                         </span>
                         <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-normal">
@@ -700,7 +700,7 @@ export function IndustriesView() {
                         </p>
                       </div>
                       <div>
-                        <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-500 flex items-center gap-1 mb-1">
+                        <span className="text-[11px] font-semibold uppercase tracking-wider text-primary dark:text-cyan-400 flex items-center gap-1 mb-1">
                           <span>Astraiv Resolution</span>
                         </span>
                         <p className="text-xs sm:text-sm text-foreground/90 font-normal leading-[1.62]">
@@ -858,7 +858,7 @@ export function IndustriesView() {
                       {row.certifications}
                     </td>
                     <td className="p-4">
-                      <span className="inline-flex px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                      <span className="inline-flex px-2.5 py-1 rounded-md text-xs font-semibold bg-primary/10 text-primary dark:text-cyan-400 border border-primary/20">
                         {row.latencyRequirement}
                       </span>
                     </td>

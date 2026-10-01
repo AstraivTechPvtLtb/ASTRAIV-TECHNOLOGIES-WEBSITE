@@ -53,7 +53,7 @@ export function CareersConfirmationView() {
       {/* Hero Confirmation Card */}
       <div className="relative rounded-3xl border border-border/80 dark:border-slate-800 bg-card/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-2xl p-8 sm:p-14 text-center overflow-hidden mb-12">
         {/* Glow */}
-        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-emerald-500/15 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/15 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute -bottom-24 right-1/4 w-72 h-72 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
@@ -62,7 +62,7 @@ export function CareersConfirmationView() {
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            className="w-20 h-20 rounded-3xl bg-gradient-to-br from-emerald-400 to-teal-600 p-0.5 shadow-xl shadow-emerald-500/25 mb-6 flex items-center justify-center text-white"
+            className="w-20 h-20 rounded-3xl bg-gradient-to-br from-primary to-cyan-500 p-0.5 shadow-xl shadow-primary/25 mb-6 flex items-center justify-center text-white"
           >
             <div className="w-full h-full rounded-[22px] bg-slate-950/20 flex items-center justify-center backdrop-blur-sm">
               <CheckCircle2 className="w-10 h-10 text-white" />
@@ -74,10 +74,10 @@ export function CareersConfirmationView() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 mb-4 select-none"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider text-primary dark:text-cyan-400 bg-primary/10 border border-primary/20 mb-4 select-none"
           >
             <span>APPLICATION REF:</span>
-            <span className="text-foreground underline decoration-emerald-500/50">{refId}</span>
+            <span className="text-foreground underline decoration-primary/50 dark:decoration-cyan-400/50">{refId}</span>
           </motion.div>
 
           {/* Headline */}

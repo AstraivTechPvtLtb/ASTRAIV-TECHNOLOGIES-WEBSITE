@@ -28,20 +28,20 @@ export function TechnologiesSection({
     : [{ category: 'Core Tech Stack', items: technologies as string[] }];
 
   return (
-    <section className="my-16 sm:my-20 p-8 rounded-3xl bg-slate-900/40 border border-slate-800/80 backdrop-blur-md">
+    <section className="my-16 sm:my-20 p-8 rounded-3xl bg-card/90 dark:bg-slate-900/40 border border-border/80 dark:border-slate-800/80 backdrop-blur-md shadow-sm dark:shadow-md transition-colors">
       <div className="flex items-center gap-3 mb-3">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/10 text-primary dark:text-blue-400 border border-blue-500/20">
           <Cpu className="h-4 w-4" />
         </div>
-        <span className="text-xs font-mono font-bold uppercase tracking-widest text-slate-400">
+        <span className="text-xs font-mono font-bold uppercase tracking-widest text-muted-foreground">
           ENGINEERING STACK
         </span>
       </div>
 
-      <h2 className="text-2xl sm:text-3xl font-semibold text-white tracking-[-0.025em] leading-[1.15] mb-2">
+      <h2 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15] mb-2">
         {title}
       </h2>
-      <p className="text-sm sm:text-base text-slate-400 font-normal leading-[1.62] max-w-2xl mb-8">
+      <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] max-w-2xl mb-8">
         {subtitle}
       </p>
 
@@ -49,17 +49,17 @@ export function TechnologiesSection({
         {categories.map((cat, idx) => (
           <div
             key={idx}
-            className="p-5 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex flex-col justify-between"
+            className="p-5 rounded-2xl bg-slate-50/80 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between"
           >
             <div>
-              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-400 mb-4 pb-2 border-b border-slate-800">
+              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-400 mb-4 pb-2 border-b border-border/60 dark:border-slate-800">
                 {cat.category}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {cat.items.map((tech) => (
                   <span
                     key={tech}
-                    className="text-xs font-mono font-semibold px-3 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700/80 transition-colors"
+                    className="text-xs font-mono font-semibold px-3 py-1.5 rounded-lg bg-card dark:bg-slate-900/90 hover:bg-muted dark:hover:bg-slate-800 text-foreground/90 dark:text-slate-200 border border-border/80 dark:border-slate-700/80 transition-colors shadow-2xs"
                   >
                     {tech}
                   </span>
@@ -71,13 +71,13 @@ export function TechnologiesSection({
       </div>
 
       {/* Intelligent Cross-Link to Dedicated Technology Architecture */}
-      <div className="mt-8 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <p className="text-xs text-slate-400 font-medium">
+      <div className="mt-8 pt-6 border-t border-border/60 dark:border-slate-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <p className="text-xs text-muted-foreground font-medium">
           Looking for detailed architectural benchmarks, telemetry, and low-latency specs?
         </p>
         <Link
           href={ROUTES.PUBLIC.TECHNOLOGY}
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-blue-400 hover:text-white transition-colors group/link"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-blue-400 hover:underline transition-colors group/link"
         >
           <span>Explore All Production Stacks &amp; Benchmarks</span>
           <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-1" />

@@ -54,14 +54,14 @@ export function ContactSection({ isPageHero = false }: ContactSectionProps) {
           {isPageHero ? (
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] font-heading leading-tight text-foreground">
               Have an Idea? <br />
-              <span className="bg-gradient-to-r from-primary via-secondary to-accent dark:from-blue-400 dark:via-blue-400 dark:to-indigo-300 bg-clip-text text-transparent">
+              <span className="heading-gradient">
                 Let&apos;s Build It.
               </span>
             </h1>
           ) : (
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] font-heading leading-tight text-foreground">
               Have an Idea? <br />
-              <span className="bg-gradient-to-r from-primary via-secondary to-accent dark:from-blue-400 dark:via-blue-400 dark:to-indigo-300 bg-clip-text text-transparent">
+              <span className="heading-gradient">
                 Let&apos;s Build It.
               </span>
             </h2>
@@ -128,7 +128,7 @@ export function ContactSection({ isPageHero = false }: ContactSectionProps) {
           </div>
 
           <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground pt-2">
-            <ShieldCheck className="h-4 w-4 text-emerald-500" />
+            <ShieldCheck className="h-4 w-4 text-primary dark:text-cyan-400" />
             <span>Strict NDA & confidentiality guaranteed on all initial briefs</span>
           </div>
         </motion.div>

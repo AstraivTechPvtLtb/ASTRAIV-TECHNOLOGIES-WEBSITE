@@ -105,17 +105,17 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center p-6 bg-slate-950 overflow-hidden">
-      <div className="absolute inset-0 bg-radial-[circle_at_center,transparent_30%,rgba(15,23,42,0.9)] pointer-events-none" />
+    <div className="relative min-h-screen flex items-center justify-center p-4 sm:p-6 bg-background text-foreground selection:bg-primary/20 overflow-hidden transition-colors">
+      <div className="absolute inset-0 bg-radial-[circle_at_center,rgba(37,99,235,0.06),transparent_70%] dark:bg-radial-[circle_at_center,transparent_30%,rgba(15,23,42,0.9)] pointer-events-none" />
 
       {/* Main card viewport */}
       <motion.div
         initial={{ opacity: 0, y: 30, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-10 w-full max-w-md"
+        className="relative z-10 w-full max-w-md my-8"
       >
-        <div className="glass-dark rounded-[20px] shadow-[0_20px_50px_rgba(9,11,18,0.6)] border border-slate-800/80 p-8 backdrop-blur-3xl">
+        <div className="bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl rounded-[20px] shadow-card dark:shadow-[0_20px_50px_rgba(9,11,18,0.6)] border border-border/80 dark:border-slate-800/80 p-6 sm:p-8 transition-colors">
           {/* Header branding */}
           <div className="flex flex-col items-center mb-8 text-center">
             <Link href="/" className="flex items-center gap-2 group mb-4">
@@ -124,13 +124,13 @@ export default function LoginPage() {
               </div>
               <div className="flex flex-col items-start leading-tight">
                 <span className="font-heading font-extrabold text-lg tracking-wider bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent pb-0.5">ASTRAIV</span>
-                <span className="text-[7px] uppercase tracking-[0.28em] font-black text-white/90">TECHNOLOGIES</span>
+                <span className="text-[7px] uppercase tracking-[0.28em] font-black text-foreground/80">TECHNOLOGIES</span>
               </div>
             </Link>
-            <h1 className="font-heading font-extrabold text-2xl tracking-tight text-white mb-2">
+            <h1 className="font-heading font-extrabold text-2xl tracking-tight text-foreground mb-2">
               Welcome Back
             </h1>
-            <p className="text-sm text-muted-foreground/80 font-medium">
+            <p className="text-sm text-muted-foreground font-medium">
               Access your engineering cockpit
             </p>
           </div>
@@ -155,7 +155,7 @@ export default function LoginPage() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="flex items-start gap-2.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm rounded-[12px] p-3.5"
+                  className="flex items-start gap-2.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 dark:text-emerald-400 text-sm rounded-[12px] p-3.5"
                 >
                   <Sparkles className="h-4.5 w-4.5 shrink-0 mt-0.5 animate-pulse" />
                   <span>{successMsg}</span>
@@ -165,11 +165,11 @@ export default function LoginPage() {
 
             {/* Email input field */}
             <div className="space-y-2">
-              <label htmlFor="email" className="text-xs font-bold text-slate-300 uppercase tracking-wider block">
+              <label htmlFor="email" className="text-xs font-bold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
                 {t('email')}
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/75">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
                   <Mail className="h-4 w-4" />
                 </span>
                 <Input
@@ -178,7 +178,7 @@ export default function LoginPage() {
                   placeholder="name@company.com"
                   autoComplete="email"
                   className={cn(
-                    'pl-10.5 h-11 border-slate-800/80 bg-slate-900/40 text-slate-200 placeholder:text-slate-600 focus-visible:border-primary',
+                    'pl-10.5 h-11',
                     errors.email && 'border-destructive focus-visible:ring-destructive/30'
                   )}
                   {...register('email')}
@@ -195,18 +195,18 @@ export default function LoginPage() {
             {/* Password input field */}
             <div className="space-y-2">
               <div className="flex justify-between items-center">
-                <label htmlFor="password" className="text-xs font-bold text-slate-300 uppercase tracking-wider block">
+                <label htmlFor="password" className="text-xs font-bold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
                   {t('password')}
                 </label>
                 <Link
                   href="/auth/forgot-password"
-                  className="text-xs font-bold text-primary dark:text-accent hover:underline transition-colors"
+                  className="text-xs font-bold text-primary dark:text-blue-400 hover:underline transition-colors"
                 >
                   {t('forgotPassword')}
                 </Link>
               </div>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/75">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
                   <Lock className="h-4 w-4" />
                 </span>
                 <Input
@@ -215,7 +215,7 @@ export default function LoginPage() {
                   placeholder="••••••••"
                   autoComplete="current-password"
                   className={cn(
-                    'pl-10.5 pr-10.5 h-11 border-slate-800/80 bg-slate-900/40 text-slate-200 placeholder:text-slate-600 focus-visible:border-primary',
+                    'pl-10.5 pr-10.5 h-11',
                     errors.password && 'border-destructive focus-visible:ring-destructive/30'
                   )}
                   {...register('password')}
@@ -223,7 +223,8 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/75 hover:text-white transition-colors"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -241,10 +242,10 @@ export default function LoginPage() {
               <input
                 id="rememberMe"
                 type="checkbox"
-                className="h-4 w-4 rounded-sm border-slate-800/80 bg-slate-900/40 text-primary focus:ring-primary focus:ring-offset-slate-950 accent-primary"
+                className="h-4 w-4 rounded-sm border-input bg-card dark:bg-slate-900 text-primary focus:ring-primary focus:ring-offset-background accent-primary transition-colors cursor-pointer"
                 {...register('rememberMe')}
               />
-              <label htmlFor="rememberMe" className="text-xs font-bold text-slate-400 select-none cursor-pointer">
+              <label htmlFor="rememberMe" className="text-xs font-medium text-muted-foreground hover:text-foreground select-none cursor-pointer transition-colors">
                 Keep me signed in on this device
               </label>
             </div>
@@ -270,23 +271,23 @@ export default function LoginPage() {
           </form>
 
           {/* Footer swap */}
-          <div className="mt-8 pt-6 border-t border-slate-800/40 text-center text-sm font-medium">
-            <span className="text-muted-foreground/60">{t('dontHaveAccount').split('?')[0]}? </span>
+          <div className="mt-8 pt-6 border-t border-border/60 dark:border-slate-800/60 text-center text-sm font-medium">
+            <span className="text-muted-foreground">{t('dontHaveAccount').split('?')[0]}? </span>
             <Link
               href="/auth/signup"
-              className="text-primary dark:text-accent font-bold hover:underline transition-colors ml-1"
+              className="text-primary dark:text-blue-400 font-bold hover:underline transition-colors ml-1"
             >
               {t('signUp')}
             </Link>
           </div>
 
           {/* Dev Quick Fill Dashboard shortcuts */}
-          <div className="mt-8 pt-6 border-t border-slate-800/40">
+          <div className="mt-8 pt-6 border-t border-border/60 dark:border-slate-800/60">
             <div className="flex items-center justify-between mb-3.5">
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">
+              <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest block">
                 Sandbox Demo Quick Fill
               </span>
-              <span className="text-[9px] bg-slate-800/60 text-slate-400 font-bold px-2 py-0.5 rounded-full border border-slate-700/40">
+              <span className="text-[9px] bg-muted text-muted-foreground font-bold px-2 py-0.5 rounded-full border border-border/80">
                 Dev Mode
               </span>
             </div>
@@ -294,32 +295,36 @@ export default function LoginPage() {
               <Button
                 variant="outline"
                 size="xs"
+                type="button"
                 onClick={() => handleQuickFill('admin')}
-                className="h-8 border-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-900/60 justify-center"
+                className="h-8 border-border hover:border-primary/50 text-xs font-semibold text-foreground bg-slate-50/80 hover:bg-primary/10 hover:text-primary dark:bg-slate-900/80 dark:hover:bg-primary/20 dark:text-slate-300 justify-center transition-all"
               >
                 Admin Panel
               </Button>
               <Button
                 variant="outline"
                 size="xs"
+                type="button"
                 onClick={() => handleQuickFill('pm')}
-                className="h-8 border-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-900/60 justify-center"
+                className="h-8 border-border hover:border-primary/50 text-xs font-semibold text-foreground bg-slate-50/80 hover:bg-primary/10 hover:text-primary dark:bg-slate-900/80 dark:hover:bg-primary/20 dark:text-slate-300 justify-center transition-all"
               >
                 Project Manager
               </Button>
               <Button
                 variant="outline"
                 size="xs"
+                type="button"
                 onClick={() => handleQuickFill('client')}
-                className="h-8 border-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-900/60 justify-center"
+                className="h-8 border-border hover:border-primary/50 text-xs font-semibold text-foreground bg-slate-50/80 hover:bg-primary/10 hover:text-primary dark:bg-slate-900/80 dark:hover:bg-primary/20 dark:text-slate-300 justify-center transition-all"
               >
                 Client Portal
               </Button>
               <Button
                 variant="outline"
                 size="xs"
+                type="button"
                 onClick={() => handleQuickFill('user')}
-                className="h-8 border-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-900/60 justify-center"
+                className="h-8 border-border hover:border-primary/50 text-xs font-semibold text-foreground bg-slate-50/80 hover:bg-primary/10 hover:text-primary dark:bg-slate-900/80 dark:hover:bg-primary/20 dark:text-slate-300 justify-center transition-all"
               >
                 Standard User
               </Button>

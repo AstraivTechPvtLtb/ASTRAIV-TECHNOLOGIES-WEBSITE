@@ -49,7 +49,7 @@ export default async function CareersPage({ params }: CareersPageProps) {
       desc: 'We minimize synchronous meetings in favor of precise technical specs, RFC documents, and uninterrupted focus time.',
     },
     {
-      icon: <HeartHandshake className="h-5 w-5 text-emerald-500" />,
+      icon: <HeartHandshake className="h-5 w-5 text-primary dark:text-cyan-400" />,
       title: 'Radical Engineering Candor',
       desc: 'Code reviews are honest, rigorous, and ego-free. We care deeply about clean code, memory safety, and performance budgets.',
     },
@@ -75,7 +75,7 @@ export default async function CareersPage({ params }: CareersPageProps) {
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight font-heading mb-4">
               Work With Architects, <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">
+              <span className="heading-gradient">
                 Not Bureaucrats.
               </span>
             </h1>

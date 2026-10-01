@@ -102,12 +102,12 @@ export function IndustriesSection() {
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader
           badge="Industries"
-          title="Technology for Every Industry"
+          title="Technology for [Every Industry]"
           description="We do not build generic templates. We deliver specialized software architected for the unique regulatory, operational, and scale requirements of your domain."
         />
 
         {/* Industry Category Navigation Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mt-12 max-w-5xl mx-auto w-full">
+        <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mt-10 sm:mt-12 max-w-5xl mx-auto w-full">
           {industries.map((ind, idx) => {
             const isActive = activeTab === idx;
             return (
@@ -117,7 +117,7 @@ export function IndustriesSection() {
                 className={`flex items-center justify-center px-4 lg:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold tracking-wide transition-all duration-200 cursor-pointer select-none ${
                   isActive
                     ? 'text-white bg-primary shadow-md shadow-primary/25 border border-primary ring-2 ring-primary/20'
-                    : 'text-muted-foreground bg-card/85 dark:bg-slate-900/70 border border-border/70 dark:border-slate-800/80 hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40 active:scale-[0.98]'
+                    : 'text-slate-700 dark:text-slate-300 bg-card/90 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-800 hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40 active:scale-[0.98]'
                 }`}
               >
                 <span>{ind.label}</span>
@@ -127,7 +127,7 @@ export function IndustriesSection() {
         </div>
 
         {/* Main Industry Showcase Feature Card with Large Picture */}
-        <div className="mt-12 max-w-6xl mx-auto bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 rounded-2xl sm:rounded-3xl shadow-card hover:shadow-card-hover overflow-hidden transition-all duration-300">
+        <div className="mt-10 sm:mt-12 max-w-6xl mx-auto bg-card/95 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 rounded-2xl sm:rounded-3xl shadow-card hover:shadow-card-hover overflow-hidden transition-all duration-300">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
@@ -172,17 +172,17 @@ export function IndustriesSection() {
                     {industries[activeTab].title}
                   </h3>
 
-                  <p className="text-xs sm:text-sm font-semibold text-secondary dark:text-indigo-400 mt-2 italic">
+                  <p className="text-xs sm:text-sm font-semibold text-primary dark:text-blue-400 mt-2">
                     {industries[activeTab].subtitle}
                   </p>
 
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-normal mt-3">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal mt-3">
                     {industries[activeTab].details}
                   </p>
                 </div>
 
                 {/* Operational Benchmarks Grid */}
-                <div className="p-4 sm:p-5 rounded-xl bg-slate-50/80 dark:bg-slate-800/50 border border-border/60 dark:border-slate-700/60 flex flex-col gap-3">
+                <div className="p-4 sm:p-5 rounded-xl bg-slate-50/90 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex flex-col gap-3">
                   <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
                     Operational Benchmarks
                   </span>
@@ -192,7 +192,7 @@ export function IndustriesSection() {
                         <span className="text-sm sm:text-base font-semibold text-foreground font-mono">
                           {m.val}
                         </span>
-                        <span className="text-[11px] text-muted-foreground font-medium">
+                        <span className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">
                           {m.label}
                         </span>
                       </div>
@@ -219,7 +219,7 @@ export function IndustriesSection() {
         <div className="mt-12 sm:mt-14 text-center">
           <Link
             href={ROUTES.PUBLIC.INDUSTRIES}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold text-foreground hover:text-primary dark:hover:text-blue-400 bg-card/80 hover:bg-card border border-border/60 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all shadow-xs hover:shadow-md group"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold text-foreground hover:text-primary dark:hover:text-blue-400 bg-card/90 hover:bg-card border border-slate-300 dark:border-slate-800 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all shadow-xs hover:shadow-md group"
           >
             <span>Explore All Industries</span>
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />

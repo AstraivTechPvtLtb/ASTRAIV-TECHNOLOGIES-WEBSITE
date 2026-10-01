@@ -552,7 +552,7 @@ export async function getPublishedCaseStudies(): Promise<PublicPortfolioProject[
     });
 
     if (rows && rows.length > 0) {
-      return rows.map((r: DbPortfolioProject) => {
+      const dbMapped = rows.map((r: DbPortfolioProject) => {
         const defaultMatch = DEFAULT_PORTFOLIO_PROJECTS.find(
           (d) => d.slug === r.slug || d.id === r.id
         ) || DEFAULT_PORTFOLIO_PROJECTS[0];
@@ -588,6 +588,10 @@ export async function getPublishedCaseStudies(): Promise<PublicPortfolioProject[
           measurableResults: (r.measurableResults as unknown as PublicPortfolioProject['measurableResults']) || defaultMatch.measurableResults,
         };
       });
+
+      const existingSlugs = new Set(dbMapped.map((p) => p.slug));
+      const missingDefaults = DEFAULT_PORTFOLIO_PROJECTS.filter((p) => !existingSlugs.has(p.slug));
+      return [...dbMapped, ...missingDefaults];
     }
   } catch (err) {
     handlePrismaError('caseStudies', err, 'Case studies');

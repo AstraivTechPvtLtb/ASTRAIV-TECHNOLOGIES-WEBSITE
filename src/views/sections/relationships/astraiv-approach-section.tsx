@@ -15,33 +15,32 @@ export function AstraivApproachSection({ approach, capabilities, fullDesc }: Ast
 
   return (
     <section className="my-16 sm:my-20">
-      <div className="relative overflow-hidden rounded-3xl bg-slate-900/60 border border-blue-500/20 p-8 sm:p-12 shadow-xl backdrop-blur-md">
+      <div className="relative overflow-hidden rounded-3xl bg-card/90 dark:bg-slate-900/60 border border-border/80 dark:border-blue-500/20 p-8 sm:p-12 shadow-sm dark:shadow-xl backdrop-blur-md transition-colors">
         {/* Subtle cyan/blue glow */}
         <div className="absolute -top-20 -left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10">
 
-
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-[-0.025em] leading-[1.15] mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15] mb-4">
             {approach.title}
           </h2>
 
           {approach.summary && (
-            <p className="text-base sm:text-lg text-slate-300 leading-[1.62] font-normal mb-8 max-w-3xl">
+            <p className="text-base sm:text-lg text-muted-foreground leading-[1.62] font-normal mb-8 max-w-3xl">
               {approach.summary}
             </p>
           )}
 
           {fullDesc && (
-            <p className="text-sm sm:text-base text-slate-400 leading-[1.62] font-normal mb-10 max-w-3xl">
+            <p className="text-sm sm:text-base text-muted-foreground leading-[1.62] font-normal mb-10 max-w-3xl">
               {fullDesc}
             </p>
           )}
 
           {/* 4-Phase Engineering Blueprint */}
           {steps.length > 0 && (
-            <div className="pt-6 border-t border-slate-800">
-              <span className="text-xs font-mono font-medium uppercase tracking-wider text-slate-400 block mb-6">
+            <div className="pt-6 border-t border-border/60 dark:border-slate-800">
+              <span className="text-xs font-mono font-medium uppercase tracking-wider text-muted-foreground block mb-6">
                 Engineering Execution Lifecycle
               </span>
 
@@ -49,19 +48,19 @@ export function AstraivApproachSection({ approach, capabilities, fullDesc }: Ast
                 {steps.map((step, idx) => (
                   <div
                     key={idx}
-                    className="p-5 rounded-2xl bg-slate-950/70 border border-slate-800/80 flex flex-col justify-between"
+                    className="p-5 rounded-2xl bg-slate-50/80 dark:bg-slate-950/70 border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-3">
-                        <span className="text-2xl font-semibold font-heading text-slate-500">
+                        <span className="text-2xl font-semibold font-heading text-muted-foreground/60 dark:text-slate-500">
                           {step.step}
                         </span>
-                        <ShieldCheck className="h-4 w-4 text-blue-400" />
+                        <ShieldCheck className="h-4 w-4 text-primary dark:text-blue-400" />
                       </div>
-                      <h3 className="text-sm font-semibold text-white mb-2">
+                      <h3 className="text-sm font-semibold text-foreground mb-2">
                         {step.title}
                       </h3>
-                      <p className="text-xs text-slate-400 leading-relaxed">
+                      <p className="text-xs text-muted-foreground leading-relaxed">
                         {step.description}
                       </p>
                     </div>
@@ -73,8 +72,8 @@ export function AstraivApproachSection({ approach, capabilities, fullDesc }: Ast
 
           {/* Specialized Capabilities Grid */}
           {validCapabilities.length > 0 && (
-            <div className="mt-10 pt-8 border-t border-slate-800">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 block mb-6">
+            <div className="mt-10 pt-8 border-t border-border/60 dark:border-slate-800">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-muted-foreground block mb-6">
                 Specialized Architectural Capabilities
               </span>
 
@@ -82,13 +81,13 @@ export function AstraivApproachSection({ approach, capabilities, fullDesc }: Ast
                 {validCapabilities.map((cap, idx) => (
                   <div
                     key={idx}
-                    className="p-5 rounded-2xl bg-slate-950/50 border border-slate-800/70"
+                    className="p-5 rounded-2xl bg-slate-50/80 dark:bg-slate-950/50 border border-slate-200/80 dark:border-slate-800/70"
                   >
-                    <h4 className="text-sm font-bold text-white mb-2 flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-blue-400 shrink-0" />
+                    <h4 className="text-sm font-bold text-foreground mb-2 flex items-center gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-primary dark:text-blue-400 shrink-0" />
                       <span>{cap.title}</span>
                     </h4>
-                    <p className="text-xs text-slate-400 leading-relaxed pl-6">
+                    <p className="text-xs text-muted-foreground leading-relaxed pl-6">
                       {cap.description}
                     </p>
                   </div>

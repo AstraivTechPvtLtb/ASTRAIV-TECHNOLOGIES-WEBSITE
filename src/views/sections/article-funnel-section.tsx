@@ -62,7 +62,7 @@ export function ArticleFunnelSection({ funnel, articleTitle }: ArticleFunnelSect
                   <div className="space-y-1.5 mb-6">
                     {primarySolution.features.slice(0, 2).map((feat, idx) => (
                       <div key={idx} className="flex items-center gap-2 text-[11px] text-foreground/80 font-semibold">
-                        <CheckCircle2 className="h-3 w-3 text-emerald-500 shrink-0" />
+                        <CheckCircle2 className="h-3 w-3 text-primary dark:text-cyan-400 shrink-0" />
                         <span className="truncate">{feat}</span>
                       </div>
                     ))}
@@ -85,11 +85,11 @@ export function ArticleFunnelSection({ funnel, articleTitle }: ArticleFunnelSect
             <div className="flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-background/80 dark:bg-slate-950/70 border border-border/70 dark:border-slate-800/90 hover:border-primary/40 dark:hover:border-accent/40 shadow-xs hover:shadow-md transition-all group">
               <div>
                 <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className="text-[10.5px] font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
+                  <span className="text-[10.5px] font-semibold uppercase tracking-widest text-primary dark:text-cyan-400 flex items-center gap-1.5">
                     <Cpu className="h-3.5 w-3.5" />
                     <span>2. Engineering Discipline</span>
                   </span>
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary dark:text-cyan-400 border border-primary/20">
                     Senior Squad
                   </span>
                 </div>
@@ -106,7 +106,7 @@ export function ArticleFunnelSection({ funnel, articleTitle }: ArticleFunnelSect
                   <div className="space-y-1.5 mb-6">
                     {primaryService.features.slice(0, 2).map((feat, idx) => (
                       <div key={idx} className="flex items-center gap-2 text-[11px] text-foreground/80 font-semibold">
-                        <CheckCircle2 className="h-3 w-3 text-emerald-500 shrink-0" />
+                        <CheckCircle2 className="h-3 w-3 text-primary dark:text-cyan-400 shrink-0" />
                         <span className="truncate">{feat}</span>
                       </div>
                     ))}
@@ -129,12 +129,12 @@ export function ArticleFunnelSection({ funnel, articleTitle }: ArticleFunnelSect
             <div className="flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-background/80 dark:bg-slate-950/70 border border-border/70 dark:border-slate-800/90 hover:border-primary/40 dark:hover:border-accent/40 shadow-xs hover:shadow-md transition-all group">
               <div>
                 <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className="text-[10.5px] font-semibold uppercase tracking-widest text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+                  <span className="text-[10.5px] font-semibold uppercase tracking-widest text-primary dark:text-cyan-400 flex items-center gap-1.5">
                     <BarChart3 className="h-3.5 w-3.5" />
                     <span>3. Production Proof</span>
                   </span>
                   {primaryCaseStudy.metric && (
-                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary dark:text-cyan-400 border border-primary/20">
                       {primaryCaseStudy.metric}
                     </span>
                   )}
