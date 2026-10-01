@@ -75,41 +75,46 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center p-4 sm:p-6 bg-background text-foreground selection:bg-primary/20 overflow-hidden transition-colors">
-      <div className="absolute inset-0 bg-radial-[circle_at_center,rgba(37,99,235,0.06),transparent_70%] dark:bg-radial-[circle_at_center,transparent_30%,rgba(15,23,42,0.9)] pointer-events-none" />
+    <div className="relative min-h-screen flex items-center justify-center p-4 sm:p-6 bg-transparent text-foreground selection:bg-primary/20 overflow-hidden transition-colors">
+      {/* Dynamic Ambient Background Glows */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-primary/10 dark:bg-blue-600/15 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute bottom-10 right-10 w-[350px] h-[350px] bg-blue-600/5 dark:bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
 
       {/* Signup form card */}
       <motion.div
-        initial={{ opacity: 0, y: 30, scale: 0.98 }}
+        initial={{ opacity: 0, y: 25, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10 w-full max-w-md my-8"
       >
-        <div className="bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl rounded-[20px] shadow-card dark:shadow-[0_20px_50px_rgba(9,11,18,0.6)] border border-border/80 dark:border-slate-800/80 p-6 sm:p-8 transition-colors">
+        <div className="relative rounded-3xl bg-white/85 dark:bg-[#0D1320]/85 border border-slate-200/90 dark:border-white/10 backdrop-blur-2xl p-7 sm:p-10 shadow-2xl shadow-slate-900/10 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] transition-all overflow-hidden">
+          {/* Subtle top edge gradient highlight */}
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 dark:via-blue-400/40 to-transparent pointer-events-none" />
+
           {/* Header branding */}
           <div className="flex flex-col items-center mb-6 text-center">
             <Link href="/" className="flex items-center gap-2.5 group mb-4">
               <Image
                 src="/logo-icon.jpg"
                 alt="Astraiv Technologies Logo"
-                width={36}
-                height={36}
+                width={38}
+                height={38}
                 priority
-                className="rounded-full object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/15 group-hover:ring-primary/40"
+                className="rounded-full object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/20 dark:ring-blue-400/30 group-hover:ring-primary/50 shadow-md"
               />
               <div className="flex flex-col items-start leading-tight">
-                <span className="font-heading font-extrabold text-[19px] tracking-wider bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent pb-0.5">
+                <span className="font-heading font-extrabold text-[20px] tracking-wider bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent pb-0.5">
                   ASTRAIV
                 </span>
-                <span className="text-[7.5px] uppercase tracking-[0.28em] font-black text-black dark:text-white dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.85)]">
+                <span className="text-[8px] uppercase tracking-[0.28em] font-black text-black dark:text-white dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.85)]">
                   TECHNOLOGIES
                 </span>
               </div>
             </Link>
-            <h1 className="font-heading font-extrabold text-2xl tracking-tight text-foreground mb-1.5">
+            <h1 className="font-heading font-semibold text-2xl sm:text-3xl tracking-[-0.025em] text-foreground mb-1.5">
               Create an Account
             </h1>
-            <p className="text-xs text-muted-foreground font-medium">
+            <p className="text-xs sm:text-sm text-muted-foreground font-normal leading-relaxed">
               Join Astraiv and deploy your next-gen code
             </p>
           </div>
@@ -122,7 +127,7 @@ export default function SignupPage() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="flex items-start gap-2.5 bg-destructive/10 border border-destructive/20 text-destructive text-xs rounded-[12px] p-3"
+                  className="flex items-start gap-2.5 bg-destructive/10 border border-destructive/20 text-destructive text-xs rounded-xl p-3"
                 >
                   <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
                   <span>{errorMsg}</span>
@@ -134,7 +139,7 @@ export default function SignupPage() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="flex items-start gap-2.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 dark:text-emerald-400 text-xs rounded-[12px] p-3"
+                  className="flex items-start gap-2.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 dark:text-emerald-400 text-xs rounded-xl p-3"
                 >
                   <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5 animate-pulse" />
                   <span>{successMsg}</span>
@@ -144,7 +149,7 @@ export default function SignupPage() {
 
             {/* Name Input */}
             <div className="space-y-1.5">
-              <label htmlFor="name" className="text-[10px] font-bold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
+              <label htmlFor="name" className="text-xs font-semibold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
                 Full Name
               </label>
               <div className="relative">
@@ -157,7 +162,7 @@ export default function SignupPage() {
                   placeholder="John Doe"
                   autoComplete="name"
                   className={cn(
-                    'pl-10.5 h-10.5',
+                    'pl-10.5 h-10.5 bg-white/70 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 text-foreground placeholder:text-muted-foreground/60 focus:bg-white dark:focus:bg-slate-900 focus:border-primary dark:focus:border-blue-400 focus:ring-2 focus:ring-primary/20 dark:focus:ring-blue-400/20 rounded-xl transition-all',
                     errors.name && 'border-destructive focus-visible:ring-destructive/30'
                   )}
                   {...register('name')}
@@ -173,7 +178,7 @@ export default function SignupPage() {
 
             {/* Email Input */}
             <div className="space-y-1.5">
-              <label htmlFor="email" className="text-[10px] font-bold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
+              <label htmlFor="email" className="text-xs font-semibold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
                 {t('email')}
               </label>
               <div className="relative">
@@ -186,7 +191,7 @@ export default function SignupPage() {
                   placeholder="name@company.com"
                   autoComplete="email"
                   className={cn(
-                    'pl-10.5 h-10.5',
+                    'pl-10.5 h-10.5 bg-white/70 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 text-foreground placeholder:text-muted-foreground/60 focus:bg-white dark:focus:bg-slate-900 focus:border-primary dark:focus:border-blue-400 focus:ring-2 focus:ring-primary/20 dark:focus:ring-blue-400/20 rounded-xl transition-all',
                     errors.email && 'border-destructive focus-visible:ring-destructive/30'
                   )}
                   {...register('email')}
@@ -202,7 +207,7 @@ export default function SignupPage() {
 
             {/* Password Input */}
             <div className="space-y-1.5">
-              <label htmlFor="password" className="text-[10px] font-bold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
+              <label htmlFor="password" className="text-xs font-semibold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
                 {t('password')}
               </label>
               <div className="relative">
@@ -215,7 +220,7 @@ export default function SignupPage() {
                   placeholder="••••••••"
                   autoComplete="new-password"
                   className={cn(
-                    'pl-10.5 pr-10.5 h-10.5',
+                    'pl-10.5 pr-10.5 h-10.5 bg-white/70 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 text-foreground placeholder:text-muted-foreground/60 focus:bg-white dark:focus:bg-slate-900 focus:border-primary dark:focus:border-blue-400 focus:ring-2 focus:ring-primary/20 dark:focus:ring-blue-400/20 rounded-xl transition-all',
                     errors.password && 'border-destructive focus-visible:ring-destructive/30'
                   )}
                   {...register('password')}
@@ -239,7 +244,7 @@ export default function SignupPage() {
 
             {/* Confirm Password Input */}
             <div className="space-y-1.5">
-              <label htmlFor="confirmPassword" className="text-[10px] font-bold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
+              <label htmlFor="confirmPassword" className="text-xs font-semibold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
                 Confirm Password
               </label>
               <div className="relative">
@@ -252,7 +257,7 @@ export default function SignupPage() {
                   placeholder="••••••••"
                   autoComplete="new-password"
                   className={cn(
-                    'pl-10.5 pr-10.5 h-10.5',
+                    'pl-10.5 pr-10.5 h-10.5 bg-white/70 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 text-foreground placeholder:text-muted-foreground/60 focus:bg-white dark:focus:bg-slate-900 focus:border-primary dark:focus:border-blue-400 focus:ring-2 focus:ring-primary/20 dark:focus:ring-blue-400/20 rounded-xl transition-all',
                     errors.confirmPassword && 'border-destructive focus-visible:ring-destructive/30'
                   )}
                   {...register('confirmPassword')}
@@ -274,20 +279,20 @@ export default function SignupPage() {
               )}
             </div>
 
-            {/* SignUp Trigger */}
+            {/* SignUp Trigger with Astraiv Brand Gradient */}
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full h-11 bg-gradient-to-r from-primary to-secondary hover:from-primary/95 hover:to-secondary/95 text-white font-bold tracking-wide rounded-[12px] flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-primary/20 hover:scale-[1.01] transition-all mt-6"
+              className="w-full h-11.5 bg-gradient-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] hover:from-[#082d6c] hover:via-[#1e40af] hover:to-[#1d4ed8] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] dark:hover:from-[#1d4ed8] dark:hover:via-[#2563EB] dark:hover:to-[#3b82f6] text-white font-heading font-semibold text-sm tracking-wide rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-primary/20 dark:shadow-blue-500/20 hover:shadow-primary/35 hover:scale-[1.01] active:scale-[0.99] transition-all mt-6"
             >
               {isLoading ? (
                 <>
                   <Loader2 className="h-4.5 w-4.5 animate-spin" />
-                  Registering Account...
+                  <span>Registering Account...</span>
                 </>
               ) : (
                 <>
-                  {t('signUp')}
+                  <span>{t('signUp')}</span>
                   <ArrowRight className="h-4 w-4 transition-transform group-hover/button:translate-x-1" />
                 </>
               )}
@@ -295,11 +300,11 @@ export default function SignupPage() {
           </form>
 
           {/* Login link alternate */}
-          <div className="mt-6 pt-5 border-t border-border/60 dark:border-slate-800/60 text-center text-sm font-medium">
+          <div className="mt-6 pt-5 border-t border-slate-200/80 dark:border-white/10 text-center text-sm font-medium">
             <span className="text-muted-foreground">{t('alreadyHaveAccount').split('?')[0]}? </span>
             <Link
               href="/auth/login"
-              className="text-primary dark:text-blue-400 font-bold hover:underline transition-colors ml-1"
+              className="text-primary dark:text-blue-400 font-semibold hover:underline transition-colors ml-1"
             >
               {t('signIn')}
             </Link>
