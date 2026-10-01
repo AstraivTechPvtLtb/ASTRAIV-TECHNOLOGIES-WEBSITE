@@ -148,13 +148,13 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
                   <Clock className="h-3.5 w-3.5" />
                   {job.type}
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary dark:text-cyan-400 border border-primary/20">
                   <MapPin className="h-3.5 w-3.5" />
                   {job.location}
                 </span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-foreground">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading heading-gradient">
                 {job.title}
               </h1>
 
@@ -206,7 +206,7 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
               {job.responsibilities && job.responsibilities.length > 0 && (
                 <section className="space-y-4">
                   <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground flex items-center gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-emerald-500" />
+                    <CheckCircle2 className="h-5 w-5 text-primary dark:text-cyan-400" />
                     <span>Key Architectural Responsibilities</span>
                   </h2>
                   <div className="space-y-3">
@@ -269,7 +269,7 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
               {job.niceToHave && job.niceToHave.length > 0 && (
                 <section className="space-y-4">
                   <h2 className="text-lg sm:text-xl font-bold tracking-tight text-foreground flex items-center gap-2">
-                    <Sparkles className="h-4 w-4 text-amber-500" />
+                    <Sparkles className="h-4 w-4 text-primary dark:text-cyan-400" />
                     <span>Bonus / Nice-to-Have Background</span>
                   </h2>
                   <ul className="space-y-2.5 text-xs sm:text-sm text-muted-foreground list-disc list-inside">
@@ -295,7 +295,7 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
                         key={i}
                         className="p-4 rounded-xl bg-card/70 dark:bg-slate-900/60 border border-border/60 dark:border-slate-800/80 flex items-start gap-3"
                       >
-                        <ShieldCheck className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+                        <ShieldCheck className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0 mt-0.5" />
                         <span className="text-xs text-foreground/90 font-medium leading-relaxed">
                           {benefit}
                         </span>
@@ -398,15 +398,15 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
                 <h4 className="text-sm font-bold text-foreground">Why Engineers Love Building Here</h4>
                 <ul className="space-y-3 text-xs text-muted-foreground">
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-3.5 w-3.5 text-primary dark:text-cyan-400 shrink-0 mt-0.5" />
                     <span>No pointless meetings. We communicate via written RFCs and async specs.</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-3.5 w-3.5 text-primary dark:text-cyan-400 shrink-0 mt-0.5" />
                     <span>Work from anywhere in the world on modern, strictly typed tech stacks.</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-3.5 w-3.5 text-primary dark:text-cyan-400 shrink-0 mt-0.5" />
                     <span>Rapid two-week sprint cadences with zero red tape and direct founder access.</span>
                   </li>
                 </ul>

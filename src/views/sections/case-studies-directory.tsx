@@ -172,7 +172,7 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
             {hasActiveFilters && (
               <button
                 onClick={handleResetFilters}
-                className="ml-auto text-xs font-bold text-rose-500 hover:text-rose-600 dark:hover:text-rose-400 flex items-center gap-1 px-2.5 py-1 rounded-md hover:bg-rose-500/10 transition-colors cursor-pointer"
+                className="ml-auto text-xs font-bold text-primary hover:text-primary/80 flex items-center gap-1 px-2.5 py-1 rounded-md hover:bg-primary/10 transition-colors cursor-pointer"
               >
                 <X className="h-3.5 w-3.5" />
                 <span>Reset Filters</span>
@@ -188,7 +188,7 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
           Showing <span className="text-foreground font-bold">{filteredProjects.length}</span> of {initialProjects.length} case studies & blueprints
         </p>
 
-        <div className="flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400">
+        <div className="flex items-center gap-2 text-xs font-bold text-primary dark:text-cyan-400">
           <ShieldCheck className="h-4 w-4" />
           <span>Strictly Classified & Verified</span>
         </div>
@@ -214,12 +214,10 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
           {filteredProjects.map((project) => {
             const projectTypeColor =
               project.projectType === 'Client Project'
-                ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                ? 'bg-blue-500/10 text-primary dark:text-cyan-300 border-blue-500/30'
                 : project.projectType === 'Internal Project'
-                ? 'bg-purple-500/10 text-purple-400 border-purple-500/30'
-                : project.projectType === 'Concept Project'
-                ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'
-                : 'bg-blue-500/10 text-blue-400 border-blue-500/30';
+                ? 'bg-slate-500/10 text-slate-700 dark:text-slate-300 border-slate-500/30'
+                : 'bg-cyan-500/10 text-blue-600 dark:text-cyan-400 border-cyan-500/30';
 
             return (
               <motion.article
@@ -278,8 +276,8 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
                     </p>
 
                     {/* Challenge snippet */}
-                    <div className="p-3 rounded-xl bg-slate-50/80 dark:bg-slate-950/60 border border-border/60 dark:border-slate-800/80 mb-4">
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-amber-600 dark:text-amber-400 block mb-1">
+                    <div className="p-3 rounded-xl bg-slate-100/70 dark:bg-slate-950/60 border border-border/60 dark:border-slate-800/80 mb-4">
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 block mb-1">
                         Core Challenge
                       </span>
                       <p className="text-xs text-muted-foreground line-clamp-2 font-normal">
@@ -307,8 +305,8 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
 
                   {/* Bottom Action Footer */}
                   <div className="pt-4 border-t border-border/50 dark:border-slate-800 flex items-center justify-between">
-                    <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
-                      <CheckCircle2 className="h-3.5 w-3.5" />
+                    <span className="text-xs font-semibold text-primary dark:text-cyan-300 flex items-center gap-1.5">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-primary dark:text-cyan-400" />
                       <span>{project.credibilityBadge}</span>
                     </span>
 

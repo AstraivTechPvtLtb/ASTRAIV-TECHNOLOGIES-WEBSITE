@@ -42,7 +42,7 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
       description: 'Direct hands-on experience building autonomous agents, multi-tenant RAG systems, and enterprise LLM pipelines.',
     },
     {
-      icon: <ShieldCheck className="h-5 w-5 text-emerald-500" />,
+      icon: <ShieldCheck className="h-5 w-5 text-sky-600 dark:text-sky-400" />,
       title: 'Competitive Compensation',
       description: 'Top-tier global market rates, milestone sprint bonuses, and accelerated career growth into staff architectural roles.',
     },
@@ -76,7 +76,7 @@ export function CareersSection({ initialRoles }: CareersSectionProps) {
         {/* Section Header */}
         <SectionHeader
           badge="Careers & Culture"
-          title="Build the Future with Elite Engineers"
+          title="Build the Future with [Elite Engineers]"
           description="Join our team of elite full-stack engineers and architects solving high-stakes enterprise challenges."
         />
 

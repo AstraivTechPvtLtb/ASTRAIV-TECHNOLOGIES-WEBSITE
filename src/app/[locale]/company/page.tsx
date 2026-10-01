@@ -71,7 +71,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
         'Transparent two-week sprint cadences, automated CI/CD checks, and direct founder-level communication remove red tape and accelerate time-to-market.',
     },
     {
-      icon: <Globe2 className="h-6 w-6 text-emerald-500" />,
+      icon: <Globe2 className="h-6 w-6 text-primary dark:text-cyan-400" />,
       title: 'Global Mission',
       description:
         'Partnering with forward-thinking enterprises and ambitious startups worldwide to deploy battle-tested web, cloud, and autonomous AI infrastructure.',
@@ -125,28 +125,28 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
         'Enterprise-level data protection, cryptographic key rotation, and strict zero-trust operational security applied across every client repository.',
     },
     {
-      icon: <ShieldCheck className="h-6 w-6 text-emerald-500" />,
+      icon: <ShieldCheck className="h-6 w-6 text-primary dark:text-cyan-400" />,
       badge: 'Compliance Standard',
       title: 'SOC-2 Type II Compliance Ready',
       description:
         'Audited data processing integrity, strict role-based access governance, and comprehensive privacy safeguards for high-stakes enterprise data.',
     },
     {
-      icon: <Sparkles className="h-6 w-6 text-amber-500" />,
+      icon: <Sparkles className="h-6 w-6 text-primary dark:text-cyan-400" />,
       badge: 'Cloud Partner',
       title: 'AWS & Cloudflare Partner Architecture',
       description:
         'Certified cloud solutions architects engineering fault-tolerant serverless clusters, global edge caching, and scalable object stores.',
     },
     {
-      icon: <CheckCircle2 className="h-6 w-6 text-cyan-500" />,
+      icon: <CheckCircle2 className="h-6 w-6 text-primary dark:text-cyan-400" />,
       badge: 'Reliability Honors',
       title: '99.99% On-Time SLA Delivery',
       description:
         'Predictable two-week sprint cadences, transparent milestone burndown, and SLA commitments backed by contractual performance guarantees.',
     },
     {
-      icon: <Award className="h-6 w-6 text-purple-500" />,
+      icon: <Award className="h-6 w-6 text-primary dark:text-cyan-400" />,
       badge: 'Industry Recognition',
       title: 'Top Rated B2B Software Engineering',
       description:
@@ -202,7 +202,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading mb-4 text-foreground">
               Engineering Intelligent Systems <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">
+              <span className="heading-gradient">
                 With Architectural Rigor.
               </span>
             </h1>
@@ -285,7 +285,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
                 className="p-5 rounded-2xl bg-card/60 dark:bg-slate-900/50 border border-border/60 hover:border-primary/50 transition-all flex items-center justify-between group"
               >
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-500 block mb-0.5">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-primary dark:text-cyan-400 block mb-0.5">
                     Production Case Studies
                   </span>
                   <h4 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">
@@ -303,7 +303,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
                 className="p-5 rounded-2xl bg-card/60 dark:bg-slate-900/50 border border-border/60 hover:border-primary/50 transition-all flex items-center justify-between group"
               >
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-amber-500 block mb-0.5">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-primary dark:text-cyan-400 block mb-0.5">
                     Verified Endorsements
                   </span>
                   <h4 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">
@@ -354,7 +354,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
                       </p>
                     </div>
                     <div className="pt-3 border-t border-border/40 text-[11px] font-semibold text-primary/90 flex items-center gap-1.5">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                      <CheckCircle2 className="h-3.5 w-3.5 text-primary dark:text-cyan-400 shrink-0" />
                       <span>{phase.deliverable}</span>
                     </div>
                   </div>
@@ -373,7 +373,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
             <div className="text-center max-w-3xl mx-auto mb-16">
 
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading mb-4">
-                Rewards, Certifications & Accolades
+                <span className="heading-gradient">Rewards, Certifications & Accolades</span>
               </h2>
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-medium">
                 Our commitment to architectural precision, enterprise data protection, and continuous velocity is validated by rigorous global compliance benchmarks.
@@ -405,7 +405,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
 
                   <div className="pt-4 mt-6 border-t border-border/40 dark:border-slate-800/80 flex items-center justify-between text-xs font-semibold text-slate-500 dark:text-slate-400">
                     <span>Verified Audit Status</span>
-                    <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
+                    <span className="text-primary dark:text-cyan-400 font-bold flex items-center gap-1">
                       <CheckCircle2 className="h-3.5 w-3.5" /> Compliant
                     </span>
                   </div>
@@ -438,7 +438,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
             <div className="text-center max-w-3xl mx-auto mb-16">
 
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading mb-4">
-                Flexible Engagement Models
+                <span className="heading-gradient">Flexible Engagement Models</span>
               </h2>
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-medium">
                 Enterprise software engineering and AI implementations depend heavily on architectural scope, legacy constraints, and velocity goals. We provide deterministic engagement structures built for capital efficiency and contractual transparency.
@@ -457,15 +457,15 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
                   </p>
                   <ul className="space-y-2.5 text-xs text-muted-foreground mb-8">
                     <li className="flex items-center gap-2 font-medium">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       Guaranteed scope & deadline
                     </li>
                     <li className="flex items-center gap-2 font-medium">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       Milestone acceptance gates
                     </li>
                     <li className="flex items-center gap-2 font-medium">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       30-day defect warranty
                     </li>
                   </ul>
@@ -489,15 +489,15 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
                   </p>
                   <ul className="space-y-2.5 text-xs text-muted-foreground mb-8">
                     <li className="flex items-center gap-2 font-medium">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       Two-week sprint cadences
                     </li>
                     <li className="flex items-center gap-2 font-medium">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       Dynamic backlog reprioritization
                     </li>
                     <li className="flex items-center gap-2 font-medium">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       Direct Slack/Teams integration
                     </li>
                   </ul>
@@ -509,7 +509,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
 
               <div className="p-8 rounded-2xl bg-card/90 dark:bg-slate-900/80 border border-border/70 dark:border-slate-800/80 shadow-xs flex flex-col justify-between hover:border-primary/40 transition-colors">
                 <div>
-                  <div className="p-3 rounded-xl bg-purple-500/10 text-purple-500 w-fit mb-5">
+                  <div className="p-3 rounded-xl bg-primary/10 text-primary w-fit mb-5">
                     <Users className="h-6 w-6" />
                   </div>
                   <h3 className="text-xl font-bold text-foreground mb-2">Dedicated Squad</h3>
@@ -518,15 +518,15 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
                   </p>
                   <ul className="space-y-2.5 text-xs text-muted-foreground mb-8">
                     <li className="flex items-center gap-2 font-medium">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       Dedicated senior engineering pod
                     </li>
                     <li className="flex items-center gap-2 font-medium">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       Enterprise SLA & SOC-2 compliance
                     </li>
                     <li className="flex items-center gap-2 font-medium">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       Full IP & architectural ownership
                     </li>
                   </ul>
@@ -562,7 +562,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
 
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground font-heading">
                   Work With Senior Architects, <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">
+                  <span className="heading-gradient">
                     Not Bureaucrats.
                   </span>
                 </h2>
@@ -573,15 +573,15 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
 
                 <div className="flex flex-wrap gap-4 pt-2">
                   <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                    <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                     <span>100% Remote Global Autonomy</span>
                   </div>
                   <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                    <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                     <span>Async Deep Work Culture</span>
                   </div>
                   <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                    <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                     <span>Top-Tier Global Pay & Equity</span>
                   </div>
                 </div>

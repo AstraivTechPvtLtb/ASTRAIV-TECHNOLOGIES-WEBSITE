@@ -99,21 +99,21 @@ export default async function CaseStudyDetailPage({ params }: CaseStudyDetailPag
 
   const badgeIconNode =
     project.badgeIcon === 'Zap' ? (
-      <Zap className="h-4 w-4 text-blue-400" />
+      <Zap className="h-4 w-4 text-blue-500 dark:text-blue-400" />
     ) : project.badgeIcon === 'Cpu' ? (
-      <Cpu className="h-4 w-4 text-purple-400" />
+      <Cpu className="h-4 w-4 text-blue-600 dark:text-cyan-400" />
     ) : (
-      <ShieldCheck className="h-4 w-4 text-emerald-400" />
+      <ShieldCheck className="h-4 w-4 text-primary dark:text-cyan-400" />
     );
 
   const projectTypeColor =
     project.projectType === 'Client Project'
-      ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+      ? 'bg-blue-500/10 text-primary dark:text-cyan-300 border-blue-500/30'
       : project.projectType === 'Internal Project'
-      ? 'bg-purple-500/15 text-purple-400 border-purple-500/30'
+      ? 'bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700'
       : project.projectType === 'Concept Project'
-      ? 'bg-amber-500/15 text-amber-400 border-amber-500/30'
-      : 'bg-blue-500/15 text-blue-400 border-blue-500/30';
+      ? 'bg-blue-950/20 text-blue-600 dark:text-blue-400 border-blue-500/20'
+      : 'bg-primary/10 text-primary dark:text-cyan-300 border-primary/30';
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -241,7 +241,7 @@ export default async function CaseStudyDetailPage({ params }: CaseStudyDetailPag
 
                   <span className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold border backdrop-blur-md ${
                     project.verifiedOutcome
-                      ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300'
+                      ? 'bg-primary/10 border-primary/30 text-primary dark:text-cyan-300'
                       : 'bg-slate-800/80 border-slate-700 text-slate-300'
                   }`}>
                     <CheckCircle2 className="h-3.5 w-3.5" />
@@ -272,8 +272,8 @@ export default async function CaseStudyDetailPage({ params }: CaseStudyDetailPag
 
               {/* Strict Credibility Clarification Note (For Internal, Concept, Reference) */}
               {project.credibilityNote && (
-                <div className="mt-4 p-4 rounded-2xl bg-amber-500/10 dark:bg-amber-950/30 border border-amber-500/30 flex items-start gap-3 text-amber-800 dark:text-amber-200 text-xs sm:text-sm leading-relaxed">
-                  <AlertCircle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+                <div className="mt-4 p-4 rounded-2xl bg-slate-100/90 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 flex items-start gap-3 text-slate-700 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">
+                  <AlertCircle className="h-5 w-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
                   <div>
                     <span className="font-bold block mb-0.5">Credibility & Benchmark Notice:</span>
                     <span>{project.credibilityNote}</span>
@@ -318,7 +318,7 @@ export default async function CaseStudyDetailPage({ params }: CaseStudyDetailPag
           <section id="challenge" className="mb-12 text-left">
             <div className="p-7 sm:p-8 rounded-3xl bg-card/90 dark:bg-slate-900/80 border border-border/70 dark:border-slate-800 shadow-sm">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs font-mono font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">
+                <span className="text-xs font-mono font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400">
                   04 // THE CORE CHALLENGE
                 </span>
               </div>
@@ -339,9 +339,9 @@ export default async function CaseStudyDetailPage({ params }: CaseStudyDetailPag
                     {project.challengeDetails.map((detail, idx) => (
                       <div
                         key={idx}
-                        className="p-3.5 rounded-xl bg-amber-500/5 dark:bg-amber-500/5 border border-amber-500/20 text-xs leading-relaxed text-muted-foreground flex items-start gap-2.5"
+                        className="p-3.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 text-xs leading-relaxed text-muted-foreground flex items-start gap-2.5"
                       >
-                        <span className="h-1.5 w-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
+                        <span className="h-1.5 w-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
                         <span>{detail}</span>
                       </div>
                     ))}
@@ -579,8 +579,8 @@ export default async function CaseStudyDetailPage({ params }: CaseStudyDetailPag
               <div className="flex items-center justify-between gap-4 mb-6">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <TrendingUp className="h-4 w-4 text-emerald-500" />
-                    <span className="text-xs font-mono font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
+                    <TrendingUp className="h-4 w-4 text-primary dark:text-cyan-400" />
+                    <span className="text-xs font-mono font-bold uppercase tracking-widest text-primary dark:text-cyan-400">
                       10 // MEASURABLE OUTCOMES
                     </span>
                   </div>
@@ -589,8 +589,8 @@ export default async function CaseStudyDetailPage({ params }: CaseStudyDetailPag
                   </h2>
                 </div>
 
-                <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
-                  <CheckCircle2 className="h-4 w-4" />
+                <div className="flex items-center gap-1.5 text-xs font-bold text-primary dark:text-cyan-300 bg-primary/10 px-3 py-1 rounded-full border border-primary/20">
+                  <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400" />
                   <span>{project.credibilityBadge}</span>
                 </div>
               </div>
@@ -613,7 +613,7 @@ export default async function CaseStudyDetailPage({ params }: CaseStudyDetailPag
                           {result.description}
                         </p>
                       </div>
-                      <div className="mt-4 pt-2 border-t border-border/40 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+                      <div className="mt-4 pt-2 border-t border-border/40 text-[10px] font-bold text-primary dark:text-cyan-400">
                         {result.isVerified ? '✓ Production Verified' : 'Simulated Benchmark'}
                       </div>
                     </div>
@@ -667,8 +667,8 @@ export default async function CaseStudyDetailPage({ params }: CaseStudyDetailPag
                 <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-primary/10 via-card to-card dark:from-blue-600/15 dark:via-slate-900 dark:to-slate-900 border border-primary/20 dark:border-blue-500/20 shadow-lg relative">
                   <div className="flex items-center justify-between mb-4">
                     <Quote className="h-8 w-8 text-primary/40" />
-                    <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-                      <CheckCircle2 className="h-3.5 w-3.5" />
+                    <span className="text-xs font-bold text-primary dark:text-cyan-300 flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-primary dark:text-cyan-400" />
                       <span>Verified Client Endorsement</span>
                     </span>
                   </div>
@@ -835,8 +835,8 @@ export default async function CaseStudyDetailPage({ params }: CaseStudyDetailPag
               <div className="p-6 sm:p-7 rounded-3xl bg-card/80 dark:bg-slate-900/70 border border-border/60 dark:border-slate-800 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <Building2 className="h-4 w-4 text-emerald-500" />
-                    <span className="text-xs font-mono font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
+                    <Building2 className="h-4 w-4 text-primary dark:text-cyan-400" />
+                    <span className="text-xs font-mono font-bold uppercase tracking-widest text-primary dark:text-cyan-400">
                       14 // RELATED INDUSTRY VERTICAL
                     </span>
                   </div>

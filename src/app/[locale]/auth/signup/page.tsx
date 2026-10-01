@@ -74,8 +74,8 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center p-6 bg-slate-950 overflow-hidden">
-      <div className="absolute inset-0 bg-radial-[circle_at_center,transparent_30%,rgba(15,23,42,0.9)] pointer-events-none" />
+    <div className="relative min-h-screen flex items-center justify-center p-4 sm:p-6 bg-background text-foreground selection:bg-primary/20 overflow-hidden transition-colors">
+      <div className="absolute inset-0 bg-radial-[circle_at_center,rgba(37,99,235,0.06),transparent_70%] dark:bg-radial-[circle_at_center,transparent_30%,rgba(15,23,42,0.9)] pointer-events-none" />
 
       {/* Signup form card */}
       <motion.div
@@ -84,7 +84,7 @@ export default function SignupPage() {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10 w-full max-w-md my-8"
       >
-        <div className="glass-dark rounded-[20px] shadow-[0_20px_50px_rgba(9,11,18,0.6)] border border-slate-800/80 p-8 backdrop-blur-3xl">
+        <div className="bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl rounded-[20px] shadow-card dark:shadow-[0_20px_50px_rgba(9,11,18,0.6)] border border-border/80 dark:border-slate-800/80 p-6 sm:p-8 transition-colors">
           {/* Header branding */}
           <div className="flex flex-col items-center mb-6 text-center">
             <Link href="/" className="flex items-center gap-2 group mb-4">
@@ -93,13 +93,13 @@ export default function SignupPage() {
               </div>
               <div className="flex flex-col items-start leading-tight">
                 <span className="font-heading font-extrabold text-lg tracking-wider bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent pb-0.5">ASTRAIV</span>
-                <span className="text-[7px] uppercase tracking-[0.28em] font-black text-white/90">TECHNOLOGIES</span>
+                <span className="text-[7px] uppercase tracking-[0.28em] font-black text-foreground/80">TECHNOLOGIES</span>
               </div>
             </Link>
-            <h1 className="font-heading font-extrabold text-2xl tracking-tight text-white mb-1.5">
+            <h1 className="font-heading font-extrabold text-2xl tracking-tight text-foreground mb-1.5">
               Create an Account
             </h1>
-            <p className="text-xs text-muted-foreground/80 font-medium">
+            <p className="text-xs text-muted-foreground font-medium">
               Join Astraiv and deploy your next-gen code
             </p>
           </div>
@@ -124,7 +124,7 @@ export default function SignupPage() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="flex items-start gap-2.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs rounded-[12px] p-3"
+                  className="flex items-start gap-2.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 dark:text-emerald-400 text-xs rounded-[12px] p-3"
                 >
                   <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5 animate-pulse" />
                   <span>{successMsg}</span>
@@ -134,11 +134,11 @@ export default function SignupPage() {
 
             {/* Name Input */}
             <div className="space-y-1.5">
-              <label htmlFor="name" className="text-[10px] font-bold text-slate-300 uppercase tracking-wider block">
+              <label htmlFor="name" className="text-[10px] font-bold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
                 Full Name
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/75">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
                   <User className="h-4 w-4" />
                 </span>
                 <Input
@@ -147,7 +147,7 @@ export default function SignupPage() {
                   placeholder="John Doe"
                   autoComplete="name"
                   className={cn(
-                    'pl-10.5 h-10.5 border-slate-800/80 bg-slate-900/40 text-slate-200 placeholder:text-slate-650 focus-visible:border-primary',
+                    'pl-10.5 h-10.5',
                     errors.name && 'border-destructive focus-visible:ring-destructive/30'
                   )}
                   {...register('name')}
@@ -163,11 +163,11 @@ export default function SignupPage() {
 
             {/* Email Input */}
             <div className="space-y-1.5">
-              <label htmlFor="email" className="text-[10px] font-bold text-slate-300 uppercase tracking-wider block">
+              <label htmlFor="email" className="text-[10px] font-bold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
                 {t('email')}
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/75">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
                   <Mail className="h-4 w-4" />
                 </span>
                 <Input
@@ -176,7 +176,7 @@ export default function SignupPage() {
                   placeholder="name@company.com"
                   autoComplete="email"
                   className={cn(
-                    'pl-10.5 h-10.5 border-slate-800/80 bg-slate-900/40 text-slate-200 placeholder:text-slate-655 focus-visible:border-primary',
+                    'pl-10.5 h-10.5',
                     errors.email && 'border-destructive focus-visible:ring-destructive/30'
                   )}
                   {...register('email')}
@@ -192,11 +192,11 @@ export default function SignupPage() {
 
             {/* Password Input */}
             <div className="space-y-1.5">
-              <label htmlFor="password" className="text-[10px] font-bold text-slate-300 uppercase tracking-wider block">
+              <label htmlFor="password" className="text-[10px] font-bold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
                 {t('password')}
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/75">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
                   <Lock className="h-4 w-4" />
                 </span>
                 <Input
@@ -205,7 +205,7 @@ export default function SignupPage() {
                   placeholder="••••••••"
                   autoComplete="new-password"
                   className={cn(
-                    'pl-10.5 pr-10.5 h-10.5 border-slate-800/80 bg-slate-900/40 text-slate-200 placeholder:text-slate-655 focus-visible:border-primary',
+                    'pl-10.5 pr-10.5 h-10.5',
                     errors.password && 'border-destructive focus-visible:ring-destructive/30'
                   )}
                   {...register('password')}
@@ -213,7 +213,8 @@ export default function SignupPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/75 hover:text-white transition-colors"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -228,11 +229,11 @@ export default function SignupPage() {
 
             {/* Confirm Password Input */}
             <div className="space-y-1.5">
-              <label htmlFor="confirmPassword" className="text-[10px] font-bold text-slate-300 uppercase tracking-wider block">
+              <label htmlFor="confirmPassword" className="text-[10px] font-bold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
                 Confirm Password
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/75">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
                   <Lock className="h-4 w-4" />
                 </span>
                 <Input
@@ -241,7 +242,7 @@ export default function SignupPage() {
                   placeholder="••••••••"
                   autoComplete="new-password"
                   className={cn(
-                    'pl-10.5 pr-10.5 h-10.5 border-slate-800/80 bg-slate-900/40 text-slate-200 placeholder:text-slate-655 focus-visible:border-primary',
+                    'pl-10.5 pr-10.5 h-10.5',
                     errors.confirmPassword && 'border-destructive focus-visible:ring-destructive/30'
                   )}
                   {...register('confirmPassword')}
@@ -249,7 +250,8 @@ export default function SignupPage() {
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/75 hover:text-white transition-colors"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                  aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
                 >
                   {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -283,11 +285,11 @@ export default function SignupPage() {
           </form>
 
           {/* Login link alternate */}
-          <div className="mt-6 pt-5 border-t border-slate-800/40 text-center text-sm font-medium">
-            <span className="text-muted-foreground/60">{t('alreadyHaveAccount').split('?')[0]}? </span>
+          <div className="mt-6 pt-5 border-t border-border/60 dark:border-slate-800/60 text-center text-sm font-medium">
+            <span className="text-muted-foreground">{t('alreadyHaveAccount').split('?')[0]}? </span>
             <Link
               href="/auth/login"
-              className="text-primary dark:text-accent font-bold hover:underline transition-colors ml-1"
+              className="text-primary dark:text-blue-400 font-bold hover:underline transition-colors ml-1"
             >
               {t('signIn')}
             </Link>

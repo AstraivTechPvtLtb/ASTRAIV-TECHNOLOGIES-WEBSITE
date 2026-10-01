@@ -97,56 +97,56 @@ function getDynamicIcon(iconName?: string): { icon: React.ReactNode; iconBg: str
   switch (norm) {
     case 'bot':
       return {
-        icon: <Bot className="h-6 w-6 text-blue-600" />,
-        iconBg: 'from-blue-600/15 to-blue-500/10 border-blue-600/30 text-blue-600',
+        icon: <Bot className="h-6 w-6 text-primary dark:text-cyan-400" />,
+        iconBg: 'from-primary/15 to-cyan-500/10 border-primary/30 text-primary dark:text-cyan-400',
       };
     case 'terminal':
       return {
-        icon: <Terminal className="h-6 w-6 text-indigo-500" />,
-        iconBg: 'from-indigo-500/15 to-purple-500/10 border-indigo-500/30 text-indigo-500',
+        icon: <Terminal className="h-6 w-6 text-primary dark:text-cyan-400" />,
+        iconBg: 'from-primary/15 to-blue-500/10 border-primary/30 text-primary dark:text-cyan-400',
       };
     case 'cpu':
       return {
-        icon: <Cpu className="h-6 w-6 text-purple-500" />,
-        iconBg: 'from-purple-500/15 to-pink-500/10 border-purple-500/30 text-purple-500',
+        icon: <Cpu className="h-6 w-6 text-primary dark:text-cyan-400" />,
+        iconBg: 'from-primary/15 to-cyan-500/10 border-primary/30 text-primary dark:text-cyan-400',
       };
     case 'cloud':
       return {
-        icon: <Cloud className="h-6 w-6 text-sky-500" />,
-        iconBg: 'from-sky-500/15 to-blue-500/10 border-sky-500/30 text-sky-500',
+        icon: <Cloud className="h-6 w-6 text-primary dark:text-cyan-400" />,
+        iconBg: 'from-primary/15 to-blue-500/10 border-primary/30 text-primary dark:text-cyan-400',
       };
     case 'globe':
       return {
-        icon: <Globe className="h-6 w-6 text-teal-500" />,
-        iconBg: 'from-teal-500/15 to-emerald-500/10 border-teal-500/30 text-teal-500',
+        icon: <Globe className="h-6 w-6 text-primary dark:text-cyan-400" />,
+        iconBg: 'from-primary/15 to-cyan-500/10 border-primary/30 text-primary dark:text-cyan-400',
       };
     case 'smartphone':
     case 'mobile':
       return {
-        icon: <Smartphone className="h-6 w-6 text-emerald-500" />,
-        iconBg: 'from-emerald-500/15 to-teal-500/10 border-emerald-500/30 text-emerald-500',
+        icon: <Smartphone className="h-6 w-6 text-primary dark:text-cyan-400" />,
+        iconBg: 'from-primary/15 to-blue-500/10 border-primary/30 text-primary dark:text-cyan-400',
       };
     case 'layers':
       return {
-        icon: <Layers className="h-6 w-6 text-pink-500" />,
-        iconBg: 'from-pink-500/15 to-rose-500/10 border-pink-500/30 text-pink-500',
+        icon: <Layers className="h-6 w-6 text-primary dark:text-cyan-400" />,
+        iconBg: 'from-primary/15 to-cyan-500/10 border-primary/30 text-primary dark:text-cyan-400',
       };
     case 'gitbranch':
     case 'git-branch':
       return {
-        icon: <GitBranch className="h-6 w-6 text-amber-500" />,
-        iconBg: 'from-amber-500/15 to-orange-500/10 border-amber-500/30 text-amber-500',
+        icon: <GitBranch className="h-6 w-6 text-primary dark:text-cyan-400" />,
+        iconBg: 'from-primary/15 to-blue-500/10 border-primary/30 text-primary dark:text-cyan-400',
       };
     case 'helpcircle':
     case 'help-circle':
       return {
-        icon: <HelpCircle className="h-6 w-6 text-rose-500" />,
-        iconBg: 'from-rose-500/15 to-pink-500/10 border-rose-500/30 text-rose-500',
+        icon: <HelpCircle className="h-6 w-6 text-primary dark:text-cyan-400" />,
+        iconBg: 'from-primary/15 to-cyan-500/10 border-primary/30 text-primary dark:text-cyan-400',
       };
     default:
       return {
-        icon: <Cpu className="h-6 w-6 text-blue-500" />,
-        iconBg: 'from-blue-500/15 to-indigo-500/10 border-blue-500/30 text-blue-500',
+        icon: <Cpu className="h-6 w-6 text-primary dark:text-cyan-400" />,
+        iconBg: 'from-primary/15 to-cyan-500/10 border-primary/30 text-primary dark:text-cyan-400',
       };
   }
 }
@@ -240,11 +240,11 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
             <span className="text-xs font-mono font-bold uppercase tracking-widest text-primary dark:text-blue-400">
               SERVICES = WHAT ASTRAIV DOES
             </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.025em] leading-[1.12]">
-              Our Engineering Services
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground font-heading tracking-[-0.025em] leading-[1.12]">
+              Our Engineering <span className="heading-gradient">Services</span>
             </h1>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-normal leading-[1.62]">
-              Explore our 8 specialized technical disciplines engineered for enterprise velocity.
+            <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62]">
+              Explore our specialized technical disciplines engineered for enterprise velocity.
             </p>
           </div>
 
@@ -370,7 +370,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
                     <div className="flex flex-col gap-1.5 mb-5 pt-3 border-t border-border/50 dark:border-slate-800/80">
                       {service.deliverables.map((item, dIdx) => (
                         <div key={dIdx} className="flex items-start gap-2 text-[11px] text-slate-600 dark:text-slate-300 font-normal">
-                          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="h-3.5 w-3.5 text-primary dark:text-cyan-400 shrink-0 mt-0.5" />
                           <span>{item}</span>
                         </div>
                       ))}
@@ -419,10 +419,10 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
           {/* Header */}
           <div className="flex flex-col gap-3 text-center max-w-3xl mx-auto mb-16">
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] text-slate-900 dark:text-white font-heading">
-              Our 6-Stage Engineering Delivery Process
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] text-foreground font-heading">
+              Our 6-Stage <span className="heading-gradient">Engineering Delivery Process</span>
             </h2>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-normal">
               From architectural blueprinting to continuous production scaling, our engineering squads follow a deterministic, gated 6-stage roadmap.
             </p>
           </div>
@@ -446,10 +446,10 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-semibold tracking-[-0.015em] text-slate-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold tracking-[-0.015em] text-foreground mb-2">
                     {phase.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal mb-6">
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-normal mb-6">
                     {phase.detailedDesc}
                   </p>
                 </div>
@@ -488,51 +488,51 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
             <span className="inline-flex px-3 py-1 text-xs font-semibold tracking-wider uppercase text-primary bg-primary/10 dark:bg-blue-600/20 dark:text-blue-300 rounded-md border border-primary/20 dark:border-blue-600/30 mb-3">
               CONTRACTUAL GUARANTEES
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.025em] leading-[1.15]">
-              Engineering Built on Trust and Rigor
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground font-heading tracking-[-0.025em] leading-[1.15]">
+              Engineering Built on <span className="heading-gradient">Trust and Rigor</span>
             </h2>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal mt-2">
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-normal mt-2">
               Every project contracted with Astraiv Technologies adheres to ironclad technical standards designed to safeguard your capital and brand reputation.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
-            <div className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">
+            <div className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">
               <div className="flex items-center gap-2 text-primary dark:text-blue-400 font-semibold text-sm">
                 <Lock className="h-4 w-4" />
                 <span>100% IP Handover</span>
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+              <p className="text-xs text-muted-foreground leading-relaxed font-normal">
                 All source code, schemas, documentation, and infrastructure keys are transferred directly to your organization.
               </p>
             </div>
 
-            <div className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">
-              <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold text-sm">
+            <div className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">
+              <div className="flex items-center gap-2 text-primary dark:text-blue-400 font-semibold text-sm">
                 <Code2 className="h-4 w-4" />
                 <span>Type-Safe Delivery</span>
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+              <p className="text-xs text-muted-foreground leading-relaxed font-normal">
                 End-to-end type safety eliminates runtime failures and provides automated self-documenting API structures.
               </p>
             </div>
 
-            <div className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">
-              <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-semibold text-sm">
+            <div className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">
+              <div className="flex items-center gap-2 text-sky-600 dark:text-sky-400 font-semibold text-sm">
                 <Workflow className="h-4 w-4" />
                 <span>Zero Vendor Lock-In</span>
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+              <p className="text-xs text-muted-foreground leading-relaxed font-normal">
                 Built strictly on industry-standard open-source ecosystems (Next.js, Node, Go, Docker) with no proprietary traps.
               </p>
             </div>
 
-            <div className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">
-              <div className="flex items-center gap-2 text-rose-600 dark:text-rose-400 font-semibold text-sm">
+            <div className="flex flex-col gap-2 p-5 rounded-2xl bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">
+              <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-semibold text-sm">
                 <ShieldCheck className="h-4 w-4" />
                 <span>SOC2 & HIPAA Compliant</span>
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+              <p className="text-xs text-muted-foreground leading-relaxed font-normal">
                 Architectures pre-configured with granular RBAC, encryption at rest and in transit, and immutable audit trails.
               </p>
             </div>
@@ -547,8 +547,8 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
         <div className="relative overflow-hidden rounded-3xl border border-primary/30 dark:border-blue-600/30 bg-gradient-to-br from-primary/10 via-card to-blue-600/10 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/40 p-10 sm:p-16 shadow-xl">
           <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading text-slate-900 dark:text-white tracking-[-0.025em] leading-[1.12]">
-              Ready to Accelerate Your Software Engineering?
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading text-foreground tracking-[-0.025em] leading-[1.12]">
+              Ready to Accelerate Your <span className="heading-gradient">Software Engineering?</span>
             </h2>
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
               Schedule a direct consultation with our senior systems architects to discuss project requirements, timelines, and technical architecture.

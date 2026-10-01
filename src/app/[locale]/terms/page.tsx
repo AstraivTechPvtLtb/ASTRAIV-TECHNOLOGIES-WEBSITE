@@ -47,7 +47,7 @@ export default async function TermsPage({ params }: TermsPageProps) {
 - **Mutual Agreement**: Engaging Astraiv or executing an SOW constitutes binding acceptance of these Terms of Service alongside any custom Master Services Agreement (MSA) executed between the parties.`,
     },
     {
-      icon: <Award className="h-5 w-5 text-emerald-500" />,
+      icon: <Award className="h-5 w-5 text-primary dark:text-cyan-400" />,
       title: '2. Intellectual Property & Ownership Rights',
       content: `We believe in unconditional, unencumbered client ownership:
 - **100% Client Ownership**: Upon full payment of milestone fees, all bespoke source code, UI/UX designs, database schemas, and custom algorithms developed specifically for the client transfer completely and exclusively to the client.
@@ -55,14 +55,14 @@ export default async function TermsPage({ params }: TermsPageProps) {
 - **No Vendor Lock-In**: We construct platforms with standard, documented, cloud-native technologies (Next.js, Node.js, PostgreSQL, Docker, Kubernetes) ensuring clients can independently host, deploy, and maintain their codebases.`,
     },
     {
-      icon: <ShieldAlert className="h-5 w-5 text-blue-500" />,
+      icon: <ShieldAlert className="h-5 w-5 text-primary dark:text-blue-400" />,
       title: '3. Confidentiality & Non-Disclosure (NDA)',
       content: `Astraiv treats all proprietary client information with institutional rigor:
 - **Mutual Non-Disclosure**: All trade secrets, architectural schematics, business roadmaps, client data, and proprietary algorithms shared during discovery or execution are protected under strict mutual confidentiality.
 - **Code & Credential Isolation**: Developer access to client repositories, staging environments, and production systems is governed by role-based credentials, SSH keys, and encrypted secret vaults. Astraiv developers never share or commit private client keys or customer data to public repositories.`,
     },
     {
-      icon: <CheckCircle2 className="h-5 w-5 text-purple-500" />,
+      icon: <CheckCircle2 className="h-5 w-5 text-primary dark:text-cyan-400" />,
       title: '4. Delivery Milestones, Invoicing & Acceptance',
       content: `Project milestones adhere to structured engineering sprints:
 - **Sprint Reviews & Demo Sign-Off**: Deliverables are deployed to staging environments for client validation. Clients have an agreed acceptance window (typically 10 business days) to review features and submit revision requests.
@@ -70,7 +70,7 @@ export default async function TermsPage({ params }: TermsPageProps) {
 - **Warranty & Hypercare**: Astraiv includes a 30 to 90-day post-launch warranty window (as defined in the SOW) to rectify any functional defects or deviations from approved specifications at zero additional charge.`,
     },
     {
-      icon: <RefreshCw className="h-5 w-5 text-amber-500" />,
+      icon: <RefreshCw className="h-5 w-5 text-primary dark:text-blue-400" />,
       title: '5. Service Level Agreements (SLAs) & Hosting Availability',
       content: `For clients engaging Astraiv for DevOps, Cloud Architecture, and Managed Infrastructure:
 - **High-Availability Targets**: We engineer systems targeting 99.9% uptime across multi-region cloud infrastructures (AWS, Cloudflare, Supabase, Google Cloud).
@@ -78,7 +78,7 @@ export default async function TermsPage({ params }: TermsPageProps) {
 - **Third-Party Outages**: Astraiv is not liable for infrastructure downtime caused by global outages of upstream cloud providers (e.g. AWS regional power losses, Cloudflare global edge degradation).`,
     },
     {
-      icon: <Scale className="h-5 w-5 text-rose-500" />,
+      icon: <Scale className="h-5 w-5 text-primary dark:text-cyan-400" />,
       title: '6. Limitation of Liability & Governing Law',
       content: `To the maximum extent permitted by applicable law:
 - **Liability Cap**: In no event shall either party's total aggregate liability arising out of or related to these Terms exceed the total fees paid by the client under the specific Statement of Work giving rise to the claim.
@@ -116,7 +116,7 @@ export default async function TermsPage({ params }: TermsPageProps) {
               <span>Commercial & Legal Framework</span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-[-0.025em] font-heading mb-3">
-              Terms of Service
+              Terms of <span className="heading-gradient">Service</span>
             </h1>
             <p className="text-sm sm:text-base text-muted-foreground font-normal leading-relaxed">
               Last updated: September 2026. These terms govern software engineering engagements, architectural consultations, IP assignments, and support agreements with Astraiv Technologies.

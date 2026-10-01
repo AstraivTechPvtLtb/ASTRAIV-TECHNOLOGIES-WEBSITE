@@ -459,7 +459,7 @@ export function StartProjectWizard() {
                     isCurrent
                       ? 'bg-primary text-white dark:bg-blue-500'
                       : isCompleted
-                      ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400'
+                      ? 'bg-primary/20 text-primary dark:text-cyan-400'
                       : 'bg-muted text-muted-foreground'
                   )}
                 >
@@ -972,7 +972,7 @@ export function StartProjectWizard() {
               className="space-y-8 relative z-10"
             >
               <div>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider text-emerald-500 bg-emerald-500/10 mb-3 border border-emerald-500/20">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider text-primary dark:text-cyan-400 bg-primary/10 mb-3 border border-primary/20">
                   <ShieldCheck className="h-3.5 w-3.5" />
                   Final Step
                 </span>
@@ -1181,15 +1181,15 @@ export function StartProjectWizard() {
       {/* Trust Badges Footer Strip */}
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
         <div className="p-4 rounded-xl border border-border/40 bg-card/40 dark:bg-slate-900/30 flex items-center justify-center gap-2.5 text-xs text-muted-foreground">
-          <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
+          <ShieldCheck className="w-4 h-4 text-primary dark:text-cyan-400 shrink-0" />
           <span>ISO 27001 Certified Security Practices</span>
         </div>
         <div className="p-4 rounded-xl border border-border/40 bg-card/40 dark:bg-slate-900/30 flex items-center justify-center gap-2.5 text-xs text-muted-foreground">
-          <Clock className="w-4 h-4 text-blue-500 shrink-0" />
+          <Clock className="w-4 h-4 text-primary dark:text-blue-400 shrink-0" />
           <span>Guaranteed 24-Hour Architect SLA</span>
         </div>
         <div className="p-4 rounded-xl border border-border/40 bg-card/40 dark:bg-slate-900/30 flex items-center justify-center gap-2.5 text-xs text-muted-foreground">
-          <Lock className="w-4 h-4 text-indigo-500 shrink-0" />
+          <Lock className="w-4 h-4 text-primary dark:text-cyan-400 shrink-0" />
           <span>100% Client Code & IP Ownership</span>
         </div>
       </div>
