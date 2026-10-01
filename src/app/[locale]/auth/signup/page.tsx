@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Lock, User, ArrowRight, Eye, EyeOff, AlertCircle, Loader2, CheckCircle2 } from 'lucide-react';
 import { Link, useRouter } from '@/i18n/routing';
@@ -87,13 +88,22 @@ export default function SignupPage() {
         <div className="bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl rounded-[20px] shadow-card dark:shadow-[0_20px_50px_rgba(9,11,18,0.6)] border border-border/80 dark:border-slate-800/80 p-6 sm:p-8 transition-colors">
           {/* Header branding */}
           <div className="flex flex-col items-center mb-6 text-center">
-            <Link href="/" className="flex items-center gap-2 group mb-4">
-              <div className="h-9 w-9 rounded-full bg-gradient-to-tr from-primary via-secondary to-accent p-0.5 shadow-md flex items-center justify-center">
-                <div className="bg-slate-950 w-full h-full rounded-full flex items-center justify-center font-bold text-xs text-white">AI</div>
-              </div>
+            <Link href="/" className="flex items-center gap-2.5 group mb-4">
+              <Image
+                src="/logo-icon.jpg"
+                alt="Astraiv Technologies Logo"
+                width={36}
+                height={36}
+                priority
+                className="rounded-full object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/15 group-hover:ring-primary/40"
+              />
               <div className="flex flex-col items-start leading-tight">
-                <span className="font-heading font-extrabold text-lg tracking-wider bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent pb-0.5">ASTRAIV</span>
-                <span className="text-[7px] uppercase tracking-[0.28em] font-black text-foreground/80">TECHNOLOGIES</span>
+                <span className="font-heading font-extrabold text-[19px] tracking-wider bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent pb-0.5">
+                  ASTRAIV
+                </span>
+                <span className="text-[7.5px] uppercase tracking-[0.28em] font-black text-black dark:text-white dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.85)]">
+                  TECHNOLOGIES
+                </span>
               </div>
             </Link>
             <h1 className="font-heading font-extrabold text-2xl tracking-tight text-foreground mb-1.5">
