@@ -52,9 +52,9 @@ export function SolutionsSection({ initialSolutions = SOLUTIONS_LIST }: Solution
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 sm:mb-16 text-left">
           <div className="max-w-3xl">
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-semibold tracking-[-0.025em] text-foreground leading-[1.15]">
+            <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-display font-semibold tracking-[-0.025em] text-foreground leading-[1.15]">
               What business problems{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-600 to-indigo-600 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-300">
+              <span className="heading-gradient font-semibold">
                 can Astraiv solve?
               </span>
             </h2>
@@ -114,23 +114,23 @@ export function SolutionsSection({ initialSolutions = SOLUTIONS_LIST }: Solution
                 </div>
 
                 {/* Problem Statement Box */}
-                <div className="mb-4 p-3.5 rounded-xl bg-amber-500/5 dark:bg-amber-950/20 border border-amber-500/20 text-left">
-                  <div className="flex items-center gap-2 mb-1 text-amber-600 dark:text-amber-400 font-bold text-[11px] uppercase tracking-wider">
-                    <AlertCircle className="h-3.5 w-3.5 shrink-0" />
+                <div className="mb-3.5 p-3.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 text-left">
+                  <div className="flex items-center gap-2 mb-1 text-slate-700 dark:text-slate-300 font-semibold text-[11px] uppercase tracking-wider">
+                    <AlertCircle className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
                     <span>The Business Problem</span>
                   </div>
-                  <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-medium">
+                  <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-normal">
                     {solution.businessProblem?.summary || solution.tagline}
                   </p>
                 </div>
 
                 {/* Astraiv Solution Box */}
-                <div className="p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-700/60 text-left">
-                  <div className="flex items-center gap-2 mb-1 text-primary dark:text-blue-400 font-bold text-[11px] uppercase tracking-wider">
-                    <CheckCircle2 className="h-3.5 w-3.5 shrink-0" />
+                <div className="p-3.5 rounded-xl bg-blue-500/5 dark:bg-blue-950/20 border border-blue-500/20 dark:border-blue-500/30 text-left">
+                  <div className="flex items-center gap-2 mb-1 text-primary dark:text-blue-400 font-semibold text-[11px] uppercase tracking-wider">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-primary dark:text-blue-400 shrink-0" />
                     <span>Astraiv Solution</span>
                   </div>
-                  <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-medium line-clamp-3">
+                  <p className="text-xs text-muted-foreground dark:text-slate-200 leading-relaxed font-normal line-clamp-3">
                     {solution.shortDesc}
                   </p>
                 </div>

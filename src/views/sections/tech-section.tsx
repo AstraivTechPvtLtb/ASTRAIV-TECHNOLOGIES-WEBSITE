@@ -124,22 +124,22 @@ export function TechSection() {
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           badge="Technology Stack"
-          title="Powered by Modern Technology"
+          title="Powered by [Modern Technology]"
           description="We engineer exclusively with battle-tested frameworks, cloud infrastructure, and modern databases for unrivaled speed, security, and uptime."
         />
 
         {/* Category Selector Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mt-10 max-w-4xl mx-auto">
+        <div className="flex flex-wrap lg:flex-nowrap items-center justify-center gap-2 sm:gap-2.5 mt-10 max-w-full lg:max-w-6xl mx-auto px-2">
           {categories.map((cat) => {
             const isActive = activeCategory === cat.label;
             return (
               <button
                 key={cat.label}
                 onClick={() => setActiveCategory(cat.label)}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 cursor-pointer select-none ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 lg:px-3 xl:px-3.5 rounded-full text-xs font-bold tracking-normal sm:tracking-wide whitespace-nowrap transition-all duration-200 cursor-pointer select-none shrink-0 ${
                   isActive
                     ? 'bg-primary text-white shadow-sm shadow-primary/20 ring-2 ring-primary/20'
-                    : 'bg-card/90 dark:bg-slate-900/70 border border-border/70 dark:border-slate-800/80 text-muted-foreground hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40 active:scale-[0.98]'
+                    : 'bg-card/90 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40 active:scale-[0.98]'
                 }`}
               >
                 {cat.icon}
@@ -150,7 +150,7 @@ export function TechSection() {
         </div>
 
         {/* Interactive Technology Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6 mt-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6 mt-10 sm:mt-12 max-w-6xl mx-auto">
           <AnimatePresence mode="popLayout">
             {filteredTechs.map((tech) => (
               <motion.div
@@ -161,14 +161,14 @@ export function TechSection() {
                 exit={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.98 }}
                 transition={{ duration: MOTION_DURATIONS.normal, ease: EASE_OUT_EXPO }}
                 whileHover={shouldReduceMotion ? {} : { y: -2, transition: { duration: MOTION_DURATIONS.fast, ease: EASE_OUT_EXPO } }}
-                className="group relative p-6 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-card hover:shadow-card-hover hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-200 transform-gpu flex flex-col justify-between"
+                className="group relative p-6 bg-card/95 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 rounded-2xl shadow-card hover:shadow-card-hover hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-200 transform-gpu flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 border border-primary/20 dark:border-blue-400/20">
                       {tech.category}
                     </span>
-                    <span className="text-[10px] font-mono font-semibold text-muted-foreground/80 dark:text-slate-400">
+                    <span className="text-[10px] font-mono font-semibold text-slate-500 dark:text-slate-400">
                       {tech.badge}
                     </span>
                   </div>
@@ -176,18 +176,18 @@ export function TechSection() {
                   <h3 className="text-base sm:text-lg font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
                     {tech.name}
                   </h3>
-                  <span className="text-[11px] font-semibold text-secondary dark:text-indigo-400 block mt-0.5">
+                  <span className="text-[11px] font-semibold text-primary dark:text-blue-400 block mt-0.5">
                     {tech.role}
                   </span>
 
-                  <p className="text-xs text-muted-foreground leading-relaxed mt-3 font-normal">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mt-3 font-normal">
                     {tech.description}
                   </p>
                 </div>
 
                 <div className="mt-5 pt-3 border-t border-border/40 dark:border-slate-800/60 flex items-center justify-between text-[11px] font-semibold text-muted-foreground/80">
                   <span>Architecture Certified</span>
-                  <span className="w-2 h-2 rounded-full bg-emerald-500/80 group-hover:animate-ping" />
+                  <span className="w-2 h-2 rounded-full bg-primary/80 dark:bg-cyan-400/80 group-hover:animate-ping" />
                 </div>
               </motion.div>
             ))}

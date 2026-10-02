@@ -46,7 +46,7 @@ export default async function PricingPage({ params }: PricingPageProps) {
 
   const guarantees = [
     {
-      icon: <ShieldCheck className="h-5 w-5 text-emerald-500" />,
+      icon: <ShieldCheck className="h-5 w-5 text-primary dark:text-cyan-400" />,
       title: '100% IP Ownership',
       desc: 'All bespoke source code, UI designs, and database schemas transfer completely to your organization.',
     },
@@ -56,7 +56,7 @@ export default async function PricingPage({ params }: PricingPageProps) {
       desc: 'Engineered on cloud-native standards (Next.js, PostgreSQL, AWS, Docker) you can host anywhere.',
     },
     {
-      icon: <DollarSign className="h-5 w-5 text-purple-500" />,
+      icon: <DollarSign className="h-5 w-5 text-primary dark:text-cyan-400" />,
       title: 'Zero Hidden Surcharges',
       desc: 'Fixed sprint and milestone scopes with transparent deliverable acceptance criteria.',
     },
@@ -87,7 +87,7 @@ export default async function PricingPage({ params }: PricingPageProps) {
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight font-heading mb-4">
               Predictable Investment. <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">
+              <span className="heading-gradient">
                 Institutional Quality.
               </span>
             </h1>

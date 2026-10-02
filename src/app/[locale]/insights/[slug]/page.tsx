@@ -146,7 +146,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
           </div>
 
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-slate-50 mt-2 mb-6 leading-[1.15] font-heading">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight heading-gradient mt-2 mb-6 leading-[1.15] font-heading">
             {article.title}
           </h1>
 
@@ -183,7 +183,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
 
               {article.updatedAt && (
                 <div className="flex items-center gap-1.5 text-muted-foreground/80" title="Last updated date">
-                  <RefreshCw className="h-3 w-3 text-emerald-500" />
+                  <RefreshCw className="h-3 w-3 text-primary dark:text-cyan-400" />
                   <span>Updated {formatDate(article.updatedAt)}</span>
                 </div>
               )}
@@ -263,7 +263,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
                   href={`/services/${srv.slug}`}
                   className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-card border border-border hover:border-primary/40 text-xs font-bold text-foreground transition-colors group"
                 >
-                  <Cpu className="h-3.5 w-3.5 text-indigo-500 group-hover:scale-110 transition-transform" />
+                  <Cpu className="h-3.5 w-3.5 text-primary dark:text-cyan-400 group-hover:scale-110 transition-transform" />
                   <span>Service: {srv.title}</span>
                 </Link>
               ))}
@@ -274,7 +274,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
                   href={`/industries/${ind.slug}`}
                   className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-card border border-border hover:border-primary/40 text-xs font-bold text-foreground transition-colors group"
                 >
-                  <Building2 className="h-3.5 w-3.5 text-emerald-500 group-hover:scale-110 transition-transform" />
+                  <Building2 className="h-3.5 w-3.5 text-primary dark:text-cyan-400 group-hover:scale-110 transition-transform" />
                   <span>Industry: {ind.label}</span>
                 </Link>
               ))}

@@ -21,13 +21,13 @@ export function RelevantIndustriesSection({
     <section className="my-16 sm:my-20">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
         <div>
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-slate-400 block mb-2">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-muted-foreground block mb-2">
             VERTICAL EXPERTISE
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-[-0.025em] leading-[1.15]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15]">
             {title}
           </h2>
-          <p className="text-sm sm:text-base text-slate-400 font-normal leading-[1.62] mt-1 max-w-2xl">
+          <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-1 max-w-2xl">
             {subtitle}
           </p>
         </div>
@@ -44,29 +44,29 @@ export function RelevantIndustriesSection({
         {industries.map((ind) => (
           <div
             key={ind.slug}
-            className="group relative bg-slate-900/50 hover:bg-slate-900/90 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-lg"
+            className="group relative bg-card/90 hover:bg-card dark:bg-slate-900/50 dark:hover:bg-slate-900/90 border border-border/80 dark:border-slate-800 hover:border-primary/40 dark:hover:border-slate-700 rounded-2xl p-5 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md"
           >
             <div>
               <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] font-mono text-slate-400 tracking-wider">
+                <span className="text-[10px] font-mono text-muted-foreground tracking-wider">
                   {ind.code}
                 </span>
-                <span className="text-[10px] font-medium text-emerald-400 flex items-center gap-1">
+                <span className="text-[10px] font-medium text-primary dark:text-cyan-400 flex items-center gap-1">
                   <ShieldCheck className="h-3 w-3" />
                   <span>Compliant</span>
                 </span>
               </div>
 
-              <h3 className="text-base font-semibold tracking-[-0.015em] text-white group-hover:text-primary dark:group-hover:text-blue-400 transition-colors mb-1.5">
+              <h3 className="text-base font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-400 transition-colors mb-1.5">
                 {ind.label}
               </h3>
-              <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed mb-4">
+              <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed mb-4">
                 {ind.tagline}
               </p>
             </div>
 
-            <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-slate-300 group-hover:text-blue-400">
-              <span className="text-[11px] font-mono text-slate-400 line-clamp-1">
+            <div className="pt-3 border-t border-border/60 dark:border-slate-800/80 flex items-center justify-between text-xs font-semibold text-muted-foreground group-hover:text-primary dark:group-hover:text-blue-400">
+              <span className="text-[11px] font-mono text-muted-foreground line-clamp-1">
                 {ind.kpis?.[0]?.value ? `${ind.kpis[0].value} ${ind.kpis[0].label}` : 'Domain Verified'}
               </span>
               <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform shrink-0" />

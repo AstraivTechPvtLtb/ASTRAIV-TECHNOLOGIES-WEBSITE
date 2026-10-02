@@ -30,7 +30,7 @@ export function InsightsSection({ initialArticles }: InsightsSectionProps) {
           <div className="max-w-3xl">
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.025em] text-foreground leading-tight font-heading">
-              Software Architecture, AI &amp; Cloud Insights
+              Software Architecture, AI &amp; <span className="heading-gradient">Cloud Insights</span>
             </h2>
             <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-2xl font-normal leading-relaxed">
               Deep dives, benchmark post-mortems, and architectural blueprints written by our principal engineers and system architects.

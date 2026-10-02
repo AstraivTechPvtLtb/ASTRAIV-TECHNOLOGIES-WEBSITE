@@ -48,7 +48,7 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
 - **Client Engagement Data**: For contracted enterprise clients, project specifications, architectural repositories, ticket communications, and billing metrics managed through encrypted database connections.`,
     },
     {
-      icon: <Database className="h-5 w-5 text-blue-500" />,
+      icon: <Database className="h-5 w-5 text-primary dark:text-blue-400" />,
       title: '2. How We Use Your Information',
       content: `We utilize gathered information exclusively for legitimate business, architectural, and contractual purposes:
 - Delivering, operating, testing, and optimizing custom software engineering platforms.
@@ -59,7 +59,7 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
 - Protecting our systems against unauthorized access, credential stuffing, DDoS attacks, and security vulnerabilities.`,
     },
     {
-      icon: <Lock className="h-5 w-5 text-emerald-500" />,
+      icon: <Lock className="h-5 w-5 text-primary dark:text-cyan-400" />,
       title: '3. Data Security & Storage Standards',
       content: `Astraiv adheres to strict institutional security benchmarks:
 - **Encryption**: All data in transit is encrypted using modern TLS 1.3 cryptographic suites. Persistent data at rest is encrypted using AES-256 standards across PostgreSQL clusters and Cloudflare R2 object storage.
@@ -68,7 +68,7 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
 - **Data Retention**: We retain commercial records and communication logs only as long as necessary to satisfy contractual obligations or statutory requirements.`,
     },
     {
-      icon: <Globe className="h-5 w-5 text-purple-500" />,
+      icon: <Globe className="h-5 w-5 text-primary dark:text-blue-400" />,
       title: '4. Third-Party Sub-Processors',
       content: `We partner with world-class, SOC-2 compliant cloud infrastructure providers to host and secure our platforms:
 - **Cloud Infrastructure**: Amazon Web Services (AWS) and Cloudflare for global edge delivery, caching, and CDN routing.
@@ -77,7 +77,7 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
 We do not sell, rent, or monetize client or visitor data to third-party data brokers or marketing conglomerates.`,
     },
     {
-      icon: <ShieldCheck className="h-5 w-5 text-amber-500" />,
+      icon: <ShieldCheck className="h-5 w-5 text-primary dark:text-cyan-400" />,
       title: '5. Your Rights (GDPR & CCPA Compliance)',
       content: `Depending on your jurisdiction, you have statutory privacy rights regarding your personal information:
 - **Access & Portability**: Request a copy of the personal information we maintain concerning you in a structured, machine-readable format.
@@ -118,7 +118,7 @@ To exercise any of these rights, contact our Data Governance team at privacy@ast
               <span>Compliance & Data Governance</span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-[-0.025em] font-heading mb-3">
-              Privacy Policy
+              Privacy <span className="heading-gradient">Policy</span>
             </h1>
             <p className="text-sm sm:text-base text-muted-foreground font-normal leading-relaxed">
               Last updated: September 2026. This policy outlines our commitment to safeguarding customer, client, and visitor information across all Astraiv Technologies systems.

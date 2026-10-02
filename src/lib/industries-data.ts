@@ -31,7 +31,7 @@ export const INDUSTRIES_LIST: IndustryDetail[] = [
     headline: 'Deterministic, Zero-Drift Financial Systems & Transaction Mesh',
     image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=1600&auto=format&fit=crop',
     imageAlt: 'Algorithmic financial trading monitors and quantitative data terminal',
-    accentColor: 'text-emerald-500 dark:text-emerald-400',
+    accentColor: 'text-primary dark:text-cyan-400',
     statusText: 'Ledger Engine: Active | 99.999% SLA',
     complianceBadge: 'PCI-DSS Level 1 • SOC-2 Type II',
     challenge:
@@ -67,7 +67,7 @@ export const INDUSTRIES_LIST: IndustryDetail[] = [
     headline: 'Sovereign Patient Portals, HL7/FHIR Ingestion & Clinical Systems',
     image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1600&auto=format&fit=crop',
     imageAlt: 'Medical doctor operating advanced laboratory robotic software interface',
-    accentColor: 'text-rose-500 dark:text-rose-400',
+    accentColor: 'text-primary dark:text-cyan-400',
     statusText: 'FHIR v4 Active | AES-256 Vault Locked',
     complianceBadge: 'HIPAA Enforced • HITECH • GDPR Health',
     challenge:
@@ -103,7 +103,7 @@ export const INDUSTRIES_LIST: IndustryDetail[] = [
     headline: 'Next-Gen B2B Product Engineering, Tiered Auth & Extreme Concurrency',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop',
     imageAlt: 'Sleek multi-tenant SaaS analytics command dashboard with real-time graphs',
-    accentColor: 'text-indigo-500 dark:text-indigo-400',
+    accentColor: 'text-primary dark:text-cyan-400',
     statusText: 'Tenant Isolation: Tier 4 | Distributed Edge',
     complianceBadge: 'SOC-2 Type II • ISO 27001 Architecture',
     challenge:
@@ -139,7 +139,7 @@ export const INDUSTRIES_LIST: IndustryDetail[] = [
     headline: 'Sub-Second Checkout Velocity, Multi-Warehouse Inventory & Edge Personalization',
     image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1600&auto=format&fit=crop',
     imageAlt: 'Modern minimalist luxury apparel boutique with omnichannel checkout systems',
-    accentColor: 'text-amber-500 dark:text-amber-400',
+    accentColor: 'text-primary dark:text-cyan-400',
     statusText: 'Checkout Stream: 12,000 req/s | 0 Drift',
     complianceBadge: 'PCI-DSS Compliant • Global Edge CDN',
     challenge:
@@ -175,7 +175,7 @@ export const INDUSTRIES_LIST: IndustryDetail[] = [
     headline: 'Real-Time Telemetry Streaming, Geofencing & Automated Manifest Verification',
     image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1600&auto=format&fit=crop',
     imageAlt: 'Automated high-bay warehouse distribution facility with automated guided vehicles',
-    accentColor: 'text-cyan-500 dark:text-cyan-400',
+    accentColor: 'text-primary dark:text-cyan-400',
     statusText: 'IoT Mesh: 48,000 Pings/min | Geo-Lock Active',
     complianceBadge: 'ISO 27001 • Telematics Encrypted',
     challenge:
@@ -211,7 +211,7 @@ export const INDUSTRIES_LIST: IndustryDetail[] = [
     headline: 'High-Concurrency Collaborative Portals, Interactive Media & Student Analytics',
     image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1600&auto=format&fit=crop',
     imageAlt: 'Students and educators collaborating around interactive learning technology screens',
-    accentColor: 'text-violet-500 dark:text-violet-400',
+    accentColor: 'text-primary dark:text-cyan-400',
     statusText: 'Realtime Mesh: 120ms Latency | Adaptive Active',
     complianceBadge: 'FERPA Compliant • COPPA Enforced',
     challenge:
@@ -247,7 +247,7 @@ export const INDUSTRIES_LIST: IndustryDetail[] = [
     headline: 'Unified Practice Management, Automated Trust Accounting & Matter Tracking',
     image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1600&auto=format&fit=crop',
     imageAlt: 'Modern glass enterprise skyscraper representing legal, accounting, and consulting firms',
-    accentColor: 'text-blue-600 dark:text-blue-400',
+    accentColor: 'text-primary dark:text-cyan-400',
     statusText: 'Vault Encrypted | Automated Trust Sync Active',
     complianceBadge: 'SOC-2 Type II • Strict Confidentiality',
     challenge:
@@ -283,7 +283,7 @@ export const INDUSTRIES_LIST: IndustryDetail[] = [
     headline: 'High-Reliability Embedded Telemetry, Edge Computing & Industrial Automation',
     image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1600&auto=format&fit=crop',
     imageAlt: 'Industrial automated manufacturing robotics and telemetry control monitors',
-    accentColor: 'text-slate-400 dark:text-slate-300',
+    accentColor: 'text-primary dark:text-cyan-400',
     statusText: 'SCADA Bridge: Online | Edge Node Verified',
     complianceBadge: 'ISO 9001 • Industrial Safety Compliant',
     challenge:

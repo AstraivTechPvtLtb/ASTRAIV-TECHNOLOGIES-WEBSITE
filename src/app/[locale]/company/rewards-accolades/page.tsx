@@ -139,7 +139,7 @@ export default async function RewardsAccoladesPage({ params }: RewardsAccoladesP
 
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight font-heading leading-tight mb-6">
-              Rewards, Certifications & Industry Accolades
+              <span className="heading-gradient">Rewards, Certifications & Industry Accolades</span>
             </h1>
 
             <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed font-normal">
@@ -150,7 +150,7 @@ export default async function RewardsAccoladesPage({ params }: RewardsAccoladesP
           {/* Quick Metrics & Operational Reliability Ribbon */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-5 mb-12 sm:mb-16">
             <div className="p-4 sm:p-5 rounded-2xl bg-card/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl text-left shadow-card">
-              <div className="flex items-center gap-2 mb-1.5 text-sky-600 dark:text-sky-400">
+              <div className="flex items-center gap-2 mb-1.5 text-primary dark:text-cyan-400">
                 <ShieldCheck className="h-4 w-4" />
                 <span className="text-[10.5px] font-mono uppercase font-bold tracking-wider">
                   Information Security
@@ -163,7 +163,7 @@ export default async function RewardsAccoladesPage({ params }: RewardsAccoladesP
             </div>
 
             <div className="p-4 sm:p-5 rounded-2xl bg-card/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl text-left shadow-card">
-              <div className="flex items-center gap-2 mb-1.5 text-emerald-600 dark:text-emerald-400">
+              <div className="flex items-center gap-2 mb-1.5 text-primary dark:text-cyan-400">
                 <CheckCircle2 className="h-4 w-4" />
                 <span className="text-[10.5px] font-mono uppercase font-bold tracking-wider">
                   Quality Management
@@ -172,11 +172,11 @@ export default async function RewardsAccoladesPage({ params }: RewardsAccoladesP
               <div className="text-xl sm:text-2xl font-extrabold font-heading text-foreground">
                 ISO 9001:2015
               </div>
-              <div className="text-xs text-muted-foreground mt-0.5">SDLC Quality Governance</div>
+              <div className="text-xs text-muted-foreground mt-0.5">{isoLab} SDLC Quality Governance</div>
             </div>
 
             <div className="p-4 sm:p-5 rounded-2xl bg-card/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl text-left shadow-card">
-              <div className="flex items-center gap-2 mb-1.5 text-amber-600 dark:text-amber-400">
+              <div className="flex items-center gap-2 mb-1.5 text-primary dark:text-cyan-400">
                 <Lock className="h-4 w-4" />
                 <span className="text-[10.5px] font-mono uppercase font-bold tracking-wider">
                   Operational SLA
@@ -189,7 +189,7 @@ export default async function RewardsAccoladesPage({ params }: RewardsAccoladesP
             </div>
 
             <div className="p-4 sm:p-5 rounded-2xl bg-card/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl text-left shadow-card">
-              <div className="flex items-center gap-2 mb-1.5 text-amber-500 dark:text-amber-400">
+              <div className="flex items-center gap-2 mb-1.5 text-primary dark:text-cyan-400">
                 <Sparkles className="h-4 w-4" />
                 <span className="text-[10.5px] font-mono uppercase font-bold tracking-wider">
                   Client Rating
@@ -203,16 +203,16 @@ export default async function RewardsAccoladesPage({ params }: RewardsAccoladesP
           </div>
 
           {/* Genuine Claims & Data Integrity Notice */}
-          <div className="mb-14 sm:mb-16 p-4 sm:p-6 rounded-2xl bg-slate-900/60 border border-cyan-500/20 text-left relative overflow-hidden backdrop-blur-md">
+          <div className="mb-14 sm:mb-16 p-4 sm:p-6 rounded-2xl bg-card/90 dark:bg-slate-900/60 border border-slate-200/80 dark:border-cyan-500/20 text-left relative overflow-hidden backdrop-blur-md shadow-card">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3.5">
-              <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 shrink-0 border border-cyan-500/20">
+              <div className="p-2.5 rounded-xl bg-primary/10 dark:bg-cyan-500/10 text-primary dark:text-cyan-400 shrink-0 border border-primary/20 dark:border-cyan-500/20">
                 <FileCheck2 className="h-5 w-5" />
               </div>
               <div className="flex-1">
-                <h2 className="text-xs sm:text-sm font-bold text-slate-200 uppercase tracking-wider font-mono">
+                <h2 className="text-xs sm:text-sm font-bold text-foreground dark:text-slate-200 uppercase tracking-wider font-mono">
                   Data Integrity & Verified Claims Policy
                 </h2>
-                <p className="text-xs sm:text-[13px] text-slate-400 mt-1 leading-relaxed">
+                <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 mt-1 leading-relaxed font-normal">
                   Astraiv Technologies maintains strict regulatory transparency. All credentials, certifications, cloud technology alliances, and performance records displayed below are backed by genuine corporate audits, contractual guarantees, and authentic client reviews. We do not invent accolades, display placeholder company logos as real clients, or publish unverified certification badges.
                 </p>
               </div>

@@ -327,7 +327,7 @@ export function Navbar() {
     if (config.type === 'mega-industries') {
       return (
         <div
-          className="w-[min(840px,calc(100vw-3rem))] max-w-[calc(100vw-2rem)] rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl p-6 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col gap-4"
+          className="w-[min(840px,calc(100vw-3rem))] max-w-[calc(100vw-2rem)] rounded-2xl border border-slate-200/90 dark:border-white/10 bg-white/95 dark:bg-[#0D1320]/95 backdrop-blur-2xl p-6 shadow-2xl shadow-slate-900/15 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] flex flex-col gap-4"
         >
           <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800/80">
             <span className="text-[11px] font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500">
@@ -349,7 +349,7 @@ export function Navbar() {
                 key={sub.name}
                 href={sub.href}
                 onClick={() => setActiveDropdown(null)}
-                className="group/ind p-3 rounded-xl hover:bg-slate-100/90 dark:hover:bg-slate-900/80 border border-transparent hover:border-slate-200/60 dark:hover:border-slate-800/60 transition-all duration-150 flex flex-col focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
+                className="group/ind p-3 rounded-xl hover:bg-slate-100/90 dark:hover:bg-[#172033]/80 border border-transparent hover:border-slate-200/60 dark:hover:border-slate-800/60 transition-all duration-150 flex flex-col focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
               >
                 <span className="text-xs font-medium text-slate-800 dark:text-slate-200 group-hover/ind:text-primary dark:group-hover/ind:text-accent transition-colors flex items-center justify-between">
                   <span>{sub.name}</span>
@@ -482,8 +482,8 @@ export function Navbar() {
                     active
                       ? 'text-primary dark:text-accent font-semibold'
                       : isDropdownOpen
-                      ? 'text-foreground font-medium'
-                      : 'text-slate-600 dark:text-slate-300 hover:text-foreground'
+                      ? 'text-primary dark:text-accent font-medium'
+                      : 'text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-accent'
                   )}
                   aria-current={active ? 'page' : undefined}
                   aria-expanded={item.hasDropdown ? isDropdownOpen : undefined}
@@ -505,12 +505,12 @@ export function Navbar() {
                     <>
                       <motion.span
                         layoutId="activeNavIndicator"
-                        className="absolute bottom-0 left-0 w-full h-[2.5px] rounded-full bg-gradient-to-r from-primary via-secondary to-accent dark:from-accent dark:via-primary dark:to-blue-400 z-10 shadow-[0_1px_6px_rgba(11,61,145,0.35)] dark:shadow-[0_0_12px_rgba(37,99,235,0.7)]"
+                        className="absolute bottom-0 left-0 w-full h-[2px] rounded-full bg-primary dark:bg-accent z-10 shadow-[0_1px_4px_rgba(11,61,145,0.3)] dark:shadow-[0_0_8px_rgba(0,240,255,0.5)]"
                         transition={MOTION_SPRINGS.snappy}
                       />
                       <motion.span
                         layoutId="activeNavGlow"
-                        className="absolute bottom-0 left-0 w-full h-10 bg-gradient-to-t from-primary/15 via-accent/5 to-transparent dark:from-accent/25 dark:via-primary/15 dark:to-transparent blur-[8px] z-0 pointer-events-none"
+                        className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-primary/10 via-primary/5 to-transparent dark:from-accent/20 dark:via-primary/10 dark:to-transparent blur-[6px] z-0 pointer-events-none"
                         transition={MOTION_SPRINGS.snappy}
                       />
                     </>

@@ -52,7 +52,7 @@ export function ProcessSection({ variant = 'summary' }: ProcessSectionProps) {
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader
           badge={isDetailed ? "Canonical Engineering Lifecycle" : "How We Work"}
-          title={isDetailed ? "The Astraiv 6-Stage Engineering Roadmap" : "From Idea to Impact"}
+          title={isDetailed ? "The Astraiv 6-Stage [Engineering Roadmap]" : "From Strategy [to Scaled Production]"}
           description={
             isDetailed
               ? "Every engagement strictly adheres to our deterministic 6-stage lifecycle. Each stage is gated by automated verification benchmarks, peer architecture reviews, and immutable deliverables."
@@ -61,7 +61,7 @@ export function ProcessSection({ variant = 'summary' }: ProcessSectionProps) {
         />
 
         {/* 6-step Grid */}
-        <div className={`grid grid-cols-1 ${isDetailed ? 'md:grid-cols-2 lg:grid-cols-3 gap-8' : 'md:grid-cols-2 lg:grid-cols-3 gap-6'} mt-14 sm:mt-16 max-w-6xl mx-auto`}>
+        <div className={`grid grid-cols-1 ${isDetailed ? 'md:grid-cols-2 lg:grid-cols-3 gap-8' : 'md:grid-cols-2 lg:grid-cols-3 gap-6'} mt-12 sm:mt-14 max-w-6xl mx-auto`}>
           {CANONICAL_PROCESS_STAGES.map((step, index) => (
             <motion.div
               key={step.num}
@@ -70,7 +70,7 @@ export function ProcessSection({ variant = 'summary' }: ProcessSectionProps) {
               viewport={MOTION_VIEWPORT.once}
               transition={{ delay: shouldReduceMotion ? 0 : index * 0.05, duration: MOTION_DURATIONS.reveal, ease: EASE_OUT_EXPO }}
               whileHover={shouldReduceMotion ? {} : { y: -2, transition: { duration: MOTION_DURATIONS.fast, ease: EASE_OUT_EXPO } }}
-              className="group relative p-7 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-card hover:shadow-card-hover hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-300 transform-gpu flex flex-col justify-between"
+              className="group relative p-7 sm:p-8 bg-card/95 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 rounded-2xl shadow-card hover:shadow-card-hover hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-300 transform-gpu flex flex-col justify-between"
             >
               <div>
                 {/* Top Row: Stage & Icon */}
@@ -78,7 +78,7 @@ export function ProcessSection({ variant = 'summary' }: ProcessSectionProps) {
                   <span className="px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 rounded-full border border-primary/20 dark:border-blue-400/20">
                     Stage {step.num} • {step.tag}
                   </span>
-                  <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-100/90 dark:bg-slate-800/90 text-primary dark:text-blue-400 border border-border/50 dark:border-slate-700/60 group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                  <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-100/90 dark:bg-slate-800/90 text-primary dark:text-blue-400 border border-slate-200/80 dark:border-slate-700/60 group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300">
                     {getStageIcon(step.iconName)}
                   </div>
                 </div>
@@ -88,7 +88,7 @@ export function ProcessSection({ variant = 'summary' }: ProcessSectionProps) {
                   <h3 className="text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
                     {step.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-normal">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
                     {isDetailed ? step.detailedDesc : step.summary}
                   </p>
                 </div>
@@ -111,7 +111,7 @@ export function ProcessSection({ variant = 'summary' }: ProcessSectionProps) {
                     </div>
 
                     <div className="pt-3 border-t border-border/20 dark:border-slate-800/40">
-                      <span className="text-[10.5px] font-mono uppercase font-bold text-emerald-600 dark:text-emerald-400 block mb-1.5 flex items-center gap-1">
+                      <span className="text-[10.5px] font-mono uppercase font-bold text-primary dark:text-cyan-400 block mb-1.5 flex items-center gap-1">
                         <ShieldCheck className="h-3.5 w-3.5" />
                         <span>Quality Gate</span>
                       </span>

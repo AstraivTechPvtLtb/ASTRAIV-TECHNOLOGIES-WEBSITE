@@ -46,17 +46,17 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
   const getIconComponent = (iconName: string) => {
     switch (iconName) {
       case 'ShieldCheck':
-        return <ShieldCheck className="h-6 w-6 text-sky-600 dark:text-sky-400" />;
+        return <ShieldCheck className="h-6 w-6 text-primary dark:text-cyan-400" />;
       case 'CheckCircle2':
-        return <CheckCircle2 className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />;
+        return <CheckCircle2 className="h-6 w-6 text-primary dark:text-cyan-400" />;
       case 'Lock':
         return <Lock className="h-6 w-6 text-blue-600 dark:text-blue-400" />;
       case 'Cloud':
-        return <Cloud className="h-6 w-6 text-amber-600 dark:text-amber-400" />;
+        return <Cloud className="h-6 w-6 text-sky-600 dark:text-sky-400" />;
       case 'Sparkles':
-        return <Sparkles className="h-6 w-6 text-purple-600 dark:text-purple-400" />;
+        return <Sparkles className="h-6 w-6 text-primary dark:text-cyan-400" />;
       case 'Star':
-        return <Star className="h-6 w-6 text-amber-500 fill-amber-500/30 dark:text-amber-400" />;
+        return <Star className="h-6 w-6 text-blue-500 fill-blue-500/30 dark:text-cyan-400" />;
       case 'Award':
       default:
         return <Award className="h-6 w-6 text-primary" />;
@@ -67,7 +67,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
     switch (status) {
       case 'verified':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-[11px] font-bold">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-primary/10 text-primary dark:text-cyan-300 border border-primary/20 text-[11px] font-bold">
             <Check className="h-3 w-3" /> Audited & Verified
           </span>
         );
@@ -136,7 +136,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
           {/* Related Achievement Callout Box */}
           <div className="p-3.5 rounded-xl bg-slate-100/70 dark:bg-slate-950/60 border border-border/50 dark:border-slate-800/80 mb-5 text-left">
             <div className="flex items-center gap-1.5 mb-1">
-              <Sparkles className="h-3 w-3 text-amber-500" />
+              <Sparkles className="h-3 w-3 text-primary dark:text-cyan-400" />
               <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                 Related Achievement
               </span>
@@ -155,9 +155,9 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
               {item.highlights.map((highlight, idx) => (
                 <li
                   key={idx}
-                  className="flex items-start gap-1.5 text-xs text-muted-foreground"
+                  className="flex items-start gap-1.5 text-xs text-slate-600 dark:text-muted-foreground"
                 >
-                  <CheckCircle2 className="h-3 w-3 text-emerald-500 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-3 w-3 text-primary dark:text-cyan-400 shrink-0 mt-0.5" />
                   <span className="leading-tight">{highlight}</span>
                 </li>
               ))}
@@ -167,7 +167,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
 
         {/* Footer: Verification Link & Badge */}
         <div className="pt-4 border-t border-border/40 dark:border-slate-800/80 flex items-center justify-between gap-3">
-          <span className="text-xs font-mono font-bold text-slate-500 dark:text-slate-400">
+          <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-400">
             {item.badgeText}
           </span>
 
@@ -206,28 +206,46 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
           className={cn(
             'px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer',
             selectedTab === 'all'
-              ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20'
-              : 'bg-card/80 dark:bg-slate-900/80 text-muted-foreground hover:text-foreground border border-border/60 dark:border-slate-800/80'
+              ? 'bg-primary text-white shadow-sm shadow-primary/20 ring-2 ring-primary/20'
+              : 'bg-card/90 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40 border border-slate-300 dark:border-slate-800 shadow-2xs active:scale-[0.98]'
           )}
         >
-          All Accolades ({initialAccolades.length})
+          <span>All Accolades</span>
+          <span
+            className={cn(
+              'ml-1.5 text-[11px] px-1.5 py-0.5 rounded-full font-mono font-bold',
+              selectedTab === 'all'
+                ? 'bg-white/20 text-white'
+                : 'bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
+            )}
+          >
+            {initialAccolades.length}
+          </span>
         </button>
 
         {ACCOLADE_CATEGORIES.map((cat) => {
           const count = initialAccolades.filter((item) => item.type === cat.type).length;
+          const isSelected = selectedTab === cat.type;
           return (
             <button
               key={cat.type}
               onClick={() => setSelectedTab(cat.type)}
               className={cn(
                 'px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer flex items-center gap-1.5',
-                selectedTab === cat.type
-                  ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20'
-                  : 'bg-card/80 dark:bg-slate-900/80 text-muted-foreground hover:text-foreground border border-border/60 dark:border-slate-800/80'
+                isSelected
+                  ? 'bg-primary text-white shadow-sm shadow-primary/20 ring-2 ring-primary/20'
+                  : 'bg-card/90 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40 border border-slate-300 dark:border-slate-800 shadow-2xs active:scale-[0.98]'
               )}
             >
               <span>{cat.label}</span>
-              <span className="text-[11px] px-1.5 py-0.2 rounded-full bg-background/20 font-mono">
+              <span
+                className={cn(
+                  'text-[11px] px-1.5 py-0.5 rounded-full font-mono font-bold',
+                  isSelected
+                    ? 'bg-white/20 text-white'
+                    : 'bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
+                )}
+              >
                 {count}
               </span>
             </button>
@@ -241,9 +259,8 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
           {/* 1. AWARDS */}
           <section id="awards" className="scroll-mt-24">
             <div className="mb-6 sm:mb-8 border-b border-border/40 dark:border-slate-800/80 pb-4">
-
-              <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] font-heading">
-                Technical & Engineering Awards
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] font-heading text-foreground">
+                Technical &amp; <span className="heading-gradient">Engineering Awards</span>
               </h2>
               <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl">
                 Honors recognizing architectural craftsmanship, deterministic AI orchestration, and software delivery excellence.
@@ -257,9 +274,8 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
           {/* 2. CERTIFICATIONS */}
           <section id="certifications" className="scroll-mt-24">
             <div className="mb-6 sm:mb-8 border-b border-border/40 dark:border-slate-800/80 pb-4">
-
-              <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] font-heading">
-                Compliance & Security Certifications
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] font-heading text-foreground">
+                Compliance &amp; <span className="heading-gradient">Security Certifications</span>
               </h2>
               <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl">
                 Audited global benchmarks governing enterprise data protection, quality SDLC governance, and regulatory posture.
@@ -273,9 +289,8 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
           {/* 3. PARTNERSHIPS */}
           <section id="partnerships" className="scroll-mt-24">
             <div className="mb-6 sm:mb-8 border-b border-border/40 dark:border-slate-800/80 pb-4">
-
-              <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] font-heading">
-                Cloud & Technology Ecosystem Partnerships
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] font-heading text-foreground">
+                Cloud &amp; Technology <span className="heading-gradient">Ecosystem Partnerships</span>
               </h2>
               <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl">
                 Verified alliances with foundational cloud providers, edge networks, and modern software architectures.
@@ -289,9 +304,8 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
           {/* 4. RECOGNITIONS */}
           <section id="recognitions" className="scroll-mt-24">
             <div className="mb-6 sm:mb-8 border-b border-border/40 dark:border-slate-800/80 pb-4">
-
-              <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] font-heading">
-                Audited Recognitions & Operational Benchmarks
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] font-heading text-foreground">
+                Audited Recognitions &amp; <span className="heading-gradient">Operational Benchmarks</span>
               </h2>
               <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl">
                 Documented delivery reliability, 100% positive executive feedback, and contractually guaranteed SLAs.

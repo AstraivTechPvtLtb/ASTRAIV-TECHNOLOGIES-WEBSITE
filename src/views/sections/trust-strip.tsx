@@ -63,28 +63,28 @@ function renderBadgeIcon(
 
   switch (iconName) {
     case 'CheckCircle2':
-      return <CheckCircle2 className={cn(iconClass, 'text-emerald-600 dark:text-emerald-400')} aria-hidden="true" />;
+      return <CheckCircle2 className={cn(iconClass, 'text-primary dark:text-cyan-400')} aria-hidden="true" />;
     case 'Lock':
       return <Lock className={cn(iconClass, 'text-blue-600 dark:text-blue-400')} aria-hidden="true" />;
     case 'Award':
-      return <Award className={cn(iconClass, 'text-purple-600 dark:text-purple-400')} aria-hidden="true" />;
+      return <Award className={cn(iconClass, 'text-primary dark:text-cyan-400')} aria-hidden="true" />;
     case 'Cloud':
-      return <Cloud className={cn(iconClass, 'text-amber-600 dark:text-amber-400')} aria-hidden="true" />;
+      return <Cloud className={cn(iconClass, 'text-sky-600 dark:text-sky-400')} aria-hidden="true" />;
     case 'Star':
       return (
         <Star
           className={cn(
             iconClass,
-            'text-amber-500 fill-amber-500/20 dark:text-amber-400 dark:fill-amber-400/20'
+            'text-blue-500 fill-blue-500/20 dark:text-cyan-400 dark:fill-cyan-400/20'
           )}
           aria-hidden="true"
         />
       );
     case 'Sparkles':
-      return <Sparkles className={cn(iconClass, 'text-indigo-600 dark:text-indigo-400')} aria-hidden="true" />;
+      return <Sparkles className={cn(iconClass, 'text-primary dark:text-cyan-400')} aria-hidden="true" />;
     case 'ShieldCheck':
     default:
-      return <ShieldCheck className={cn(iconClass, 'text-sky-600 dark:text-sky-400')} aria-hidden="true" />;
+      return <ShieldCheck className={cn(iconClass, 'text-primary dark:text-blue-400')} aria-hidden="true" />;
   }
 }
 
@@ -201,7 +201,7 @@ function AccoladeDetailModal({
     switch (item.status) {
       case 'verified':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-[10.5px] font-medium">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary/10 text-primary dark:text-cyan-300 border border-primary/20 text-[10.5px] font-medium">
             <Check className="h-3 w-3" /> Audited & Verified
           </span>
         );
@@ -337,7 +337,7 @@ function AccoladeDetailModal({
                         key={idx}
                         className="flex items-start gap-2 text-[11.5px] text-slate-700 dark:text-slate-300 leading-snug"
                       >
-                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" aria-hidden="true" />
+                        <CheckCircle2 className="h-3.5 w-3.5 text-primary dark:text-cyan-400 shrink-0 mt-0.5" aria-hidden="true" />
                         <span>{highlight}</span>
                       </div>
                     ))}
@@ -363,7 +363,7 @@ function AccoladeDetailModal({
               {/* Action Footer */}
               <div className="mt-6 pt-4 border-t border-slate-200/80 dark:border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-3">
                 <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary dark:bg-cyan-400" />
                   <span>Continuous Production Verification</span>
                 </div>
 
@@ -675,8 +675,8 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
                       aria-label="Verified Status Active"
                       title="Active Verified Compliance"
                     >
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-30 [animation-duration:3.5s]" />
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary dark:bg-cyan-400 opacity-30 [animation-duration:3.5s]" />
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary dark:bg-cyan-400" />
                     </span>
                   </div>
                   <span className="text-[11px] sm:text-xs text-muted-foreground font-medium">
