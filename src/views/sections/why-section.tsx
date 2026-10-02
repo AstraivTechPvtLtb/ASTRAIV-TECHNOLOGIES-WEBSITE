@@ -46,7 +46,7 @@ export function WhySection({ variant = 'summary' }: WhySectionProps) {
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader
           badge={isDetailed ? "Company Philosophy & Architecture" : "Why Astraiv"}
-          title={isDetailed ? "Engineered for Mathematical & Operational Certainty" : "Why Businesses Choose Astraiv"}
+          title={isDetailed ? "Engineered for [Operational Certainty]" : "Why Businesses [Choose Astraiv]"}
           description={
             isDetailed
               ? "We engineer mission-critical digital systems around four non-negotiable architectural tenets. Here is our technical philosophy, delivery guarantees, and verification methodology."
@@ -55,7 +55,7 @@ export function WhySection({ variant = 'summary' }: WhySectionProps) {
         />
 
         {/* Dynamic Grid: 4-Col for summary, 2x2 or 4-Col expanded for detailed */}
-        <div className={`grid grid-cols-1 ${isDetailed ? 'md:grid-cols-2 gap-8' : 'md:grid-cols-2 lg:grid-cols-4 gap-6'} mt-14 sm:mt-16 max-w-6xl mx-auto`}>
+        <div className={`grid grid-cols-1 ${isDetailed ? 'md:grid-cols-2 gap-8' : 'md:grid-cols-2 lg:grid-cols-4 gap-6'} mt-12 sm:mt-14 max-w-6xl mx-auto`}>
           {WHY_ASTRAIV_PILLARS.map((pillar, index) => (
             <motion.div
               key={pillar.id}
@@ -64,20 +64,20 @@ export function WhySection({ variant = 'summary' }: WhySectionProps) {
               viewport={MOTION_VIEWPORT.once}
               transition={{ delay: shouldReduceMotion ? 0 : index * 0.06, duration: MOTION_DURATIONS.reveal, ease: EASE_OUT_EXPO }}
               whileHover={shouldReduceMotion ? {} : { y: -2, transition: { duration: MOTION_DURATIONS.fast, ease: EASE_OUT_EXPO } }}
-              className="group relative p-5 sm:p-6 lg:p-7 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-card hover:shadow-card-hover hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-300 transform-gpu flex flex-col justify-between"
+              className="group relative p-5 sm:p-6 lg:p-7 bg-card/95 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 rounded-2xl shadow-card hover:shadow-card-hover hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-300 transform-gpu flex flex-col justify-between"
             >
               <div>
                 {/* Top Row: Number, Icon & Badge */}
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-xl sm:text-2xl font-black font-mono text-slate-400 dark:text-slate-600 group-hover:text-primary dark:group-hover:text-blue-400 transition-colors">
+                    <span className="text-xl sm:text-2xl font-black font-mono text-slate-400 dark:text-slate-500 group-hover:text-primary dark:group-hover:text-blue-400 transition-colors">
                       {pillar.num}
                     </span>
                     <span className="px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase rounded-md bg-primary/10 text-primary dark:text-blue-300 border border-primary/20">
                       {pillar.badge}
                     </span>
                   </div>
-                  <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-100/90 dark:bg-slate-800/90 border border-border/50 dark:border-slate-700/60 group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300 text-primary dark:text-blue-400">
+                  <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-100/90 dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700/60 group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300 text-primary dark:text-blue-400">
                     {getPillarIcon(pillar.iconName)}
                   </div>
                 </div>
@@ -87,7 +87,7 @@ export function WhySection({ variant = 'summary' }: WhySectionProps) {
                   <h3 className={`${isDetailed ? 'text-xl' : 'text-base sm:text-lg'} font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors`}>
                     {pillar.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-[1.62] font-normal">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-[1.62] font-normal">
                     {isDetailed ? pillar.completeDescription : pillar.summary}
                   </p>
                 </div>
@@ -101,7 +101,7 @@ export function WhySection({ variant = 'summary' }: WhySectionProps) {
                     <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
                       {pillar.tenets.map((tenet, tIdx) => (
                         <li key={tIdx} className="flex items-start gap-2">
-                          <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0 mt-0.5" />
                           <span>{tenet}</span>
                         </li>
                       ))}

@@ -72,16 +72,16 @@ function renderFormattedContent(content: string) {
   const flushList = (keyPrefix: string) => {
     if (currentList.length > 0) {
       elements.push(
-        <ul key={`${keyPrefix}-list`} className="space-y-3 my-6 pl-2">
+        <ul key={`${keyPrefix}-list`} className="space-y-3.5 my-6 pl-1">
           {currentList.map((item, idx) => {
             const boldMatch = item.match(/^\*\*(.*?)\*\*:?\s*(.*)$/);
             return (
-              <li key={idx} className="flex items-start gap-3 text-slate-300 text-sm sm:text-base leading-relaxed">
-                <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+              <li key={idx} className="flex items-start gap-3 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
+                <CheckCircle2 className="h-5 w-5 text-primary dark:text-blue-400 shrink-0 mt-0.5" />
                 {boldMatch ? (
                   <span>
-                    <strong className="text-white font-bold">{boldMatch[1]}: </strong>
-                    {boldMatch[2]}
+                    <strong className="text-foreground dark:text-white font-bold">{boldMatch[1]}: </strong>
+                    <span className="text-slate-700 dark:text-slate-300">{boldMatch[2]}</span>
                   </span>
                 ) : (
                   <span>{item}</span>
@@ -107,26 +107,26 @@ function renderFormattedContent(content: string) {
 
     if (trimmed.startsWith('#### ')) {
       elements.push(
-        <h4 key={index} className="text-lg sm:text-xl font-bold text-white tracking-tight mt-8 mb-3 flex items-center gap-2">
+        <h4 key={index} className="text-lg sm:text-xl font-bold text-foreground dark:text-white tracking-tight mt-8 mb-3 flex items-center gap-2">
           <span className="h-2 w-2 rounded-full bg-primary inline-block" />
           {trimmed.replace(/^####\s+/, '')}
         </h4>
       );
     } else if (trimmed.startsWith('### ')) {
       elements.push(
-        <h3 key={index} className="text-xl sm:text-2xl font-extrabold text-white tracking-tight mt-10 mb-4 pb-2 border-b border-slate-800/80">
+        <h3 key={index} className="text-xl sm:text-2xl font-extrabold text-foreground dark:text-white tracking-tight mt-10 mb-4 pb-2 border-b border-border/70 dark:border-slate-800/80">
           {trimmed.replace(/^###\s+/, '')}
         </h3>
       );
     } else if (trimmed.startsWith('## ')) {
       elements.push(
-        <h2 key={index} className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-12 mb-5">
+        <h2 key={index} className="text-2xl sm:text-3xl font-extrabold text-foreground dark:text-white tracking-tight mt-12 mb-5">
           {trimmed.replace(/^##\s+/, '')}
         </h2>
       );
     } else if (trimmed.length > 0) {
       elements.push(
-        <p key={index} className="text-slate-300 text-base sm:text-lg leading-relaxed mb-6 font-normal">
+        <p key={index} className="text-slate-700 dark:text-slate-300 text-base sm:text-lg leading-relaxed mb-6 font-normal">
           {trimmed}
         </p>
       );
@@ -179,7 +179,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
   } = context;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-primary/20 selection:text-foreground flex flex-col justify-between relative overflow-hidden">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground flex flex-col justify-between relative overflow-hidden transition-colors">
       <BreadcrumbSchema
         items={[
           { name: 'Home', path: '/' },
@@ -203,12 +203,12 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
 
       <main className="pt-28 pb-20 flex-grow z-10 relative">
         {/* Ambient background glows */}
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/10 rounded-full blur-[180px] pointer-events-none" />
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 dark:bg-primary/10 rounded-full blur-[180px] pointer-events-none" />
         <div className="absolute top-96 right-10 w-[400px] h-[300px] bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="max-w-5xl mx-auto px-6 py-8">
           {/* Visual Breadcrumb Trail */}
-          <div className="flex flex-wrap items-center gap-2 mb-8 text-xs font-semibold text-slate-400">
+          <div className="flex flex-wrap items-center gap-2 mb-8 text-xs font-semibold text-muted-foreground">
             <Link href={ROUTES.PUBLIC.HOME} className="hover:text-primary transition-colors">
               Home
             </Link>
@@ -217,21 +217,21 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
               Services
             </Link>
             <span>/</span>
-            <span className="text-slate-200 font-bold truncate max-w-xs">{service.title}</span>
+            <span className="text-foreground font-bold truncate max-w-xs">{service.title}</span>
           </div>
 
           {/* 1. SERVICE HERO CARD */}
-          <div className="relative overflow-hidden rounded-3xl bg-slate-900/80 border border-slate-800 backdrop-blur-xl p-8 sm:p-12 mb-12 shadow-2xl">
+          <div className="relative overflow-hidden rounded-3xl bg-card/90 dark:bg-slate-900/80 border border-border/80 dark:border-slate-800 backdrop-blur-xl p-8 sm:p-12 mb-12 shadow-sm dark:shadow-2xl transition-colors">
             <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
 
             <div className="relative z-10">
               <div className="flex flex-wrap items-center gap-3 mb-6">
 
-                <span className="px-3 py-1 text-xs font-bold bg-blue-500/10 text-blue-400 rounded-full border border-blue-500/20">
+                <span className="px-3 py-1 text-xs font-bold bg-blue-500/10 text-primary dark:text-blue-400 rounded-full border border-blue-500/20">
                   {service.category}
                 </span>
                 {service.badge && (
-                  <span className="px-3 py-1 text-xs font-bold bg-emerald-500/10 text-emerald-400 rounded-full border border-emerald-500/20">
+                  <span className="px-3 py-1 text-xs font-bold bg-primary/10 text-primary dark:text-cyan-400 rounded-full border border-primary/20">
                     {service.badge}
                   </span>
                 )}
@@ -241,25 +241,25 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary border border-primary/20 shadow-lg shadow-primary/10">
                   <ServiceIcon name={service.icon} className="h-8 w-8" />
                 </div>
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight heading-gradient leading-tight">
                   {service.title}
                 </h1>
               </div>
 
-              <p className="text-lg sm:text-xl text-slate-300 leading-relaxed font-medium max-w-3xl border-l-2 border-primary/40 pl-4 py-1">
+              <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed font-medium max-w-3xl border-l-2 border-primary/40 pl-4 py-1">
                 {service.shortDesc}
               </p>
             </div>
           </div>
 
           {/* 1.1 SERVICE DETAILED ARCHITECTURE */}
-          <div className="rounded-3xl bg-slate-900/40 border border-slate-800/80 p-8 sm:p-12 mb-12 backdrop-blur-md">
-            <div className="text-slate-200">
+          <div className="rounded-3xl bg-card/90 dark:bg-slate-900/40 border border-border/80 dark:border-slate-800/80 p-8 sm:p-12 mb-12 backdrop-blur-md transition-colors shadow-card">
+            <div className="text-foreground dark:text-slate-200">
               {renderFormattedContent(service.fullDesc)}
             </div>
 
             {service.features && service.features.length > 0 && (
-              <div className="mt-12 pt-8 border-t border-slate-800">
+              <div className="mt-12 pt-8 border-t border-border/70 dark:border-slate-800">
                 <h4 className="text-sm font-bold uppercase tracking-wider text-primary mb-5 flex items-center gap-2">
                   <Sparkles className="h-4 w-4" /> Core Technical Deliverables
                 </h4>
@@ -267,7 +267,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                   {service.features.map((feat, idx) => (
                     <div
                       key={idx}
-                      className="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 text-sm font-medium text-slate-200"
+                      className="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50/80 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 text-sm font-medium text-foreground/90 dark:text-slate-200"
                     >
                       <div className="h-2 w-2 rounded-full bg-primary shrink-0" />
                       <span>{feat}</span>
@@ -314,7 +314,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                     <Quote className="h-3 w-3" />
                     <span>Verified Client Endorsement</span>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-extrabold text-white">
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-foreground">
                     What Leaders Say About Our {service.title}
                   </h3>
                 </div>
@@ -331,22 +331,22 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                 {serviceTestimonials.map((t) => (
                   <div
                     key={t.id}
-                    className="p-7 rounded-3xl bg-slate-900/60 border border-slate-800 backdrop-blur-sm relative flex flex-col justify-between shadow-md"
+                    className="p-7 rounded-3xl bg-card/80 dark:bg-slate-900/60 border border-border/80 dark:border-slate-800 backdrop-blur-sm relative flex flex-col justify-between shadow-sm dark:shadow-md transition-colors"
                   >
                     <div>
-                      <div className="flex items-center gap-1 mb-4 text-amber-400">
+                      <div className="flex items-center gap-1 mb-4 text-primary dark:text-cyan-400">
                         {[1, 2, 3, 4, 5].map((s) => (
-                          <Star key={s} className="h-4 w-4 fill-amber-400" />
+                          <Star key={s} className="h-4 w-4 fill-primary dark:fill-cyan-400" />
                         ))}
                       </div>
-                      <p className="text-sm text-slate-200 leading-relaxed font-normal mb-6">
+                      <p className="text-sm text-foreground/90 dark:text-slate-200 leading-relaxed font-normal mb-6">
                         &ldquo;{t.review_text}&rdquo;
                       </p>
                     </div>
 
-                    <div className="pt-4 border-t border-slate-800/80 flex items-center gap-3.5">
+                    <div className="pt-4 border-t border-border/60 dark:border-slate-800/80 flex items-center gap-3.5">
                       {t.avatar ? (
-                        <div className="relative h-11 w-11 rounded-full overflow-hidden shrink-0 border border-slate-700">
+                        <div className="relative h-11 w-11 rounded-full overflow-hidden shrink-0 border border-border/70 dark:border-slate-700">
                           <Image src={t.avatar} alt={t.client_name} fill sizes="44px" className="object-cover" />
                         </div>
                       ) : (
@@ -355,8 +355,8 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                         </div>
                       )}
                       <div>
-                        <span className="text-sm font-bold text-white block">{t.client_name}</span>
-                        <span className="text-xs text-slate-400">
+                        <span className="text-sm font-bold text-foreground block">{t.client_name}</span>
+                        <span className="text-xs text-muted-foreground">
                           {t.role} {t.company && `• ${t.company}`}
                         </span>
                       </div>

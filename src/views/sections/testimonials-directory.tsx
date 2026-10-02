@@ -185,7 +185,7 @@ export function TestimonialsDirectory({ testimonials }: TestimonialsDirectoryPro
                             className={cn(
                               'h-4 w-4',
                               starIdx <= activeStars
-                                ? 'fill-amber-400 text-amber-400'
+                                ? 'fill-primary text-primary dark:fill-cyan-400 dark:text-cyan-400'
                                 : 'fill-slate-200 dark:fill-slate-800 text-slate-300 dark:text-slate-700'
                             )}
                           />
@@ -193,8 +193,8 @@ export function TestimonialsDirectory({ testimonials }: TestimonialsDirectoryPro
                       </div>
 
                       {/* Verified Badge */}
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10.5px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20">
-                        <CheckCircle2 className="h-3 w-3 shrink-0" />
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10.5px] font-semibold text-primary dark:text-cyan-300 bg-primary/10 border border-primary/20">
+                        <CheckCircle2 className="h-3 w-3 shrink-0 text-primary dark:text-cyan-400" />
                         <span>Verified</span>
                       </span>
                     </div>

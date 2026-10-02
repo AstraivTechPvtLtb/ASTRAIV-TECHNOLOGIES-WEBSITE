@@ -37,7 +37,7 @@ export function TestimonialCard({
               className={cn(
                 'h-4 w-4 transition-colors',
                 starIdx <= activeStars
-                  ? 'fill-amber-400 text-amber-400'
+                  ? 'fill-primary text-primary dark:fill-cyan-400 dark:text-cyan-400'
                   : 'fill-slate-200 dark:fill-slate-800 text-slate-300 dark:text-slate-700'
               )}
             />

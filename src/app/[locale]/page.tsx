@@ -57,7 +57,7 @@ export default async function HomePage({ params }: HomePageProps) {
   ]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground">
+    <div className="flex flex-col min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground relative overflow-x-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(getWebSiteJsonLd(locale)) }}

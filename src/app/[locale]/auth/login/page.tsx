@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Mail,
@@ -15,8 +16,6 @@ import {
   Loader2,
   Sparkles,
   Hash,
-  ShieldCheck,
-  CheckCircle2,
 } from 'lucide-react';
 import { Link, useRouter } from '@/i18n/routing';
 import { Button } from '@/views/ui/button';
@@ -37,7 +36,6 @@ export default function LoginPage() {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
@@ -132,58 +130,48 @@ export default function LoginPage() {
     }
   };
 
-  // Helper function to quick-fill credentials for testing
-  const handleQuickFill = (type: 'approved1' | 'approved2' | 'unapproved' | 'admin') => {
-    setErrorMsg(null);
-    setSuccessMsg(null);
-    
-    if (type === 'approved1') {
-      setValue('leadNumber', 'AST-LEAD-2026', { shouldValidate: true });
-      setValue('email', 'client@astraiv.com', { shouldValidate: true });
-      setValue('password', 'Password123', { shouldValidate: true });
-    } else if (type === 'approved2') {
-      setValue('leadNumber', 'AST-LEAD-1001', { shouldValidate: true });
-      setValue('email', 'rbranson@virgin.com', { shouldValidate: true });
-      setValue('password', 'Password123', { shouldValidate: true });
-    } else if (type === 'unapproved') {
-      setValue('leadNumber', 'AST-LEAD-1002', { shouldValidate: true });
-      setValue('email', 'm.croft@aperture.com', { shouldValidate: true });
-      setValue('password', 'Password123', { shouldValidate: true });
-    } else if (type === 'admin') {
-      setValue('leadNumber', '', { shouldValidate: true });
-      setValue('email', 'astraivtechnologies@gmail.com', { shouldValidate: true });
-      setValue('password', 'Password123', { shouldValidate: true });
-    }
-  };
-
   return (
-    <div className="relative min-h-screen flex items-center justify-center p-6 bg-slate-950 overflow-hidden">
-      <div className="absolute inset-0 bg-radial-[circle_at_center,transparent_30%,rgba(15,23,42,0.9)] pointer-events-none" />
+    <div className="relative min-h-screen flex items-center justify-center p-4 sm:p-6 bg-transparent text-foreground selection:bg-primary/20 overflow-hidden transition-colors">
+      {/* Dynamic Ambient Background Glows matching the rest of the website */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-primary/10 dark:bg-blue-600/15 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute bottom-10 right-10 w-[350px] h-[350px] bg-blue-600/5 dark:bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
 
       {/* Main card viewport */}
       <motion.div
-        initial={{ opacity: 0, y: 30, scale: 0.98 }}
+        initial={{ opacity: 0, y: 25, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-10 w-full max-w-md"
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 w-full max-w-md my-8"
       >
-        <div className="glass-dark rounded-[20px] shadow-[0_20px_50px_rgba(9,11,18,0.6)] border border-slate-800/80 p-8 backdrop-blur-3xl">
+        <div className="relative rounded-3xl bg-white/85 dark:bg-[#0D1320]/85 border border-slate-200/90 dark:border-white/10 backdrop-blur-2xl p-7 sm:p-10 shadow-2xl shadow-slate-900/10 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] transition-all overflow-hidden">
+          {/* Subtle top edge gradient highlight */}
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 dark:via-blue-400/40 to-transparent pointer-events-none" />
+
           {/* Header branding */}
           <div className="flex flex-col items-center mb-7 text-center">
-            <Link href="/" className="flex items-center gap-2 group mb-4">
-              <div className="h-9 w-9 rounded-full bg-gradient-to-tr from-primary via-secondary to-accent p-0.5 shadow-md flex items-center justify-center">
-                <div className="bg-slate-950 w-full h-full rounded-full flex items-center justify-center font-bold text-xs text-white">AI</div>
-              </div>
+            <Link href="/" className="flex items-center gap-2.5 group mb-4">
+              <Image
+                src="/logo-icon.jpg"
+                alt="Astraiv Technologies Logo"
+                width={38}
+                height={38}
+                priority
+                className="rounded-full object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/20 dark:ring-blue-400/30 group-hover:ring-primary/50 shadow-md"
+              />
               <div className="flex flex-col items-start leading-tight">
-                <span className="font-heading font-extrabold text-lg tracking-wider bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent pb-0.5">ASTRAIV</span>
-                <span className="text-[7px] uppercase tracking-[0.28em] font-black text-white/90">TECHNOLOGIES</span>
+                <span className="font-heading font-extrabold text-[20px] tracking-wider bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent pb-0.5">
+                  ASTRAIV
+                </span>
+                <span className="text-[8px] uppercase tracking-[0.28em] font-black text-black dark:text-white dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.85)]">
+                  TECHNOLOGIES
+                </span>
               </div>
             </Link>
-            <h1 className="font-heading font-extrabold text-2xl tracking-tight text-white mb-1.5">
+            <h1 className="font-heading font-semibold text-2xl sm:text-3xl tracking-[-0.025em] text-foreground mb-1.5">
               Welcome Back
             </h1>
-            <p className="text-xs sm:text-sm text-muted-foreground/80 font-medium">
-              Access your engineering cockpit &amp; agile progress
+            <p className="text-sm text-muted-foreground font-normal leading-relaxed">
+              Access your engineering cockpit
             </p>
           </div>
 
@@ -195,7 +183,7 @@ export default function LoginPage() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="flex items-start gap-2.5 bg-destructive/10 border border-destructive/20 text-destructive text-xs sm:text-sm rounded-[12px] p-3.5 leading-relaxed"
+                  className="flex items-start gap-2.5 bg-destructive/10 border border-destructive/20 text-destructive text-sm rounded-xl p-3.5"
                 >
                   <AlertCircle className="h-4.5 w-4.5 shrink-0 mt-0.5" />
                   <span>{errorMsg}</span>
@@ -207,7 +195,7 @@ export default function LoginPage() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="flex items-start gap-2.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs sm:text-sm rounded-[12px] p-3.5"
+                  className="flex items-start gap-2.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 dark:text-emerald-400 text-sm rounded-xl p-3.5"
                 >
                   <Sparkles className="h-4.5 w-4.5 shrink-0 mt-0.5 animate-pulse" />
                   <span>{successMsg}</span>
@@ -216,16 +204,16 @@ export default function LoginPage() {
             </AnimatePresence>
 
             {/* Lead Number field */}
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label htmlFor="leadNumber" className="text-xs font-bold text-slate-300 uppercase tracking-wider block">
-                  Lead Number <span className="text-blue-400 font-mono text-[10px] normal-case">(For Client Portal)</span>
+                <label htmlFor="leadNumber" className="text-xs font-semibold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
+                  Lead Number <span className="text-blue-500 dark:text-blue-400 font-mono text-[10px] normal-case">(For Client Portal)</span>
                 </label>
-                <span className="text-[10px] text-slate-500 font-mono">e.g. AST-LEAD-2026</span>
+                <span className="text-[10px] text-muted-foreground font-mono">e.g. AST-LEAD-2026</span>
               </div>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/75">
-                  <Hash className="h-4 w-4 text-blue-400" />
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
+                  <Hash className="h-4 w-4 text-blue-500 dark:text-blue-400" />
                 </span>
                 <Input
                   id="leadNumber"
@@ -233,24 +221,24 @@ export default function LoginPage() {
                   placeholder="AST-LEAD-2026"
                   autoComplete="off"
                   className={cn(
-                    'pl-10.5 h-11 border-slate-800/80 bg-slate-900/40 text-slate-200 placeholder:text-slate-600 focus-visible:border-blue-500 uppercase font-mono text-xs',
+                    'pl-10.5 h-11 bg-white/70 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 text-foreground placeholder:text-muted-foreground/60 focus:bg-white dark:focus:bg-slate-900 focus:border-primary dark:focus:border-blue-400 focus:ring-2 focus:ring-primary/20 dark:focus:ring-blue-400/20 rounded-xl transition-all uppercase font-mono text-xs',
                     errors.leadNumber && 'border-destructive focus-visible:ring-destructive/30'
                   )}
                   {...register('leadNumber')}
                 />
               </div>
-              <p className="text-[10px] text-slate-500">
+              <p className="text-[10px] text-muted-foreground">
                 Issued via email once your project brief is approved by the admin board.
               </p>
             </div>
 
             {/* Email input field */}
-            <div className="space-y-1.5">
-              <label htmlFor="email" className="text-xs font-bold text-slate-300 uppercase tracking-wider block">
+            <div className="space-y-2">
+              <label htmlFor="email" className="text-xs font-semibold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
                 {t('email')}
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/75">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
                   <Mail className="h-4 w-4" />
                 </span>
                 <Input
@@ -259,7 +247,7 @@ export default function LoginPage() {
                   placeholder="name@company.com"
                   autoComplete="email"
                   className={cn(
-                    'pl-10.5 h-11 border-slate-800/80 bg-slate-900/40 text-slate-200 placeholder:text-slate-600 focus-visible:border-primary',
+                    'pl-10.5 h-11 bg-white/70 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 text-foreground placeholder:text-muted-foreground/60 focus:bg-white dark:focus:bg-slate-900 focus:border-primary dark:focus:border-blue-400 focus:ring-2 focus:ring-primary/20 dark:focus:ring-blue-400/20 rounded-xl transition-all',
                     errors.email && 'border-destructive focus-visible:ring-destructive/30'
                   )}
                   {...register('email')}
@@ -274,20 +262,20 @@ export default function LoginPage() {
             </div>
 
             {/* Password input field */}
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <div className="flex justify-between items-center">
-                <label htmlFor="password" className="text-xs font-bold text-slate-300 uppercase tracking-wider block">
+                <label htmlFor="password" className="text-xs font-semibold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
                   {t('password')}
                 </label>
                 <Link
                   href="/auth/forgot-password"
-                  className="text-xs font-bold text-primary dark:text-accent hover:underline transition-colors"
+                  className="text-xs font-semibold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 hover:underline transition-colors"
                 >
                   {t('forgotPassword')}
                 </Link>
               </div>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/75">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
                   <Lock className="h-4 w-4" />
                 </span>
                 <Input
@@ -296,7 +284,7 @@ export default function LoginPage() {
                   placeholder="••••••••"
                   autoComplete="current-password"
                   className={cn(
-                    'pl-10.5 pr-10.5 h-11 border-slate-800/80 bg-slate-900/40 text-slate-200 placeholder:text-slate-600 focus-visible:border-primary',
+                    'pl-10.5 pr-10.5 h-11 bg-white/70 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 text-foreground placeholder:text-muted-foreground/60 focus:bg-white dark:focus:bg-slate-900 focus:border-primary dark:focus:border-blue-400 focus:ring-2 focus:ring-primary/20 dark:focus:ring-blue-400/20 rounded-xl transition-all',
                     errors.password && 'border-destructive focus-visible:ring-destructive/30'
                   )}
                   {...register('password')}
@@ -304,7 +292,8 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/75 hover:text-white transition-colors"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -318,32 +307,32 @@ export default function LoginPage() {
             </div>
 
             {/* Remember Me toggle check */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               <input
                 id="rememberMe"
                 type="checkbox"
-                className="h-4 w-4 rounded-sm border-slate-800/80 bg-slate-900/40 text-primary focus:ring-primary focus:ring-offset-slate-950 accent-primary cursor-pointer"
+                className="h-4 w-4 rounded-md border-slate-300 dark:border-white/20 bg-white dark:bg-slate-900 text-primary focus:ring-primary focus:ring-offset-background accent-primary transition-colors cursor-pointer"
                 {...register('rememberMe')}
               />
-              <label htmlFor="rememberMe" className="text-xs font-bold text-slate-400 select-none cursor-pointer">
+              <label htmlFor="rememberMe" className="text-xs font-medium text-muted-foreground hover:text-foreground select-none cursor-pointer transition-colors">
                 Keep me signed in on this device
               </label>
             </div>
 
-            {/* Signin CTA trigger */}
+            {/* Signin CTA trigger with Astraiv Brand Gradient */}
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full h-11 bg-gradient-to-r from-primary to-secondary hover:from-primary/95 hover:to-secondary/95 text-white font-bold tracking-wide rounded-[12px] flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-primary/20 hover:scale-[1.01] transition-all"
+              className="w-full h-11.5 bg-gradient-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] hover:from-[#082d6c] hover:via-[#1e40af] hover:to-[#1d4ed8] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] dark:hover:from-[#1d4ed8] dark:hover:via-[#2563EB] dark:hover:to-[#3b82f6] text-white font-heading font-semibold text-sm tracking-wide rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-primary/20 dark:shadow-blue-500/20 hover:shadow-primary/35 hover:scale-[1.01] active:scale-[0.99] transition-all"
             >
               {isLoading ? (
                 <>
                   <Loader2 className="h-4.5 w-4.5 animate-spin" />
-                  Signing In...
+                  <span>Signing In...</span>
                 </>
               ) : (
                 <>
-                  {t('signIn')}
+                  <span>{t('signIn')}</span>
                   <ArrowRight className="h-4 w-4 transition-transform group-hover/button:translate-x-1" />
                 </>
               )}
@@ -351,65 +340,24 @@ export default function LoginPage() {
           </form>
 
           {/* Footer swap */}
-          <div className="mt-6 pt-5 border-t border-slate-800/40 text-center text-xs font-medium">
-            <span className="text-muted-foreground/60">{t('dontHaveAccount').split('?')[0]}? </span>
-            <Link
-              href="/start-project"
-              className="text-primary dark:text-accent font-bold hover:underline transition-colors ml-1"
-            >
-              Submit a Project Lead
-            </Link>
-          </div>
-
-          {/* Dev Quick Fill Dashboard shortcuts */}
-          <div className="mt-6 pt-5 border-t border-slate-800/40">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">
-                Sandbox Demo Quick Fill
-              </span>
-              <span className="text-[9px] bg-slate-800/60 text-slate-400 font-bold px-2 py-0.5 rounded-full border border-slate-700/40">
-                Dev Mode
-              </span>
+          <div className="mt-8 pt-6 border-t border-slate-200/80 dark:border-white/10 text-center text-sm font-medium space-y-2">
+            <div>
+              <span className="text-muted-foreground">{t('dontHaveAccount').split('?')[0]}? </span>
+              <Link
+                href="/start-project"
+                className="text-primary dark:text-blue-400 font-semibold hover:underline transition-colors ml-1"
+              >
+                Submit a Project Lead
+              </Link>
             </div>
-            <div className="grid grid-cols-2 gap-2">
-              <Button
-                variant="outline"
-                size="xs"
-                onClick={() => handleQuickFill('approved1')}
-                className="h-8 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 justify-start px-2 text-[11px] font-semibold truncate"
-                title="Approved Lead: AST-LEAD-2026"
+            <div className="text-xs text-muted-foreground">
+              <span>Looking for account registration? </span>
+              <Link
+                href="/auth/signup"
+                className="text-muted-foreground hover:text-foreground underline transition-colors"
               >
-                <CheckCircle2 className="h-3 w-3 mr-1 shrink-0" />
-                AST-LEAD-2026 (Approved)
-              </Button>
-              <Button
-                variant="outline"
-                size="xs"
-                onClick={() => handleQuickFill('approved2')}
-                className="h-8 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 justify-start px-2 text-[11px] font-semibold truncate"
-                title="Approved Lead: AST-LEAD-1001"
-              >
-                <ShieldCheck className="h-3 w-3 mr-1 shrink-0" />
-                AST-LEAD-1001 (Approved)
-              </Button>
-              <Button
-                variant="outline"
-                size="xs"
-                onClick={() => handleQuickFill('unapproved')}
-                className="h-8 border-rose-500/30 text-rose-400 hover:bg-rose-500/10 justify-start px-2 text-[11px] font-semibold truncate"
-                title="Unapproved Lead: AST-LEAD-1002 (Test Rejection)"
-              >
-                <AlertCircle className="h-3 w-3 mr-1 shrink-0" />
-                AST-LEAD-1002 (Unapproved)
-              </Button>
-              <Button
-                variant="outline"
-                size="xs"
-                onClick={() => handleQuickFill('admin')}
-                className="h-8 border-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-900/60 justify-center"
-              >
-                Admin Panel
-              </Button>
+                {t('signUp')}
+              </Link>
             </div>
           </div>
         </div>

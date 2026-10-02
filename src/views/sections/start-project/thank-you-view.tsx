@@ -39,7 +39,7 @@ export function ThankYouView() {
       {/* 1. Hero Confirmation Card */}
       <div className="relative rounded-3xl border border-border/80 dark:border-slate-800 bg-card/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-2xl p-8 sm:p-14 text-center overflow-hidden">
         {/* Ambient Radiant Glow */}
-        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-emerald-500/15 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/15 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute -bottom-24 right-1/4 w-72 h-72 bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
@@ -48,7 +48,7 @@ export function ThankYouView() {
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            className="w-20 h-20 rounded-3xl bg-gradient-to-br from-emerald-400 to-teal-600 p-0.5 shadow-xl shadow-emerald-500/25 mb-6 flex items-center justify-center text-white"
+            className="w-20 h-20 rounded-3xl bg-gradient-to-br from-primary to-cyan-500 p-0.5 shadow-xl shadow-primary/25 mb-6 flex items-center justify-center text-white"
           >
             <div className="w-full h-full rounded-[22px] bg-slate-950/20 flex items-center justify-center backdrop-blur-sm">
               <CheckCircle2 className="w-10 h-10 text-white animate-pulse" />
@@ -60,10 +60,10 @@ export function ThankYouView() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 mb-4 select-none"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider text-primary dark:text-cyan-400 bg-primary/10 border border-primary/20 mb-4 select-none"
           >
             <span>REFERENCE ID:</span>
-            <span className="text-foreground underline decoration-emerald-500/50">{refId}</span>
+            <span className="text-foreground underline decoration-primary/50 dark:decoration-cyan-400/50">{refId}</span>
           </motion.div>
 
           {/* Headline */}
@@ -133,7 +133,7 @@ export function ThankYouView() {
           {/* Step 2 */}
           <div className="p-6 rounded-2xl border border-border/70 dark:border-slate-800 bg-card/60 dark:bg-slate-900/60 backdrop-blur-md relative flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-indigo-500/10 dark:bg-indigo-400/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center justify-center font-mono font-semibold text-sm mb-4">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 dark:bg-blue-400/10 text-primary dark:text-blue-400 border border-primary/20 flex items-center justify-center font-mono font-semibold text-sm mb-4">
                 02
               </div>
               <h3 className="font-semibold text-base tracking-[-0.01em] text-foreground">Mutual NDA & Roadmap</h3>
@@ -141,7 +141,7 @@ export function ThankYouView() {
                 We provide a countersigned mutual Non-Disclosure Agreement (protecting all your IP) alongside an initial milestone timeline and squad allocation proposal.
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-border/40 text-[11px] font-mono text-indigo-500 dark:text-indigo-400 font-medium">
+            <div className="mt-6 pt-4 border-t border-border/40 text-[11px] font-mono text-primary dark:text-blue-400 font-medium">
               Hours 12 — 24
             </div>
           </div>
@@ -149,7 +149,7 @@ export function ThankYouView() {
           {/* Step 3 */}
           <div className="p-6 rounded-2xl border border-border/70 dark:border-slate-800 bg-card/60 dark:bg-slate-900/60 backdrop-blur-md relative flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 dark:bg-emerald-400/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-mono font-semibold text-sm mb-4">
+              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 dark:bg-cyan-400/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 flex items-center justify-center font-mono font-semibold text-sm mb-4">
                 03
               </div>
               <h3 className="font-semibold text-base tracking-[-0.01em] text-foreground">Discovery Strategy Session</h3>
@@ -157,7 +157,7 @@ export function ThankYouView() {
                 A 30-minute high-bandwidth video conference with our Lead Systems Architect to finalize architecture choices, review mockups, and schedule sprint kickoff.
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-border/40 text-[11px] font-mono text-emerald-500 dark:text-emerald-400 font-medium">
+            <div className="mt-6 pt-4 border-t border-border/40 text-[11px] font-mono text-cyan-600 dark:text-cyan-400 font-medium">
               Within 48 Hours
             </div>
           </div>
@@ -203,19 +203,19 @@ export function ThankYouView() {
           {/* Card 2: Read Insights */}
           <Link
             href={ROUTES.PUBLIC.INSIGHTS}
-            className="group p-8 rounded-3xl border border-border/70 dark:border-slate-800 bg-gradient-to-br from-card/80 to-card/40 dark:from-slate-900/80 dark:to-slate-900/40 hover:border-indigo-500/50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 block relative overflow-hidden"
+            className="group p-8 rounded-3xl border border-border/70 dark:border-slate-800 bg-gradient-to-br from-card/80 to-card/40 dark:from-slate-900/80 dark:to-slate-900/40 hover:border-primary/50 dark:hover:border-cyan-500/50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 block relative overflow-hidden"
           >
-            <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 dark:bg-indigo-400/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <div className="w-12 h-12 rounded-2xl bg-primary/10 dark:bg-cyan-400/10 text-primary dark:text-cyan-400 border border-primary/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
               <BookOpen className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors flex items-center gap-2">
+            <h3 className="text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-cyan-400 transition-colors flex items-center gap-2">
               <span>Read Engineering Insights</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </h3>
             <p className="text-xs sm:text-sm text-muted-foreground mt-2 leading-[1.62] font-normal">
               Discover technical articles on autonomous LLM agent design, Next.js App Router performance, zero-trust cloud security, and institutional engineering standards.
             </p>
-            <div className="mt-6 inline-flex items-center gap-2 text-xs font-medium text-indigo-500 dark:text-indigo-400">
+            <div className="mt-6 inline-flex items-center gap-2 text-xs font-medium text-primary dark:text-cyan-400">
               <span>Read Technical Articles</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </div>
@@ -243,7 +243,7 @@ export function ThankYouView() {
             href="tel:+918167409664"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium border border-border/70 hover:border-primary/40 bg-card hover:bg-card/80 text-foreground transition-all"
           >
-            <Phone className="w-3.5 h-3.5 text-emerald-500" />
+            <Phone className="w-3.5 h-3.5 text-primary dark:text-cyan-400" />
             <span>+91 8167409664</span>
           </a>
         </div>

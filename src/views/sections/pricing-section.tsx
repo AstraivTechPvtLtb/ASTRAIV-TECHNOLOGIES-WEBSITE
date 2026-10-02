@@ -184,7 +184,7 @@ export function PricingSection({ initialPlans }: PricingSectionProps) {
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           badge="Pricing"
-          title="Flexible Engagement Models"
+          title="Flexible [Engagement Models]"
           description="Choose a plan that matches your engineering velocity. No hidden contracts, completely transparent timelines."
         />
 
@@ -327,7 +327,7 @@ export function PricingSection({ initialPlans }: PricingSectionProps) {
               <span className={`text-sm font-semibold transition-colors ${billingCycle === 'yearly' ? 'text-foreground' : 'text-muted-foreground'}`}>
                 Annual
               </span>
-              <span className="px-2 py-0.5 text-[9px] font-semibold uppercase text-emerald-600 bg-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400 rounded-md border border-emerald-500/20">
+              <span className="px-2 py-0.5 text-[9px] font-semibold uppercase text-blue-700 dark:text-cyan-300 bg-blue-500/10 dark:bg-cyan-500/10 rounded-md border border-blue-500/20 dark:border-cyan-500/30">
                 Save 20%
               </span>
             </div>

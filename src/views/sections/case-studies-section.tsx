@@ -21,7 +21,7 @@ interface CaseStudiesSectionProps {
 
 export function CaseStudiesSection({
   initialProjects = DEFAULT_PORTFOLIO_PROJECTS,
-  title = 'Built to Solve Real Problems',
+  title = 'Built to [Solve Real Problems]',
   badge = 'Featured Work',
   description = 'High-performance software engineered by Astraiv Technologies across client production environments, internal platforms, and hardened reference architectures.',
   showAllCta = true,
@@ -85,19 +85,17 @@ export function CaseStudiesSection({
               project.badgeIcon === 'Zap' ? (
                 <Zap className="h-3.5 w-3.5 text-blue-400" />
               ) : project.badgeIcon === 'Cpu' ? (
-                <Cpu className="h-3.5 w-3.5 text-purple-400" />
+                <Cpu className="h-3.5 w-3.5 text-blue-400" />
               ) : (
-                <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+                <ShieldCheck className="h-3.5 w-3.5 text-cyan-400" />
               );
 
             const projectTypeColor =
               project.projectType === 'Client Project'
-                ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                ? 'bg-blue-500/10 text-primary dark:text-cyan-300 border-blue-500/30'
                 : project.projectType === 'Internal Project'
-                ? 'bg-purple-500/10 text-purple-400 border-purple-500/30'
-                : project.projectType === 'Concept Project'
-                ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'
-                : 'bg-blue-500/10 text-blue-400 border-blue-500/30';
+                ? 'bg-slate-500/10 text-slate-700 dark:text-slate-300 border-slate-500/30'
+                : 'bg-cyan-500/10 text-blue-600 dark:text-cyan-400 border-cyan-500/30';
 
             return (
               <motion.article
@@ -170,8 +168,8 @@ export function CaseStudiesSection({
 
                     {/* Challenge vs Solution vs Outcome */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                      <div className="p-3 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 border border-border/60 dark:border-slate-700/60 flex flex-col gap-1">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-amber-600 dark:text-amber-400">
+                      <div className="p-3 rounded-xl bg-slate-100/70 dark:bg-slate-900/60 border border-border/60 dark:border-slate-800 flex flex-col gap-1">
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
                           Challenge
                         </span>
                         <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-normal line-clamp-3">
@@ -179,7 +177,7 @@ export function CaseStudiesSection({
                         </p>
                       </div>
 
-                      <div className="p-3 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 border border-border/60 dark:border-slate-700/60 flex flex-col gap-1">
+                      <div className="p-3 rounded-xl bg-blue-500/5 dark:bg-blue-950/20 border border-blue-500/20 dark:border-blue-500/30 flex flex-col gap-1">
                         <span className="text-[10px] font-semibold uppercase tracking-wider text-primary dark:text-blue-400">
                           Solution
                         </span>
@@ -188,8 +186,8 @@ export function CaseStudiesSection({
                         </p>
                       </div>
 
-                      <div className="p-3 rounded-xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-500/20 dark:border-emerald-500/30 flex flex-col gap-1">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                      <div className="p-3 rounded-xl bg-cyan-500/5 dark:bg-cyan-950/25 border border-cyan-500/25 dark:border-cyan-400/30 flex flex-col gap-1">
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-700 dark:text-cyan-300">
                           Outcome
                         </span>
                         <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-normal line-clamp-3">
@@ -217,8 +215,8 @@ export function CaseStudiesSection({
 
                     {/* Bottom Action Link */}
                     <div className="pt-2 flex items-center justify-between border-t border-border/40 dark:border-slate-800/60">
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-                        <CheckCircle2 className="h-4 w-4 shrink-0" />
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-primary dark:text-cyan-300">
+                        <CheckCircle2 className="h-4 w-4 shrink-0 text-primary dark:text-cyan-400" />
                         <span>{project.credibilityBadge}</span>
                       </div>
 

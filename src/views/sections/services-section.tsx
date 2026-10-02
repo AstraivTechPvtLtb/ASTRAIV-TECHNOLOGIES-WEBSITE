@@ -134,7 +134,7 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
             id="blueprint-heading"
           >
             What can Astraiv{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-600 to-indigo-600 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-300">
+            <span className="heading-gradient font-semibold">
               engineer for you?
             </span>
           </h2>
@@ -176,13 +176,13 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
             {/* Top Status Ribbon */}
             <div className="relative top-0 left-0 right-0 p-5 sm:p-6 flex flex-wrap items-center justify-between gap-3 sm:gap-4 z-20">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 backdrop-blur-md border border-white/15 text-[11px] font-mono font-bold uppercase tracking-wider text-slate-200 shadow-xs">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="h-2 w-2 rounded-full bg-primary dark:bg-cyan-400 animate-pulse" />
                 <span>ISO 27001 &amp; SOC-2 READY ARCHITECTURE</span>
               </div>
 
               <div className="hidden sm:flex items-center gap-3 text-xs font-mono text-slate-300 bg-slate-900/80 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10 shadow-xs">
                 <span className="text-slate-400">GLOBAL RESILIENCE:</span>
-                <span className="text-emerald-400 font-semibold tracking-wide">
+                <span className="text-primary dark:text-cyan-400 font-semibold tracking-wide">
                   ACTIVE MULTI-REGION
                 </span>
                 <span className="text-slate-600">|</span>

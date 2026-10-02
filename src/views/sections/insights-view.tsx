@@ -41,7 +41,6 @@ import {
   Layers,
   Check,
   Loader2,
-  Calendar,
 } from 'lucide-react';
 import { BlogCard } from './blog-card';
 import { formatDate } from '@/utils';
@@ -122,7 +121,7 @@ function isAiPost(post: Post): boolean {
   );
 }
 
-export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
+export function InsightsView({ initialPosts, categories: _categories }: InsightsViewProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [emailSubscribed, setEmailSubscribed] = useState(false);
@@ -259,7 +258,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
   const aiFeaturedPost =
     filteredAiPosts.length > 0 ? filteredAiPosts[0] : aiPosts[0] || null;
 
-  const allFeaturedPost =
+  const _allFeaturedPost =
     filteredAllPosts.length > 0 ? filteredAllPosts[0] : initialPosts[0] || null;
 
   // AI Cognitive Architecture Data
@@ -272,9 +271,9 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
         'How we design deterministic execution layers over stochastic LLMs using graph-based planners, schema validation gates, and self-healing error loops.',
       tags: ['LangGraph', 'Autonomous Agents', 'Next.js 16', 'TypeScript'],
       metric: '99.4% task completion rate',
-      icon: <Bot className="h-5 w-5 text-blue-600" />,
-      color: 'from-blue-600/10 via-blue-500/5 to-transparent',
-      borderColor: 'border-blue-600/30 dark:border-blue-600/20',
+      icon: <Bot className="h-5 w-5 text-primary dark:text-cyan-400" />,
+      color: 'from-primary/10 via-cyan-500/5 to-transparent',
+      borderColor: 'border-primary/30 dark:border-cyan-500/20',
     },
     {
       id: 'pgvector',
@@ -284,9 +283,9 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
         'Architecting sub-20ms semantic retrieval across millions of enterprise records without the operational overhead of fragmented vector-only SaaS databases.',
       tags: ['pgvector', 'PostgreSQL', 'HNSW Indexing', 'Prisma'],
       metric: '<18ms query latency',
-      icon: <Database className="h-5 w-5 text-indigo-500" />,
-      color: 'from-indigo-500/10 via-purple-500/5 to-transparent',
-      borderColor: 'border-indigo-500/30 dark:border-indigo-500/20',
+      icon: <Database className="h-5 w-5 text-primary dark:text-cyan-400" />,
+      color: 'from-primary/10 via-cyan-500/5 to-transparent',
+      borderColor: 'border-primary/30 dark:border-cyan-500/20',
     },
     {
       id: 'prod-rag',
@@ -296,9 +295,9 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
         'Eliminating hallucinations through two-stage reranking, cross-encoder scoring, and cryptographically verified citation attribution in compliance environments.',
       tags: ['RAG Pipeline', 'BGE Reranker', 'OWASP LLM', 'Guardrails'],
       metric: 'Zero hallucinated cites',
-      icon: <ShieldCheck className="h-5 w-5 text-emerald-500" />,
-      color: 'from-emerald-500/10 via-teal-500/5 to-transparent',
-      borderColor: 'border-emerald-500/30 dark:border-emerald-500/20',
+      icon: <ShieldCheck className="h-5 w-5 text-primary dark:text-cyan-400" />,
+      color: 'from-cyan-500/10 via-primary/5 to-transparent',
+      borderColor: 'border-cyan-500/30 dark:border-cyan-500/20',
     },
   ];
 
@@ -312,7 +311,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       date: 'Aug 2026',
       summary:
         'Real benchmarks from migrating 14TB of SaaS assets from S3 to Cloudflare R2: 78% reduction in monthly cloud storage bills with identical S3 SDK code compatibility.',
-      icon: <Server className="h-5 w-5 text-amber-500" />,
+      icon: <Server className="h-5 w-5 text-primary dark:text-cyan-400" />,
       tag: 'Cloud Economics',
     },
     {
@@ -323,7 +322,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       date: 'Aug 2026',
       summary:
         'Combining static edge shell caching with dynamic streaming slots to achieve instantaneous initial paint and zero-client-bundle data mutations.',
-      icon: <Zap className="h-5 w-5 text-blue-500" />,
+      icon: <Zap className="h-5 w-5 text-primary dark:text-cyan-400" />,
       tag: 'Next.js 16',
     },
     {
@@ -334,7 +333,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       date: 'Jul 2026',
       summary:
         'How we scaled a multi-tenant fitness and logistics SaaS to handle 50,000 requests/sec with transaction isolation and Prisma Accelerate pooling adapters.',
-      icon: <Layers className="h-5 w-5 text-purple-500" />,
+      icon: <Layers className="h-5 w-5 text-primary dark:text-cyan-400" />,
       tag: 'Prisma & Postgres',
     },
   ];
@@ -382,7 +381,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       pages: '18 Pages (PDF)',
       description:
         'Comprehensive reference architecture for tenant data isolation, IAM policies, database RLS, and SOC-2 compliance check matrix.',
-      icon: <ShieldCheck className="h-6 w-6 text-emerald-500" />,
+      icon: <ShieldCheck className="h-6 w-6 text-primary dark:text-cyan-400" />,
       tags: ['Security', 'Multi-Tenancy', 'SOC-2'],
     },
     {
@@ -392,7 +391,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       pages: '12 Pages (PDF)',
       description:
         'Step-by-step production readiness checklist: prompt sanitization, token budget management, fallback circuits, and latency SLAs.',
-      icon: <Bot className="h-6 w-6 text-blue-600" />,
+      icon: <Bot className="h-6 w-6 text-primary dark:text-cyan-400" />,
       tags: ['AI Agents', 'Architecture', 'CTO Guide'],
     },
     {
@@ -402,7 +401,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       pages: 'Code & Configs (ZIP)',
       description:
         'Production boilerplate with pre-configured Partial Prerendering, Cloudflare R2 upload pipes, Prisma connection pooling, and Tailwind tokens.',
-      icon: <Code2 className="h-6 w-6 text-blue-500" />,
+      icon: <Code2 className="h-6 w-6 text-primary dark:text-cyan-400" />,
       tags: ['Next.js 16', 'Performance', 'Full-Stack'],
     },
   ];
@@ -477,8 +476,8 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       <section className="pt-28 pb-8 md:pt-36 md:pb-10 px-6 max-w-7xl mx-auto relative z-10">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading text-slate-900 dark:text-white tracking-[-0.025em] leading-[1.12]">
-              Insights & Engineering Publications
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading tracking-[-0.025em] leading-[1.12]">
+              Insights & <span className="heading-gradient">Engineering Publications</span>
             </h1>
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-normal leading-[1.62] mt-1">
               Technical deep dives, system architectures, and engineering case studies.
@@ -1170,7 +1169,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
       {/* ========================================================================= */}
       {/* 7. PLACE: INTEGRATED FAQ SECTION (#faq) */}
       {/* ========================================================================= */}
-      {(activeSection === 'faq' || activeSection === 'all') && (
+{(activeSection === 'faq' || activeSection === 'all') && (
         <section
           id="faq"
           className="py-16 md:py-24 px-6 bg-slate-100/50 dark:bg-slate-900/40 border-t border-border/50 dark:border-slate-800/80 scroll-mt-28"
@@ -1182,7 +1181,7 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
                 <span>Knowledge & Clarifications</span>
               </div>
               <h2 className="text-3xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] font-heading mb-3">
-                Frequently Asked Questions
+                Frequently Asked <span className="heading-gradient">Questions</span>
               </h2>
               <p className="text-sm md:text-base text-muted-foreground font-normal leading-[1.62]">
                 Transparent answers regarding delivery velocity, SLAs, IP transfer, and data governance.
@@ -1237,8 +1236,8 @@ export function InsightsView({ initialPosts, categories }: InsightsViewProps) {
             </p>
 
             {emailSubscribed ? (
-              <div role="status" aria-live="polite" className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-foreground text-left space-y-3">
-                <div className="flex items-center gap-2.5 text-emerald-600 dark:text-emerald-400 font-semibold text-sm">
+              <div role="status" aria-live="polite" className="p-6 rounded-2xl bg-primary/10 border border-primary/30 text-foreground text-left space-y-3">
+                <div className="flex items-center gap-2.5 text-primary dark:text-cyan-400 font-semibold text-sm">
                   <CheckCircle2 className="h-5 w-5 shrink-0" />
                   <span>Subscribed! Welcome to the Astraiv Engineering Dispatch.</span>
                 </div>

@@ -26,7 +26,7 @@ export function FaqSection({
   category = 'all',
   items,
   featuredOnly = false,
-  title = 'Everything You Need to Know',
+  title = 'Everything You [Need to Know]',
   badge = 'Frequently Asked Questions',
   description = 'Clear answers regarding our technology architecture, engagement models, delivery pipelines, and IP ownership.',
   className,

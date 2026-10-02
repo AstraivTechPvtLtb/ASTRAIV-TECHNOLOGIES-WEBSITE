@@ -41,7 +41,7 @@ export function TestimonialsSection({ initialReviews }: TestimonialsSectionProps
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           badge="Success Stories"
-          title="What Technology Leaders Say"
+          title="What Technology [Leaders Say]"
           description="Hear from engineering VP, founders, and CTOs who trust Astraiv with their complex software architectures."
         />
 

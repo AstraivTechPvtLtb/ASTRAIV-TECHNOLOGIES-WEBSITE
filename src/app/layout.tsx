@@ -75,7 +75,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body
-        className={`${generalSans.variable} ${jetbrainsMono.variable} font-sans bg-background text-foreground antialiased selection:bg-primary/20 selection:text-foreground`}
+        className={`${generalSans.variable} ${jetbrainsMono.variable} font-sans bg-background text-foreground antialiased selection:bg-primary/20 selection:text-foreground min-h-screen flex flex-col overflow-x-hidden`}
         suppressHydrationWarning
       >
         {children}

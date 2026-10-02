@@ -21,11 +21,9 @@ import {
   ExternalLink,
   ChevronDown,
   ChevronUp,
-  Sparkles,
   Layers,
 } from 'lucide-react';
 import { Button } from '@/views/ui/button';
-import { Badge } from '@/views/ui/badge';
 import { cn } from '@/lib/utils';
 
 export interface ProjectPhase {
@@ -60,7 +58,7 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
 
   const leadNumber = user.leadNumber || 'AST-LEAD-2026';
   const companyName = user.company || 'Enterprise Partner';
-  const clientEmail = user.email || 'client@astraiv.com';
+  const _clientEmail = user.email || 'client@astraiv.com';
   const supportEmail = 'astraivtechnologies@gmail.com';
 
   const mailtoHref = `mailto:${supportEmail}?subject=Project%20Communication%20-%20Lead%20${encodeURIComponent(
@@ -272,7 +270,7 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
             {phases.map((phase, idx) => {
               const isCompleted = phase.status === 'COMPLETED';
               const isInProgress = phase.status === 'IN_PROGRESS';
-              const isUpcoming = phase.status === 'UPCOMING';
+              const _isUpcoming = phase.status === 'UPCOMING';
               const isLast = idx === phases.length - 1;
               const isExpanded = expandedPhaseId === phase.id;
 

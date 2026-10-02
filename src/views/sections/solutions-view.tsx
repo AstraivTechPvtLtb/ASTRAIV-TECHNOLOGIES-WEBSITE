@@ -70,8 +70,8 @@ const SOLUTIONS_DATA: SolutionItem[] = [
     tagline: 'Enterprise search across complex multi-format document lakes.',
     description:
       'Turn vast unstructured corporate repositories into high-precision, sub-second queryable neural knowledge systems with real-time vector embeddings and zero hallucination boundaries.',
-    icon: <Brain className="h-6 w-6 text-purple-500" />,
-    iconBg: 'from-purple-500/20 to-indigo-500/10 border-purple-500/30',
+    icon: <Brain className="h-6 w-6 text-primary dark:text-blue-400" />,
+    iconBg: 'from-blue-500/20 to-primary/10 border-blue-500/30',
     metric: {
       value: '99.4%',
       label: 'Contextual citation & factual precision',
@@ -92,8 +92,8 @@ const SOLUTIONS_DATA: SolutionItem[] = [
     tagline: 'Real-time metrics, telemetry & executive predictive dashboards.',
     description:
       'Consolidate high-velocity transactional and event streams into lightning-fast analytical engines. Deliver executive dashboards, operational alerting, and predictive forecasts at scale.',
-    icon: <LineChart className="h-6 w-6 text-blue-500" />,
-    iconBg: 'from-blue-500/20 to-blue-600/10 border-blue-500/30',
+    icon: <LineChart className="h-6 w-6 text-primary dark:text-blue-400" />,
+    iconBg: 'from-blue-500/20 to-cyan-500/10 border-blue-500/30',
     metric: {
       value: '< 50ms',
       label: 'Analytical query latency on billion-row datasets',
@@ -116,8 +116,8 @@ const SOLUTIONS_DATA: SolutionItem[] = [
     tagline: 'Enterprise recurring revenue engines & customer portals.',
     description:
       'We build market-ready multi-tenant software-as-a-service platforms engineered for scale, global compliance, automated subscription lifecycles, and rapid tenant onboarding.',
-    icon: <Cloud className="h-6 w-6 text-indigo-500" />,
-    iconBg: 'from-indigo-500/20 to-purple-500/10 border-indigo-500/30',
+    icon: <Cloud className="h-6 w-6 text-primary dark:text-blue-400" />,
+    iconBg: 'from-blue-500/20 to-indigo-500/10 border-blue-500/30',
     metric: {
       value: '99.99%',
       label: 'System availability SLA across multi-region clusters',
@@ -138,8 +138,8 @@ const SOLUTIONS_DATA: SolutionItem[] = [
     tagline: 'End-to-end integration workflows eliminating manual labor.',
     description:
       'Automate your core back-office functions, CRM synchronization, invoicing cycles, and partner communications with bulletproof, fault-tolerant orchestration workflows.',
-    icon: <Workflow className="h-6 w-6 text-amber-500" />,
-    iconBg: 'from-amber-500/20 to-orange-500/10 border-amber-500/30',
+    icon: <Workflow className="h-6 w-6 text-primary dark:text-blue-400" />,
+    iconBg: 'from-blue-500/20 to-primary/10 border-blue-500/30',
     metric: {
       value: '60+ hrs',
       label: 'Saved per department per week from manual tasks',
@@ -162,8 +162,8 @@ const SOLUTIONS_DATA: SolutionItem[] = [
     tagline: 'Zero-downtime refactoring into modern serverless stacks.',
     description:
       'Deconstruct fragile monolithic software and technical debt without operational disruption. Migrate to resilient, cloud-native microservices with strictly maintained business continuity.',
-    icon: <RefreshCw className="h-6 w-6 text-rose-500" />,
-    iconBg: 'from-rose-500/20 to-red-500/10 border-rose-500/30',
+    icon: <RefreshCw className="h-6 w-6 text-primary dark:text-blue-400" />,
+    iconBg: 'from-blue-500/20 to-indigo-500/10 border-blue-500/30',
     metric: {
       value: '0 Downtime',
       label: 'Achieved using strangler-fig gradual migration patterns',
@@ -184,8 +184,8 @@ const SOLUTIONS_DATA: SolutionItem[] = [
     tagline: 'Transitioning analog workflows to unified, scalable cloud platforms.',
     description:
       'Transition your enterprise away from slow, analog workflows and fragmented spreadsheets into unified, automated cloud platforms that unlock exponential operational scale.',
-    icon: <Building2 className="h-6 w-6 text-emerald-500" />,
-    iconBg: 'from-emerald-500/20 to-teal-500/10 border-emerald-500/30',
+    icon: <Building2 className="h-6 w-6 text-primary dark:text-blue-400" />,
+    iconBg: 'from-primary/20 to-blue-600/10 border-primary/30',
     metric: {
       value: '3x Faster',
       label: 'Operational execution velocity across key departments',
@@ -252,10 +252,10 @@ export function SolutionsView() {
       {/* 1. PAGE HEADER */}
       <section className="pt-28 pb-6 md:pt-36 md:pb-8 px-6 max-w-7xl mx-auto w-full">
         <div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.025em] leading-[1.12]">
-            Enterprise Solutions
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground font-heading tracking-[-0.025em] leading-[1.12]">
+            Enterprise <span className="heading-gradient">Solutions</span>
           </h1>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-normal leading-[1.62] mt-2 max-w-3xl">
+          <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-2 max-w-3xl">
             Purpose-built technical architectures solving high-stakes enterprise bottlenecks.
           </p>
         </div>
@@ -266,15 +266,15 @@ export function SolutionsView() {
         <div className="relative overflow-hidden rounded-3xl border border-primary/25 dark:border-blue-600/30 bg-gradient-to-br from-blue-50/70 via-indigo-50/40 to-blue-50/50 dark:from-slate-900/95 dark:via-slate-900/90 dark:to-blue-950/40 p-8 sm:p-12 shadow-md">
           {/* Subtle decoration lines */}
           <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-primary/10 dark:bg-blue-600/10 blur-3xl pointer-events-none" />
-          <div className="absolute -left-16 -bottom-16 h-64 w-64 rounded-full bg-secondary/10 dark:bg-purple-500/10 blur-3xl pointer-events-none" />
+          <div className="absolute -left-16 -bottom-16 h-64 w-64 rounded-full bg-secondary/10 dark:bg-blue-600/10 blur-3xl pointer-events-none" />
 
           <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             <div className="flex flex-col gap-3 max-w-2xl text-left">
 
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.025em] leading-[1.15]">
-                Engineered for Impact.
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground font-heading tracking-[-0.025em] leading-[1.15]">
+                Engineered for <span className="heading-gradient">Impact.</span>
               </h2>
-              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-[1.62] font-normal">
+              <p className="text-sm sm:text-base text-muted-foreground leading-[1.62] font-normal">
                 Purpose-built technical architectures solving high-stakes enterprise bottlenecks.
                 From mission-critical data pipelines to cognitive autonomous agents, every system is designed
                 with architectural rigor, zero vendor lock-in, and measurable business ROI.
@@ -377,8 +377,8 @@ export function SolutionsView() {
                 )}
               >
                 <div className="flex items-center gap-3">
-                  <span className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse" />
-                  <span className="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                  <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+                  <span className="text-xs font-semibold uppercase tracking-wider text-primary dark:text-blue-400">
                     CATEGORY 02
                   </span>
                 </div>
@@ -411,8 +411,8 @@ export function SolutionsView() {
                 )}
               >
                 <div className="flex items-center gap-3">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-xs font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                  <span className="h-2 w-2 rounded-full bg-cyan-500 animate-pulse" />
+                  <span className="text-xs font-semibold uppercase tracking-wider text-blue-700 dark:text-cyan-400">
                     CATEGORY 03
                   </span>
                 </div>
@@ -441,8 +441,8 @@ export function SolutionsView() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col gap-3 text-center max-w-3xl mx-auto mb-16">
 
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] text-slate-900 dark:text-white font-heading">
-              How Astraiv Delivers High-Stakes Solutions
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] text-foreground font-heading">
+              How Astraiv Delivers <span className="heading-gradient">High-Stakes Solutions</span>
             </h2>
             <p className="text-base text-muted-foreground leading-[1.62] font-normal">
               Every system follows our battle-tested engineering blueprint designed to mitigate risk, guarantee high velocity, and maintain flawless stability.
@@ -455,25 +455,25 @@ export function SolutionsView() {
                 step: '01',
                 title: 'Bottleneck Audit',
                 desc: 'We analyze your latency limits, legacy dependencies, throughput constraints, and data flows to map exact requirements.',
-                icon: <Zap className="h-5 w-5 text-amber-500" />,
+                icon: <Zap className="h-5 w-5 text-primary dark:text-blue-400" />,
               },
               {
                 step: '02',
                 title: 'Architectural Blueprint',
                 desc: 'We construct full system topologies, schema contracts, microservice boundaries, and strict security protocol models.',
-                icon: <Layers className="h-5 w-5 text-blue-600" />,
+                icon: <Layers className="h-5 w-5 text-primary dark:text-blue-400" />,
               },
               {
                 step: '03',
                 title: 'Two-Week Sprints',
                 desc: 'Continuous delivery pipelines, automated unit and integration tests, and live staging links for every feature build.',
-                icon: <Server className="h-5 w-5 text-primary dark:text-purple-400" />,
+                icon: <Server className="h-5 w-5 text-primary dark:text-blue-400" />,
               },
               {
                 step: '04',
                 title: 'Observability & SLA',
                 desc: 'Telemetry logging, real-time APM monitoring, 99.99% availability SLAs, and proactive architectural maintenance.',
-                icon: <ShieldCheck className="h-5 w-5 text-emerald-500" />,
+                icon: <ShieldCheck className="h-5 w-5 text-primary dark:text-cyan-400" />,
               },
             ].map((phase) => (
               <div
@@ -621,7 +621,7 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
           </span>
           {solution.features.map((feat, i) => (
             <div key={i} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300 font-normal">
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
+              <CheckCircle2 className="h-3.5 w-3.5 text-primary dark:text-cyan-400 shrink-0 mt-0.5" />
               <span className="leading-snug">{feat}</span>
             </div>
           ))}

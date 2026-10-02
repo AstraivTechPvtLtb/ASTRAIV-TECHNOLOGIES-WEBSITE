@@ -69,13 +69,13 @@ export default async function FaqPage({ params }: FaqPageProps) {
       title: 'Flexible Pricing',
       desc: 'Transparent milestone and sprint rates with zero hidden fees.',
       href: ROUTES.PUBLIC.PRICING,
-      icon: <DollarSign className="h-5 w-5 text-emerald-500" />,
+      icon: <DollarSign className="h-5 w-5 text-primary dark:text-cyan-400" />,
     },
     {
       title: 'Legal & IP Ownership',
       desc: '100% IP transfer, mutual NDAs, and enterprise SLAs.',
       href: ROUTES.PUBLIC.TERMS,
-      icon: <ShieldCheck className="h-5 w-5 text-purple-500" />,
+      icon: <ShieldCheck className="h-5 w-5 text-primary dark:text-cyan-400" />,
     },
   ];
 

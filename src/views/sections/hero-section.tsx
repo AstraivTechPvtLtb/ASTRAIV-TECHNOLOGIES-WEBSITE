@@ -137,7 +137,7 @@ export function HeroSection({
     <section
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative flex flex-col items-center justify-center min-h-[80vh] sm:min-h-[85vh] lg:min-h-[88vh] overflow-hidden bg-background border-b border-border/40"
+      className="relative flex flex-col items-center justify-center min-h-[100svh] lg:min-h-[100dvh] overflow-hidden bg-background border-b border-border/40 pt-20 sm:pt-24 pb-8 sm:pb-12"
     >
       {/* 3D Preserved Perspective Background Stage: tilts smoothly with mouse movement to reveal dramatic depth */}
       <motion.div
@@ -189,7 +189,7 @@ export function HeroSection({
         variants={containerVariants}
         initial={false}
         animate="visible"
-        className="relative z-20 w-full max-w-5xl xl:max-w-6xl mx-auto flex flex-col items-center text-center pt-24 pb-12 sm:pt-32 sm:pb-16 md:pt-36 md:pb-20 lg:pt-38 lg:pb-24 px-4 sm:px-6 lg:px-8 pointer-events-auto"
+        className="relative z-20 w-full max-w-5xl xl:max-w-6xl mx-auto flex flex-col items-center text-center my-auto px-4 sm:px-6 lg:px-8 pointer-events-auto"
       >
 
 
@@ -209,7 +209,7 @@ export function HeroSection({
                 className={cn(
                   "inline-block whitespace-nowrap pb-0.5",
                   item.isHighlighted
-                    ? "relative bg-gradient-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] dark:from-[#3B82F6] dark:via-[#60A5FA] dark:to-[#93C5FD] bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shimmer font-semibold"
+                    ? "heading-gradient font-semibold"
                     : "text-foreground"
                 )}
               >

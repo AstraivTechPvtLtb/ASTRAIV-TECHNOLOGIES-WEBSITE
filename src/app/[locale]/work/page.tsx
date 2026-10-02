@@ -59,7 +59,7 @@ export default async function WorkPage({ params }: WorkPageProps) {
           </div>
 
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.025em] font-heading max-w-4xl mx-auto mb-6 leading-tight">
-            Engineering Outcomes, Delivered at Scale
+            Engineering Outcomes, <span className="heading-gradient">Delivered at Scale</span>
           </h1>
 
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-8 font-normal">
@@ -99,10 +99,10 @@ export default async function WorkPage({ params }: WorkPageProps) {
           </div>
 
           {/* Credibility Standards Architecture Banner */}
-          <div className="p-6 sm:p-7 rounded-3xl bg-slate-900/60 dark:bg-slate-900/80 border border-border/70 dark:border-slate-800 backdrop-blur-xl text-left max-w-5xl mx-auto shadow-md">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 border-b border-border/50 dark:border-slate-800">
+          <div className="p-6 sm:p-7 rounded-3xl bg-card/90 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 backdrop-blur-xl text-left max-w-5xl mx-auto shadow-sm dark:shadow-md transition-colors">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 border-b border-border/60 dark:border-slate-800">
               <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary dark:text-cyan-400 border border-primary/20">
                   <ShieldCheck className="h-4 w-4" />
                 </div>
                 <div>
@@ -124,8 +124,8 @@ export default async function WorkPage({ params }: WorkPageProps) {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
-              <div className="p-3.5 rounded-xl bg-card/60 dark:bg-slate-950/60 border border-border/60 dark:border-slate-800/80">
-                <span className="text-[10.5px] font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 block mb-1">
+              <div className="p-3.5 rounded-xl bg-slate-50/90 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-slate-700 transition-colors">
+                <span className="text-[10.5px] font-bold uppercase tracking-wider text-primary dark:text-cyan-400 block mb-1">
                   Client Projects
                 </span>
                 <p className="text-[11.5px] text-muted-foreground leading-relaxed">
@@ -133,8 +133,8 @@ export default async function WorkPage({ params }: WorkPageProps) {
                 </p>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-card/60 dark:bg-slate-950/60 border border-border/60 dark:border-slate-800/80">
-                <span className="text-[10.5px] font-semibold uppercase tracking-wider text-purple-600 dark:text-purple-400 block mb-1">
+              <div className="p-3.5 rounded-xl bg-slate-50/90 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-slate-700 transition-colors">
+                <span className="text-[10.5px] font-bold uppercase tracking-wider text-primary dark:text-blue-400 block mb-1">
                   Internal Platforms
                 </span>
                 <p className="text-[11.5px] text-muted-foreground leading-relaxed">
@@ -142,8 +142,8 @@ export default async function WorkPage({ params }: WorkPageProps) {
                 </p>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-card/60 dark:bg-slate-950/60 border border-border/60 dark:border-slate-800/80">
-                <span className="text-[10.5px] font-semibold uppercase tracking-wider text-amber-600 dark:text-amber-400 block mb-1">
+              <div className="p-3.5 rounded-xl bg-slate-50/90 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-slate-700 transition-colors">
+                <span className="text-[10.5px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 block mb-1">
                   Concept Projects
                 </span>
                 <p className="text-[11.5px] text-muted-foreground leading-relaxed">
@@ -151,8 +151,8 @@ export default async function WorkPage({ params }: WorkPageProps) {
                 </p>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-card/60 dark:bg-slate-950/60 border border-border/60 dark:border-slate-800/80">
-                <span className="text-[10.5px] font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 block mb-1">
+              <div className="p-3.5 rounded-xl bg-slate-50/90 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-slate-700 transition-colors">
+                <span className="text-[10.5px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-400 block mb-1">
                   Reference Architectures
                 </span>
                 <p className="text-[11.5px] text-muted-foreground leading-relaxed">

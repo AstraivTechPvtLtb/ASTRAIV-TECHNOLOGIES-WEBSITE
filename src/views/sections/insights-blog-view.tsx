@@ -62,7 +62,7 @@ export function InsightsBlogView({
               <span>Technical Publications & Systems Analysis</span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading tracking-[-0.025em] leading-[1.12] text-foreground">
-              Astraiv Engineering Blog
+              Astraiv <span className="heading-gradient">Engineering Blog</span>
             </h1>
             <p className="text-sm md:text-base text-muted-foreground font-normal mt-2 max-w-2xl leading-[1.62]">
               In-depth architectural breakdowns, production engineering tutorials, and distributed systems case studies written by senior practitioners.
@@ -222,7 +222,7 @@ export function InsightsBlogView({
                       </span>
                     )}
                     {article.relatedServiceSlugs?.[0] && (
-                      <span className="text-[10px] font-medium text-indigo-600 dark:text-indigo-400 flex items-center gap-1 ml-2">
+                      <span className="text-[10px] font-medium text-cyan-600 dark:text-cyan-400 flex items-center gap-1 ml-2">
                         <Cpu className="h-3 w-3" />
                         <span>Service</span>
                       </span>

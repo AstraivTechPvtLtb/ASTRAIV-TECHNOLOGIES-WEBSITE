@@ -96,15 +96,15 @@ export function FinalCtaSection({
           {/* Credibility Micro-Bar */}
           <div className="flex flex-wrap items-center justify-center gap-6 mt-10 pt-8 border-t border-white/15 text-xs text-blue-200/80 font-medium">
             <span className="flex items-center gap-1.5">
-              <ShieldCheck className="h-4 w-4 text-emerald-400" />
+              <ShieldCheck className="h-4 w-4 text-sky-300" />
               <span>ISO 27001 &amp; SOC-2 Certified</span>
             </span>
             <span className="flex items-center gap-1.5">
-              <Zap className="h-4 w-4 text-yellow-300" />
+              <Zap className="h-4 w-4 text-cyan-300" />
               <span>Direct Architect Access</span>
             </span>
             <span className="flex items-center gap-1.5">
-              <Sparkles className="h-4 w-4 text-cyan-300" />
+              <Sparkles className="h-4 w-4 text-blue-300" />
               <span>Non-Disclosure Protected</span>
             </span>
           </div>
