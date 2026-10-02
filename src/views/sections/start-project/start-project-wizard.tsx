@@ -45,6 +45,7 @@ import {
 } from '@/models/types';
 import { submitStartProject } from '@/controllers/start-project.controller';
 import { CANONICAL_PROJECT_TYPES } from '@/models/start-project.schema';
+import { validateEmailSyntax, validatePhone } from '@/lib/validations/contact-rules';
 
 interface ProjectTypeOption {
   type: StartProjectType;
@@ -320,15 +321,49 @@ export function StartProjectWizard() {
         errors.projectStage = 'Please select your current project stage.';
       }
     } else if (currentStep === 4) {
-      if (!formData.name || formData.name.trim().length < 2) {
-        errors.name = 'Please enter your full name (minimum 2 characters).';
+      // 1. Full Name: max 30 chars, letters and spaces only, min 2 chars
+      const trimmedName = formData.name ? formData.name.trim() : '';
+      if (!trimmedName) {
+        errors.name = 'Please enter your full name.';
+      } else if (trimmedName.length < 2) {
+        errors.name = 'Full name must be at least 2 characters.';
+      } else if (formData.name.length > 30) {
+        errors.name = 'Full name cannot exceed 30 characters.';
+      } else if (!/^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/.test(trimmedName)) {
+        errors.name = 'Name should only contain letters and spaces (no numbers or special characters).';
       }
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!formData.email || !emailRegex.test(formData.email.trim())) {
-        errors.email = 'Please enter a valid business email address.';
+
+      // 2. Business Email: syntax validation, uppercase not allowed
+      const trimmedEmail = formData.email ? formData.email.trim() : '';
+      if (!trimmedEmail) {
+        errors.email = 'Please enter your business email.';
+      } else if (/[A-Z]/.test(formData.email)) {
+        errors.email = 'Uppercase letters are not allowed in email.';
+      } else {
+        const emailValidation = validateEmailSyntax(trimmedEmail);
+        if (!emailValidation.isValid) {
+          errors.email = emailValidation.error || 'Please enter a valid business email address.';
+        }
       }
-      if (!formData.company || formData.company.trim().length < 2) {
+
+      // 3. Company / Organization: max 30 chars, letters and spaces only, min 2 chars
+      const trimmedCompany = formData.company ? formData.company.trim() : '';
+      if (!trimmedCompany) {
         errors.company = 'Please enter your company or organization name.';
+      } else if (trimmedCompany.length < 2) {
+        errors.company = 'Company name must be at least 2 characters.';
+      } else if (formData.company.length > 30) {
+        errors.company = 'Company name cannot exceed 30 characters.';
+      } else if (!/^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/.test(trimmedCompany)) {
+        errors.company = 'Company name can contain letters and spaces only (no numbers or special characters).';
+      }
+
+      // 4. Phone Number (Optional): exact digits countrywise (for India, strictly 10 digits)
+      if (formData.phone && formData.phone.trim().length > 0) {
+        const phoneValidation = validatePhone(formData.phone);
+        if (!phoneValidation.isValid) {
+          errors.phone = phoneValidation.error || 'Please enter a valid phone number with exact digits.';
+        }
       }
     }
 
@@ -843,21 +878,45 @@ export function StartProjectWizard() {
                     <Input
                       id="wizard-name"
                       type="text"
+                      maxLength={30}
                       value={formData.name}
-                      onChange={(e) => updateField('name', e.target.value)}
-                      placeholder="Jane Doe"
+                      onChange={(e) => {
+                        // Allow only letters and spaces, max 30 characters
+                        const cleanVal = e.target.value.replace(/[^a-zA-Z\s]/g, '').slice(0, 30);
+                        updateField('name', cleanVal);
+                      }}
+                      onKeyDown={(e) => {
+                        if (
+                          e.key.length === 1 &&
+                          !/^[a-zA-Z\s]$/.test(e.key) &&
+                          !e.ctrlKey &&
+                          !e.metaKey
+                        ) {
+                          e.preventDefault();
+                        }
+                      }}
+                      onPaste={(e) => {
+                        e.preventDefault();
+                        const pasted = e.clipboardData.getData('text');
+                        const cleanVal = pasted.replace(/[^a-zA-Z\s]/g, '').slice(0, 30);
+                        updateField('name', cleanVal);
+                      }}
+                      placeholder="Enter Your Name"
                       aria-required="true"
                       aria-invalid={Boolean(stepErrors.name)}
                       aria-describedby={stepErrors.name ? 'wizard-name-error' : undefined}
                       className={cn(
-                        'pl-10 h-12 rounded-xl text-sm',
+                        'pl-10 h-12 rounded-xl text-sm font-normal',
                         stepErrors.name ? 'border-destructive ring-1 ring-destructive' : ''
                       )}
                     />
-                    <User className="w-4 h-4 text-muted-foreground absolute left-3.5 top-4 pointer-events-none" />
+                    <User className="w-4 h-4 text-muted-foreground absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
                   {stepErrors.name && (
-                    <p id="wizard-name-error" role="alert" className="text-xs text-destructive font-semibold">{stepErrors.name}</p>
+                    <p id="wizard-name-error" role="alert" className="text-xs text-destructive font-semibold flex items-center gap-1.5 mt-1">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <span>{stepErrors.name}</span>
+                    </p>
                   )}
                 </div>
 
@@ -871,20 +930,32 @@ export function StartProjectWizard() {
                       id="wizard-email"
                       type="email"
                       value={formData.email}
-                      onChange={(e) => updateField('email', e.target.value)}
-                      placeholder="jane@company.com"
+                      onChange={(e) => {
+                        // Uppercase is not allowed; automatically lowercase and strip whitespace
+                        const lowerVal = e.target.value.toLowerCase().replace(/\s/g, '');
+                        updateField('email', lowerVal);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === ' ') {
+                          e.preventDefault();
+                        }
+                      }}
+                      placeholder="Enter Your Email"
                       aria-required="true"
                       aria-invalid={Boolean(stepErrors.email)}
                       aria-describedby={stepErrors.email ? 'wizard-email-error' : undefined}
                       className={cn(
-                        'pl-10 h-12 rounded-xl text-sm',
+                        'pl-10 h-12 rounded-xl text-sm font-normal',
                         stepErrors.email ? 'border-destructive ring-1 ring-destructive' : ''
                       )}
                     />
-                    <Mail className="w-4 h-4 text-muted-foreground absolute left-3.5 top-4 pointer-events-none" />
+                    <Mail className="w-4 h-4 text-muted-foreground absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
                   {stepErrors.email && (
-                    <p id="wizard-email-error" role="alert" className="text-xs text-destructive font-semibold">{stepErrors.email}</p>
+                    <p id="wizard-email-error" role="alert" className="text-xs text-destructive font-semibold flex items-center gap-1.5 mt-1">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <span>{stepErrors.email}</span>
+                    </p>
                   )}
                 </div>
 
@@ -897,21 +968,45 @@ export function StartProjectWizard() {
                     <Input
                       id="wizard-company"
                       type="text"
+                      maxLength={30}
                       value={formData.company}
-                      onChange={(e) => updateField('company', e.target.value)}
-                      placeholder="Acme Global Inc."
+                      onChange={(e) => {
+                        // No special characters or numbers allowed except space, max 30 chars
+                        const cleanVal = e.target.value.replace(/[^a-zA-Z\s]/g, '').slice(0, 30);
+                        updateField('company', cleanVal);
+                      }}
+                      onKeyDown={(e) => {
+                        if (
+                          e.key.length === 1 &&
+                          !/^[a-zA-Z\s]$/.test(e.key) &&
+                          !e.ctrlKey &&
+                          !e.metaKey
+                        ) {
+                          e.preventDefault();
+                        }
+                      }}
+                      onPaste={(e) => {
+                        e.preventDefault();
+                        const pasted = e.clipboardData.getData('text');
+                        const cleanVal = pasted.replace(/[^a-zA-Z\s]/g, '').slice(0, 30);
+                        updateField('company', cleanVal);
+                      }}
+                      placeholder="Name of Your Organization"
                       aria-required="true"
                       aria-invalid={Boolean(stepErrors.company)}
                       aria-describedby={stepErrors.company ? 'wizard-company-error' : undefined}
                       className={cn(
-                        'pl-10 h-12 rounded-xl text-sm',
+                        'pl-10 h-12 rounded-xl text-sm font-normal',
                         stepErrors.company ? 'border-destructive ring-1 ring-destructive' : ''
                       )}
                     />
-                    <Building2 className="w-4 h-4 text-muted-foreground absolute left-3.5 top-4 pointer-events-none" />
+                    <Building2 className="w-4 h-4 text-muted-foreground absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
                   {stepErrors.company && (
-                    <p id="wizard-company-error" role="alert" className="text-xs text-destructive font-semibold">{stepErrors.company}</p>
+                    <p id="wizard-company-error" role="alert" className="text-xs text-destructive font-semibold flex items-center gap-1.5 mt-1">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <span>{stepErrors.company}</span>
+                    </p>
                   )}
                 </div>
 
@@ -924,9 +1019,16 @@ export function StartProjectWizard() {
                     id="wizard-phone"
                     value={formData.phone}
                     onChange={(val) => updateField('phone', val)}
-                    placeholder="Mobile or office phone"
+                    placeholder="0000000000"
+                    error={Boolean(stepErrors.phone)}
                     className="h-12"
                   />
+                  {stepErrors.phone && (
+                    <p id="wizard-phone-error" role="alert" className="text-xs text-destructive font-semibold flex items-center gap-1.5 mt-1">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <span>{stepErrors.phone}</span>
+                    </p>
+                  )}
                 </div>
               </div>
 

@@ -8,7 +8,7 @@ export interface Country {
 }
 
 export const COUNTRIES: Country[] = [
-  { code: 'IN', name: 'India', dialCode: '+91', flag: '🇮🇳', format: '##### #####', placeholder: '81674 09664' },
+  { code: 'IN', name: 'India', dialCode: '+91', flag: '🇮🇳', format: '##### #####', placeholder: '0000000000' },
   { code: 'US', name: 'United States', dialCode: '+1', flag: '🇺🇸', format: '(###) ###-####', placeholder: '(555) 000-0000' },
   { code: 'GB', name: 'United Kingdom', dialCode: '+44', flag: '🇬🇧', format: '#### ######', placeholder: '7911 123456' },
   { code: 'CA', name: 'Canada', dialCode: '+1', flag: '🇨🇦', format: '(###) ###-####', placeholder: '(555) 000-0000' },
@@ -202,4 +202,13 @@ export function detectCountryFromPhone(phone: string): { country: Country; local
   }
   
   return null;
+}
+
+/**
+ * Returns the exact number of phone digits expected for a country based on its format mask.
+ */
+export function getCountryExpectedDigits(country: Country): number {
+  if (country.code === 'IN') return 10;
+  const match = country.format.match(/#/g);
+  return match && match.length > 0 ? match.length : 10;
 }

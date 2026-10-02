@@ -10,6 +10,9 @@ export * from './layouts/sidebar';
 export * from './layouts/dashboard-layout';
 export * from './layouts/tech-background';
 
+// Client Portal Views
+export * from './portal/agile-tracker-view';
+
 // Marketing & Public Sections
 export * from './sections/hero-section';
 export * from './sections/services-section';

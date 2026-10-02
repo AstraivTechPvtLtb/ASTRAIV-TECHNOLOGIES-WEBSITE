@@ -30,6 +30,8 @@ export interface BlogPost {
   category: BlogCategory;
   authorId?: string;
   author: BlogAuthor;
+  tags?: string[];
+  readingTime?: string | null;
 }
 
 import {
@@ -53,6 +55,8 @@ export const FALLBACK_BLOG_POSTS: BlogPost[] = INSIGHT_ARTICLES.map((article) =>
   featuredImage: article.coverImage,
   createdAt: article.publishedAt,
   categoryId: article.category.id,
+  tags: article.tags || [],
+  readingTime: article.readingTime || '5 min read',
   category: {
     id: article.category.id,
     name: article.category.name,
@@ -101,7 +105,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
         .order('created_at', { ascending: false });
 
       if (!error && data && data.length > 0) {
-        return data.map((p) => ({
+        return (data as any[]).map((p: any) => ({
           id: p.id,
           title: p.title,
           slug: p.slug,
@@ -111,14 +115,16 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
           featuredImage: p.cover_image || null,
           createdAt: p.created_at || new Date().toISOString(),
           categoryId: p.category || 'tech',
+          tags: p.tags || [],
+          readingTime: p.reading_time || '5 min read',
           category: {
             id: p.category || 'tech',
             name: p.category || 'Engineering',
             slug: (p.category || 'tech').toLowerCase().replace(/[^a-z0-9]+/g, '-'),
           },
           author: {
-            name: p.author || 'Astraiv Engineering Team',
-            image: null,
+            name: p.author_name || p.author || 'Astraiv Engineering Team',
+            image: p.author_image || null,
           },
         }));
       }
