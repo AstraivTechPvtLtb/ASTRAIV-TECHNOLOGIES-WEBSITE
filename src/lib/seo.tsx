@@ -123,7 +123,7 @@ export function getOrganizationJsonLd() {
         telephone: siteConfig.contact.phone,
         contactType: 'customer service',
         email: siteConfig.contact.email,
-        availableLanguage: ['en', 'es', 'bn', 'hi', 'ar'],
+        availableLanguage: ['en', 'es', 'hi', 'ar'],
       },
     ],
     address: {

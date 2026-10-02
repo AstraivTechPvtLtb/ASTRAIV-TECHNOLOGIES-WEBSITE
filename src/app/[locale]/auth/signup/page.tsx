@@ -92,21 +92,24 @@ export default function SignupPage() {
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 dark:via-blue-400/40 to-transparent pointer-events-none" />
 
           {/* Header branding */}
-          <div className="flex flex-col items-center mb-6 text-center">
-            <Link href="/" className="flex items-center gap-2.5 group mb-4">
+          <div className="flex flex-col items-center justify-center text-center w-full mb-6">
+            <Link
+              href="/"
+              className="inline-flex items-center justify-center gap-2.5 group mb-4 mx-auto select-none"
+            >
               <Image
                 src="/logo-icon.jpg"
                 alt="Astraiv Technologies Logo"
-                width={38}
-                height={38}
+                width={36}
+                height={36}
                 priority
-                className="rounded-full object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/20 dark:ring-blue-400/30 group-hover:ring-primary/50 shadow-md"
+                className="rounded-full object-cover shrink-0 group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/20 dark:ring-blue-400/30 group-hover:ring-primary/50 shadow-md"
               />
-              <div className="flex flex-col items-start leading-tight">
-                <span className="font-heading font-extrabold text-[20px] tracking-wider bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent pb-0.5">
+              <div className="flex flex-col items-start justify-center leading-none text-left">
+                <span className="font-heading font-extrabold text-[19px] tracking-[0.06em] bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent leading-none">
                   ASTRAIV
                 </span>
-                <span className="text-[8px] uppercase tracking-[0.28em] font-black text-black dark:text-white dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.85)]">
+                <span className="text-[7.5px] uppercase tracking-[0.31em] font-black text-black dark:text-white dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.85)] leading-none mt-1">
                   TECHNOLOGIES
                 </span>
               </div>

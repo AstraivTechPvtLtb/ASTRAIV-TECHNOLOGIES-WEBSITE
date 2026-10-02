@@ -142,7 +142,7 @@ describe('MVC Routes Layer', () => {
     it('generates localized paths correctly', () => {
       expect(getLocalizedPath('/services', 'en')).toBe('/en/services');
       expect(getLocalizedPath('/', 'es')).toBe('/es');
-      expect(getLocalizedPath('/auth/login', 'bn')).toBe('/bn/auth/login');
+      expect(getLocalizedPath('/auth/login', 'hi')).toBe('/hi/auth/login');
       expect(getLocalizedPath('/blog#faq', 'en')).toBe('/en/blog#faq');
       expect(getLocalizedPath('/services')).toBe('/services');
     });
