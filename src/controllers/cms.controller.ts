@@ -994,14 +994,17 @@ export async function getIndustryRelationalContext(rawSlug: string) {
   ]);
 
   const relatedServices = allServices.filter((srv) => {
-    const rel = SERVICE_RELATIONSHIPS[srv.slug];
+    const rel = SERVICE_RELATIONSHIPS[normalizeServiceSlug(srv.slug)];
     return rel?.relevantIndustrySlugs.some((i) => normalizeIndustrySlug(i) === canonical);
   });
 
   const relatedSolutions = allSolutions.filter((sol) => {
-    const rel = SOLUTION_RELATIONSHIPS[sol.slug];
+    const rel = SOLUTION_RELATIONSHIPS[normalizeSolutionSlug(sol.slug)];
     return rel?.relevantIndustrySlugs.some((i) => normalizeIndustrySlug(i) === canonical);
   });
+
+  const safeServices = relatedServices.length > 0 ? relatedServices : allServices.slice(0, 3);
+  const safeSolutions = relatedSolutions.length > 0 ? relatedSolutions : allSolutions.slice(0, 3);
 
   const relatedCaseStudies = allCaseStudies.filter(
     (cs) => normalizeIndustrySlug(cs.industrySlug) === canonical
@@ -1009,8 +1012,8 @@ export async function getIndustryRelationalContext(rawSlug: string) {
 
   return {
     industry,
-    relatedServices,
-    relatedSolutions,
+    relatedServices: safeServices,
+    relatedSolutions: safeSolutions,
     relatedCaseStudies,
   };
 }

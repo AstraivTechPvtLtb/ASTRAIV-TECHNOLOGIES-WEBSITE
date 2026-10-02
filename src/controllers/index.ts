@@ -15,3 +15,4 @@ export * from './footer.controller';
 export * from './portfolio.controller';
 export * from './start-project.controller';
 export * from './cms.controller';
+export * from './legal.controller';
