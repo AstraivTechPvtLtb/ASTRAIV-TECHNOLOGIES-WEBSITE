@@ -286,7 +286,7 @@ export const INSIGHTS_MEGA: MegaMenuConfig = {
       items: [
         {
           name: 'Engineering Blog',
-          href: ROUTES.PUBLIC.INSIGHTS_BLOG,
+          href: ROUTES.PUBLIC.INSIGHTS_ANCHORS.BLOG,
           description: 'Deep dives into distributed systems, TypeScript patterns & cloud primitives.',
         },
         {

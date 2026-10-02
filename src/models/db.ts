@@ -79,3 +79,5 @@ export const db =
 globalForPrisma.prisma = db;
 globalForPrisma.pool = pool;
 
+export { pool };
+
