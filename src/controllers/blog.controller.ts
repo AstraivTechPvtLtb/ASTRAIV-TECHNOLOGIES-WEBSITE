@@ -30,6 +30,8 @@ export interface BlogPost {
   category: BlogCategory;
   authorId?: string;
   author: BlogAuthor;
+  tags?: string[];
+  readingTime?: string | null;
 }
 
 import {
@@ -53,6 +55,8 @@ export const FALLBACK_BLOG_POSTS: BlogPost[] = INSIGHT_ARTICLES.map((article) =>
   featuredImage: article.coverImage,
   createdAt: article.publishedAt,
   categoryId: article.category.id,
+  tags: article.tags || [],
+  readingTime: article.readingTime || '5 min read',
   category: {
     id: article.category.id,
     name: article.category.name,
@@ -101,24 +105,26 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
         .order('created_at', { ascending: false });
 
       if (!error && data && data.length > 0) {
-        return data.map((p) => ({
-          id: p.id,
-          title: p.title,
-          slug: p.slug,
-          summary: p.excerpt || p.title,
-          content: p.content,
+        return (data as Record<string, unknown>[]).map((p) => ({
+          id: String(p.id),
+          title: String(p.title),
+          slug: String(p.slug),
+          summary: (p.excerpt as string) || (p.title as string) || '',
+          content: (p.content as string) || '',
           published: true,
-          featuredImage: p.cover_image || null,
-          createdAt: p.created_at || new Date().toISOString(),
-          categoryId: p.category || 'tech',
+          featuredImage: (p.cover_image as string) || null,
+          createdAt: (p.created_at as string) || new Date().toISOString(),
+          categoryId: (p.category as string) || 'tech',
+          tags: Array.isArray(p.tags) ? (p.tags as string[]) : [],
+          readingTime: (p.reading_time as string) || '5 min read',
           category: {
-            id: p.category || 'tech',
-            name: p.category || 'Engineering',
-            slug: (p.category || 'tech').toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+            id: (p.category as string) || 'tech',
+            name: (p.category as string) || 'Engineering',
+            slug: ((p.category as string) || 'tech').toLowerCase().replace(/[^a-z0-9]+/g, '-'),
           },
           author: {
-            name: p.author || 'Astraiv Engineering Team',
-            image: null,
+            name: (p.author_name as string) || (p.author as string) || 'Astraiv Engineering Team',
+            image: (p.author_image as string) || null,
           },
         }));
       }

@@ -3,7 +3,7 @@ import { notFound, redirect } from 'next/navigation';
 import { Metadata } from 'next';
 import { routing } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
-import { Navbar, Footer } from '@/views';
+import { Navbar, Footer, AgileTrackerView } from '@/views';
 import { getCurrentUserSession } from '@/controllers';
 import { ROUTES, PORTAL_ROUTES, getLocalizedPath } from '@/routes';
 import {
@@ -59,7 +59,7 @@ export default async function ClientPortalPage({ params }: ClientPortalPageProps
       case 'PROJECT_MANAGER':
         redirect('/manager');
       case 'CLIENT':
-        redirect(getLocalizedPath(PORTAL_ROUTES.CLIENT.PROJECTS, locale));
+        return <AgileTrackerView user={user} />;
       case 'USER':
       default:
         redirect(getLocalizedPath(PORTAL_ROUTES.DASHBOARD, locale));

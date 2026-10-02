@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { ChevronDown, Search, Check } from 'lucide-react';
-import { COUNTRIES, Country, detectCountryFromPhone, formatPhoneNumber } from '@/lib/countries';
+import { COUNTRIES, Country, detectCountryFromPhone, getCountryExpectedDigits } from '@/lib/countries';
 import { cn } from '@/lib/utils';
 
 export interface CountryPhoneInputProps {
@@ -41,8 +41,13 @@ export const CountryPhoneInput = React.forwardRef<HTMLInputElement, CountryPhone
     const containerRef = React.useRef<HTMLDivElement>(null);
     const searchInputRef = React.useRef<HTMLInputElement>(null);
 
-    // Dynamic placeholder based on selected country if not explicitly specified
-    const activePlaceholder = placeholder || selectedCountry.placeholder || '98765 43210';
+    const expectedDigits = getCountryExpectedDigits(selectedCountry);
+
+    // Dynamic placeholder: shows exact digits countrywise in zeros (0000000000 for India)
+    const activePlaceholder =
+      placeholder && placeholder !== 'Mobile or office phone'
+        ? (placeholder === '0000000000' ? '0'.repeat(expectedDigits) : placeholder)
+        : '0'.repeat(expectedDigits);
 
     // Synchronize initial value or externally controlled value
     React.useEffect(() => {
@@ -50,23 +55,23 @@ export const CountryPhoneInput = React.forwardRef<HTMLInputElement, CountryPhone
         const detected = detectCountryFromPhone(value);
         if (detected) {
           setSelectedCountry(detected.country);
-          const formatted = formatPhoneNumber(detected.localNumber, detected.country.format);
-          setPhoneNumber(formatted);
+          const maxDigits = getCountryExpectedDigits(detected.country);
+          const cleanDigits = detected.localNumber.replace(/\D/g, '').slice(0, maxDigits);
+          setPhoneNumber(cleanDigits);
           return;
         }
-        // If value starts with current country dialCode
+        const currentMax = getCountryExpectedDigits(selectedCountry);
         if (value.startsWith(selectedCountry.dialCode)) {
-          const raw = value.slice(selectedCountry.dialCode.length).trimStart();
-          const formatted = formatPhoneNumber(raw, selectedCountry.format);
-          setPhoneNumber(formatted);
+          const raw = value.slice(selectedCountry.dialCode.length).replace(/\D/g, '').slice(0, currentMax);
+          setPhoneNumber(raw);
         } else {
-          const formatted = formatPhoneNumber(value, selectedCountry.format);
-          setPhoneNumber(formatted);
+          const clean = value.replace(/\D/g, '').slice(0, currentMax);
+          setPhoneNumber(clean);
         }
       } else {
         setPhoneNumber('');
       }
-    }, [value, selectedCountry.dialCode, selectedCountry.format]);
+    }, [value, selectedCountry]);
 
     // Handle outside clicks and Escape key to close the dropdown
     React.useEffect(() => {
@@ -96,13 +101,13 @@ export const CountryPhoneInput = React.forwardRef<HTMLInputElement, CountryPhone
     }, [isOpen]);
 
     // Update parent with full formatted phone number
-    const triggerChange = (country: Country, formattedNumber: string) => {
-      const trimmed = formattedNumber.trim();
+    const triggerChange = (country: Country, cleanDigits: string) => {
+      const trimmed = cleanDigits.trim();
       const fullValue = trimmed ? `${country.dialCode} ${trimmed}` : '';
       onChange?.(fullValue);
     };
 
-    // When phone input changes
+    // When phone input changes: accept only digits, exact country digits limit
     const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const inputVal = e.target.value;
 
@@ -111,23 +116,18 @@ export const CountryPhoneInput = React.forwardRef<HTMLInputElement, CountryPhone
         const detected = detectCountryFromPhone(inputVal);
         if (detected) {
           setSelectedCountry(detected.country);
-          const formatted = formatPhoneNumber(detected.localNumber, detected.country.format);
-          setPhoneNumber(formatted);
-          triggerChange(detected.country, formatted);
+          const maxDigits = getCountryExpectedDigits(detected.country);
+          const cleanDigits = detected.localNumber.replace(/\D/g, '').slice(0, maxDigits);
+          setPhoneNumber(cleanDigits);
+          triggerChange(detected.country, cleanDigits);
           return;
         }
       }
 
-      // Handle backspace when user deletes punctuation mask characters
-      let rawDigits = inputVal.replace(/\D/g, '');
-      const prevDigits = phoneNumber.replace(/\D/g, '');
-      if (inputVal.length < phoneNumber.length && rawDigits === prevDigits && rawDigits.length > 0) {
-        rawDigits = rawDigits.slice(0, -1);
-      }
-
-      const formatted = formatPhoneNumber(rawDigits, selectedCountry.format);
-      setPhoneNumber(formatted);
-      triggerChange(selectedCountry, formatted);
+      // No special characters, no alphabets, exact digits countrywise (10 digits for India)
+      const cleanDigits = inputVal.replace(/\D/g, '').slice(0, expectedDigits);
+      setPhoneNumber(cleanDigits);
+      triggerChange(selectedCountry, cleanDigits);
     };
 
     // When a country is selected from dropdown
@@ -136,11 +136,11 @@ export const CountryPhoneInput = React.forwardRef<HTMLInputElement, CountryPhone
       setIsOpen(false);
       setSearchQuery('');
       
-      // Automatically re-format existing number with the new country format
-      const rawDigits = phoneNumber.replace(/\D/g, '');
-      const newFormatted = rawDigits ? formatPhoneNumber(rawDigits, country.format) : '';
-      setPhoneNumber(newFormatted);
-      triggerChange(country, newFormatted);
+      // Automatically slice existing digits to the new country format limit
+      const newExpectedDigits = getCountryExpectedDigits(country);
+      const cleanDigits = phoneNumber.replace(/\D/g, '').slice(0, newExpectedDigits);
+      setPhoneNumber(cleanDigits);
+      triggerChange(country, cleanDigits);
     };
 
     // Filter countries based on search query
@@ -199,6 +199,9 @@ export const CountryPhoneInput = React.forwardRef<HTMLInputElement, CountryPhone
           <input
             ref={ref}
             type="tel"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            maxLength={expectedDigits}
             id={id}
             name={name}
             value={phoneNumber}
@@ -222,9 +225,35 @@ export const CountryPhoneInput = React.forwardRef<HTMLInputElement, CountryPhone
               ) {
                 return;
               }
+              // Disallow non-digits (no alphabets, special characters, spaces)
               if (!/^\d$/.test(e.key)) {
                 e.preventDefault();
+                return;
               }
+              // Prevent typing beyond country exact digits limit
+              const target = e.currentTarget;
+              const hasSelection = target.selectionStart !== target.selectionEnd;
+              if (!hasSelection && phoneNumber.length >= expectedDigits) {
+                e.preventDefault();
+              }
+            }}
+            onPaste={(e) => {
+              e.preventDefault();
+              const pasted = e.clipboardData.getData('text');
+              if (pasted.startsWith('+')) {
+                const detected = detectCountryFromPhone(pasted);
+                if (detected) {
+                  setSelectedCountry(detected.country);
+                  const maxDigits = getCountryExpectedDigits(detected.country);
+                  const cleanDigits = detected.localNumber.replace(/\D/g, '').slice(0, maxDigits);
+                  setPhoneNumber(cleanDigits);
+                  triggerChange(detected.country, cleanDigits);
+                  return;
+                }
+              }
+              const cleanDigits = pasted.replace(/\D/g, '').slice(0, expectedDigits);
+              setPhoneNumber(cleanDigits);
+              triggerChange(selectedCountry, cleanDigits);
             }}
             placeholder={activePlaceholder}
             disabled={disabled}
