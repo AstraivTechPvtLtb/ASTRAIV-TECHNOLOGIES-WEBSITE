@@ -79,7 +79,7 @@ export function getRoleNavLinks(role: DashboardRole = 'USER'): PortalNavItem[] {
       ];
     case 'CLIENT':
       return [
-        { label: 'Client Home', href: PORTAL_ROUTES.CLIENT.HOME, icon: LayoutDashboard },
+        { label: 'Track Project', href: PORTAL_ROUTES.CLIENT.HOME, icon: LayoutDashboard },
         { label: 'My Projects', href: PORTAL_ROUTES.CLIENT.PROJECTS, icon: FolderKanban },
         { label: 'Support Tickets', href: PORTAL_ROUTES.CLIENT.TICKETS, icon: LifeBuoy },
         { label: 'Billing & Invoices', href: PORTAL_ROUTES.CLIENT.BILLING, icon: CreditCard },

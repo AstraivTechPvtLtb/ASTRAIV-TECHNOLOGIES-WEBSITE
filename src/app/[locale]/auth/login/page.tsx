@@ -6,11 +6,22 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Lock, ArrowRight, Eye, EyeOff, AlertCircle, Loader2, Sparkles } from 'lucide-react';
+import {
+  Mail,
+  Lock,
+  ArrowRight,
+  Eye,
+  EyeOff,
+  AlertCircle,
+  Loader2,
+  Sparkles,
+  Hash,
+} from 'lucide-react';
 import { Link, useRouter } from '@/i18n/routing';
 import { Button } from '@/views/ui/button';
 import { Input } from '@/views/ui/input';
 import { loginSchema, LoginInput } from '@/lib/validations/auth';
+import { signInClientWithLeadNumber } from '@/controllers/auth.controller';
 import { signIn } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
 
@@ -25,11 +36,11 @@ export default function LoginPage() {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
+      leadNumber: '',
       email: '',
       password: '',
       rememberMe: false,
@@ -41,6 +52,37 @@ export default function LoginPage() {
     setErrorMsg(null);
     setSuccessMsg(null);
 
+    const hasLead = Boolean(data.leadNumber?.trim());
+
+    // If client provided a Lead Number, authenticate via Lead Approval Engine
+    if (hasLead) {
+      try {
+        const result = await signInClientWithLeadNumber({
+          leadNumber: data.leadNumber!.trim(),
+          email: data.email.trim(),
+          password: data.password.trim(),
+          rememberMe: data.rememberMe,
+        });
+
+        if (!result.success) {
+          setErrorMsg(result.error || 'Failed to authenticate lead. Please verify your credentials.');
+          setIsLoading(false);
+          return;
+        }
+
+        setSuccessMsg('Lead verified & approved! Launching Agile Cockpit...');
+        setTimeout(() => {
+          router.push('/client');
+        }, 600);
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : 'An unexpected error occurred during login.';
+        setErrorMsg(message);
+        setIsLoading(false);
+      }
+      return;
+    }
+
+    // Otherwise, standard Better-Auth flow for Admin / PM / Standard Users
     try {
       await signIn.email({
         email: data.email,
@@ -55,7 +97,6 @@ export default function LoginPage() {
           onSuccess: (ctx) => {
             setSuccessMsg('Successfully signed in! Redirecting...');
             
-            // Redirect based on role in 800ms for smooth animation
             const user = ctx.data?.user;
             const role = user?.role || 'USER';
             
@@ -78,7 +119,7 @@ export default function LoginPage() {
             }, 800);
           },
           onError: (ctx) => {
-            setErrorMsg(ctx.error.message || 'Invalid email or password.');
+            setErrorMsg(ctx.error.message || 'Invalid email or password. If you are a client, please provide your Lead Number.');
           },
         },
       });
@@ -88,7 +129,6 @@ export default function LoginPage() {
       setIsLoading(false);
     }
   };
-
 
   return (
     <div className="relative min-h-screen flex items-center justify-center p-4 sm:p-6 bg-transparent text-foreground selection:bg-primary/20 overflow-hidden transition-colors">
@@ -165,6 +205,35 @@ export default function LoginPage() {
                 </motion.div>
               )}
             </AnimatePresence>
+
+            {/* Lead Number field */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <label htmlFor="leadNumber" className="text-xs font-semibold text-foreground/80 dark:text-slate-300 uppercase tracking-wider block">
+                  Lead Number <span className="text-blue-500 dark:text-blue-400 font-mono text-[10px] normal-case">(For Client Portal)</span>
+                </label>
+                <span className="text-[10px] text-muted-foreground font-mono">e.g. AST-LEAD-2026</span>
+              </div>
+              <div className="relative">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
+                  <Hash className="h-4 w-4 text-blue-500 dark:text-blue-400" />
+                </span>
+                <Input
+                  id="leadNumber"
+                  type="text"
+                  placeholder="AST-LEAD-2026"
+                  autoComplete="off"
+                  className={cn(
+                    'pl-10.5 h-11 bg-white/70 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 text-foreground placeholder:text-muted-foreground/60 focus:bg-white dark:focus:bg-slate-900 focus:border-primary dark:focus:border-blue-400 focus:ring-2 focus:ring-primary/20 dark:focus:ring-blue-400/20 rounded-xl transition-all uppercase font-mono text-xs',
+                    errors.leadNumber && 'border-destructive focus-visible:ring-destructive/30'
+                  )}
+                  {...register('leadNumber')}
+                />
+              </div>
+              <p className="text-[10px] text-muted-foreground">
+                Issued via email once your project brief is approved by the admin board.
+              </p>
+            </div>
 
             {/* Email input field */}
             <div className="space-y-2">
@@ -274,14 +343,25 @@ export default function LoginPage() {
           </form>
 
           {/* Footer swap */}
-          <div className="mt-8 pt-6 border-t border-slate-200/80 dark:border-white/10 text-center text-sm font-medium">
-            <span className="text-muted-foreground">{t('dontHaveAccount').split('?')[0]}? </span>
-            <Link
-              href="/auth/signup"
-              className="text-primary dark:text-blue-400 font-semibold hover:underline transition-colors ml-1"
-            >
-              {t('signUp')}
-            </Link>
+          <div className="mt-8 pt-6 border-t border-slate-200/80 dark:border-white/10 text-center text-sm font-medium space-y-2">
+            <div>
+              <span className="text-muted-foreground">{t('dontHaveAccount').split('?')[0]}? </span>
+              <Link
+                href="/start-project"
+                className="text-primary dark:text-blue-400 font-semibold hover:underline transition-colors ml-1"
+              >
+                Submit a Project Lead
+              </Link>
+            </div>
+            <div className="text-xs text-muted-foreground">
+              <span>Looking for account registration? </span>
+              <Link
+                href="/auth/signup"
+                className="text-muted-foreground hover:text-foreground underline transition-colors"
+              >
+                {t('signUp')}
+              </Link>
+            </div>
           </div>
         </div>
       </motion.div>
