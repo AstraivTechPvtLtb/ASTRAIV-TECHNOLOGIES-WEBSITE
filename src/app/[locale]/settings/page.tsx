@@ -104,7 +104,6 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
                 <select className="h-11 rounded-[12px] border border-border/45 bg-background text-sm font-semibold px-3 w-full">
                   <option value="en">English (US)</option>
                   <option value="es">Español (ES)</option>
-                  <option value="bn">Bengali (BN)</option>
                   <option value="hi">Hindi (HI)</option>
                   <option value="ar">Arabic (AR)</option>
                 </select>

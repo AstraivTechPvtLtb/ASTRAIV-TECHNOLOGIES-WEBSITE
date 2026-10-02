@@ -80,16 +80,16 @@ export default function ForgotPasswordPage() {
               <span>Back to Login</span>
             </Link>
 
-            <Link href="/" className="flex items-center gap-2 group">
+            <Link href="/" className="inline-flex items-center gap-2 group select-none">
               <Image
                 src="/logo-icon.jpg"
                 alt="Astraiv Technologies Logo"
                 width={28}
                 height={28}
                 priority
-                className="rounded-full object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/20 dark:ring-blue-400/30 group-hover:ring-primary/40 shadow-sm"
+                className="rounded-full object-cover shrink-0 group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/20 dark:ring-blue-400/30 group-hover:ring-primary/40 shadow-sm"
               />
-              <span className="font-heading font-extrabold text-sm tracking-wider bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent">
+              <span className="font-heading font-extrabold text-sm tracking-[0.06em] bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent">
                 ASTRAIV
               </span>
             </Link>

@@ -158,7 +158,7 @@ export function Navbar() {
     }, 200);
   };
 
-  const handleLanguageChange = (newLocale: 'en' | 'es' | 'bn' | 'hi' | 'ar') => {
+  const handleLanguageChange = (newLocale: 'en' | 'es' | 'hi' | 'ar') => {
     router.replace(pathname, { locale: newLocale });
     setShowOptionsDropdown(false);
     setShowLangMenu(false);
@@ -644,17 +644,6 @@ export function Navbar() {
                         🇪🇸 Español
                       </button>
                       <button
-                        onClick={() => handleLanguageChange('bn')}
-                        className={cn(
-                          'w-full text-left px-2.5 py-1.5 rounded-md font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors cursor-pointer text-[11px]',
-                          locale === 'bn'
-                            ? 'bg-primary/10 dark:bg-accent/15 text-primary dark:text-accent font-bold'
-                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                        )}
-                      >
-                        🇧🇩 Bengali
-                      </button>
-                      <button
                         onClick={() => handleLanguageChange('hi')}
                         className={cn(
                           'w-full text-left px-2.5 py-1.5 rounded-md font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors cursor-pointer text-[11px]',
@@ -986,17 +975,6 @@ export function Navbar() {
                     )}
                   >
                     🇪🇸 Español
-                  </button>
-                  <button
-                    onClick={() => handleLanguageChange('bn')}
-                    className={cn(
-                      'text-left px-3 py-2 rounded-lg font-medium text-xs bg-slate-100 dark:bg-slate-900 cursor-pointer',
-                      locale === 'bn'
-                        ? 'text-primary dark:text-accent font-semibold ring-1 ring-primary/30'
-                        : 'text-slate-600 dark:text-slate-400'
-                    )}
-                  >
-                    🇧🇩 Bengali
                   </button>
                   <button
                     onClick={() => handleLanguageChange('hi')}

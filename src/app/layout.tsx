@@ -30,7 +30,6 @@ const generalSans = localFont({
     'Roboto',
     'Noto Sans',
     'Noto Sans Arabic',
-    'Noto Sans Bengali',
     'sans-serif',
   ],
 });
