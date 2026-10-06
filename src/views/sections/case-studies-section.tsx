@@ -47,7 +47,7 @@ export function CaseStudiesSection({
   return (
     <section id="case-studies" className="py-20 md:py-28 px-6 bg-transparent relative overflow-hidden scroll-mt-24">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-primary/5 dark:bg-blue-600/5 rounded-full blur-[180px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-225 h-112.5 bg-primary/5 dark:bg-blue-600/5 rounded-full blur-[180px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader
@@ -109,7 +109,7 @@ export function CaseStudiesSection({
               >
                 <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 p-6 sm:p-8 md:p-10 items-center">
                   {/* Left Column: Visual Image Showcase */}
-                  <div className={`lg:col-span-6 relative w-full h-[240px] sm:h-[300px] md:h-[340px] rounded-2xl overflow-hidden shadow-inner group/preview border border-border/50 dark:border-slate-800/80 bg-slate-950 ${
+                  <div className={`lg:col-span-6 relative w-full h-60 sm:h-75 md:h-85 rounded-2xl overflow-hidden shadow-inner group/preview border border-border/50 dark:border-slate-800/80 bg-slate-950 ${
                     isReversed ? 'lg:order-2' : ''
                   }`}>
                     <ResilientImage
@@ -119,7 +119,7 @@ export function CaseStudiesSection({
                       sizes="(max-width: 1024px) 100vw, 50vw"
                       className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] will-change-transform"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/20" />
+                    <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-slate-950/20" />
 
                     {/* Category overlay badge */}
                     <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2">
@@ -222,7 +222,7 @@ export function CaseStudiesSection({
 
                       <Link
                         href={ROUTES.PUBLIC.CASE_STUDY_DETAIL(project.slug)}
-                        className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors min-h-[28px] py-1"
+                        className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors min-h-7 py-1"
                       >
                         <span>View Case Study</span>
                         <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />

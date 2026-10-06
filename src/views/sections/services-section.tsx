@@ -121,7 +121,7 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
       className="max-w-7xl mx-auto w-full relative z-10 py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 scroll-mt-20 overflow-hidden"
     >
       {/* Subtle Ambient Glow Layers */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-primary/5 dark:bg-blue-600/10 blur-[140px] rounded-full pointer-events-none -z-10" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-75 bg-primary/5 dark:bg-blue-600/10 blur-[140px] rounded-full pointer-events-none -z-10" />
 
       {/* HEADER SECTION */}
       <header className="mb-10 sm:mb-12 lg:mb-14">
@@ -130,7 +130,7 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
         {/* Main Heading and Contextual Subtitle */}
         <div className="flex flex-col lg:flex-row justify-between gap-6 lg:items-end">
           <h2
-            className="text-3xl sm:text-4xl lg:text-[44px] font-display font-semibold tracking-[-0.025em] text-foreground leading-[1.15] max-w-2xl"
+            className="text-3xl sm:text-4xl lg:text-[44px] font-display font-semibold tracking-tight text-foreground leading-[1.15] max-w-2xl"
             id="blueprint-heading"
           >
             What can Astraiv{' '}
@@ -166,7 +166,7 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
           />
 
           {/* Panoramic Capabilities Billboard with Dynamic Service SVG Visual System */}
-          <div className="relative w-full min-h-[560px] sm:min-h-[540px] lg:h-[600px] overflow-hidden flex flex-col justify-between">
+          <div className="relative w-full min-h-140 sm:min-h-135 lg:h-150 overflow-hidden flex flex-col justify-between">
             {/* Dynamic Service-Specific SVG Visual System */}
             <ServiceArchitectureVisual
               visual={activeCapability.visual}
@@ -211,7 +211,7 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
                       aria-selected={isActive}
                       aria-controls="services-tabpanel"
                       onClick={() => handleTabChange(cap.id)}
-                      className={`shrink-0 text-left transition-all duration-200 backdrop-blur-md px-3.5 py-2 rounded-xl flex items-center gap-2 cursor-pointer border text-xs font-semibold select-none min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
+                      className={`shrink-0 text-left transition-all duration-200 backdrop-blur-md px-3.5 py-2 rounded-xl flex items-center gap-2 cursor-pointer border text-xs font-semibold select-none min-h-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
                         isActive
                           ? 'active-tab bg-primary text-white border-primary shadow-[0_0_14px_rgba(37,99,235,0.45)] ring-1 ring-blue-400/40'
                           : 'bg-slate-950/70 hover:bg-slate-900/80 border-white/10 hover:border-white/20 text-slate-300 hover:text-white'
@@ -291,10 +291,10 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
                 </div>
 
                 {/* Primary CTA Button */}
-                <div className="flex-shrink-0 w-full md:w-auto">
+                <div className="shrink-0 w-full md:w-auto">
                   <Link
                     href={activeCapability.href || '/services'}
-                    className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 rounded-xl bg-primary hover:bg-[#082d6c] dark:bg-blue-600 dark:hover:bg-blue-500 text-white font-bold text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-sm hover:shadow-md border border-blue-900/20 dark:border-blue-400/30 min-h-[44px]"
+                    className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 rounded-xl bg-primary hover:bg-[#082d6c] dark:bg-blue-600 dark:hover:bg-blue-500 text-white font-bold text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-sm hover:shadow-md border border-blue-900/20 dark:border-blue-400/30 min-h-11"
                   >
                     <span>Explore Service Architecture</span>
                     <span aria-hidden="true" className="font-mono">→</span>

@@ -38,7 +38,7 @@ export function TechnologiesSection({
         </span>
       </div>
 
-      <h2 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15] mb-2">
+      <h2 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight leading-[1.15] mb-2">
         {title}
       </h2>
       <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] max-w-2xl mb-8">

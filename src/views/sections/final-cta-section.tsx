@@ -31,7 +31,7 @@ export function FinalCtaSection({
       className="relative z-10 w-full overflow-hidden py-20 sm:py-28 lg:py-32 px-4 sm:px-6 lg:px-8 bg-transparent"
     >
       {/* Enterprise Radiant Container */}
-      <div className="max-w-7xl mx-auto relative rounded-3xl lg:rounded-[32px] overflow-hidden bg-gradient-to-br from-[#0B3D91] via-[#0E285F] to-[#0A1633] p-6 sm:p-12 lg:p-20 text-center shadow-card-elevated border border-blue-400/20">
+      <div className="max-w-7xl mx-auto relative rounded-3xl lg:rounded-[32px] overflow-hidden bg-linear-to-br from-[#0B3D91] via-[#0E285F] to-[#0A1633] p-6 sm:p-12 lg:p-20 text-center shadow-card-elevated border border-blue-400/20">
         {/* Subtle Ambient Shimmer Overlays */}
         <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-500/25 rounded-full blur-3xl pointer-events-none" />
@@ -45,7 +45,7 @@ export function FinalCtaSection({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={MOTION_VIEWPORT.once}
             transition={{ delay: 0.08, duration: MOTION_DURATIONS.reveal, ease: EASE_OUT_EXPO }}
-            className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] font-semibold tracking-[-0.025em] text-white leading-[1.12] mb-6 [text-wrap:balance] break-words font-heading"
+            className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] font-semibold tracking-tight text-white leading-[1.12] mb-6 text-balance wrap-break-word font-heading"
           >
             {headline}
           </motion.h2>

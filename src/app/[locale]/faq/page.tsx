@@ -95,9 +95,9 @@ export default async function FaqPage({ params }: FaqPageProps) {
 
       <Navbar />
 
-      <main className="pt-28 pb-20 flex-grow z-10 relative">
+      <main className="pt-28 pb-20 grow z-10 relative">
         {/* Ambient lighting */}
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-primary/10 rounded-full blur-[160px] pointer-events-none" />
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-200 h-87.5 bg-primary/10 rounded-full blur-[160px] pointer-events-none" />
 
         <div className="max-w-5xl mx-auto px-6">
           {/* Quick Categories Banner */}
@@ -131,7 +131,7 @@ export default async function FaqPage({ params }: FaqPageProps) {
           <FaqSection asH1={true} showCategoryFilter={true} items={publishedFaqs as unknown as import('@/lib/faq-data').FaqItem[]} />
 
           {/* Dedicated Still Have Questions CTA */}
-          <div className="mt-12 p-8 rounded-3xl bg-gradient-to-br from-primary/10 via-card to-card border border-primary/20 text-center flex flex-col items-center justify-center relative overflow-hidden shadow-sm">
+          <div className="mt-12 p-8 rounded-3xl bg-linear-to-br from-primary/10 via-card to-card border border-primary/20 text-center flex flex-col items-center justify-center relative overflow-hidden shadow-sm">
             <div className="p-3.5 rounded-2xl bg-primary/20 text-primary border border-primary/30 mb-4">
               <MessageSquare className="h-6 w-6" />
             </div>

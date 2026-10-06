@@ -3,7 +3,7 @@ import { Skeleton } from '@/views/ui/skeleton';
 export default function RewardsAccoladesLoading() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col justify-between" aria-busy="true">
-      <main className="flex-grow z-10 relative pt-28 pb-20 md:pt-36 md:pb-28">
+      <main className="grow z-10 relative pt-28 pb-20 md:pt-36 md:pb-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumbs Skeleton */}
           <div className="flex items-center gap-2 mb-8">

@@ -612,7 +612,7 @@ function LiveTypewriterPanel({
         const maxChars = prefersReducedMotion ? tokens.map((t) => t.text).join('').length : (isCurrentLine ? charIndex : tokens.map((t) => t.text).join('').length);
 
         return (
-          <div key={idx} className="flex items-start gap-2 min-h-[17px]">
+          <div key={idx} className="flex items-start gap-2 min-h-4.25">
             <span className="select-none text-slate-400/60 dark:text-slate-600/50 text-[9px] w-3.5 text-right shrink-0">
               {String(idx + 1).padStart(2, '0')}
             </span>
@@ -669,7 +669,7 @@ export function TechBackground() {
             Speed: 36ms | Delay: 0ms | Hold: 3400ms
            ========================================================================= */}
         <div
-          className="absolute -left-10 sm:left-[1%] lg:left-[2%] xl:left-[3%] top-[6%] sm:top-[8%] lg:top-[9%] w-[270px] sm:w-[310px] md:w-[330px] rounded-xl border border-slate-300/30 dark:border-slate-700/30 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.12] dark:opacity-[0.22] transition-opacity hover:opacity-50 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-1"
+          className="absolute -left-10 sm:left-[1%] lg:left-[2%] xl:left-[3%] top-[6%] sm:top-[8%] lg:top-[9%] w-67.5 sm:w-77.5 md:w-82.5 rounded-xl border border-slate-300/30 dark:border-slate-700/30 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.12] dark:opacity-[0.22] transition-opacity hover:opacity-50 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-1"
         >
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/40 dark:border-slate-800/40 bg-slate-100/40 dark:bg-slate-800/40 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
@@ -698,7 +698,7 @@ export function TechBackground() {
             SECTOR 2: TOP-RIGHT — TELEMETRY METRICS PAYLOAD (Static)
            ========================================================================= */}
         <div
-          className="absolute -right-10 sm:right-[1%] lg:right-[2%] xl:right-[3%] top-[7%] sm:top-[9%] lg:top-[11%] w-[260px] sm:w-[290px] md:w-[310px] rounded-xl border border-slate-300/30 dark:border-slate-700/30 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.12] dark:opacity-[0.22] transition-opacity hover:opacity-50 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-2"
+          className="absolute -right-10 sm:right-[1%] lg:right-[2%] xl:right-[3%] top-[7%] sm:top-[9%] lg:top-[11%] w-65 sm:w-72.5 md:w-77.5 rounded-xl border border-slate-300/30 dark:border-slate-700/30 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.12] dark:opacity-[0.22] transition-opacity hover:opacity-50 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-2"
         >
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/40 dark:border-slate-800/40 bg-slate-100/40 dark:bg-slate-800/40 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
@@ -733,7 +733,7 @@ export function TechBackground() {
             SECTOR 3: TOP-CENTER UPPER — LIVE TERMINAL EVENT LOG STREAM
            ========================================================================= */}
         <div
-          className="hidden xl:block absolute left-[37%] top-[5%] w-[310px] rounded-xl border border-slate-300/25 dark:border-slate-700/25 bg-white/55 dark:bg-slate-900/50 shadow-[0_4px_20px_rgba(15,23,42,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] opacity-[0.10] dark:opacity-[0.18] transition-opacity hover:opacity-45 dark:hover:opacity-55 duration-700 will-change-transform animate-ambient-drift-3"
+          className="hidden xl:block absolute left-[37%] top-[5%] w-77.5 rounded-xl border border-slate-300/25 dark:border-slate-700/25 bg-white/55 dark:bg-slate-900/50 shadow-[0_4px_20px_rgba(15,23,42,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] opacity-[0.10] dark:opacity-[0.18] transition-opacity hover:opacity-45 dark:hover:opacity-55 duration-700 will-change-transform animate-ambient-drift-3"
         >
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/40 dark:border-slate-800/40 bg-slate-100/40 dark:bg-slate-800/30 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
@@ -762,7 +762,7 @@ export function TechBackground() {
             SECTOR 4: MID-LEFT — TYPESCRIPT ENTERPRISE AGENT INTERFACE (Static)
            ========================================================================= */}
         <div
-          className="hidden md:block absolute left-[1%] lg:left-[2%] xl:left-[3%] top-[34%] lg:top-[36%] w-[280px] lg:w-[310px] rounded-xl border border-slate-300/30 dark:border-slate-700/30 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.11] dark:opacity-[0.20] transition-opacity hover:opacity-50 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-4"
+          className="hidden md:block absolute left-[1%] lg:left-[2%] xl:left-[3%] top-[34%] lg:top-[36%] w-70 lg:w-77.5 rounded-xl border border-slate-300/30 dark:border-slate-700/30 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.11] dark:opacity-[0.20] transition-opacity hover:opacity-50 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-4"
         >
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/40 dark:border-slate-800/40 bg-slate-100/40 dark:bg-slate-800/40 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
@@ -786,7 +786,7 @@ export function TechBackground() {
             Speed: 48ms | Delay: 1600ms | Hold: 4800ms
            ========================================================================= */}
         <div
-          className="hidden sm:block absolute right-[1%] lg:right-[2%] xl:right-[3%] top-[35%] lg:top-[38%] w-[270px] lg:w-[310px] rounded-xl border border-slate-300/30 dark:border-slate-700/30 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.12] dark:opacity-[0.22] transition-opacity hover:opacity-50 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-2"
+          className="hidden sm:block absolute right-[1%] lg:right-[2%] xl:right-[3%] top-[35%] lg:top-[38%] w-67.5 lg:w-77.5 rounded-xl border border-slate-300/30 dark:border-slate-700/30 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.12] dark:opacity-[0.22] transition-opacity hover:opacity-50 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-2"
         >
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/40 dark:border-slate-800/40 bg-slate-100/40 dark:bg-slate-800/40 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
@@ -815,7 +815,7 @@ export function TechBackground() {
             Speed: 40ms | Delay: 3200ms | Hold: 5600ms
            ========================================================================= */}
         <div
-          className="hidden md:block absolute left-[1%] lg:left-[2%] xl:left-[3%] bottom-[8%] lg:bottom-[10%] w-[270px] lg:w-[310px] rounded-xl border border-slate-300/30 dark:border-slate-700/30 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.11] dark:opacity-[0.20] transition-opacity hover:opacity-50 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-3"
+          className="hidden md:block absolute left-[1%] lg:left-[2%] xl:left-[3%] bottom-[8%] lg:bottom-[10%] w-67.5 lg:w-77.5 rounded-xl border border-slate-300/30 dark:border-slate-700/30 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.11] dark:opacity-[0.20] transition-opacity hover:opacity-50 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-3"
         >
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/40 dark:border-slate-800/40 bg-slate-100/40 dark:bg-slate-800/40 text-[10px] font-mono">
             <div className="flex items-center gap-1.5">
@@ -841,7 +841,7 @@ export function TechBackground() {
             SECTOR 7: BOTTOM-RIGHT — KUBERNETES EDGE MESH YAML (Static)
            ========================================================================= */}
         <div
-          className="hidden md:block absolute right-[1%] lg:right-[2%] xl:right-[3%] bottom-[9%] lg:bottom-[11%] w-[260px] lg:w-[300px] rounded-xl border border-slate-300/30 dark:border-slate-700/30 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.11] dark:opacity-[0.20] transition-opacity hover:opacity-50 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-4"
+          className="hidden md:block absolute right-[1%] lg:right-[2%] xl:right-[3%] bottom-[9%] lg:bottom-[11%] w-65 lg:w-75 rounded-xl border border-slate-300/30 dark:border-slate-700/30 bg-white/60 dark:bg-slate-900/60 shadow-[0_4px_20px_rgba(15,23,42,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.18)] opacity-[0.11] dark:opacity-[0.20] transition-opacity hover:opacity-50 dark:hover:opacity-60 duration-700 will-change-transform animate-ambient-drift-4"
         >
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/40 dark:border-slate-800/40 bg-slate-100/40 dark:bg-slate-800/40 text-[10px] font-mono">
             <span className="px-1.5 py-0.5 rounded bg-blue-600/10 dark:bg-blue-400/10 text-blue-700 dark:text-blue-300 text-[9px] font-semibold">
@@ -862,7 +862,7 @@ export function TechBackground() {
             SECTOR 8: BOTTOM-CENTER — PGVECTOR SEMANTIC RAG SQL (Static)
            ========================================================================= */}
         <div
-          className="hidden lg:block absolute left-[37%] bottom-[5%] w-[300px] rounded-xl border border-slate-300/25 dark:border-slate-700/25 bg-white/55 dark:bg-slate-900/50 shadow-[0_4px_20px_rgba(15,23,42,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] opacity-[0.10] dark:opacity-[0.18] transition-opacity hover:opacity-45 dark:hover:opacity-55 duration-700 will-change-transform animate-ambient-drift-1"
+          className="hidden lg:block absolute left-[37%] bottom-[5%] w-75 rounded-xl border border-slate-300/25 dark:border-slate-700/25 bg-white/55 dark:bg-slate-900/50 shadow-[0_4px_20px_rgba(15,23,42,0.02)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] opacity-[0.10] dark:opacity-[0.18] transition-opacity hover:opacity-45 dark:hover:opacity-55 duration-700 will-change-transform animate-ambient-drift-1"
         >
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/40 dark:border-slate-800/40 bg-slate-100/40 dark:bg-slate-800/30 text-[10px] font-mono">
             <span className="px-1.5 py-0.5 rounded bg-indigo-600/10 dark:bg-indigo-400/10 text-indigo-700 dark:text-indigo-300 text-[9px] font-semibold">
@@ -882,7 +882,7 @@ export function TechBackground() {
             Speed: 32ms | Delay: 800ms | Hold: 4200ms | Fits between side tiles without overlapping
            ========================================================================= */}
         <div
-          className="hidden md:block absolute left-1/2 -translate-x-1/2 top-[22%] sm:top-[23%] lg:top-[24%] w-[360px] sm:w-[410px] md:w-[450px] lg:w-[480px] xl:w-[510px] rounded-xl border border-slate-300/30 dark:border-slate-700/30 bg-white/60 dark:bg-slate-900/60 shadow-[0_8px_30px_rgba(15,23,42,0.03)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.22)] opacity-[0.10] dark:opacity-[0.18] transition-opacity hover:opacity-55 dark:hover:opacity-65 duration-700 will-change-transform animate-ambient-drift-1"
+          className="hidden md:block absolute left-1/2 -translate-x-1/2 top-[22%] sm:top-[23%] lg:top-[24%] w-90 sm:w-102.5 md:w-112.5 lg:w-120 xl:w-127.5 rounded-xl border border-slate-300/30 dark:border-slate-700/30 bg-white/60 dark:bg-slate-900/60 shadow-[0_8px_30px_rgba(15,23,42,0.03)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.22)] opacity-[0.10] dark:opacity-[0.18] transition-opacity hover:opacity-55 dark:hover:opacity-65 duration-700 will-change-transform animate-ambient-drift-1"
         >
           {/* Header Bar */}
           <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-200/40 dark:border-slate-800/40 bg-slate-100/40 dark:bg-slate-800/40 text-[10px] font-mono">

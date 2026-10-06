@@ -93,14 +93,14 @@ export function ServiceArchitectureVisual({
 
       {/* 3. High-Clarity Localized Gradient Overlays (70–85% Central Visibility, 15–30% Localized Contrast) */}
       {/* Top subtle vignette behind architecture badges */}
-      <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-slate-950/75 via-slate-950/30 to-transparent pointer-events-none z-10" />
+      <div className="absolute top-0 inset-x-0 h-28 bg-linear-to-b from-slate-950/75 via-slate-950/30 to-transparent pointer-events-none z-10" />
 
       {/* Bottom localized gradient behind tabs and description/specs/CTA */}
-      <div className="absolute bottom-0 inset-x-0 h-64 sm:h-72 bg-gradient-to-t from-slate-950/90 via-slate-950/50 to-transparent pointer-events-none z-10" />
+      <div className="absolute bottom-0 inset-x-0 h-64 sm:h-72 bg-linear-to-t from-slate-950/90 via-slate-950/50 to-transparent pointer-events-none z-10" />
 
       {/* Subtle edge framing vignettes */}
-      <div className="absolute inset-y-0 left-0 w-16 sm:w-24 bg-gradient-to-r from-slate-950/40 to-transparent pointer-events-none z-10" />
-      <div className="absolute inset-y-0 right-0 w-16 sm:w-24 bg-gradient-to-l from-slate-950/40 to-transparent pointer-events-none z-10" />
+      <div className="absolute inset-y-0 left-0 w-16 sm:w-24 bg-linear-to-r from-slate-950/40 to-transparent pointer-events-none z-10" />
+      <div className="absolute inset-y-0 right-0 w-16 sm:w-24 bg-linear-to-l from-slate-950/40 to-transparent pointer-events-none z-10" />
     </div>
   );
 }

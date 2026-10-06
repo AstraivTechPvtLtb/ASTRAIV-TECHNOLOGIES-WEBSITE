@@ -306,7 +306,7 @@ export function TicketsView({ tickets, clientId }: TicketsViewProps) {
                   <Button
                     type="submit"
                     disabled={isPending}
-                    className="w-full h-11 bg-gradient-to-r from-primary to-secondary hover:from-primary/95 hover:to-secondary/95 text-white font-bold tracking-wide rounded-[12px] flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-primary/20 hover:scale-[1.01] transition-all"
+                    className="w-full h-11 bg-linear-to-r from-primary to-secondary hover:from-primary/95 hover:to-secondary/95 text-white font-bold tracking-wide rounded-[12px] flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-primary/20 hover:scale-[1.01] transition-all"
                   >
                     {isPending ? (
                       <>

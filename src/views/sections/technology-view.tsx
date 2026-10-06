@@ -571,7 +571,7 @@ export function TechnologyView({
       {/* 1. HEADER */}
       <section className="pt-28 pb-8 md:pt-36 md:pb-10 px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
         <div className="max-w-5xl mx-auto text-left mb-8">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading text-foreground tracking-[-0.025em] leading-[1.12]">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading text-foreground tracking-tight leading-[1.12]">
             Next-Gen Software &amp; <span className="heading-gradient">Intelligent Systems</span>
           </h1>
           <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-1">
@@ -588,12 +588,12 @@ export function TechnologyView({
           transition={{ duration: 0.6, delay: 0.1 }}
           className="max-w-5xl mx-auto"
         >
-          <div className="relative overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-r from-card/90 via-primary/5 to-card/90 dark:from-slate-900/80 dark:via-primary/10 dark:to-slate-900/80 backdrop-blur-xl p-6 sm:p-8 shadow-lg">
+          <div className="relative overflow-hidden rounded-2xl border border-primary/30 bg-linear-to-r from-card/90 via-primary/5 to-card/90 dark:from-slate-900/80 dark:via-primary/10 dark:to-slate-900/80 backdrop-blur-xl p-6 sm:p-8 shadow-lg">
             <div className="absolute top-0 right-0 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
               <div className="flex flex-col gap-2 max-w-2xl text-left">
 
-                <h3 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15]">
+                <h3 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight leading-[1.15]">
                   Modern Technical Stack Engineered for Enterprise Scale.
                 </h3>
                 <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62]">
@@ -628,7 +628,7 @@ export function TechnologyView({
       <section id="architecture" className="py-12 px-4 sm:px-6 max-w-7xl mx-auto relative z-10 border-t border-border/30 scroll-mt-24">
         <div className="flex flex-col items-center text-center gap-2 mb-10">
 
-          <h2 className="text-2xl sm:text-4xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15]">
+          <h2 className="text-2xl sm:text-4xl font-semibold text-foreground tracking-tight leading-[1.15]">
             Interactive Multi-Tier Architecture
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground max-w-2xl font-normal leading-[1.62]">
@@ -743,7 +743,7 @@ export function TechnologyView({
       <section id="ai-expertise" className="py-16 px-4 sm:px-6 max-w-7xl mx-auto relative z-10 border-t border-border/30">
         <div className="flex flex-col items-center text-center gap-2 mb-12">
 
-          <h2 className="text-3xl sm:text-4xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15]">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-foreground tracking-tight leading-[1.15]">
             Cognitive AI &amp; Enterprise Automations
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground max-w-2xl font-normal leading-[1.62]">
@@ -815,7 +815,7 @@ export function TechnologyView({
         </div>
 
         {/* Interactive Step-by-Step Cognitive Execution Pipeline */}
-        <div className="max-w-5xl mx-auto rounded-2xl border border-border/60 bg-gradient-to-b from-card/90 to-card/50 dark:from-slate-900/70 dark:to-slate-900/40 backdrop-blur-xl p-6 sm:p-8">
+        <div className="max-w-5xl mx-auto rounded-2xl border border-border/60 bg-linear-to-b from-card/90 to-card/50 dark:from-slate-900/70 dark:to-slate-900/40 backdrop-blur-xl p-6 sm:p-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-border/40">
             <div>
               <span className="text-xs font-mono font-bold uppercase text-primary dark:text-cyan-400">
@@ -877,7 +877,7 @@ export function TechnologyView({
         <span id="database" className="absolute -top-24 pointer-events-none" />
         <div id="technologies" className="flex flex-col items-center text-center gap-2 mb-10 scroll-mt-28">
 
-          <h2 className="text-3xl sm:text-4xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15]">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-foreground tracking-tight leading-[1.15]">
             Elite Technologies for High Performance
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground max-w-2xl font-normal leading-[1.62]">
@@ -912,7 +912,7 @@ export function TechnologyView({
           </div>
 
           {/* Search Input */}
-          <div className="relative min-w-[240px] sm:min-w-[280px]">
+          <div className="relative min-w-60 sm:min-w-70">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <input
               type="text"
@@ -944,7 +944,7 @@ export function TechnologyView({
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.25, delay: index * 0.03 }}
                 whileHover={{ y: -4 }}
-                className="p-6 rounded-2xl bg-card/70 dark:bg-slate-900/50 backdrop-blur-md border border-border/50 hover:border-primary/40 dark:hover:border-primary/40 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between text-left group min-h-[280px]"
+                className="p-6 rounded-2xl bg-card/70 dark:bg-slate-900/50 backdrop-blur-md border border-border/50 hover:border-primary/40 dark:hover:border-primary/40 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between text-left group min-h-70"
               >
                 <div className="flex flex-col gap-3">
                   {/* Top Bar: Icon + Category Badge */}
@@ -1017,10 +1017,10 @@ export function TechnologyView({
           ENTERPRISE ARCHITECTURE GUARANTEES & STANDARDS MATRIX
           ========================================================================= */}
       <section className="py-16 px-4 sm:px-6 max-w-7xl mx-auto relative z-10 border-t border-border/30">
-        <div className="max-w-5xl mx-auto rounded-2xl border border-border/60 bg-gradient-to-r from-card via-card/90 to-card p-6 sm:p-10 shadow-md">
+        <div className="max-w-5xl mx-auto rounded-2xl border border-border/60 bg-linear-to-r from-card via-card/90 to-card p-6 sm:p-10 shadow-md">
           <div className="text-center max-w-2xl mx-auto mb-8">
 
-            <h3 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15] mt-2">
+            <h3 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight leading-[1.15] mt-2">
               Our Architectural Commitments
             </h3>
             <p className="text-xs sm:text-sm text-muted-foreground mt-2 font-normal leading-[1.62]">
@@ -1082,7 +1082,7 @@ export function TechnologyView({
       <section className="py-16 px-4 sm:px-6 max-w-4xl mx-auto text-center relative z-10">
         <div className="p-8 sm:p-12 rounded-3xl bg-card/80 dark:bg-slate-900/80 border border-border/60 shadow-xl flex flex-col items-center gap-5">
 
-          <h3 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15]">
+          <h3 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight leading-[1.15]">
             Ready to deploy an enterprise-grade technology stack?
           </h3>
           <p className="text-sm text-muted-foreground max-w-xl font-normal leading-[1.62]">

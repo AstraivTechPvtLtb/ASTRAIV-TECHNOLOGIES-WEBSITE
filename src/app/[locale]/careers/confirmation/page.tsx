@@ -32,7 +32,7 @@ export default async function CareersConfirmationPage({ params }: CareersConfirm
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground flex flex-col justify-between relative overflow-hidden">
       <Navbar />
 
-      <main className="pt-28 pb-20 flex-grow z-10 relative">
+      <main className="pt-28 pb-20 grow z-10 relative">
         <Suspense
           fallback={
             <div className="w-full min-h-[400px] flex items-center justify-center">

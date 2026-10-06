@@ -34,7 +34,7 @@ export default async function IndustriesPage({ params }: IndustriesPageProps) {
       <Navbar />
 
       {/* Main Content Area */}
-      <main className="flex-grow z-10 relative">
+      <main className="grow z-10 relative">
         <IndustriesView />
       </main>
 

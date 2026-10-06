@@ -156,9 +156,9 @@ export default async function CaseStudyDetailPage({ params }: CaseStudyDetailPag
       />
       <Navbar />
 
-      <main className="pt-24 sm:pt-28 pb-20 flex-grow z-10 relative">
+      <main className="pt-24 sm:pt-28 pb-20 grow z-10 relative">
         {/* Ambient Glow */}
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-primary/10 rounded-full blur-[200px] pointer-events-none" />
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-225 h-112.5 bg-primary/10 rounded-full blur-[200px] pointer-events-none" />
 
         <div className="max-w-5xl mx-auto px-6 py-6">
           {/* ========================================================================= */}
@@ -211,7 +211,7 @@ export default async function CaseStudyDetailPage({ params }: CaseStudyDetailPag
             </p>
 
             {/* Visual Hero Showcase with Metric Pill */}
-            <div className="relative w-full h-[300px] sm:h-[400px] md:h-[460px] rounded-3xl overflow-hidden border border-border/70 dark:border-slate-800 bg-slate-950 shadow-xl">
+            <div className="relative w-full h-75 sm:h-100 md:h-115 rounded-3xl overflow-hidden border border-border/70 dark:border-slate-800 bg-slate-950 shadow-xl">
               <ResilientImage
                 src={project.imageSrc}
                 alt={project.title}
@@ -220,7 +220,7 @@ export default async function CaseStudyDetailPage({ params }: CaseStudyDetailPag
                 sizes="(max-width: 1024px) 100vw, 950px"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/30 to-slate-950/10" />
+              <div className="absolute inset-0 bg-linear-to-t from-slate-950/95 via-slate-950/30 to-slate-950/10" />
 
               {/* Overlay Content */}
               <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-end justify-between gap-4 text-white">
@@ -664,7 +664,7 @@ export default async function CaseStudyDetailPage({ params }: CaseStudyDetailPag
 
             return (
               <section id="testimonial" className="mb-14 text-left">
-                <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-primary/10 via-card to-card dark:from-blue-600/15 dark:via-slate-900 dark:to-slate-900 border border-primary/20 dark:border-blue-500/20 shadow-lg relative">
+                <div className="p-8 sm:p-10 rounded-3xl bg-linear-to-br from-primary/10 via-card to-card dark:from-blue-600/15 dark:via-slate-900 dark:to-slate-900 border border-primary/20 dark:border-blue-500/20 shadow-lg relative">
                   <div className="flex items-center justify-between mb-4">
                     <Quote className="h-8 w-8 text-primary/40" />
                     <span className="text-xs font-bold text-primary dark:text-cyan-300 flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
@@ -920,7 +920,7 @@ export default async function CaseStudyDetailPage({ params }: CaseStudyDetailPag
           {/* SECTION 16: CONVERSION CTA                                                */}
           {/* ========================================================================= */}
           <section id="cta" className="text-center">
-            <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-primary via-primary/95 to-blue-900 text-white flex flex-col items-center justify-center gap-4 shadow-xl shadow-primary/20">
+            <div className="p-8 sm:p-12 rounded-3xl bg-linear-to-br from-primary via-primary/95 to-blue-900 text-white flex flex-col items-center justify-center gap-4 shadow-xl shadow-primary/20">
               <span className="text-xs font-extrabold uppercase tracking-widest bg-white/15 px-3.5 py-1 rounded-full text-white">
                 16 // ARCHITECTURAL CONSULTATION
               </span>

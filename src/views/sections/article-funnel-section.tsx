@@ -18,13 +18,13 @@ export function ArticleFunnelSection({ funnel, articleTitle }: ArticleFunnelSect
   return (
     <section className="my-16 relative">
       {/* Background ambient lighting */}
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-blue-500/5 to-transparent rounded-3xl -z-10 blur-xl pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-b from-primary/5 via-blue-500/5 to-transparent rounded-3xl -z-10 blur-xl pointer-events-none" />
 
       <div className="p-8 sm:p-12 rounded-[28px] border border-border/80 dark:border-slate-800 bg-card/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-xl">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-[-0.025em] text-foreground font-heading leading-[1.15]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground font-heading leading-[1.15]">
             From Research to Production Deployment
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground font-normal mt-2 leading-[1.62]">
@@ -172,7 +172,7 @@ export function ArticleFunnelSection({ funnel, articleTitle }: ArticleFunnelSect
         </div>
 
         {/* STEP 4: INTERACTIVE DISCUSSION & SCOPING CTA */}
-        <div className="p-8 sm:p-10 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent dark:from-blue-600/20 dark:via-slate-950 dark:to-slate-950 border border-primary/20 dark:border-blue-500/30 text-left flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-inner">
+        <div className="p-8 sm:p-10 rounded-2xl bg-linear-to-br from-primary/10 via-primary/5 to-transparent dark:from-blue-600/20 dark:via-slate-950 dark:to-slate-950 border border-primary/20 dark:border-blue-500/30 text-left flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-inner">
           <div className="max-w-2xl">
 
             <h3 className="text-xl sm:text-2xl font-semibold text-foreground tracking-[-0.015em] font-heading mb-2 leading-[1.2]">

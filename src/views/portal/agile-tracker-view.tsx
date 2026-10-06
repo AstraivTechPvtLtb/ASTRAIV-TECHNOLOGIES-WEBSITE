@@ -172,7 +172,7 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
       <header className="h-16 bg-slate-900 border-b border-slate-800/80 px-4 sm:px-8 flex items-center justify-between sticky top-0 z-30 shadow-md backdrop-blur-xl">
         {/* Brand */}
         <div className="flex items-center gap-3">
-          <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-teal-500 to-blue-600 flex items-center justify-center font-black text-xs text-white shadow-md">
+          <div className="h-8 w-8 rounded-lg bg-linear-to-tr from-teal-500 to-blue-600 flex items-center justify-center font-black text-xs text-white shadow-md">
             AI
           </div>
           <div className="flex flex-col leading-tight">
@@ -298,7 +298,7 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
                           isCompleted
                             ? 'bg-teal-500/70'
                             : isInProgress
-                            ? 'bg-gradient-to-b from-teal-500 to-slate-800'
+                            ? 'bg-linear-to-b from-teal-500 to-slate-800'
                             : 'bg-slate-800'
                         )}
                       />
@@ -329,7 +329,7 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
                       isCompleted
                         ? 'bg-slate-950/70 border-slate-800 hover:border-slate-700'
                         : isInProgress
-                        ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-teal-950/40 border-teal-500/40 shadow-lg'
+                        ? 'bg-linear-to-br from-slate-950 via-slate-900 to-teal-950/40 border-teal-500/40 shadow-lg'
                         : 'bg-slate-950/40 border-slate-800/60 opacity-75 hover:opacity-95'
                     )}
                   >
@@ -386,7 +386,7 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
                         </div>
                         <div className="h-2 w-full rounded-full bg-slate-800 overflow-hidden">
                           <div
-                            className="h-full rounded-full bg-gradient-to-r from-teal-400 via-blue-500 to-indigo-500 transition-all duration-700"
+                            className="h-full rounded-full bg-linear-to-r from-teal-400 via-blue-500 to-indigo-500 transition-all duration-700"
                             style={{ width: `${phase.progressPercent}%` }}
                           />
                         </div>
@@ -420,7 +420,7 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
         </div>
 
         {/* Contact via Mail Card */}
-        <div className="p-6 sm:p-7 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900 to-teal-950/40 border border-slate-800/80 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="p-6 sm:p-7 rounded-2xl bg-linear-to-r from-slate-900 via-slate-900 to-teal-950/40 border border-slate-800/80 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <h3 className="text-base font-bold text-white flex items-center gap-2">
               <Mail className="h-4 w-4 text-teal-400" />

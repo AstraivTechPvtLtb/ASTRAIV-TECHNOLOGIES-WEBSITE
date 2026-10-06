@@ -60,7 +60,7 @@ export function StartProjectSkeleton() {
 export default function StartProjectLoading() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col justify-between" aria-busy="true">
-      <main className="pt-28 pb-16 flex-grow z-10 relative">
+      <main className="pt-28 pb-16 grow z-10 relative">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 mb-4 sm:mb-8 space-y-3">
           <div className="flex justify-center">
             <Skeleton className="h-6 w-52 rounded-full" />

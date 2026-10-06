@@ -21,7 +21,7 @@ export function AstraivApproachSection({ approach, capabilities, fullDesc }: Ast
 
         <div className="relative z-10">
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15] mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-tight leading-[1.15] mb-4">
             {approach.title}
           </h2>
 

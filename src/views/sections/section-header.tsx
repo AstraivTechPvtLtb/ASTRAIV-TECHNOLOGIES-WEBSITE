@@ -86,11 +86,11 @@ export function SectionHeader({
       )}
 
       {asH1 ? (
-        <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-display font-semibold tracking-[-0.025em] text-foreground leading-[1.15] pb-0.5">
+        <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-display font-semibold tracking-tight text-foreground leading-[1.15] pb-0.5">
           {formattedTitle}
         </h1>
       ) : (
-        <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-display font-semibold tracking-[-0.025em] text-foreground leading-[1.15] pb-0.5">
+        <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-display font-semibold tracking-tight text-foreground leading-[1.15] pb-0.5">
           {formattedTitle}
         </h2>
       )}

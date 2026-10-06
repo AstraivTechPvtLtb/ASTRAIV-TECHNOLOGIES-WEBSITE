@@ -34,7 +34,7 @@ export default async function SolutionsPage({ params }: SolutionsPageProps) {
       <Navbar />
 
       {/* Main Content Area */}
-      <main className="flex-grow z-10 relative">
+      <main className="grow z-10 relative">
         <SolutionsView />
       </main>
 

@@ -201,10 +201,10 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
       />
       <Navbar />
 
-      <main className="pt-28 pb-20 flex-grow z-10 relative">
+      <main className="pt-28 pb-20 grow z-10 relative">
         {/* Ambient background glows */}
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 dark:bg-primary/10 rounded-full blur-[180px] pointer-events-none" />
-        <div className="absolute top-96 right-10 w-[400px] h-[300px] bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-200 h-100 bg-primary/5 dark:bg-primary/10 rounded-full blur-[180px] pointer-events-none" />
+        <div className="absolute top-96 right-10 w-100 h-75 bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="max-w-5xl mx-auto px-6 py-8">
           {/* Visual Breadcrumb Trail */}

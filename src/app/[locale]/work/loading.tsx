@@ -3,7 +3,7 @@ import { Skeleton } from '@/views/ui/skeleton';
 export default function WorkLoading() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col justify-between" aria-busy="true">
-      <main className="flex-grow z-10 relative pt-24 md:pt-32">
+      <main className="grow z-10 relative pt-24 md:pt-32">
         {/* Header Hero Section Skeleton */}
         <section className="px-6 max-w-7xl mx-auto text-center pb-10">
           <div className="inline-flex justify-center mb-4">
@@ -47,7 +47,7 @@ export default function WorkLoading() {
                 className="rounded-3xl border border-slate-200/80 dark:border-white/10 bg-card/80 dark:bg-slate-900/70 p-6 sm:p-8 md:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
               >
                 {/* Image slot (exact aspect ratio container matching CaseStudiesSection) */}
-                <div className="lg:col-span-6 w-full h-[240px] sm:h-[300px] md:h-[340px] rounded-2xl overflow-hidden bg-slate-200/80 dark:bg-slate-800/60">
+                <div className="lg:col-span-6 w-full h-60 sm:h-75 md:h-85 rounded-2xl overflow-hidden bg-slate-200/80 dark:bg-slate-800/60">
                   <Skeleton className="w-full h-full rounded-none" />
                 </div>
 

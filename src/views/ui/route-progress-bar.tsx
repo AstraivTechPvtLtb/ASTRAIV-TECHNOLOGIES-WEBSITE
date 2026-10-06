@@ -63,7 +63,7 @@ export function RouteProgressBar() {
       aria-valuemax={100}
       className="fixed top-0 left-0 right-0 z-[9999] h-[2.5px] pointer-events-none overflow-hidden bg-transparent"
     >
-      <div className="h-full bg-gradient-to-r from-primary via-cyan-400 to-blue-500 animate-[route-progress_1.2s_ease-in-out_infinite] w-full origin-left" />
+      <div className="h-full bg-linear-to-r from-primary via-cyan-400 to-blue-500 animate-[route-progress_1.2s_ease-in-out_infinite] w-full origin-left" />
     </div>
   );
 }

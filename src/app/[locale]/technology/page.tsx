@@ -36,7 +36,7 @@ export default async function TechnologyPage({ params }: TechnologyPageProps) {
       />
       <Navbar />
       
-      <main className="flex-grow z-10 relative">
+      <main className="grow z-10 relative">
         <TechnologyView
           badge={t('badge')}
           title={t('title')}

@@ -46,7 +46,7 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
       <Navbar />
 
       {/* Main Content Area */}
-      <main className="flex-grow z-10 relative">
+      <main className="grow z-10 relative">
         <ServicesView activeServices={activeServices} />
       </main>
 

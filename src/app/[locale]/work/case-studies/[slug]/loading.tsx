@@ -3,7 +3,7 @@ import { Skeleton } from '@/views/ui/skeleton';
 export default function CaseStudyDetailLoading() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col justify-between" aria-busy="true">
-      <main className="flex-grow z-10 relative pt-24 md:pt-32 pb-20">
+      <main className="grow z-10 relative pt-24 md:pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb line skeleton */}
           <div className="flex items-center gap-2 mb-8">
@@ -30,7 +30,7 @@ export default function CaseStudyDetailLoading() {
           </div>
 
           {/* Featured Visual Image Container Skeleton (Strictly matching actual rendered aspect ratio) */}
-          <div className="w-full h-[260px] sm:h-[340px] md:h-[440px] rounded-3xl overflow-hidden bg-slate-200/80 dark:bg-slate-800/60 mb-12">
+          <div className="w-full h-65 sm:h-85 md:h-[440px] rounded-3xl overflow-hidden bg-slate-200/80 dark:bg-slate-800/60 mb-12">
             <Skeleton className="w-full h-full rounded-none" />
           </div>
 

@@ -119,9 +119,9 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
       />
       <Navbar />
 
-      <main className="pt-28 pb-20 flex-grow z-10 relative">
+      <main className="pt-28 pb-20 grow z-10 relative">
         {/* Ambient Top Glow */}
-        <div className="absolute top-16 left-1/2 -translate-x-1/2 w-[850px] h-[360px] bg-primary/10 rounded-full blur-[160px] pointer-events-none" />
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 w-212.5 h-90 bg-primary/10 rounded-full blur-[160px] pointer-events-none" />
 
         <div className="max-w-6xl mx-auto px-6">
           {/* Breadcrumbs */}
@@ -413,7 +413,7 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
               </div>
 
               {/* Referral Banner */}
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-primary/10 via-card to-card border border-primary/20 text-left">
+              <div className="p-6 rounded-2xl bg-linear-to-br from-primary/10 via-card to-card border border-primary/20 text-left">
                 <h4 className="text-sm font-bold text-foreground mb-1">Know an exceptional architect?</h4>
                 <p className="text-xs text-muted-foreground mb-4">
                   We offer a $2,500 referral bonus for successfully placed senior engineers and architects.

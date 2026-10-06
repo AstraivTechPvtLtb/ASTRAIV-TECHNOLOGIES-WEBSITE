@@ -101,10 +101,10 @@ export default async function TestimonialsPage({ params }: TestimonialsPageProps
 
       <Navbar />
 
-      <main className="pt-28 pb-20 flex-grow z-10 relative">
+      <main className="pt-28 pb-20 grow z-10 relative">
         {/* Background ambient lighting */}
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[850px] h-[420px] bg-primary/5 dark:bg-primary/10 rounded-full blur-[180px] pointer-events-none" />
-        <div className="absolute top-96 right-10 w-[450px] h-[350px] bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-212.5 h-105 bg-primary/5 dark:bg-primary/10 rounded-full blur-[180px] pointer-events-none" />
+        <div className="absolute top-96 right-10 w-112.5 h-87.5 bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 py-6">
           {/* Breadcrumb Navigation */}
@@ -128,7 +128,7 @@ export default async function TestimonialsPage({ params }: TestimonialsPageProps
 
 
               {/* Title & Tagline */}
-              <h1 className="text-3xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.025em] text-foreground leading-tight mb-6">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-foreground leading-tight mb-6">
                 Executive Endorsements &amp; <span className="heading-gradient">Client Testimonials</span>
               </h1>
 
@@ -174,7 +174,7 @@ export default async function TestimonialsPage({ params }: TestimonialsPageProps
           <TestimonialsDirectory testimonials={testimonials} locale={locale} />
 
           {/* Bottom Conversion & Assurance Section */}
-          <div className="mt-20 p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-card via-card to-muted/50 dark:from-slate-900/90 dark:via-slate-900 dark:to-slate-950 border border-primary/20 relative overflow-hidden shadow-sm dark:shadow-2xl transition-colors">
+          <div className="mt-20 p-8 sm:p-12 rounded-3xl bg-linear-to-br from-card via-card to-muted/50 dark:from-slate-900/90 dark:via-slate-900 dark:to-slate-950 border border-primary/20 relative overflow-hidden shadow-sm dark:shadow-2xl transition-colors">
             <div className="absolute right-0 top-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">

@@ -48,7 +48,7 @@ export function ThankYouView() {
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            className="w-20 h-20 rounded-3xl bg-gradient-to-br from-primary to-cyan-500 p-0.5 shadow-xl shadow-primary/25 mb-6 flex items-center justify-center text-white"
+            className="w-20 h-20 rounded-3xl bg-linear-to-br from-primary to-cyan-500 p-0.5 shadow-xl shadow-primary/25 mb-6 flex items-center justify-center text-white"
           >
             <div className="w-full h-full rounded-[22px] bg-slate-950/20 flex items-center justify-center backdrop-blur-sm">
               <CheckCircle2 className="w-10 h-10 text-white animate-pulse" />
@@ -71,7 +71,7 @@ export function ThankYouView() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] text-foreground font-heading"
+            className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.12] text-foreground font-heading"
           >
             Project Brief Received!
           </motion.h1>
@@ -182,7 +182,7 @@ export function ThankYouView() {
           {/* Card 1: Explore Case Studies */}
           <Link
             href={ROUTES.PUBLIC.CASE_STUDIES}
-            className="group p-8 rounded-3xl border border-border/70 dark:border-slate-800 bg-gradient-to-br from-card/80 to-card/40 dark:from-slate-900/80 dark:to-slate-900/40 hover:border-primary/50 dark:hover:border-blue-500/50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 block relative overflow-hidden"
+            className="group p-8 rounded-3xl border border-border/70 dark:border-slate-800 bg-linear-to-br from-card/80 to-card/40 dark:from-slate-900/80 dark:to-slate-900/40 hover:border-primary/50 dark:hover:border-blue-500/50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 block relative overflow-hidden"
           >
             <div className="w-12 h-12 rounded-2xl bg-blue-500/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
               <Layers className="w-6 h-6" />
@@ -203,7 +203,7 @@ export function ThankYouView() {
           {/* Card 2: Read Insights */}
           <Link
             href={ROUTES.PUBLIC.INSIGHTS}
-            className="group p-8 rounded-3xl border border-border/70 dark:border-slate-800 bg-gradient-to-br from-card/80 to-card/40 dark:from-slate-900/80 dark:to-slate-900/40 hover:border-primary/50 dark:hover:border-cyan-500/50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 block relative overflow-hidden"
+            className="group p-8 rounded-3xl border border-border/70 dark:border-slate-800 bg-linear-to-br from-card/80 to-card/40 dark:from-slate-900/80 dark:to-slate-900/40 hover:border-primary/50 dark:hover:border-cyan-500/50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 block relative overflow-hidden"
           >
             <div className="w-12 h-12 rounded-2xl bg-primary/10 dark:bg-cyan-400/10 text-primary dark:text-cyan-400 border border-primary/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
               <BookOpen className="w-6 h-6" />

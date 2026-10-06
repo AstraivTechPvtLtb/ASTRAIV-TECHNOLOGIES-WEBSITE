@@ -229,7 +229,7 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
                 className="group relative bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-blue-400/40 rounded-3xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between text-left"
               >
                 {/* Card Hero Visual */}
-                <div className="relative w-full h-[220px] sm:h-[260px] bg-slate-950 overflow-hidden border-b border-border/50 dark:border-slate-800/80">
+                <div className="relative w-full h-55 sm:h-65 bg-slate-950 overflow-hidden border-b border-border/50 dark:border-slate-800/80">
                   <ResilientImage
                     src={project.imageSrc}
                     alt={project.title}
@@ -237,7 +237,7 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
 
                   {/* Top Badges */}
                   <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
@@ -266,7 +266,7 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
                 </div>
 
                 {/* Card Body Details */}
-                <div className="p-6 sm:p-7 flex-grow flex flex-col justify-between gap-5">
+                <div className="p-6 sm:p-7 grow flex flex-col justify-between gap-5">
                   <div>
                     <h3 className="text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors mb-2">
                       {project.title}
@@ -326,11 +326,11 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
       )}
 
       {/* Final Conversion CTA */}
-      <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-primary via-primary/95 to-blue-900 text-white text-center flex flex-col items-center justify-center gap-4 shadow-xl shadow-primary/15">
+      <div className="p-8 sm:p-12 rounded-3xl bg-linear-to-br from-primary via-primary/95 to-blue-900 text-white text-center flex flex-col items-center justify-center gap-4 shadow-xl shadow-primary/15">
         <span className="text-xs font-semibold uppercase tracking-widest bg-white/15 px-3.5 py-1 rounded-full text-white">
           Architectural Consultation
         </span>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-[-0.025em] font-heading">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight font-heading">
           Need Something Similar?
         </h2>
         <p className="text-sm sm:text-base text-white/85 max-w-2xl leading-relaxed font-normal">

@@ -77,9 +77,9 @@ export default async function PricingPage({ params }: PricingPageProps) {
       />
       <Navbar />
 
-      <main className="pt-28 pb-20 flex-grow z-10 relative">
+      <main className="pt-28 pb-20 grow z-10 relative">
         {/* Ambient lighting */}
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-primary/10 rounded-full blur-[160px] pointer-events-none" />
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-200 h-87.5 bg-primary/10 rounded-full blur-[160px] pointer-events-none" />
 
         <div className="max-w-6xl mx-auto px-6">
           {/* Header */}
@@ -118,7 +118,7 @@ export default async function PricingPage({ params }: PricingPageProps) {
           </div>
 
           {/* Enterprise Custom Scope Callout */}
-          <div className="mt-14 p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-card via-card/90 to-primary/10 border border-border/80 dark:border-slate-800 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="mt-14 p-8 sm:p-10 rounded-3xl bg-linear-to-br from-card via-card/90 to-primary/10 border border-border/80 dark:border-slate-800 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="max-w-2xl text-left">
               <span className="text-xs uppercase font-extrabold tracking-wider text-primary">
                 Enterprise & Large Organizations

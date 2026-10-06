@@ -57,8 +57,8 @@ export default function ForgotPasswordPage() {
   return (
     <div className="relative min-h-screen flex items-center justify-center p-4 sm:p-6 bg-transparent text-foreground selection:bg-primary/20 overflow-hidden transition-colors">
       {/* Dynamic Ambient Background Elements */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-primary/10 dark:bg-blue-600/15 rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute bottom-10 right-10 w-[350px] h-[350px] bg-blue-600/5 dark:bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-87.5 bg-primary/10 dark:bg-blue-600/15 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute bottom-10 right-10 w-[350px] h-87.5 bg-blue-600/5 dark:bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
 
       <motion.div
         initial={{ opacity: 0, y: 25, scale: 0.98 }}
@@ -68,7 +68,7 @@ export default function ForgotPasswordPage() {
       >
         <div className="relative rounded-3xl bg-white/85 dark:bg-[#0D1320]/85 border border-slate-200/90 dark:border-white/10 backdrop-blur-2xl p-7 sm:p-10 shadow-2xl shadow-slate-900/10 dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.85)] transition-all overflow-hidden">
           {/* Subtle top edge gradient highlight */}
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 dark:via-blue-400/40 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-primary/30 dark:via-blue-400/40 to-transparent pointer-events-none" />
 
           {/* Top Brand & Back to Login */}
           <div className="flex items-center justify-between mb-6">
@@ -89,7 +89,7 @@ export default function ForgotPasswordPage() {
                 priority
                 className="rounded-full object-cover shrink-0 group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/20 dark:ring-blue-400/30 group-hover:ring-primary/40 shadow-sm"
               />
-              <span className="font-heading font-extrabold text-sm tracking-[0.06em] bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent">
+              <span className="font-heading font-extrabold text-sm tracking-[0.06em] bg-linear-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent">
                 ASTRAIV
               </span>
             </Link>
@@ -99,7 +99,7 @@ export default function ForgotPasswordPage() {
             <div className="h-12 w-12 rounded-2xl bg-primary/10 dark:bg-blue-400/10 border border-primary/20 dark:border-blue-400/20 text-primary dark:text-blue-300 flex items-center justify-center mb-4 shadow-md shadow-primary/10">
               <KeyRound className="h-6 w-6" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-[-0.025em] font-heading mb-1.5">
+            <h1 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight font-heading mb-1.5">
               Reset Your Password
             </h1>
             <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-normal">
@@ -171,7 +171,7 @@ export default function ForgotPasswordPage() {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full h-11.5 bg-gradient-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] hover:from-[#082d6c] hover:via-[#1e40af] hover:to-[#1d4ed8] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] dark:hover:from-[#1d4ed8] dark:hover:via-[#2563EB] dark:hover:to-[#3b82f6] text-white font-heading font-semibold text-sm tracking-wide rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-primary/20 dark:shadow-blue-500/20 hover:shadow-primary/35 hover:scale-[1.01] active:scale-[0.99] transition-all"
+                className="w-full h-11.5 bg-linear-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] hover:from-[#082d6c] hover:via-[#1e40af] hover:to-[#1d4ed8] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] dark:hover:from-[#1d4ed8] dark:hover:via-[#2563EB] dark:hover:to-[#3b82f6] text-white font-heading font-semibold text-sm tracking-wide rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-primary/20 dark:shadow-blue-500/20 hover:shadow-primary/35 hover:scale-[1.01] active:scale-[0.99] transition-all"
               >
                 {isSubmitting ? (
                   <>

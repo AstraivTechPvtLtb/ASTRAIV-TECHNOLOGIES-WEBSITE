@@ -528,7 +528,7 @@ export function IndustriesView() {
     <div className="flex flex-col w-full">
       {/* 1. HEADER */}
       <section className="pt-28 pb-4 md:pt-36 md:pb-6 px-6 max-w-7xl mx-auto w-full text-left">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground font-heading tracking-[-0.025em] leading-[1.12]">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground font-heading tracking-tight leading-[1.12]">
           Industries We <span className="heading-gradient">Empower</span>
         </h1>
         <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-1">
@@ -611,7 +611,7 @@ export function IndustriesView() {
                 <div className={cn('grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center relative z-10')}>
                   {/* Left Column: Visual Photograph & Telemetry Card */}
                   <div className={cn('lg:col-span-5 flex flex-col', isReversed ? 'lg:order-2' : 'lg:order-1')}>
-                    <div className="relative rounded-2xl overflow-hidden shadow-lg border border-border/60 dark:border-slate-800 aspect-[4/3] group-hover:shadow-2xl transition-all">
+                    <div className="relative rounded-2xl overflow-hidden shadow-lg border border-border/60 dark:border-slate-800 aspect-4/3 group-hover:shadow-2xl transition-all">
                       <Image
                         src={ind.image}
                         alt={ind.imageAlt}
@@ -619,7 +619,7 @@ export function IndustriesView() {
                         sizes="(max-width: 1024px) 100vw, 40vw"
                         className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-transparent" />
+                      <div className="absolute inset-0 bg-linear-to-t from-slate-950/85 via-slate-950/30 to-transparent" />
 
                       {/* Top floating badge */}
                       <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
@@ -684,7 +684,7 @@ export function IndustriesView() {
                       </div>
 
                       {/* Headline */}
-                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-[-0.025em] text-foreground font-heading leading-[1.15]">
+                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground font-heading leading-[1.15]">
                         {ind.headline}
                       </h2>
                     </div>
@@ -824,7 +824,7 @@ export function IndustriesView() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-14">
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] font-heading text-foreground mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.12] font-heading text-foreground mb-4">
               Enterprise Regulatory Matrix
             </h2>
             <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62]">
@@ -834,7 +834,7 @@ export function IndustriesView() {
           </div>
 
           <div className="w-full overflow-x-auto rounded-2xl border border-border/60 dark:border-slate-800/80 bg-card/90 dark:bg-slate-900/90 shadow-sm backdrop-blur-xl">
-            <table className="w-full text-left border-collapse min-w-[750px]">
+            <table className="w-full text-left border-collapse min-w-187.5">
               <thead>
                 <tr className="border-b border-border/60 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-800/50 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                   <th className="p-4 pl-6">Sector Vertical</th>
@@ -880,13 +880,13 @@ export function IndustriesView() {
       {/* 5. PRINCIPAL ARCHITECT CONSULTATION CTA                             */}
       {/* ==================================================================== */}
       <section className="py-20 md:py-28 px-6 relative overflow-hidden">
-        <div className="max-w-5xl mx-auto rounded-3xl p-8 sm:p-12 md:p-16 bg-gradient-to-br from-card via-card to-primary/5 dark:from-slate-900 dark:via-slate-900/90 dark:to-primary/15 border border-border/80 dark:border-slate-800 shadow-2xl relative text-center flex flex-col items-center">
+        <div className="max-w-5xl mx-auto rounded-3xl p-8 sm:p-12 md:p-16 bg-linear-to-br from-card via-card to-primary/5 dark:from-slate-900 dark:via-slate-900/90 dark:to-primary/15 border border-border/80 dark:border-slate-800 shadow-2xl relative text-center flex flex-col items-center">
           {/* Subtle glowing orb */}
           <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-48 bg-primary/20 rounded-full blur-[90px] pointer-events-none" />
 
 
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] font-heading text-foreground max-w-3xl leading-[1.12] mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight font-heading text-foreground max-w-3xl leading-[1.12] mb-6">
             Have a Complex Vertical with Non-Standard Constraints?
           </h2>
 

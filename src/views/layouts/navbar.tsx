@@ -293,7 +293,7 @@ export function Navbar() {
           {config.featured && (
             <div
               className={cn(
-                'rounded-xl border border-primary/15 dark:border-primary/25 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 dark:from-primary/10 dark:via-secondary/10 dark:to-accent/5 p-4 flex flex-col justify-between',
+                'rounded-xl border border-primary/15 dark:border-primary/25 bg-linear-to-br from-primary/5 via-secondary/5 to-accent/5 dark:from-primary/10 dark:via-secondary/10 dark:to-accent/5 p-4 flex flex-col justify-between',
                 isTwoCol ? 'col-span-4' : 'col-span-4 lg:col-span-3'
               )}
             >
@@ -430,7 +430,7 @@ export function Navbar() {
             className="rounded-full object-cover group-hover:scale-105 transition-all duration-300 ring-2 ring-primary/15 group-hover:ring-primary/40"
           />
           <div className="flex flex-col items-start leading-tight">
-            <span className="font-heading font-extrabold text-[19px] tracking-wider bg-gradient-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent pb-0.5">
+            <span className="font-heading font-extrabold text-[19px] tracking-wider bg-linear-to-r from-[#0B3D91] via-[#5B5FEF] to-[#0099FF] dark:from-[#2563EB] dark:via-[#3B82F6] dark:to-[#60A5FA] bg-clip-text text-transparent pb-0.5">
               ASTRAIV
             </span>
             <span className="text-[7.5px] uppercase tracking-[0.28em] font-black text-black dark:text-white dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.85)]">
@@ -505,12 +505,12 @@ export function Navbar() {
                     <>
                       <motion.span
                         layoutId="activeNavIndicator"
-                        className="absolute bottom-0 left-0 w-full h-[2px] rounded-full bg-primary dark:bg-accent z-10 shadow-[0_1px_4px_rgba(11,61,145,0.3)] dark:shadow-[0_0_8px_rgba(0,240,255,0.5)]"
+                        className="absolute bottom-0 left-0 w-full h-0.5 rounded-full bg-primary dark:bg-accent z-10 shadow-[0_1px_4px_rgba(11,61,145,0.3)] dark:shadow-[0_0_8px_rgba(0,240,255,0.5)]"
                         transition={MOTION_SPRINGS.snappy}
                       />
                       <motion.span
                         layoutId="activeNavGlow"
-                        className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-primary/10 via-primary/5 to-transparent dark:from-accent/20 dark:via-primary/10 dark:to-transparent blur-[6px] z-0 pointer-events-none"
+                        className="absolute bottom-0 left-0 w-full h-8 bg-linear-to-t from-primary/10 via-primary/5 to-transparent dark:from-accent/20 dark:via-primary/10 dark:to-transparent blur-[6px] z-0 pointer-events-none"
                         transition={MOTION_SPRINGS.snappy}
                       />
                     </>
@@ -817,7 +817,7 @@ export function Navbar() {
                             aria-expanded={isExpanded}
                             aria-controls={`mobile-menu-${item.id}`}
                             aria-label={`Toggle ${translatedLabel} menu`}
-                            className="min-h-[44px] min-w-[44px] p-2 flex items-center justify-center rounded-md text-slate-400 hover:text-foreground hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                            className="min-h-11 min-w-11 p-2 flex items-center justify-center rounded-md text-slate-400 hover:text-foreground hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
                           >
                             <ChevronDown
                               className={cn(
@@ -911,7 +911,7 @@ export function Navbar() {
                       >
                         <span>{translatedLabel}</span>
                         {active && (
-                          <span className="h-2 w-2 rounded-full bg-gradient-to-r from-primary to-accent" />
+                          <span className="h-2 w-2 rounded-full bg-linear-to-r from-primary to-accent" />
                         )}
                       </Link>
                     )}
@@ -990,7 +990,7 @@ export function Navbar() {
                   <button
                     onClick={() => handleLanguageChange('ar')}
                     className={cn(
-                      'text-left px-3 py-2 rounded-lg font-medium text-xs bg-slate-100 dark:bg-slate-900 cursor-pointer col-span-2 text-center',
+                      'text-center px-3 py-2 rounded-lg font-medium text-xs bg-slate-100 dark:bg-slate-900 cursor-pointer col-span-2',
                       locale === 'ar'
                         ? 'text-primary dark:text-accent font-semibold ring-1 ring-primary/30'
                         : 'text-slate-600 dark:text-slate-400'

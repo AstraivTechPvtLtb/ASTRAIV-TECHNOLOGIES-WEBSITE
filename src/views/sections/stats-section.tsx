@@ -328,12 +328,12 @@ export function StatsSection({ initialSettings }: StatsSectionProps) {
             />
 
             {/* Shimmer Light Sweep on Hover */}
-            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-foreground/[0.03] to-transparent transition-transform duration-1000 ease-in-out pointer-events-none" />
+            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-linear-to-r from-transparent via-foreground/3 to-transparent transition-transform duration-1000 ease-in-out pointer-events-none" />
 
             {/* Indicator Vertical Pill */}
             <span
               aria-hidden="true"
-              className={`absolute left-0 top-3.5 bottom-3.5 w-1 sm:w-[4px] rounded-r-md ${card.indicatorBg} group-hover:w-[5px] transition-all duration-300`}
+              className={`absolute left-0 top-3.5 bottom-3.5 w-1 sm:w-1 rounded-r-md ${card.indicatorBg} group-hover:w-1.25 transition-all duration-300`}
             />
 
             <div className="pl-2 sm:pl-2.5 relative z-10">

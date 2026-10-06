@@ -33,7 +33,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
         ]}
       />
       <Navbar />
-      <main id="main-content" className="pt-24 flex-grow z-10 relative">
+      <main id="main-content" className="pt-24 grow z-10 relative">
         <ContactSection isPageHero={true} />
       </main>
       <Footer />

@@ -24,7 +24,7 @@ export function RelevantIndustriesSection({
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-muted-foreground block mb-2">
             VERTICAL EXPERTISE
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-tight leading-[1.15]">
             {title}
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-1 max-w-2xl">

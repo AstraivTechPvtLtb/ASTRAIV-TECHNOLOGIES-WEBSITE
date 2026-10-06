@@ -21,7 +21,7 @@ export default function NotFound() {
           {/* Headline & Description */}
           <div className="space-y-4">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-heading">
-              Route <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-cyan-400">Not Found</span>
+              Route <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-indigo-300 to-cyan-400">Not Found</span>
             </h1>
             <p className="text-muted-foreground text-base sm:text-lg max-w-lg mx-auto leading-relaxed">
               The platform route or resource you are attempting to access does not exist or has been relocated within our enterprise architecture.

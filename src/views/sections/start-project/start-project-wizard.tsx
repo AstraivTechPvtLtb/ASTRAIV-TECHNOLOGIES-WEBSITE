@@ -455,7 +455,7 @@ export function StartProjectWizard() {
         {/* Dynamic Track */}
         <div className="w-full h-2 rounded-full bg-border/60 dark:bg-slate-800 overflow-hidden relative">
           <motion.div
-            className="h-full bg-gradient-to-r from-blue-600 via-indigo-600 to-primary rounded-full"
+            className="h-full bg-linear-to-r from-blue-600 via-indigo-600 to-primary rounded-full"
             initial={{ width: 0 }}
             animate={{ width: `${progressPercentage}%` }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
@@ -531,7 +531,7 @@ export function StartProjectWizard() {
                   <Zap className="h-3.5 w-3.5" />
                   Step 1 of 5
                 </span>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-[-0.025em] leading-[1.15] text-foreground font-heading">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight leading-[1.15] text-foreground font-heading">
                   What can we help you build?
                 </h2>
                 <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-2 max-w-2xl">
@@ -627,7 +627,7 @@ export function StartProjectWizard() {
                   <FileEdit className="h-3.5 w-3.5" />
                   Step 2 of 5
                 </span>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-[-0.025em] leading-[1.15] text-foreground font-heading">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight leading-[1.15] text-foreground font-heading">
                   Tell us about your project
                 </h2>
                 <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-2 max-w-2xl">
@@ -651,7 +651,7 @@ export function StartProjectWizard() {
                   onChange={(e) => updateField('projectDescription', e.target.value)}
                   placeholder="Describe what you want to build, the problems you are solving, key features required, or target users..."
                   className={cn(
-                    'w-full rounded-2xl border bg-card/60 dark:bg-slate-900/60 p-4 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all resize-y min-h-[110px] focus:ring-2 focus:ring-primary/40 dark:focus:ring-blue-400/40',
+                    'w-full rounded-2xl border bg-card/60 dark:bg-slate-900/60 p-4 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all resize-y min-h-27.5 focus:ring-2 focus:ring-primary/40 dark:focus:ring-blue-400/40',
                     stepErrors.projectDescription
                       ? 'border-destructive ring-1 ring-destructive'
                       : 'border-border/70 dark:border-slate-800'
@@ -753,7 +753,7 @@ export function StartProjectWizard() {
                   <Clock className="h-3.5 w-3.5" />
                   Step 3 of 5
                 </span>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-[-0.025em] leading-[1.15] text-foreground font-heading">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight leading-[1.15] text-foreground font-heading">
                   Project scope & timeline
                 </h2>
                 <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-2 max-w-2xl">
@@ -860,7 +860,7 @@ export function StartProjectWizard() {
                   <User className="h-3.5 w-3.5" />
                   Step 4 of 5
                 </span>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-[-0.025em] leading-[1.15] text-foreground font-heading">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight leading-[1.15] text-foreground font-heading">
                   How can our architects reach you?
                 </h2>
                 <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-2 max-w-2xl">
@@ -1078,7 +1078,7 @@ export function StartProjectWizard() {
                   <ShieldCheck className="h-3.5 w-3.5" />
                   Final Step
                 </span>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-[-0.025em] leading-[1.15] text-foreground font-heading">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight leading-[1.15] text-foreground font-heading">
                   Review your project specifications
                 </h2>
                 <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-2 max-w-2xl">
@@ -1237,7 +1237,7 @@ export function StartProjectWizard() {
                 variant="outline"
                 onClick={handleBack}
                 disabled={isSubmitting}
-                className="w-full sm:w-auto min-h-[44px] gap-2 px-5 rounded-xl text-xs font-bold border-border/70 hover:bg-card justify-center"
+                className="w-full sm:w-auto min-h-11 gap-2 px-5 rounded-xl text-xs font-bold border-border/70 hover:bg-card justify-center"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Back</span>
@@ -1250,7 +1250,7 @@ export function StartProjectWizard() {
               <Button
                 type="button"
                 onClick={handleNext}
-                className="w-full sm:w-auto min-h-[44px] gap-2 px-6 sm:px-7 py-3.5 sm:py-5 rounded-xl font-semibold text-xs sm:text-sm bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/25 active:scale-95 transition-all justify-center tracking-normal"
+                className="w-full sm:w-auto min-h-11 gap-2 px-6 sm:px-7 py-3.5 sm:py-5 rounded-xl font-semibold text-xs sm:text-sm bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/25 active:scale-95 transition-all justify-center tracking-normal"
               >
                 <span className="hidden sm:inline">Continue to Step {currentStep + 1}</span>
                 <span className="sm:hidden">Next Step</span>
@@ -1261,7 +1261,7 @@ export function StartProjectWizard() {
                 type="button"
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="w-full sm:w-auto min-h-[44px] gap-2 px-8 py-3.5 sm:py-5 rounded-xl font-semibold text-xs sm:text-sm bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 dark:hover:bg-blue-500 text-white shadow-xl shadow-blue-500/25 active:scale-95 transition-all select-none justify-center tracking-normal"
+                className="w-full sm:w-auto min-h-11 gap-2 px-8 py-3.5 sm:py-5 rounded-xl font-semibold text-xs sm:text-sm bg-[#0B3D91] hover:bg-[#093275] dark:bg-blue-600 dark:hover:bg-blue-500 text-white shadow-xl shadow-blue-500/25 active:scale-95 transition-all select-none justify-center tracking-normal"
               >
                 {isSubmitting ? (
                   <>

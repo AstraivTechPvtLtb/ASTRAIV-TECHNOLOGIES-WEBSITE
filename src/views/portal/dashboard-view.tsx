@@ -387,7 +387,7 @@ export function DashboardView({
                 </>
               )}
 
-              <div className="p-4 bg-gradient-to-tr from-primary/10 via-secondary/10 to-accent/5 rounded-[12px] border border-primary/10 text-xs flex flex-col gap-2 mt-4 relative overflow-hidden group">
+              <div className="p-4 bg-linear-to-tr from-primary/10 via-secondary/10 to-accent/5 rounded-[12px] border border-primary/10 text-xs flex flex-col gap-2 mt-4 relative overflow-hidden group">
                 <div className="flex items-center gap-1.5 font-bold text-foreground">
                   <Sparkles className="h-3.5 w-3.5 text-accent animate-pulse" />
                   Astraiv AI Engine Ready

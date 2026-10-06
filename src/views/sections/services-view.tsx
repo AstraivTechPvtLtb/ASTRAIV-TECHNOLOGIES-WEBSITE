@@ -240,7 +240,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
             <span className="text-xs font-mono font-bold uppercase tracking-widest text-primary dark:text-blue-400">
               SERVICES = WHAT ASTRAIV DOES
             </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground font-heading tracking-[-0.025em] leading-[1.12]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground font-heading tracking-tight leading-[1.12]">
               Our Engineering <span className="heading-gradient">Services</span>
             </h1>
             <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62]">
@@ -345,7 +345,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
                     <div className="flex items-center justify-between mb-4">
                       <div
                         className={cn(
-                          'flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br border transition-transform duration-300 group-hover:scale-110',
+                          'flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br border transition-transform duration-300 group-hover:scale-110',
                           service.iconBg
                         )}
                       >
@@ -419,7 +419,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
           {/* Header */}
           <div className="flex flex-col gap-3 text-center max-w-3xl mx-auto mb-16">
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] text-foreground font-heading">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.12] text-foreground font-heading">
               Our 6-Stage <span className="heading-gradient">Engineering Delivery Process</span>
             </h2>
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-normal">
@@ -488,7 +488,7 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
             <span className="inline-flex px-3 py-1 text-xs font-semibold tracking-wider uppercase text-primary bg-primary/10 dark:bg-blue-600/20 dark:text-blue-300 rounded-md border border-primary/20 dark:border-blue-600/30 mb-3">
               CONTRACTUAL GUARANTEES
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground font-heading tracking-[-0.025em] leading-[1.15]">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground font-heading tracking-tight leading-[1.15]">
               Engineering Built on <span className="heading-gradient">Trust and Rigor</span>
             </h2>
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-normal mt-2">
@@ -544,10 +544,10 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
       {/* 5. CONSULTATION & PROJECT SCOPING CTA                                */}
       {/* ==================================================================== */}
       <section className="py-20 md:py-28 px-6 max-w-5xl mx-auto w-full text-center">
-        <div className="relative overflow-hidden rounded-3xl border border-primary/30 dark:border-blue-600/30 bg-gradient-to-br from-primary/10 via-card to-blue-600/10 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/40 p-10 sm:p-16 shadow-xl">
+        <div className="relative overflow-hidden rounded-3xl border border-primary/30 dark:border-blue-600/30 bg-linear-to-br from-primary/10 via-card to-blue-600/10 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/40 p-10 sm:p-16 shadow-xl">
           <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading text-foreground tracking-[-0.025em] leading-[1.12]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading text-foreground tracking-tight leading-[1.12]">
               Ready to Accelerate Your <span className="heading-gradient">Software Engineering?</span>
             </h2>
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">

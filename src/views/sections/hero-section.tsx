@@ -137,7 +137,7 @@ export function HeroSection({
     <section
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative flex flex-col items-center justify-center min-h-[100svh] lg:min-h-[100dvh] overflow-hidden bg-background border-b border-border/40 pt-20 sm:pt-24 pb-8 sm:pb-12"
+      className="relative flex flex-col items-center justify-center min-h-svh lg:min-h-dvh overflow-hidden bg-background border-b border-border/40 pt-20 sm:pt-24 pb-8 sm:pb-12"
     >
       {/* 3D Preserved Perspective Background Stage: tilts smoothly with mouse movement to reveal dramatic depth */}
       <motion.div
@@ -151,15 +151,15 @@ export function HeroSection({
       >
         {/* Dynamic Animated Blobs in 3D Z-Space */}
         <div
-          className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-primary/10 dark:bg-blue-600/10 rounded-full blur-[120px] pointer-events-none animate-blob-1"
+          className="absolute top-1/4 left-1/3 w-125 h-125 bg-primary/10 dark:bg-blue-600/10 rounded-full blur-[120px] pointer-events-none animate-blob-1"
           style={{ transform: 'translateZ(-1200px)', transformStyle: 'preserve-3d' }}
         />
         <div
-          className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-secondary/10 dark:bg-blue-600/10 rounded-full blur-[100px] pointer-events-none animate-blob-2"
+          className="absolute bottom-1/4 right-1/4 w-100 h-100 bg-secondary/10 dark:bg-blue-600/10 rounded-full blur-[100px] pointer-events-none animate-blob-2"
           style={{ transform: 'translateZ(-800px)', transformStyle: 'preserve-3d' }}
         />
         <div
-          className="absolute top-10 right-10 w-[250px] h-[250px] bg-accent/10 dark:bg-blue-500/10 rounded-full blur-[80px] pointer-events-none animate-blob-3"
+          className="absolute top-10 right-10 w-62.5 h-62.5 bg-accent/10 dark:bg-blue-500/10 rounded-full blur-[80px] pointer-events-none animate-blob-3"
           style={{ transform: 'translateZ(-500px)', transformStyle: 'preserve-3d' }}
         />
 
@@ -196,7 +196,7 @@ export function HeroSection({
         {/* 2. Large Premium Headline - Fluid Clamp Scaling and Restrained Word Entrance */}
         <motion.h1
           variants={itemVariants}
-          className="text-[clamp(1.35rem,4.2vw+0.35rem,3.75rem)] font-display font-semibold tracking-[-0.025em] md:tracking-[-0.03em] text-foreground leading-[1.12] sm:leading-[1.15] w-full text-center mb-4 md:mb-5 whitespace-normal break-words"
+          className="text-[clamp(1.35rem,4.2vw+0.35rem,3.75rem)] font-display font-semibold tracking-tight md:tracking-[-0.03em] text-foreground leading-[1.12] sm:leading-[1.15] w-full text-center mb-4 md:mb-5 whitespace-normal wrap-break-word"
           style={{ textWrap: 'balance' }}
         >
           {parsedWords.map((item, index) => (
@@ -232,7 +232,7 @@ export function HeroSection({
         <motion.div variants={itemVariants} className="relative z-30 pointer-events-auto flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-xs sm:max-w-none">
           <Link
             href={ctaHref}
-            className="w-full sm:w-auto relative group cursor-pointer font-semibold rounded-xl px-6 sm:px-9 h-12 sm:h-13 text-xs sm:text-sm tracking-normal text-white bg-primary hover:bg-[#082d6c] dark:bg-blue-600 dark:hover:bg-blue-500 active:scale-[0.98] transition-all duration-200 shadow-sm hover:shadow-md border border-blue-900/20 dark:border-blue-400/30 inline-flex items-center justify-center gap-2 outline-none select-none min-h-[44px] focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
+            className="w-full sm:w-auto relative group cursor-pointer font-semibold rounded-xl px-6 sm:px-9 h-12 sm:h-13 text-xs sm:text-sm tracking-normal text-white bg-primary hover:bg-[#082d6c] dark:bg-blue-600 dark:hover:bg-blue-500 active:scale-[0.98] transition-all duration-200 shadow-sm hover:shadow-md border border-blue-900/20 dark:border-blue-400/30 inline-flex items-center justify-center gap-2 outline-none select-none min-h-11 focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
           >
             <span>{ctaText}</span>
             <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-1" />
@@ -240,7 +240,7 @@ export function HeroSection({
 
           <Link
             href={secondaryCtaHref}
-            className="w-full sm:w-auto relative group cursor-pointer font-semibold rounded-xl px-6 sm:px-9 h-12 sm:h-13 text-xs sm:text-sm tracking-normal text-foreground bg-card/90 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-white/15 hover:border-primary/40 dark:hover:border-blue-400/40 active:scale-[0.98] transition-all duration-200 shadow-xs inline-flex items-center justify-center gap-2 outline-none select-none min-h-[44px] focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
+            className="w-full sm:w-auto relative group cursor-pointer font-semibold rounded-xl px-6 sm:px-9 h-12 sm:h-13 text-xs sm:text-sm tracking-normal text-foreground bg-card/90 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-white/15 hover:border-primary/40 dark:hover:border-blue-400/40 active:scale-[0.98] transition-all duration-200 shadow-xs inline-flex items-center justify-center gap-2 outline-none select-none min-h-11 focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-blue-400"
           >
             <span>{secondaryCtaText}</span>
             <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-1 text-primary dark:text-blue-400" />

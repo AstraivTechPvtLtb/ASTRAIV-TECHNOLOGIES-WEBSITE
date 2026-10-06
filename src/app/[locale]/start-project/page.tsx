@@ -35,14 +35,14 @@ export default async function StartProjectPage({ params }: StartProjectPageProps
       />
       <Navbar />
 
-      <main id="main-content" className="pt-28 pb-16 flex-grow z-10 relative">
+      <main id="main-content" className="pt-28 pb-16 grow z-10 relative">
         {/* Page Hero Header */}
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 mb-4 sm:mb-8">
 
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground font-heading">
             Start Your Project with{' '}
-            <span className="bg-gradient-to-r from-primary via-blue-500 to-indigo-400 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-primary via-blue-500 to-indigo-400 bg-clip-text text-transparent">
               Astraiv
             </span>
           </h1>

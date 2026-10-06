@@ -50,7 +50,7 @@ export default async function InsightsPage({ params }: InsightsPageProps) {
         ]}
       />
       <Navbar />
-      <main className="flex-grow z-10 relative">
+      <main className="grow z-10 relative">
         <InsightsView initialPosts={posts} categories={categories} />
       </main>
       <Footer />

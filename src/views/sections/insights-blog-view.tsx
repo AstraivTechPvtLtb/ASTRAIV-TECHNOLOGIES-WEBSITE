@@ -43,7 +43,7 @@ export function InsightsBlogView({
   return (
     <div className="w-full relative overflow-hidden bg-background text-foreground">
       {/* Ambient background glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-primary/10 via-secondary/5 to-transparent rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-250 h-125 bg-linear-to-b from-primary/10 via-secondary/5 to-transparent rounded-full blur-[140px] pointer-events-none -z-10" />
 
       {/* Hero Header */}
       <section className="pt-28 pb-10 md:pt-36 md:pb-14 px-6 max-w-7xl mx-auto text-left relative z-10">
@@ -61,7 +61,7 @@ export function InsightsBlogView({
               <BookOpen className="h-3.5 w-3.5" />
               <span>Technical Publications & Systems Analysis</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading tracking-[-0.025em] leading-[1.12] text-foreground">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading tracking-tight leading-[1.12] text-foreground">
               Astraiv <span className="heading-gradient">Engineering Blog</span>
             </h1>
             <p className="text-sm md:text-base text-muted-foreground font-normal mt-2 max-w-2xl leading-[1.62]">
@@ -151,7 +151,7 @@ export function InsightsBlogView({
               >
                 <div>
                   {/* Cover Image */}
-                  <div className="relative aspect-[16/9] overflow-hidden bg-slate-950">
+                  <div className="relative aspect-video overflow-hidden bg-slate-950">
                     <Image
                       src={article.coverImage}
                       alt={article.title}
@@ -159,7 +159,7 @@ export function InsightsBlogView({
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent" />
                     
                     {/* Category pill on image */}
                     <div className="absolute top-3 left-3">
@@ -251,7 +251,7 @@ export function InsightsBlogView({
         </div>
 
         {/* Lead Generation CTA Banner */}
-        <div className="p-8 sm:p-12 rounded-[28px] bg-gradient-to-br from-primary/10 via-card to-card dark:from-blue-600/15 dark:via-slate-900 dark:to-slate-900 border border-primary/20 dark:border-blue-500/25 text-left shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-16">
+        <div className="p-8 sm:p-12 rounded-[28px] bg-linear-to-br from-primary/10 via-card to-card dark:from-blue-600/15 dark:via-slate-900 dark:to-slate-900 border border-primary/20 dark:border-blue-500/25 text-left shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-16">
           <div>
             <span className="text-xs font-mono font-medium uppercase tracking-wider text-primary dark:text-blue-400 block mb-2">
               Astraiv Engineering Lab

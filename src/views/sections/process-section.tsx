@@ -111,7 +111,7 @@ export function ProcessSection({ variant = 'summary' }: ProcessSectionProps) {
                     </div>
 
                     <div className="pt-3 border-t border-border/20 dark:border-slate-800/40">
-                      <span className="text-[10.5px] font-mono uppercase font-bold text-primary dark:text-cyan-400 block mb-1.5 flex items-center gap-1">
+                      <span className="text-[10.5px] font-mono uppercase font-bold text-primary dark:text-cyan-400 mb-1.5 flex items-center gap-1">
                         <ShieldCheck className="h-3.5 w-3.5" />
                         <span>Quality Gate</span>
                       </span>

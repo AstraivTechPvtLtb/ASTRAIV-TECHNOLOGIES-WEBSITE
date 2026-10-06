@@ -3,7 +3,7 @@ import { Skeleton } from '@/views/ui/skeleton';
 export default function InsightsLoading() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col justify-between" aria-busy="true">
-      <main className="flex-grow z-10 relative">
+      <main className="grow z-10 relative">
         {/* Editorial Header Skeleton */}
         <section className="pt-28 pb-8 md:pt-36 md:pb-10 px-6 max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">

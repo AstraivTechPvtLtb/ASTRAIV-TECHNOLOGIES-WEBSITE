@@ -26,7 +26,7 @@ export function RelatedSolutionsSection({
     <section className="my-16 sm:my-20">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
         <div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-tight leading-[1.15]">
             {title}
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-1 max-w-2xl">

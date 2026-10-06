@@ -42,9 +42,9 @@ export default async function CaseStudiesPage({ params }: CaseStudiesPageProps) 
       />
       <Navbar />
 
-      <main className="flex-grow z-10 relative pt-24 md:pt-32">
+      <main className="grow z-10 relative pt-24 md:pt-32">
         {/* Ambient Glow */}
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-primary/5 dark:bg-blue-600/5 rounded-full blur-[180px] pointer-events-none" />
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-225 h-100 bg-primary/5 dark:bg-blue-600/5 rounded-full blur-[180px] pointer-events-none" />
 
         {/* Header Hero Section */}
         <section className="px-6 max-w-7xl mx-auto text-center pb-6">

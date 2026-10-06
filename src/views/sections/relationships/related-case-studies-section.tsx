@@ -21,7 +21,7 @@ export function RelatedCaseStudiesSection({
     <section className="my-16 sm:my-20">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
         <div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-[-0.025em] leading-[1.15]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-tight leading-[1.15]">
             {title}
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-1 max-w-2xl">
@@ -46,7 +46,7 @@ export function RelatedCaseStudiesSection({
             {/* Top / Main Content Area */}
             <div className="flex-1 flex flex-col">
               {/* 1. Header tags */}
-              <div className="flex items-center justify-between gap-3 mb-4 min-h-[28px]">
+              <div className="flex items-center justify-between gap-3 mb-4 min-h-7">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-[10px] font-mono uppercase tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-950/70 border border-primary/20 dark:border-blue-800/60 px-2.5 py-1 rounded-md">
                     {cs.category}
@@ -63,12 +63,12 @@ export function RelatedCaseStudiesSection({
               </div>
 
               {/* 2. Title */}
-              <h3 className="text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-400 transition-colors leading-snug line-clamp-2 min-h-[3.25rem] sm:min-h-[3.5rem] mb-4 flex items-start">
+              <h3 className="text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-400 transition-colors leading-snug line-clamp-2 min-h-13 sm:min-h-14 mb-4 flex items-start">
                 {cs.title}
               </h3>
 
               {/* 3. Metric Callout Card */}
-              <div className="min-h-[5.5rem] sm:min-h-[5.75rem] p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-950/70 border border-slate-200/80 dark:border-slate-800/90 flex items-center justify-between gap-4 mb-6">
+              <div className="min-h-22 sm:min-h-23 p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-950/70 border border-slate-200/80 dark:border-slate-800/90 flex items-center justify-between gap-4 mb-6">
                 <div className="flex-1 min-w-0 flex flex-col justify-center">
                   <span className="text-xl sm:text-2xl font-semibold font-heading tracking-[-0.02em] text-foreground block leading-tight line-clamp-2">
                     {cs.metric}
@@ -89,7 +89,7 @@ export function RelatedCaseStudiesSection({
                   <span className="text-[10.5px] font-bold uppercase tracking-wider text-muted-foreground block mb-1">
                     Problem
                   </span>
-                  <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed min-h-[2.5rem]">
+                  <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed min-h-10">
                     {cs.challenge}
                   </p>
                 </div>
@@ -97,7 +97,7 @@ export function RelatedCaseStudiesSection({
                   <span className="text-[10.5px] font-bold uppercase tracking-wider text-primary dark:text-blue-400 block mb-1">
                     Delivered Architecture
                   </span>
-                  <p className="text-xs text-muted-foreground line-clamp-3 leading-relaxed min-h-[3.75rem]">
+                  <p className="text-xs text-muted-foreground line-clamp-3 leading-relaxed min-h-15">
                     {cs.solution}
                   </p>
                 </div>

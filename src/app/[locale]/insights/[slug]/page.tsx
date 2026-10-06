@@ -100,7 +100,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
 
       <Navbar />
 
-      <main className="pt-28 flex-grow z-10 relative">
+      <main className="pt-28 grow z-10 relative">
         <article className="max-w-4xl mx-auto px-6 py-8 md:py-12">
           {/* Breadcrumb Navigation & Back Link */}
           <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
@@ -125,7 +125,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
                 {article.category.name}
               </Link>
               <span>/</span>
-              <span className="text-foreground/80 font-bold truncate max-w-[200px]">
+              <span className="text-foreground/80 font-bold truncate max-w-50">
                 {article.title}
               </span>
             </div>
@@ -192,7 +192,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
 
           {/* Featured Hero Cover Image */}
           {article.coverImage && (
-            <div className="relative aspect-[16/9] rounded-3xl overflow-hidden mb-12 shadow-2xl border border-border/60 dark:border-slate-800 bg-slate-950">
+            <div className="relative aspect-video rounded-3xl overflow-hidden mb-12 shadow-2xl border border-border/60 dark:border-slate-800 bg-slate-950">
               <ResilientImage
                 src={article.coverImage}
                 alt={article.title}
@@ -327,7 +327,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
                         sizes="(max-width: 768px) 100vw, 33vw"
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent" />
                       <div className="absolute top-3 left-3">
                         <span className="px-2.5 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-black/70 backdrop-blur-xs text-white border border-white/20">
                           {rel.category.name}

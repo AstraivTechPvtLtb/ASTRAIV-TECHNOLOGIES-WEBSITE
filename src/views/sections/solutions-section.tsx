@@ -45,14 +45,14 @@ export function SolutionsSection({ initialSolutions = SOLUTIONS_LIST }: Solution
       className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-transparent relative scroll-mt-24 overflow-hidden"
     >
       {/* Ambient background lighting */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 dark:bg-blue-600/5 rounded-full blur-[160px] pointer-events-none -z-10" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-200 h-100 bg-primary/5 dark:bg-blue-600/5 rounded-full blur-[160px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 sm:mb-16 text-left">
           <div className="max-w-3xl">
 
-            <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-display font-semibold tracking-[-0.025em] text-foreground leading-[1.15]">
+            <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-display font-semibold tracking-tight text-foreground leading-[1.15]">
               What business problems{' '}
               <span className="heading-gradient font-semibold">
                 can Astraiv solve?
@@ -145,7 +145,7 @@ export function SolutionsSection({ initialSolutions = SOLUTIONS_LIST }: Solution
 
                 <Link
                   href={ROUTES.PUBLIC.SOLUTION_DETAIL(solution.slug)}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group/link min-h-[28px] py-1"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group/link min-h-7 py-1"
                 >
                   <span>Explore Solution</span>
                   <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-1" />

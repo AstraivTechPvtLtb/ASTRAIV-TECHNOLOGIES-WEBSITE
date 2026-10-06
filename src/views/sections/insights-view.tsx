@@ -468,7 +468,7 @@ export function InsightsView({ initialPosts, categories: _categories }: Insights
   return (
     <div className="w-full relative overflow-hidden bg-background text-foreground">
       {/* Background ambient lighting */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[550px] bg-gradient-to-b from-primary/10 via-secondary/5 to-transparent rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-275 h-137.5 bg-linear-to-b from-primary/10 via-secondary/5 to-transparent rounded-full blur-[140px] pointer-events-none -z-10" />
 
       {/* ========================================================================= */}
       {/* 1. TOP HEADER & SEARCH WITH PLACE-BASED SECTION SWITCHER */}
@@ -476,7 +476,7 @@ export function InsightsView({ initialPosts, categories: _categories }: Insights
       <section className="pt-28 pb-8 md:pt-36 md:pb-10 px-6 max-w-7xl mx-auto relative z-10">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading tracking-[-0.025em] leading-[1.12]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading tracking-tight leading-[1.12]">
               Insights & <span className="heading-gradient">Engineering Publications</span>
             </h1>
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-normal leading-[1.62] mt-1">
@@ -569,7 +569,7 @@ export function InsightsView({ initialPosts, categories: _categories }: Insights
                 <BookOpen className="h-3.5 w-3.5" />
                 <span>Technical Publications & Systems Analysis</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-semibold tracking-[-0.025em] leading-[1.15] font-heading">
+              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.15] font-heading">
                 Astraiv Engineering Blog
               </h2>
               <p className="text-sm text-muted-foreground font-normal mt-1 max-w-2xl leading-relaxed">
@@ -604,7 +604,7 @@ export function InsightsView({ initialPosts, categories: _categories }: Insights
             <div className="relative overflow-hidden rounded-[28px] border border-border/80 dark:border-slate-800 bg-card dark:bg-slate-900/60 shadow-lg hover:shadow-2xl transition-all duration-500 group mb-12">
               <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
                 {/* Image Side */}
-                <div className="lg:col-span-7 relative min-h-[300px] sm:min-h-[380px] lg:min-h-[440px] overflow-hidden bg-slate-950">
+                <div className="lg:col-span-7 relative min-h-75 sm:min-h-95 lg:min-h-110 overflow-hidden bg-slate-950">
                   {engineeringFeaturedPost.featuredImage ? (
                     <Image
                       src={engineeringFeaturedPost.featuredImage}
@@ -615,11 +615,11 @@ export function InsightsView({ initialPosts, categories: _categories }: Insights
                       className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
                     />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center text-white font-bold">
+                    <div className="w-full h-full bg-linear-to-br from-primary via-secondary to-accent flex items-center justify-center text-white font-bold">
                       Astraiv Engineering Spotlight
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:hidden" />
+                  <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent lg:hidden" />
                   <div className="absolute top-4 left-4 z-10">
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full">
                       <Sparkles className="h-3 w-3 text-blue-400" />
@@ -742,7 +742,7 @@ export function InsightsView({ initialPosts, categories: _categories }: Insights
                   <Bot className="h-3.5 w-3.5" />
                   <span>Cognitive Systems & LLM Architectures</span>
                 </div>
-                <h2 className="text-3xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] font-heading mb-3">
+                <h2 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.12] font-heading mb-3">
                   AI Insights & Research
                 </h2>
                 <p className="text-sm md:text-base text-muted-foreground font-normal leading-[1.62] max-w-2xl">
@@ -776,7 +776,7 @@ export function InsightsView({ initialPosts, categories: _categories }: Insights
             {aiFeaturedPost && !searchQuery && selectedCategory === 'all' && (
               <div className="relative overflow-hidden rounded-[28px] border border-blue-500/30 dark:border-blue-500/20 bg-card dark:bg-slate-900/80 shadow-lg hover:shadow-2xl transition-all duration-500 group mb-12">
                 <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
-                  <div className="lg:col-span-7 relative min-h-[300px] sm:min-h-[380px] lg:min-h-[420px] overflow-hidden bg-slate-950">
+                  <div className="lg:col-span-7 relative min-h-75 sm:min-h-95 lg:min-h-105 overflow-hidden bg-slate-950">
                     {aiFeaturedPost.featuredImage ? (
                       <Image
                         src={aiFeaturedPost.featuredImage}
@@ -786,11 +786,11 @@ export function InsightsView({ initialPosts, categories: _categories }: Insights
                         className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-blue-900 via-indigo-950 to-slate-950 flex items-center justify-center text-blue-300 font-bold">
+                      <div className="w-full h-full bg-linear-to-br from-blue-900 via-indigo-950 to-slate-950 flex items-center justify-center text-blue-300 font-bold">
                         Astraiv Cognitive AI Research
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:hidden" />
+                    <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent lg:hidden" />
                     <div className="absolute top-4 left-4 z-10">
                       <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-blue-950/80 backdrop-blur-md border border-blue-500/30 text-blue-300 rounded-full">
                         <Sparkles className="h-3 w-3 text-blue-400" />
@@ -940,7 +940,7 @@ export function InsightsView({ initialPosts, categories: _categories }: Insights
                 <Cpu className="h-3.5 w-3.5" />
                 <span>Modern Cloud Practices</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-semibold tracking-[-0.025em] leading-[1.15] font-heading">
+              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.15] font-heading">
                 Technology & Cloud Engineering
               </h2>
               <p className="text-sm text-muted-foreground font-normal mt-1 max-w-2xl leading-relaxed">
@@ -1016,7 +1016,7 @@ export function InsightsView({ initialPosts, categories: _categories }: Insights
                   <BarChart3 className="h-3.5 w-3.5" />
                   <span>Verified Client Outcomes</span>
                 </div>
-                <h2 className="text-3xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] font-heading">
+                <h2 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.12] font-heading">
                   Client Impact Case Studies
                 </h2>
                 <p className="text-sm text-muted-foreground font-normal mt-1 max-w-2xl leading-relaxed">
@@ -1046,7 +1046,7 @@ export function InsightsView({ initialPosts, categories: _categories }: Insights
                       sizes="(max-width: 768px) 100vw, 33vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
                     <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between text-white">
                       <div>
                         <span className="text-[10px] uppercase font-semibold tracking-wider text-blue-300 block">
@@ -1092,7 +1092,7 @@ export function InsightsView({ initialPosts, categories: _categories }: Insights
               <FileText className="h-3.5 w-3.5" />
               <span>Reference Specs & Downloads</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] font-heading mb-4">
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.12] font-heading mb-4">
               Technical Resources & Architecture Guides
             </h2>
             <p className="text-sm md:text-base text-muted-foreground font-normal leading-[1.62]">
@@ -1180,7 +1180,7 @@ export function InsightsView({ initialPosts, categories: _categories }: Insights
                 <HelpCircle className="h-3.5 w-3.5" />
                 <span>Knowledge & Clarifications</span>
               </div>
-              <h2 className="text-3xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] font-heading mb-3">
+              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.12] font-heading mb-3">
                 Frequently Asked <span className="heading-gradient">Questions</span>
               </h2>
               <p className="text-sm md:text-base text-muted-foreground font-normal leading-[1.62]">
@@ -1226,9 +1226,9 @@ export function InsightsView({ initialPosts, categories: _categories }: Insights
       {/* 8. SECTION: ENGINEERING DISPATCH NEWSLETTER BAR */}
       {/* ========================================================================= */}
       <section className="py-16 px-6 max-w-7xl mx-auto text-center">
-        <div className="relative overflow-hidden rounded-[28px] border border-border/80 dark:border-slate-800 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 dark:from-primary/10 dark:via-secondary/10 dark:to-accent/5 p-8 sm:p-12">
+        <div className="relative overflow-hidden rounded-[28px] border border-border/80 dark:border-slate-800 bg-linear-to-br from-primary/5 via-secondary/5 to-accent/5 dark:from-primary/10 dark:via-secondary/10 dark:to-accent/5 p-8 sm:p-12">
           <div className="max-w-2xl mx-auto">
-            <h3 className="text-2xl sm:text-3xl font-semibold tracking-[-0.025em] leading-[1.15] font-heading mb-3">
+            <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight leading-[1.15] font-heading mb-3">
               Subscribe to the Astraiv Engineering Dispatch
             </h3>
             <p className="text-xs sm:text-sm text-muted-foreground font-normal leading-[1.62] mb-8">
@@ -1266,7 +1266,7 @@ export function InsightsView({ initialPosts, categories: _categories }: Insights
                   <button
                     type="submit"
                     disabled={isSubscribing}
-                    className="px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed text-primary-foreground font-semibold text-xs tracking-normal transition-all active:scale-95 shadow-xs cursor-pointer flex items-center justify-center gap-2 min-w-[120px]"
+                    className="px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed text-primary-foreground font-semibold text-xs tracking-normal transition-all active:scale-95 shadow-xs cursor-pointer flex items-center justify-center gap-2 min-w-30"
                   >
                     {isSubscribing ? (
                       <>

@@ -37,8 +37,8 @@ export function ContactSection({ isPageHero = false }: ContactSectionProps) {
   return (
     <section id="contact" className="py-20 md:py-28 px-6 relative w-full overflow-hidden scroll-mt-24">
       {/* Dynamic Ambient Background Blobs */}
-      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-primary/10 dark:bg-blue-600/10 rounded-full blur-[140px] pointer-events-none z-0" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-secondary/10 dark:bg-primary/10 rounded-full blur-[140px] pointer-events-none z-0" />
+      <div className="absolute top-[-10%] left-[-10%] w-125 h-125 bg-primary/10 dark:bg-blue-600/10 rounded-full blur-[140px] pointer-events-none z-0" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-125 h-125 bg-secondary/10 dark:bg-primary/10 rounded-full blur-[140px] pointer-events-none z-0" />
 
       <motion.div 
         variants={containerVariants}
@@ -52,14 +52,14 @@ export function ContactSection({ isPageHero = false }: ContactSectionProps) {
 
 
           {isPageHero ? (
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] font-heading leading-tight text-foreground">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight font-heading leading-tight text-foreground">
               Have an Idea? <br />
               <span className="heading-gradient">
                 Let&apos;s Build It.
               </span>
             </h1>
           ) : (
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] font-heading leading-tight text-foreground">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight font-heading leading-tight text-foreground">
               Have an Idea? <br />
               <span className="heading-gradient">
                 Let&apos;s Build It.
@@ -75,7 +75,7 @@ export function ContactSection({ isPageHero = false }: ContactSectionProps) {
           <div className="flex flex-wrap items-center gap-3 pt-1">
             <Link
               href="/services"
-              className="group inline-flex items-center justify-center gap-2 w-full sm:w-[380px] px-8 py-3.5 rounded-xl bg-primary text-white font-semibold text-xs sm:text-sm tracking-normal shadow-md shadow-primary/25 hover:bg-primary/90 transition-all active:scale-95"
+              className="group inline-flex items-center justify-center gap-2 w-full sm:w-95 px-8 py-3.5 rounded-xl bg-primary text-white font-semibold text-xs sm:text-sm tracking-normal shadow-md shadow-primary/25 hover:bg-primary/90 transition-all active:scale-95"
             >
               <span>Explore Our Services</span>
               <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -133,7 +133,7 @@ export function ContactSection({ isPageHero = false }: ContactSectionProps) {
           <div className="absolute inset-0 bg-primary/10 dark:bg-blue-600/10 rounded-3xl blur-2xl pointer-events-none" />
           <Suspense
             fallback={
-              <div className="w-full max-w-xl mx-auto p-12 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-slate-900/40 backdrop-blur-md flex items-center justify-center min-h-[450px]">
+              <div className="w-full max-w-xl mx-auto p-12 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-slate-900/40 backdrop-blur-md flex items-center justify-center min-h-112.5">
                 <Loader2 className="h-8 w-8 animate-spin text-primary" />
               </div>
             }

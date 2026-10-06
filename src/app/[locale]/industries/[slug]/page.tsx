@@ -91,10 +91,10 @@ export default async function IndustryDetailPage({ params }: IndustryDetailPageP
       />
       <Navbar />
 
-      <main className="pt-28 pb-20 flex-grow z-10 relative">
+      <main className="pt-28 pb-20 grow z-10 relative">
         {/* Ambient background glows */}
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 dark:bg-primary/10 rounded-full blur-[180px] pointer-events-none" />
-        <div className="absolute top-96 right-10 w-[400px] h-[300px] bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-200 h-100 bg-primary/5 dark:bg-primary/10 rounded-full blur-[180px] pointer-events-none" />
+        <div className="absolute top-96 right-10 w-100 h-75 bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="max-w-5xl mx-auto px-6 py-8">
           {/* Visual Breadcrumb Trail */}
@@ -158,7 +158,7 @@ export default async function IndustryDetailPage({ params }: IndustryDetailPageP
               className="object-cover"
               sizes="(max-width: 1200px) 100vw, 1200px"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/40 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
               <span className="text-xs font-mono text-slate-200 bg-slate-900/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-700">
                 {industry.statusText}
@@ -260,7 +260,7 @@ export default async function IndustryDetailPage({ params }: IndustryDetailPageP
           )}
 
           {/* Consultation CTA Banner: Intentional Next Step */}
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-950/80 via-slate-900 to-slate-950 border border-blue-500/30 p-8 sm:p-12 text-center my-12 shadow-2xl">
+          <div className="relative overflow-hidden rounded-3xl bg-linear-to-br from-blue-950/80 via-slate-900 to-slate-950 border border-blue-500/30 p-8 sm:p-12 text-center my-12 shadow-2xl">
             <div className="relative z-10 max-w-2xl mx-auto space-y-4">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20 uppercase tracking-wider">
                 <Sparkles className="h-3.5 w-3.5" />

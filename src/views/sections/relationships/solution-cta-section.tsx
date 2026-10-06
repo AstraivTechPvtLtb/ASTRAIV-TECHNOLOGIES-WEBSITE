@@ -23,14 +23,14 @@ export function SolutionCTASection({
 
   return (
     <section className="my-16 sm:my-20">
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-950/90 via-slate-900 to-slate-950 border border-indigo-500/30 p-8 sm:p-14 text-center shadow-2xl">
+      <div className="relative overflow-hidden rounded-3xl bg-linear-to-br from-indigo-950/90 via-slate-900 to-slate-950 border border-indigo-500/30 p-8 sm:p-14 text-center shadow-2xl">
         {/* Glow accents */}
         <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-2xl mx-auto space-y-4">
 
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-[-0.025em] leading-[1.15]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight leading-[1.15]">
             {title}
           </h2>
 

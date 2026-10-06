@@ -62,7 +62,7 @@ export function CareersConfirmationView() {
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            className="w-20 h-20 rounded-3xl bg-gradient-to-br from-primary to-cyan-500 p-0.5 shadow-xl shadow-primary/25 mb-6 flex items-center justify-center text-white"
+            className="w-20 h-20 rounded-3xl bg-linear-to-br from-primary to-cyan-500 p-0.5 shadow-xl shadow-primary/25 mb-6 flex items-center justify-center text-white"
           >
             <div className="w-full h-full rounded-[22px] bg-slate-950/20 flex items-center justify-center backdrop-blur-sm">
               <CheckCircle2 className="w-10 h-10 text-white" />

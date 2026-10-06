@@ -252,7 +252,7 @@ export function SolutionsView() {
       {/* 1. PAGE HEADER */}
       <section className="pt-28 pb-6 md:pt-36 md:pb-8 px-6 max-w-7xl mx-auto w-full">
         <div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground font-heading tracking-[-0.025em] leading-[1.12]">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground font-heading tracking-tight leading-[1.12]">
             Enterprise <span className="heading-gradient">Solutions</span>
           </h1>
           <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-2 max-w-3xl">
@@ -263,7 +263,7 @@ export function SolutionsView() {
 
       {/* 2. FEATURED SHOWCASE BANNER ("Engineered for Impact.") */}
       <section className="px-6 mb-8 max-w-7xl mx-auto w-full">
-        <div className="relative overflow-hidden rounded-3xl border border-primary/25 dark:border-blue-600/30 bg-gradient-to-br from-blue-50/70 via-indigo-50/40 to-blue-50/50 dark:from-slate-900/95 dark:via-slate-900/90 dark:to-blue-950/40 p-8 sm:p-12 shadow-md">
+        <div className="relative overflow-hidden rounded-3xl border border-primary/25 dark:border-blue-600/30 bg-linear-to-br from-blue-50/70 via-indigo-50/40 to-blue-50/50 dark:from-slate-900/95 dark:via-slate-900/90 dark:to-blue-950/40 p-8 sm:p-12 shadow-md">
           {/* Subtle decoration lines */}
           <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-primary/10 dark:bg-blue-600/10 blur-3xl pointer-events-none" />
           <div className="absolute -left-16 -bottom-16 h-64 w-64 rounded-full bg-secondary/10 dark:bg-blue-600/10 blur-3xl pointer-events-none" />
@@ -271,7 +271,7 @@ export function SolutionsView() {
           <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             <div className="flex flex-col gap-3 max-w-2xl text-left">
 
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground font-heading tracking-[-0.025em] leading-[1.15]">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground font-heading tracking-tight leading-[1.15]">
                 Engineered for <span className="heading-gradient">Impact.</span>
               </h2>
               <p className="text-sm sm:text-base text-muted-foreground leading-[1.62] font-normal">
@@ -347,7 +347,7 @@ export function SolutionsView() {
                     CATEGORY 01
                   </span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.025em] leading-[1.15]">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white font-heading tracking-tight leading-[1.15]">
                   Intelligent Systems
                 </h2>
                 <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] max-w-3xl">
@@ -382,7 +382,7 @@ export function SolutionsView() {
                     CATEGORY 02
                   </span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.025em] leading-[1.15]">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white font-heading tracking-tight leading-[1.15]">
                   Digital Products
                 </h2>
                 <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] max-w-3xl">
@@ -416,7 +416,7 @@ export function SolutionsView() {
                     CATEGORY 03
                   </span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.025em] leading-[1.15]">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white font-heading tracking-tight leading-[1.15]">
                   Engineering Transformation
                 </h2>
                 <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] max-w-3xl">
@@ -441,7 +441,7 @@ export function SolutionsView() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col gap-3 text-center max-w-3xl mx-auto mb-16">
 
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-[-0.025em] leading-[1.12] text-foreground font-heading">
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.12] text-foreground font-heading">
               How Astraiv Delivers <span className="heading-gradient">High-Stakes Solutions</span>
             </h2>
             <p className="text-base text-muted-foreground leading-[1.62] font-normal">
@@ -500,10 +500,10 @@ export function SolutionsView() {
 
       {/* 5. ENTERPRISE CONSULTATION CTA */}
       <section className="py-20 md:py-28 px-6 max-w-5xl mx-auto w-full text-center">
-        <div className="relative overflow-hidden rounded-3xl border border-primary/20 dark:border-slate-700/80 bg-gradient-to-b from-card via-card to-primary/5 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/30 p-10 sm:p-16 shadow-lg">
+        <div className="relative overflow-hidden rounded-3xl border border-primary/20 dark:border-slate-700/80 bg-linear-to-b from-card via-card to-primary/5 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/30 p-10 sm:p-16 shadow-lg">
           <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading text-slate-900 dark:text-white tracking-[-0.025em] leading-[1.12]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading text-slate-900 dark:text-white tracking-tight leading-[1.12]">
               Let&apos;s Solve Your Enterprise Bottlenecks
             </h2>
             <p className="text-sm sm:text-base text-muted-foreground leading-[1.62] font-normal">
@@ -541,7 +541,7 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
   return (
     <div
       id={solution.id}
-      className="group scroll-mt-32 p-7 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs hover:shadow-xl hover:border-primary/40 dark:hover:border-accent/40 transition-all duration-300 flex flex-col justify-between text-left relative overflow-hidden h-full min-h-[825px]"
+      className="group scroll-mt-32 p-7 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs hover:shadow-xl hover:border-primary/40 dark:hover:border-accent/40 transition-all duration-300 flex flex-col justify-between text-left relative overflow-hidden h-full min-h-206.25"
     >
       {/* Secondary alias anchor points for legacy routes and navigation links */}
       {solution.id === 'ai-business-automation' && (
@@ -575,7 +575,7 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
         <div className="flex items-center justify-between mb-5">
           <div
             className={cn(
-              'flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br border shrink-0 group-hover:scale-105 transition-transform duration-300',
+              'flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br border shrink-0 group-hover:scale-105 transition-transform duration-300',
               solution.iconBg
             )}
           >
@@ -588,24 +588,24 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
         </div>
 
         {/* Title */}
-        <h3 className="text-xl sm:text-2xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.015em] mb-2 group-hover:text-primary dark:group-hover:text-accent transition-colors min-h-[60px] flex items-center">
+        <h3 className="text-xl sm:text-2xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.015em] mb-2 group-hover:text-primary dark:group-hover:text-accent transition-colors min-h-15 flex items-center">
           <Link href={`/solutions/${solution.id}`}>
             {solution.title}
           </Link>
         </h3>
 
         {/* Tagline (original dropdown copy) */}
-        <p className="text-xs sm:text-sm font-medium text-primary dark:text-blue-400 mb-3 min-h-[42px] flex items-center">
+        <p className="text-xs sm:text-sm font-medium text-primary dark:text-blue-400 mb-3 min-h-10.5 flex items-center">
           {solution.tagline}
         </p>
 
         {/* Detailed Description */}
-        <p className="text-xs sm:text-sm text-muted-foreground leading-[1.62] mb-6 font-normal min-h-[84px]">
+        <p className="text-xs sm:text-sm text-muted-foreground leading-[1.62] mb-6 font-normal min-h-21">
           {solution.description}
         </p>
 
         {/* Metric Highlight Box */}
-        <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-border/60 dark:border-slate-800/80 mb-6 flex items-center gap-3.5 min-h-[70px]">
+        <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-border/60 dark:border-slate-800/80 mb-6 flex items-center gap-3.5 min-h-17.5">
           <span className="text-xl sm:text-2xl font-semibold font-heading tracking-[-0.02em] text-slate-900 dark:text-white shrink-0">
             {solution.metric.value}
           </span>
@@ -630,7 +630,7 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
 
       <div className="mt-auto">
         {/* Technologies Stack Tags */}
-        <div className="pt-4 border-t border-border/50 dark:border-slate-800/80 mb-5 min-h-[64px] flex items-center">
+        <div className="pt-4 border-t border-border/50 dark:border-slate-800/80 mb-5 min-h-16 flex items-center">
           <div className="flex flex-wrap gap-1.5">
             {solution.technologies.map((tech) => (
               <span

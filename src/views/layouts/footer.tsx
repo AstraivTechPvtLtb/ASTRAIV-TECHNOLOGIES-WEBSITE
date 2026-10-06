@@ -107,13 +107,13 @@ export async function Footer() {
         {/* Link columns with aligned headers & uniform line height */}
         {columns.map((column, index) => (
           <div key={index} className="flex flex-col text-left">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-200 mb-3.5 min-h-[20px] flex items-center">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-200 mb-3.5 min-h-5 flex items-center">
               {column.title}
             </h3>
             <ul className="flex flex-col gap-1">
               {column.links.map((link, linkIndex) => (
                 <li key={linkIndex}>
-                  <Link href={link.href} className="text-xs sm:text-sm text-slate-300 hover:text-white transition-colors py-0.5 inline-flex items-center min-h-[26px] font-normal">
+                  <Link href={link.href} className="text-xs sm:text-sm text-slate-300 hover:text-white transition-colors py-0.5 inline-flex items-center min-h-6.5 font-normal">
                     {link.label}
                   </Link>
                 </li>
@@ -124,7 +124,7 @@ export async function Footer() {
 
         {/* Support contacts */}
         <div className="flex flex-col text-left">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-200 mb-3.5 min-h-[20px] flex items-center">
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-200 mb-3.5 min-h-5 flex items-center">
             Contact Us
           </h3>
           <div className="flex flex-col gap-3">
@@ -178,7 +178,7 @@ export async function Footer() {
                 <span className="text-[10.5px] font-medium uppercase tracking-wider text-slate-300 group-hover:text-white transition-colors">
                   Address
                 </span>
-                <span className="text-xs lg:text-[13px] text-slate-300 group-hover:text-white transition-colors font-normal break-words">
+                <span className="text-xs lg:text-[13px] text-slate-300 group-hover:text-white transition-colors font-normal wrap-break-word">
                   {footerData.address}
                 </span>
               </div>
@@ -194,10 +194,10 @@ export async function Footer() {
         </p>
 
         <div className="flex items-center gap-6">
-          <Link href={ROUTES.PUBLIC.PRIVACY} className="text-slate-400 hover:text-slate-200 transition-colors py-1 inline-flex items-center min-h-[28px]">
+          <Link href={ROUTES.PUBLIC.PRIVACY} className="text-slate-400 hover:text-slate-200 transition-colors py-1 inline-flex items-center min-h-7">
             Privacy Policy
           </Link>
-          <Link href={ROUTES.PUBLIC.TERMS} className="text-slate-400 hover:text-slate-200 transition-colors py-1 inline-flex items-center min-h-[28px]">
+          <Link href={ROUTES.PUBLIC.TERMS} className="text-slate-400 hover:text-slate-200 transition-colors py-1 inline-flex items-center min-h-7">
             Terms of Service
           </Link>
         </div>

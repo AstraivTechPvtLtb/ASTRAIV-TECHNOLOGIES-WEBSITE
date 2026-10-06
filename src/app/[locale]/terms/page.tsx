@@ -54,9 +54,9 @@ export default async function TermsPage({ params }: TermsPageProps) {
       />
       <Navbar />
 
-      <main className="pt-28 pb-20 flex-grow z-10 relative">
+      <main className="pt-28 pb-20 grow z-10 relative">
         {/* Background ambient lighting */}
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-primary/10 rounded-full blur-[160px] pointer-events-none" />
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-200 h-87.5 bg-primary/10 rounded-full blur-[160px] pointer-events-none" />
 
         <div className="max-w-4xl mx-auto px-6 py-6 text-left">
           {/* Header */}
@@ -65,7 +65,7 @@ export default async function TermsPage({ params }: TermsPageProps) {
               <Scale className="h-3.5 w-3.5" />
               <span>Commercial & Legal Framework</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-[-0.025em] font-heading mb-3">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight font-heading mb-3">
               Terms of <span className="heading-gradient">Service</span>
             </h1>
             <p className="text-sm sm:text-base text-muted-foreground font-normal leading-relaxed">

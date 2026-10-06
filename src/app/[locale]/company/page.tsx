@@ -175,14 +175,14 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
       {/* Global Navigation */}
       <Navbar />
 
-      <main className="flex-grow z-10 relative">
+      <main className="grow z-10 relative">
         {/* 1. About Us: Mission & Philosophy */}
         <section
           id="about"
           className="pt-28 pb-16 md:pt-36 md:pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center text-center scroll-mt-24 relative"
         >
           {/* Ambient Lighting */}
-          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-primary/10 rounded-full blur-[140px] pointer-events-none" />
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-175 h-75 bg-primary/10 rounded-full blur-[140px] pointer-events-none" />
 
           {/* Quick Jump Navigation Pill */}
           <div className="flex flex-wrap items-center justify-center gap-2 max-w-5xl p-1.5 bg-card/80 dark:bg-slate-900/80 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-2xl shadow-xs mb-10">
@@ -556,7 +556,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
           className="py-20 md:py-28 px-6 bg-background border-t border-border/30 dark:border-slate-800/60 relative scroll-mt-24"
         >
           <div className="max-w-6xl mx-auto text-left">
-            <div className="p-8 sm:p-14 rounded-3xl bg-gradient-to-br from-card via-card/90 to-primary/10 border border-border/80 dark:border-slate-800 shadow-md flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+            <div className="p-8 sm:p-14 rounded-3xl bg-linear-to-br from-card via-card/90 to-primary/10 border border-border/80 dark:border-slate-800 shadow-md flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
               <div className="max-w-2xl space-y-4">
 
 

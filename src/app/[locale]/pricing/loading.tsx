@@ -3,7 +3,7 @@ import { Skeleton } from '@/views/ui/skeleton';
 export default function PricingLoading() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col justify-between" aria-busy="true">
-      <main className="flex-grow z-10 relative pt-24 md:pt-32 pb-20">
+      <main className="grow z-10 relative pt-24 md:pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb skeleton */}
           <div className="flex items-center gap-2 mb-8">

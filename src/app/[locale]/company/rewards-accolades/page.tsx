@@ -113,9 +113,9 @@ export default async function RewardsAccoladesPage({ params }: RewardsAccoladesP
       {/* Global Navigation Header */}
       <Navbar />
 
-      <main className="flex-grow z-10 relative">
+      <main className="grow z-10 relative">
         {/* Subtle Background Glow Elements */}
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[1000px] h-[350px] bg-primary/[0.04] dark:bg-cyan-500/[0.04] rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-250 h-87.5 bg-primary/4 dark:bg-cyan-500/4 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 md:pt-36 md:pb-28">
           {/* Breadcrumbs */}
@@ -224,7 +224,7 @@ export default async function RewardsAccoladesPage({ params }: RewardsAccoladesP
 
           {/* Bottom Conversion & Scoping Section */}
           <div className="mt-20 p-8 sm:p-12 rounded-3xl bg-slate-950 border border-slate-800/90 text-center relative overflow-hidden shadow-2xl">
-            <div className="absolute inset-0 bg-radial from-cyan-500/[0.06] via-transparent to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-radial from-cyan-500/6 via-transparent to-transparent pointer-events-none" />
             <div className="relative z-10 max-w-2xl mx-auto">
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400 mb-3 block">
                 Technical Governance In Practice

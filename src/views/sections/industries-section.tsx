@@ -97,7 +97,7 @@ export function IndustriesSection() {
   return (
     <section id="industries" className="py-20 md:py-28 px-4 sm:px-6 bg-transparent relative scroll-mt-24 overflow-hidden">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/3 right-1/4 w-[700px] h-[400px] bg-primary/5 dark:bg-blue-600/5 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-175 h-100 bg-primary/5 dark:bg-blue-600/5 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader
@@ -138,7 +138,7 @@ export function IndustriesSection() {
               className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 p-5 sm:p-8 md:p-10 items-center text-left"
             >
               {/* Left Column: High-Resolution Visual Picture */}
-              <div className="lg:col-span-6 relative w-full h-[260px] sm:h-[340px] md:h-[380px] rounded-2xl overflow-hidden shadow-inner group/img border border-border/50 dark:border-slate-800/80 bg-slate-950">
+              <div className="lg:col-span-6 relative w-full h-65 sm:h-85 md:h-95 rounded-2xl overflow-hidden shadow-inner group/img border border-border/50 dark:border-slate-800/80 bg-slate-950">
                 <Image
                   src={industries[activeTab].imageSrc}
                   alt={industries[activeTab].title}
@@ -147,7 +147,7 @@ export function IndustriesSection() {
                   className="object-cover transition-transform duration-500 ease-out group-hover/img:scale-[1.03] will-change-transform"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/20" />
+                <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-slate-950/20" />
                 
                 {/* Visual Overlay Tag */}
                 <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 flex flex-wrap items-center justify-between gap-2 text-white text-xs">
@@ -204,7 +204,7 @@ export function IndustriesSection() {
                 <div className="pt-2 flex items-center justify-between">
                   <Link
                     href={ROUTES.PUBLIC.INDUSTRY_DETAIL(industries[activeTab].id)}
-                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group min-h-[28px] py-1"
+                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group min-h-7 py-1"
                   >
                     <span>Explore {industries[activeTab].label} Solutions</span>
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />

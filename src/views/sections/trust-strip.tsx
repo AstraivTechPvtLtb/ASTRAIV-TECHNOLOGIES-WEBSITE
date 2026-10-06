@@ -110,7 +110,7 @@ function AccoladeMiniCard({
     <div
       className={cn(
         'group/card relative shrink-0 flex items-center gap-2.5 sm:gap-3.5 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl text-left',
-        'bg-slate-50/80 dark:bg-slate-800/40 border border-slate-200/80 dark:border-white/[0.08]',
+        'bg-slate-50/80 dark:bg-slate-800/40 border border-slate-200/80 dark:border-white/8',
         'hover:border-primary/50 dark:hover:border-blue-400/50 hover:bg-white dark:hover:bg-slate-800/75',
         'shadow-[0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)]',
         'hover:-translate-y-0.5 hover:shadow-card transition-all duration-200 ease-out select-none cursor-pointer'
@@ -118,7 +118,7 @@ function AccoladeMiniCard({
       title={`${item.title} — Hover or tap to view verified audit details`}
     >
       {/* Icon Badge */}
-      <div className="flex h-8 w-8 sm:h-8.5 sm:w-8.5 shrink-0 items-center justify-center rounded-lg bg-slate-100/90 dark:bg-slate-900/60 border border-slate-200/70 dark:border-white/[0.08] group-hover/card:border-primary/30 dark:group-hover/card:border-blue-400/30 transition-colors">
+      <div className="flex h-8 w-8 sm:h-8.5 sm:w-8.5 shrink-0 items-center justify-center rounded-lg bg-slate-100/90 dark:bg-slate-900/60 border border-slate-200/70 dark:border-white/8 group-hover/card:border-primary/30 dark:group-hover/card:border-blue-400/30 transition-colors">
         {renderBadgeIcon(item.icon, 'sm')}
       </div>
 
@@ -129,7 +129,7 @@ function AccoladeMiniCard({
             {item.title}
           </span>
           {item.statusLabel && (
-            <span className="text-[9px] font-mono font-medium px-1.5 py-0.2 rounded-md bg-slate-200/60 dark:bg-white/[0.06] text-muted-foreground whitespace-nowrap">
+            <span className="text-[9px] font-mono font-medium px-1.5 py-0.2 rounded-md bg-slate-200/60 dark:bg-white/6 text-muted-foreground whitespace-nowrap">
               {item.statusLabel}
             </span>
           )}
@@ -253,12 +253,12 @@ function AccoladeDetailModal({
         >
           {/* Layer 1: Ambient Outer Glow Halo matching Astraiv UI palette (#2563eb, #38bdf8, #818cf8) */}
           <div
-            className="pointer-events-none absolute -inset-2 rounded-[28px] bg-gradient-to-r from-blue-600 via-sky-400 to-indigo-500 opacity-45 dark:opacity-65 blur-2xl animate-modal-glow-pulse -z-10 transition-opacity duration-300"
+            className="pointer-events-none absolute -inset-2 rounded-[28px] bg-linear-to-r from-blue-600 via-sky-400 to-indigo-500 opacity-45 dark:opacity-65 blur-2xl animate-modal-glow-pulse -z-10 transition-opacity duration-300"
             aria-hidden="true"
           />
 
           {/* Layer 2: Glowing Border Frame with Broad 2.5px-3px Border and Circulating Light Effect (top -> right -> down -> left -> up) */}
-          <div className="relative rounded-[20px] p-[2.5px] sm:p-[3px] overflow-hidden bg-slate-200/90 dark:bg-slate-800/90 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)]">
+          <div className="relative rounded-[20px] p-[2.5px] sm:p-0.75 overflow-hidden bg-slate-200/90 dark:bg-slate-800/90 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)]">
             {/* Circulating Light Effect rounding the rectangle clockwise */}
             <div
               className="pointer-events-none absolute top-1/2 left-1/2 w-[350%] h-[350%] -translate-x-1/2 -translate-y-1/2 animate-modal-border-spin motion-reduce:hidden"
@@ -271,7 +271,7 @@ function AccoladeDetailModal({
 
             {/* Accessible static fallback for reduced-motion */}
             <div
-              className="hidden motion-reduce:block pointer-events-none absolute inset-0 bg-gradient-to-r from-blue-600 via-sky-400 to-indigo-500"
+              className="hidden motion-reduce:block pointer-events-none absolute inset-0 bg-linear-to-r from-blue-600 via-sky-400 to-indigo-500"
               aria-hidden="true"
             />
 
@@ -286,7 +286,7 @@ function AccoladeDetailModal({
               </div>
 
               {/* Top Header Bar: Category Chip & Status Badge (Cross button removed as requested) */}
-              <div className="flex items-center gap-2 flex-wrap pb-4 border-b border-slate-200/80 dark:border-white/[0.08]">
+              <div className="flex items-center gap-2 flex-wrap pb-4 border-b border-slate-200/80 dark:border-white/8">
                 {item.category && (
                   <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-300 px-2.5 py-0.5 rounded-md bg-primary/10 dark:bg-blue-500/10 border border-primary/20 dark:border-blue-400/25">
                     {item.category}
@@ -327,7 +327,7 @@ function AccoladeDetailModal({
 
               {/* Key Highlights / Audit Verification Controls */}
               {item.highlights && item.highlights.length > 0 && (
-                <div className="mt-4 pt-4 border-t border-slate-200/60 dark:border-white/[0.06]">
+                <div className="mt-4 pt-4 border-t border-slate-200/60 dark:border-white/6">
                   <h4 className="text-[10.5px] font-mono font-semibold uppercase tracking-wider text-muted-foreground mb-2.5">
                     Verified Technical Benchmarks & Scope
                   </h4>
@@ -347,7 +347,7 @@ function AccoladeDetailModal({
 
               {/* Verified Achievement / Impact Callout */}
               {item.achievement && (
-                <div className="mt-4 p-3 rounded-xl bg-primary/[0.04] dark:bg-blue-500/[0.06] border border-primary/15 dark:border-blue-400/20 flex items-start gap-2.5">
+                <div className="mt-4 p-3 rounded-xl bg-primary/4 dark:bg-blue-500/6 border border-primary/15 dark:border-blue-400/20 flex items-start gap-2.5">
                   <ShieldCheck className="h-4 w-4 text-primary dark:text-blue-400 shrink-0 mt-0.5" aria-hidden="true" />
                   <div className="flex flex-col">
                     <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-primary dark:text-blue-300">
@@ -361,7 +361,7 @@ function AccoladeDetailModal({
               )}
 
               {/* Action Footer */}
-              <div className="mt-6 pt-4 border-t border-slate-200/80 dark:border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="mt-6 pt-4 border-t border-slate-200/80 dark:border-white/8 flex flex-col sm:flex-row items-center justify-between gap-3">
                 <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
                   <span className="h-1.5 w-1.5 rounded-full bg-primary dark:bg-cyan-400" />
                   <span>Continuous Production Verification</span>
@@ -653,7 +653,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
             className="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-2xl"
             aria-hidden="true"
           >
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-full bg-blue-500/[0.03] dark:bg-blue-500/[0.04] blur-2xl" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-full bg-blue-500/3 dark:bg-blue-500/4 blur-2xl" />
           </div>
 
           <div className="flex flex-col lg:flex-row items-center justify-between gap-3.5 lg:gap-4">
@@ -675,7 +675,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
                       aria-label="Verified Status Active"
                       title="Active Verified Compliance"
                     >
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary dark:bg-cyan-400 opacity-30 [animation-duration:3.5s]" />
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary dark:bg-cyan-400 opacity-30 animation-duration-[3.5s]" />
                       <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary dark:bg-cyan-400" />
                     </span>
                   </div>
@@ -689,7 +689,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
               <div className="hidden sm:block lg:hidden shrink-0">
                 <Link
                   href={ROUTES.PUBLIC.REWARDS_ACCOLADES}
-                  className="group/cta inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-primary dark:text-blue-300 bg-primary/[0.06] dark:bg-blue-500/[0.08] hover:bg-primary/[0.12] dark:hover:bg-blue-500/[0.16] border border-primary/20 dark:border-blue-400/25 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-200"
+                  className="group/cta inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-primary dark:text-blue-300 bg-primary/6 dark:bg-blue-500/8 hover:bg-primary/12 dark:hover:bg-blue-500/16 border border-primary/20 dark:border-blue-400/25 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-200"
                 >
                   <span>View All Accolades</span>
                   <ArrowRight
@@ -708,7 +708,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
 
             {/* Center: Infinite Continuous Auto-Scrolling Accolade Marquee */}
             <div
-              className="accolade-marquee-viewport relative flex-1 min-w-0 w-full lg:w-auto overflow-hidden py-1 motion-reduce:overflow-x-auto no-scrollbar [mask-image:linear-gradient(to_right,transparent_0%,black_24px,black_calc(100%-24px),transparent_100%)] sm:[mask-image:linear-gradient(to_right,transparent_0%,black_36px,black_calc(100%-36px),transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_24px,black_calc(100%-24px),transparent_100%)] sm:[-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_36px,black_calc(100%-36px),transparent_100%)]"
+              className="accolade-marquee-viewport relative flex-1 min-w-0 w-full lg:w-auto overflow-hidden py-1 motion-reduce:overflow-x-auto no-scrollbar mask-[linear-gradient(to_right,transparent_0%,black_24px,black_calc(100%-24px),transparent_100%)] sm:mask-[linear-gradient(to_right,transparent_0%,black_36px,black_calc(100%-36px),transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_24px,black_calc(100%-24px),transparent_100%)] sm:[-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_36px,black_calc(100%-36px),transparent_100%)]"
               role="region"
               aria-label="Audited Standards and Accolades marquee"
               data-paused={isCardOpen}
@@ -718,7 +718,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
                 <div
                   className={cn(
                     'marquee-group flex shrink-0 items-center gap-3 pr-3 animate-accolade-marquee motion-reduce:animate-none',
-                    isCardOpen && '[animation-play-state:paused!important]'
+                    isCardOpen && 'play-state-[paused!important]'
                   )}
                   style={isCardOpen ? { animationPlayState: 'paused' } : undefined}
                 >
@@ -737,7 +737,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
                 <div
                   className={cn(
                     'marquee-group flex shrink-0 items-center gap-3 pr-3 animate-accolade-marquee motion-reduce:hidden',
-                    isCardOpen && '[animation-play-state:paused!important]'
+                    isCardOpen && 'play-state-[paused!important]'
                   )}
                   style={isCardOpen ? { animationPlayState: 'paused' } : undefined}
                   aria-hidden="true"
@@ -766,7 +766,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
             <div className="hidden lg:block shrink-0">
               <Link
                 href={ROUTES.PUBLIC.REWARDS_ACCOLADES}
-                className="group/cta inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-primary dark:text-blue-300 bg-primary/[0.06] dark:bg-blue-500/[0.08] hover:bg-primary/[0.12] dark:hover:bg-blue-500/[0.16] border border-primary/20 dark:border-blue-400/25 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-200"
+                className="group/cta inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-primary dark:text-blue-300 bg-primary/6 dark:bg-blue-500/8 hover:bg-primary/12 dark:hover:bg-blue-500/16 border border-primary/20 dark:border-blue-400/25 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-200"
               >
                 <span className="whitespace-nowrap">View All Accolades</span>
                 <ArrowRight
@@ -780,7 +780,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
             <div className="w-full sm:hidden pt-0.5 flex justify-center">
               <Link
                 href={ROUTES.PUBLIC.REWARDS_ACCOLADES}
-                className="group/cta w-full flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-primary dark:text-blue-300 bg-primary/[0.06] dark:bg-blue-500/[0.08] hover:bg-primary/[0.12] dark:hover:bg-blue-500/[0.16] border border-primary/20 dark:border-blue-400/25 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-200"
+                className="group/cta w-full flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-primary dark:text-blue-300 bg-primary/6 dark:bg-blue-500/8 hover:bg-primary/12 dark:hover:bg-blue-500/16 border border-primary/20 dark:border-blue-400/25 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-200"
               >
                 <span>View All Accolades</span>
                 <ArrowRight

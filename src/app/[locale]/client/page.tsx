@@ -101,10 +101,10 @@ export default async function ClientPortalPage({ params }: ClientPortalPageProps
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground flex flex-col justify-between relative overflow-hidden transition-colors">
       <Navbar />
 
-      <main className="pt-28 pb-20 flex-grow z-10 relative">
+      <main className="pt-28 pb-20 grow z-10 relative">
         {/* Ambient lighting glows */}
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[850px] h-[400px] bg-primary/5 dark:bg-primary/10 rounded-full blur-[180px] pointer-events-none" />
-        <div className="absolute top-96 right-10 w-[400px] h-[300px] bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-212.5 h-100 bg-primary/5 dark:bg-primary/10 rounded-full blur-[180px] pointer-events-none" />
+        <div className="absolute top-96 right-10 w-100 h-75 bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="max-w-6xl mx-auto px-6 py-8">
           {/* Hero Billboard */}
@@ -210,7 +210,7 @@ export default async function ClientPortalPage({ params }: ClientPortalPageProps
           </div>
 
           {/* Assistance & Non-Client Callout */}
-          <div className="p-8 rounded-3xl bg-gradient-to-br from-card via-card to-muted/40 dark:from-slate-900/90 dark:via-slate-900 dark:to-slate-950 border border-border/80 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left transition-colors">
+          <div className="p-8 rounded-3xl bg-linear-to-br from-card via-card to-muted/40 dark:from-slate-900/90 dark:via-slate-900 dark:to-slate-950 border border-border/80 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left transition-colors">
             <div className="max-w-xl">
               <h4 className="text-base font-bold text-foreground mb-1">
                 Need Client Portal Access or Technical Support?

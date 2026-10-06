@@ -3,7 +3,7 @@ import { Skeleton } from '@/views/ui/skeleton';
 export default function ArticleDetailLoading() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col justify-between" aria-busy="true">
-      <main className="flex-grow z-10 relative pt-24 md:pt-32 pb-24">
+      <main className="grow z-10 relative pt-24 md:pt-32 pb-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb skeleton */}
           <div className="flex items-center gap-2 mb-8">
@@ -34,7 +34,7 @@ export default function ArticleDetailLoading() {
           </div>
 
           {/* Featured Cover Media Skeleton (Matches actual 21:9 / 16:9 ratio container) */}
-          <div className="w-full h-[260px] sm:h-[380px] md:h-[460px] rounded-3xl overflow-hidden bg-slate-200/80 dark:bg-slate-800/60 mb-12">
+          <div className="w-full h-65 sm:h-[380px] md:h-115 rounded-3xl overflow-hidden bg-slate-200/80 dark:bg-slate-800/60 mb-12">
             <Skeleton className="w-full h-full rounded-none" />
           </div>
 

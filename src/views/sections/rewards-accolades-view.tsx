@@ -100,7 +100,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
         className="group relative flex flex-col justify-between rounded-2xl bg-card/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 p-6 sm:p-7 shadow-card hover:shadow-card-hover hover:border-primary/40 transition-all duration-300"
       >
         {/* Glow ambient background on hover */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/[0.04] rounded-full blur-2xl pointer-events-none group-hover:bg-primary/[0.08] transition-colors" />
+        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/4 rounded-full blur-2xl pointer-events-none group-hover:bg-primary/8 transition-colors" />
 
         <div>
           {/* Top Row: Category Badge + Status Badge */}

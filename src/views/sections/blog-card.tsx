@@ -34,7 +34,7 @@ export function BlogCard({
             className="object-cover transition-transform duration-500 group-hover:scale-103"
           />
         ) : (
-          <div className="h-full w-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center text-muted-foreground text-sm font-semibold">
+          <div className="h-full w-full bg-linear-to-br from-primary/10 to-primary/5 flex items-center justify-center text-muted-foreground text-sm font-semibold">
             Astraiv Tech Insights
           </div>
         )}
