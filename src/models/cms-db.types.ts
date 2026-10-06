@@ -200,6 +200,18 @@ export interface DbFaqItem {
   updatedAt: Date;
 }
 
+export interface DbPageContent {
+  id: string;
+  pageKey: string;
+  title: string;
+  sections: unknown;
+  metaTitle: string | null;
+  metaDescription: string | null;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface CmsDbClient {
   serviceItem: {
     findMany(args?: {
@@ -265,5 +277,10 @@ export interface CmsDbClient {
       where?: { status?: string; category?: string };
       orderBy?: { orderIndex?: 'asc' | 'desc' };
     }): Promise<DbFaqItem[]>;
+  };
+  pageContent: {
+    findUnique(args: {
+      where: { pageKey: string };
+    }): Promise<DbPageContent | null>;
   };
 }

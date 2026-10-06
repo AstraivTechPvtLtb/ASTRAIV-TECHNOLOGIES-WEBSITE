@@ -1127,3 +1127,53 @@ export function generateCmsMetadata({
     type,
   });
 }
+
+/* ========================================================================== */
+/* 11. STANDALONE STATIC PAGE SECTIONS CONTENT (HOMEPAGE, COMPANY, PROCESS)   */
+/* ========================================================================== */
+
+export interface PublicPageContent {
+  id: string;
+  pageKey: string;
+  title: string;
+  sections: Record<string, unknown>;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  status: string;
+}
+
+/**
+ * Retrieves custom page content (headlines, hero text, CTAs) from the database with seamless fallback.
+ */
+export async function getPublicPageContent(pageKey: string): Promise<PublicPageContent | null> {
+  if (disabledEntities.has('page_contents')) {
+    return null;
+  }
+
+  try {
+    const row = await cmsDb.pageContent.findUnique({
+      where: { pageKey },
+    });
+
+    if (!row || row.status === 'draft') return null;
+
+    const sections =
+      typeof row.sections === 'string'
+        ? JSON.parse(row.sections)
+        : (row.sections as Record<string, unknown>) || {};
+
+    return {
+      id: row.id,
+      pageKey: row.pageKey,
+      title: row.title,
+      sections,
+      metaTitle: row.metaTitle,
+      metaDescription: row.metaDescription,
+      status: row.status,
+    };
+  } catch (err: unknown) {
+    handlePrismaError('page_contents', err, `getPublicPageContent(${pageKey})`);
+    return null;
+  }
+}
+

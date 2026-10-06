@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getPublicActiveServices } from '@/controllers/services.controller';
 import { getFeaturedTestimonials, getPublicComplianceSettings } from '@/controllers/public-data.controller';
+import { getPublicPageContent } from '@/controllers/cms.controller';
 import { ROUTES } from '@/routes';
 import { createPageMetadata, getWebSiteJsonLd } from '@/lib/seo';
 import { Navbar } from '@/views/layouts/navbar';
@@ -48,13 +49,22 @@ export default async function HomePage({ params }: HomePageProps) {
   // Set the request locale for server caching
   setRequestLocale(locale);
 
-  // Load language bundles, active services, selected/featured approved testimonials (3 items), and compliance/ISO settings
-  const [t, services, reviews, complianceSettings] = await Promise.all([
+  // Load language bundles, active services, selected/featured approved testimonials (3 items), compliance/ISO settings, and dynamic homepage content
+  const [t, services, reviews, complianceSettings, dynamicPage] = await Promise.all([
     getTranslations('Home'),
     getPublicActiveServices(),
     getFeaturedTestimonials(3),
     getPublicComplianceSettings(),
+    getPublicPageContent('homepage'),
   ]);
+
+  const sec = (dynamicPage?.sections as Record<string, string>) || {};
+  const headline = sec.heroHeadline?.trim() || t('heroHeadline');
+  const subheadline = sec.heroSubheadline?.trim() || t('heroSubheadline');
+  const ctaText = sec.primaryCtaText?.trim() || 'Start a Project';
+  const ctaHref = sec.primaryCtaUrl?.trim() || ROUTES.PUBLIC.START_PROJECT;
+  const secondaryCtaText = sec.secondaryCtaText?.trim() || 'Explore Case Studies';
+  const secondaryCtaHref = sec.secondaryCtaUrl?.trim() || ROUTES.PUBLIC.CASE_STUDIES;
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground relative overflow-x-hidden">
@@ -68,12 +78,12 @@ export default async function HomePage({ params }: HomePageProps) {
       <main id="main-content" className="flex-1 w-full overflow-x-hidden">
         {/* 1. HERO */}
         <HeroSection
-          headline={t('heroHeadline')}
-          subheadline={t('heroSubheadline')}
-          ctaText="Start a Project"
-          ctaHref={ROUTES.PUBLIC.START_PROJECT}
-          secondaryCtaText="Explore Case Studies"
-          secondaryCtaHref={ROUTES.PUBLIC.CASE_STUDIES}
+          headline={headline}
+          subheadline={subheadline}
+          ctaText={ctaText}
+          ctaHref={ctaHref}
+          secondaryCtaText={secondaryCtaText}
+          secondaryCtaHref={secondaryCtaHref}
         />
 
         {/* 2. TRUST / REWARDS & ACCOLADES */}
