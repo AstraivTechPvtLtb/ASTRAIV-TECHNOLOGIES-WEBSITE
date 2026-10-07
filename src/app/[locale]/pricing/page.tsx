@@ -2,12 +2,13 @@ import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 import { Navbar } from '@/views/layouts/navbar';
 import { Footer } from '@/views/layouts/footer';
 import { PricingSection } from '@/views/sections/pricing-section';
 import { FaqSection } from '@/views/sections/faq-section';
-import { getPublicPricingPlans } from '@/controllers/public-data.controller';
-import { DollarSign, ShieldCheck, Zap, Headphones, ArrowRight } from 'lucide-react';
+import { getPublicPricingPlans, getPublicPricingPageSettings } from '@/controllers/public-data.controller';
+import { ShieldCheck, Zap, Headphones, ArrowRight, FileCheck, CheckCircle2 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';
@@ -25,9 +26,9 @@ interface PricingPageProps {
 export async function generateMetadata({ params }: PricingPageProps): Promise<Metadata> {
   const { locale } = await params;
   return createPageMetadata({
-    title: 'Transparent Pricing & Engagement Models | Astraiv Technologies',
+    title: 'Engagement Models & Delivery Structures | Astraiv Technologies',
     description:
-      'Explore scalable pricing tiers for custom software engineering, Next.js web applications, enterprise AI systems, and cloud infrastructure.',
+      "Explore Astraiv's flexible engagement models: Fixed-Scope Projects, Ongoing Agile Development, and Maintenance & Support. Transparent scope assessments and milestone quotations.",
     path: '/pricing',
     locale,
   });
@@ -42,7 +43,10 @@ export default async function PricingPage({ params }: PricingPageProps) {
 
   setRequestLocale(locale);
 
-  const pricingPlans = await getPublicPricingPlans();
+  const [pricingPlans, pageSettings] = await Promise.all([
+    getPublicPricingPlans(),
+    getPublicPricingPageSettings(),
+  ]);
 
   const guarantees = [
     {
@@ -56,14 +60,14 @@ export default async function PricingPage({ params }: PricingPageProps) {
       desc: 'Engineered on cloud-native standards (Next.js, PostgreSQL, AWS, Docker) you can host anywhere.',
     },
     {
-      icon: <DollarSign className="h-5 w-5 text-primary dark:text-cyan-400" />,
-      title: 'Zero Hidden Surcharges',
-      desc: 'Fixed sprint and milestone scopes with transparent deliverable acceptance criteria.',
+      icon: <FileCheck className="h-5 w-5 text-primary dark:text-cyan-400" />,
+      title: 'Transparent Quotations',
+      desc: 'Itemized milestone scopes with clear acceptance criteria and predictable commitments.',
     },
     {
       icon: <Headphones className="h-5 w-5 text-blue-500" />,
       title: 'Post-Launch Warranty',
-      desc: '30 to 90 days of dedicated defect resolution and performance monitoring included.',
+      desc: 'Dedicated defect resolution and performance monitoring included after deployment.',
     },
   ];
 
@@ -72,7 +76,7 @@ export default async function PricingPage({ params }: PricingPageProps) {
       <BreadcrumbSchema
         items={[
           { name: 'Home', path: '/' },
-          { name: 'Pricing', path: '/pricing' },
+          { name: 'Engagement Models', path: '/pricing' },
         ]}
       />
       <Navbar />
@@ -84,23 +88,46 @@ export default async function PricingPage({ params }: PricingPageProps) {
         <div className="max-w-6xl mx-auto px-6">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-10">
-
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight font-heading mb-4">
-              Predictable Investment. <br />
+              Structured for Velocity. <br />
               <span className="heading-gradient">
-                Institutional Quality.
+                Tailored to Your Scope.
               </span>
             </h1>
             <p className="text-sm sm:text-base text-muted-foreground font-medium leading-relaxed">
-              Choose between focused milestone sprints or dedicated senior engineering squads. Every plan includes comprehensive architectural reviews, automated testing, and CI/CD pipelines.
+              Astraiv delivers custom technology services engineered around your specific product requirements. Select the engagement structure that matches your timeline and operational needs, then request a detailed architectural quotation.
             </p>
           </div>
 
-          {/* Interactive Pricing Section */}
+          {/* Admin-Managed Engagement Hero Image */}
+          {pageSettings.showHeroImage && pageSettings.heroImageUrl && (
+            <div className="mb-10 sm:mb-14 max-w-4xl mx-auto">
+              <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-border/70 dark:border-slate-800/80 shadow-xl bg-card/40 backdrop-blur-xs aspect-16/9">
+                <Image
+                  src={pageSettings.heroImageUrl}
+                  alt={pageSettings.heroImageAlt || 'Astraiv Technologies engineering team collaborating on system architecture and milestone roadmaps'}
+                  width={pageSettings.imageWidth || 1792}
+                  height={pageSettings.imageHeight || 1008}
+                  priority
+                  className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-[1.01]"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1024px"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Interactive Engagement Models Section */}
           <PricingSection initialPlans={pricingPlans} />
 
+          {/* Quotation Transparency Notice */}
+          <div className="mt-8 p-4 sm:p-5 rounded-2xl bg-card/60 dark:bg-slate-900/60 border border-border/70 dark:border-slate-800 text-center max-w-3xl mx-auto">
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              <span className="font-semibold text-foreground">How quotation works:</span> Every project is evaluated based on feature scope, external API integrations, architectural complexity, timeline urgency, and post-launch support requirements. No surprise fees or ambiguous commitments.
+            </p>
+          </div>
+
           {/* Guarantees Bar */}
-          <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {guarantees.map((g, idx) => (
               <div
                 key={idx}
@@ -132,9 +159,9 @@ export default async function PricingPage({ params }: PricingPageProps) {
             </div>
             <Link
               href={ROUTES.PUBLIC.START_PROJECT ? `${ROUTES.PUBLIC.START_PROJECT}?source_page=${encodeURIComponent('/pricing')}` : `/start-project?source_page=${encodeURIComponent('/pricing')}`}
-              className="px-6 py-3 rounded-xl text-xs font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-md whitespace-nowrap shrink-0 hover:scale-105"
+              className="px-6 py-3 rounded-xl text-xs font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-md whitespace-nowrap shrink-0 hover:scale-105 cursor-pointer"
             >
-              Start a Project
+              Request a Custom Proposal
             </Link>
           </div>
 
@@ -142,38 +169,41 @@ export default async function PricingPage({ params }: PricingPageProps) {
           <div className="mt-16">
             <FaqSection
               category="pricing"
-              title="Pricing & Engagement FAQs"
-              description="Clear answers regarding our billing structures, milestone acceptance, IP transfer, and SLA guarantees."
+              title="Engagement & Quotation FAQs"
+              description="Clear answers regarding our engagement models, scoping process, milestone deliverables, IP transfer, and support arrangements."
             />
           </div>
 
-          {/* Post-FAQ Next Action Conversion Section: Never a Dead End */}
-          <div className="mt-20 p-8 sm:p-12 rounded-3xl bg-slate-900/80 border border-border/80 dark:border-slate-800 text-center relative overflow-hidden shadow-xl">
-            <div className="relative z-10 max-w-2xl mx-auto space-y-4">
+          {/* Post-FAQ Next Action Conversion Section */}
+          <div className="mt-20 p-8 sm:p-12 rounded-3xl bg-card dark:bg-card/75 border border-border/80 dark:border-border/40 text-center relative overflow-hidden shadow-card hover:shadow-card-hover transition-all">
+            {/* Ambient tech accent glow */}
+            <div className="absolute -top-12 -right-12 w-64 h-64 bg-primary/10 dark:bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-blue-500/10 dark:bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
 
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
-                Ready to Initiate Your Engineering Sprint?
+            <div className="relative z-10 max-w-2xl mx-auto space-y-4">
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight font-heading">
+                Ready to Scope Your Next Engineering Milestone?
               </h3>
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Complete our interactive scoping wizard for a guaranteed 24-hour architectural assessment, or connect directly with our senior leadership.
+              <p className="text-xs sm:text-base text-muted-foreground leading-relaxed max-w-xl mx-auto">
+                Submit your project specifications for a structured 24-hour architectural assessment, or speak directly with our engineering leadership.
               </p>
               <div className="pt-3 flex flex-wrap items-center justify-center gap-3.5">
                 <Link
                   href={ROUTES.PUBLIC.START_PROJECT ? `${ROUTES.PUBLIC.START_PROJECT}?source_page=${encodeURIComponent('/pricing')}` : `/start-project?source_page=${encodeURIComponent('/pricing')}`}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-primary-foreground font-bold text-xs sm:text-sm shadow-md hover:bg-primary/90 transition-all hover:scale-105"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-primary-foreground font-bold text-xs sm:text-sm shadow-md hover:bg-primary/90 transition-all hover:scale-105 active:scale-[0.98] cursor-pointer"
                 >
-                  <span>Start a Project</span>
+                  <span>Request a Quote</span>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
-                  href="/contact#schedule"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-card border border-border/80 text-foreground font-bold text-xs sm:text-sm hover:border-primary/40 transition-all"
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-background dark:bg-slate-800/90 border border-border/90 dark:border-slate-700/80 text-foreground font-bold text-xs sm:text-sm hover:bg-muted/60 dark:hover:bg-slate-800 hover:border-primary/50 transition-all shadow-xs active:scale-[0.98] cursor-pointer"
                 >
-                  <span>Talk to an Expert</span>
+                  <span>Talk to an Architect</span>
                 </Link>
                 <Link
                   href={ROUTES.PUBLIC.CASE_STUDIES}
-                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl text-xs sm:text-sm font-bold text-muted-foreground hover:text-primary transition-colors"
+                  className="inline-flex items-center justify-center gap-1.5 px-5 py-3.5 rounded-xl text-xs sm:text-sm font-bold text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 hover:underline transition-colors cursor-pointer"
                 >
                   <span>Explore Case Studies &rarr;</span>
                 </Link>

@@ -50,7 +50,7 @@ export function ServiceCTASection({
               href={ROUTES.PUBLIC.PRICING}
               className="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-sm transition-colors tracking-normal"
             >
-              <span>View Pricing Models</span>
+              <span>Explore Engagement Models</span>
             </Link>
           </div>
         </div>

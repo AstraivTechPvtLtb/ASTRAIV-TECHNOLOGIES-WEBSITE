@@ -49,7 +49,7 @@ export async function Footer() {
         { label: 'Why Astraiv', href: ROUTES.PUBLIC.COMPANY_ANCHORS.WHY_US },
         { label: 'Our Process', href: ROUTES.PUBLIC.COMPANY_ANCHORS.PROCESS },
         { label: 'Tech Insights & Blog', href: ROUTES.PUBLIC.INSIGHTS },
-        { label: 'Flexible Pricing', href: ROUTES.PUBLIC.PRICING },
+        { label: 'Engagement Models', href: ROUTES.PUBLIC.PRICING },
         { label: 'FAQs', href: ROUTES.PUBLIC.FAQ },
         { label: 'Careers', href: ROUTES.PUBLIC.CAREERS },
       ],

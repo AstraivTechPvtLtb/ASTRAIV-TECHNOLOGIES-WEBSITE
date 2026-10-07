@@ -406,7 +406,7 @@ export const DEFAULT_JOB_OPENINGS: PublicJobOpening[] = [
 ];
 
 /**
- * Public Pricing Plan contract.
+ * Public Pricing & Engagement Model contract.
  */
 export interface PublicPricingPlan {
   id: string;
@@ -415,95 +415,95 @@ export interface PublicPricingPlan {
   description: string;
   badge?: string | null;
   isPopular: boolean;
-  priceType: 'fixed' | 'custom';
-  priceMonthlyInr?: number | null;
-  priceYearlyInr?: number | null;
-  priceMonthlyUsd?: number | null;
-  priceYearlyUsd?: number | null;
-  customPriceLabel?: string | null;
   features: string[];
   buttonText: string;
   buttonUrl: string;
   active: boolean;
   orderIndex: number;
+  priceMonthly?: number | null;
+  priceYearly?: number | null;
+  currency?: string;
+  billingPeriod?: string;
 }
+
+/**
+ * Public Engagement Models Page Image & Header Settings.
+ */
+export interface PublicPricingPageSettings {
+  heroImageUrl?: string | null;
+  heroImageAlt?: string | null;
+  showHeroImage?: boolean;
+  imageWidth?: number | null;
+  imageHeight?: number | null;
+  imageSizeBytes?: number | null;
+  imageSizeLabel?: string | null;
+}
+
+export const DEFAULT_PRICING_PAGE_SETTINGS: PublicPricingPageSettings = {
+  heroImageUrl: '/images/engagement-models-hero.jpg',
+  heroImageAlt: 'Astraiv Technologies engineering team collaborating on system architecture and milestone roadmaps',
+  showHeroImage: true,
+  imageWidth: 1792,
+  imageHeight: 1008,
+  imageSizeBytes: 752053,
+  imageSizeLabel: '734 KB',
+};
 
 export const DEFAULT_PRICING_PLANS: PublicPricingPlan[] = [
   {
-    id: 'seed-plan-1',
-    name: 'Starter Plan',
-    slug: 'starter-plan',
-    description: 'Ideal for early-stage startups needing a premium marketing website and brand system.',
+    id: 'engagement-fixed-scope',
+    name: 'Fixed-Scope Project',
+    slug: 'fixed-scope-project',
+    description: 'For clearly defined deliverables. Scope, milestones, timeline, and quotation are agreed before development begins.',
     badge: null,
     isPopular: false,
-    priceType: 'fixed',
-    priceMonthlyInr: 399999,
-    priceYearlyInr: 319999,
-    priceMonthlyUsd: 4999,
-    priceYearlyUsd: 3999,
-    customPriceLabel: null,
     features: [
-      'Custom Web Design (Framer/Next.js)',
-      'SEO & Performance Tuning',
-      'Standard Contact Integrations',
-      '2 rounds of layout revisions',
-      'Production Deployment & CI/CD',
-      'Dedicated Email Support',
+      'Comprehensive requirements specification & technical roadmap',
+      'Fixed milestone schedule with clear deliverable acceptance criteria',
+      'Dedicated technical architect & code reviews on every merge',
+      'Complete intellectual property transfer upon project signoff',
+      '30-day post-deployment warranty and defect resolution',
     ],
-    buttonText: 'Start a Project',
-    buttonUrl: '/contact',
+    buttonText: 'Request a Quote',
+    buttonUrl: '/start-project?source_page=/pricing',
     active: true,
     orderIndex: 1,
   },
   {
-    id: 'seed-plan-2',
-    name: 'Professional Plan',
-    slug: 'professional-plan',
-    description: 'Our most popular plan, covering custom web applications, SaaS dashboards, and database setup.',
+    id: 'engagement-ongoing-dev',
+    name: 'Ongoing Development',
+    slug: 'ongoing-development',
+    description: 'For projects that evolve over time. Priorities, development capacity, and billing terms are agreed for each engagement period.',
     badge: 'MOST POPULAR',
     isPopular: true,
-    priceType: 'fixed',
-    priceMonthlyInr: 799999,
-    priceYearlyInr: 639999,
-    priceMonthlyUsd: 9999,
-    priceYearlyUsd: 7999,
-    customPriceLabel: null,
     features: [
-      'Everything in Starter',
-      'SaaS Dashboard & User Login',
-      'Prisma & Postgres integrations',
-      'Stripe payment stub setup',
-      '2 weeks post-launch SLA support',
-      'Dedicated Slack support channel',
+      'Agile sprint-based delivery with continuous backlog grooming',
+      'Full-stack engineers, UI/UX designers, and DevOps capacity',
+      'Direct asynchronous Slack / Teams collaboration & bi-weekly reviews',
+      'Automated end-to-end testing & zero-downtime CI/CD deployment',
+      'Flexible sprint capacity scaling with zero vendor lock-in',
     ],
-    buttonText: 'Start a Project',
-    buttonUrl: '/contact',
+    buttonText: 'Request a Quote',
+    buttonUrl: '/start-project?source_page=/pricing',
     active: true,
     orderIndex: 2,
   },
   {
-    id: 'seed-plan-3',
-    name: 'Enterprise Plan',
-    slug: 'enterprise-plan',
-    description: 'For companies requiring dedicated cloud infrastructure, AI integrations, and full SLA support.',
+    id: 'engagement-maintenance-support',
+    name: 'Maintenance & Support',
+    slug: 'maintenance-and-support',
+    description: 'For maintaining an existing application. Covered systems, included work, availability, and response arrangements are defined separately.',
     badge: null,
     isPopular: false,
-    priceType: 'custom',
-    priceMonthlyInr: null,
-    priceYearlyInr: null,
-    priceMonthlyUsd: null,
-    priceYearlyUsd: null,
-    customPriceLabel: 'Custom',
     features: [
-      'Custom AI & Agent workflow stubs',
-      'Cloudflare R2 CDNs config',
-      'AWS load-balanced hosting setup',
-      'Role-Based admin dashboards',
-      'Priority SLA 24/7 Response time',
-      'Unlimited revision approvals',
+      'Proactive security patching, framework upgrades & dependency audits',
+      'Continuous uptime telemetry, error tracking, and performance tuning',
+      'Priority defect resolution & minor operational feature enhancements',
+      'Database health, backup verification, and cloud cost optimization',
+      'Defined response arrangements with monthly engineering status reports',
     ],
-    buttonText: 'Talk to an Expert',
-    buttonUrl: '/contact',
+    buttonText: 'Request a Quote',
+    buttonUrl: '/start-project?source_page=/pricing',
     active: true,
     orderIndex: 3,
   },

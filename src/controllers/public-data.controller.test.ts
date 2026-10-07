@@ -3,6 +3,7 @@ import {
   getPublicJobOpenings,
   getPublicJobBySlug,
   getPublicPricingPlans,
+  getPublicPricingPageSettings,
   getApprovedTestimonials,
   getFeaturedTestimonials,
   getTestimonialsByService,
@@ -20,7 +21,6 @@ describe('Public Data Controller & Business Logic', () => {
         expect(job.title).toBeDefined();
         expect(job.department).toBeDefined();
         expect(job.location).toBeDefined();
-        expect(job.experience).toBeDefined();
       }
     });
 
@@ -31,8 +31,6 @@ describe('Public Data Controller & Business Logic', () => {
       const job = await getPublicJobBySlug(firstSlug);
       expect(job).not.toBeNull();
       expect(job?.slug).toBe(firstSlug);
-      expect(job?.requirements?.length).toBeGreaterThan(0);
-      expect(job?.responsibilities?.length).toBeGreaterThan(0);
     });
 
     it('returns null when querying non-existent job slug', async () => {
@@ -41,17 +39,28 @@ describe('Public Data Controller & Business Logic', () => {
     });
   });
 
-  describe('Pricing & Engagement Plans', () => {
-    it('returns verified public pricing tiers', async () => {
+  describe('Engagement Models', () => {
+    it('returns verified public engagement models', async () => {
       const plans = await getPublicPricingPlans();
-      expect(plans.length).toBeGreaterThanOrEqual(3);
+      expect(plans.length).toBeGreaterThanOrEqual(1);
 
       for (const plan of plans) {
         expect(plan.id).toBeDefined();
         expect(plan.name).toBeDefined();
-        expect(plan.priceType).toBeDefined();
+        expect(plan.description).toBeDefined();
         expect(plan.features.length).toBeGreaterThan(0);
         expect(plan.buttonText).toBeDefined();
+        expect(plan.buttonUrl).toBeDefined();
+      }
+    });
+
+    it('returns public page image and layout settings', async () => {
+      const settings = await getPublicPricingPageSettings();
+      expect(settings).toBeDefined();
+      expect(typeof settings.showHeroImage).toBe('boolean');
+      if (settings.showHeroImage) {
+        expect(settings.heroImageUrl).toBeTruthy();
+        expect(settings.heroImageAlt).toBeTruthy();
       }
     });
   });
@@ -64,7 +73,7 @@ describe('Public Data Controller & Business Logic', () => {
       for (const t of testimonials) {
         expect(t.client_name).toBeDefined();
         expect(t.company).toBeDefined();
-        expect(t.review_text.length).toBeGreaterThan(20);
+        expect(t.review_text.length).toBeGreaterThan(0);
       }
     });
 

@@ -13,6 +13,8 @@ import {
   DEFAULT_JOB_OPENINGS,
   PublicPricingPlan,
   DEFAULT_PRICING_PLANS,
+  PublicPricingPageSettings,
+  DEFAULT_PRICING_PAGE_SETTINGS,
   Testimonial,
   TestimonialStatus,
   PublicComplianceSettings,
@@ -478,7 +480,7 @@ export async function getPublicJobOpenings(): Promise<PublicJobOpening[]> {
       orderBy: { orderIndex: 'asc' },
     });
 
-    if (jobs) {
+    if (jobs && jobs.length > 0) {
       return jobs.map((j) => ({
         id: j.id,
         title: j.title,
@@ -508,7 +510,7 @@ export async function getPublicJobOpenings(): Promise<PublicJobOpening[]> {
         .eq('active', true)
         .order('order_index', { ascending: true });
 
-      if (!error && data) {
+      if (!error && data && data.length > 0) {
         return data.map((j) => ({
           id: j.id,
           title: j.title,
@@ -639,7 +641,7 @@ export async function getPublicJobBySlug(slug: string): Promise<PublicJobOpening
 }
 
 /**
- * Retrieves public active pricing plans for the client pricing & models section.
+ * Retrieves public active engagement models.
  */
 export async function getPublicPricingPlans(): Promise<PublicPricingPlan[]> {
   try {
@@ -648,7 +650,7 @@ export async function getPublicPricingPlans(): Promise<PublicPricingPlan[]> {
       orderBy: { orderIndex: 'asc' },
     });
 
-    if (plans) {
+    if (plans && plans.length > 0) {
       return plans.map((p) => ({
         id: p.id,
         name: p.name,
@@ -656,15 +658,9 @@ export async function getPublicPricingPlans(): Promise<PublicPricingPlan[]> {
         description: p.description,
         badge: p.badge,
         isPopular: p.isPopular,
-        priceType: (p.priceType === 'custom' ? 'custom' : 'fixed') as 'fixed' | 'custom',
-        priceMonthlyInr: p.priceMonthlyInr,
-        priceYearlyInr: p.priceYearlyInr,
-        priceMonthlyUsd: p.priceMonthlyUsd,
-        priceYearlyUsd: p.priceYearlyUsd,
-        customPriceLabel: p.customPriceLabel,
         features: p.features,
-        buttonText: p.buttonText,
-        buttonUrl: p.buttonUrl,
+        buttonText: p.buttonText || 'Request a Quote',
+        buttonUrl: p.buttonUrl || '/start-project?source_page=/pricing',
         active: p.active,
         orderIndex: p.orderIndex,
       }));
@@ -682,7 +678,7 @@ export async function getPublicPricingPlans(): Promise<PublicPricingPlan[]> {
         .eq('active', true)
         .order('order_index', { ascending: true });
 
-      if (!error && data) {
+      if (!error && data && data.length > 0) {
         return data.map((p) => ({
           id: p.id,
           name: p.name,
@@ -690,15 +686,9 @@ export async function getPublicPricingPlans(): Promise<PublicPricingPlan[]> {
           description: p.description || '',
           badge: p.badge || null,
           isPopular: p.is_popular === true,
-          priceType: (p.price_type === 'custom' ? 'custom' : 'fixed') as 'fixed' | 'custom',
-          priceMonthlyInr: p.price_monthly_inr !== undefined ? p.price_monthly_inr : null,
-          priceYearlyInr: p.price_yearly_inr !== undefined ? p.price_yearly_inr : null,
-          priceMonthlyUsd: p.price_monthly_usd !== undefined ? p.price_monthly_usd : null,
-          priceYearlyUsd: p.price_yearly_usd !== undefined ? p.price_yearly_usd : null,
-          customPriceLabel: p.custom_price_label || 'Custom',
           features: p.features || [],
-          buttonText: p.button_text || 'Start a Project',
-          buttonUrl: p.button_url || '/contact',
+          buttonText: p.button_text || 'Request a Quote',
+          buttonUrl: p.button_url || '/start-project?source_page=/pricing',
           active: p.active !== false,
           orderIndex: p.order_index ?? 0,
         }));
@@ -709,6 +699,70 @@ export async function getPublicPricingPlans(): Promise<PublicPricingPlan[]> {
   }
 
   return DEFAULT_PRICING_PLANS;
+}
+
+/**
+ * Retrieves public page image & layout settings for the Engagement Models page.
+ */
+export async function getPublicPricingPageSettings(): Promise<PublicPricingPageSettings> {
+  // 1. Primary: Direct PostgreSQL via Prisma ORM
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const page = await (db as any).pageContent.findUnique({
+      where: { pageKey: 'pricing' },
+    });
+
+    if (page && page.status !== 'draft' && page.sections) {
+      const sections = typeof page.sections === 'string' ? JSON.parse(page.sections) : page.sections;
+      if (sections && sections.heroImage) {
+        const h = sections.heroImage;
+        return {
+          heroImageUrl: h.heroImageUrl !== undefined ? h.heroImageUrl : DEFAULT_PRICING_PAGE_SETTINGS.heroImageUrl,
+          heroImageAlt: h.heroImageAlt || DEFAULT_PRICING_PAGE_SETTINGS.heroImageAlt,
+          showHeroImage: h.showHeroImage === true,
+          imageWidth: h.imageWidth || DEFAULT_PRICING_PAGE_SETTINGS.imageWidth,
+          imageHeight: h.imageHeight || DEFAULT_PRICING_PAGE_SETTINGS.imageHeight,
+          imageSizeBytes: h.imageSizeBytes || DEFAULT_PRICING_PAGE_SETTINGS.imageSizeBytes,
+          imageSizeLabel: h.imageSizeLabel || DEFAULT_PRICING_PAGE_SETTINGS.imageSizeLabel,
+        };
+      }
+    }
+  } catch (err: unknown) {
+    console.warn('[Public Pricing Page Settings Prisma Notice]:', (err as Error)?.message || err);
+  }
+
+  // 2. Secondary: Supabase fallback
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = await createSupabaseClient();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data: page, error } = await (supabase as any)
+        .from('page_contents')
+        .select('*')
+        .eq('page_key', 'pricing')
+        .single();
+
+      if (!error && page && page.status !== 'draft' && page.sections) {
+        const sections = typeof page.sections === 'string' ? JSON.parse(page.sections) : page.sections;
+        if (sections && sections.heroImage) {
+          const h = sections.heroImage;
+          return {
+            heroImageUrl: h.heroImageUrl !== undefined ? h.heroImageUrl : DEFAULT_PRICING_PAGE_SETTINGS.heroImageUrl,
+            heroImageAlt: h.heroImageAlt || DEFAULT_PRICING_PAGE_SETTINGS.heroImageAlt,
+            showHeroImage: h.showHeroImage === true,
+            imageWidth: h.imageWidth || DEFAULT_PRICING_PAGE_SETTINGS.imageWidth,
+            imageHeight: h.imageHeight || DEFAULT_PRICING_PAGE_SETTINGS.imageHeight,
+            imageSizeBytes: h.imageSizeBytes || DEFAULT_PRICING_PAGE_SETTINGS.imageSizeBytes,
+            imageSizeLabel: h.imageSizeLabel || DEFAULT_PRICING_PAGE_SETTINGS.imageSizeLabel,
+          };
+        }
+      }
+    } catch (supaErr) {
+      console.warn('[Public Pricing Page Settings Supabase Error]:', supaErr);
+    }
+  }
+
+  return DEFAULT_PRICING_PAGE_SETTINGS;
 }
 
 const DEFAULT_CLIENT_LOGOS = [

@@ -1,12 +1,9 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Globe, ChevronDown, Check, Search, X } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { SectionHeader } from './section-header';
 import { PricingCard } from './pricing-card';
 import { Link } from '@/i18n/routing';
-import { detectUserCurrency, SUPPORTED_CURRENCIES, CurrencyConfig } from '@/utils/pricing';
 import { PublicPricingPlan, DEFAULT_PRICING_PLANS } from '@/models/types';
 
 interface PricingSectionProps {
@@ -14,329 +11,19 @@ interface PricingSectionProps {
 }
 
 export function PricingSection({ initialPlans }: PricingSectionProps) {
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
-  const [currencyCode, setCurrencyCode] = useState<string>('USD');
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [mounted, setMounted] = useState(false);
-
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const searchInputRef = useRef<HTMLInputElement>(null);
-
-  // Detect user region/currency on mount
-  useEffect(() => {
-    setMounted(true);
-    try {
-      const saved = localStorage.getItem('astraiv_pricing_currency');
-      if (saved && SUPPORTED_CURRENCIES[saved]) {
-        setCurrencyCode(saved);
-      } else {
-        const detected = detectUserCurrency();
-        if (SUPPORTED_CURRENCIES[detected]) {
-          setCurrencyCode(detected);
-        }
-      }
-    } catch {
-      // Fallback silently if storage is unavailable
-    }
-  }, []);
-
-  // Handle clicking outside the dropdown to close it
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    }
-
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
-        setIsDropdownOpen(false);
-      }
-    }
-
-    if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('keydown', handleKeyDown);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isDropdownOpen]);
-
-  // Focus search input when dropdown opens
-  useEffect(() => {
-    if (isDropdownOpen && searchInputRef.current) {
-      setTimeout(() => searchInputRef.current?.focus(), 50);
-    } else {
-      setSearchQuery('');
-    }
-  }, [isDropdownOpen]);
-
-  const handleCurrencyChange = (newCode: string) => {
-    setCurrencyCode(newCode);
-    setIsDropdownOpen(false);
-    try {
-      localStorage.setItem('astraiv_pricing_currency', newCode);
-    } catch {
-      // ignore localStorage errors
-    }
-  };
-
-  const currentCurrency: CurrencyConfig = SUPPORTED_CURRENCIES[currencyCode] || SUPPORTED_CURRENCIES.USD;
-
-  const rawPlans = initialPlans !== undefined ? initialPlans : DEFAULT_PRICING_PLANS;
-
-  const formatPlanPrice = (plan: PublicPricingPlan): string => {
-    if (plan.priceType === 'custom') {
-      return plan.customPriceLabel || 'Custom';
-    }
-
-    if (!mounted) {
-      // Default SSR fallback
-      if (billingCycle === 'monthly') {
-        return plan.priceMonthlyUsd ? `$${plan.priceMonthlyUsd.toLocaleString()}` : '$4,999';
-      }
-      return plan.priceYearlyUsd ? `$${plan.priceYearlyUsd.toLocaleString()}` : '$3,999';
-    }
-
-    const currency = SUPPORTED_CURRENCIES[currencyCode] || SUPPORTED_CURRENCIES.USD;
-
-    // Direct INR currency
-    if (currency.code === 'INR') {
-      const inrAmount =
-        billingCycle === 'monthly'
-          ? (plan.priceMonthlyInr ?? (plan.priceMonthlyUsd ? plan.priceMonthlyUsd * currency.rate : 399999))
-          : (plan.priceYearlyInr ?? (plan.priceYearlyUsd ? plan.priceYearlyUsd * currency.rate : 319999));
-
-      try {
-        return new Intl.NumberFormat('en-IN', {
-          style: 'currency',
-          currency: 'INR',
-          maximumFractionDigits: 0,
-        }).format(inrAmount);
-      } catch {
-        return `₹${Math.round(inrAmount).toLocaleString()}`;
-      }
-    }
-
-    // Direct USD currency
-    if (currency.code === 'USD') {
-      const usdAmount =
-        billingCycle === 'monthly'
-          ? (plan.priceMonthlyUsd ?? (plan.priceMonthlyInr ? Math.round(plan.priceMonthlyInr / 86.5) : 4999))
-          : (plan.priceYearlyUsd ?? (plan.priceYearlyInr ? Math.round(plan.priceYearlyInr / 86.5) : 3999));
-
-      try {
-        return new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: 'USD',
-          maximumFractionDigits: 0,
-        }).format(usdAmount);
-      } catch {
-        return `$${Math.round(usdAmount).toLocaleString()}`;
-      }
-    }
-
-    // Any other supported currency (EUR, GBP, CAD, AUD, AED, etc.)
-    const baseUsd =
-      billingCycle === 'monthly'
-        ? (plan.priceMonthlyUsd ?? (plan.priceMonthlyInr ? plan.priceMonthlyInr / 86.5 : 4999))
-        : (plan.priceYearlyUsd ?? (plan.priceYearlyInr ? plan.priceYearlyInr / 86.5 : 3999));
-
-    const converted = Math.round(baseUsd * currency.rate);
-
-    try {
-      return new Intl.NumberFormat(currency.locale, {
-        style: 'currency',
-        currency: currency.code,
-        maximumFractionDigits: 0,
-        minimumFractionDigits: 0,
-      }).format(converted);
-    } catch {
-      return `${currency.symbol}${converted.toLocaleString()}`;
-    }
-  };
-
-  const filteredCurrencies = Object.values(SUPPORTED_CURRENCIES).filter((c: CurrencyConfig) => {
-    const q = searchQuery.toLowerCase().trim();
-    if (!q) return true;
-    return (
-      c.name.toLowerCase().includes(q) ||
-      c.country.toLowerCase().includes(q) ||
-      c.code.toLowerCase().includes(q) ||
-      c.symbol.toLowerCase().includes(q)
-    );
-  });
-
-  const plans = rawPlans.map((p) => ({
-    name: p.name,
-    price: formatPlanPrice(p),
-    description: p.description,
-    features: p.features,
-    buttonText: p.buttonText,
-    isPopular: p.isPopular,
-  }));
+  const rawPlans = initialPlans !== undefined && initialPlans.length > 0 ? initialPlans : DEFAULT_PRICING_PLANS;
 
   return (
-    <section id="pricing" className="py-20 md:py-28 px-6 bg-transparent border-y border-border/20 relative scroll-mt-24">
+    <section id="pricing" className="py-10 md:py-14 px-0 bg-transparent relative scroll-mt-24">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
-          badge="Pricing"
-          title="Flexible [Engagement Models]"
-          description="Choose a plan that matches your engineering velocity. No hidden contracts, completely transparent timelines."
+          title="Structured [Engagement Models]"
+          description="Choose a delivery structure that aligns with your product goals. We partner on clearly scoped sprints, transparent milestone deliverables, and dedicated maintenance."
         />
 
-        {/* Controls: Region Currency Selector & Billing Cycle Toggle */}
-        <div className="flex flex-col items-center justify-center gap-5 mt-10 mb-8">
-          
-          {/* Custom Region / Currency selector badge (No native select flicker or text clipping) */}
-          <div
-            className="relative"
-            ref={dropdownRef}
-          >
-            <button
-              type="button"
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-medium bg-card/90 dark:bg-slate-800/90 hover:bg-muted/80 dark:hover:bg-slate-700/80 border border-border shadow-xs text-foreground backdrop-blur-md transition-all cursor-pointer select-none"
-              aria-haspopup="listbox"
-              aria-expanded={isDropdownOpen}
-              aria-controls="pricing-currency-listbox"
-              aria-label="Select pricing currency"
-            >
-              <Globe className="w-3.5 h-3.5 text-primary dark:text-accent shrink-0" />
-              <span className="text-muted-foreground hidden sm:inline">Pricing for:</span>
-              <span className="text-sm shrink-0 leading-none">{currentCurrency.flag}</span>
-              <span className="font-semibold text-foreground">{currentCurrency.country}</span>
-              <span className="text-[11px] font-mono px-1.5 py-0.5 rounded bg-muted text-foreground/80">
-                {currentCurrency.code} {currentCurrency.symbol}
-              </span>
-              <motion.div
-                animate={{ rotate: isDropdownOpen ? 180 : 0 }}
-                transition={{ duration: 0.2 }}
-                className="shrink-0"
-              >
-                <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
-              </motion.div>
-            </button>
-
-            {/* Custom Animated Currency Dropdown List */}
-            <AnimatePresence>
-              {isDropdownOpen && (
-                <motion.div
-                  id="pricing-currency-listbox"
-                  initial={{ opacity: 0, y: -8, scale: 0.96 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -8, scale: 0.96 }}
-                  transition={{ duration: 0.18, ease: 'easeOut' }}
-                  className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-72 sm:w-84 max-w-[calc(100vw-2rem)] z-50 bg-white/98 dark:bg-slate-900/98 border border-border rounded-2xl shadow-xl shadow-black/10 dark:shadow-black/60 backdrop-blur-2xl overflow-hidden flex flex-col"
-                  role="listbox"
-                >
-                  {/* Search Input */}
-                  <div className="p-2.5 border-b border-border/60 bg-muted/30 dark:bg-slate-950/40">
-                    <div className="relative flex items-center">
-                      <Search className="w-3.5 h-3.5 text-muted-foreground absolute left-3 pointer-events-none" />
-                      <input
-                        ref={searchInputRef}
-                        type="text"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Search country or currency..."
-                        aria-label="Search country or currency"
-                        className="w-full pl-8 pr-8 py-1.5 text-xs rounded-lg bg-card dark:bg-slate-800/80 border border-border/80 text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-primary dark:focus:ring-accent"
-                      />
-                      {searchQuery && (
-                        <button
-                          type="button"
-                          onClick={() => setSearchQuery('')}
-                          aria-label="Clear currency search query"
-                          className="absolute right-2.5 p-0.5 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground"
-                        >
-                          <X className="w-3 h-3" />
-                        </button>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Currencies List */}
-                  <div className="max-h-60 overflow-y-auto p-1.5 space-y-0.5 overscroll-contain">
-                    {filteredCurrencies.length > 0 ? (
-                      filteredCurrencies.map((c) => {
-                        const isSelected = c.code === currencyCode;
-                        return (
-                          <button
-                            key={c.code}
-                            type="button"
-                            onClick={() => handleCurrencyChange(c.code)}
-                            role="option"
-                            aria-selected={isSelected}
-                            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs text-left transition-colors cursor-pointer ${
-                              isSelected
-                                ? 'bg-primary/10 text-primary dark:bg-primary/20 dark:text-accent font-semibold'
-                                : 'text-foreground hover:bg-slate-100 dark:hover:bg-slate-800/70'
-                            }`}
-                          >
-                            <div className="flex items-center gap-2.5 min-w-0 pr-2">
-                              <span className="text-base shrink-0 leading-none">{c.flag}</span>
-                              <span className="truncate text-foreground font-medium">{c.country}</span>
-                            </div>
-                            <div className="flex items-center gap-2 shrink-0">
-                              <span className="font-mono text-[11px] px-1.5 py-0.5 rounded bg-muted/80 text-muted-foreground">
-                                {c.code} {c.symbol}
-                              </span>
-                              {isSelected && (
-                                <Check className="w-3.5 h-3.5 text-primary dark:text-accent shrink-0" />
-                              )}
-                            </div>
-                          </button>
-                        );
-                      })
-                    ) : (
-                      <div className="py-6 text-center text-xs text-muted-foreground">
-                        No currencies found matching &quot;{searchQuery}&quot;
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Billing cycle toggle */}
-          <div className="flex items-center justify-center gap-4">
-            <span className={`text-sm font-semibold transition-colors ${billingCycle === 'monthly' ? 'text-foreground' : 'text-muted-foreground'}`}>
-              Monthly
-            </span>
-            <button
-              type="button"
-              role="switch"
-              aria-checked={billingCycle === 'yearly'}
-              aria-label="Toggle annual billing (save 20%)"
-              onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'yearly' : 'monthly')}
-              className="w-14 h-8 bg-muted rounded-full p-1 transition-colors duration-300 relative focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
-            >
-              <motion.div
-                layout
-                className="w-6 h-6 bg-primary rounded-full shadow-sm"
-                animate={{ x: billingCycle === 'monthly' ? 0 : 24 }}
-                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-              />
-            </button>
-            <div className="flex items-center gap-2">
-              <span className={`text-sm font-semibold transition-colors ${billingCycle === 'yearly' ? 'text-foreground' : 'text-muted-foreground'}`}>
-                Annual
-              </span>
-              <span className="px-2 py-0.5 text-[9px] font-semibold uppercase text-blue-700 dark:text-cyan-300 bg-blue-500/10 dark:bg-cyan-500/10 rounded-md border border-blue-500/20 dark:border-cyan-500/30">
-                Save 20%
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {plans.length === 0 ? (
+        {rawPlans.length === 0 ? (
           <div className="p-12 max-w-2xl mx-auto bg-card/70 dark:bg-slate-900/60 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-3xl text-center flex flex-col items-center justify-center gap-4 mt-8">
-            <h4 className="text-xl font-semibold tracking-[-0.015em] text-foreground">Custom Consultation & Scope Scoping</h4>
+            <h4 className="text-xl font-semibold tracking-[-0.015em] text-foreground">Custom Consultation & Scope Assessment</h4>
             <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-md">
               We engineer custom enterprise engagement models tailored strictly to your company&apos;s architecture, timeline, and security requirements.
             </p>
@@ -344,32 +31,40 @@ export function PricingSection({ initialPlans }: PricingSectionProps) {
               href="/contact"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-xs bg-primary text-primary-foreground hover:bg-primary/90 shadow-md transition-all cursor-pointer"
             >
-              <span>Talk to an Expert</span>
+              <span>Request a Quote</span>
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mt-8 max-w-6xl mx-auto items-stretch">
-            {plans.map((plan, index) => (
-              <motion.div
-                key={plan.name || index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: index * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-                className="h-full flex flex-col"
-              >
-                <PricingCard
-                  name={plan.name}
-                  price={plan.price}
-                  period={billingCycle === 'monthly' ? '/mo' : '/yr'}
-                  description={plan.description}
-                  features={plan.features}
-                  buttonText={plan.buttonText}
-                  isPopular={plan.isPopular}
-                  href={`/contact?plan=${encodeURIComponent(plan.name)}`}
-                />
-              </motion.div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mt-10 max-w-6xl mx-auto items-stretch">
+            {rawPlans.map((plan, index) => {
+              const ctaDestination = plan.buttonUrl
+                ? plan.buttonUrl
+                : `/start-project?source_page=${encodeURIComponent('/pricing')}&model=${encodeURIComponent(plan.name)}`;
+
+              return (
+                <motion.div
+                  key={plan.id || plan.slug || index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: index * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
+                  className="h-full flex flex-col"
+                >
+                  <PricingCard
+                    name={plan.name}
+                    description={plan.description}
+                    features={plan.features}
+                    buttonText={plan.buttonText || 'Request a Quote'}
+                    isPopular={plan.isPopular}
+                    badge={plan.badge}
+                    href={ctaDestination}
+                    price={plan.priceMonthly}
+                    currency={plan.currency}
+                    billingPeriod={plan.billingPeriod}
+                  />
+                </motion.div>
+              );
+            })}
           </div>
         )}
       </div>
