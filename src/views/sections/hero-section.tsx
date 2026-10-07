@@ -73,7 +73,7 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({
-  badgeText,
+  badgeText: _badgeText,
   headline,
   subheadline,
   ctaText = 'Start a Project',

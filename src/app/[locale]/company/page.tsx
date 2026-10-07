@@ -30,7 +30,7 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const revalidate = 300;
+export const revalidate = 0;
 
 interface CompanyPageProps {
   params: Promise<{ locale: string }>;
@@ -51,7 +51,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [jobOpenings, dynamicCompany] = await Promise.all([
+  const [_jobOpenings, dynamicCompany] = await Promise.all([
     getPublicJobOpenings(),
     getPublicPageContent('company'),
   ]);

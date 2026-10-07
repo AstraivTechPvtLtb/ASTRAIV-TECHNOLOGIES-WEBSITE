@@ -2,7 +2,8 @@ import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 
 vi.mock('@/i18n/routing', () => ({
-  Link: ({ children, href, ...props }: any) => React.createElement('a', { href, ...props }, children),
+  Link: ({ children, href, ...props }: { children?: React.ReactNode; href?: string } & Record<string, unknown>) =>
+    React.createElement('a', { href: href || '#', ...props }, children),
 }));
 
 import { parseHeadline } from './hero-section';

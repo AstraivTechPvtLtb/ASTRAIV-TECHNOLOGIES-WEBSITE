@@ -8,7 +8,7 @@ import { Footer } from '@/views/layouts/footer';
 import { PricingSection } from '@/views/sections/pricing-section';
 import { FaqSection } from '@/views/sections/faq-section';
 import { getPublicPricingPlans, getPublicPricingPageSettings } from '@/controllers/public-data.controller';
-import { ShieldCheck, Zap, Headphones, ArrowRight, FileCheck, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Zap, Headphones, ArrowRight, FileCheck } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';
@@ -17,7 +17,7 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const revalidate = 300;
+export const revalidate = 0;
 
 interface PricingPageProps {
   params: Promise<{ locale: string }>;

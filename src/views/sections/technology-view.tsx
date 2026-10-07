@@ -535,7 +535,7 @@ interface TechnologyViewProps {
 
 export function TechnologyView({
   badge: _badge,
-  title = 'Next-Gen Software & Intelligent Systems',
+  title: _title = 'Next-Gen Software & Intelligent Systems',
   description: _description,
 }: TechnologyViewProps) {
   const [selectedCategory, setSelectedCategory] = useState<TechCategory>('all');
