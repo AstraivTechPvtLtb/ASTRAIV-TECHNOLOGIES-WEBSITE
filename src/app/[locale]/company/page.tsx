@@ -7,6 +7,8 @@ import { WhySection } from '@/views/sections/why-section';
 import { ProcessSection } from '@/views/sections/process-section';
 import { ContactSection } from '@/views/sections/contact-section';
 import { getPublicJobOpenings } from '@/controllers/public-data.controller';
+import { getPublicPageContent } from '@/controllers/cms.controller';
+import { renderFormattedTitle } from '@/views/sections/section-header';
 import {
   Zap,
   Target,
@@ -49,7 +51,14 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const jobOpenings = await getPublicJobOpenings();
+  const [jobOpenings, dynamicCompany] = await Promise.all([
+    getPublicJobOpenings(),
+    getPublicPageContent('company'),
+  ]);
+
+  const sec = (dynamicCompany?.sections as Record<string, string>) || {};
+  const companyHeadline = sec.headline?.trim() || sec.companyHeadline?.trim() || 'Engineering Intelligent Systems [With Architectural Rigor.]';
+  const companyStory = sec.story?.trim() || sec.companyStory?.trim() || 'Astraiv Technologies partners with forward-thinking enterprises to design, develop, and deploy mission-critical software, custom AI models, and scalable cloud infrastructure. We eliminate technical bottlenecks and accelerate engineering velocity.';
 
   const pillars = [
     {
@@ -199,17 +208,11 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
 
           {/* Eyebrow & Hero Statement */}
           <div className="max-w-3xl mx-auto mb-14">
-
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading mb-4 text-foreground">
-              Engineering Intelligent Systems <br />
-              <span className="heading-gradient">
-                With Architectural Rigor.
-              </span>
+              {renderFormattedTitle(companyHeadline)}
             </h1>
-            <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-medium">
-              Astraiv Technologies partners with forward-thinking enterprises to design, develop, and deploy
-              mission-critical software, custom AI models, and scalable cloud infrastructure. We eliminate
-              technical bottlenecks and accelerate engineering velocity.
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-medium whitespace-pre-line">
+              {companyStory}
             </p>
           </div>
 

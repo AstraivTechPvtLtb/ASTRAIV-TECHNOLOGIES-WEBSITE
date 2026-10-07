@@ -50,12 +50,13 @@ export default async function HomePage({ params }: HomePageProps) {
   setRequestLocale(locale);
 
   // Load language bundles, active services, selected/featured approved testimonials (3 items), compliance/ISO settings, and dynamic homepage content
-  const [t, services, reviews, complianceSettings, dynamicPage] = await Promise.all([
+  const [t, services, reviews, complianceSettings, dynamicPage, dynamicProcess] = await Promise.all([
     getTranslations('Home'),
     getPublicActiveServices(),
     getFeaturedTestimonials(3),
     getPublicComplianceSettings(),
     getPublicPageContent('homepage'),
+    getPublicPageContent('process'),
   ]);
 
   const sec = (dynamicPage?.sections as Record<string, string>) || {};
@@ -108,7 +109,10 @@ export default async function HomePage({ params }: HomePageProps) {
         <WhySection variant="summary" />
 
         {/* 9. OUR PROCESS (Summary Variant) */}
-        <ProcessSection variant="summary" />
+        <ProcessSection
+          variant="summary"
+          headline={((dynamicProcess?.sections as Record<string, string>)?.headline || (dynamicProcess?.sections as Record<string, string>)?.processHeadline)?.trim()}
+        />
 
         {/* 9. TESTIMONIALS */}
         <TestimonialsSection initialReviews={reviews} />

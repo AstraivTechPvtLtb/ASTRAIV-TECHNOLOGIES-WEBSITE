@@ -20,6 +20,7 @@ import { EASE_OUT_EXPO, MOTION_DURATIONS, MOTION_VIEWPORT } from '@/lib/motion';
 
 interface ProcessSectionProps {
   variant?: 'summary' | 'detailed';
+  headline?: string;
 }
 
 function getStageIcon(iconName: string, className = "h-5 w-5") {
@@ -40,7 +41,7 @@ function getStageIcon(iconName: string, className = "h-5 w-5") {
   }
 }
 
-export function ProcessSection({ variant = 'summary' }: ProcessSectionProps) {
+export function ProcessSection({ variant = 'summary', headline }: ProcessSectionProps) {
   const isDetailed = variant === 'detailed';
   const shouldReduceMotion = useReducedMotion();
 
@@ -52,7 +53,7 @@ export function ProcessSection({ variant = 'summary' }: ProcessSectionProps) {
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader
           badge={isDetailed ? "Canonical Engineering Lifecycle" : "How We Work"}
-          title={isDetailed ? "The Astraiv 6-Stage [Engineering Roadmap]" : "From Strategy [to Scaled Production]"}
+          title={headline || (isDetailed ? "The Astraiv 6-Stage [Engineering Roadmap]" : "From Strategy [to Scaled Production]")}
           description={
             isDetailed
               ? "Every engagement strictly adheres to our deterministic 6-stage lifecycle. Each stage is gated by automated verification benchmarks, peer architecture reviews, and immutable deliverables."

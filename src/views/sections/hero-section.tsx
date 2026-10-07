@@ -12,31 +12,51 @@ import { EASE_OUT_EXPO, MOTION_DURATIONS } from '@/lib/motion';
 
 const MAX_DEPTH = 800; // Deep Z-axis perspective depth coordinate in px
 
-function parseHeadline(text: string) {
+export function parseHeadline(text: string) {
+  if (!text || !text.trim()) return [];
+
   const words: { word: string; isHighlighted: boolean }[] = [];
   let inHighlight = false;
+  let hasExplicitHighlight = false;
 
-  const tokens = text.split(/\s+/);
+  const tokens = text.trim().split(/\s+/);
   for (const token of tokens) {
     if (!token) continue;
     let currentToken = token;
 
     if (currentToken.includes('[')) {
       inHighlight = true;
-      currentToken = currentToken.replace('[', '');
+      hasExplicitHighlight = true;
+      currentToken = currentToken.replace(/\[/g, '');
     }
 
     const highlighted = inHighlight;
 
     if (currentToken.includes(']')) {
       inHighlight = false;
-      currentToken = currentToken.replace(']', '');
+      currentToken = currentToken.replace(/\]/g, '');
     }
 
-    words.push({
-      word: currentToken,
-      isHighlighted: highlighted,
-    });
+    if (currentToken) {
+      words.push({
+        word: currentToken,
+        isHighlighted: highlighted,
+      });
+    }
+  }
+
+  // 50% Gradient Policy:
+  // If no explicit [brackets] were provided from admin or copy, strictly apply the 50% gradient rule:
+  // First ~50% is solid foreground, remaining ~50% displays in the signature Astraiv gradient.
+  if (!hasExplicitHighlight && words.length > 0) {
+    if (words.length === 1) {
+      words[0].isHighlighted = true;
+    } else {
+      const splitIndex = Math.ceil(words.length / 2);
+      for (let i = splitIndex; i < words.length; i++) {
+        words[i].isHighlighted = true;
+      }
+    }
   }
 
   return words;
@@ -209,7 +229,7 @@ export function HeroSection({
                 className={cn(
                   "inline-block whitespace-nowrap pb-0.5",
                   item.isHighlighted
-                    ? "heading-gradient font-semibold"
+                    ? "heading-gradient font-semibold bg-linear-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] dark:from-[#38BDF8] dark:via-[#60A5FA] dark:to-[#93C5FD] bg-clip-text text-transparent"
                     : "text-foreground"
                 )}
               >
