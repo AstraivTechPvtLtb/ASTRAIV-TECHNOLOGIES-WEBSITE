@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { Navbar, Footer } from '@/views';
+import { Navbar, FooterView } from '@/views';
 import { Button, buttonVariants } from '@/views/ui/button';
 import { RotateCcw, AlertTriangle, Home } from 'lucide-react';
 import { Link } from '@/i18n/routing';
@@ -69,7 +69,7 @@ export default function ErrorBoundary({ error, reset }: ErrorProps) {
         </div>
       </main>
 
-      <Footer />
+      <FooterView />
     </div>
   );
 }

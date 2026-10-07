@@ -145,13 +145,15 @@ describe('TrustStrip Enterprise Marquee Redesign', () => {
     expect(html).toContain('no-scrollbar');
   });
 
-  it('renders mini cards as interactive buttons with accessible labels for modal view', () => {
+  it('renders mini cards as interactive buttons with accessible labels and popover semantics', () => {
     const html = renderToString(<TrustStrip />);
 
-    // Interactive button triggers for modal
+    // Interactive button triggers for popover
     expect(html).toContain('aria-label="View details for ISO 9001:2015 Quality"');
     expect(html).toContain('aria-label="View details for SOC-2 Type II Ready"');
     expect(html).toContain('aria-label="View details for Enterprise Craftsmanship"');
+    expect(html).toContain('aria-haspopup="dialog"');
+    expect(html).toContain('aria-expanded="false"');
   });
 });
 
