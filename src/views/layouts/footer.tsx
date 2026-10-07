@@ -2,12 +2,48 @@ import { Link } from '@/i18n/routing';
 import Image from 'next/image';
 import { SocialPlatformIcon } from '@/views/ui/icons';
 import { Phone, Mail, MapPin } from 'lucide-react';
-import { getPublicFooterData } from '@/controllers/footer.controller';
+import { getPublicFooterData, PublicFooterData } from '@/controllers/footer.controller';
 import { ROUTES } from '@/routes';
 
-export async function Footer() {
+const FALLBACK_FOOTER_DATA: PublicFooterData = {
+  phone: '+91 8167409664',
+  email: 'info@astraivtechnologies.com',
+  address: 'Ashoknagar, Kolkata',
+  mapUrl: 'https://maps.google.com/?q=Ashoknagar,+Kolkata',
+  brandTagline: 'Your trusted partner for AI, enterprise software, and scalable cloud systems.',
+  copyrightText: 'Astraiv Technologies. All rights reserved.',
+  socials: [
+    {
+      id: 'default-twitter',
+      platform: 'twitter',
+      name: 'Twitter',
+      url: 'https://twitter.com',
+      icon: 'twitter',
+    },
+    {
+      id: 'default-linkedin',
+      platform: 'linkedin',
+      name: 'LinkedIn',
+      url: 'https://linkedin.com',
+      icon: 'linkedin',
+    },
+    {
+      id: 'default-github',
+      platform: 'github',
+      name: 'GitHub',
+      url: 'https://github.com',
+      icon: 'github',
+    },
+  ],
+};
+
+export interface FooterViewProps {
+  data?: PublicFooterData;
+}
+
+export function FooterView({ data }: FooterViewProps) {
   const currentYear = new Date().getFullYear();
-  const footerData = await getPublicFooterData();
+  const footerData = data || FALLBACK_FOOTER_DATA;
 
   const columns = [
     {
@@ -204,4 +240,12 @@ export async function Footer() {
       </div>
     </footer>
   );
+}
+
+/**
+ * Server Component Footer wrapper with dynamic data fetching for standard server-rendered pages.
+ */
+export async function Footer() {
+  const footerData = await getPublicFooterData();
+  return <FooterView data={footerData} />;
 }

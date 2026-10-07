@@ -94,14 +94,16 @@ function renderBadgeIcon(
 interface AccoladeMiniCardProps {
   item: AccoladeStripItem;
   isDuplicate?: boolean;
-  onHover: (item: AccoladeStripItem) => void;
+  isOpen?: boolean;
+  onHover: (item: AccoladeStripItem, el: HTMLElement) => void;
   onLeave: () => void;
-  onClick: (item: AccoladeStripItem) => void;
+  onClick: (item: AccoladeStripItem, el: HTMLElement) => void;
 }
 
 function AccoladeMiniCard({
   item,
   isDuplicate = false,
+  isOpen = false,
   onHover,
   onLeave,
   onClick,
@@ -113,7 +115,8 @@ function AccoladeMiniCard({
         'bg-slate-50/80 dark:bg-slate-800/40 border border-slate-200/80 dark:border-white/8',
         'hover:border-primary/50 dark:hover:border-blue-400/50 hover:bg-white dark:hover:bg-slate-800/75',
         'shadow-[0_1px_2px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)]',
-        'hover:-translate-y-0.5 hover:shadow-card transition-all duration-200 ease-out select-none cursor-pointer'
+        'hover:-translate-y-0.5 hover:shadow-card transition-all duration-200 ease-out select-none cursor-pointer',
+        isOpen && 'border-primary/60 dark:border-blue-400/60 bg-white dark:bg-slate-800/90 shadow-card -translate-y-0.5'
       )}
       title={`${item.title} — Hover or tap to view verified audit details`}
     >
@@ -146,11 +149,24 @@ function AccoladeMiniCard({
       role="button"
       tabIndex={isDuplicate ? -1 : 0}
       aria-hidden={isDuplicate}
-      onClick={() => onClick(item)}
-      onMouseEnter={() => onHover(item)}
+      aria-haspopup="dialog"
+      aria-expanded={isOpen}
+      aria-controls={isOpen ? 'accolade-popover' : undefined}
+      onClick={(e) => onClick(item, e.currentTarget)}
+      onMouseEnter={(e) => onHover(item, e.currentTarget)}
       onMouseLeave={onLeave}
-      onFocus={() => !isDuplicate && onHover(item)}
+      onFocus={(e) => {
+        if (!isDuplicate) {
+          onHover(item, e.currentTarget);
+        }
+      }}
       onBlur={onLeave}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick(item, e.currentTarget);
+        }
+      }}
       aria-label={`View details for ${item.title}`}
       className="shrink-0 focus-visible:outline-2 focus-visible:outline-primary rounded-xl text-left cursor-pointer"
     >
@@ -159,40 +175,190 @@ function AccoladeMiniCard({
   );
 }
 
+import { createPortal } from 'react-dom';
+
 /**
- * Enlarged Medium Size Card (Modal Dialog)
- * - Cross button is removed as requested.
- * - Backdrop blur is reduced to 2px so background is visible.
- * - Pointer events are non-blocking so all cards (side and middle) hover seamlessly.
+ * Calculates optimal popover coordinates anchored to the trigger card.
+ * Handles viewport clamping, flipping (above vs below), sticky header offset, and horizontal shifting.
  */
-interface AccoladeDetailModalProps {
-  item: AccoladeStripItem | null;
-  onClose: () => void;
-  onMouseEnterCard: () => void;
-  onMouseLeaveCard: () => void;
+interface PopoverPosition {
+  top: number;
+  left: number;
+  placement: 'bottom' | 'top';
+  maxHeight: number;
+  width: number;
 }
 
-function AccoladeDetailModal({
-  item,
-  onClose,
-  onMouseEnterCard,
-  onMouseLeaveCard,
-}: AccoladeDetailModalProps) {
-  // Close on Escape key press
-  useEffect(() => {
-    if (!item) return;
+function calculatePopoverPosition(
+  triggerEl: HTMLElement,
+  popoverEl: HTMLElement | null
+): PopoverPosition | null {
+  if (typeof window === 'undefined') return null;
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+  const triggerRect = triggerEl.getBoundingClientRect();
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
+
+  // Sticky header safe offset (approx 72px on desktop, 64px on mobile)
+  const NAV_OFFSET = windowWidth < 640 ? 64 : 76;
+  const MARGIN = 12;
+  const GAP = 8;
+
+  // Check if trigger is currently visible in viewport
+  const isVisible =
+    triggerRect.bottom > NAV_OFFSET &&
+    triggerRect.top < windowHeight &&
+    triggerRect.right > 0 &&
+    triggerRect.left < windowWidth;
+
+  if (!isVisible) {
+    return null;
+  }
+
+  // Compact popover width: target ~360px on desktop, capped to viewport width minus safe margins
+  const targetWidth = Math.min(360, windowWidth - MARGIN * 2);
+
+  // Measure or estimate popover height
+  const popoverHeight = popoverEl ? popoverEl.offsetHeight : 340;
+
+  // Available vertical space
+  const spaceBelow = windowHeight - triggerRect.bottom - GAP - MARGIN;
+  const spaceAbove = triggerRect.top - NAV_OFFSET - GAP - MARGIN;
+
+  let placement: 'bottom' | 'top' = 'bottom';
+  let top = 0;
+  let maxHeight = 360;
+
+  // Choose placement: prefer bottom unless space below is tight and above has more space
+  if (spaceBelow >= Math.min(popoverHeight, 260) || spaceBelow >= spaceAbove) {
+    placement = 'bottom';
+    top = triggerRect.bottom + GAP;
+    maxHeight = Math.max(160, Math.min(480, spaceBelow));
+  } else {
+    placement = 'top';
+    maxHeight = Math.max(160, Math.min(480, spaceAbove));
+    top = Math.max(NAV_OFFSET + MARGIN, triggerRect.top - GAP - Math.min(popoverHeight, maxHeight));
+  }
+
+  // Horizontal alignment: Center over the trigger card, clamped to viewport safe margins
+  const triggerCenter = triggerRect.left + triggerRect.width / 2;
+  let left = triggerCenter - targetWidth / 2;
+
+  // Clamp left to stay within viewport
+  const minLeft = MARGIN;
+  const maxLeft = Math.max(MARGIN, windowWidth - targetWidth - MARGIN);
+  left = Math.max(minLeft, Math.min(maxLeft, left));
+
+  return {
+    top,
+    left,
+    placement,
+    maxHeight,
+    width: targetWidth,
+  };
+}
+
+/**
+ * Compact, Card-Anchored Popover
+ * - Renders through a Portal without modal backdrop, blur, or scroll lock.
+ * - Non-modal (role="dialog", aria-modal="false") keeping page readable and scrollable.
+ * - Anchors directly to the hovered/focused trust card and updates position during scrolling.
+ */
+interface AccoladeDetailPopoverProps {
+  item: AccoladeStripItem | null;
+  triggerElement: HTMLElement | null;
+  onClose: () => void;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+}
+
+function AccoladeDetailPopover({
+  item,
+  triggerElement,
+  onClose,
+  onMouseEnter,
+  onMouseLeave,
+}: AccoladeDetailPopoverProps) {
+  const [mounted, setMounted] = useState(false);
+  const popoverRef = useRef<HTMLDivElement | null>(null);
+  const [position, setPosition] = useState<PopoverPosition | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Update position on render, scroll, resize, or trigger changes
+  const updatePosition = useCallback(() => {
+    if (!triggerElement) {
+      setPosition(null);
+      return;
+    }
+    const pos = calculatePopoverPosition(triggerElement, popoverRef.current);
+    if (!pos) {
+      // Trigger scrolled out of visible viewport -> dismiss safely
+      onClose();
+    } else {
+      setPosition(pos);
+    }
+  }, [triggerElement, onClose]);
+
+  // Handle position calculation and scroll/resize listeners
+  useEffect(() => {
+    if (!item || !triggerElement) return;
+
+    updatePosition();
+
+    // Listen to window scroll (capture true to detect ancestor scrolls) and resize
+    const handleScrollOrResize = () => {
+      updatePosition();
+    };
+
+    window.addEventListener('scroll', handleScrollOrResize, { passive: true, capture: true });
+    window.addEventListener('resize', handleScrollOrResize, { passive: true });
+
+    // Close on outside pointer click
+    const handlePointerDown = (e: PointerEvent) => {
+      const target = e.target as Node | null;
+      if (
+        popoverRef.current &&
+        !popoverRef.current.contains(target) &&
+        triggerElement &&
+        !triggerElement.contains(target)
+      ) {
         onClose();
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [item, onClose]);
+    // Close on Escape key press and restore focus to trigger
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+        triggerElement?.focus();
+      }
+    };
 
-  if (!item) return null;
+    document.addEventListener('pointerdown', handlePointerDown);
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('scroll', handleScrollOrResize, { capture: true });
+      window.removeEventListener('resize', handleScrollOrResize);
+      document.removeEventListener('pointerdown', handlePointerDown);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [item, triggerElement, updatePosition, onClose]);
+
+  // Recalculate after content mount/paint to measure true height
+  useEffect(() => {
+    if (mounted && item && triggerElement) {
+      const frameId = requestAnimationFrame(() => {
+        updatePosition();
+      });
+      return () => cancelAnimationFrame(frameId);
+    }
+  }, [mounted, item, triggerElement, updatePosition]);
+
+  if (!mounted || !item || !triggerElement || !position) return null;
 
   const targetUrl = item.verificationUrl || item.href || ROUTES.PUBLIC.REWARDS_ACCOLADES;
   const isExternal = targetUrl.startsWith('http');
@@ -201,208 +367,203 @@ function AccoladeDetailModal({
     switch (item.status) {
       case 'verified':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary/10 text-primary dark:text-cyan-300 border border-primary/20 text-[10.5px] font-medium">
-            <Check className="h-3 w-3" /> Audited & Verified
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary dark:text-cyan-300 border border-primary/20 text-[10px] font-medium">
+            <Check className="h-2.5 w-2.5" /> Audited &amp; Verified
           </span>
         );
       case 'contractual':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 text-[10.5px] font-medium">
-            <Shield className="h-3 w-3" /> Contractual SLA
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 text-[10px] font-medium">
+            <Shield className="h-2.5 w-2.5" /> Contractual SLA
           </span>
         );
       case 'active':
       default:
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 text-[10.5px] font-medium">
-            <FileCheck className="h-3 w-3" /> Active Alliance
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 text-[10px] font-medium">
+            <FileCheck className="h-2.5 w-2.5" /> Active Alliance
           </span>
         );
     }
   };
 
-  return (
-    <>
-      {/* Light subtle backdrop with reduced blur so background remains clearly visible. Pointer-events are non-blocking to never interfere with hovering side cards. */}
+  const popoverContent = (
+    <div
+      ref={popoverRef}
+      role="dialog"
+      aria-modal="false"
+      id="accolade-popover"
+      aria-labelledby="accolade-popover-title"
+      aria-describedby="accolade-popover-description"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      style={{
+        position: 'fixed',
+        top: `${position.top}px`,
+        left: `${position.left}px`,
+        width: `${position.width}px`,
+        zIndex: 50,
+      }}
+      className="pointer-events-auto"
+    >
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.28, ease: 'easeOut' }}
-        className="fixed inset-0 z-40 bg-slate-950/20 dark:bg-black/35 backdrop-blur-[2px] pointer-events-none"
-        aria-hidden="true"
-      />
-
-      {/* Enlarged Medium Size Card Container */}
-      <div
-        className="fixed inset-0 z-50 pointer-events-none flex items-center justify-center p-4 sm:p-6"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="accolade-modal-title"
-        aria-describedby="accolade-modal-description"
+        initial={{ opacity: 0, y: position.placement === 'bottom' ? 5 : -5 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: position.placement === 'bottom' ? 4 : -4 }}
+        transition={{ duration: 0.18, ease: 'easeOut' }}
+        className={cn(
+          'relative rounded-xl border p-3.5 sm:p-4 text-left shadow-xl',
+          'bg-card/98 dark:bg-slate-900/98 backdrop-blur-xl',
+          'border-slate-200/90 dark:border-white/12',
+          'shadow-[0_10px_30px_-5px_rgba(0,0,0,0.2)] dark:shadow-[0_14px_40px_-8px_rgba(0,0,0,0.6)]'
+        )}
       >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 10 }}
-          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          onClick={(e) => e.stopPropagation()}
-          onMouseEnter={onMouseEnterCard}
-          onMouseLeave={onMouseLeaveCard}
-          className="pointer-events-auto relative w-full max-w-lg sm:max-w-xl group/modal select-text"
+        {/* Subtle Ambient Radial Highlight inside card */}
+        <div
+          className="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-xl"
+          aria-hidden="true"
         >
-          {/* Layer 1: Ambient Outer Glow Halo matching Astraiv UI palette (#2563eb, #38bdf8, #818cf8) */}
-          <div
-            className="pointer-events-none absolute -inset-2 rounded-[28px] bg-linear-to-r from-blue-600 via-sky-400 to-indigo-500 opacity-45 dark:opacity-65 blur-2xl animate-modal-glow-pulse -z-10 transition-opacity duration-300"
-            aria-hidden="true"
-          />
+          <div className="absolute -top-10 -right-10 w-36 h-36 bg-primary/8 dark:bg-blue-500/10 rounded-full blur-2xl" />
+        </div>
 
-          {/* Layer 2: Glowing Border Frame with Broad 2.5px-3px Border and Circulating Light Effect (top -> right -> down -> left -> up) */}
-          <div className="relative rounded-[20px] p-[2.5px] sm:p-0.75 overflow-hidden bg-slate-200/90 dark:bg-slate-800/90 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)]">
-            {/* Circulating Light Effect rounding the rectangle clockwise */}
-            <div
-              className="pointer-events-none absolute top-1/2 left-1/2 w-[350%] h-[350%] -translate-x-1/2 -translate-y-1/2 animate-modal-border-spin motion-reduce:hidden"
-              style={{
-                background:
-                  'conic-gradient(from 0deg at 50% 50%, transparent 0deg 180deg, rgba(37, 99, 235, 0.2) 220deg, #2563eb 250deg, #0ea5e9 280deg, #818cf8 310deg, #38bdf8 335deg, #ffffff 352deg, #38bdf8 358deg, transparent 360deg)',
-              }}
-              aria-hidden="true"
-            />
+        {/* Top Header Bar: Category Chip, Status Badge, & Close Button */}
+        <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-slate-200/70 dark:border-white/8">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {item.category && (
+              <span className="text-[9.5px] font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-300 px-2 py-0.5 rounded-md bg-primary/10 dark:bg-blue-500/10 border border-primary/20 dark:border-blue-400/25">
+                {item.category}
+              </span>
+            )}
+            {getStatusBadge()}
+          </div>
 
-            {/* Accessible static fallback for reduced-motion */}
-            <div
-              className="hidden motion-reduce:block pointer-events-none absolute inset-0 bg-linear-to-r from-blue-600 via-sky-400 to-indigo-500"
-              aria-hidden="true"
-            />
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close details"
+            className="flex h-6 w-6 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer shrink-0"
+          >
+            <span className="text-xs font-semibold select-none leading-none">✕</span>
+          </button>
+        </div>
 
-            {/* Layer 3: Inner Card Content */}
-            <div className="relative w-full max-h-[85vh] overflow-y-auto no-scrollbar rounded-[17px] bg-card dark:bg-slate-900/98 backdrop-blur-2xl p-5 sm:p-7 text-left z-10">
-              {/* Subtle Ambient Radial Highlight inside card */}
-              <div
-                className="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-[17px]"
-                aria-hidden="true"
+        {/* Scrollable Body (if content is tall) */}
+        <div
+          className="overflow-y-auto no-scrollbar pt-2.5 space-y-3"
+          style={{ maxHeight: `${position.maxHeight - 90}px` }}
+        >
+          {/* Core Identity Row */}
+          <div className="flex items-start gap-2.5">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-100/90 dark:bg-slate-800/80 border border-slate-200/80 dark:border-white/10 shadow-xs">
+              {renderBadgeIcon(item.icon, 'sm')}
+            </div>
+
+            <div className="flex flex-col min-w-0 pr-1">
+              <h3
+                id="accolade-popover-title"
+                className="text-xs sm:text-[13px] font-bold text-foreground tracking-tight leading-snug"
               >
-                <div className="absolute -top-12 -right-12 w-48 h-48 bg-primary/10 dark:bg-blue-500/10 rounded-full blur-3xl" />
-              </div>
+                {item.title}
+              </h3>
 
-              {/* Top Header Bar: Category Chip & Status Badge (Cross button removed as requested) */}
-              <div className="flex items-center gap-2 flex-wrap pb-4 border-b border-slate-200/80 dark:border-white/8">
-                {item.category && (
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-300 px-2.5 py-0.5 rounded-md bg-primary/10 dark:bg-blue-500/10 border border-primary/20 dark:border-blue-400/25">
-                    {item.category}
-                  </span>
-                )}
-                {getStatusBadge()}
-              </div>
-
-              {/* Core Identity Row */}
-              <div className="flex items-start gap-3.5 sm:gap-4 pt-4">
-                <div className="flex h-11 w-11 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl bg-slate-100/90 dark:bg-slate-800/80 border border-slate-200/80 dark:border-white/10 shadow-xs">
-                  {renderBadgeIcon(item.icon, 'lg')}
-                </div>
-
-                <div className="flex flex-col min-w-0 pr-1">
-                  <h3
-                    id="accolade-modal-title"
-                    className="text-base sm:text-lg font-bold text-foreground tracking-tight leading-snug"
-                  >
-                    {item.title}
-                  </h3>
-
-                  {(item.organization || item.year) && (
-                    <span className="text-xs text-muted-foreground font-medium mt-0.5">
-                      {[item.organization, item.year].filter(Boolean).join(' · ')}
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              {/* Detailed Description */}
-              <p
-                id="accolade-modal-description"
-                className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 leading-relaxed font-normal mt-4"
-              >
-                {item.description}
-              </p>
-
-              {/* Key Highlights / Audit Verification Controls */}
-              {item.highlights && item.highlights.length > 0 && (
-                <div className="mt-4 pt-4 border-t border-slate-200/60 dark:border-white/6">
-                  <h4 className="text-[10.5px] font-mono font-semibold uppercase tracking-wider text-muted-foreground mb-2.5">
-                    Verified Technical Benchmarks & Scope
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {item.highlights.map((highlight, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-start gap-2 text-[11.5px] text-slate-700 dark:text-slate-300 leading-snug"
-                      >
-                        <CheckCircle2 className="h-3.5 w-3.5 text-primary dark:text-cyan-400 shrink-0 mt-0.5" aria-hidden="true" />
-                        <span>{highlight}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              {(item.organization || item.year) && (
+                <span className="text-[10.5px] text-muted-foreground font-medium mt-0.5 truncate">
+                  {[item.organization, item.year].filter(Boolean).join(' · ')}
+                </span>
               )}
-
-              {/* Verified Achievement / Impact Callout */}
-              {item.achievement && (
-                <div className="mt-4 p-3 rounded-xl bg-primary/4 dark:bg-blue-500/6 border border-primary/15 dark:border-blue-400/20 flex items-start gap-2.5">
-                  <ShieldCheck className="h-4 w-4 text-primary dark:text-blue-400 shrink-0 mt-0.5" aria-hidden="true" />
-                  <div className="flex flex-col">
-                    <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-primary dark:text-blue-300">
-                      Audited Operational Impact
-                    </span>
-                    <span className="text-[11.5px] text-slate-700 dark:text-slate-300 font-medium leading-normal mt-0.5">
-                      {item.achievement}
-                    </span>
-                  </div>
-                </div>
-              )}
-
-              {/* Action Footer */}
-              <div className="mt-6 pt-4 border-t border-slate-200/80 dark:border-white/8 flex flex-col sm:flex-row items-center justify-between gap-3">
-                <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary dark:bg-cyan-400" />
-                  <span>Continuous Production Verification</span>
-                </div>
-
-                <div className="flex items-center gap-2.5 w-full sm:w-auto">
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    className="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-muted-foreground hover:text-foreground hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer w-full sm:w-auto text-center"
-                  >
-                    Close
-                  </button>
-
-                  {isExternal ? (
-                    <a
-                      href={targetUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group/btn inline-flex items-center justify-center gap-1.5 px-4 py-1.5 rounded-xl text-xs font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-all duration-200 w-full sm:w-auto text-center shadow-xs"
-                    >
-                      <span>{item.verificationLabel || 'Verify External Registry'}</span>
-                      <ExternalLink className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-0.5" aria-hidden="true" />
-                    </a>
-                  ) : (
-                    <Link
-                      href={targetUrl}
-                      className="group/btn inline-flex items-center justify-center gap-1.5 px-4 py-1.5 rounded-xl text-xs font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-all duration-200 w-full sm:w-auto text-center shadow-xs"
-                    >
-                      <span>{item.verificationLabel || 'Inspect Full Accreditation'}</span>
-                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-1" aria-hidden="true" />
-                    </Link>
-                  )}
-                </div>
-              </div>
             </div>
           </div>
-        </motion.div>
-      </div>
-    </>
+
+          {/* Detailed Description */}
+          <p
+            id="accolade-popover-description"
+            className="text-[11.5px] text-slate-600 dark:text-slate-300 leading-relaxed font-normal"
+          >
+            {item.description}
+          </p>
+
+          {/* Key Highlights / Audit Verification Controls */}
+          {item.highlights && item.highlights.length > 0 && (
+            <div className="pt-2.5 border-t border-slate-200/60 dark:border-white/6">
+              <h4 className="text-[9.5px] font-mono font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+                Verified Benchmarks &amp; Scope
+              </h4>
+              <div className="flex flex-col gap-1.5">
+                {item.highlights.map((highlight, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-start gap-1.5 text-[11px] text-slate-700 dark:text-slate-300 leading-snug"
+                  >
+                    <CheckCircle2
+                      className="h-3 w-3 text-primary dark:text-cyan-400 shrink-0 mt-0.5"
+                      aria-hidden="true"
+                    />
+                    <span>{highlight}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Verified Achievement / Impact Callout */}
+          {item.achievement && (
+            <div className="p-2 rounded-lg bg-primary/4 dark:bg-blue-500/6 border border-primary/15 dark:border-blue-400/20 flex items-start gap-2">
+              <ShieldCheck
+                className="h-3.5 w-3.5 text-primary dark:text-blue-400 shrink-0 mt-0.5"
+                aria-hidden="true"
+              />
+              <div className="flex flex-col">
+                <span className="text-[9px] font-mono font-semibold uppercase tracking-wider text-primary dark:text-blue-300">
+                  Audited Impact
+                </span>
+                <span className="text-[10.5px] text-slate-700 dark:text-slate-300 font-medium leading-normal mt-0.5">
+                  {item.achievement}
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Action Footer */}
+        <div className="mt-3 pt-2.5 border-t border-slate-200/80 dark:border-white/8 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary dark:bg-cyan-400" />
+            <span className="truncate">Continuous Verification</span>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            {isExternal ? (
+              <a
+                href={targetUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/btn inline-flex items-center justify-center gap-1 px-3 py-1 rounded-lg text-[11px] font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-all duration-200 shadow-xs"
+              >
+                <span>{item.verificationLabel || 'Verify Registry'}</span>
+                <ExternalLink
+                  className="h-3 w-3 transition-transform group-hover/btn:translate-x-0.5"
+                  aria-hidden="true"
+                />
+              </a>
+            ) : (
+              <Link
+                href={targetUrl}
+                className="group/btn inline-flex items-center justify-center gap-1 px-3 py-1 rounded-lg text-[11px] font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-all duration-200 shadow-xs"
+              >
+                <span>{item.verificationLabel || 'Inspect Details'}</span>
+                <ArrowRight
+                  className="h-3 w-3 transition-transform group-hover/btn:translate-x-0.5"
+                  aria-hidden="true"
+                />
+              </Link>
+            )}
+          </div>
+        </div>
+      </motion.div>
+    </div>
   );
+
+  return createPortal(popoverContent, document.body);
 }
 
 /**
@@ -410,10 +571,11 @@ function AccoladeDetailModal({
  */
 export function TrustStrip({ initialSettings, items, className }: TrustStripProps) {
   const [selectedAccolade, setSelectedAccolade] = useState<AccoladeStripItem | null>(null);
-  const isCardOpen = selectedAccolade !== null;
+  const [triggerElement, setTriggerElement] = useState<HTMLElement | null>(null);
+  const isCardOpen = selectedAccolade !== null && triggerElement !== null;
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const openTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isHoveringCardRef = useRef(false);
-  const activeMiniCardRef = useRef<string | null>(null);
 
   const isoNumber = initialSettings?.isoNumber || 'ISO 27001:2022';
   const isoLabel = initialSettings?.isoLabel !== undefined ? initialSettings.isoLabel : 'Certified';
@@ -571,31 +733,79 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
     return group;
   }, [activeItems]);
 
-  // Open modal on hover or tap (works for any card: side, middle, or duplicate)
-  const handleOpen = useCallback((item: AccoladeStripItem) => {
-    activeMiniCardRef.current = item.id;
+  // Immediate close (for Close button, Escape key)
+  const handleImmediateClose = useCallback(() => {
+    isHoveringCardRef.current = false;
+    if (openTimeoutRef.current) {
+      clearTimeout(openTimeoutRef.current);
+      openTimeoutRef.current = null;
+    }
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
       closeTimeoutRef.current = null;
     }
-    setSelectedAccolade(item);
+    setSelectedAccolade(null);
+    setTriggerElement(null);
   }, []);
 
-  // When cursor leaves any mini card: brief grace period to allow cursor to reach enlarged card or another card
+  // Open popover on hover (debounced) or click/keyboard (immediate)
+  const handleOpen = useCallback((item: AccoladeStripItem, el: HTMLElement, immediate = false) => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+
+    if (immediate) {
+      if (openTimeoutRef.current) {
+        clearTimeout(openTimeoutRef.current);
+        openTimeoutRef.current = null;
+      }
+      setSelectedAccolade(item);
+      setTriggerElement(el);
+      return;
+    }
+
+    // Debounce hover opening by 160ms to prevent flicker while crossing cards
+    if (openTimeoutRef.current) {
+      clearTimeout(openTimeoutRef.current);
+    }
+    openTimeoutRef.current = setTimeout(() => {
+      setSelectedAccolade(item);
+      setTriggerElement(el);
+    }, 160);
+  }, []);
+
+  // Click handler for toggle behavior
+  const handleCardClick = useCallback((item: AccoladeStripItem, el: HTMLElement) => {
+    setSelectedAccolade((prev) => {
+      if (prev?.id === item.id) {
+        setTriggerElement(null);
+        return null;
+      }
+      setTriggerElement(el);
+      return item;
+    });
+  }, []);
+
+  // When cursor leaves any mini card: grace period to allow cursor to cross gap into popover
   const handleLeaveMiniCard = useCallback(() => {
-    activeMiniCardRef.current = null;
+    if (openTimeoutRef.current) {
+      clearTimeout(openTimeoutRef.current);
+      openTimeoutRef.current = null;
+    }
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
     }
     closeTimeoutRef.current = setTimeout(() => {
-      if (!isHoveringCardRef.current && !activeMiniCardRef.current) {
+      if (!isHoveringCardRef.current) {
         setSelectedAccolade(null);
+        setTriggerElement(null);
       }
     }, 220);
   }, []);
 
-  // When cursor enters the enlarged card: keep open while user reads
-  const handleMouseEnterCard = useCallback(() => {
+  // When cursor enters the popover: keep it open while user interacts
+  const handleMouseEnterPopover = useCallback(() => {
     isHoveringCardRef.current = true;
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
@@ -603,35 +813,28 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
     }
   }, []);
 
-  // When cursor leaves the enlarged card: auto-close gracefully and smoothly
-  const handleMouseLeaveCard = useCallback(() => {
+  // When cursor leaves the popover: auto-close smoothly after grace period
+  const handleMouseLeavePopover = useCallback(() => {
     isHoveringCardRef.current = false;
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
     }
     closeTimeoutRef.current = setTimeout(() => {
-      if (!isHoveringCardRef.current && !activeMiniCardRef.current) {
+      if (!isHoveringCardRef.current) {
         setSelectedAccolade(null);
+        setTriggerElement(null);
       }
     }, 180);
   }, []);
 
-  // Immediate close (for Close button, Escape key)
-  const handleImmediateClose = useCallback(() => {
-    isHoveringCardRef.current = false;
-    activeMiniCardRef.current = null;
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current);
-      closeTimeoutRef.current = null;
-    }
-    setSelectedAccolade(null);
-  }, []);
-
-  // Clean up timer on unmount
+  // Clean up timers on unmount
   useEffect(() => {
     return () => {
       if (closeTimeoutRef.current) {
         clearTimeout(closeTimeoutRef.current);
+      }
+      if (openTimeoutRef.current) {
+        clearTimeout(openTimeoutRef.current);
       }
     };
   }, []);
@@ -726,9 +929,10 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
                     <AccoladeMiniCard
                       key={`g1-${item.id}-${idx}`}
                       item={item}
-                      onHover={handleOpen}
+                      isOpen={selectedAccolade?.id === item.id}
+                      onHover={(it, el) => handleOpen(it, el, false)}
                       onLeave={handleLeaveMiniCard}
-                      onClick={handleOpen}
+                      onClick={handleCardClick}
                     />
                   ))}
                 </div>
@@ -747,9 +951,10 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
                       key={`g2-${item.id}-${idx}`}
                       item={item}
                       isDuplicate
-                      onHover={handleOpen}
+                      isOpen={selectedAccolade?.id === item.id}
+                      onHover={(it, el) => handleOpen(it, el, false)}
                       onLeave={handleLeaveMiniCard}
-                      onClick={handleOpen}
+                      onClick={handleCardClick}
                     />
                   ))}
                 </div>
@@ -793,14 +998,15 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
         </div>
       </section>
 
-      {/* Enlarged Medium Size Card Modal with Smooth Transitions & Light Subtle Backdrop */}
+      {/* Compact Card-Anchored Popover with Smooth Transitions */}
       <AnimatePresence>
-        {selectedAccolade && (
-          <AccoladeDetailModal
+        {selectedAccolade && triggerElement && (
+          <AccoladeDetailPopover
             item={selectedAccolade}
+            triggerElement={triggerElement}
             onClose={handleImmediateClose}
-            onMouseEnterCard={handleMouseEnterCard}
-            onMouseLeaveCard={handleMouseLeaveCard}
+            onMouseEnter={handleMouseEnterPopover}
+            onMouseLeave={handleMouseLeavePopover}
           />
         )}
       </AnimatePresence>
