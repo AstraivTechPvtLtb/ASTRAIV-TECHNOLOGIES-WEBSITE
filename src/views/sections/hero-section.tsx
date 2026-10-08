@@ -1,70 +1,22 @@
 'use client';
 
-import { Fragment } from 'react';
+import { useMemo } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
-import { cn } from '@/lib/utils';
 import { CircuitBackground } from './circuit-background';
+import { TypewriterHeadline } from './typewriter-headline';
 
 import { EASE_OUT_EXPO, MOTION_DURATIONS } from '@/lib/motion';
 
 const MAX_DEPTH = 800; // Deep Z-axis perspective depth coordinate in px
-
-export function parseHeadline(text: string) {
-  if (!text || !text.trim()) return [];
-
-  const words: { word: string; isHighlighted: boolean }[] = [];
-  let inHighlight = false;
-  let hasExplicitHighlight = false;
-
-  const tokens = text.trim().split(/\s+/);
-  for (const token of tokens) {
-    if (!token) continue;
-    let currentToken = token;
-
-    if (currentToken.includes('[')) {
-      inHighlight = true;
-      hasExplicitHighlight = true;
-      currentToken = currentToken.replace(/\[/g, '');
-    }
-
-    const highlighted = inHighlight;
-
-    if (currentToken.includes(']')) {
-      inHighlight = false;
-      currentToken = currentToken.replace(/\]/g, '');
-    }
-
-    if (currentToken) {
-      words.push({
-        word: currentToken,
-        isHighlighted: highlighted,
-      });
-    }
-  }
-
-  // 50% Gradient Policy:
-  // If no explicit [brackets] were provided from admin or copy, strictly apply the 50% gradient rule:
-  // First ~50% is solid foreground, remaining ~50% displays in the signature Astraiv gradient.
-  if (!hasExplicitHighlight && words.length > 0) {
-    if (words.length === 1) {
-      words[0].isHighlighted = true;
-    } else {
-      const splitIndex = Math.ceil(words.length / 2);
-      for (let i = splitIndex; i < words.length; i++) {
-        words[i].isHighlighted = true;
-      }
-    }
-  }
-
-  return words;
-}
+export { parseHeadline } from './typewriter-headline';
 
 interface HeroSectionProps {
   badgeText?: string;
-  headline: string;
+  headline?: string;
+  headlines?: string[];
   subheadline: string;
   ctaText?: string;
   ctaHref?: string;
@@ -75,13 +27,24 @@ interface HeroSectionProps {
 export function HeroSection({
   badgeText: _badgeText,
   headline,
+  headlines,
   subheadline,
   ctaText = 'Start a Project',
   ctaHref = ROUTES.PUBLIC.START_PROJECT,
   secondaryCtaText = 'Explore Case Studies',
   secondaryCtaHref = ROUTES.PUBLIC.CASE_STUDIES,
 }: HeroSectionProps) {
-  const parsedWords = parseHeadline(headline);
+  const effectiveHeadlines = useMemo(() => {
+    if (headlines && headlines.length > 0) {
+      const filtered = headlines.map((h) => h?.trim()).filter(Boolean);
+      if (filtered.length > 0) return filtered;
+    }
+    if (headline && headline.trim()) {
+      return [headline.trim()];
+    }
+    return ['We Engineer High-Performance Enterprise Software & AI Systems'];
+  }, [headlines, headline]);
+
   const shouldReduceMotion = useReducedMotion();
 
   // Mouse tracking for subtle, refined 3D perspective depth effect
@@ -134,24 +97,6 @@ export function HeroSection({
     },
   };
 
-  // Controlled, clean word reveal without heavy per-letter blur filters
-  const wordVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: shouldReduceMotion ? 0 : 10,
-    },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: shouldReduceMotion
-        ? { duration: 0 }
-        : {
-            delay: 0.18 + i * 0.038,
-            duration: 0.48,
-            ease: EASE_OUT_EXPO,
-          },
-    }),
-  };
 
   return (
     <section
@@ -213,31 +158,13 @@ export function HeroSection({
       >
 
 
-        {/* 2. Large Premium Headline - Fluid Clamp Scaling and Restrained Word Entrance */}
+        {/* 2. Large Premium Headline - Fluid Clamp Scaling and Typewriter Headline */}
         <motion.h1
           variants={itemVariants}
-          className="text-[clamp(1.35rem,4.2vw+0.35rem,3.75rem)] font-display font-semibold tracking-tight md:tracking-[-0.03em] text-foreground leading-[1.12] sm:leading-[1.15] w-full text-center mb-4 md:mb-5 whitespace-normal wrap-break-word"
+          className="text-[clamp(1.35rem,4.2vw+0.35rem,3.75rem)] font-display font-semibold tracking-tight md:tracking-[-0.03em] text-foreground leading-[1.12] sm:leading-[1.15] w-full text-center mb-4 md:mb-5 whitespace-normal wrap-break-word flex items-center justify-center min-h-[2.4em] sm:min-h-[2.3em]"
           style={{ textWrap: 'balance' }}
         >
-          {parsedWords.map((item, index) => (
-            <Fragment key={index}>
-              <motion.span
-                custom={index}
-                variants={wordVariants}
-                initial={false}
-                animate="visible"
-                className={cn(
-                  "inline-block whitespace-nowrap pb-0.5",
-                  item.isHighlighted
-                    ? "heading-gradient font-semibold bg-linear-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] dark:from-[#38BDF8] dark:via-[#60A5FA] dark:to-[#93C5FD] bg-clip-text text-transparent"
-                    : "text-foreground"
-                )}
-              >
-                {item.word}
-              </motion.span>
-              {index < parsedWords.length - 1 && ' '}
-            </Fragment>
-          ))}
+          <TypewriterHeadline headlines={effectiveHeadlines} />
         </motion.h1>
 
         {/* 3. Supporting Subheadline */}

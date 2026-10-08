@@ -673,6 +673,7 @@ select:focus-visible,
   .animate-float-slow,
   .animate-radar-pulse,
   .animate-accolade-marquee,
+  .animate-cursor-blink,
   .marquee-group {
     animation: none !important;
     transform: none !important;
@@ -689,6 +690,20 @@ select:focus-visible,
   100% {
     transform: translateX(100%);
   }
+}
+
+/* Hero Typewriter Cursor Blinking */
+@keyframes cursor-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-cursor-blink {
+  animation: cursor-blink 0.65s step-end infinite;
 }
 
 

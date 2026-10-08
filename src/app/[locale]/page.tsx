@@ -59,13 +59,32 @@ export default async function HomePage({ params }: HomePageProps) {
     getPublicPageContent('process'),
   ]);
 
-  const sec = (dynamicPage?.sections as Record<string, string>) || {};
-  const headline = sec.heroHeadline?.trim() || t('heroHeadline');
-  const subheadline = sec.heroSubheadline?.trim() || t('heroSubheadline');
-  const ctaText = sec.primaryCtaText?.trim() || 'Start a Project';
-  const ctaHref = sec.primaryCtaUrl?.trim() || ROUTES.PUBLIC.START_PROJECT;
-  const secondaryCtaText = sec.secondaryCtaText?.trim() || 'Explore Case Studies';
-  const secondaryCtaHref = sec.secondaryCtaUrl?.trim() || ROUTES.PUBLIC.CASE_STUDIES;
+  const sec = (dynamicPage?.sections as Record<string, unknown>) || {};
+
+  // Extract and normalize hero headlines with comprehensive backward compatibility
+  const rawHeadlines: string[] = [];
+  const h1 = (sec.heroHeadline1 || sec.hero_headline_1 || sec.heroHeadline) as string | undefined;
+  if (h1 && typeof h1 === 'string' && h1.trim()) rawHeadlines.push(h1.trim());
+
+  const h2 = (sec.heroHeadline2 || sec.hero_headline_2) as string | undefined;
+  if (h2 && typeof h2 === 'string' && h2.trim()) rawHeadlines.push(h2.trim());
+
+  const h3 = (sec.heroHeadline3 || sec.hero_headline_3) as string | undefined;
+  if (h3 && typeof h3 === 'string' && h3.trim()) rawHeadlines.push(h3.trim());
+
+  if (rawHeadlines.length === 0 && Array.isArray(sec.heroHeadlines)) {
+    for (const item of sec.heroHeadlines) {
+      if (typeof item === 'string' && item.trim()) rawHeadlines.push(item.trim());
+    }
+  }
+
+  const headlines = rawHeadlines.length > 0 ? rawHeadlines : [t('heroHeadline')];
+  const headline = headlines[0];
+  const subheadline = ((sec.heroSubheadline as string)?.trim()) || t('heroSubheadline');
+  const ctaText = ((sec.primaryCtaText as string)?.trim()) || 'Start a Project';
+  const ctaHref = ((sec.primaryCtaUrl as string)?.trim()) || ROUTES.PUBLIC.START_PROJECT;
+  const secondaryCtaText = ((sec.secondaryCtaText as string)?.trim()) || 'Explore Case Studies';
+  const secondaryCtaHref = ((sec.secondaryCtaUrl as string)?.trim()) || ROUTES.PUBLIC.CASE_STUDIES;
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground relative overflow-x-hidden">
@@ -80,6 +99,7 @@ export default async function HomePage({ params }: HomePageProps) {
         {/* 1. HERO */}
         <HeroSection
           headline={headline}
+          headlines={headlines}
           subheadline={subheadline}
           ctaText={ctaText}
           ctaHref={ctaHref}
