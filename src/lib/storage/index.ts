@@ -10,6 +10,7 @@ import { LocalStorageProvider } from './local-provider';
 
 export * from './types';
 export * from './validator';
+export * from './token';
 export * from './r2-provider';
 export * from './supabase-provider';
 export * from './local-provider';

@@ -13,6 +13,7 @@ import {
   DownloadUrlResult,
 } from './types';
 import { sanitizeFilename, validateDocumentBuffer } from './validator';
+import { generateUploadSessionToken } from './token';
 import crypto from 'crypto';
 
 export class SupabaseStorageProvider implements StorageProvider {
@@ -31,7 +32,7 @@ export class SupabaseStorageProvider implements StorageProvider {
 
     const stagingKey = `staging/${datePrefix}/${randomHex}.${ext}`;
     const finalKey = `resumes/${datePrefix}/${randomHex}.${ext}`;
-    const sessionToken = crypto.randomBytes(24).toString('hex');
+    const { sessionToken, expiresAt } = generateUploadSessionToken(stagingKey, 900);
 
     const supabase = await createClient();
     const { data, error } = await supabase.storage
@@ -42,11 +43,11 @@ export class SupabaseStorageProvider implements StorageProvider {
       // If signed upload URL not available in standard tier, provide direct route
       return {
         provider: 'supabase',
-        uploadUrl: `/api/applications/upload-direct?key=${encodeURIComponent(stagingKey)}&token=${sessionToken}`,
+        uploadUrl: `/api/applications/upload-direct?key=${encodeURIComponent(stagingKey)}&token=${encodeURIComponent(sessionToken)}`,
         stagingKey,
         finalKey,
         sessionToken,
-        expiresAt: new Date(Date.now() + 900 * 1000).toISOString(),
+        expiresAt,
       };
     }
 

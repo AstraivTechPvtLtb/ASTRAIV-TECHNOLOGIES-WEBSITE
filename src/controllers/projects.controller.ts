@@ -7,8 +7,6 @@
 
 import { db } from '@/models/db';
 import { Project, User } from '@prisma/client';
-import { auth } from '@/models/auth';
-import { headers } from 'next/headers';
 
 export type ProjectWithRelations = Project & {
   client?: User | null;
@@ -18,16 +16,18 @@ export type ProjectWithRelations = Project & {
 /**
  * Retrieves projects assigned to or managed by the authenticated user.
  */
+import { getCurrentUserSession } from './auth.controller';
+
 export async function getClientProjects(user?: { id: string; role: string }): Promise<ProjectWithRelations[]> {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    }).catch(() => null);
+    const sessionUser = await getCurrentUserSession().catch(() => null);
 
-    // Prioritize verified session from cookie/headers over caller input
-    const activeUser = session?.user
-      ? { id: session.user.id, role: session.user.role || 'CLIENT' }
-      : user;
+    const activeUser = sessionUser
+      ? {
+          id: sessionUser.role === 'ADMIN' && user?.id ? user.id : sessionUser.id,
+          role: sessionUser.role,
+        }
+      : null;
 
     if (!activeUser || !activeUser.id) {
       return [];

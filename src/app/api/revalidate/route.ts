@@ -2,19 +2,41 @@ import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { routing } from '@/i18n/routing';
 
-const SHARED_SECRET =
-  process.env.REVALIDATE_SECRET ||
-  process.env.JWT_SECRET ||
-  'REDACTED_SHARED_64_BYTE_SECRET';
+import crypto from 'crypto';
 
 function isAuthorized(req: NextRequest): boolean {
-  const url = new URL(req.url);
-  const secretParam = url.searchParams.get('secret');
-  const headerSecret = req.headers.get('x-revalidate-secret');
-  const authHeader = req.headers.get('authorization')?.replace(/^Bearer\s+/i, '');
+  const expectedSecret = process.env.REVALIDATE_SECRET?.trim();
+  if (!expectedSecret) {
+    // If not configured, deny all requests safely
+    return false;
+  }
 
-  const provided = secretParam || headerSecret || authHeader;
-  return Boolean(provided && provided === SHARED_SECRET);
+  const headerSecret = req.headers.get('x-revalidate-secret')?.trim();
+  const authHeader = req.headers.get('authorization')?.replace(/^Bearer\s+/i, '').trim();
+
+  // Query string acceptance supported for backward-compatibility with deprecation logging
+  const url = new URL(req.url);
+  const secretParam = url.searchParams.get('secret')?.trim();
+  if (secretParam) {
+    console.warn('[Revalidate Security Notice]: Secret passed via query string. Please transition to x-revalidate-secret HTTP header.');
+  }
+
+  const provided = headerSecret || authHeader || secretParam;
+  if (!provided) {
+    return false;
+  }
+
+  try {
+    const providedBuffer = Buffer.from(provided);
+    const expectedBuffer = Buffer.from(expectedSecret);
+
+    return (
+      providedBuffer.length === expectedBuffer.length &&
+      crypto.timingSafeEqual(providedBuffer, expectedBuffer)
+    );
+  } catch {
+    return false;
+  }
 }
 
 function performRevalidation(paths: string[], tags: string[] = []): string[] {

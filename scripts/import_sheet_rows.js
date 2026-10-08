@@ -1,5 +1,5 @@
 const { Pool } = require('pg');
-const pool = new Pool({ connectionString: 'postgresql://postgres:REDACTED_DEV_PWDlocalhost:5432/astraiv_tech' });
+const pool = new Pool({ connectionString: 'postgresql://postgres:postgres@localhost:5432/astraiv_tech' });
 
 const rows = [
   {

@@ -7,9 +7,8 @@
 
 import { db } from '@/models/db';
 import { revalidatePath } from 'next/cache';
-import { auth } from '@/models/auth';
-import { headers } from 'next/headers';
 import { TicketPriority, TicketStatus, ClientActionResponse } from '@/models/types';
+import { getCurrentUserSession } from './auth.controller';
 
 export interface CreateTicketInput {
   subject: string;
@@ -22,11 +21,9 @@ export interface CreateTicketInput {
  */
 export async function createClientTicket(input: CreateTicketInput): Promise<ClientActionResponse> {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getCurrentUserSession();
 
-    if (!session || !session.user) {
+    if (!session) {
       return { success: false, error: 'Unauthorized. Please sign in to open a support ticket.' };
     }
 
@@ -36,7 +33,7 @@ export async function createClientTicket(input: CreateTicketInput): Promise<Clie
         description: input.description,
         priority: input.priority || 'MEDIUM',
         status: 'OPEN',
-        clientId: session.user.id,
+        clientId: session.id,
       },
     });
 
@@ -58,11 +55,9 @@ export async function updateClientTicket(
   updates: { status?: TicketStatus; priority?: TicketPriority }
 ): Promise<ClientActionResponse> {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getCurrentUserSession();
 
-    if (!session || !session.user) {
+    if (!session) {
       return { success: false, error: 'Unauthorized.' };
     }
 
@@ -74,8 +69,8 @@ export async function updateClientTicket(
       return { success: false, error: 'Support ticket not found.' };
     }
 
-    const isStaff = session.user.role === 'ADMIN' || session.user.role === 'PROJECT_MANAGER';
-    if (!isStaff && ticket.clientId !== session.user.id) {
+    const isStaff = session.role === 'ADMIN' || session.role === 'PROJECT_MANAGER';
+    if (!isStaff && ticket.clientId !== session.id) {
       return { success: false, error: 'Forbidden: You do not have permission to modify this ticket.' };
     }
 
@@ -103,11 +98,9 @@ export async function createTicketAction(data: {
   priority?: string;
   clientId?: string;
 }) {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getCurrentUserSession();
 
-  if (!session || !session.user) {
+  if (!session) {
     throw new Error('Unauthorized: You must be logged in to create a support ticket.');
   }
 
@@ -127,7 +120,7 @@ export async function createTicketAction(data: {
   }
 
   // Prevent client ID spoofing: strictly enforce authenticated session user ID
-  const clientId = session.user.id;
+  const clientId = session.id;
   const priority = data.priority || 'MEDIUM';
 
   try {
@@ -176,16 +169,26 @@ export interface TicketWithRelations {
 /**
  * Retrieves support tickets based on the user's role and identity.
  */
-export async function getClientTickets(user: { id: string; role: string }): Promise<TicketWithRelations[]> {
+export async function getClientTickets(user?: { id: string; role: string }): Promise<TicketWithRelations[]> {
   try {
-    const isClient = user.role === 'CLIENT';
-    const isProjectManager = user.role === 'PROJECT_MANAGER';
+    const sessionUser = await getCurrentUserSession().catch(() => null);
+    if (!sessionUser) {
+      return [];
+    }
+
+    const activeUser = {
+      id: sessionUser.role === 'ADMIN' && user?.id ? user.id : sessionUser.id,
+      role: sessionUser.role,
+    };
+
+    const isClient = activeUser.role === 'CLIENT';
+    const isProjectManager = activeUser.role === 'PROJECT_MANAGER';
 
     let whereClause = {};
     if (isClient) {
-      whereClause = { clientId: user.id };
+      whereClause = { clientId: activeUser.id };
     } else if (isProjectManager) {
-      whereClause = { assignedToId: user.id };
+      whereClause = { assignedToId: activeUser.id };
     }
 
     return await db.clientTicket.findMany({

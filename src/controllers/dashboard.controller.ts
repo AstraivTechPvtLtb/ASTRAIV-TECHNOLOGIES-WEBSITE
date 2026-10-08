@@ -9,8 +9,6 @@ import { db } from '@/models/db';
 import { CRMLead } from '@prisma/client';
 import { ProjectWithRelations } from './projects.controller';
 import { TicketWithRelations } from './tickets.controller';
-import { auth } from '@/models/auth';
-import { headers } from 'next/headers';
 
 export interface DashboardStats {
   totalProjects: number;
@@ -30,19 +28,22 @@ export interface DashboardData {
   leads: CRMLead[];
 }
 
+import { getCurrentUserSession } from './auth.controller';
+
 /**
  * Aggregates all telemetry and relation lists required for the dashboard view.
  */
 export async function getDashboardData(user?: { id: string; role: string }): Promise<DashboardData> {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    }).catch(() => null);
+    const sessionUser = await getCurrentUserSession().catch(() => null);
 
-    // Prioritize verified session from cookie/headers over untrusted caller input
-    const activeUser = session?.user
-      ? { id: session.user.id, role: session.user.role || 'USER' }
-      : user;
+    // Identity must come from authenticated session, never unverified caller input
+    const activeUser = sessionUser
+      ? {
+          id: sessionUser.role === 'ADMIN' && user?.id ? user.id : sessionUser.id,
+          role: sessionUser.role,
+        }
+      : null;
 
     if (!activeUser || !activeUser.id) {
       return {

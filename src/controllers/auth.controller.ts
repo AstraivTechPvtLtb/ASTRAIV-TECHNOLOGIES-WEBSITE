@@ -8,6 +8,7 @@
 import { headers, cookies } from 'next/headers';
 import { auth } from '@/models/auth';
 import { pool } from '@/models/db';
+import crypto from 'crypto';
 
 export interface ClientUserSession {
   id: string;
@@ -35,7 +36,12 @@ export interface ClientSignInResult {
   };
 }
 
-const CLIENT_LEAD_COOKIE = 'astraiv_client_lead';
+import {
+  CLIENT_LEAD_COOKIE,
+  ClientLeadCookiePayload,
+  signClientLeadSessionCookie,
+  verifyClientLeadSessionCookie,
+} from '@/lib/lead-session';
 
 /**
  * Signs in a client using their approved Lead Number, Email, and Password.
@@ -122,8 +128,22 @@ export async function signInClientWithLeadNumber({
     }
 
     // 5. Verify Password
-    const expectedPassword = lead.portal_password || 'Password123';
-    if (cleanPassword !== expectedPassword && cleanPassword !== 'Password123') {
+    if (!lead.portal_password || !lead.portal_password.trim()) {
+      return {
+        success: false,
+        error: 'Portal access credentials have not been configured for this lead. Please contact Astraiv administration.',
+      };
+    }
+
+    const expectedPassword = lead.portal_password.trim();
+    const providedBuffer = Buffer.from(cleanPassword);
+    const expectedBuffer = Buffer.from(expectedPassword);
+
+    const isPasswordValid =
+      providedBuffer.length === expectedBuffer.length &&
+      crypto.timingSafeEqual(providedBuffer, expectedBuffer);
+
+    if (!isPasswordValid) {
       return {
         success: false,
         error: 'Incorrect password. Please enter the secure password dispatched to your email upon lead approval.',
@@ -149,8 +169,8 @@ export async function signInClientWithLeadNumber({
       [lead.id, lead.name, cleanEmail]
     );
 
-    // 8. Set secure HTTP-only cookie for client session
-    const sessionData = {
+    // 8. Set cryptographically signed HTTP-only cookie for client session
+    const sessionData: ClientLeadCookiePayload = {
       id: lead.id,
       leadNumber: lead.lead_number,
       name: lead.name,
@@ -163,8 +183,9 @@ export async function signInClientWithLeadNumber({
 
     const cookieStore = await cookies();
     const maxAge = rememberMe ? 30 * 24 * 60 * 60 : 7 * 24 * 60 * 60; // 30 days or 7 days
+    const signedToken = signClientLeadSessionCookie(sessionData);
 
-    cookieStore.set(CLIENT_LEAD_COOKIE, JSON.stringify(sessionData), {
+    cookieStore.set(CLIENT_LEAD_COOKIE, signedToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
@@ -194,7 +215,7 @@ export async function signInClientWithLeadNumber({
 
 /**
  * Retrieves the currently authenticated user from either:
- * 1. Dedicated Client Lead Session Cookie (`astraiv_client_lead`)
+ * 1. Dedicated Client Lead Session Cookie (`astraiv_client_lead`) - cryptographically verified
  * 2. Better Auth Session Headers (Admin, Project Manager, or Standard User)
  */
 export async function getCurrentUserSession(): Promise<ClientUserSession | null> {
@@ -205,7 +226,7 @@ export async function getCurrentUserSession(): Promise<ClientUserSession | null>
 
     if (clientLeadCookie?.value) {
       try {
-        const payload = JSON.parse(clientLeadCookie.value);
+        const payload = verifyClientLeadSessionCookie(clientLeadCookie.value);
         if (payload?.id && payload?.email && payload?.role === 'CLIENT') {
           // Re-verify lead is still approved in database
           const leadRes = await pool.query(

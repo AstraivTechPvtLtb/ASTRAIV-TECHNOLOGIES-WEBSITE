@@ -190,9 +190,14 @@ export async function submitContactForm(
       // Real-Time Socket Broadcast to Admin Portal
       try {
         const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4001';
+        const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+        if (process.env.SOCKET_BROADCAST_SECRET) {
+          headers['x-broadcast-secret'] = process.env.SOCKET_BROADCAST_SECRET;
+        }
+
         fetch(`${socketUrl}/api/broadcast`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers,
           body: JSON.stringify({
             event: 'new_enquiry',
             data: enquiryData,
@@ -246,9 +251,14 @@ export async function submitContactForm(
 
     try {
       const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4001';
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (process.env.SOCKET_BROADCAST_SECRET) {
+        headers['x-broadcast-secret'] = process.env.SOCKET_BROADCAST_SECRET;
+      }
+
       fetch(`${socketUrl}/api/broadcast`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({
           event: 'new_enquiry',
           data: enquiryData,

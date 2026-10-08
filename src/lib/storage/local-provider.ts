@@ -14,6 +14,7 @@ import {
   DownloadUrlResult,
 } from './types';
 import { sanitizeFilename, validateDocumentBuffer } from './validator';
+import { generateUploadSessionToken, verifyUploadSessionToken } from './token';
 import crypto from 'crypto';
 
 export class LocalStorageProvider implements StorageProvider {
@@ -39,15 +40,15 @@ export class LocalStorageProvider implements StorageProvider {
 
     const stagingKey = `staging/${datePrefix}/${randomHex}.${ext}`;
     const finalKey = `resumes/${datePrefix}/${randomHex}.${ext}`;
-    const sessionToken = crypto.randomBytes(24).toString('hex');
+    const { sessionToken, expiresAt } = generateUploadSessionToken(stagingKey, 900);
 
     return {
       provider: 'local',
-      uploadUrl: `/api/applications/upload-direct?key=${encodeURIComponent(stagingKey)}&token=${sessionToken}`,
+      uploadUrl: `/api/applications/upload-direct?key=${encodeURIComponent(stagingKey)}&token=${encodeURIComponent(sessionToken)}`,
       stagingKey,
       finalKey,
       sessionToken,
-      expiresAt: new Date(Date.now() + 900 * 1000).toISOString(),
+      expiresAt,
     };
   }
 
@@ -57,6 +58,16 @@ export class LocalStorageProvider implements StorageProvider {
     expectedMime: string;
     sessionToken: string;
   }): Promise<VerifyObjectResult> {
+    const tokenCheck = verifyUploadSessionToken(params.stagingKey, params.sessionToken);
+    if (!tokenCheck.valid) {
+      return {
+        verified: false,
+        actualSizeBytes: 0,
+        verifiedMime: '',
+        error: tokenCheck.error || 'Invalid or expired upload session token.',
+      };
+    }
+
     const stagingPath = path.join(this.baseDir, params.stagingKey);
     const finalPath = path.join(this.baseDir, params.finalKey);
 

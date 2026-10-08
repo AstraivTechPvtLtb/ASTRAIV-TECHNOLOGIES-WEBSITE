@@ -1,5 +1,5 @@
 const { Pool } = require('pg');
-const pool = new Pool({ connectionString: 'postgresql://postgres:REDACTED_DEV_PWDlocalhost:5432/astraiv_tech' });
+const pool = new Pool({ connectionString: 'postgresql://postgres:postgres@localhost:5432/astraiv_tech' });
 
 async function updateExactReviews() {
   // 1. Update DEPANNITA SEN (Row 2 in Google Sheet)
