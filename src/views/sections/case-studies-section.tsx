@@ -51,7 +51,6 @@ export function CaseStudiesSection({
 
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader
-          badge={badge}
           title={title}
           description={description}
         />

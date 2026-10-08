@@ -123,7 +123,6 @@ export function TechSection() {
     <section id="technologies" className="py-20 md:py-28 px-6 bg-transparent border-b border-border/30 dark:border-slate-800/60 relative scroll-mt-24">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
-          badge="Technology Stack"
           title="Powered by [Modern Technology]"
           description="We engineer exclusively with battle-tested frameworks, cloud infrastructure, and modern databases for unrivaled speed, security, and uptime."
         />

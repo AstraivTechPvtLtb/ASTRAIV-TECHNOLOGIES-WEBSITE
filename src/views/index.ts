@@ -48,6 +48,8 @@ export * from './sections/start-project/start-project-wizard';
 export * from './sections/start-project/thank-you-view';
 export * from './sections/careers-confirmation-view';
 export * from './sections/job-application-form';
+export * from './sections/speculative-application-form';
+export * from './ui/dynamic-icon';
 
 // Analytics
 export * from './analytics/google-analytics';

@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { Navbar, Footer } from '@/views';
-import { getPublicJobBySlug, getPublicJobOpenings } from '@/controllers/public-data.controller';
+import { getPublicJobBySlug, getPublicJobOpenings, getPublicCareersPageContent } from '@/controllers/public-data.controller';
 import { JobApplicationForm } from '@/views/sections/job-application-form';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
@@ -19,6 +19,8 @@ import {
   Terminal,
   Cpu,
   Laptop,
+  GraduationCap,
+  AlertCircle,
 } from 'lucide-react';
 import { createPageMetadata, BreadcrumbSchema, getJobPostingJsonLd } from '@/lib/seo';
 
@@ -48,12 +50,38 @@ export async function generateMetadata({ params }: JobDetailPageProps): Promise<
     });
   }
 
+  const metaTitle = job.metaTitle || `${job.title} | Careers | Astraiv Technologies`;
+  const metaDescription =
+    job.metaDescription ||
+    `${job.title} (${job.department}) - ${job.description} Join our distributed engineering team.`;
+
   return createPageMetadata({
-    title: `${job.title} | Careers | Astraiv Technologies`,
-    description: `${job.title} (${job.department}) - ${job.description} Join our distributed engineering team.`,
+    title: metaTitle,
+    description: metaDescription,
     path: `/careers/${job.slug}`,
     locale,
   });
+}
+
+function formatDetailKolkataTime(isoString: string | null | undefined): { formatted: string; iso: string } {
+  if (!isoString) {
+    return { formatted: 'Recently Posted', iso: new Date().toISOString() };
+  }
+  try {
+    const d = new Date(isoString);
+    const formatted = new Intl.DateTimeFormat('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    }).format(d);
+    return { formatted: `${formatted} (Asia/Kolkata)`, iso: d.toISOString() };
+  } catch {
+    return { formatted: 'Recently Posted', iso: isoString };
+  }
 }
 
 export default async function JobDetailPage({ params }: JobDetailPageProps) {
@@ -65,44 +93,50 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
 
   setRequestLocale(locale);
 
-  const job = await getPublicJobBySlug(slug);
+  const [job, pageData] = await Promise.all([
+    getPublicJobBySlug(slug),
+    getPublicCareersPageContent(),
+  ]);
 
   if (!job) {
     notFound();
   }
 
-  const interviewStages = [
-    {
-      num: '01',
-      title: 'Profile & Architecture Review',
-      desc: 'Our senior architects review your GitHub, past system implementations, and RFCs within 48 business hours.',
-    },
-    {
-      num: '02',
-      title: 'Technical & Systems Discussion',
-      desc: 'A 45-minute deep-dive with our engineering founders into real-world architecture trade-offs, concurrency, and reliability.',
-    },
-    {
-      num: '03',
-      title: 'Practical System Design Exercise',
-      desc: 'A scoped, paid system design discussion or take-home RFC tailored to your specialty. No inverted binary trees on whiteboards.',
-    },
-    {
-      num: '04',
-      title: 'Mutual Offer & Onboarding',
-      desc: 'Transparent compensation offer, equity allocation, home workstation budget setup, and seamless async onboarding.',
-    },
-  ];
+  const { sharedDefaults } = pageData;
 
-  const jobJsonLd = getJobPostingJsonLd({
-    title: job.title,
-    description: job.description,
-    slug: job.slug,
-    department: job.department,
-    type: job.type,
-    location: job.location,
-    salary: job.salary || undefined,
-  }, locale);
+  // Resolve interview stages and benefits (either per-job customized or inherited from shared defaults)
+  const interviewStages =
+    job.interviewStages && job.interviewStages.length > 0
+      ? job.interviewStages
+      : sharedDefaults.interviewStages;
+
+  const benefitsList =
+    job.benefits && job.benefits.length > 0
+      ? job.benefits
+      : sharedDefaults.commonBenefits;
+
+  const displayLocation =
+    job.geographicLocation && job.workMode
+      ? `${job.geographicLocation} · ${job.workMode}`
+      : job.location || 'Worldwide · Remote';
+
+  const timeInfo = formatDetailKolkataTime(job.publishedAt || job.createdAt);
+
+  // Structured data ONLY on active job postings
+  const jobJsonLd = job.active
+    ? getJobPostingJsonLd(
+        {
+          title: job.title,
+          description: job.description,
+          slug: job.slug,
+          department: job.department,
+          type: job.type,
+          location: displayLocation,
+          salary: job.showSalary && job.salary ? job.salary : undefined,
+        },
+        locale
+      )
+    : null;
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground flex flex-col justify-between relative overflow-hidden">
@@ -113,10 +147,12 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
           { name: job.title, path: `/careers/${job.slug}` },
         ]}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jobJsonLd) }}
-      />
+      {jobJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jobJsonLd) }}
+        />
+      )}
       <Navbar />
 
       <main className="pt-28 pb-20 grow z-10 relative">
@@ -137,21 +173,67 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
             <span className="text-foreground font-bold truncate max-w-xs">{job.title}</span>
           </nav>
 
+          {/* Closed Job Alert Banner */}
+          {!job.active && (
+            <div className="p-6 mb-8 rounded-3xl bg-amber-500/10 border border-amber-500/30 text-foreground flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-start gap-3">
+                <AlertCircle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+                <div>
+                  <h3 className="text-sm font-bold text-foreground">Position Currently Filled / Closed</h3>
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    This position is no longer accepting new applications. You may submit an open speculative application below.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <Link
+                  href={ROUTES.PUBLIC.CAREERS}
+                  className="px-4 py-2 rounded-xl text-xs font-bold bg-muted hover:bg-muted/80 text-foreground transition-colors"
+                >
+                  View Active Roles
+                </Link>
+                <Link
+                  href={`/contact?role=${encodeURIComponent('Speculative Candidate')}`}
+                  className="px-4 py-2 rounded-xl text-xs font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                >
+                  Speculative Application
+                </Link>
+              </div>
+            </div>
+          )}
+
           {/* Role Header Banner */}
           <div className="p-8 sm:p-12 rounded-3xl bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/80 dark:border-slate-800 shadow-md mb-12 flex flex-col md:flex-row md:items-center justify-between gap-8 text-left">
             <div className="space-y-4 max-w-2xl">
               <div className="flex flex-wrap items-center gap-2.5">
-                <span className="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20">
+                {/* Department */}
+                <span className="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-primary/10 text-primary dark:text-cyan-400 border border-primary/20">
                   {job.department}
                 </span>
+
+                {/* Employment Type */}
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-border/50">
                   <Clock className="h-3.5 w-3.5" />
-                  {job.type}
+                  {job.employmentType || 'Full-Time'}
                 </span>
+
+                {/* Modality & Geographic Region */}
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary dark:text-cyan-400 border border-primary/20">
                   <MapPin className="h-3.5 w-3.5" />
-                  {job.location}
+                  {displayLocation}
                 </span>
+
+                {/* Experience Level */}
+                {job.experienceLevel && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                    <GraduationCap className="h-3.5 w-3.5" />
+                    {job.experienceLevel === 'Both'
+                      ? 'Fresher & Experienced Eligible'
+                      : job.experienceLevel === 'Fresher'
+                      ? 'Fresher Eligible'
+                      : job.experience || 'Experienced'}
+                  </span>
+                )}
               </div>
 
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading heading-gradient">
@@ -162,22 +244,38 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
                 {job.description}
               </p>
 
-              {job.salary && (
-                <div className="inline-flex items-center gap-2 pt-2 text-xs sm:text-sm font-bold text-foreground">
-                  <span className="text-muted-foreground font-normal">Compensation:</span>
-                  <span className="text-primary font-mono">{job.salary}</span>
+              <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-muted-foreground font-medium">
+                <div>
+                  <span className="font-semibold text-foreground">Posted: </span>
+                  <time dateTime={timeInfo.iso}>{timeInfo.formatted}</time>
                 </div>
-              )}
+                {job.showSalary && job.salary && (
+                  <div className="inline-flex items-center gap-1.5 font-bold text-emerald-600 dark:text-emerald-400 font-mono">
+                    <span>Compensation:</span>
+                    <span>{job.salary}</span>
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="flex flex-col gap-3 shrink-0">
-              <a
-                href="#apply"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-bold text-sm bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/25 transition-all group active:scale-95 cursor-pointer whitespace-nowrap"
-              >
-                <span>Apply for this Position</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </a>
+              {job.active ? (
+                <a
+                  href="#apply"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-bold text-sm bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/25 transition-all group active:scale-95 cursor-pointer whitespace-nowrap"
+                >
+                  <span>Apply for this Position</span>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  disabled
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-bold text-sm bg-muted text-muted-foreground cursor-not-allowed opacity-70 whitespace-nowrap"
+                >
+                  <span>Position Closed</span>
+                </button>
+              )}
               <Link
                 href={ROUTES.PUBLIC.CAREERS}
                 className="inline-flex items-center justify-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors text-center"
@@ -247,21 +345,23 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
                   </div>
 
                   {/* Skills Chips */}
-                  <div className="pt-3">
-                    <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider block mb-2">
-                      Core Technology Stack
-                    </span>
-                    <div className="flex flex-wrap gap-2">
-                      {job.skills.map((skill) => (
-                        <span
-                          key={skill}
-                          className="px-3 py-1 rounded-lg text-xs font-semibold bg-primary/10 text-primary border border-primary/20"
-                        >
-                          {skill}
-                        </span>
-                      ))}
+                  {job.skills && job.skills.length > 0 && (
+                    <div className="pt-3">
+                      <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider block mb-2">
+                        Core Technology Stack
+                      </span>
+                      <div className="flex flex-wrap gap-2">
+                        {job.skills.map((skill) => (
+                          <span
+                            key={skill}
+                            className="px-3 py-1 rounded-lg text-xs font-semibold bg-primary/10 text-primary dark:text-cyan-400 border border-primary/20"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </section>
               )}
 
@@ -283,14 +383,14 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
               )}
 
               {/* What We Offer / Benefits */}
-              {job.benefits && job.benefits.length > 0 && (
+              {benefitsList && benefitsList.length > 0 && (
                 <section className="space-y-4">
                   <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground flex items-center gap-2">
                     <Laptop className="h-5 w-5 text-indigo-500" />
                     <span>What We Offer & Engineering Culture</span>
                   </h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                    {job.benefits.map((benefit, i) => (
+                    {benefitsList.map((benefit: string, i: number) => (
                       <div
                         key={i}
                         className="p-4 rounded-xl bg-card/70 dark:bg-slate-900/60 border border-border/60 dark:border-slate-800/80 flex items-start gap-3"
@@ -306,41 +406,48 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
               )}
 
               {/* 4-Stage Interview Process */}
-              <section className="p-8 rounded-3xl bg-slate-50/60 dark:bg-slate-900/40 border border-border/70 dark:border-slate-800/80 space-y-6">
-                <div>
-                  <span className="text-xs font-extrabold uppercase tracking-wider text-primary">
-                    Hiring Roadmap
-                  </span>
-                  <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground mt-1">
-                    Transparent 4-Stage Interview Process
-                  </h2>
-                  <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-                    Fast, respectful, and zero algorithmic trick questions. We respect your time.
-                  </p>
-                </div>
+              {interviewStages && interviewStages.length > 0 && (
+                <section className="p-8 rounded-3xl bg-slate-50/60 dark:bg-slate-900/40 border border-border/70 dark:border-slate-800/80 space-y-6">
+                  <div>
+                    <span className="text-xs font-extrabold uppercase tracking-wider text-primary dark:text-cyan-400">
+                      Hiring Roadmap
+                    </span>
+                    <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground mt-1">
+                      Transparent {interviewStages.length}-Stage Interview Process
+                    </h2>
+                    <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+                      Fast, respectful, and zero algorithmic trick questions. We respect your time.
+                    </p>
+                  </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {interviewStages.map((stage) => (
-                    <div
-                      key={stage.num}
-                      className="p-5 rounded-2xl bg-card dark:bg-slate-950 border border-border/70 dark:border-slate-800 shadow-2xs"
-                    >
-                      <span className="text-xs font-mono font-bold text-primary block mb-1">
-                        Stage {stage.num}
-                      </span>
-                      <h3 className="text-sm font-bold text-foreground mb-1.5">{stage.title}</h3>
-                      <p className="text-xs text-muted-foreground leading-relaxed">{stage.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {interviewStages.map((stage: { num: string; title: string; desc: string }) => (
+                      <div
+                        key={stage.num}
+                        className="p-5 rounded-2xl bg-card dark:bg-slate-950 border border-border/70 dark:border-slate-800 shadow-2xs"
+                      >
+                        <span className="text-xs font-mono font-bold text-primary dark:text-cyan-400 block mb-1">
+                          Stage {stage.num}
+                        </span>
+                        <h3 className="text-sm font-bold text-foreground mb-1.5">{stage.title}</h3>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{stage.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
 
               {/* Application Form Component */}
-              <JobApplicationForm
-                roleTitle={job.title}
-                roleSlug={job.slug}
-                department={job.department}
-              />
+              {job.active && (
+                <JobApplicationForm
+                  jobId={job.id}
+                  roleTitle={job.title}
+                  roleSlug={job.slug}
+                  department={job.department}
+                  experienceLevel={job.experienceLevel}
+                  defaultPrivacyText={sharedDefaults.defaultPrivacyText}
+                />
+              )}
             </div>
 
             {/* Sidebar (4 cols) */}
@@ -353,40 +460,54 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
 
                 <div className="space-y-4 text-xs font-medium">
                   <div>
-                    <span className="text-muted-foreground block mb-0.5">Department</span>
+                    <span className="text-muted-foreground block mb-0.5">Role Category</span>
                     <span className="text-foreground font-bold">{job.department}</span>
                   </div>
                   <div>
                     <span className="text-muted-foreground block mb-0.5">Work Modality</span>
-                    <span className="text-foreground font-bold">{job.type}</span>
+                    <span className="text-foreground font-bold">{job.workMode || 'Remote'}</span>
                   </div>
                   <div>
-                    <span className="text-muted-foreground block mb-0.5">Location</span>
-                    <span className="text-foreground font-bold">{job.location}</span>
+                    <span className="text-muted-foreground block mb-0.5">Geographic Location</span>
+                    <span className="text-foreground font-bold">{job.geographicLocation || 'Worldwide'}</span>
                   </div>
-                  {job.experience && (
-                    <div>
-                      <span className="text-muted-foreground block mb-0.5">Experience Level</span>
-                      <span className="text-foreground font-bold">{job.experience}</span>
-                    </div>
-                  )}
-                  {job.salary && (
+                  <div>
+                    <span className="text-muted-foreground block mb-0.5">Experience Requirement</span>
+                    <span className="text-foreground font-bold">
+                      {job.experienceLevel === 'Both'
+                        ? 'Fresher & Experienced'
+                        : job.experienceLevel === 'Fresher'
+                        ? 'Fresher Eligible (0 Yrs)'
+                        : job.experience || 'Experienced'}
+                    </span>
+                  </div>
+                  {job.showSalary && job.salary && (
                     <div>
                       <span className="text-muted-foreground block mb-0.5">Compensation</span>
-                      <span className="text-primary font-mono font-bold">{job.salary}</span>
+                      <span className="text-emerald-600 dark:text-emerald-400 font-mono font-bold">
+                        {job.salary}
+                      </span>
                     </div>
                   )}
+                  <div>
+                    <span className="text-muted-foreground block mb-0.5">Date Published</span>
+                    <time dateTime={timeInfo.iso} className="text-foreground font-semibold">
+                      {timeInfo.formatted}
+                    </time>
+                  </div>
                 </div>
 
-                <div className="pt-4 border-t border-border/40">
-                  <a
-                    href="#apply"
-                    className="w-full py-3 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer"
-                  >
-                    <span>Apply Now</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </a>
-                </div>
+                {job.active && (
+                  <div className="pt-4 border-t border-border/40">
+                    <a
+                      href="#apply"
+                      className="w-full py-3 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer"
+                    >
+                      <span>Apply Now</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </a>
+                  </div>
+                )}
               </div>
 
               {/* Engineering Culture Card */}
@@ -407,25 +528,31 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-3.5 w-3.5 text-primary dark:text-cyan-400 shrink-0 mt-0.5" />
-                    <span>Rapid two-week sprint cadences with zero red tape and direct founder access.</span>
+                    <span>Rapid sprint cadences with zero red tape and direct founder access.</span>
                   </li>
                 </ul>
               </div>
 
-              {/* Referral Banner */}
-              <div className="p-6 rounded-2xl bg-linear-to-br from-primary/10 via-card to-card border border-primary/20 text-left">
-                <h4 className="text-sm font-bold text-foreground mb-1">Know an exceptional architect?</h4>
-                <p className="text-xs text-muted-foreground mb-4">
-                  We offer a $2,500 referral bonus for successfully placed senior engineers and architects.
-                </p>
-                <Link
-                  href="/contact"
-                  className="text-xs font-bold text-primary hover:underline inline-flex items-center gap-1"
-                >
-                  <span>Submit a Candidate Referral</span>
-                  <ArrowRight className="h-3 w-3" />
-                </Link>
-              </div>
+              {/* Referral Banner (Configurable / Hideable) */}
+              {job.showReferralBonus !== false && (
+                <div className="p-6 rounded-2xl bg-linear-to-br from-primary/10 via-card to-card border border-primary/20 text-left">
+                  <h4 className="text-sm font-bold text-foreground mb-1">Know an exceptional architect?</h4>
+                  <p className="text-xs text-muted-foreground mb-4">
+                    We offer a{' '}
+                    <strong className="text-foreground">
+                      {job.referralBonus || sharedDefaults.defaultReferralBonus}
+                    </strong>{' '}
+                    referral bonus for successfully placed engineers and architects.
+                  </p>
+                  <Link
+                    href="/contact"
+                    className="text-xs font-bold text-primary dark:text-cyan-400 hover:underline inline-flex items-center gap-1"
+                  >
+                    <span>Submit Candidate Referral</span>
+                    <ArrowRight className="h-3 w-3" />
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>

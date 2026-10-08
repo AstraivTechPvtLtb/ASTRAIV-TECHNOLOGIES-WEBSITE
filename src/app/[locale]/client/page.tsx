@@ -112,12 +112,6 @@ export default async function ClientPortalPage({ params }: ClientPortalPageProps
             <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/15 rounded-full blur-[120px] pointer-events-none" />
 
             <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
-              {/* Security Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-300 bg-blue-500/10 border border-blue-500/20 mb-6 select-none">
-                <Lock className="h-3.5 w-3.5 text-primary dark:text-blue-400" />
-                <span>SECURE CLIENT GOVERNANCE PORTAL</span>
-              </div>
-
               <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground leading-tight font-heading mb-6">
                 Client Portal &amp; <br />
                 <span className="heading-gradient">

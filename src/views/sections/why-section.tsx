@@ -45,7 +45,6 @@ export function WhySection({ variant = 'summary' }: WhySectionProps) {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader
-          badge={isDetailed ? "Company Philosophy & Architecture" : "Why Astraiv"}
           title={isDetailed ? "Engineered for [Operational Certainty]" : "Why Businesses [Choose Astraiv]"}
           description={
             isDetailed

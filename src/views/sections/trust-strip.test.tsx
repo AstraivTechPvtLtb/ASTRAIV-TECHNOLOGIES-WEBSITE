@@ -155,5 +155,14 @@ describe('TrustStrip Enterprise Marquee Redesign', () => {
     expect(html).toContain('aria-haspopup="dialog"');
     expect(html).toContain('aria-expanded="false"');
   });
+
+  it('renders mobile-friendly static single-column list with accordion accessibility', () => {
+    const html = renderToString(<TrustStrip />);
+
+    // Mobile region
+    expect(html).toContain('aria-label="Audited Standards and Accolades list"');
+    expect(html).toContain('mobile-accolade-details-iso-security');
+    expect(html).toContain('mobile-accolade-details-iso-quality');
+  });
 });
 

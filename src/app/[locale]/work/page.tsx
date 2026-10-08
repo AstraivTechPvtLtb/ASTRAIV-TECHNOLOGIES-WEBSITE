@@ -53,11 +53,6 @@ export default async function WorkPage({ params }: WorkPageProps) {
       <main className="grow z-10 relative pt-24 md:pt-32">
         {/* Header Hero Section */}
         <section className="px-6 max-w-7xl mx-auto text-center pb-10">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-primary/10 dark:bg-accent/10 border border-primary/20 dark:border-accent/20 text-primary dark:text-accent text-xs font-semibold uppercase tracking-wider mb-4">
-            <Briefcase className="h-3.5 w-3.5" />
-            <span>Proven Enterprise Impact</span>
-          </div>
-
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-semibold tracking-tight font-heading max-w-4xl mx-auto mb-6 leading-tight">
             Engineering Outcomes, <span className="heading-gradient">Delivered at Scale</span>
           </h1>

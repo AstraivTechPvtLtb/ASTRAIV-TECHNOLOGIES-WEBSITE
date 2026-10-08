@@ -310,10 +310,6 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
             <section id="service-testimonials" className="mb-14 text-left">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20 uppercase tracking-wider mb-2">
-                    <Quote className="h-3 w-3" />
-                    <span>Verified Client Endorsement</span>
-                  </div>
                   <h3 className="text-xl sm:text-2xl font-extrabold text-foreground">
                     What Leaders Say About Our {service.title}
                   </h3>

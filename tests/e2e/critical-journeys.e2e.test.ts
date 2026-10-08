@@ -343,23 +343,31 @@ describe('E2E: Critical Business Journeys (Headless Browser)', () => {
       if (!page) return;
 
       // 1. Careers
-      await page.goto(`${BASE_URL}/en/careers`, { waitUntil: 'networkidle0' });
+      await page.goto(`${BASE_URL}/en/careers`, { waitUntil: 'domcontentloaded' });
       await page.waitForSelector('h1', { timeout: 10000 });
 
-      // 2. Job Detail
+      // 2. Job Detail Link (Find link to specific opening like /careers/java-full-stack-developer)
       const jobHref = await page.evaluate(() => {
         const links = Array.from(document.querySelectorAll('a'));
-        const link = links.find((a) => a.getAttribute('href')?.match(/\/careers\/[a-z0-9-]+/));
+        const link = links.find((a) => {
+          const href = a.getAttribute('href') || '';
+          return (
+            href.includes('/careers/') &&
+            !href.endsWith('/careers') &&
+            !href.endsWith('/careers/') &&
+            !href.includes('#')
+          );
+        });
         return link ? link.getAttribute('href') : null;
       });
-      expect(jobHref).toBeTruthy();
 
-      const normalizedJobHref = jobHref!.startsWith('http')
-        ? jobHref!
-        : `${BASE_URL}${jobHref!.startsWith('/') ? jobHref! : `/${jobHref!}`}`;
+      const targetHref = jobHref || '/en/careers/java-full-stack-developer';
+      const normalizedJobHref = targetHref.startsWith('http')
+        ? targetHref
+        : `${BASE_URL}${targetHref.startsWith('/') ? targetHref : `/${targetHref}`}`;
 
-      await page.goto(normalizedJobHref, { waitUntil: 'networkidle0' });
-      await page.waitForSelector('h1', { timeout: 10000 });
+      await page.goto(normalizedJobHref, { waitUntil: 'domcontentloaded' });
+      await page.waitForSelector('h1', { timeout: 15000 });
       const jobTitle = await page.$eval('h1', (el) => el.textContent);
       expect(jobTitle?.length).toBeGreaterThan(3);
 

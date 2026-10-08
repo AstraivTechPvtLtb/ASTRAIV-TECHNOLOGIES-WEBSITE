@@ -38,7 +38,6 @@ export default async function TechnologyPage({ params }: TechnologyPageProps) {
       
       <main className="grow z-10 relative">
         <TechnologyView
-          badge={t('badge')}
           title={t('title')}
           description={t('description')}
         />

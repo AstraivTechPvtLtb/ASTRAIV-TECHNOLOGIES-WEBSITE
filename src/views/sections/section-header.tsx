@@ -2,6 +2,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 
 export interface SectionHeaderProps {
+  /** @deprecated Decorative section-name capsules have been retired across the platform */
   badge?: string;
   title: string | React.ReactNode;
   highlight?: string;
@@ -101,12 +102,6 @@ export function SectionHeader({
         className
       )}
     >
-      {badge && (
-        <span className="inline-flex items-center px-3 py-1 rounded-full text-[10.5px] font-mono font-semibold uppercase tracking-wider bg-primary/10 dark:bg-blue-500/10 text-primary dark:text-blue-400 border border-primary/20 dark:border-blue-500/20 mb-1 select-none">
-          {badge}
-        </span>
-      )}
-
       {asH1 ? (
         <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-display font-semibold tracking-tight text-foreground leading-[1.15] pb-0.5">
           {formattedTitle}

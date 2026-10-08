@@ -738,10 +738,6 @@ export function InsightsView({ initialPosts, categories: _categories }: Insights
             {/* AI Place Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-6 border-b border-border/60 dark:border-slate-800">
               <div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-600/10 border border-blue-600/20 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-wider mb-3">
-                  <Bot className="h-3.5 w-3.5" />
-                  <span>Cognitive Systems & LLM Architectures</span>
-                </div>
                 <h2 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.12] font-heading mb-3">
                   AI Insights & Research
                 </h2>

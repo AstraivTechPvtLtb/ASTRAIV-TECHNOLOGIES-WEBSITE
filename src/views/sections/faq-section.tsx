@@ -58,7 +58,6 @@ export function FaqSection({
     <section id="faq" className={`py-16 md:py-24 px-6 bg-transparent relative scroll-mt-24 ${className || ''}`}>
       <div className="max-w-4xl mx-auto">
         <SectionHeader
-          badge={badge}
           title={title}
           description={description}
           asH1={asH1}

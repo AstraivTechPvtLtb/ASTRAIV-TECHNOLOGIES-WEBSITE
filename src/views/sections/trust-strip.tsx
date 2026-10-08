@@ -15,11 +15,13 @@ import {
   Check,
   Shield,
   FileCheck,
+  ChevronDown,
 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import { PublicComplianceSettings } from '@/models/types';
 import { cn } from '@/lib/utils';
+import { createPortal } from 'react-dom';
 
 export interface AccoladeStripItem {
   id: string;
@@ -89,7 +91,34 @@ function renderBadgeIcon(
 }
 
 /**
- * Individual Mini Accolade Card in the Marquee
+ * Renders consistent enterprise verification status pills.
+ */
+function renderStatusBadge(status?: string) {
+  switch (status) {
+    case 'verified':
+      return (
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary dark:text-cyan-300 border border-primary/20 text-[10px] font-medium">
+          <Check className="h-2.5 w-2.5" /> Audited &amp; Verified
+        </span>
+      );
+    case 'contractual':
+      return (
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 text-[10px] font-medium">
+          <Shield className="h-2.5 w-2.5" /> Contractual SLA
+        </span>
+      );
+    case 'active':
+    default:
+      return (
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 text-[10px] font-medium">
+          <FileCheck className="h-2.5 w-2.5" /> Active Alliance
+        </span>
+      );
+  }
+}
+
+/**
+ * Individual Desktop Mini Accolade Card in the Marquee
  */
 interface AccoladeMiniCardProps {
   item: AccoladeStripItem;
@@ -151,7 +180,7 @@ function AccoladeMiniCard({
       aria-hidden={isDuplicate}
       aria-haspopup="dialog"
       aria-expanded={isOpen}
-      aria-controls={isOpen ? 'accolade-popover' : undefined}
+      aria-controls={isOpen ? 'desktop-accolade-popover' : undefined}
       onClick={(e) => onClick(item, e.currentTarget)}
       onMouseEnter={(e) => onHover(item, e.currentTarget)}
       onMouseLeave={onLeave}
@@ -175,8 +204,6 @@ function AccoladeMiniCard({
   );
 }
 
-import { createPortal } from 'react-dom';
-
 /**
  * Calculates optimal popover coordinates anchored to the trigger card.
  * Handles viewport clamping, flipping (above vs below), sticky header offset, and horizontal shifting.
@@ -199,9 +226,9 @@ function calculatePopoverPosition(
   const windowWidth = window.innerWidth;
   const windowHeight = window.innerHeight;
 
-  // Sticky header safe offset (approx 72px on desktop, 64px on mobile)
-  const NAV_OFFSET = windowWidth < 640 ? 64 : 76;
-  const MARGIN = 12;
+  // Sticky header safe offset (approx 76px on desktop)
+  const NAV_OFFSET = 76;
+  const MARGIN = 16;
   const GAP = 8;
 
   // Check if trigger is currently visible in viewport
@@ -215,11 +242,11 @@ function calculatePopoverPosition(
     return null;
   }
 
-  // Compact popover width: target ~360px on desktop, capped to viewport width minus safe margins
-  const targetWidth = Math.min(360, windowWidth - MARGIN * 2);
+  // Compact popover width: target ~370px on desktop, capped to viewport width minus safe margins
+  const targetWidth = Math.min(380, windowWidth - MARGIN * 2);
 
   // Measure or estimate popover height
-  const popoverHeight = popoverEl ? popoverEl.offsetHeight : 340;
+  const popoverHeight = popoverEl ? popoverEl.offsetHeight : 360;
 
   // Available vertical space
   const spaceBelow = windowHeight - triggerRect.bottom - GAP - MARGIN;
@@ -227,10 +254,10 @@ function calculatePopoverPosition(
 
   let placement: 'bottom' | 'top' = 'bottom';
   let top = 0;
-  let maxHeight = 360;
+  let maxHeight = 380;
 
   // Choose placement: prefer bottom unless space below is tight and above has more space
-  if (spaceBelow >= Math.min(popoverHeight, 260) || spaceBelow >= spaceAbove) {
+  if (spaceBelow >= Math.min(popoverHeight, 280) || spaceBelow >= spaceAbove) {
     placement = 'bottom';
     top = triggerRect.bottom + GAP;
     maxHeight = Math.max(160, Math.min(480, spaceBelow));
@@ -259,10 +286,11 @@ function calculatePopoverPosition(
 }
 
 /**
- * Compact, Card-Anchored Popover
+ * Compact, Desktop Card-Anchored Popover
  * - Renders through a Portal without modal backdrop, blur, or scroll lock.
  * - Non-modal (role="dialog", aria-modal="false") keeping page readable and scrollable.
  * - Anchors directly to the hovered/focused trust card and updates position during scrolling.
+ * - Button & status wrap/stack gracefully so long button labels never overflow the card boundary.
  */
 interface AccoladeDetailPopoverProps {
   item: AccoladeStripItem | null;
@@ -363,38 +391,14 @@ function AccoladeDetailPopover({
   const targetUrl = item.verificationUrl || item.href || ROUTES.PUBLIC.REWARDS_ACCOLADES;
   const isExternal = targetUrl.startsWith('http');
 
-  const getStatusBadge = () => {
-    switch (item.status) {
-      case 'verified':
-        return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary dark:text-cyan-300 border border-primary/20 text-[10px] font-medium">
-            <Check className="h-2.5 w-2.5" /> Audited &amp; Verified
-          </span>
-        );
-      case 'contractual':
-        return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 text-[10px] font-medium">
-            <Shield className="h-2.5 w-2.5" /> Contractual SLA
-          </span>
-        );
-      case 'active':
-      default:
-        return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 text-[10px] font-medium">
-            <FileCheck className="h-2.5 w-2.5" /> Active Alliance
-          </span>
-        );
-    }
-  };
-
   const popoverContent = (
     <div
       ref={popoverRef}
       role="dialog"
       aria-modal="false"
-      id="accolade-popover"
-      aria-labelledby="accolade-popover-title"
-      aria-describedby="accolade-popover-description"
+      id="desktop-accolade-popover"
+      aria-labelledby="desktop-accolade-title"
+      aria-describedby="desktop-accolade-description"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       style={{
@@ -412,7 +416,7 @@ function AccoladeDetailPopover({
         exit={{ opacity: 0, y: position.placement === 'bottom' ? 4 : -4 }}
         transition={{ duration: 0.18, ease: 'easeOut' }}
         className={cn(
-          'relative rounded-xl border p-3.5 sm:p-4 text-left shadow-xl',
+          'relative rounded-xl border p-4 text-left shadow-xl',
           'bg-card/98 dark:bg-slate-900/98 backdrop-blur-xl',
           'border-slate-200/90 dark:border-white/12',
           'shadow-[0_10px_30px_-5px_rgba(0,0,0,0.2)] dark:shadow-[0_14px_40px_-8px_rgba(0,0,0,0.6)]'
@@ -428,13 +432,13 @@ function AccoladeDetailPopover({
 
         {/* Top Header Bar: Category Chip, Status Badge, & Close Button */}
         <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-slate-200/70 dark:border-white/8">
-          <div className="flex items-center gap-1.5 flex-wrap">
+          <div className="flex items-center gap-1.5 flex-wrap min-w-0">
             {item.category && (
               <span className="text-[9.5px] font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-300 px-2 py-0.5 rounded-md bg-primary/10 dark:bg-blue-500/10 border border-primary/20 dark:border-blue-400/25">
                 {item.category}
               </span>
             )}
-            {getStatusBadge()}
+            {renderStatusBadge(item.status)}
           </div>
 
           <button
@@ -450,7 +454,7 @@ function AccoladeDetailPopover({
         {/* Scrollable Body (if content is tall) */}
         <div
           className="overflow-y-auto no-scrollbar pt-2.5 space-y-3"
-          style={{ maxHeight: `${position.maxHeight - 90}px` }}
+          style={{ maxHeight: `${position.maxHeight - 95}px` }}
         >
           {/* Core Identity Row */}
           <div className="flex items-start gap-2.5">
@@ -460,14 +464,14 @@ function AccoladeDetailPopover({
 
             <div className="flex flex-col min-w-0 pr-1">
               <h3
-                id="accolade-popover-title"
-                className="text-xs sm:text-[13px] font-bold text-foreground tracking-tight leading-snug"
+                id="desktop-accolade-title"
+                className="text-xs sm:text-[13px] font-bold text-foreground tracking-tight leading-snug break-words"
               >
                 {item.title}
               </h3>
 
               {(item.organization || item.year) && (
-                <span className="text-[10.5px] text-muted-foreground font-medium mt-0.5 truncate">
+                <span className="text-[10.5px] text-muted-foreground font-medium mt-0.5 break-words">
                   {[item.organization, item.year].filter(Boolean).join(' · ')}
                 </span>
               )}
@@ -476,8 +480,8 @@ function AccoladeDetailPopover({
 
           {/* Detailed Description */}
           <p
-            id="accolade-popover-description"
-            className="text-[11.5px] text-slate-600 dark:text-slate-300 leading-relaxed font-normal"
+            id="desktop-accolade-description"
+            className="text-[11.5px] text-slate-600 dark:text-slate-300 leading-relaxed font-normal break-words"
           >
             {item.description}
           </p>
@@ -498,7 +502,7 @@ function AccoladeDetailPopover({
                       className="h-3 w-3 text-primary dark:text-cyan-400 shrink-0 mt-0.5"
                       aria-hidden="true"
                     />
-                    <span>{highlight}</span>
+                    <span className="break-words">{highlight}</span>
                   </div>
                 ))}
               </div>
@@ -512,11 +516,11 @@ function AccoladeDetailPopover({
                 className="h-3.5 w-3.5 text-primary dark:text-blue-400 shrink-0 mt-0.5"
                 aria-hidden="true"
               />
-              <div className="flex flex-col">
+              <div className="flex flex-col min-w-0">
                 <span className="text-[9px] font-mono font-semibold uppercase tracking-wider text-primary dark:text-blue-300">
                   Audited Impact
                 </span>
-                <span className="text-[10.5px] text-slate-700 dark:text-slate-300 font-medium leading-normal mt-0.5">
+                <span className="text-[10.5px] text-slate-700 dark:text-slate-300 font-medium leading-normal mt-0.5 break-words">
                   {item.achievement}
                 </span>
               </div>
@@ -524,35 +528,35 @@ function AccoladeDetailPopover({
           )}
         </div>
 
-        {/* Action Footer */}
-        <div className="mt-3 pt-2.5 border-t border-slate-200/80 dark:border-white/8 flex items-center justify-between gap-2">
-          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary dark:bg-cyan-400" />
+        {/* Action Footer: Responsive stacking so button and status text always stay inside card bounds */}
+        <div className="mt-3 pt-2.5 border-t border-slate-200/80 dark:border-white/8 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 min-w-0">
+          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground shrink-0">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary dark:bg-cyan-400 shrink-0" />
             <span className="truncate">Continuous Verification</span>
           </div>
 
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="min-w-0 max-w-full flex-1 sm:flex-initial flex sm:justify-end">
             {isExternal ? (
               <a
                 href={targetUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group/btn inline-flex items-center justify-center gap-1 px-3 py-1 rounded-lg text-[11px] font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-all duration-200 shadow-xs"
+                className="group/btn inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-all duration-200 shadow-xs max-w-full text-center"
               >
-                <span>{item.verificationLabel || 'Verify Registry'}</span>
+                <span className="break-words text-center line-clamp-2">{item.verificationLabel || 'Verify Registry'}</span>
                 <ExternalLink
-                  className="h-3 w-3 transition-transform group-hover/btn:translate-x-0.5"
+                  className="h-3 w-3 shrink-0 transition-transform group-hover/btn:translate-x-0.5"
                   aria-hidden="true"
                 />
               </a>
             ) : (
               <Link
                 href={targetUrl}
-                className="group/btn inline-flex items-center justify-center gap-1 px-3 py-1 rounded-lg text-[11px] font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-all duration-200 shadow-xs"
+                className="group/btn inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-all duration-200 shadow-xs max-w-full text-center"
               >
-                <span>{item.verificationLabel || 'Inspect Details'}</span>
+                <span className="break-words text-center line-clamp-2">{item.verificationLabel || 'Inspect Details'}</span>
                 <ArrowRight
-                  className="h-3 w-3 transition-transform group-hover/btn:translate-x-0.5"
+                  className="h-3 w-3 shrink-0 transition-transform group-hover/btn:translate-x-0.5"
                   aria-hidden="true"
                 />
               </Link>
@@ -567,15 +571,208 @@ function AccoladeDetailPopover({
 }
 
 /**
- * Enterprise Trust & Accolades Mini Carousel Banner
+ * Single-Column Inline Expandable Trust Card for Mobile (< lg)
+ */
+interface AccoladeMobileCardProps {
+  item: AccoladeStripItem;
+  isExpanded: boolean;
+  onToggle: (id: string) => void;
+}
+
+function AccoladeMobileCard({
+  item,
+  isExpanded,
+  onToggle,
+}: AccoladeMobileCardProps) {
+  const targetUrl = item.verificationUrl || item.href || ROUTES.PUBLIC.REWARDS_ACCOLADES;
+  const isExternal = targetUrl.startsWith('http');
+  const contentId = `mobile-accolade-details-${item.id}`;
+
+  return (
+    <div
+      className={cn(
+        'w-full rounded-xl border transition-all duration-200 overflow-hidden',
+        isExpanded
+          ? 'bg-card dark:bg-slate-800/90 border-primary/40 dark:border-blue-400/40 shadow-sm'
+          : 'bg-slate-50/80 dark:bg-slate-800/40 border-slate-200/80 dark:border-white/8 hover:border-slate-300 dark:hover:border-white/15'
+      )}
+    >
+      {/* Interactive Trigger Row (Button semantics without nested interactive children) */}
+      <button
+        type="button"
+        onClick={() => onToggle(item.id)}
+        aria-expanded={isExpanded}
+        aria-controls={contentId}
+        className="w-full flex items-center justify-between gap-3 p-3 sm:p-3.5 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl"
+      >
+        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-1">
+          {/* Icon Badge */}
+          <div className="flex h-8 w-8 sm:h-8.5 sm:w-8.5 shrink-0 items-center justify-center rounded-lg bg-slate-100/90 dark:bg-slate-900/60 border border-slate-200/70 dark:border-white/8 text-primary dark:text-blue-300">
+            {renderBadgeIcon(item.icon, 'sm')}
+          </div>
+
+          {/* Text Summary */}
+          <div className="flex flex-col min-w-0 text-left">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-xs sm:text-[12.5px] font-semibold text-foreground tracking-tight break-words">
+                {item.title}
+              </span>
+              {item.statusLabel && (
+                <span className="text-[9px] font-mono font-medium px-1.5 py-0.2 rounded-md bg-slate-200/60 dark:bg-white/6 text-muted-foreground whitespace-nowrap">
+                  {item.statusLabel}
+                </span>
+              )}
+            </div>
+            <span className="text-[10.5px] sm:text-[11px] text-muted-foreground font-normal line-clamp-1 mt-0.5">
+              {item.description}
+            </span>
+          </div>
+        </div>
+
+        {/* Expand / Collapse Indicator */}
+        <div
+          className={cn(
+            'flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-slate-200/50 dark:bg-white/5 text-muted-foreground transition-transform duration-200',
+            isExpanded && 'rotate-180 text-primary dark:text-blue-300 bg-primary/10 dark:bg-blue-500/10'
+          )}
+          aria-hidden="true"
+        >
+          <ChevronDown className="h-3.5 w-3.5" />
+        </div>
+      </button>
+
+      {/* Inline Expandable Details Panel in Normal Document Flow */}
+      <AnimatePresence initial={false}>
+        {isExpanded && (
+          <motion.div
+            id={contentId}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.22, ease: 'easeInOut' }}
+            className="overflow-hidden"
+          >
+            <div className="px-3.5 pb-3.5 sm:px-4 sm:pb-4 pt-1 border-t border-slate-200/70 dark:border-white/6 flex flex-col gap-3">
+              {/* Category chip + Status badge */}
+              <div className="flex items-center gap-2 flex-wrap pt-2">
+                {item.category && (
+                  <span className="text-[9.5px] font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-300 px-2 py-0.5 rounded-md bg-primary/10 dark:bg-blue-500/10 border border-primary/20 dark:border-blue-400/25">
+                    {item.category}
+                  </span>
+                )}
+                {renderStatusBadge(item.status)}
+              </div>
+
+              {/* Organization & Year */}
+              {(item.organization || item.year) && (
+                <span className="text-[11px] text-muted-foreground font-medium">
+                  {[item.organization, item.year].filter(Boolean).join(' · ')}
+                </span>
+              )}
+
+              {/* Detailed Description */}
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+                {item.description}
+              </p>
+
+              {/* Key Highlights / Benchmarks */}
+              {item.highlights && item.highlights.length > 0 && (
+                <div className="pt-2 border-t border-slate-200/60 dark:border-white/6">
+                  <h4 className="text-[9.5px] font-mono font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+                    Verified Benchmarks &amp; Scope
+                  </h4>
+                  <div className="flex flex-col gap-1.5">
+                    {item.highlights.map((highlight, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-start gap-1.5 text-[11px] text-slate-700 dark:text-slate-300 leading-snug"
+                      >
+                        <CheckCircle2
+                          className="h-3 w-3 text-primary dark:text-cyan-400 shrink-0 mt-0.5"
+                          aria-hidden="true"
+                        />
+                        <span>{highlight}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Operational Impact Callout */}
+              {item.achievement && (
+                <div className="p-2.5 rounded-lg bg-primary/4 dark:bg-blue-500/6 border border-primary/15 dark:border-blue-400/20 flex items-start gap-2">
+                  <ShieldCheck
+                    className="h-3.5 w-3.5 text-primary dark:text-blue-400 shrink-0 mt-0.5"
+                    aria-hidden="true"
+                  />
+                  <div className="flex flex-col min-w-0">
+                    <span className="text-[9px] font-mono font-semibold uppercase tracking-wider text-primary dark:text-blue-300">
+                      Audited Impact
+                    </span>
+                    <span className="text-[11px] text-slate-700 dark:text-slate-300 font-medium leading-normal mt-0.5 break-words">
+                      {item.achievement}
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {/* Action Button & Verification */}
+              <div className="pt-2 border-t border-slate-200/70 dark:border-white/6 flex flex-col gap-2">
+                <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary dark:bg-cyan-400" />
+                  <span>Continuous Verification</span>
+                </div>
+
+                {isExternal ? (
+                  <a
+                    href={targetUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/btn w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-all duration-200 shadow-xs text-center"
+                  >
+                    <span>{item.verificationLabel || 'Verify External Registry'}</span>
+                    <ExternalLink
+                      className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-0.5"
+                      aria-hidden="true"
+                    />
+                  </a>
+                ) : (
+                  <Link
+                    href={targetUrl}
+                    className="group/btn w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-all duration-200 shadow-xs text-center"
+                  >
+                    <span>{item.verificationLabel || 'Inspect Full Accreditation'}</span>
+                    <ArrowRight
+                      className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-0.5"
+                      aria-hidden="true"
+                    />
+                  </Link>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/**
+ * Enterprise Trust & Accolades Section
+ * - Desktop (lg+): Infinite continuous smooth marquee with card-anchored hover popover.
+ * - Mobile (< lg): Static, clean single-column list of cards with inline accordion expansion in normal page flow.
  */
 export function TrustStrip({ initialSettings, items, className }: TrustStripProps) {
+  // Desktop popover state
   const [selectedAccolade, setSelectedAccolade] = useState<AccoladeStripItem | null>(null);
   const [triggerElement, setTriggerElement] = useState<HTMLElement | null>(null);
   const isCardOpen = selectedAccolade !== null && triggerElement !== null;
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const openTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isHoveringCardRef = useRef(false);
+
+  // Mobile inline accordion state (only 1 expanded at a time)
+  const [expandedMobileId, setExpandedMobileId] = useState<string | null>(null);
 
   const isoNumber = initialSettings?.isoNumber || 'ISO 27001:2022';
   const isoLabel = initialSettings?.isoLabel !== undefined ? initialSettings.isoLabel : 'Certified';
@@ -723,7 +920,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
   const baseItems = items && items.length > 0 ? items : defaultBadges;
   const activeItems = baseItems.filter((i) => i.published !== false);
 
-  // Intelligently repeat at presentation layer to guarantee seamless infinite loop width on all viewports
+  // Intelligently repeat at presentation layer to guarantee seamless infinite loop width on desktop viewports
   const presentationGroup = React.useMemo(() => {
     if (activeItems.length === 0) return [];
     let group = [...activeItems];
@@ -733,7 +930,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
     return group;
   }, [activeItems]);
 
-  // Immediate close (for Close button, Escape key)
+  // Desktop immediate close
   const handleImmediateClose = useCallback(() => {
     isHoveringCardRef.current = false;
     if (openTimeoutRef.current) {
@@ -748,7 +945,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
     setTriggerElement(null);
   }, []);
 
-  // Open popover on hover (debounced) or click/keyboard (immediate)
+  // Desktop open popover on hover (debounced) or click/keyboard (immediate)
   const handleOpen = useCallback((item: AccoladeStripItem, el: HTMLElement, immediate = false) => {
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
@@ -765,7 +962,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
       return;
     }
 
-    // Debounce hover opening by 160ms to prevent flicker while crossing cards
+    // Debounce hover opening by 160ms
     if (openTimeoutRef.current) {
       clearTimeout(openTimeoutRef.current);
     }
@@ -775,7 +972,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
     }, 160);
   }, []);
 
-  // Click handler for toggle behavior
+  // Desktop click handler for toggle behavior
   const handleCardClick = useCallback((item: AccoladeStripItem, el: HTMLElement) => {
     setSelectedAccolade((prev) => {
       if (prev?.id === item.id) {
@@ -787,7 +984,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
     });
   }, []);
 
-  // When cursor leaves any mini card: grace period to allow cursor to cross gap into popover
+  // Desktop grace period on leaving mini card
   const handleLeaveMiniCard = useCallback(() => {
     if (openTimeoutRef.current) {
       clearTimeout(openTimeoutRef.current);
@@ -804,7 +1001,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
     }, 220);
   }, []);
 
-  // When cursor enters the popover: keep it open while user interacts
+  // Desktop hover tracking in popover
   const handleMouseEnterPopover = useCallback(() => {
     isHoveringCardRef.current = true;
     if (closeTimeoutRef.current) {
@@ -813,7 +1010,6 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
     }
   }, []);
 
-  // When cursor leaves the popover: auto-close smoothly after grace period
   const handleMouseLeavePopover = useCallback(() => {
     isHoveringCardRef.current = false;
     if (closeTimeoutRef.current) {
@@ -825,6 +1021,11 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
         setTriggerElement(null);
       }
     }, 180);
+  }, []);
+
+  // Mobile accordion toggle
+  const handleMobileToggle = useCallback((id: string) => {
+    setExpandedMobileId((prev) => (prev === id ? null : id));
   }, []);
 
   // Clean up timers on unmount
@@ -849,9 +1050,8 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
           className
         )}
       >
-        {/* Slightly increased height & padding for relaxed enterprise breathing room */}
         <div className="relative rounded-2xl bg-card/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl p-3.5 sm:p-4 lg:py-3.5 lg:px-4.5 shadow-card overflow-hidden">
-          {/* Subtle Ambient Radial Highlight Behind Carousel */}
+          {/* Subtle Ambient Radial Highlight Behind Container */}
           <div
             className="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-2xl"
             aria-hidden="true"
@@ -859,59 +1059,41 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-full bg-blue-500/3 dark:bg-blue-500/4 blur-2xl" />
           </div>
 
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-3.5 lg:gap-4">
-            {/* Top Bar for Mobile/Tablet or Left Anchor on Desktop */}
-            <div className="w-full lg:w-auto flex items-center justify-between lg:justify-start gap-3.5 shrink-0">
-              {/* Left: Verified Category Label */}
-              <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
-                <div className="flex h-8.5 w-8.5 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-primary/10 border border-primary/20 text-primary dark:bg-blue-500/15 dark:text-blue-300 dark:border-blue-400/30 shrink-0">
-                  <Award className="h-4 w-4" aria-hidden="true" />
-                </div>
-                <div className="flex flex-col text-left">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[10px] sm:text-[10.5px] font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-300">
-                      Verified Institutional Trust
-                    </span>
-                    {/* Subtle, calm verification indicator */}
-                    <span
-                      className="relative flex h-2 w-2 items-center justify-center"
-                      aria-label="Verified Status Active"
-                      title="Active Verified Compliance"
-                    >
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary dark:bg-cyan-400 opacity-30 animation-duration-[3.5s]" />
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary dark:bg-cyan-400" />
-                    </span>
-                  </div>
-                  <span className="text-[11px] sm:text-xs text-muted-foreground font-medium">
-                    Audited Standards & Accolades
+          {/* ========================================================================= */}
+          {/* DESKTOP VIEW (lg: 1024px+): Infinite Marquee Strip + Anchored Popover     */}
+          {/* ========================================================================= */}
+          <div className="hidden lg:flex items-center justify-between gap-4">
+            {/* Left Header */}
+            <div className="flex items-center gap-3 shrink-0">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 border border-primary/20 text-primary dark:bg-blue-500/15 dark:text-blue-300 dark:border-blue-400/30 shrink-0">
+                <Award className="h-4 w-4" aria-hidden="true" />
+              </div>
+              <div className="flex flex-col text-left">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-300">
+                    Verified Institutional Trust
+                  </span>
+                  <span
+                    className="relative flex h-2 w-2 items-center justify-center"
+                    aria-label="Verified Status Active"
+                    title="Active Verified Compliance"
+                  >
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary dark:bg-cyan-400 opacity-30 animation-duration-[3.5s]" />
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary dark:bg-cyan-400" />
                   </span>
                 </div>
-              </div>
-
-              {/* Tablet CTA: Visible between 640px and 1023px */}
-              <div className="hidden sm:block lg:hidden shrink-0">
-                <Link
-                  href={ROUTES.PUBLIC.REWARDS_ACCOLADES}
-                  className="group/cta inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-primary dark:text-blue-300 bg-primary/6 dark:bg-blue-500/8 hover:bg-primary/12 dark:hover:bg-blue-500/16 border border-primary/20 dark:border-blue-400/25 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-200"
-                >
-                  <span>View All Accolades</span>
-                  <ArrowRight
-                    className="h-3.5 w-3.5 text-primary/70 dark:text-blue-300/80 transition-transform duration-200 group-hover/cta:translate-x-1"
-                    aria-hidden="true"
-                  />
-                </Link>
+                <span className="text-xs text-muted-foreground font-medium">
+                  Audited Standards &amp; Accolades
+                </span>
               </div>
             </div>
 
-            {/* Desktop Left Divider */}
-            <div
-              className="hidden lg:block h-8 w-px bg-slate-200/80 dark:bg-white/10 shrink-0 mx-0.5"
-              aria-hidden="true"
-            />
+            {/* Left Divider */}
+            <div className="h-8 w-px bg-slate-200/80 dark:bg-white/10 shrink-0 mx-0.5" aria-hidden="true" />
 
             {/* Center: Infinite Continuous Auto-Scrolling Accolade Marquee */}
             <div
-              className="accolade-marquee-viewport relative flex-1 min-w-0 w-full lg:w-auto overflow-hidden py-1 motion-reduce:overflow-x-auto no-scrollbar mask-[linear-gradient(to_right,transparent_0%,black_24px,black_calc(100%-24px),transparent_100%)] sm:mask-[linear-gradient(to_right,transparent_0%,black_36px,black_calc(100%-36px),transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_24px,black_calc(100%-24px),transparent_100%)] sm:[-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_36px,black_calc(100%-36px),transparent_100%)]"
+              className="accolade-marquee-viewport relative flex-1 min-w-0 overflow-hidden py-1 motion-reduce:overflow-x-auto no-scrollbar mask-[linear-gradient(to_right,transparent_0%,black_36px,black_calc(100%-36px),transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_36px,black_calc(100%-36px),transparent_100%)]"
               role="region"
               aria-label="Audited Standards and Accolades marquee"
               data-paused={isCardOpen}
@@ -927,7 +1109,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
                 >
                   {presentationGroup.map((item, idx) => (
                     <AccoladeMiniCard
-                      key={`g1-${item.id}-${idx}`}
+                      key={`desktop-g1-${item.id}-${idx}`}
                       item={item}
                       isOpen={selectedAccolade?.id === item.id}
                       onHover={(it, el) => handleOpen(it, el, false)}
@@ -948,7 +1130,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
                 >
                   {presentationGroup.map((item, idx) => (
                     <AccoladeMiniCard
-                      key={`g2-${item.id}-${idx}`}
+                      key={`desktop-g2-${item.id}-${idx}`}
                       item={item}
                       isDuplicate
                       isOpen={selectedAccolade?.id === item.id}
@@ -961,14 +1143,11 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
               </div>
             </div>
 
-            {/* Desktop Right Divider */}
-            <div
-              className="hidden lg:block h-8 w-px bg-slate-200/80 dark:bg-white/10 shrink-0 mx-0.5"
-              aria-hidden="true"
-            />
+            {/* Right Divider */}
+            <div className="h-8 w-px bg-slate-200/80 dark:bg-white/10 shrink-0 mx-0.5" aria-hidden="true" />
 
-            {/* Right: Quick Action Link on Desktop (>= 1024px) */}
-            <div className="hidden lg:block shrink-0">
+            {/* Right: Quick Action Link */}
+            <div className="shrink-0">
               <Link
                 href={ROUTES.PUBLIC.REWARDS_ACCOLADES}
                 className="group/cta inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-primary dark:text-blue-300 bg-primary/6 dark:bg-blue-500/8 hover:bg-primary/12 dark:hover:bg-blue-500/16 border border-primary/20 dark:border-blue-400/25 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-200"
@@ -980,12 +1159,54 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
                 />
               </Link>
             </div>
+          </div>
 
-            {/* Mobile CTA: Visible under 640px, centered below carousel */}
-            <div className="w-full sm:hidden pt-0.5 flex justify-center">
+          {/* ========================================================================= */}
+          {/* MOBILE & TABLET VIEW (< lg: < 1024px): Clean Static Stack with Accordion */}
+          {/* ========================================================================= */}
+          <div className="flex lg:hidden flex-col gap-3">
+            {/* Header Row */}
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <div className="flex h-8.5 w-8.5 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-primary/10 border border-primary/20 text-primary dark:bg-blue-500/15 dark:text-blue-300 dark:border-blue-400/30 shrink-0">
+                <Award className="h-4 w-4" aria-hidden="true" />
+              </div>
+              <div className="flex flex-col text-left">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[10px] sm:text-[10.5px] font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-300">
+                    Verified Institutional Trust
+                  </span>
+                  <span
+                    className="relative flex h-2 w-2 items-center justify-center"
+                    aria-label="Verified Status Active"
+                    title="Active Verified Compliance"
+                  >
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary dark:bg-cyan-400 opacity-30 animation-duration-[3.5s]" />
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary dark:bg-cyan-400" />
+                  </span>
+                </div>
+                <span className="text-[11px] sm:text-xs text-muted-foreground font-medium">
+                  Audited Standards &amp; Accolades
+                </span>
+              </div>
+            </div>
+
+            {/* Static Vertical List of Clean Compact Cards */}
+            <div className="flex flex-col gap-2 w-full pt-1" role="region" aria-label="Audited Standards and Accolades list">
+              {activeItems.map((item) => (
+                <AccoladeMobileCard
+                  key={`mobile-${item.id}`}
+                  item={item}
+                  isExpanded={expandedMobileId === item.id}
+                  onToggle={handleMobileToggle}
+                />
+              ))}
+            </div>
+
+            {/* Mobile Bottom Action Link */}
+            <div className="w-full pt-1">
               <Link
                 href={ROUTES.PUBLIC.REWARDS_ACCOLADES}
-                className="group/cta w-full flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-primary dark:text-blue-300 bg-primary/6 dark:bg-blue-500/8 hover:bg-primary/12 dark:hover:bg-blue-500/16 border border-primary/20 dark:border-blue-400/25 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-200"
+                className="group/cta w-full flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-primary dark:text-blue-300 bg-primary/6 dark:bg-blue-500/8 hover:bg-primary/12 dark:hover:bg-blue-500/16 border border-primary/20 dark:border-blue-400/25 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-200"
               >
                 <span>View All Accolades</span>
                 <ArrowRight
@@ -998,7 +1219,7 @@ export function TrustStrip({ initialSettings, items, className }: TrustStripProp
         </div>
       </section>
 
-      {/* Compact Card-Anchored Popover with Smooth Transitions */}
+      {/* Desktop Card-Anchored Popover */}
       <AnimatePresence>
         {selectedAccolade && triggerElement && (
           <AccoladeDetailPopover

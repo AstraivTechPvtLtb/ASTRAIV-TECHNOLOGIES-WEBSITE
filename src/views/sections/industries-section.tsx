@@ -101,7 +101,6 @@ export function IndustriesSection() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader
-          badge="Industries"
           title="Technology for [Every Industry]"
           description="We do not build generic templates. We deliver specialized software architected for the unique regulatory, operational, and scale requirements of your domain."
         />
@@ -164,10 +163,6 @@ export function IndustriesSection() {
               {/* Right Column: Detailed Business & Engineering Scope */}
               <div className="lg:col-span-6 flex flex-col justify-between gap-5">
                 <div>
-                  <span className="inline-flex self-start px-3 py-1 text-[10px] font-semibold tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 rounded-full border border-primary/20 dark:border-blue-400/20 uppercase mb-3">
-                    {industries[activeTab].label} Technology
-                  </span>
-                  
                   <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-[-0.02em] text-foreground leading-tight">
                     {industries[activeTab].title}
                   </h3>

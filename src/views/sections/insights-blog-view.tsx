@@ -57,10 +57,6 @@ export function InsightsBlogView({
 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-8 border-b border-border/60 dark:border-slate-800">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary dark:bg-accent/10 dark:text-accent text-xs font-medium uppercase tracking-wider mb-3">
-              <BookOpen className="h-3.5 w-3.5" />
-              <span>Technical Publications & Systems Analysis</span>
-            </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading tracking-tight leading-[1.12] text-foreground">
               Astraiv <span className="heading-gradient">Engineering Blog</span>
             </h1>

@@ -18,11 +18,6 @@ export function BusinessProblemSection({ problem, solutionTitle }: BusinessProbl
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-primary/5 dark:bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 text-left">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 dark:bg-blue-400/10 text-primary dark:text-blue-300 text-xs font-semibold uppercase tracking-wider mb-4 border border-blue-500/20">
-            <AlertCircle className="h-3.5 w-3.5" />
-            <span>The Business Problem</span>
-          </div>
-
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-tight leading-[1.15] mb-4">
             {problem.title}
           </h2>

@@ -40,7 +40,6 @@ export function TestimonialsSection({ initialReviews }: TestimonialsSectionProps
     <section id="testimonials" className="py-20 md:py-28 px-6 bg-slate-50/50 dark:bg-slate-900/10 border-y border-border/20 relative scroll-mt-24">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
-          badge="Success Stories"
           title="What Technology [Leaders Say]"
           description="Hear from engineering VP, founders, and CTOs who trust Astraiv with their complex software architectures."
         />

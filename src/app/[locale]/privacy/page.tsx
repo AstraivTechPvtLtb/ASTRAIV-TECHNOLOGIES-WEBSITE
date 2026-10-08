@@ -61,10 +61,6 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
         <div className="max-w-4xl mx-auto px-6 py-6 text-left">
           {/* Header */}
           <div className="mb-12">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20 mb-4">
-              <ShieldCheck className="h-3.5 w-3.5" />
-              <span>Compliance & Data Governance</span>
-            </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight font-heading mb-3">
               Privacy <span className="heading-gradient">Policy</span>
             </h1>

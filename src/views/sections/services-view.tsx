@@ -485,9 +485,6 @@ export function ServicesView({ activeServices }: ServicesViewProps) {
       <section className="py-20 px-6 max-w-7xl mx-auto w-full">
         <div className="p-8 sm:p-12 rounded-3xl bg-card dark:bg-slate-900/90 border border-border/80 dark:border-slate-800/80 shadow-md">
           <div className="max-w-3xl mb-12 text-left">
-            <span className="inline-flex px-3 py-1 text-xs font-semibold tracking-wider uppercase text-primary bg-primary/10 dark:bg-blue-600/20 dark:text-blue-300 rounded-md border border-primary/20 dark:border-blue-600/30 mb-3">
-              CONTRACTUAL GUARANTEES
-            </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground font-heading tracking-tight leading-[1.15]">
               Engineering Built on <span className="heading-gradient">Trust and Rigor</span>
             </h2>

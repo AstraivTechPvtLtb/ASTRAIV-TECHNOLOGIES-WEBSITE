@@ -61,11 +61,6 @@ export default async function CaseStudiesPage({ params }: CaseStudiesPageProps) 
             <span className="text-foreground">Case Studies</span>
           </div>
 
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-primary/10 dark:bg-accent/10 border border-primary/20 dark:border-accent/20 text-primary dark:text-accent text-xs font-bold uppercase tracking-wider mb-4">
-            <Layers className="h-3.5 w-3.5" />
-            <span>Architecture & Outcomes Showcase</span>
-          </div>
-
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight font-heading max-w-4xl mx-auto mb-6 leading-tight">
             Case Studies & Architecture Blueprints
           </h1>

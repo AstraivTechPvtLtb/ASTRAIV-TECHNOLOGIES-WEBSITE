@@ -52,7 +52,6 @@ export function ProcessSection({ variant = 'summary', headline }: ProcessSection
 
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeader
-          badge={isDetailed ? "Canonical Engineering Lifecycle" : "How We Work"}
           title={headline || (isDetailed ? "The Astraiv 6-Stage [Engineering Roadmap]" : "From Strategy [to Scaled Production]")}
           description={
             isDetailed

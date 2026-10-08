@@ -253,27 +253,128 @@ export interface Testimonial {
  */
 export type TestimonialItem = Testimonial;
 
+export interface JobCategory {
+  id: string;
+  name: string;
+  slug: string;
+  orderIndex: number;
+  active: boolean;
+  openingCount?: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 /**
  * Public Job Opening contract.
  */
 export interface PublicJobOpening {
   id: string;
+  categoryId?: string | null;
+  category?: JobCategory | null;
   title: string;
   slug: string;
   department: string;
+  employmentType?: string;
+  workMode?: string;
+  geographicLocation?: string;
+  experienceLevel?: 'Fresher' | 'Experienced' | 'Both' | string;
+  experience?: string | null;
+  minExperienceYears?: number | null;
+  maxExperienceYears?: number | null;
   type: string;
   location: string;
-  experience?: string | null;
   description: string;
   skills: string[];
   salary?: string | null;
+  showSalary?: boolean;
   applyUrl?: string | null;
   active: boolean;
   orderIndex: number;
+  publishedAt?: string | null;
+  referralBonus?: string | null;
+  showReferralBonus?: boolean;
+  useSharedDefaults?: boolean;
   responsibilities?: string[];
   requirements?: string[];
   niceToHave?: string[];
   benefits?: string[];
+  interviewStages?: Array<{ num: string; title: string; desc: string }>;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface CultureCardItem {
+  id?: string;
+  title: string;
+  body: string;
+  icon: string;
+  order: number;
+  active: boolean;
+}
+
+export interface BenefitsCardItem {
+  id?: string;
+  title: string;
+  body: string;
+  icon: string;
+  order: number;
+  active: boolean;
+}
+
+export interface CareersImageSettings {
+  enabled: boolean;
+  imageUrl: string;
+  altText: string;
+  focalPoint?: string;
+  width?: number;
+  height?: number;
+  sizeBytes?: number;
+  sizeLabel?: string;
+}
+
+export interface PublicCareersPageContent {
+  heroHeading: string;
+  heroSubtitle: string;
+  cultureCards: CultureCardItem[];
+  careersImage: CareersImageSettings;
+  benefitsHeading: string;
+  benefitsSubtitle: string;
+  benefitsCards: BenefitsCardItem[];
+  opportunitiesHeading: string;
+  opportunitiesSubtitle: string;
+  searchPlaceholder: string;
+  emptyStateCopy: string;
+  speculativeCta: {
+    enabled: boolean;
+    kicker: string;
+    title: string;
+    body: string;
+    buttonText: string;
+    buttonUrl: string;
+  };
+  speculativePageCopy: {
+    heading: string;
+    subheading: string;
+    supportGuidance: string;
+    successMessage: string;
+  };
+}
+
+export interface PublicSharedCareersDefaults {
+  interviewStages: Array<{ num: string; title: string; desc: string }>;
+  commonBenefits: string[];
+  defaultReferralBonus: string;
+  defaultPrivacyText: string;
+}
+
+export interface PaginatedJobsResult {
+  jobs: PublicJobOpening[];
+  total: number;
+  page: number;
+  totalPages: number;
+  limit: number;
 }
 
 export const DEFAULT_JOB_OPENINGS: PublicJobOpening[] = [
