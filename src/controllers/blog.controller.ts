@@ -91,7 +91,9 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     // If query succeeded, return database posts directly (including empty array if all hidden)
     return posts as unknown as BlogPost[];
   } catch (error) {
-    console.warn('⚠️ Database query for blog posts failed or DB is offline. Checking fallback.', error);
+    if (process.env.DEBUG_PRISMA) {
+      console.warn('⚠️ Database query for blog posts failed or DB is offline. Checking fallback.', error);
+    }
   }
 
   // 2. Secondary: Supabase client fallback
@@ -181,7 +183,9 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
     return null;
   } catch (error) {
     dbError = true;
-    console.warn(`⚠️ Database query for blog post slug "${slug}" failed. Checking fallback posts.`, error);
+    if (process.env.DEBUG_PRISMA) {
+      console.warn(`⚠️ Database query for blog post slug "${slug}" failed. Checking fallback posts.`, error);
+    }
   }
 
   // Fallback to Supabase if DB errored

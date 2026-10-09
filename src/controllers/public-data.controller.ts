@@ -792,7 +792,9 @@ export async function getPublicCareersPageContent(): Promise<{
       return { content, sharedDefaults };
     }
   } catch (err) {
-    console.warn('[Public Careers Page Content Notice]:', err);
+    if (process.env.DEBUG_PRISMA) {
+      console.warn('[Public Careers Page Content Notice]:', err);
+    }
   }
 
   return {
@@ -854,7 +856,9 @@ export async function getPublicJobCategories(): Promise<JobCategory[]> {
       openingCount: Number(r.opening_count) || 0,
     }));
   } catch (err) {
-    console.warn('[Get Public JobCategories Notice]:', err);
+    if (process.env.DEBUG_PRISMA) {
+      console.warn('[Get Public JobCategories Notice]:', err);
+    }
     return [
       { id: 'cat-eng', name: 'Engineering', slug: 'engineering', orderIndex: 1, active: true, openingCount: 2 },
       { id: 'cat-ai', name: 'AI & Automation', slug: 'ai-automation', orderIndex: 2, active: true, openingCount: 1 },
@@ -971,7 +975,9 @@ export async function getPaginatedPublicJobs(options: {
       limit,
     };
   } catch (err) {
-    console.warn('[Get Paginated Public Jobs Notice]:', err);
+    if (process.env.DEBUG_PRISMA) {
+      console.warn('[Get Paginated Public Jobs Notice]:', err);
+    }
     // Fallback to in-memory filter
     let all = DEFAULT_JOB_OPENINGS.filter((j) => j.active);
     if (categorySlug) {
@@ -1093,7 +1099,9 @@ export async function getPublicJobBySlug(slug: string): Promise<PublicJobOpening
       };
     }
   } catch (prismaErr) {
-    console.warn('[Client Public JobOpening by Slug Notice - Falling back]:', (prismaErr as Error)?.message || prismaErr);
+    if (process.env.DEBUG_PRISMA) {
+      console.warn('[Client Public JobOpening by Slug Notice - Falling back]:', (prismaErr as Error)?.message || prismaErr);
+    }
   }
 
   return fallbackJob;
@@ -1125,7 +1133,9 @@ export async function getPublicPricingPlans(): Promise<PublicPricingPlan[]> {
       }));
     }
   } catch (prismaErr) {
-    console.warn('[Client Public Pricing Notice - Falling back]:', (prismaErr as Error)?.message || prismaErr);
+    if (process.env.DEBUG_PRISMA) {
+      console.warn('[Client Public Pricing Notice - Falling back]:', (prismaErr as Error)?.message || prismaErr);
+    }
   }
 
   if (isSupabaseConfigured()) {
@@ -1187,7 +1197,9 @@ export async function getPublicPricingPageSettings(): Promise<PublicPricingPageS
       }
     }
   } catch (err: unknown) {
-    console.warn('[Public Pricing Page Settings Prisma Notice]:', (err as Error)?.message || err);
+    if (process.env.DEBUG_PRISMA) {
+      console.warn('[Public Pricing Page Settings Prisma Notice]:', (err as Error)?.message || err);
+    }
   }
 
   // 2. Secondary: Supabase fallback
