@@ -9,6 +9,7 @@ import { headers, cookies } from 'next/headers';
 import { auth } from '@/models/auth';
 import { pool } from '@/models/db';
 import crypto from 'crypto';
+import { hashPassword, verifyPassword } from 'better-auth/crypto';
 
 export interface ClientUserSession {
   id: string;
@@ -127,7 +128,7 @@ export async function signInClientWithLeadNumber({
       }
     }
 
-    // 5. Verify Password
+    // 5. Verify Password (Dual-Mode: Scrypt Hash or Legacy Plaintext with Auto-Upgrade)
     if (!lead.portal_password || !lead.portal_password.trim()) {
       return {
         success: false,
@@ -136,18 +137,55 @@ export async function signInClientWithLeadNumber({
     }
 
     const expectedPassword = lead.portal_password.trim();
-    const providedBuffer = Buffer.from(cleanPassword);
-    const expectedBuffer = Buffer.from(expectedPassword);
+    // Validate better-auth scrypt format (<32-hex-salt>:<128-hex-derived-key>)
+    const isScryptHash = /^[a-f0-9]{32}:[a-f0-9]{128}$/i.test(expectedPassword);
 
-    const isPasswordValid =
-      providedBuffer.length === expectedBuffer.length &&
-      crypto.timingSafeEqual(providedBuffer, expectedBuffer);
+    let isPasswordValid = false;
+    let requiresUpgradeToScrypt = false;
+
+    if (isScryptHash) {
+      try {
+        isPasswordValid = await verifyPassword({
+          hash: expectedPassword,
+          password: cleanPassword,
+        });
+      } catch (verifyErr) {
+        console.warn('[Client Auth]: Error during scrypt verification:', verifyErr);
+        isPasswordValid = false;
+      }
+    } else {
+      // Legacy plaintext constant-time comparison
+      const providedBuffer = Buffer.from(cleanPassword);
+      const expectedBuffer = Buffer.from(expectedPassword);
+
+      isPasswordValid =
+        providedBuffer.length === expectedBuffer.length &&
+        crypto.timingSafeEqual(providedBuffer, expectedBuffer);
+
+      if (isPasswordValid) {
+        requiresUpgradeToScrypt = true;
+      }
+    }
 
     if (!isPasswordValid) {
       return {
         success: false,
         error: 'Incorrect password. Please enter the secure password dispatched to your email upon lead approval.',
       };
+    }
+
+    // Automatically migrate legacy plaintext credentials to one-way scrypt hash upon verified login
+    if (requiresUpgradeToScrypt) {
+      try {
+        const modernHash = await hashPassword(cleanPassword);
+        await pool.query(
+          `UPDATE crm_lead SET portal_password = $1, "updatedAt" = NOW() WHERE id = $2`,
+          [modernHash, lead.id]
+        );
+        console.log(`[Client Auth Security]: Upgraded legacy credential to scrypt hash for lead ${lead.lead_number}`);
+      } catch (upgradeErr) {
+        console.error('[Client Auth Security]: Error upgrading password to scrypt hash:', upgradeErr);
+      }
     }
 
     // 6. Record successful first login in database

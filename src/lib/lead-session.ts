@@ -39,9 +39,11 @@ export function signClientLeadSessionCookie(payload: ClientLeadCookiePayload): s
   return `${payloadB64}.${signature}`;
 }
 
+export const MAX_LEAD_SESSION_AGE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days maximum session validity
+
 /**
  * Validates the HMAC signature of the client lead session cookie and decodes payload.
- * Rejects forged or unsigned cookies.
+ * Rejects forged, unsigned, or expired cookies.
  */
 export function verifyClientLeadSessionCookie(tokenString: string): ClientLeadCookiePayload | null {
   if (!tokenString || typeof tokenString !== 'string') return null;
@@ -61,6 +63,16 @@ export function verifyClientLeadSessionCookie(tokenString: string): ClientLeadCo
 
     const jsonStr = Buffer.from(payloadB64, 'base64url').toString('utf8');
     const parsed = JSON.parse(jsonStr) as ClientLeadCookiePayload;
+
+    // Enforce cryptographic session expiration
+    if (
+      !parsed.loginTime ||
+      typeof parsed.loginTime !== 'number' ||
+      Date.now() - parsed.loginTime > MAX_LEAD_SESSION_AGE_MS
+    ) {
+      return null;
+    }
+
     return parsed;
   } catch {
     return null;

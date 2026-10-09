@@ -8,6 +8,7 @@
 import { db } from '@/models/db';
 import { getStorageProvider } from '@/lib/storage';
 import { Prisma } from '@prisma/client';
+import { randomInt } from 'crypto';
 
 export interface SubmitApplicationPayload {
   type: 'job' | 'speculative';
@@ -46,7 +47,7 @@ function generateApplicationNumber(): string {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   let rand = '';
   for (let i = 0; i < 6; i++) {
-    rand += chars.charAt(Math.floor(Math.random() * chars.length));
+    rand += chars.charAt(randomInt(0, chars.length));
   }
   return `AST-APP-${rand}`;
 }
