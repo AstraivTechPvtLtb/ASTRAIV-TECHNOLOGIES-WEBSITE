@@ -187,28 +187,6 @@ export async function submitContactForm(
         updated_at: submission.updatedAt.toISOString(),
       };
 
-      // Real-Time Socket Broadcast to Admin Portal
-      try {
-        const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4001';
-        const headers: Record<string, string> = { 'Content-Type': 'application/json' };
-        if (process.env.SOCKET_BROADCAST_SECRET) {
-          headers['x-broadcast-secret'] = process.env.SOCKET_BROADCAST_SECRET;
-        }
-
-        fetch(`${socketUrl}/api/broadcast`, {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({
-            event: 'new_enquiry',
-            data: enquiryData,
-          }),
-        }).catch((broadcastErr) => {
-          console.warn('[Socket Broadcast Warning]:', (broadcastErr as Error)?.message || broadcastErr);
-        });
-      } catch {
-        // non-blocking
-      }
-
       return {
         success: true,
         data: enquiryData,
@@ -248,27 +226,6 @@ export async function submitContactForm(
       created_at: data.created_at || new Date().toISOString(),
       updated_at: data.updated_at || new Date().toISOString(),
     };
-
-    try {
-      const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4001';
-      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
-      if (process.env.SOCKET_BROADCAST_SECRET) {
-        headers['x-broadcast-secret'] = process.env.SOCKET_BROADCAST_SECRET;
-      }
-
-      fetch(`${socketUrl}/api/broadcast`, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          event: 'new_enquiry',
-          data: enquiryData,
-        }),
-      }).catch((broadcastErr) => {
-        console.warn('[Socket Broadcast Warning]:', (broadcastErr as Error)?.message || broadcastErr);
-      });
-    } catch {
-      // non-blocking
-    }
 
     return {
       success: true,
