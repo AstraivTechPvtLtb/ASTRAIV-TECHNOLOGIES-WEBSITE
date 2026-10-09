@@ -71,7 +71,7 @@ export const db =
   globalForPrisma.prisma ??
   new PrismaClient({
     adapter,
-    log: isTest ? [] : process.env.NODE_ENV === 'development' ? ['warn', 'error'] : ['error'],
+    log: isTest ? [] : process.env.DEBUG_PRISMA ? ['error', 'warn'] : [],
   });
 
 globalForPrisma.prisma = db;

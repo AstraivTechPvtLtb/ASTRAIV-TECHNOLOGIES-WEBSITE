@@ -70,7 +70,9 @@ async function fetchPublicActiveServices(): Promise<PublicServiceItem[]> {
       }
     }
   } catch (prismaErr) {
-    console.warn('[Prisma Public Services Notice - Falling back]:', (prismaErr as Error)?.message || prismaErr);
+    if (process.env.DEBUG_PRISMA) {
+      console.warn('[Prisma Public Services Notice - Falling back]:', (prismaErr as Error)?.message || prismaErr);
+    }
   }
 
   if (isSupabaseConfigured()) {

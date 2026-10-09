@@ -38,22 +38,29 @@ const disabledEntities = new Set<string>();
 function isSchemaMismatch(err: unknown): boolean {
   if (!err) return false;
   const error = err as { code?: string; message?: string };
-  if (error.code === 'P2021' || error.code === 'P2022') return true;
+  if (
+    error.code === 'P2021' ||
+    error.code === 'P2022' ||
+    error.code === 'ECONNREFUSED' ||
+    error.code === 'ETIMEDOUT'
+  ) {
+    return true;
+  }
   const msg = error.message || String(err);
   return (
     msg.includes('does not exist') ||
     msg.includes('UndefinedColumn') ||
     msg.includes('UndefinedTable') ||
     msg.includes('42703') ||
-    msg.includes('42P01')
+    msg.includes('42P01') ||
+    msg.includes('ECONNREFUSED') ||
+    msg.includes('Connection refused')
   );
 }
 
 function handlePrismaError(entity: string, err: unknown, context: string): void {
-  if (isSchemaMismatch(err)) {
-    disabledEntities.add(entity);
-  }
-  if (process.env.NODE_ENV !== 'test' && !process.env.VITEST) {
+  disabledEntities.add(entity);
+  if (process.env.DEBUG_PRISMA) {
     console.warn(`[CMS Controller - ${context} fallback]:`, (err as Error)?.message || err);
   }
 }

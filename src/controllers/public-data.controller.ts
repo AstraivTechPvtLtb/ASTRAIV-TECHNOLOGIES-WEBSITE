@@ -282,12 +282,23 @@ let reviewsSupabaseDisabled = false;
 function isReviewsSchemaMismatch(err: unknown): boolean {
   if (!err) return false;
   const error = err as { code?: string; message?: string };
-  if (error.code === 'P2021' || error.code === 'P2022' || error.code === '42703' || error.code === '42P01') return true;
+  if (
+    error.code === 'P2021' ||
+    error.code === 'P2022' ||
+    error.code === '42703' ||
+    error.code === '42P01' ||
+    error.code === 'ECONNREFUSED' ||
+    error.code === 'ETIMEDOUT'
+  ) {
+    return true;
+  }
   const msg = error.message || String(err);
   return (
     msg.includes('does not exist') ||
     msg.includes('UndefinedColumn') ||
-    msg.includes('UndefinedTable')
+    msg.includes('UndefinedTable') ||
+    msg.includes('ECONNREFUSED') ||
+    msg.includes('Connection refused')
   );
 }
 
@@ -357,7 +368,7 @@ async function fetchApprovedTestimonials(
         if (isReviewsSchemaMismatch(prismaErr)) {
           reviewsPrismaDisabled = true;
         }
-        if (process.env.NODE_ENV !== 'test' && !process.env.VITEST) {
+        if (process.env.DEBUG_PRISMA) {
           console.warn('[Public Reviews Prisma Notice - Falling back to Supabase]:', (prismaErr as Error)?.message || prismaErr);
         }
       }
@@ -1285,8 +1296,11 @@ async function fetchPublicComplianceSettings(): Promise<PublicComplianceSettings
     if (complianceModel && typeof complianceModel.findFirst === 'function') {
       try {
         record = await complianceModel.findFirst();
-      } catch {
-        // Fallback to raw query if model fails
+      } catch (firstErr: unknown) {
+        const errCode = (firstErr as { code?: string })?.code;
+        if (errCode === 'ECONNREFUSED' || String(firstErr).includes('ECONNREFUSED')) {
+          return DEFAULT_COMPLIANCE_SETTINGS;
+        }
       }
     }
 
