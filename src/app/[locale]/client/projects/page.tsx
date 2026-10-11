@@ -75,17 +75,17 @@ export default async function ClientProjectsPage({ params }: ClientProjectsPageP
     >
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="font-heading font-extrabold text-2xl md:text-3xl text-foreground">My Projects</h1>
-          <p className="text-sm text-muted-foreground font-medium mt-1">
+          <h1 className="font-heading font-medium text-2xl md:text-3xl text-foreground tracking-tight">My Projects</h1>
+          <p className="text-sm text-muted-foreground font-light dark:font-normal mt-1 leading-relaxed">
             Track real-time milestones, budget consumption, and timelines for your active software builds.
           </p>
         </div>
 
         {projects.length === 0 ? (
-          <Card className="border border-border/40 p-12 text-center flex flex-col items-center justify-center">
+          <Card className="border border-slate-200/80 dark:border-white/10 bg-card/90 dark:bg-slate-900/85 p-12 text-center flex flex-col items-center justify-center rounded-2xl shadow-card">
             <Briefcase className="h-12 w-12 text-muted-foreground/60 mb-4" />
-            <h3 className="text-lg font-bold text-foreground">No Projects Found</h3>
-            <p className="text-sm text-muted-foreground max-w-sm mt-1">
+            <h3 className="text-lg font-medium text-foreground font-heading">No Projects Found</h3>
+            <p className="text-sm text-muted-foreground max-w-sm mt-1 font-light dark:font-normal leading-relaxed">
               Your account doesn&apos;t have any active software development projects registered. Contact our architects to kickoff a new build.
             </p>
           </Card>
@@ -94,16 +94,16 @@ export default async function ClientProjectsPage({ params }: ClientProjectsPageP
             {projects.map((project) => {
               const progress = getProgressPercentage(project.status);
               return (
-                <Card key={project.id} className="border border-border/40 hover:shadow-lg dark:hover:shadow-primary/5 transition-all">
+                <Card key={project.id} className="border border-slate-200/80 dark:border-white/10 bg-card/90 dark:bg-slate-900/85 rounded-2xl shadow-card hover:shadow-card-hover transition-all">
                   <CardHeader className="pb-4">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <CardTitle className="text-lg font-bold text-foreground">{project.name}</CardTitle>
-                        <CardDescription className="text-xs mt-1.5 line-clamp-2">
+                        <CardTitle className="text-lg font-medium text-foreground font-heading">{project.name}</CardTitle>
+                        <CardDescription className="text-xs mt-1.5 line-clamp-2 font-light dark:font-normal">
                           {project.description || 'No project description loaded.'}
                         </CardDescription>
                       </div>
-                      <span className={cn('text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shrink-0', getStatusBadgeClass(project.status))}>
+                      <span className={cn('text-[9px] font-mono font-medium px-2.5 py-1 rounded-full uppercase tracking-wider shrink-0', getStatusBadgeClass(project.status))}>
                         {project.status}
                       </span>
                     </div>

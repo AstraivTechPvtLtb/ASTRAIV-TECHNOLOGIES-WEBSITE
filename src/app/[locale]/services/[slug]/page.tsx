@@ -76,11 +76,11 @@ function renderFormattedContent(content: string) {
           {currentList.map((item, idx) => {
             const boldMatch = item.match(/^\*\*(.*?)\*\*:?\s*(.*)$/);
             return (
-              <li key={idx} className="flex items-start gap-3 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
+              <li key={idx} className="flex items-start gap-3 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed font-light dark:font-normal">
                 <CheckCircle2 className="h-5 w-5 text-primary dark:text-blue-400 shrink-0 mt-0.5" />
                 {boldMatch ? (
                   <span>
-                    <strong className="text-foreground dark:text-white font-bold">{boldMatch[1]}: </strong>
+                    <strong className="text-foreground dark:text-white font-medium">{boldMatch[1]}: </strong>
                     <span className="text-slate-700 dark:text-slate-300">{boldMatch[2]}</span>
                   </span>
                 ) : (
@@ -107,26 +107,26 @@ function renderFormattedContent(content: string) {
 
     if (trimmed.startsWith('#### ')) {
       elements.push(
-        <h4 key={index} className="text-lg sm:text-xl font-bold text-foreground dark:text-white tracking-tight mt-8 mb-3 flex items-center gap-2">
+        <h4 key={index} className="text-lg sm:text-xl font-medium text-foreground dark:text-white tracking-tight mt-8 mb-3 flex items-center gap-2">
           <span className="h-2 w-2 rounded-full bg-primary inline-block" />
           {trimmed.replace(/^####\s+/, '')}
         </h4>
       );
     } else if (trimmed.startsWith('### ')) {
       elements.push(
-        <h3 key={index} className="text-xl sm:text-2xl font-extrabold text-foreground dark:text-white tracking-tight mt-10 mb-4 pb-2 border-b border-border/70 dark:border-slate-800/80">
+        <h3 key={index} className="text-xl sm:text-2xl font-medium text-foreground dark:text-white tracking-tight mt-10 mb-4 pb-2 border-b border-border/70 dark:border-slate-800/80">
           {trimmed.replace(/^###\s+/, '')}
         </h3>
       );
     } else if (trimmed.startsWith('## ')) {
       elements.push(
-        <h2 key={index} className="text-2xl sm:text-3xl font-extrabold text-foreground dark:text-white tracking-tight mt-12 mb-5">
+        <h2 key={index} className="text-2xl sm:text-3xl font-medium text-foreground dark:text-white tracking-tight mt-12 mb-5">
           {trimmed.replace(/^##\s+/, '')}
         </h2>
       );
     } else if (trimmed.length > 0) {
       elements.push(
-        <p key={index} className="text-slate-700 dark:text-slate-300 text-base sm:text-lg leading-relaxed mb-6 font-normal">
+        <p key={index} className="text-slate-700 dark:text-slate-300 text-base sm:text-lg leading-relaxed mb-6 font-light dark:font-normal">
           {trimmed}
         </p>
       );
@@ -208,7 +208,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
 
         <div className="max-w-5xl mx-auto px-6 py-8">
           {/* Visual Breadcrumb Trail */}
-          <div className="flex flex-wrap items-center gap-2 mb-8 text-xs font-semibold text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-2 mb-8 text-xs font-medium text-muted-foreground">
             <Link href={ROUTES.PUBLIC.HOME} className="hover:text-primary transition-colors">
               Home
             </Link>
@@ -217,21 +217,20 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
               Services
             </Link>
             <span>/</span>
-            <span className="text-foreground font-bold truncate max-w-xs">{service.title}</span>
+            <span className="text-foreground font-medium truncate max-w-xs">{service.title}</span>
           </div>
 
           {/* 1. SERVICE HERO CARD */}
-          <div className="relative overflow-hidden rounded-3xl bg-card/90 dark:bg-slate-900/80 border border-border/80 dark:border-slate-800 backdrop-blur-xl p-8 sm:p-12 mb-12 shadow-sm dark:shadow-2xl transition-colors">
+          <div className="relative overflow-hidden rounded-3xl bg-card/90 dark:bg-slate-900/80 border border-border/80 dark:border-slate-800 backdrop-blur-xl p-8 sm:p-12 mb-12 shadow-card transition-colors">
             <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
 
             <div className="relative z-10">
               <div className="flex flex-wrap items-center gap-3 mb-6">
-
-                <span className="px-3 py-1 text-xs font-bold bg-blue-500/10 text-primary dark:text-blue-400 rounded-full border border-blue-500/20">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium skill-badge-gradient text-foreground shadow-xs">
                   {service.category}
                 </span>
                 {service.badge && (
-                  <span className="px-3 py-1 text-xs font-bold bg-primary/10 text-primary dark:text-cyan-400 rounded-full border border-primary/20">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium skill-badge-gradient text-foreground shadow-xs">
                     {service.badge}
                   </span>
                 )}
@@ -241,12 +240,12 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary border border-primary/20 shadow-lg shadow-primary/10">
                   <ServiceIcon name={service.icon} className="h-8 w-8" />
                 </div>
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight heading-gradient leading-tight">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight heading-gradient leading-tight">
                   {service.title}
                 </h1>
               </div>
 
-              <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed font-medium max-w-3xl border-l-2 border-primary/40 pl-4 py-1">
+              <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed font-light dark:font-normal max-w-3xl border-l-2 border-primary/40 pl-4 py-1">
                 {service.shortDesc}
               </p>
             </div>
@@ -260,14 +259,14 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
 
             {service.features && service.features.length > 0 && (
               <div className="mt-12 pt-8 border-t border-border/70 dark:border-slate-800">
-                <h4 className="text-sm font-bold uppercase tracking-wider text-primary mb-5 flex items-center gap-2">
+                <h4 className="text-sm font-medium uppercase tracking-wider text-primary mb-5 flex items-center gap-2">
                   <Sparkles className="h-4 w-4" /> Core Technical Deliverables
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   {service.features.map((feat, idx) => (
                     <div
                       key={idx}
-                      className="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50/80 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 text-sm font-medium text-foreground/90 dark:text-slate-200"
+                      className="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50/80 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 text-sm font-normal text-foreground/90 dark:text-slate-200"
                     >
                       <div className="h-2 w-2 rounded-full bg-primary shrink-0" />
                       <span>{feat}</span>
@@ -310,13 +309,13 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
             <section id="service-testimonials" className="mb-14 text-left">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-extrabold text-foreground">
+                  <h3 className="text-xl sm:text-2xl font-medium text-foreground tracking-tight">
                     What Leaders Say About Our {service.title}
                   </h3>
                 </div>
                 <Link
                   href={ROUTES.PUBLIC.WORK_TESTIMONIALS}
-                  className="hidden sm:inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline"
+                  className="hidden sm:inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
                 >
                   <span>All Testimonials</span>
                   <ArrowRight className="h-3.5 w-3.5" />
@@ -327,7 +326,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                 {serviceTestimonials.map((t) => (
                   <div
                     key={t.id}
-                    className="p-7 rounded-3xl bg-card/80 dark:bg-slate-900/60 border border-border/80 dark:border-slate-800 backdrop-blur-sm relative flex flex-col justify-between shadow-sm dark:shadow-md transition-colors"
+                    className="p-7 rounded-3xl bg-card/80 dark:bg-slate-900/60 border border-border/80 dark:border-slate-800 backdrop-blur-sm relative flex flex-col justify-between shadow-card hover:shadow-card-hover transition-all"
                   >
                     <div>
                       <div className="flex items-center gap-1 mb-4 text-primary dark:text-cyan-400">
@@ -335,7 +334,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                           <Star key={s} className="h-4 w-4 fill-primary dark:fill-cyan-400" />
                         ))}
                       </div>
-                      <p className="text-sm text-foreground/90 dark:text-slate-200 leading-relaxed font-normal mb-6">
+                      <p className="text-sm text-foreground/90 dark:text-slate-200 leading-relaxed font-light dark:font-normal mb-6">
                         &ldquo;{t.review_text}&rdquo;
                       </p>
                     </div>
@@ -346,13 +345,13 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                           <Image src={t.avatar} alt={t.client_name} fill sizes="44px" className="object-cover" />
                         </div>
                       ) : (
-                        <div className="h-11 w-11 rounded-full flex items-center justify-center bg-primary/10 text-primary font-bold text-xs font-mono shrink-0">
+                        <div className="h-11 w-11 rounded-full flex items-center justify-center bg-primary/10 text-primary font-medium text-xs font-mono shrink-0">
                           {t.client_name.substring(0, 2).toUpperCase()}
                         </div>
                       )}
                       <div>
-                        <span className="text-sm font-bold text-foreground block">{t.client_name}</span>
-                        <span className="text-xs text-muted-foreground">
+                        <span className="text-sm font-medium text-foreground block">{t.client_name}</span>
+                        <span className="text-xs text-muted-foreground font-light dark:font-normal">
                           {t.role} {t.company && `• ${t.company}`}
                         </span>
                       </div>

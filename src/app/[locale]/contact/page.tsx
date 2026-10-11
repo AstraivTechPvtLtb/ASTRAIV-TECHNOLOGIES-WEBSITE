@@ -2,6 +2,11 @@ import { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { Navbar, Footer, ContactSection } from '@/views';
 import { createPageMetadata, BreadcrumbSchema } from '@/lib/seo';
+import {
+  getPublicJobCategories,
+  getPublicJobOpenings,
+  getPublicCareersPageContent,
+} from '@/controllers/public-data.controller';
 
 interface ContactPageProps {
   params: Promise<{ locale: string }>;
@@ -24,6 +29,15 @@ export default async function ContactPage({ params }: ContactPageProps) {
   // Set the request locale for server-side localized rendering
   setRequestLocale(locale);
 
+  // Fetch active job categories, roles, and careers content from DB/Admin panel to sync speculative options
+  const [categories, jobOpenings, careersData] = await Promise.all([
+    getPublicJobCategories(),
+    getPublicJobOpenings(),
+    getPublicCareersPageContent(),
+  ]);
+
+  const roles = jobOpenings.map((j) => ({ id: j.id, title: j.title, slug: j.slug }));
+
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-foreground flex flex-col justify-between relative overflow-hidden">
       <BreadcrumbSchema
@@ -34,7 +48,12 @@ export default async function ContactPage({ params }: ContactPageProps) {
       />
       <Navbar />
       <main id="main-content" className="pt-24 grow z-10 relative">
-        <ContactSection isPageHero={true} />
+        <ContactSection
+          isPageHero={true}
+          categories={categories}
+          roles={roles}
+          careersContent={careersData.content}
+        />
       </main>
       <Footer />
     </div>

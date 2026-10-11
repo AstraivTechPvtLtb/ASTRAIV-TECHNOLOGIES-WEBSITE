@@ -99,7 +99,7 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
       {/* Search & Multi-Dimensional Filters Bar */}
-      <div className="bg-card/80 dark:bg-slate-900/80 backdrop-blur-xl border border-border/70 dark:border-slate-800 rounded-3xl p-6 mb-12 shadow-sm">
+      <div className="bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 rounded-2xl p-6 mb-12 shadow-card">
         {/* Top search input */}
         <div className="relative mb-6">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -108,12 +108,12 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search case studies by keyword, technology (Next.js, Python, PostgreSQL), or domain..."
-            className="w-full pl-12 pr-10 py-3.5 rounded-2xl bg-background dark:bg-slate-950/70 border border-border/80 dark:border-slate-800 text-foreground text-sm font-medium focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-muted-foreground/70"
+            className="w-full pl-12 pr-10 py-3.5 rounded-xl bg-background dark:bg-slate-950/70 border border-slate-200/80 dark:border-white/10 text-foreground text-sm font-light dark:font-normal focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-muted-foreground/70"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-1"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-1 cursor-pointer"
             >
               <X className="h-4 w-4" />
             </button>
@@ -124,7 +124,7 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
         <div className="space-y-4">
           {/* 1. Project Type Filter (Credibility Standard) */}
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider mr-2 flex items-center gap-1.5">
+            <span className="text-xs font-mono font-medium text-muted-foreground uppercase tracking-wider mr-2 flex items-center gap-1.5">
               <Filter className="h-3.5 w-3.5" />
               <span>Project Type:</span>
             </span>
@@ -134,10 +134,10 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
                 <button
                   key={type.value}
                   onClick={() => setSelectedProjectType(type.value)}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer ${
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-medium transition-all duration-200 cursor-pointer ${
                     isActive
-                      ? 'bg-primary text-white shadow-xs shadow-primary/25 scale-105'
-                      : 'bg-slate-100 dark:bg-slate-800/80 text-muted-foreground hover:text-foreground hover:bg-slate-200 dark:hover:bg-slate-800'
+                      ? 'filter-btn-active font-medium scale-[1.02]'
+                      : 'filter-btn-gradient text-muted-foreground hover:text-foreground shadow-xs'
                   }`}
                 >
                   {type.label}
@@ -147,8 +147,8 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
           </div>
 
           {/* 2. Industry Filter */}
-          <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-border/40 dark:border-slate-800/60">
-            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider mr-2 flex items-center gap-1.5">
+          <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-200/50 dark:border-white/5">
+            <span className="text-xs font-mono font-medium text-muted-foreground uppercase tracking-wider mr-2 flex items-center gap-1.5">
               <Building2 className="h-3.5 w-3.5" />
               <span>Industry:</span>
             </span>
@@ -158,10 +158,10 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
                 <button
                   key={ind}
                   onClick={() => setSelectedIndustry(ind)}
-                  className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                  className={`px-3 py-1 rounded-lg text-xs font-mono font-medium transition-all duration-200 cursor-pointer ${
                     isActive
-                      ? 'bg-primary/20 text-primary border border-primary/40'
-                      : 'bg-transparent text-muted-foreground hover:text-foreground hover:bg-slate-100 dark:hover:bg-slate-800/50'
+                      ? 'filter-btn-active font-medium scale-[1.02]'
+                      : 'filter-btn-gradient text-muted-foreground hover:text-foreground shadow-xs'
                   }`}
                 >
                   {ind}
@@ -172,7 +172,7 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
             {hasActiveFilters && (
               <button
                 onClick={handleResetFilters}
-                className="ml-auto text-xs font-bold text-primary hover:text-primary/80 flex items-center gap-1 px-2.5 py-1 rounded-md hover:bg-primary/10 transition-colors cursor-pointer"
+                className="ml-auto text-xs font-medium text-primary hover:text-primary/80 flex items-center gap-1 px-2.5 py-1 rounded-md hover:bg-primary/10 transition-colors cursor-pointer"
               >
                 <X className="h-3.5 w-3.5" />
                 <span>Reset Filters</span>
@@ -184,11 +184,11 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
 
       {/* Filter Results Status */}
       <div className="flex items-center justify-between gap-4 mb-8">
-        <p className="text-xs sm:text-sm font-semibold text-muted-foreground">
-          Showing <span className="text-foreground font-bold">{filteredProjects.length}</span> of {initialProjects.length} case studies & blueprints
+        <p className="text-xs sm:text-sm font-light dark:font-normal text-muted-foreground">
+          Showing <span className="text-foreground font-medium">{filteredProjects.length}</span> of {initialProjects.length} case studies & blueprints
         </p>
 
-        <div className="flex items-center gap-2 text-xs font-bold text-primary dark:text-cyan-400">
+        <div className="flex items-center gap-2 text-xs font-mono font-medium text-primary dark:text-cyan-400">
           <ShieldCheck className="h-4 w-4" />
           <span>Strictly Classified & Verified</span>
         </div>
@@ -196,15 +196,15 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
 
       {/* Case Studies Cards Grid */}
       {filteredProjects.length === 0 ? (
-        <div className="p-16 text-center rounded-3xl bg-card/60 dark:bg-slate-900/60 border border-border/60 dark:border-slate-800">
+        <div className="p-16 text-center rounded-2xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 shadow-card">
           <Layers className="h-12 w-12 text-muted-foreground mx-auto mb-4 opacity-50" />
-          <h3 className="text-lg font-bold text-foreground mb-2">No Case Studies Found</h3>
-          <p className="text-xs sm:text-sm text-muted-foreground max-w-md mx-auto mb-6">
+          <h3 className="text-lg font-medium text-foreground mb-2">No Case Studies Found</h3>
+          <p className="text-xs sm:text-sm text-muted-foreground font-light dark:font-normal max-w-md mx-auto mb-6">
             We couldn&apos;t find any case studies matching your filter criteria. Try clearing some filters or searching for different technologies.
           </p>
           <button
             onClick={handleResetFilters}
-            className="px-6 py-2.5 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary/90 transition-colors"
+            className="px-6 py-2.5 rounded-xl bg-primary text-white text-xs font-medium hover:bg-primary/90 transition-colors cursor-pointer"
           >
             Clear All Filters
           </button>
@@ -226,10 +226,10 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
-                className="group relative bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 hover:border-primary/40 dark:hover:border-blue-400/40 rounded-3xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between text-left"
+                className="group relative bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 hover:border-primary/40 dark:hover:border-blue-400/40 rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between text-left"
               >
                 {/* Card Hero Visual */}
-                <div className="relative w-full h-55 sm:h-65 bg-slate-950 overflow-hidden border-b border-border/50 dark:border-slate-800/80">
+                <div className="relative w-full h-55 sm:h-65 bg-slate-950 overflow-hidden border-b border-slate-200/50 dark:border-white/5">
                   <ResilientImage
                     src={project.imageSrc}
                     alt={project.title}
@@ -241,10 +241,10 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
 
                   {/* Top Badges */}
                   <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
-                    <span className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider border backdrop-blur-md ${projectTypeColor}`}>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-mono font-medium uppercase tracking-wider skill-badge-gradient text-foreground shadow-xs">
                       {project.projectType}
                     </span>
-                    <span className="text-[10px] font-mono font-semibold text-slate-300 bg-slate-900/80 border border-slate-700/80 px-2.5 py-1 rounded-md backdrop-blur-md">
+                    <span className="text-[10px] font-mono font-medium text-foreground skill-badge-gradient px-2.5 py-1 rounded-full shadow-xs">
                       {project.industryName || project.category}
                     </span>
                   </div>
@@ -252,14 +252,14 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
                   {/* Bottom Metric Overlay */}
                   <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-2 text-white">
                     <div>
-                      <span className="text-[9px] uppercase font-semibold tracking-wider text-slate-400 block">
+                      <span className="text-[10px] uppercase font-mono font-medium tracking-wider text-slate-400 block">
                         {project.metricLabel}
                       </span>
-                      <span className="text-xl sm:text-2xl font-semibold tracking-[-0.02em] text-white font-mono">
+                      <span className="text-xl sm:text-2xl font-mono font-medium tracking-tight text-white">
                         {project.metric}
                       </span>
                     </div>
-                    <span className="text-xs font-semibold text-slate-300 bg-slate-900/70 border border-slate-800 px-2.5 py-1 rounded-md">
+                    <span className="text-xs font-mono font-medium text-foreground skill-badge-gradient px-2.5 py-1 rounded-full shadow-xs">
                       {project.client}
                     </span>
                   </div>
@@ -268,33 +268,33 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
                 {/* Card Body Details */}
                 <div className="p-6 sm:p-7 grow flex flex-col justify-between gap-5">
                   <div>
-                    <h3 className="text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors mb-2">
+                    <h3 className="text-xl font-medium tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors mb-2">
                       {project.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2 mb-4 font-normal">
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2 mb-4 font-light dark:font-normal">
                       {project.summary}
                     </p>
 
                     {/* Challenge snippet */}
-                    <div className="p-3 rounded-xl bg-slate-100/70 dark:bg-slate-950/60 border border-border/60 dark:border-slate-800/80 mb-4">
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 block mb-1">
+                    <div className="p-3.5 rounded-xl bg-slate-50/70 dark:bg-slate-950/60 border border-slate-200/60 dark:border-white/5 mb-4">
+                      <span className="text-[10px] font-mono font-medium uppercase tracking-wider text-slate-600 dark:text-slate-400 block mb-1">
                         Core Challenge
                       </span>
-                      <p className="text-xs text-muted-foreground line-clamp-2 font-normal">
+                      <p className="text-xs text-muted-foreground line-clamp-2 font-light dark:font-normal">
                         {project.challenge}
                       </p>
                     </div>
 
                     {/* Technologies Deployed */}
                     <div>
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground block mb-2">
+                      <span className="text-[10px] font-mono font-medium uppercase tracking-wider text-muted-foreground block mb-2">
                         Technologies Deployed
                       </span>
                       <div className="flex flex-wrap gap-1.5">
                         {project.technologies.slice(0, 5).map((tech, idx) => (
                           <span
                             key={idx}
-                            className="px-2.5 py-0.5 text-xs font-semibold rounded-md bg-slate-100 dark:bg-slate-800 border border-border/60 dark:border-slate-700 text-foreground"
+                            className="px-2.5 py-0.5 text-xs font-mono font-normal rounded-full skill-badge-gradient text-foreground shadow-xs"
                           >
                             {tech}
                           </span>
@@ -304,15 +304,15 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
                   </div>
 
                   {/* Bottom Action Footer */}
-                  <div className="pt-4 border-t border-border/50 dark:border-slate-800 flex items-center justify-between">
-                    <span className="text-xs font-semibold text-primary dark:text-cyan-300 flex items-center gap-1.5">
+                  <div className="pt-4 border-t border-slate-200/50 dark:border-white/5 flex items-center justify-between">
+                    <span className="text-xs font-mono font-medium text-primary dark:text-cyan-300 flex items-center gap-1.5">
                       <CheckCircle2 className="h-3.5 w-3.5 text-primary dark:text-cyan-400" />
                       <span>{project.credibilityBadge}</span>
                     </span>
 
                     <Link
                       href={ROUTES.PUBLIC.CASE_STUDY_DETAIL(project.slug)}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 group-hover:translate-x-0.5 transition-all"
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 group-hover:translate-x-0.5 transition-all"
                     >
                       <span>View Case Study</span>
                       <ArrowRight className="h-3.5 w-3.5" />
@@ -326,19 +326,19 @@ export function CaseStudiesDirectory({ initialProjects }: CaseStudiesDirectoryPr
       )}
 
       {/* Final Conversion CTA */}
-      <div className="p-8 sm:p-12 rounded-3xl bg-linear-to-br from-primary via-primary/95 to-blue-900 text-white text-center flex flex-col items-center justify-center gap-4 shadow-xl shadow-primary/15">
-        <span className="text-xs font-semibold uppercase tracking-widest bg-white/15 px-3.5 py-1 rounded-full text-white">
+      <div className="p-8 sm:p-12 rounded-2xl bg-linear-to-br from-primary via-primary/95 to-blue-900 text-white text-center flex flex-col items-center justify-center gap-4 shadow-xl shadow-primary/15">
+        <span className="text-xs font-mono font-medium uppercase tracking-widest bg-white/15 px-3.5 py-1 rounded-full text-white">
           Architectural Consultation
         </span>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight font-heading">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight font-heading">
           Need Something Similar?
         </h2>
-        <p className="text-sm sm:text-base text-white/85 max-w-2xl leading-relaxed font-normal">
+        <p className="text-sm sm:text-base text-white/85 max-w-2xl leading-relaxed font-light">
           Our principal software architects partner directly with enterprise leaders to eliminate operational latency, automate workflows, and deploy resilient digital infrastructure.
         </p>
         <Link
           href={ROUTES.PUBLIC.START_PROJECT}
-          className="mt-2 inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-sm bg-white text-slate-950 hover:bg-slate-100 transition-transform hover:scale-105 shadow-md"
+          className="mt-2 inline-flex items-center gap-2 px-8 py-4 rounded-xl font-medium text-sm bg-white text-slate-950 hover:bg-slate-100 transition-transform hover:scale-105 shadow-md"
         >
           <span>Start a Project</span>
           <ArrowRight className="h-4 w-4" />

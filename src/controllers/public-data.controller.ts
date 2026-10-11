@@ -13,6 +13,7 @@ import {
   DEFAULT_JOB_OPENINGS,
   PublicCareersPageContent,
   PublicSharedCareersDefaults,
+  CareersImageSettings,
   JobCategory,
   PaginatedJobsResult,
   PublicPricingPlan,
@@ -282,23 +283,12 @@ let reviewsSupabaseDisabled = false;
 function isReviewsSchemaMismatch(err: unknown): boolean {
   if (!err) return false;
   const error = err as { code?: string; message?: string };
-  if (
-    error.code === 'P2021' ||
-    error.code === 'P2022' ||
-    error.code === '42703' ||
-    error.code === '42P01' ||
-    error.code === 'ECONNREFUSED' ||
-    error.code === 'ETIMEDOUT'
-  ) {
-    return true;
-  }
+  if (error.code === 'P2021' || error.code === 'P2022' || error.code === '42703' || error.code === '42P01') return true;
   const msg = error.message || String(err);
   return (
     msg.includes('does not exist') ||
     msg.includes('UndefinedColumn') ||
-    msg.includes('UndefinedTable') ||
-    msg.includes('ECONNREFUSED') ||
-    msg.includes('Connection refused')
+    msg.includes('UndefinedTable')
   );
 }
 
@@ -368,7 +358,7 @@ async function fetchApprovedTestimonials(
         if (isReviewsSchemaMismatch(prismaErr)) {
           reviewsPrismaDisabled = true;
         }
-        if (process.env.DEBUG_PRISMA) {
+        if (process.env.NODE_ENV !== 'test' && !process.env.VITEST) {
           console.warn('[Public Reviews Prisma Notice - Falling back to Supabase]:', (prismaErr as Error)?.message || prismaErr);
         }
       }
@@ -513,14 +503,14 @@ const DEFAULT_PUBLIC_CAREERS_CONTENT: PublicCareersPageContent = {
     },
   ],
   careersImage: {
-    enabled: false,
-    imageUrl: '',
-    altText: 'Astraiv Technologies engineering architects collaborating on high-scale cloud infrastructure',
+    enabled: true,
+    imageUrl: '/images/careers-hero.jpg',
+    altText: 'Astraiv Technologies engineering team collaborating on software architecture and system design in modern tech studio',
     focalPoint: 'center',
-    width: 1600,
-    height: 900,
-    sizeBytes: 0,
-    sizeLabel: '',
+    width: 1792,
+    height: 1008,
+    sizeBytes: 865737,
+    sizeLabel: '845 KB',
   },
   benefitsHeading: 'Build the Future with [Elite Engineers]',
   benefitsSubtitle:
@@ -567,19 +557,66 @@ const DEFAULT_PUBLIC_CAREERS_CONTENT: PublicCareersPageContent = {
     title: "Don't See Your Exact Specialty Listed?",
     body: 'If you are a world-class systems engineer, compiler enthusiast, or AI infrastructure architect, we always make room for exceptional talent.',
     buttonText: 'Send Speculative Application',
-    buttonUrl: '/contact?role=Speculative%20Senior%20Architect',
+    buttonUrl: '/contact?type=speculative',
+  },
+  speculativeImage: {
+    enabled: true,
+    imageUrl: '/images/speculative-team-banner.jpg',
+    altText: 'Astraiv Technologies engineering architects and emerging engineers collaborating on AI systems and cloud architecture',
+    badgeText: 'Open Engineering Swarm',
+    badgeSubtext: 'Fresher & Experienced',
+    width: 1792,
+    height: 1008,
+    sizeBytes: 450000,
+    sizeLabel: '450 KB',
   },
   speculativePageCopy: {
-    heading: 'Speculative Engineering Application',
-    subheading: 'Tell us how you build, what architectures you love, and where you excel.',
+    heading: 'Work With Architects,\nNot Bureaucrats.',
+    subheading:
+      "Don't see your exact engineering specialty listed in our active openings? If you are a high-caliber systems engineer, compiler enthusiast, or autonomous AI architect, we always make room for exceptional talent.",
     supportGuidance:
-      'We review unsolicited applications directly by our technical founders. Freshers with strong projects and senior architects are welcome.',
+      'Strict candidate privacy. Your submission is reviewed directly by our founding engineers under strict confidentiality.',
     successMessage:
       'Your speculative application has been received. Our engineering leadership will review your profile within 48 business hours.',
+    buttonText: 'View All Active Job Openings',
+    buttonUrl: '/careers',
+    contactEmailLabel: 'Recruitment',
+    contactEmail: 'careers@astraivtechnologies.com',
+    contactPhoneLabel: 'Contact Us',
+    contactPhone: '+91 8167409664',
+    contactLocationLabel: 'Global Engineering Center',
+    contactLocation: 'Ashoknagar, Kolkata · 100% Remote Autonomy',
+    formHeading: 'Speculative Application',
+    formBadge: 'Open Application · Fresher & Experienced',
+    formSubheading: 'Tell us about your technical depth, open-source projects, or architectural interests.',
+    ndaCheckboxLabel: 'By submitting, your profile is stored privately and reviewed strictly by our engineering founders under NDA.',
+    submitButtonText: 'Submit Speculative Application',
+    slaNote: 'Private recruitment engine • Direct founder review SLA 48h',
   },
 };
 
 const DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS: PublicSharedCareersDefaults = {
+  jobDetailImage: {
+    enabled: true,
+    imageUrl: '/images/experienced-engineers-banner.jpg',
+    altText:
+      'Astraiv Technologies senior software architects and experienced full-stack engineers collaborating on cloud-native systems architecture',
+    title: 'Experienced Architecture Swarm',
+    description:
+      'Direct collaboration with principal architects on distributed, high-throughput cloud systems with zero corporate bureaucracy.',
+    badgeText: 'Elite Senior Architecture Swarm',
+    badgeSubtext: 'High Autonomy & Systems Impact',
+    width: 1792,
+    height: 1008,
+    sizeBytes: 650000,
+    sizeLabel: '635 KB',
+  },
+  missionHeading: 'The Mission & Role Impact',
+  missionTemplate:
+    'At Astraiv Technologies, we reject bloated corporate committees and endless synchronous alignment meetings. As our {roleTitle}, you will possess end-to-end ownership of critical technical foundations, working asynchronously with senior peers to deploy battle-tested digital infrastructure.',
+  interviewRoadmapHeading: 'Transparent 4-Stage Interview Process',
+  interviewRoadmapSubtitle:
+    'Fast, respectful, and zero algorithmic trick questions. We respect your engineering time.',
   interviewStages: [
     {
       num: '01',
@@ -602,6 +639,7 @@ const DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS: PublicSharedCareersDefaults = {
       desc: 'Transparent compensation offer, equity allocation, home workstation budget setup, and seamless async onboarding.',
     },
   ],
+  benefitsHeading: 'What We Offer & Engineering Culture',
   commonBenefits: [
     '100% remote work autonomy with flexible hours and no micromanagement.',
     'Top-of-market base compensation plus meaningful equity participation.',
@@ -609,9 +647,20 @@ const DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS: PublicSharedCareersDefaults = {
     'Annual $2,000 continuous learning & technical conference budget.',
     'Comprehensive health coverage & generous paid time off.',
   ],
-  defaultReferralBonus: '$2,500',
+  astraivStandardHeading: 'The Astraiv Standard',
+  astraivStandardSubtitle: 'Why Engineers Love Building Here',
+  astraivStandardPoints: [
+    'No pointless meetings. We communicate via written RFCs and async specs.',
+    'Work from anywhere in the world on modern, strictly typed tech stacks.',
+    'Rapid sprint cadences with zero red tape and direct founder access.',
+  ],
+  referralHeading: 'Know an exceptional architect?',
+  referralBody: 'We offer a {referralBonus} referral bonus for successfully placed engineers and architects.',
+  defaultReferralBonus: '$3,000 USD (or local equivalent)',
+  applicationSubheading: 'Reviewed directly by senior engineering architects within 48 business hours. Zero recruiter filters.',
   defaultPrivacyText:
     'By submitting, your data is processed strictly under our NDA protocols and privacy policy. No unsolicited third-party disclosure.',
+  applicationSlaNote: 'Direct encryption & private storage isolation enabled • 48h SLA',
 };
 
 /**
@@ -682,14 +731,14 @@ export async function getPublicCareersPageContent(): Promise<{
       // 4. Careers Image (Support enabled/visible and imageUrl/url)
       const imgObj = sections.careersImage || {};
       const careersImage = {
-        enabled: imgObj.enabled !== undefined ? Boolean(imgObj.enabled) : imgObj.visible !== undefined ? Boolean(imgObj.visible) : false,
-        imageUrl: typeof imgObj.imageUrl === 'string' ? imgObj.imageUrl : typeof imgObj.url === 'string' ? imgObj.url : '',
+        enabled: imgObj.enabled !== undefined ? Boolean(imgObj.enabled) : imgObj.visible !== undefined ? Boolean(imgObj.visible) : DEFAULT_PUBLIC_CAREERS_CONTENT.careersImage.enabled,
+        imageUrl: typeof imgObj.imageUrl === 'string' && imgObj.imageUrl ? imgObj.imageUrl : typeof imgObj.url === 'string' && imgObj.url ? imgObj.url : DEFAULT_PUBLIC_CAREERS_CONTENT.careersImage.imageUrl,
         altText: typeof imgObj.altText === 'string' ? imgObj.altText : typeof imgObj.alt === 'string' ? imgObj.alt : DEFAULT_PUBLIC_CAREERS_CONTENT.careersImage.altText,
         focalPoint: typeof imgObj.focalPoint === 'string' ? imgObj.focalPoint : 'center',
-        width: typeof imgObj.width === 'number' ? imgObj.width : 1600,
-        height: typeof imgObj.height === 'number' ? imgObj.height : 900,
-        sizeBytes: typeof imgObj.sizeBytes === 'number' ? imgObj.sizeBytes : 0,
-        sizeLabel: typeof imgObj.sizeLabel === 'string' ? imgObj.sizeLabel : '',
+        width: typeof imgObj.width === 'number' ? imgObj.width : DEFAULT_PUBLIC_CAREERS_CONTENT.careersImage.width,
+        height: typeof imgObj.height === 'number' ? imgObj.height : DEFAULT_PUBLIC_CAREERS_CONTENT.careersImage.height,
+        sizeBytes: typeof imgObj.sizeBytes === 'number' ? imgObj.sizeBytes : DEFAULT_PUBLIC_CAREERS_CONTENT.careersImage.sizeBytes,
+        sizeLabel: typeof imgObj.sizeLabel === 'string' ? imgObj.sizeLabel : DEFAULT_PUBLIC_CAREERS_CONTENT.careersImage.sizeLabel,
       };
 
       // 5. Benefits Cards (Support active/visible and order/orderIndex)
@@ -742,13 +791,41 @@ export async function getPublicCareersPageContent(): Promise<{
         buttonUrl: typeof specCtaObj.buttonUrl === 'string' ? specCtaObj.buttonUrl : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativeCta.buttonUrl,
       };
 
-      // 8. Speculative Page Copy
+      // 8. Speculative Image & Page Copy
+      const rawSpecImage = sections.speculativeImage || {};
+      const speculativeImage: CareersImageSettings = {
+        enabled: rawSpecImage.enabled !== undefined ? Boolean(rawSpecImage.enabled) : true,
+        imageUrl: typeof rawSpecImage.imageUrl === 'string' && rawSpecImage.imageUrl ? rawSpecImage.imageUrl : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativeImage?.imageUrl || '/images/speculative-team-banner.jpg',
+        altText: typeof rawSpecImage.altText === 'string' ? rawSpecImage.altText : (DEFAULT_PUBLIC_CAREERS_CONTENT.speculativeImage?.altText || ''),
+        badgeText: typeof rawSpecImage.badgeText === 'string' ? rawSpecImage.badgeText : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativeImage?.badgeText,
+        badgeSubtext: typeof rawSpecImage.badgeSubtext === 'string' ? rawSpecImage.badgeSubtext : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativeImage?.badgeSubtext,
+        focalPoint: typeof rawSpecImage.focalPoint === 'string' ? rawSpecImage.focalPoint : undefined,
+        width: typeof rawSpecImage.width === 'number' ? rawSpecImage.width : 1792,
+        height: typeof rawSpecImage.height === 'number' ? rawSpecImage.height : 1008,
+        sizeBytes: typeof rawSpecImage.sizeBytes === 'number' ? rawSpecImage.sizeBytes : 450000,
+        sizeLabel: typeof rawSpecImage.sizeLabel === 'string' ? rawSpecImage.sizeLabel : '450 KB',
+      };
+
       const specPageObj = sections.speculativePageCopy || sections.speculativePage || {};
       const speculativePageCopy = {
         heading: typeof specPageObj.heading === 'string' ? specPageObj.heading : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.heading,
         subheading: typeof specPageObj.subheading === 'string' ? specPageObj.subheading : typeof specPageObj.subtitle === 'string' ? specPageObj.subtitle : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.subheading,
         supportGuidance: typeof specPageObj.supportGuidance === 'string' ? specPageObj.supportGuidance : typeof specPageObj.noticeText === 'string' ? specPageObj.noticeText : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.supportGuidance,
         successMessage: typeof specPageObj.successMessage === 'string' ? specPageObj.successMessage : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.successMessage,
+        buttonText: typeof specPageObj.buttonText === 'string' ? specPageObj.buttonText : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.buttonText,
+        buttonUrl: typeof specPageObj.buttonUrl === 'string' ? specPageObj.buttonUrl : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.buttonUrl,
+        contactEmailLabel: typeof specPageObj.contactEmailLabel === 'string' ? specPageObj.contactEmailLabel : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.contactEmailLabel,
+        contactEmail: typeof specPageObj.contactEmail === 'string' ? specPageObj.contactEmail : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.contactEmail,
+        contactPhoneLabel: typeof specPageObj.contactPhoneLabel === 'string' ? specPageObj.contactPhoneLabel : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.contactPhoneLabel,
+        contactPhone: typeof specPageObj.contactPhone === 'string' ? specPageObj.contactPhone : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.contactPhone,
+        contactLocationLabel: typeof specPageObj.contactLocationLabel === 'string' ? specPageObj.contactLocationLabel : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.contactLocationLabel,
+        contactLocation: typeof specPageObj.contactLocation === 'string' ? specPageObj.contactLocation : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.contactLocation,
+        formHeading: typeof specPageObj.formHeading === 'string' ? specPageObj.formHeading : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.formHeading,
+        formBadge: typeof specPageObj.formBadge === 'string' ? specPageObj.formBadge : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.formBadge,
+        formSubheading: typeof specPageObj.formSubheading === 'string' ? specPageObj.formSubheading : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.formSubheading,
+        ndaCheckboxLabel: typeof specPageObj.ndaCheckboxLabel === 'string' ? specPageObj.ndaCheckboxLabel : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.ndaCheckboxLabel,
+        submitButtonText: typeof specPageObj.submitButtonText === 'string' ? specPageObj.submitButtonText : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.submitButtonText,
+        slaNote: typeof specPageObj.slaNote === 'string' ? specPageObj.slaNote : DEFAULT_PUBLIC_CAREERS_CONTENT.speculativePageCopy.slaNote,
       };
 
       const content: PublicCareersPageContent = {
@@ -756,6 +833,7 @@ export async function getPublicCareersPageContent(): Promise<{
         heroSubtitle,
         cultureCards,
         careersImage,
+        speculativeImage,
         benefitsHeading,
         benefitsSubtitle,
         benefitsCards,
@@ -768,33 +846,103 @@ export async function getPublicCareersPageContent(): Promise<{
       };
 
       const defObj = sections.sharedDefaults || {};
+      const rawJobDetailImage = defObj.jobDetailImage || sections.jobDetailImage || {};
+      const jobDetailImage: CareersImageSettings = {
+        enabled: rawJobDetailImage.enabled !== undefined ? Boolean(rawJobDetailImage.enabled) : true,
+        imageUrl:
+          typeof rawJobDetailImage.imageUrl === 'string' && rawJobDetailImage.imageUrl
+            ? rawJobDetailImage.imageUrl
+            : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.jobDetailImage?.imageUrl || '/images/experienced-engineers-banner.jpg',
+        altText:
+          typeof rawJobDetailImage.altText === 'string'
+            ? rawJobDetailImage.altText
+            : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.jobDetailImage?.altText ||
+              'Astraiv Technologies senior software architects and experienced full-stack engineers collaborating on cloud-native systems architecture',
+        title:
+          typeof rawJobDetailImage.title === 'string'
+            ? rawJobDetailImage.title
+            : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.jobDetailImage?.title,
+        description:
+          typeof rawJobDetailImage.description === 'string'
+            ? rawJobDetailImage.description
+            : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.jobDetailImage?.description,
+        badgeText:
+          typeof rawJobDetailImage.badgeText === 'string'
+            ? rawJobDetailImage.badgeText
+            : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.jobDetailImage?.badgeText,
+        badgeSubtext:
+          typeof rawJobDetailImage.badgeSubtext === 'string'
+            ? rawJobDetailImage.badgeSubtext
+            : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.jobDetailImage?.badgeSubtext,
+        focalPoint: typeof rawJobDetailImage.focalPoint === 'string' ? rawJobDetailImage.focalPoint : undefined,
+        width: typeof rawJobDetailImage.width === 'number' ? rawJobDetailImage.width : 1792,
+        height: typeof rawJobDetailImage.height === 'number' ? rawJobDetailImage.height : 1008,
+        sizeBytes: typeof rawJobDetailImage.sizeBytes === 'number' ? rawJobDetailImage.sizeBytes : 650000,
+        sizeLabel: typeof rawJobDetailImage.sizeLabel === 'string' ? rawJobDetailImage.sizeLabel : '635 KB',
+      };
+
       const sharedDefaults: PublicSharedCareersDefaults = {
+        jobDetailImage,
+        missionHeading: typeof defObj.missionHeading === 'string' && defObj.missionHeading.trim()
+          ? defObj.missionHeading
+          : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.missionHeading,
+        missionTemplate: typeof defObj.missionTemplate === 'string' && defObj.missionTemplate.trim()
+          ? defObj.missionTemplate
+          : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.missionTemplate,
+        interviewRoadmapHeading: typeof defObj.interviewRoadmapHeading === 'string' && defObj.interviewRoadmapHeading.trim()
+          ? defObj.interviewRoadmapHeading
+          : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.interviewRoadmapHeading,
+        interviewRoadmapSubtitle: typeof defObj.interviewRoadmapSubtitle === 'string' && defObj.interviewRoadmapSubtitle.trim()
+          ? defObj.interviewRoadmapSubtitle
+          : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.interviewRoadmapSubtitle,
         interviewStages: Array.isArray(defObj.interviewStages) && defObj.interviewStages.length > 0
           ? defObj.interviewStages
           : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.interviewStages,
+        benefitsHeading: typeof defObj.benefitsHeading === 'string' && defObj.benefitsHeading.trim()
+          ? defObj.benefitsHeading
+          : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.benefitsHeading,
         commonBenefits: Array.isArray(defObj.commonBenefits) && defObj.commonBenefits.length > 0
           ? defObj.commonBenefits
           : Array.isArray(defObj.defaultBenefits) && defObj.defaultBenefits.length > 0
           ? defObj.defaultBenefits
           : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.commonBenefits,
-        defaultReferralBonus: typeof defObj.defaultReferralBonus === 'string'
+        astraivStandardHeading: typeof defObj.astraivStandardHeading === 'string' && defObj.astraivStandardHeading.trim()
+          ? defObj.astraivStandardHeading
+          : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.astraivStandardHeading,
+        astraivStandardSubtitle: typeof defObj.astraivStandardSubtitle === 'string' && defObj.astraivStandardSubtitle.trim()
+          ? defObj.astraivStandardSubtitle
+          : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.astraivStandardSubtitle,
+        astraivStandardPoints: Array.isArray(defObj.astraivStandardPoints) && defObj.astraivStandardPoints.length > 0
+          ? defObj.astraivStandardPoints
+          : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.astraivStandardPoints,
+        referralHeading: typeof defObj.referralHeading === 'string' && defObj.referralHeading.trim()
+          ? defObj.referralHeading
+          : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.referralHeading,
+        referralBody: typeof defObj.referralBody === 'string' && defObj.referralBody.trim()
+          ? defObj.referralBody
+          : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.referralBody,
+        defaultReferralBonus: typeof defObj.defaultReferralBonus === 'string' && defObj.defaultReferralBonus.trim()
           ? defObj.defaultReferralBonus
-          : typeof defObj.referralBonusAmount === 'string'
+          : typeof defObj.referralBonusAmount === 'string' && defObj.referralBonusAmount.trim()
           ? defObj.referralBonusAmount
           : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.defaultReferralBonus,
-        defaultPrivacyText: typeof defObj.defaultPrivacyText === 'string'
+        applicationSubheading: typeof defObj.applicationSubheading === 'string' && defObj.applicationSubheading.trim()
+          ? defObj.applicationSubheading
+          : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.applicationSubheading,
+        defaultPrivacyText: typeof defObj.defaultPrivacyText === 'string' && defObj.defaultPrivacyText.trim()
           ? defObj.defaultPrivacyText
-          : typeof defObj.defaultPrivacyCopy === 'string'
+          : typeof defObj.defaultPrivacyCopy === 'string' && defObj.defaultPrivacyCopy.trim()
           ? defObj.defaultPrivacyCopy
           : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.defaultPrivacyText,
+        applicationSlaNote: typeof defObj.applicationSlaNote === 'string' && defObj.applicationSlaNote.trim()
+          ? defObj.applicationSlaNote
+          : DEFAULT_PUBLIC_SHARED_CAREERS_DEFAULTS.applicationSlaNote,
       };
 
       return { content, sharedDefaults };
     }
   } catch (err) {
-    if (process.env.DEBUG_PRISMA) {
-      console.warn('[Public Careers Page Content Notice]:', err);
-    }
+    console.warn('[Public Careers Page Content Notice]:', err);
   }
 
   return {
@@ -856,9 +1004,7 @@ export async function getPublicJobCategories(): Promise<JobCategory[]> {
       openingCount: Number(r.opening_count) || 0,
     }));
   } catch (err) {
-    if (process.env.DEBUG_PRISMA) {
-      console.warn('[Get Public JobCategories Notice]:', err);
-    }
+    console.warn('[Get Public JobCategories Notice]:', err);
     return [
       { id: 'cat-eng', name: 'Engineering', slug: 'engineering', orderIndex: 1, active: true, openingCount: 2 },
       { id: 'cat-ai', name: 'AI & Automation', slug: 'ai-automation', orderIndex: 2, active: true, openingCount: 1 },
@@ -873,12 +1019,18 @@ export async function getPublicJobCategories(): Promise<JobCategory[]> {
 export async function getPaginatedPublicJobs(options: {
   categorySlug?: string;
   query?: string;
+  location?: string;
+  workMode?: string;
+  experienceLevel?: string;
   page?: number;
   limit?: number;
 } = {}): Promise<PaginatedJobsResult> {
   const page = Math.max(1, options.page || 1);
   const limit = options.limit || 5; // Exactly 5 openings per results page as required
   const categorySlug = options.categorySlug && options.categorySlug !== 'all' ? options.categorySlug.trim().toLowerCase() : undefined;
+  const location = options.location && options.location !== 'all' ? options.location.trim().toLowerCase() : undefined;
+  const workMode = options.workMode && options.workMode !== 'all' ? options.workMode.trim().toLowerCase() : undefined;
+  const experienceLevel = options.experienceLevel && options.experienceLevel !== 'all' ? options.experienceLevel.trim().toLowerCase() : undefined;
   const query = options.query?.trim().toLowerCase();
 
   try {
@@ -886,25 +1038,141 @@ export async function getPaginatedPublicJobs(options: {
       active: true,
     };
 
+    const andConditions: Prisma.JobOpeningWhereInput[] = [];
+
     if (categorySlug) {
-      where.OR = [
-        { category: { slug: categorySlug } },
-        { department: { equals: categorySlug, mode: 'insensitive' } },
-      ];
+      andConditions.push({
+        OR: [
+          { category: { slug: categorySlug } },
+          { department: { equals: categorySlug, mode: 'insensitive' } },
+        ],
+      });
+    }
+
+    if (location) {
+      if (location === 'india') {
+        andConditions.push({
+          OR: [
+            { geographicLocation: { contains: 'india', mode: 'insensitive' } },
+            { location: { contains: 'india', mode: 'insensitive' } },
+          ],
+        });
+      } else if (location === 'worldwide' || location === 'global' || location === 'remote') {
+        andConditions.push({
+          OR: [
+            { geographicLocation: { contains: 'worldwide', mode: 'insensitive' } },
+            { geographicLocation: { contains: 'global', mode: 'insensitive' } },
+            { geographicLocation: { contains: 'remote', mode: 'insensitive' } },
+            { location: { contains: 'worldwide', mode: 'insensitive' } },
+          ],
+        });
+      } else if (location === 'us' || location === 'usa' || location === 'united-states') {
+        andConditions.push({
+          OR: [
+            { geographicLocation: { contains: 'united states', mode: 'insensitive' } },
+            { geographicLocation: { contains: 'usa', mode: 'insensitive' } },
+            { geographicLocation: { contains: 'us', mode: 'insensitive' } },
+            { location: { contains: 'us', mode: 'insensitive' } },
+          ],
+        });
+      } else if (location === 'europe' || location === 'uk') {
+        andConditions.push({
+          OR: [
+            { geographicLocation: { contains: 'europe', mode: 'insensitive' } },
+            { geographicLocation: { contains: 'uk', mode: 'insensitive' } },
+            { location: { contains: 'europe', mode: 'insensitive' } },
+          ],
+        });
+      } else {
+        andConditions.push({
+          OR: [
+            { geographicLocation: { contains: location, mode: 'insensitive' } },
+            { location: { contains: location, mode: 'insensitive' } },
+          ],
+        });
+      }
+    }
+
+    if (workMode) {
+      andConditions.push({
+        OR: [
+          { workMode: { contains: workMode, mode: 'insensitive' } },
+          { location: { contains: workMode, mode: 'insensitive' } },
+          { type: { contains: workMode, mode: 'insensitive' } },
+        ],
+      });
+    }
+
+    if (experienceLevel) {
+      if (experienceLevel === 'fresher') {
+        andConditions.push({
+          OR: [
+            { experienceLevel: { in: ['fresher', 'Fresher', 'both', 'Both'] } },
+            { minExperienceYears: { lte: 0 } },
+            { experience: { contains: 'fresher', mode: 'insensitive' } },
+            { experience: { contains: '0', mode: 'insensitive' } },
+          ],
+        });
+      } else if (experienceLevel === 'experienced') {
+        andConditions.push({
+          OR: [
+            { experienceLevel: { in: ['experienced', 'Experienced', 'both', 'Both'] } },
+            { minExperienceYears: { gt: 0 } },
+          ],
+        });
+      } else if (experienceLevel === '1-3') {
+        andConditions.push({
+          OR: [
+            { minExperienceYears: { gte: 1, lte: 3 } },
+            { experience: { contains: '1', mode: 'insensitive' } },
+            { experience: { contains: '2', mode: 'insensitive' } },
+            { experience: { contains: '3', mode: 'insensitive' } },
+          ],
+        });
+      } else if (experienceLevel === '3+' || experienceLevel === '3-5') {
+        andConditions.push({
+          OR: [
+            { minExperienceYears: { gte: 3 } },
+            { experience: { contains: '3', mode: 'insensitive' } },
+            { experience: { contains: '4', mode: 'insensitive' } },
+            { experience: { contains: '5', mode: 'insensitive' } },
+          ],
+        });
+      } else if (experienceLevel === '5+') {
+        andConditions.push({
+          OR: [
+            { minExperienceYears: { gte: 5 } },
+            { experience: { contains: '5', mode: 'insensitive' } },
+            { experience: { contains: '6', mode: 'insensitive' } },
+            { experience: { contains: '7', mode: 'insensitive' } },
+          ],
+        });
+      } else {
+        andConditions.push({
+          OR: [
+            { experienceLevel: { contains: experienceLevel, mode: 'insensitive' } },
+            { experience: { contains: experienceLevel, mode: 'insensitive' } },
+          ],
+        });
+      }
     }
 
     if (query) {
-      where.AND = [
-        {
-          OR: [
-            { title: { contains: query, mode: 'insensitive' } },
-            { description: { contains: query, mode: 'insensitive' } },
-            { skills: { hasSome: [query] } },
-            { department: { contains: query, mode: 'insensitive' } },
-            { location: { contains: query, mode: 'insensitive' } },
-          ],
-        },
-      ];
+      andConditions.push({
+        OR: [
+          { title: { contains: query, mode: 'insensitive' } },
+          { description: { contains: query, mode: 'insensitive' } },
+          { skills: { hasSome: [query] } },
+          { department: { contains: query, mode: 'insensitive' } },
+          { location: { contains: query, mode: 'insensitive' } },
+          { geographicLocation: { contains: query, mode: 'insensitive' } },
+          { workMode: { contains: query, mode: 'insensitive' } },
+        ],
+      });
+    }
+
+    if (andConditions.length > 0) {
+      where.AND = andConditions;
     }
 
     const [total, records] = await Promise.all([
@@ -975,13 +1243,66 @@ export async function getPaginatedPublicJobs(options: {
       limit,
     };
   } catch (err) {
-    if (process.env.DEBUG_PRISMA) {
-      console.warn('[Get Paginated Public Jobs Notice]:', err);
-    }
+    console.warn('[Get Paginated Public Jobs Notice]:', err);
     // Fallback to in-memory filter
     let all = DEFAULT_JOB_OPENINGS.filter((j) => j.active);
     if (categorySlug) {
       all = all.filter((j) => j.department.toLowerCase().replace(/\s+/g, '-') === categorySlug || j.department.toLowerCase() === categorySlug);
+    }
+    if (location) {
+      all = all.filter(
+        (j) =>
+          (j.geographicLocation && j.geographicLocation.toLowerCase().includes(location)) ||
+          (j.location && j.location.toLowerCase().includes(location))
+      );
+    }
+    if (workMode) {
+      all = all.filter(
+        (j) =>
+          (j.workMode && j.workMode.toLowerCase().includes(workMode)) ||
+          (j.location && j.location.toLowerCase().includes(workMode))
+      );
+    }
+    if (experienceLevel) {
+      if (experienceLevel === 'fresher') {
+        all = all.filter(
+          (j) =>
+            j.experienceLevel?.toLowerCase() === 'fresher' ||
+            j.experienceLevel?.toLowerCase() === 'both' ||
+            (j.minExperienceYears !== undefined && j.minExperienceYears !== null && j.minExperienceYears <= 0)
+        );
+      } else if (experienceLevel === 'experienced') {
+        all = all.filter(
+          (j) =>
+            j.experienceLevel?.toLowerCase() === 'experienced' ||
+            j.experienceLevel?.toLowerCase() === 'both' ||
+            (j.minExperienceYears !== undefined && j.minExperienceYears !== null && j.minExperienceYears > 0)
+        );
+      } else if (experienceLevel === '1-3') {
+        all = all.filter(
+          (j) =>
+            (j.minExperienceYears !== undefined && j.minExperienceYears !== null && j.minExperienceYears >= 1 && j.minExperienceYears <= 3) ||
+            j.experience?.includes('1') || j.experience?.includes('2') || j.experience?.includes('3')
+        );
+      } else if (experienceLevel === '3+' || experienceLevel === '3-5') {
+        all = all.filter(
+          (j) =>
+            (j.minExperienceYears !== undefined && j.minExperienceYears !== null && j.minExperienceYears >= 3) ||
+            j.experience?.includes('3') || j.experience?.includes('4') || j.experience?.includes('5')
+        );
+      } else if (experienceLevel === '5+') {
+        all = all.filter(
+          (j) =>
+            (j.minExperienceYears !== undefined && j.minExperienceYears !== null && j.minExperienceYears >= 5) ||
+            j.experience?.includes('5') || j.experience?.includes('6')
+        );
+      } else {
+        all = all.filter(
+          (j) =>
+            (j.experienceLevel && j.experienceLevel.toLowerCase().includes(experienceLevel)) ||
+            (j.experience && j.experience.toLowerCase().includes(experienceLevel))
+        );
+      }
     }
     if (query) {
       all = all.filter(
@@ -1015,15 +1336,23 @@ export async function getPublicJobOpenings(): Promise<PublicJobOpening[]> {
  * Retrieves a single public active job opening by its slug with shared default inheritance.
  */
 export async function getPublicJobBySlug(slug: string): Promise<PublicJobOpening | null> {
-  const fallbackJob = DEFAULT_JOB_OPENINGS.find((j) => j.slug === slug) || null;
+  const normalizedSlug = decodeURIComponent(slug).toLowerCase().trim();
+  const fallbackJob =
+    DEFAULT_JOB_OPENINGS.find((j) => j.slug === normalizedSlug || j.slug === slug || j.id === slug) || null;
 
   try {
-    const job = await db.jobOpening.findUnique({
-      where: { slug },
+    const job = await db.jobOpening.findFirst({
+      where: {
+        OR: [
+          { slug: normalizedSlug },
+          { slug: slug },
+          { id: slug },
+        ],
+      },
       include: { category: true },
     });
 
-    if (job && job.active) {
+    if (job) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const jobRaw = job as any;
       const shared = await getPublicCareersPageContent();
@@ -1060,7 +1389,7 @@ export async function getPublicJobBySlug(slug: string): Promise<PublicJobOpening
         salary: jobRaw.salary,
         showSalary: jobRaw.showSalary === true,
         applyUrl: jobRaw.applyUrl || `/careers/${jobRaw.slug}#apply`,
-        active: jobRaw.active,
+        active: Boolean(jobRaw.active),
         orderIndex: jobRaw.orderIndex,
         publishedAt: jobRaw.publishedAt ? jobRaw.publishedAt.toISOString() : null,
         referralBonus: jobRaw.referralBonus || sharedDefaults.defaultReferralBonus,
@@ -1099,9 +1428,7 @@ export async function getPublicJobBySlug(slug: string): Promise<PublicJobOpening
       };
     }
   } catch (prismaErr) {
-    if (process.env.DEBUG_PRISMA) {
-      console.warn('[Client Public JobOpening by Slug Notice - Falling back]:', (prismaErr as Error)?.message || prismaErr);
-    }
+    console.warn('[Client Public JobOpening by Slug Notice - Falling back]:', (prismaErr as Error)?.message || prismaErr);
   }
 
   return fallbackJob;
@@ -1133,9 +1460,7 @@ export async function getPublicPricingPlans(): Promise<PublicPricingPlan[]> {
       }));
     }
   } catch (prismaErr) {
-    if (process.env.DEBUG_PRISMA) {
-      console.warn('[Client Public Pricing Notice - Falling back]:', (prismaErr as Error)?.message || prismaErr);
-    }
+    console.warn('[Client Public Pricing Notice - Falling back]:', (prismaErr as Error)?.message || prismaErr);
   }
 
   if (isSupabaseConfigured()) {
@@ -1197,9 +1522,7 @@ export async function getPublicPricingPageSettings(): Promise<PublicPricingPageS
       }
     }
   } catch (err: unknown) {
-    if (process.env.DEBUG_PRISMA) {
-      console.warn('[Public Pricing Page Settings Prisma Notice]:', (err as Error)?.message || err);
-    }
+    console.warn('[Public Pricing Page Settings Prisma Notice]:', (err as Error)?.message || err);
   }
 
   // 2. Secondary: Supabase fallback
@@ -1308,11 +1631,8 @@ async function fetchPublicComplianceSettings(): Promise<PublicComplianceSettings
     if (complianceModel && typeof complianceModel.findFirst === 'function') {
       try {
         record = await complianceModel.findFirst();
-      } catch (firstErr: unknown) {
-        const errCode = (firstErr as { code?: string })?.code;
-        if (errCode === 'ECONNREFUSED' || String(firstErr).includes('ECONNREFUSED')) {
-          return DEFAULT_COMPLIANCE_SETTINGS;
-        }
+      } catch {
+        // Fallback to raw query if model fails
       }
     }
 

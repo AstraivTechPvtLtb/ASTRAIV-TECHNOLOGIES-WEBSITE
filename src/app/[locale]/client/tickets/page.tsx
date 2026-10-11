@@ -43,8 +43,8 @@ export default async function ClientTicketsPage({ params }: ClientTicketsPagePro
     >
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="font-heading font-extrabold text-2xl md:text-3xl text-foreground">Support Tickets Desk</h1>
-          <p className="text-sm text-muted-foreground font-medium mt-1">
+          <h1 className="font-heading font-medium text-2xl md:text-3xl text-foreground tracking-tight">Support Tickets Desk</h1>
+          <p className="text-sm text-muted-foreground font-light dark:font-normal mt-1 leading-relaxed">
             File priority bugs, system questions, and trace engineering sprints addressing your tickets.
           </p>
         </div>

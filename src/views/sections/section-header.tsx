@@ -29,7 +29,7 @@ export function renderFormattedTitle(title: React.ReactNode, highlight?: string)
       parts.push(
         <span
           key={match.index}
-          className="heading-gradient font-semibold bg-linear-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] dark:from-[#38BDF8] dark:via-[#60A5FA] dark:to-[#93C5FD] bg-clip-text text-transparent"
+          className="heading-gradient font-medium bg-linear-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] dark:from-[#38BDF8] dark:via-[#60A5FA] dark:to-[#93C5FD] bg-clip-text text-transparent"
         >
           {match[1]}
         </span>
@@ -49,7 +49,7 @@ export function renderFormattedTitle(title: React.ReactNode, highlight?: string)
     return (
       <>
         {parts[0]}
-        <span className="heading-gradient font-semibold bg-linear-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] dark:from-[#38BDF8] dark:via-[#60A5FA] dark:to-[#93C5FD] bg-clip-text text-transparent">
+        <span className="heading-gradient font-medium bg-linear-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] dark:from-[#38BDF8] dark:via-[#60A5FA] dark:to-[#93C5FD] bg-clip-text text-transparent">
           {highlight}
         </span>
         {parts.slice(1).join(highlight)}
@@ -62,7 +62,7 @@ export function renderFormattedTitle(title: React.ReactNode, highlight?: string)
   const rawTokens = title.trim().split(/\s+/);
   if (rawTokens.length <= 1) {
     return (
-      <span className="heading-gradient font-semibold bg-linear-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] dark:from-[#38BDF8] dark:via-[#60A5FA] dark:to-[#93C5FD] bg-clip-text text-transparent">
+      <span className="heading-gradient font-medium bg-linear-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] dark:from-[#38BDF8] dark:via-[#60A5FA] dark:to-[#93C5FD] bg-clip-text text-transparent">
         {title}
       </span>
     );
@@ -75,7 +75,7 @@ export function renderFormattedTitle(title: React.ReactNode, highlight?: string)
   return (
     <>
       {firstHalf}{' '}
-      <span className="heading-gradient font-semibold bg-linear-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] dark:from-[#38BDF8] dark:via-[#60A5FA] dark:to-[#93C5FD] bg-clip-text text-transparent">
+      <span className="heading-gradient font-medium bg-linear-to-r from-[#0B3D91] via-[#1D4ED8] to-[#2563EB] dark:from-[#38BDF8] dark:via-[#60A5FA] dark:to-[#93C5FD] bg-clip-text text-transparent">
         {secondHalf}
       </span>
     </>
@@ -103,16 +103,16 @@ export function SectionHeader({
       )}
     >
       {asH1 ? (
-        <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-display font-semibold tracking-tight text-foreground leading-[1.15] pb-0.5">
+        <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-display font-medium tracking-tight text-foreground leading-[1.15] pb-0.5">
           {formattedTitle}
         </h1>
       ) : (
-        <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-display font-semibold tracking-tight text-foreground leading-[1.15] pb-0.5">
+        <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-display font-medium tracking-tight text-foreground leading-[1.15] pb-0.5">
           {formattedTitle}
         </h2>
       )}
       {description && (
-        <p className="text-sm sm:text-base md:text-[17px] text-muted-foreground leading-[1.62] max-w-2xl font-normal">
+        <p className="text-sm sm:text-base md:text-[17px] text-muted-foreground leading-[1.62] max-w-2xl font-light dark:font-normal">
           {description}
         </p>
       )}

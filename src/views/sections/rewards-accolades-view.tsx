@@ -67,21 +67,21 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
     switch (status) {
       case 'verified':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-primary/10 text-primary dark:text-cyan-300 border border-primary/20 text-[11px] font-bold">
-            <Check className="h-3 w-3" /> Audited & Verified
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full skill-badge-gradient text-foreground text-[11px] font-mono font-medium shadow-xs">
+            <Check className="h-3 w-3 text-emerald-500 dark:text-emerald-400" /> Audited &amp; Verified
           </span>
         );
       case 'contractual':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 text-[11px] font-bold">
-            <Shield className="h-3 w-3" /> Contractual SLA
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full skill-badge-gradient text-foreground text-[11px] font-mono font-medium shadow-xs">
+            <Shield className="h-3 w-3 text-sky-500 dark:text-sky-400" /> Contractual SLA
           </span>
         );
       case 'active':
       default:
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 text-[11px] font-bold">
-            <FileCheck className="h-3 w-3" /> Active Alliance
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full skill-badge-gradient text-foreground text-[11px] font-mono font-medium shadow-xs">
+            <FileCheck className="h-3 w-3 text-primary dark:text-blue-400" /> Active Alliance
           </span>
         );
     }
@@ -97,7 +97,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-20px' }}
         transition={{ duration: 0.4 }}
-        className="group relative flex flex-col justify-between rounded-2xl bg-card/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 p-6 sm:p-7 shadow-card hover:shadow-card-hover hover:border-primary/40 transition-all duration-300"
+        className="group relative flex flex-col justify-between rounded-2xl bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 p-6 sm:p-7 shadow-card hover:shadow-card-hover hover:border-primary/40 transition-all duration-300"
       >
         {/* Glow ambient background on hover */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/4 rounded-full blur-2xl pointer-events-none group-hover:bg-primary/8 transition-colors" />
@@ -105,7 +105,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
         <div>
           {/* Top Row: Category Badge + Status Badge */}
           <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-            <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-primary/10 text-primary border border-primary/20">
+            <span className="text-[10.5px] font-mono font-medium uppercase tracking-wider px-3 py-1 rounded-full skill-badge-gradient text-foreground shadow-xs">
               {item.category}
             </span>
             {getStatusBadge(item.status)}
@@ -113,49 +113,49 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
 
           {/* Header with Icon, Title, and Organization */}
           <div className="flex items-start gap-3.5 mb-4">
-            <div className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-border/40 dark:border-slate-700/60 shrink-0 group-hover:scale-105 transition-transform">
+            <div className="p-3 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 shrink-0 group-hover:scale-105 transition-transform">
               {getIconComponent(item.icon)}
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="text-lg sm:text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-cyan-300 transition-colors leading-snug">
+              <h3 className="text-lg sm:text-xl font-medium tracking-tight text-foreground group-hover:text-primary dark:group-hover:text-cyan-300 transition-colors leading-snug font-heading">
                 {item.title}
               </h3>
-              <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 mt-1 text-xs text-muted-foreground font-medium">
-                <span className="text-foreground/90 font-semibold">{item.organization}</span>
+              <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 mt-1 text-xs text-muted-foreground font-light dark:font-normal">
+                <span className="text-foreground/90 font-medium">{item.organization}</span>
                 <span>•</span>
-                <span className="font-mono text-primary dark:text-blue-400 font-semibold">{item.year}</span>
+                <span className="font-mono font-medium text-primary dark:text-blue-400">{item.year}</span>
               </div>
             </div>
           </div>
 
           {/* Detailed Description */}
-          <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-normal mb-5">
+          <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-light dark:font-normal mb-5">
             {item.description}
           </p>
 
           {/* Related Achievement Callout Box */}
-          <div className="p-3.5 rounded-xl bg-slate-100/70 dark:bg-slate-950/60 border border-border/50 dark:border-slate-800/80 mb-5 text-left">
+          <div className="p-3.5 rounded-xl bg-slate-100/70 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 mb-5 text-left">
             <div className="flex items-center gap-1.5 mb-1">
               <Sparkles className="h-3 w-3 text-primary dark:text-cyan-400" />
-              <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+              <span className="text-[10.5px] font-mono font-medium uppercase tracking-wider text-slate-700 dark:text-slate-300">
                 Related Achievement
               </span>
             </div>
-            <p className="text-xs text-foreground/80 font-medium leading-normal">
+            <p className="text-xs text-foreground/80 font-light dark:font-normal leading-normal">
               {item.achievement}
             </p>
           </div>
 
           {/* Technical Highlights / Safeguards */}
           <div className="space-y-1.5 mb-6 text-left">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground block">
+            <span className="text-[10px] font-mono font-medium uppercase tracking-wider text-muted-foreground block">
               Verified Technical Safeguards
             </span>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
               {item.highlights.map((highlight, idx) => (
                 <li
                   key={idx}
-                  className="flex items-start gap-1.5 text-xs text-slate-600 dark:text-muted-foreground"
+                  className="flex items-start gap-1.5 text-xs font-light dark:font-normal text-slate-600 dark:text-muted-foreground"
                 >
                   <CheckCircle2 className="h-3 w-3 text-primary dark:text-cyan-400 shrink-0 mt-0.5" />
                   <span className="leading-tight">{highlight}</span>
@@ -166,8 +166,8 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
         </div>
 
         {/* Footer: Verification Link & Badge */}
-        <div className="pt-4 border-t border-border/40 dark:border-slate-800/80 flex items-center justify-between gap-3">
-          <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-400">
+        <div className="pt-4 border-t border-slate-200/80 dark:border-white/10 flex items-center justify-between gap-3">
+          <span className="text-xs font-mono font-medium text-slate-600 dark:text-slate-400">
             {item.badgeText}
           </span>
 
@@ -177,7 +177,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
                 href={item.verificationUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs font-bold text-primary dark:text-blue-400 hover:underline transition-colors"
+                className="inline-flex items-center gap-1 text-xs font-medium text-primary dark:text-blue-400 hover:underline transition-colors"
               >
                 <span>{item.verificationLabel || 'Verify Credential'}</span>
                 <ExternalLink className="h-3 w-3" />
@@ -185,7 +185,7 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
             ) : (
               <Link
                 href={item.verificationUrl}
-                className="inline-flex items-center gap-1 text-xs font-bold text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 transition-colors"
+                className="inline-flex items-center gap-1 text-xs font-medium text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 transition-colors"
               >
                 <span>{item.verificationLabel || 'View Verification'}</span>
                 <ArrowRight className="h-3 w-3" />
@@ -204,16 +204,16 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
         <button
           onClick={() => setSelectedTab('all')}
           className={cn(
-            'px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer',
+            'px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer',
             selectedTab === 'all'
-              ? 'bg-primary text-white shadow-sm shadow-primary/20 ring-2 ring-primary/20'
-              : 'bg-card/90 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40 border border-slate-300 dark:border-slate-800 shadow-2xs active:scale-[0.98]'
+              ? 'filter-btn-active font-medium scale-[1.02]'
+              : 'filter-btn-gradient font-normal hover:text-foreground shadow-xs active:scale-[0.98]'
           )}
         >
           <span>All Accolades</span>
           <span
             className={cn(
-              'ml-1.5 text-[11px] px-1.5 py-0.5 rounded-full font-mono font-bold',
+              'ml-1.5 text-[11px] px-1.5 py-0.5 rounded-full font-mono font-medium',
               selectedTab === 'all'
                 ? 'bg-white/20 text-white'
                 : 'bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
@@ -231,16 +231,16 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
               key={cat.type}
               onClick={() => setSelectedTab(cat.type)}
               className={cn(
-                'px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer flex items-center gap-1.5',
+                'px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer flex items-center gap-1.5',
                 isSelected
-                  ? 'bg-primary text-white shadow-sm shadow-primary/20 ring-2 ring-primary/20'
-                  : 'bg-card/90 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40 border border-slate-300 dark:border-slate-800 shadow-2xs active:scale-[0.98]'
+                  ? 'filter-btn-active font-medium scale-[1.02]'
+                  : 'filter-btn-gradient font-normal hover:text-foreground shadow-xs active:scale-[0.98]'
               )}
             >
               <span>{cat.label}</span>
               <span
                 className={cn(
-                  'text-[11px] px-1.5 py-0.5 rounded-full font-mono font-bold',
+                  'text-[11px] px-1.5 py-0.5 rounded-full font-mono font-medium',
                   isSelected
                     ? 'bg-white/20 text-white'
                     : 'bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
@@ -258,11 +258,11 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
         <div className="space-y-16 sm:space-y-20 text-left">
           {/* 1. AWARDS */}
           <section id="awards" className="scroll-mt-24">
-            <div className="mb-6 sm:mb-8 border-b border-border/40 dark:border-slate-800/80 pb-4">
-              <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] font-heading text-foreground">
+            <div className="mb-6 sm:mb-8 border-b border-slate-200/80 dark:border-white/10 pb-4">
+              <h2 className="text-2xl sm:text-3xl font-medium tracking-tight font-heading text-foreground">
                 Technical &amp; <span className="heading-gradient">Engineering Awards</span>
               </h2>
-              <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl">
+              <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl font-light dark:font-normal leading-relaxed">
                 Honors recognizing architectural craftsmanship, deterministic AI orchestration, and software delivery excellence.
               </p>
             </div>
@@ -273,11 +273,11 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
 
           {/* 2. CERTIFICATIONS */}
           <section id="certifications" className="scroll-mt-24">
-            <div className="mb-6 sm:mb-8 border-b border-border/40 dark:border-slate-800/80 pb-4">
-              <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] font-heading text-foreground">
+            <div className="mb-6 sm:mb-8 border-b border-slate-200/80 dark:border-white/10 pb-4">
+              <h2 className="text-2xl sm:text-3xl font-medium tracking-tight font-heading text-foreground">
                 Compliance &amp; <span className="heading-gradient">Security Certifications</span>
               </h2>
-              <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl">
+              <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl font-light dark:font-normal leading-relaxed">
                 Audited global benchmarks governing enterprise data protection, quality SDLC governance, and regulatory posture.
               </p>
             </div>
@@ -288,11 +288,11 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
 
           {/* 3. PARTNERSHIPS */}
           <section id="partnerships" className="scroll-mt-24">
-            <div className="mb-6 sm:mb-8 border-b border-border/40 dark:border-slate-800/80 pb-4">
-              <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] font-heading text-foreground">
+            <div className="mb-6 sm:mb-8 border-b border-slate-200/80 dark:border-white/10 pb-4">
+              <h2 className="text-2xl sm:text-3xl font-medium tracking-tight font-heading text-foreground">
                 Cloud &amp; Technology <span className="heading-gradient">Ecosystem Partnerships</span>
               </h2>
-              <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl">
+              <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl font-light dark:font-normal leading-relaxed">
                 Verified alliances with foundational cloud providers, edge networks, and modern software architectures.
               </p>
             </div>
@@ -303,11 +303,11 @@ export function RewardsAccoladesView({ initialAccolades }: RewardsAccoladesViewP
 
           {/* 4. RECOGNITIONS */}
           <section id="recognitions" className="scroll-mt-24">
-            <div className="mb-6 sm:mb-8 border-b border-border/40 dark:border-slate-800/80 pb-4">
-              <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] font-heading text-foreground">
+            <div className="mb-6 sm:mb-8 border-b border-slate-200/80 dark:border-white/10 pb-4">
+              <h2 className="text-2xl sm:text-3xl font-medium tracking-tight font-heading text-foreground">
                 Audited Recognitions &amp; <span className="heading-gradient">Operational Benchmarks</span>
               </h2>
-              <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl">
+              <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl font-light dark:font-normal leading-relaxed">
                 Documented delivery reliability, 100% positive executive feedback, and contractually guaranteed SLAs.
               </p>
             </div>

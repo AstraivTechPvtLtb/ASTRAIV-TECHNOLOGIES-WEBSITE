@@ -98,7 +98,7 @@ export default async function IndustryDetailPage({ params }: IndustryDetailPageP
 
         <div className="max-w-5xl mx-auto px-6 py-8">
           {/* Visual Breadcrumb Trail */}
-          <div className="flex flex-wrap items-center gap-2 mb-8 text-xs font-semibold text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-2 mb-8 text-xs font-medium text-muted-foreground">
             <Link href={ROUTES.PUBLIC.HOME} className="hover:text-primary transition-colors">
               Home
             </Link>
@@ -107,39 +107,39 @@ export default async function IndustryDetailPage({ params }: IndustryDetailPageP
               Industries
             </Link>
             <span>/</span>
-            <span className="text-foreground font-bold truncate max-w-xs">{industry.label}</span>
+            <span className="text-foreground font-medium truncate max-w-xs">{industry.label}</span>
           </div>
 
           {/* Header Billboard */}
-          <div className="relative overflow-hidden rounded-3xl bg-card/90 dark:bg-slate-900/80 border border-border/80 dark:border-slate-800 backdrop-blur-xl p-8 sm:p-12 mb-12 shadow-sm dark:shadow-2xl transition-colors">
+          <div className="relative overflow-hidden rounded-3xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl p-8 sm:p-12 mb-12 shadow-card transition-colors">
             <div className="relative z-10">
               <div className="flex flex-wrap items-center gap-3 mb-6">
-                <span className="font-mono text-xs font-bold text-muted-foreground px-3 py-1 rounded-full bg-muted border border-border">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium uppercase tracking-wider skill-badge-gradient text-foreground shadow-xs">
                   {industry.code}
                 </span>
 
-                <span className="px-3 py-1 text-xs font-bold bg-primary/10 text-primary dark:text-cyan-400 rounded-full border border-primary/20 flex items-center gap-1">
-                  <ShieldCheck className="h-3.5 w-3.5" />
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium skill-badge-gradient text-foreground shadow-xs">
+                  <ShieldCheck className="h-3.5 w-3.5 text-primary" />
                   {industry.complianceBadge}
                 </span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight heading-gradient leading-tight mb-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight heading-gradient leading-tight mb-4">
                 {industry.label} Engineering
               </h1>
 
-              <p className="text-lg sm:text-xl text-muted-foreground font-medium leading-relaxed max-w-3xl mb-8">
+              <p className="text-lg sm:text-xl text-muted-foreground font-light dark:font-normal leading-relaxed max-w-3xl mb-8">
                 {industry.headline}
               </p>
 
               {/* KPI Metrics Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-border/60 dark:border-slate-800">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-slate-200/80 dark:border-white/10">
                 {industry.kpis.map((kpi, idx) => (
-                  <div key={idx} className="p-4 rounded-xl bg-slate-50/80 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80">
-                    <div className="text-2xl sm:text-3xl font-extrabold text-foreground font-heading">
+                  <div key={idx} className="p-4 rounded-xl bg-slate-50/80 dark:bg-slate-950/70 border border-slate-200/80 dark:border-white/10 shadow-card">
+                    <div className="text-2xl sm:text-3xl font-mono font-medium text-foreground">
                       {kpi.value}
                     </div>
-                    <div className="text-xs text-muted-foreground font-medium mt-1">
+                    <div className="text-xs text-muted-foreground font-light dark:font-normal mt-1">
                       {kpi.label}
                     </div>
                   </div>
@@ -149,7 +149,7 @@ export default async function IndustryDetailPage({ params }: IndustryDetailPageP
           </div>
 
           {/* Industry Image Showcase */}
-          <div className="relative h-64 sm:h-96 w-full rounded-3xl overflow-hidden border border-border/70 dark:border-slate-800/80 mb-12 shadow-md">
+          <div className="relative h-64 sm:h-96 w-full rounded-3xl overflow-hidden border border-slate-200/80 dark:border-white/10 mb-12 shadow-card">
             <Image
               src={industry.image}
               alt={industry.imageAlt}
@@ -168,43 +168,43 @@ export default async function IndustryDetailPage({ params }: IndustryDetailPageP
 
           {/* Challenge & Solution Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            <div className="p-8 rounded-3xl bg-card/80 dark:bg-slate-900/40 border border-border/80 dark:border-slate-800 backdrop-blur-md transition-colors">
-              <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-1.5">
+            <div className="p-8 rounded-3xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 backdrop-blur-md transition-colors shadow-card">
+              <div className="text-xs font-mono font-medium uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-1.5">
                 <Activity className="h-4 w-4" />
                 Industry Bottlenecks & Friction
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-3">The Architectural Challenge</h3>
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-normal">
+              <h3 className="text-xl font-medium text-foreground mb-3">The Architectural Challenge</h3>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-light dark:font-normal">
                 {industry.challenge}
               </p>
             </div>
 
-            <div className="p-8 rounded-3xl bg-card/80 dark:bg-slate-900/40 border border-border/80 dark:border-slate-800 backdrop-blur-md transition-colors">
-              <div className="text-xs font-bold uppercase tracking-wider text-primary dark:text-cyan-400 mb-3 flex items-center gap-1.5">
+            <div className="p-8 rounded-3xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 backdrop-blur-md transition-colors shadow-card">
+              <div className="text-xs font-mono font-medium uppercase tracking-wider text-primary dark:text-cyan-400 mb-3 flex items-center gap-1.5">
                 <ShieldCheck className="h-4 w-4" />
                 Astraiv Engineering Architecture
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-3">The Engineered Solution</h3>
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-normal">
+              <h3 className="text-xl font-medium text-foreground mb-3">The Engineered Solution</h3>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-light dark:font-normal">
                 {industry.solution}
               </p>
             </div>
           </div>
 
           {/* Strategic Architectural Pillars */}
-          <div className="rounded-3xl bg-card/80 dark:bg-slate-900/40 border border-border/80 dark:border-slate-800/80 p-8 sm:p-12 mb-12 backdrop-blur-md transition-colors">
-            <h3 className="text-xl sm:text-2xl font-extrabold text-foreground tracking-tight mb-8 flex items-center gap-2">
+          <div className="rounded-3xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 p-8 sm:p-12 mb-12 backdrop-blur-md transition-colors shadow-card">
+            <h3 className="text-xl sm:text-2xl font-medium text-foreground tracking-tight mb-8 flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-primary" /> Strategic Engineering Pillars
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {industry.pillars.map((pillar, idx) => (
-                <div key={idx} className="p-6 rounded-2xl bg-slate-50/80 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
+                <div key={idx} className="p-6 rounded-2xl bg-slate-50/80 dark:bg-slate-950/70 border border-slate-200/80 dark:border-white/10 flex flex-col justify-between shadow-card">
                   <div>
-                    <span className="text-xs font-bold text-primary mb-2 block font-mono">
+                    <span className="text-xs font-medium text-primary mb-2 block font-mono">
                       0{idx + 1}
                     </span>
-                    <h4 className="text-base font-bold text-foreground mb-2">{pillar.title}</h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed font-medium">
+                    <h4 className="text-base font-medium text-foreground mb-2">{pillar.title}</h4>
+                    <p className="text-xs text-muted-foreground leading-relaxed font-light dark:font-normal">
                       {pillar.description}
                     </p>
                   </div>
@@ -213,15 +213,15 @@ export default async function IndustryDetailPage({ params }: IndustryDetailPageP
             </div>
 
             {/* Production Tech Stack */}
-            <div className="mt-8 pt-8 border-t border-border/70 dark:border-slate-800">
-              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground block mb-3">
+            <div className="mt-8 pt-8 border-t border-slate-200/80 dark:border-white/10">
+              <span className="text-xs font-mono font-medium uppercase tracking-wider text-muted-foreground block mb-3">
                 Production Stack & Enterprise Protocols
               </span>
               <div className="flex flex-wrap gap-2">
                 {industry.techStack.map((tech) => (
                   <span
                     key={tech}
-                    className="text-xs font-mono font-semibold px-3 py-1 rounded-lg bg-muted text-foreground/90 border border-border"
+                    className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium skill-badge-gradient text-foreground shadow-xs"
                   >
                     {tech}
                   </span>
@@ -260,36 +260,36 @@ export default async function IndustryDetailPage({ params }: IndustryDetailPageP
           )}
 
           {/* Consultation CTA Banner: Intentional Next Step */}
-          <div className="relative overflow-hidden rounded-3xl bg-linear-to-br from-blue-950/80 via-slate-900 to-slate-950 border border-blue-500/30 p-8 sm:p-12 text-center my-12 shadow-2xl">
+          <div className="relative overflow-hidden rounded-3xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 p-8 sm:p-12 text-center my-12 shadow-card">
             <div className="relative z-10 max-w-2xl mx-auto space-y-4">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20 uppercase tracking-wider">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium uppercase tracking-wider skill-badge-gradient text-foreground shadow-xs">
                 <Sparkles className="h-3.5 w-3.5" />
                 <span>ARCHITECTURAL CONSULTATION</span>
               </span>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              <h3 className="text-2xl sm:text-3xl font-medium text-foreground tracking-tight">
                 Architecting for {industry.label}?
               </h3>
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-light dark:font-normal">
                 Schedule a consultation directly with our senior industry architects to evaluate compliance, scalability, and delivery cadence.
               </p>
               <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
                 <Link
                   href={`/start-project?industry=${encodeURIComponent(industry.label)}&source_page=${encodeURIComponent(`/industries/${industry.slug}`)}`}
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-extrabold text-sm shadow-lg shadow-primary/25 transition-all duration-300 hover:scale-105"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium text-sm shadow-card transition-all duration-300 hover:scale-105"
                 >
                   <span>Start a Project</span>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href={`/contact?industry=${encodeURIComponent(industry.label)}#schedule`}
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/25 backdrop-blur-md font-bold text-sm transition-all duration-300 hover:scale-105"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-card hover:bg-muted text-foreground border border-slate-200/80 dark:border-white/10 font-medium text-sm transition-all duration-300 hover:scale-105 shadow-card"
                 >
-                  <MessageSquare className="h-4 w-4 text-blue-300" />
+                  <MessageSquare className="h-4 w-4 text-primary dark:text-blue-300" />
                   <span>Talk to an Expert</span>
                 </Link>
                 <Link
                   href={ROUTES.PUBLIC.INDUSTRIES}
-                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 font-bold text-sm transition-colors"
+                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground border border-slate-200/80 dark:border-white/10 font-medium text-sm transition-colors"
                 >
                   <span>All Industries</span>
                 </Link>
@@ -299,19 +299,19 @@ export default async function IndustryDetailPage({ params }: IndustryDetailPageP
 
           {/* Related Industries */}
           {otherIndustries.length > 0 && (
-            <div className="mt-20 pt-12 border-t border-border/70 dark:border-slate-900">
+            <div className="mt-20 pt-12 border-t border-slate-200/80 dark:border-white/10">
               <div className="flex justify-between items-center mb-8">
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-extrabold text-foreground tracking-tight">
+                  <h3 className="text-xl sm:text-2xl font-medium text-foreground tracking-tight">
                     Explore Other Verticals
                   </h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+                  <p className="text-xs sm:text-sm text-muted-foreground mt-1 font-light dark:font-normal">
                     See how our cross-domain engineering expertise translates across industries.
                   </p>
                 </div>
                 <Link
                   href={ROUTES.PUBLIC.INDUSTRIES}
-                  className="text-xs sm:text-sm font-bold text-primary hover:underline flex items-center gap-1"
+                  className="text-xs sm:text-sm font-medium text-primary hover:underline flex items-center gap-1"
                 >
                   <span>All Industries</span>
                   <ArrowRight className="h-3.5 w-3.5" />
@@ -323,20 +323,20 @@ export default async function IndustryDetailPage({ params }: IndustryDetailPageP
                   <Link
                     key={other.slug}
                     href={ROUTES.PUBLIC.INDUSTRY_DETAIL(other.slug)}
-                    className="p-6 rounded-2xl bg-card/80 dark:bg-slate-900/60 border border-border/80 dark:border-slate-800 hover:border-primary/40 transition-all flex flex-col justify-between group shadow-xs hover:shadow-md"
+                    className="p-6 rounded-2xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 hover:border-primary/40 transition-all flex flex-col justify-between group shadow-card hover:shadow-card-hover"
                   >
                     <div>
-                      <span className="text-[10px] font-mono text-muted-foreground mb-2 block">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium uppercase tracking-wider skill-badge-gradient text-foreground shadow-xs mb-2">
                         {other.code}
                       </span>
-                      <h4 className="text-base font-bold text-foreground group-hover:text-primary transition-colors mb-2">
+                      <h4 className="text-base font-medium text-foreground group-hover:text-primary transition-colors mb-2">
                         {other.label}
                       </h4>
-                      <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                      <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed font-light dark:font-normal">
                         {other.tagline}
                       </p>
                     </div>
-                    <div className="mt-6 pt-4 border-t border-border/60 dark:border-slate-800/80 flex items-center justify-between text-xs font-bold text-primary">
+                    <div className="mt-6 pt-4 border-t border-slate-200/80 dark:border-white/10 flex items-center justify-between text-xs font-medium text-primary">
                       <span>Inspect Vertical</span>
                       <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
                     </div>

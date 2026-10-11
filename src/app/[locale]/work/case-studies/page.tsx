@@ -49,7 +49,7 @@ export default async function CaseStudiesPage({ params }: CaseStudiesPageProps) 
         {/* Header Hero Section */}
         <section className="px-6 max-w-7xl mx-auto text-center pb-6">
           {/* Breadcrumbs */}
-          <div className="flex items-center justify-center gap-2 mb-6 text-xs font-semibold text-muted-foreground">
+          <div className="flex items-center justify-center gap-2 mb-6 text-xs font-mono font-medium text-muted-foreground">
             <Link href={ROUTES.PUBLIC.HOME} className="hover:text-primary transition-colors">
               Home
             </Link>
@@ -58,14 +58,14 @@ export default async function CaseStudiesPage({ params }: CaseStudiesPageProps) 
               Work
             </Link>
             <span>/</span>
-            <span className="text-foreground">Case Studies</span>
+            <span className="text-foreground font-medium">Case Studies</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight font-heading max-w-4xl mx-auto mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-medium tracking-tight font-heading max-w-4xl mx-auto mb-6 leading-tight text-foreground">
             Case Studies & Architecture Blueprints
           </h1>
 
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-4">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-4 font-light dark:font-normal">
             Filter our portfolio by project classification, domain vertical, or technology stack. We maintain strict credibility standards across client engagements, internal tooling, and concept architectures.
           </p>
         </section>

@@ -63,10 +63,10 @@ export function CaseStudiesSection({
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-1.5 rounded-full text-xs font-medium tracking-normal transition-all duration-200 select-none cursor-pointer ${
+                className={`px-4 py-1.5 rounded-full text-xs font-mono font-medium tracking-normal transition-all duration-200 select-none cursor-pointer ${
                   isActive
-                    ? 'bg-primary text-white shadow-sm shadow-primary/20 ring-2 ring-primary/30'
-                    : 'bg-card/90 dark:bg-slate-900/70 border border-border/70 dark:border-slate-800/80 text-muted-foreground hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40 active:scale-[0.98]'
+                    ? 'filter-btn-active font-medium scale-[1.02]'
+                    : 'filter-btn-gradient text-muted-foreground hover:text-foreground shadow-xs'
                 }`}
               >
                 {cat}
@@ -122,11 +122,11 @@ export function CaseStudiesSection({
 
                     {/* Category overlay badge */}
                     <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-semibold tracking-wider bg-slate-950/80 backdrop-blur-md border border-blue-400/30 text-blue-300 rounded-full uppercase">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-mono font-medium tracking-wider skill-badge-gradient text-foreground rounded-full uppercase shadow-xs">
                         {badgeIconNode}
                         <span>{project.category}</span>
                       </span>
-                      <span className={`inline-flex items-center px-2.5 py-0.5 text-[9.5px] font-semibold tracking-wider rounded-full border backdrop-blur-md ${projectTypeColor}`}>
+                      <span className="inline-flex items-center px-2.5 py-0.5 text-[9.5px] font-mono font-medium tracking-wider rounded-full skill-badge-gradient text-foreground shadow-xs">
                         {project.projectType}
                       </span>
                     </div>
@@ -134,14 +134,14 @@ export function CaseStudiesSection({
                     {/* Metric pill */}
                     <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white">
                       <div>
-                        <span className="text-[9px] uppercase font-semibold tracking-wider text-slate-300 block">
+                        <span className="text-[9px] uppercase font-mono font-medium tracking-wider text-slate-300 block">
                           {project.metricLabel}
                         </span>
-                        <span className="text-base sm:text-lg font-semibold tracking-tight text-white font-mono">
+                        <span className="text-base sm:text-lg font-mono font-medium tracking-tight text-white">
                           {project.metric}
                         </span>
                       </div>
-                      <span className="text-xs font-semibold text-slate-300 bg-slate-900/70 px-2.5 py-1 rounded-md border border-slate-700">
+                      <span className="text-xs font-mono font-medium text-foreground skill-badge-gradient px-2.5 py-1 rounded-full shadow-xs">
                         {project.client}
                       </span>
                     </div>
@@ -153,14 +153,14 @@ export function CaseStudiesSection({
                   }`}>
                     <div>
                       <div className="flex flex-wrap items-center gap-2 mb-2">
-                        <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-widest border ${projectTypeColor}`}>
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium uppercase tracking-widest skill-badge-gradient text-foreground shadow-xs">
                           {project.projectType}
                         </span>
-                        <span className="text-xs font-semibold text-muted-foreground">
+                        <span className="text-xs font-medium text-muted-foreground">
                           {project.industryName || project.category}
                         </span>
                       </div>
-                      <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-[-0.02em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
+                      <h3 className="text-xl sm:text-2xl md:text-3xl font-medium tracking-[-0.02em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
                         {project.title}
                       </h3>
                     </div>
@@ -168,43 +168,43 @@ export function CaseStudiesSection({
                     {/* Challenge vs Solution vs Outcome */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       <div className="p-3 rounded-xl bg-slate-100/70 dark:bg-slate-900/60 border border-border/60 dark:border-slate-800 flex flex-col gap-1">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
+                        <span className="text-[10px] font-medium uppercase tracking-wider text-slate-600 dark:text-slate-400">
                           Challenge
                         </span>
-                        <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-normal line-clamp-3">
+                        <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-light dark:font-normal line-clamp-3">
                           {project.challenge}
                         </p>
                       </div>
 
                       <div className="p-3 rounded-xl bg-blue-500/5 dark:bg-blue-950/20 border border-blue-500/20 dark:border-blue-500/30 flex flex-col gap-1">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-primary dark:text-blue-400">
+                        <span className="text-[10px] font-medium uppercase tracking-wider text-primary dark:text-blue-400">
                           Solution
                         </span>
-                        <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-normal line-clamp-3">
+                        <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-light dark:font-normal line-clamp-3">
                           {project.solution}
                         </p>
                       </div>
 
                       <div className="p-3 rounded-xl bg-cyan-500/5 dark:bg-cyan-950/25 border border-cyan-500/25 dark:border-cyan-400/30 flex flex-col gap-1">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-700 dark:text-cyan-300">
+                        <span className="text-[10px] font-medium uppercase tracking-wider text-blue-700 dark:text-cyan-300">
                           Outcome
                         </span>
-                        <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-normal line-clamp-3">
-                          <strong className="text-foreground dark:text-white font-mono font-semibold">{project.metric}</strong> {project.metricLabel}. {project.impactOutcomes?.[0] || 'Verified production impact.'}
+                        <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-light dark:font-normal line-clamp-3">
+                          <strong className="text-foreground dark:text-white font-mono font-medium">{project.metric}</strong> {project.metricLabel}. {project.impactOutcomes?.[0] || 'Verified production impact.'}
                         </p>
                       </div>
                     </div>
 
                     {/* Technologies Deployed */}
                     <div>
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground block mb-2">
+                      <span className="text-[10px] font-mono font-medium uppercase tracking-wider text-muted-foreground block mb-2">
                         Technologies Deployed
                       </span>
                       <div className="flex flex-wrap gap-1.5">
                         {project.technologies.slice(0, 5).map((tech, tIdx) => (
                           <span
                             key={tIdx}
-                            className="px-2.5 py-0.5 text-xs font-semibold rounded-md bg-slate-100 dark:bg-slate-800 border border-border/60 dark:border-slate-700 text-foreground/90 dark:text-slate-200"
+                            className="px-2.5 py-0.5 text-xs font-mono font-medium rounded-full skill-badge-gradient text-foreground shadow-xs"
                           >
                             {tech}
                           </span>
@@ -214,14 +214,14 @@ export function CaseStudiesSection({
 
                     {/* Bottom Action Link */}
                     <div className="pt-2 flex items-center justify-between border-t border-border/40 dark:border-slate-800/60">
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-primary dark:text-cyan-300">
+                      <div className="flex items-center gap-1.5 text-xs font-medium text-primary dark:text-cyan-300">
                         <CheckCircle2 className="h-4 w-4 shrink-0 text-primary dark:text-cyan-400" />
                         <span>{project.credibilityBadge}</span>
                       </div>
 
                       <Link
                         href={ROUTES.PUBLIC.CASE_STUDY_DETAIL(project.slug)}
-                        className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors min-h-7 py-1"
+                        className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors min-h-7 py-1"
                       >
                         <span>View Case Study</span>
                         <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
@@ -239,7 +239,7 @@ export function CaseStudiesSection({
           <div className="mt-14 sm:mt-16 text-center">
             <Link
               href={ROUTES.PUBLIC.CASE_STUDIES}
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-primary hover:bg-primary/90 text-white font-bold text-sm shadow-lg shadow-primary/25 transition-all hover:scale-105"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-primary hover:bg-primary/90 text-white font-medium text-sm shadow-lg shadow-primary/25 transition-all hover:scale-105"
             >
               <Layers className="h-4 w-4" />
               <span>Explore All Case Studies</span>

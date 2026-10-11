@@ -40,14 +40,14 @@ export default async function StartProjectPage({ params }: StartProjectPageProps
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 mb-4 sm:mb-8">
 
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground font-heading">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-foreground font-heading">
             Start Your Project with{' '}
-            <span className="bg-linear-to-r from-primary via-blue-500 to-indigo-400 bg-clip-text text-transparent">
+            <span className="heading-gradient font-medium bg-linear-to-r from-primary via-blue-500 to-indigo-400 bg-clip-text text-transparent">
               Astraiv
             </span>
           </h1>
 
-          <p className="text-sm sm:text-base text-muted-foreground mt-3 max-w-2xl mx-auto leading-relaxed font-medium">
+          <p className="text-sm sm:text-base text-muted-foreground mt-3 max-w-2xl mx-auto leading-relaxed font-light dark:font-normal">
             Tell us about your project, parameters, and timeline. Our senior solutions architects will assess feasibility, prepare preliminary architectural notes, and get back to you within 24 hours.
           </p>
         </div>

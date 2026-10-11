@@ -135,7 +135,7 @@ export function TechSection() {
               <button
                 key={cat.label}
                 onClick={() => setActiveCategory(cat.label)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 lg:px-3 xl:px-3.5 rounded-full text-xs font-bold tracking-normal sm:tracking-wide whitespace-nowrap transition-all duration-200 cursor-pointer select-none shrink-0 ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 lg:px-3 xl:px-3.5 rounded-full text-xs font-medium tracking-normal sm:tracking-wide whitespace-nowrap transition-all duration-200 cursor-pointer select-none shrink-0 ${
                   isActive
                     ? 'bg-primary text-white shadow-sm shadow-primary/20 ring-2 ring-primary/20'
                     : 'bg-card/90 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40 active:scale-[0.98]'
@@ -164,27 +164,27 @@ export function TechSection() {
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 border border-primary/20 dark:border-blue-400/20">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 border border-primary/20 dark:border-blue-400/20">
                       {tech.category}
                     </span>
-                    <span className="text-[10px] font-mono font-semibold text-slate-500 dark:text-slate-400">
+                    <span className="text-[10px] font-mono font-medium text-slate-500 dark:text-slate-400">
                       {tech.badge}
                     </span>
                   </div>
 
-                  <h3 className="text-base sm:text-lg font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
+                  <h3 className="text-base sm:text-lg font-medium tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
                     {tech.name}
                   </h3>
-                  <span className="text-[11px] font-semibold text-primary dark:text-blue-400 block mt-0.5">
+                  <span className="text-[11px] font-medium text-primary dark:text-blue-400 block mt-0.5">
                     {tech.role}
                   </span>
 
-                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mt-3 font-normal">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mt-3 font-light dark:font-normal">
                     {tech.description}
                   </p>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-border/40 dark:border-slate-800/60 flex items-center justify-between text-[11px] font-semibold text-muted-foreground/80">
+                <div className="mt-5 pt-3 border-t border-border/40 dark:border-slate-800/60 flex items-center justify-between text-[11px] font-medium text-muted-foreground/80">
                   <span>Architecture Certified</span>
                   <span className="w-2 h-2 rounded-full bg-primary/80 dark:bg-cyan-400/80 group-hover:animate-ping" />
                 </div>
@@ -197,7 +197,7 @@ export function TechSection() {
         <div className="mt-14 text-center">
           <Link
             href={ROUTES.PUBLIC.TECHNOLOGY}
-            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-card/85 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-border/70 dark:border-slate-700 hover:border-primary/40 dark:hover:border-blue-400 text-foreground font-bold text-sm transition-all shadow-xs hover:shadow-md hover:scale-105 active:scale-95 group"
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-card/85 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-border/70 dark:border-slate-700 hover:border-primary/40 dark:hover:border-blue-400 text-foreground font-medium text-sm transition-all shadow-xs hover:shadow-md hover:scale-105 active:scale-95 group"
           >
             <span>Explore Technology Architecture</span>
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 text-primary dark:text-blue-400" />

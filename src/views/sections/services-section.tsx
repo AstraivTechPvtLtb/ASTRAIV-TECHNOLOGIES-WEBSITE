@@ -130,15 +130,15 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
         {/* Main Heading and Contextual Subtitle */}
         <div className="flex flex-col lg:flex-row justify-between gap-6 lg:items-end">
           <h2
-            className="text-3xl sm:text-4xl lg:text-[44px] font-display font-semibold tracking-tight text-foreground leading-[1.15] max-w-2xl"
+            className="text-3xl sm:text-4xl lg:text-[44px] font-display font-medium tracking-tight text-foreground leading-[1.15] max-w-2xl"
             id="blueprint-heading"
           >
             What can Astraiv{' '}
-            <span className="heading-gradient font-semibold">
+            <span className="heading-gradient font-medium">
               engineer for you?
             </span>
           </h2>
-          <p className="text-muted-foreground text-sm sm:text-base max-w-md leading-[1.62] lg:text-left font-normal">
+          <p className="text-muted-foreground text-sm sm:text-base max-w-md leading-[1.62] lg:text-left font-light dark:font-normal">
             From autonomous AI systems and custom enterprise SaaS to high-velocity web platforms and zero-downtime cloud networks, we design, build, and scale mission-critical software.
           </p>
         </div>
@@ -213,7 +213,7 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
                       onClick={() => handleTabChange(cap.id)}
                       className={`shrink-0 text-left transition-all duration-200 backdrop-blur-md px-3.5 py-2 rounded-xl flex items-center gap-2 cursor-pointer border text-xs font-semibold select-none min-h-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
                         isActive
-                          ? 'active-tab bg-primary text-white border-primary shadow-[0_0_14px_rgba(37,99,235,0.45)] ring-1 ring-blue-400/40'
+                          ? 'filter-btn-active scale-[1.02]'
                           : 'bg-slate-950/70 hover:bg-slate-900/80 border-white/10 hover:border-white/20 text-slate-300 hover:text-white'
                       }`}
                     >
@@ -243,7 +243,7 @@ export function ServicesSection({ initialServices = [] }: ServicesSectionProps) 
                       onClick={() => handleTabChange(cap.id)}
                       className={`cap-tab text-left transition-all duration-200 backdrop-blur-md px-3 sm:px-3.5 py-2.5 sm:py-3 rounded-xl flex items-center gap-2 group/tab cursor-pointer border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
                         isActive
-                          ? 'active-tab bg-primary text-white border-primary shadow-[0_0_16px_rgba(37,99,235,0.45)] -translate-y-0.5 ring-1 ring-blue-400/40'
+                          ? 'filter-btn-active -translate-y-0.5 scale-[1.02]'
                           : 'bg-slate-950/60 hover:bg-slate-900/80 border-white/10 hover:border-white/20 text-slate-300 hover:text-white hover:shadow-xs'
                       }`}
                     >

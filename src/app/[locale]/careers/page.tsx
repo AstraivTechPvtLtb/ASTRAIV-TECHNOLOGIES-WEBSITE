@@ -15,7 +15,14 @@ export const revalidate = 0;
 
 interface CareersPageProps {
   params: Promise<{ locale: string }>;
-  searchParams?: Promise<{ category?: string; q?: string; page?: string }>;
+  searchParams?: Promise<{
+    category?: string;
+    q?: string;
+    location?: string;
+    mode?: string;
+    exp?: string;
+    page?: string;
+  }>;
 }
 
 export async function generateMetadata({ params }: CareersPageProps): Promise<Metadata> {
@@ -46,6 +53,9 @@ export default async function CareersPage({ params, searchParams }: CareersPageP
     getPaginatedPublicJobs({
       categorySlug: search?.category && search.category !== 'all' ? search.category : undefined,
       query: search?.q,
+      location: search?.location && search.location !== 'all' ? search.location : undefined,
+      workMode: search?.mode && search.mode !== 'all' ? search.mode : undefined,
+      experienceLevel: search?.exp && search.exp !== 'all' ? search.exp : undefined,
       page: search?.page ? parseInt(search.page, 10) || 1 : 1,
       limit: 5,
     }),
@@ -80,7 +90,7 @@ export default async function CareersPage({ params, searchParams }: CareersPageP
         <div className="max-w-6xl mx-auto px-6">
           {/* Dynamic Hero Header */}
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight font-heading mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium text-foreground tracking-tight font-heading mb-4">
               {headingLines.length > 1 ? (
                 <>
                   {headingLines[0]} <br />
@@ -91,7 +101,7 @@ export default async function CareersPage({ params, searchParams }: CareersPageP
               )}
             </h1>
             {content.heroSubtitle && typeof content.heroSubtitle === 'string' && (
-              <p className="text-sm sm:text-base text-muted-foreground font-medium leading-relaxed">
+              <p className="text-sm sm:text-base text-muted-foreground font-light dark:font-normal leading-relaxed">
                 {content.heroSubtitle}
               </p>
             )}

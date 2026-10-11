@@ -24,7 +24,7 @@ export function TestimonialCard({
   const activeStars = Math.min(5, Math.max(1, Math.round(rating)));
 
   return (
-    <Card className="group relative bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 hover:border-primary/40 dark:hover:border-blue-400/40 rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 transform-gpu hover:-translate-y-1 overflow-hidden p-6 sm:p-7 flex flex-col justify-between h-full select-none">
+    <Card className="group relative card-interactive rounded-2xl overflow-hidden p-6 sm:p-7 flex flex-col justify-between h-full select-none">
       {/* Background Quote Watermark */}
       <Quote className="absolute right-6 top-6 h-16 w-16 text-primary/5 dark:text-blue-400/5 pointer-events-none group-hover:text-primary/10 transition-colors" />
 
@@ -46,7 +46,7 @@ export function TestimonialCard({
 
         {/* Quote Content */}
         <CardContent className="p-0">
-          <p className="text-sm sm:text-[15px] text-muted-foreground leading-[1.62] font-normal">
+          <p className="text-sm sm:text-[15px] text-muted-foreground leading-[1.62] font-light dark:font-normal">
             &ldquo;{quote}&rdquo;
           </p>
         </CardContent>
@@ -65,22 +65,22 @@ export function TestimonialCard({
               fallbackSrc="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&h=256&fit=crop"
             />
           ) : (
-            <div className="h-full w-full flex items-center justify-center bg-primary/10 dark:bg-blue-400/10 text-primary dark:text-blue-300 font-bold text-xs font-mono">
+            <div className="h-full w-full flex items-center justify-center bg-primary/10 dark:bg-blue-400/10 text-primary dark:text-blue-300 font-medium text-xs font-mono">
               {authorName.substring(0, 2).toUpperCase()}
             </div>
           )}
         </div>
         <div className="flex flex-col text-left">
-          <h3 className="text-sm font-semibold tracking-[-0.01em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
+          <h3 className="text-sm font-medium tracking-[-0.01em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
             {authorName}
           </h3>
-          <p className="text-xs text-muted-foreground font-normal">
+          <p className="text-xs text-muted-foreground font-light dark:font-normal">
             {authorRole && authorCompany ? (
               <>
-                {authorRole} • <span className="font-medium text-secondary dark:text-indigo-400">{authorCompany}</span>
+                {authorRole} • <span className="font-normal text-secondary dark:text-indigo-400">{authorCompany}</span>
               </>
             ) : authorCompany ? (
-              <span className="font-medium text-secondary dark:text-indigo-400">{authorCompany}</span>
+              <span className="font-normal text-secondary dark:text-indigo-400">{authorCompany}</span>
             ) : (
               authorRole || 'Client Partner'
             )}

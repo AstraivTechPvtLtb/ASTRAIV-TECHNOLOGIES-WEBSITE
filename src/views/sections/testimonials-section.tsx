@@ -69,7 +69,7 @@ export function TestimonialsSection({ initialReviews }: TestimonialsSectionProps
         <div className="mt-14 text-center">
           <Link
             href={ROUTES.PUBLIC.WORK_TESTIMONIALS}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-foreground hover:text-primary dark:hover:text-blue-400 bg-card/80 hover:bg-card border border-border/60 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-200 shadow-xs hover:shadow-md group"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-mono font-medium text-foreground hover:text-primary dark:hover:text-blue-400 skill-badge-gradient transition-all duration-200 shadow-xs hover:shadow-md group"
           >
             <span>Read Client Stories / View Testimonials</span>
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />

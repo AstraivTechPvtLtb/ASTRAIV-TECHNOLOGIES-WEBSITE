@@ -10,6 +10,8 @@ import {
 } from '@/views/ui/accordion';
 import { CANONICAL_FAQS, getFaqsByCategory, FaqCategory, FaqItem } from '@/lib/faq-data';
 
+import { cn } from '@/lib/utils';
+
 export interface FaqSectionProps {
   category?: FaqCategory | 'all';
   items?: FaqItem[];
@@ -69,11 +71,12 @@ export function FaqSection({
               <button
                 key={cat.key}
                 onClick={() => setActiveCategory(cat.key)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                className={cn(
+                  'px-3.5 py-1.5 rounded-xl text-xs font-mono font-medium transition-all duration-200 cursor-pointer',
                   activeCategory === cat.key
-                    ? 'bg-primary text-white shadow-xs'
-                    : 'bg-card/70 dark:bg-slate-900/60 border border-border/70 dark:border-slate-800 text-muted-foreground hover:text-foreground'
-                }`}
+                    ? 'filter-btn-active font-medium scale-[1.02]'
+                    : 'filter-btn-gradient text-muted-foreground hover:text-foreground shadow-xs'
+                )}
               >
                 {cat.label}
               </button>
@@ -88,12 +91,12 @@ export function FaqSection({
               value={`faq-${faq.id || index}`}
               className="border border-border/70 dark:border-slate-800/80 rounded-[20px] px-6 bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl shadow-xs hover:border-primary/40 dark:hover:border-blue-400/40 transition-colors"
             >
-              <AccordionTrigger className="text-sm sm:text-base font-bold text-foreground hover:no-underline py-5 text-left group">
+              <AccordionTrigger className="text-sm sm:text-base font-medium text-foreground hover:no-underline py-5 text-left group">
                 <span className="group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
                   {faq.question}
                 </span>
               </AccordionTrigger>
-              <AccordionContent className="text-xs sm:text-sm text-muted-foreground leading-relaxed pb-5 font-medium">
+              <AccordionContent className="text-xs sm:text-sm text-muted-foreground leading-relaxed pb-5 font-light dark:font-normal">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>

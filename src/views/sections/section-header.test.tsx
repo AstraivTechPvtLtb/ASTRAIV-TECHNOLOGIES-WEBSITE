@@ -9,20 +9,20 @@ describe('renderFormattedTitle 50% Gradient Policy', () => {
     // First half "We engineer the " is plain text
     expect(rendered).toContain('We engineer the');
     // Second half "digital future" is wrapped in heading-gradient
-    expect(rendered).toContain('heading-gradient font-semibold');
+    expect(rendered).toContain('heading-gradient font-medium');
     expect(rendered).toContain('digital future');
   });
 
   it('respects explicit brackets when provided', () => {
     const rendered = renderToString(<>{renderFormattedTitle('We engineer the [digital future]')}</>);
     expect(rendered).toContain('We engineer the ');
-    expect(rendered).toContain('heading-gradient font-semibold');
+    expect(rendered).toContain('heading-gradient font-medium');
     expect(rendered).toContain('digital future');
   });
 
   it('handles single word title by applying gradient', () => {
     const rendered = renderToString(<>{renderFormattedTitle('Astraiv')}</>);
-    expect(rendered).toContain('heading-gradient font-semibold');
+    expect(rendered).toContain('heading-gradient font-medium');
     expect(rendered).toContain('Astraiv');
   });
 });

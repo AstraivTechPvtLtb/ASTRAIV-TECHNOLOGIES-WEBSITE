@@ -136,83 +136,81 @@ export default async function RewardsAccoladesPage({ params }: RewardsAccoladesP
 
           {/* Hero Header Section */}
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-
-
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight font-heading leading-tight mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight font-heading leading-tight mb-6">
               <span className="heading-gradient">Rewards, Certifications & Industry Accolades</span>
             </h1>
 
-            <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed font-normal">
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed font-light dark:font-normal">
               Every system engineered by Astraiv Technologies is built upon audited security governance, proven contractual SLA delivery, and recognized cloud architecture standards.
             </p>
           </div>
 
           {/* Quick Metrics & Operational Reliability Ribbon */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-5 mb-12 sm:mb-16">
-            <div className="p-4 sm:p-5 rounded-2xl bg-card/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl text-left shadow-card">
+            <div className="p-4 sm:p-5 rounded-2xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl text-left shadow-card hover:shadow-card-hover transition-all duration-300">
               <div className="flex items-center gap-2 mb-1.5 text-primary dark:text-cyan-400">
                 <ShieldCheck className="h-4 w-4" />
-                <span className="text-[10.5px] font-mono uppercase font-bold tracking-wider">
+                <span className="text-[10.5px] font-mono uppercase font-medium tracking-wider">
                   Information Security
                 </span>
               </div>
-              <div className="text-xl sm:text-2xl font-extrabold font-heading text-foreground">
+              <div className="text-xl sm:text-2xl font-medium font-heading tracking-tight text-foreground">
                 {isoNum}
               </div>
-              <div className="text-xs text-muted-foreground mt-0.5">{isoLab} ISMS Standard</div>
+              <div className="text-xs text-muted-foreground mt-0.5 font-light dark:font-normal">{isoLab} ISMS Standard</div>
             </div>
 
-            <div className="p-4 sm:p-5 rounded-2xl bg-card/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl text-left shadow-card">
+            <div className="p-4 sm:p-5 rounded-2xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl text-left shadow-card hover:shadow-card-hover transition-all duration-300">
               <div className="flex items-center gap-2 mb-1.5 text-primary dark:text-cyan-400">
                 <CheckCircle2 className="h-4 w-4" />
-                <span className="text-[10.5px] font-mono uppercase font-bold tracking-wider">
+                <span className="text-[10.5px] font-mono uppercase font-medium tracking-wider">
                   Quality Management
                 </span>
               </div>
-              <div className="text-xl sm:text-2xl font-extrabold font-heading text-foreground">
+              <div className="text-xl sm:text-2xl font-medium font-heading tracking-tight text-foreground">
                 ISO 9001:2015
               </div>
-              <div className="text-xs text-muted-foreground mt-0.5">{isoLab} SDLC Quality Governance</div>
+              <div className="text-xs text-muted-foreground mt-0.5 font-light dark:font-normal">{isoLab} SDLC Quality Governance</div>
             </div>
 
-            <div className="p-4 sm:p-5 rounded-2xl bg-card/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl text-left shadow-card">
+            <div className="p-4 sm:p-5 rounded-2xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl text-left shadow-card hover:shadow-card-hover transition-all duration-300">
               <div className="flex items-center gap-2 mb-1.5 text-primary dark:text-cyan-400">
                 <Lock className="h-4 w-4" />
-                <span className="text-[10.5px] font-mono uppercase font-bold tracking-wider">
+                <span className="text-[10.5px] font-mono uppercase font-medium tracking-wider">
                   Operational SLA
                 </span>
               </div>
-              <div className="text-xl sm:text-2xl font-extrabold font-heading text-foreground">
+              <div className="text-xl sm:text-2xl font-medium font-heading tracking-tight text-foreground">
                 99.99% On-Time
               </div>
-              <div className="text-xs text-muted-foreground mt-0.5">Sprint Burndown Rate</div>
+              <div className="text-xs text-muted-foreground mt-0.5 font-light dark:font-normal">Sprint Burndown Rate</div>
             </div>
 
-            <div className="p-4 sm:p-5 rounded-2xl bg-card/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl text-left shadow-card">
+            <div className="p-4 sm:p-5 rounded-2xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl text-left shadow-card hover:shadow-card-hover transition-all duration-300">
               <div className="flex items-center gap-2 mb-1.5 text-primary dark:text-cyan-400">
                 <Sparkles className="h-4 w-4" />
-                <span className="text-[10.5px] font-mono uppercase font-bold tracking-wider">
+                <span className="text-[10.5px] font-mono uppercase font-medium tracking-wider">
                   Client Rating
                 </span>
               </div>
-              <div className="text-xl sm:text-2xl font-extrabold font-heading text-foreground">
+              <div className="text-xl sm:text-2xl font-medium font-heading tracking-tight text-foreground">
                 5.0 / 5.0 Star
               </div>
-              <div className="text-xs text-muted-foreground mt-0.5">Verified Reviews</div>
+              <div className="text-xs text-muted-foreground mt-0.5 font-light dark:font-normal">Verified Reviews</div>
             </div>
           </div>
 
           {/* Genuine Claims & Data Integrity Notice */}
-          <div className="mb-14 sm:mb-16 p-4 sm:p-6 rounded-2xl bg-card/90 dark:bg-slate-900/60 border border-slate-200/80 dark:border-cyan-500/20 text-left relative overflow-hidden backdrop-blur-md shadow-card">
+          <div className="mb-14 sm:mb-16 p-4 sm:p-6 rounded-2xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 text-left relative overflow-hidden backdrop-blur-xl shadow-card">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3.5">
               <div className="p-2.5 rounded-xl bg-primary/10 dark:bg-cyan-500/10 text-primary dark:text-cyan-400 shrink-0 border border-primary/20 dark:border-cyan-500/20">
                 <FileCheck2 className="h-5 w-5" />
               </div>
               <div className="flex-1">
-                <h2 className="text-xs sm:text-sm font-bold text-foreground dark:text-slate-200 uppercase tracking-wider font-mono">
+                <h2 className="text-xs sm:text-sm font-mono font-medium text-foreground dark:text-slate-200 uppercase tracking-wider">
                   Data Integrity & Verified Claims Policy
                 </h2>
-                <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 mt-1 leading-relaxed font-normal">
+                <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 mt-1 leading-relaxed font-light dark:font-normal">
                   Astraiv Technologies maintains strict regulatory transparency. All credentials, certifications, cloud technology alliances, and performance records displayed below are backed by genuine corporate audits, contractual guarantees, and authentic client reviews. We do not invent accolades, display placeholder company logos as real clients, or publish unverified certification badges.
                 </p>
               </div>
@@ -223,29 +221,29 @@ export default async function RewardsAccoladesPage({ params }: RewardsAccoladesP
           <RewardsAccoladesView initialAccolades={accolades} />
 
           {/* Bottom Conversion & Scoping Section */}
-          <div className="mt-20 p-8 sm:p-12 rounded-3xl bg-slate-950 border border-slate-800/90 text-center relative overflow-hidden shadow-2xl">
+          <div className="mt-20 p-8 sm:p-12 rounded-3xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl text-center relative overflow-hidden shadow-card">
             <div className="absolute inset-0 bg-radial from-cyan-500/6 via-transparent to-transparent pointer-events-none" />
             <div className="relative z-10 max-w-2xl mx-auto">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400 mb-3 block">
+              <span className="text-xs font-mono font-medium uppercase tracking-wider text-primary dark:text-cyan-400 mb-3 block">
                 Technical Governance In Practice
               </span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white font-heading mb-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-foreground font-heading tracking-tight mb-4">
                 Engineer Your Next Platform With Proven Rigor
               </h2>
-              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed mb-8">
+              <p className="text-xs sm:text-sm text-muted-foreground font-light dark:font-normal leading-relaxed mb-8">
                 Ready to review our technical compliance frameworks, sample architecture diagrams, or contractual SLA models? Schedule a direct architectural discussion with our senior engineers.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-3.5">
                 <Link
                   href={ROUTES.PUBLIC.CONTACT}
-                  className="px-6 py-3 rounded-xl text-xs sm:text-sm font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20 transition-all flex items-center gap-2 cursor-pointer"
+                  className="px-6 py-3 rounded-xl text-xs sm:text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20 transition-all flex items-center gap-2 cursor-pointer"
                 >
                   <span>Talk to an Expert</span>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href={ROUTES.PUBLIC.WORK_TESTIMONIALS}
-                  className="px-6 py-3 rounded-xl text-xs sm:text-sm font-bold bg-slate-900 text-slate-200 hover:text-white border border-slate-800 hover:border-slate-700 transition-all cursor-pointer"
+                  className="px-6 py-3 rounded-xl text-xs sm:text-sm font-medium bg-card/90 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-foreground border border-slate-200/80 dark:border-white/10 hover:border-primary/40 transition-all shadow-xs cursor-pointer"
                 >
                   Explore Testimonials
                 </Link>

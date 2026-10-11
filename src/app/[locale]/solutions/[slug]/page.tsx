@@ -95,7 +95,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
 
         <div className="max-w-5xl mx-auto px-6 py-8">
           {/* Visual Breadcrumb Trail */}
-          <div className="flex flex-wrap items-center gap-2 mb-8 text-xs font-semibold text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-2 mb-8 text-xs font-medium text-muted-foreground">
             <Link href={ROUTES.PUBLIC.HOME} className="hover:text-primary transition-colors">
               Home
             </Link>
@@ -104,60 +104,59 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
               Solutions
             </Link>
             <span>/</span>
-            <span className="text-foreground font-bold truncate max-w-xs">{solution.title}</span>
+            <span className="text-foreground font-medium truncate max-w-xs">{solution.title}</span>
           </div>
 
           {/* 1. SOLUTION HERO CARD */}
-          <div className="relative overflow-hidden rounded-3xl bg-card/90 dark:bg-slate-900/80 border border-border/80 dark:border-slate-800 backdrop-blur-xl p-8 sm:p-12 mb-12 shadow-sm dark:shadow-2xl transition-colors">
+          <div className="relative overflow-hidden rounded-3xl bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl p-8 sm:p-12 mb-12 shadow-card transition-colors">
             <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
 
             <div className="relative z-10">
               <div className="flex flex-wrap items-center gap-3 mb-6">
-
-                <span className="px-3 py-1 text-xs font-bold bg-muted text-muted-foreground rounded-full border border-border">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium skill-badge-gradient text-foreground shadow-xs">
                   {solution.categoryLabel}
                 </span>
               </div>
 
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 mb-6">
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-blue-500/10 text-primary dark:text-blue-400 border border-blue-500/20 shadow-lg shadow-blue-500/10">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-blue-500/10 text-primary dark:text-blue-400 border border-blue-500/20 shadow-card">
                   <Cpu className="h-8 w-8 text-primary dark:text-blue-400" />
                 </div>
                 <div>
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground leading-tight">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-foreground leading-tight">
                     {solution.title}
                   </h1>
-                  <p className="text-sm sm:text-base text-muted-foreground mt-1 font-medium">
+                  <p className="text-sm sm:text-base text-muted-foreground mt-1 font-light dark:font-normal">
                     {solution.tagline}
                   </p>
                 </div>
               </div>
 
-              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed font-medium max-w-3xl mb-6">
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed font-light dark:font-normal max-w-3xl mb-6">
                 {solution.shortDesc}
               </p>
 
               {/* Highlight Metric Card */}
-              <div className="p-5 rounded-2xl bg-slate-50/80 dark:bg-slate-950/70 border border-slate-200/80 dark:border-slate-800/90 flex items-center justify-between flex-wrap gap-4">
+              <div className="p-5 rounded-2xl bg-slate-50/80 dark:bg-slate-950/70 border border-slate-200/80 dark:border-white/10 flex items-center justify-between flex-wrap gap-4 shadow-card">
                 <div className="flex flex-col">
-                  <span className="text-3xl sm:text-4xl font-extrabold text-foreground font-heading">
+                  <span className="text-3xl sm:text-4xl font-mono font-medium text-foreground">
                     {solution.metric?.value || '99.9%'}
                   </span>
-                  <span className="text-xs sm:text-sm text-muted-foreground font-medium mt-0.5">
+                  <span className="text-xs sm:text-sm text-muted-foreground font-light dark:font-normal mt-0.5">
                     {solution.metric?.label || 'Production Efficiency'}
                   </span>
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
                   <Link
                     href={`/start-project?solution=${encodeURIComponent(solution.slug)}`}
-                    className="px-5 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-white text-xs sm:text-sm font-bold shadow-md transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer"
+                    className="px-5 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-white text-xs sm:text-sm font-medium shadow-card transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer"
                   >
                     <span>Start a Project</span>
                     <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
                   <Link
                     href={`/contact?solution=${encodeURIComponent(solution.title)}`}
-                    className="px-4 py-2.5 rounded-xl bg-card hover:bg-muted text-foreground border border-border text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5"
+                    className="px-4 py-2.5 rounded-xl bg-card hover:bg-muted text-foreground border border-slate-200/80 dark:border-white/10 text-xs sm:text-sm font-medium transition-all flex items-center gap-1.5 shadow-card"
                   >
                     <span>Talk to Expert</span>
                   </Link>

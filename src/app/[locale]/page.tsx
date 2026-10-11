@@ -8,6 +8,7 @@ import { createPageMetadata, getWebSiteJsonLd } from '@/lib/seo';
 import { Navbar } from '@/views/layouts/navbar';
 import { Footer } from '@/views/layouts/footer';
 import { HeroSection } from '@/views/sections/hero-section';
+import { CodingAnimationBackground } from '@/views/sections/coding-animation-background';
 import { TrustStrip } from '@/views/sections/trust-strip';
 import { ServicesSection } from '@/views/sections/services-section';
 import { SolutionsSection } from '@/views/sections/solutions-section';
@@ -106,6 +107,9 @@ export default async function HomePage({ params }: HomePageProps) {
           secondaryCtaText={secondaryCtaText}
           secondaryCtaHref={secondaryCtaHref}
         />
+
+        {/* Ambient Coding Animation Background (Post-Hero Homepage Stream) */}
+        <CodingAnimationBackground />
 
         {/* 2. TRUST / REWARDS & ACCOLADES */}
         <TrustStrip initialSettings={complianceSettings} />

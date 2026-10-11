@@ -83,6 +83,15 @@ export async function submitCandidateApplication(
       return { success: false, error: 'Please specify your location or primary timezone.' };
     }
 
+    if (payload.phone && payload.phone.trim()) {
+      const cleanPhone = payload.phone.trim();
+      const phoneDigits = cleanPhone.replace(/\D/g, '');
+      const validPhoneFormat = /^\+?[0-9\s-]{7,20}$/.test(cleanPhone);
+      if (!validPhoneFormat || phoneDigits.length < 7 || phoneDigits.length > 16) {
+        return { success: false, error: 'Please enter a valid international phone number (e.g. +1 000 000 0000 or +44 0000 000000).' };
+      }
+    }
+
     if (!payload.privacyConsent) {
       return { success: false, error: 'Please acknowledge the privacy policy to submit your application.' };
     }

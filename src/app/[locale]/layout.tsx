@@ -11,6 +11,7 @@ import { getOrganizationJsonLd } from '@/lib/seo';
 
 import { SkipLink } from '@/views/ui/skip-link';
 import { RouteProgressBar } from '@/views/ui/route-progress-bar';
+import { HtmlLocaleSync } from '@/views/layouts/html-locale-sync';
 
 export const metadata: Metadata = {
   title: {
@@ -72,11 +73,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
         dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
       />
       {/* Synchronize HTML lang and direction attributes for multi-locale rendering */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `document.documentElement.lang='${locale}';document.documentElement.dir='${locale === 'ar' ? 'rtl' : 'ltr'}';`,
-        }}
-      />
+      <HtmlLocaleSync locale={locale} />
       {/* Dual theme enabled with high-contrast intentional light and dark tokens */}
       <ThemeProvider
         attribute="class"

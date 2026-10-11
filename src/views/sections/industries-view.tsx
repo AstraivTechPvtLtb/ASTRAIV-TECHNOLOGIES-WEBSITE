@@ -528,10 +528,10 @@ export function IndustriesView() {
     <div className="flex flex-col w-full">
       {/* 1. HEADER */}
       <section className="pt-28 pb-4 md:pt-36 md:pb-6 px-6 max-w-7xl mx-auto w-full text-left">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground font-heading tracking-tight leading-[1.12]">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium text-foreground tracking-tight leading-[1.12]">
           Industries We <span className="heading-gradient">Empower</span>
         </h1>
-        <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-1">
+        <p className="text-sm sm:text-base text-muted-foreground font-light dark:font-normal leading-relaxed mt-1">
           Mission-critical software engineering architected for regulated and high-velocity sectors.
         </p>
       </section>
@@ -542,11 +542,11 @@ export function IndustriesView() {
       <div id="sectors-dock-anchor" className="scroll-mt-24 pointer-events-none" />
       <section
         id="sectors-dock"
-        className="sticky top-20 z-30 py-3 bg-background/80 dark:bg-slate-950/80 backdrop-blur-xl border-y border-border/50 dark:border-slate-800/70 shadow-xs scroll-mt-24"
+        className="sticky top-20 z-30 py-3 bg-background/80 dark:bg-slate-950/80 backdrop-blur-xl border-y border-slate-200/80 dark:border-white/10 shadow-card scroll-mt-24"
       >
         <div id="sectors-dock-container" className="max-w-7xl mx-auto px-6 overflow-x-auto no-scrollbar">
           <div className="flex items-center justify-start lg:justify-center gap-2 min-w-max py-1">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mr-2 flex items-center gap-1">
+            <span className="text-xs font-mono font-medium uppercase tracking-wider text-muted-foreground mr-2 flex items-center gap-1">
               <Compass className="h-3.5 w-3.5" />
               <span>Sectors:</span>
             </span>
@@ -558,10 +558,10 @@ export function IndustriesView() {
                   key={ind.id}
                   onClick={() => scrollToIndustry(ind.id)}
                   className={cn(
-                    'flex items-center justify-center px-3.5 py-1.5 rounded-xl text-xs font-medium tracking-wide transition-all duration-200 cursor-pointer whitespace-nowrap',
+                    'flex items-center justify-center px-3.5 py-1.5 rounded-xl text-xs font-mono font-medium tracking-wide transition-all duration-200 cursor-pointer whitespace-nowrap',
                     isActive
-                      ? 'bg-primary text-primary-foreground shadow-sm shadow-primary/30 border border-primary scale-[1.02]'
-                      : 'bg-card/70 dark:bg-slate-900/60 text-muted-foreground hover:text-foreground hover:bg-slate-200/60 dark:hover:bg-slate-800/60 border border-border/50 dark:border-slate-800/80'
+                      ? 'filter-btn-active font-medium scale-[1.02]'
+                      : 'filter-btn-gradient text-muted-foreground hover:text-foreground shadow-xs'
                   )}
                 >
                   <span>{ind.label}</span>
@@ -584,7 +584,7 @@ export function IndustriesView() {
               <div
                 key={ind.id}
                 id={ind.id}
-                className="scroll-mt-36 p-6 sm:p-8 md:p-12 rounded-3xl bg-card/70 dark:bg-slate-900/70 backdrop-blur-2xl border border-border/60 dark:border-slate-800/80 shadow-md hover:shadow-xl hover:border-primary/40 dark:hover:border-primary/30 transition-all duration-300 relative overflow-hidden group"
+                className="scroll-mt-36 p-6 sm:p-8 md:p-12 rounded-3xl bg-card/90 dark:bg-slate-900/85 backdrop-blur-2xl border border-slate-200/80 dark:border-white/10 shadow-card hover:shadow-card-hover transition-all duration-300 relative overflow-hidden group"
               >
                 {/* Secondary alias anchor points for navbar dropdowns and external campaign links */}
                 {ind.id === 'fintech' && <span id="fintech-banking" className="absolute -top-36 pointer-events-none" />}
@@ -604,14 +604,14 @@ export function IndustriesView() {
                 )}
                 {ind.id === 'other-industries' && <span id="realestate-proptech" className="absolute -top-36 pointer-events-none" />}
                 {/* Background decorative watermark code */}
-                <div className="absolute top-4 right-6 text-7xl md:text-8xl font-black text-slate-200/30 dark:text-slate-800/20 select-none pointer-events-none tracking-tighter">
+                <div className="absolute top-4 right-6 text-7xl md:text-8xl font-mono font-medium text-slate-200/20 dark:text-slate-800/20 select-none pointer-events-none tracking-tighter">
                   {ind.code}
                 </div>
 
                 <div className={cn('grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center relative z-10')}>
                   {/* Left Column: Visual Photograph & Telemetry Card */}
                   <div className={cn('lg:col-span-5 flex flex-col', isReversed ? 'lg:order-2' : 'lg:order-1')}>
-                    <div className="relative rounded-2xl overflow-hidden shadow-lg border border-border/60 dark:border-slate-800 aspect-4/3 group-hover:shadow-2xl transition-all">
+                    <div className="relative rounded-2xl overflow-hidden shadow-card border border-slate-200/80 dark:border-white/10 aspect-4/3 group-hover:shadow-card-hover transition-all">
                       <Image
                         src={ind.image}
                         alt={ind.imageAlt}
@@ -623,24 +623,24 @@ export function IndustriesView() {
 
                       {/* Top floating badge */}
                       <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-slate-900/80 backdrop-blur-md text-white border border-white/10 shadow-xs">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium uppercase tracking-wider skill-badge-gradient text-foreground shadow-xs">
                           <span className={cn('h-2 w-2 rounded-full animate-ping', ind.accentBg)} />
                           <span>{ind.code}</span>
                         </span>
 
-                        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-medium text-white bg-slate-900/80 backdrop-blur-md border border-white/10 shadow-xs">
-                          <ShieldCheck className="h-3 w-3 text-primary" />
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium skill-badge-gradient text-foreground shadow-xs">
+                          <ShieldCheck className="h-3.5 w-3.5 text-primary" />
                           <span>{ind.complianceBadge}</span>
                         </span>
                       </div>
 
                       {/* Bottom floating telemetry status bar */}
-                      <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-slate-950/80 backdrop-blur-md border border-white/10 text-white flex items-center justify-between text-xs font-medium">
+                      <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-slate-950/80 backdrop-blur-md border border-white/10 text-white flex items-center justify-between text-xs font-mono font-normal">
                         <div className="flex items-center gap-2">
                           <Activity className="h-4 w-4 text-primary dark:text-cyan-400 animate-pulse" />
                           <span className="truncate">{ind.statusText}</span>
                         </div>
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 bg-white/5 px-2 py-0.5 rounded">
+                        <span className="text-[10px] font-mono font-medium uppercase tracking-wider text-slate-400 bg-white/5 px-2 py-0.5 rounded">
                           Live Node
                         </span>
                       </div>
@@ -651,12 +651,12 @@ export function IndustriesView() {
                       {ind.kpis.map((kpi, kIdx) => (
                         <div
                           key={kIdx}
-                          className="p-3 rounded-xl bg-slate-100/70 dark:bg-slate-950/50 border border-border/40 dark:border-slate-800/80 flex flex-col text-center"
+                          className="p-3 rounded-xl bg-slate-50/80 dark:bg-slate-950/70 border border-slate-200/80 dark:border-white/10 flex flex-col text-center shadow-xs"
                         >
-                          <span className="text-lg sm:text-xl font-semibold text-foreground font-heading tracking-[-0.02em]">
+                          <span className="text-lg sm:text-xl font-mono font-medium text-foreground tracking-tight">
                             {kpi.value}
                           </span>
-                          <span className="text-[10px] sm:text-[11px] font-medium text-muted-foreground leading-tight mt-0.5">
+                          <span className="text-[10px] sm:text-[11px] font-light dark:font-normal text-muted-foreground leading-tight mt-0.5">
                             {kpi.label}
                           </span>
                         </div>
@@ -670,40 +670,34 @@ export function IndustriesView() {
                       {/* Sub-tag */}
                       <div className="flex items-center gap-2 mb-2">
                         <span
-                          className={cn(
-                            'inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase',
-                            ind.accentBg,
-                            ind.accentColor,
-                            ind.accentBorder,
-                            'border'
-                          )}
+                          className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-mono font-medium tracking-wide uppercase skill-badge-gradient text-foreground shadow-xs"
                         >
                           <span>{ind.label} Vertical</span>
                         </span>
-                        <span className="text-xs font-medium text-muted-foreground">{ind.tagline}</span>
+                        <span className="text-xs font-normal text-muted-foreground">{ind.tagline}</span>
                       </div>
 
                       {/* Headline */}
-                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground font-heading leading-[1.15]">
+                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight text-foreground leading-[1.15]">
                         {ind.headline}
                       </h2>
                     </div>
 
                     {/* The Friction vs Astraiv Resolution */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-950/40 border border-border/50 dark:border-slate-800/80">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-card/90 dark:bg-slate-950/60 border border-slate-200/80 dark:border-white/10 shadow-card">
                       <div>
-                        <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 flex items-center gap-1 mb-1">
+                        <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-muted-foreground flex items-center gap-1 mb-1">
                           <span>Legacy Friction</span>
                         </span>
-                        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-normal">
+                        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-light dark:font-normal">
                           {ind.challenge}
                         </p>
                       </div>
                       <div>
-                        <span className="text-[11px] font-semibold uppercase tracking-wider text-primary dark:text-cyan-400 flex items-center gap-1 mb-1">
+                        <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-primary dark:text-cyan-400 flex items-center gap-1 mb-1">
                           <span>Astraiv Resolution</span>
                         </span>
-                        <p className="text-xs sm:text-sm text-foreground/90 font-normal leading-[1.62]">
+                        <p className="text-xs sm:text-sm text-foreground/90 font-light dark:font-normal leading-relaxed">
                           {ind.solution}
                         </p>
                       </div>
@@ -711,20 +705,20 @@ export function IndustriesView() {
 
                     {/* Architectural Pillars */}
                     <div className="space-y-3">
-                      <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      <span className="text-xs font-mono font-medium uppercase tracking-wider text-muted-foreground">
                         Proprietary Engineering Pillars
                       </span>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         {ind.pillars.map((pillar, pIdx) => (
                           <div
                             key={pIdx}
-                            className="p-3.5 rounded-xl bg-card/90 dark:bg-slate-900/90 border border-border/60 dark:border-slate-800 shadow-2xs hover:border-primary/30 transition-all flex flex-col gap-1.5"
+                            className="p-3.5 rounded-xl bg-card/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 shadow-card hover:shadow-card-hover transition-all flex flex-col gap-1.5"
                           >
-                            <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
+                            <div className="flex items-center gap-1.5 text-xs font-medium text-foreground">
                               <CheckCircle2 className="h-3.5 w-3.5 text-primary shrink-0" />
                               <span className="truncate">{pillar.title}</span>
                             </div>
-                            <p className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed line-clamp-3 font-normal">
+                            <p className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed line-clamp-3 font-light dark:font-normal">
                               {pillar.description}
                             </p>
                           </div>
@@ -735,15 +729,15 @@ export function IndustriesView() {
                 </div>
 
                 {/* Unified Full-Width Card Footer (Identical alignment & styling across ALL case studies) */}
-                <div className="mt-8 pt-5 border-t border-border/50 dark:border-slate-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative z-10">
+                <div className="mt-8 pt-5 border-t border-slate-200/80 dark:border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative z-10">
                   <div className="flex flex-wrap items-center gap-1.5 min-w-0">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mr-1 shrink-0">
+                    <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-muted-foreground mr-1 shrink-0">
                       Stack:
                     </span>
                     {ind.techStack.map((tech) => (
                       <span
                         key={tech}
-                        className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-border/50 dark:border-slate-700/60"
+                        className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium skill-badge-gradient text-foreground shadow-xs"
                       >
                         {tech}
                       </span>
@@ -757,10 +751,10 @@ export function IndustriesView() {
                         onClick={scrollToSectors}
                         className={cn(
                           "group/up flex items-center justify-center h-10 w-10 rounded-xl cursor-pointer transition-all duration-200 shrink-0",
-                          "bg-slate-100 hover:bg-primary dark:bg-slate-800/90 dark:hover:bg-blue-600",
-                          "text-slate-700 hover:text-white dark:text-slate-200 dark:hover:text-white",
-                          "border border-border/70 dark:border-slate-700/80 hover:border-primary dark:hover:border-blue-500",
-                          "shadow-2xs hover:shadow-sm hover:shadow-primary/25 active:scale-95",
+                          "bg-card hover:bg-primary dark:bg-slate-800/90 dark:hover:bg-blue-600",
+                          "text-muted-foreground hover:text-white dark:text-slate-200 dark:hover:text-white",
+                          "border border-slate-200/80 dark:border-white/10 hover:border-primary dark:hover:border-blue-500",
+                          "shadow-card hover:shadow-card-hover active:scale-95",
                           isScrollingUp && "bg-primary text-white dark:bg-blue-600 border-primary ring-2 ring-primary/30"
                         )}
                         title="Scroll back to sectors"
@@ -777,7 +771,7 @@ export function IndustriesView() {
 
                     <Link
                       href={`/contact?vertical=${ind.id}`}
-                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-xs group/btn whitespace-nowrap"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-card group/btn whitespace-nowrap"
                     >
                       <span>Talk to an Expert</span>
                       <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
@@ -798,8 +792,8 @@ export function IndustriesView() {
                   "group/up flex items-center justify-center h-12 w-12 sm:h-13 sm:w-13 rounded-full cursor-pointer transition-all duration-200",
                   "bg-card/90 dark:bg-slate-900/90 hover:bg-primary dark:hover:bg-blue-600",
                   "text-slate-700 hover:text-white dark:text-slate-200 dark:hover:text-white",
-                  "border border-border/80 dark:border-slate-800 hover:border-primary dark:hover:border-blue-500",
-                  "shadow-sm hover:shadow-md hover:shadow-primary/25 hover:scale-105 active:scale-95",
+                  "border border-slate-200/80 dark:border-white/10 hover:border-primary dark:hover:border-blue-500",
+                  "shadow-card hover:shadow-card-hover hover:scale-105 active:scale-95",
                   isScrollingUp && "bg-primary text-white dark:bg-blue-600 border-primary ring-2 ring-primary/30 scale-105"
                 )}
                 title="Scroll back to sectors"
@@ -820,23 +814,22 @@ export function IndustriesView() {
       {/* ==================================================================== */}
       {/* 4. REGULATORY & COMPLIANCE MATRIX                                   */}
       {/* ==================================================================== */}
-      <section className="py-20 px-6 bg-slate-50/50 dark:bg-slate-950/40 border-y border-border/60 dark:border-slate-800/80 relative">
+      <section className="py-20 px-6 bg-slate-50/50 dark:bg-slate-950/40 border-y border-slate-200/80 dark:border-white/10 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-14">
-
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.12] font-heading text-foreground mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight leading-[1.12] text-foreground mb-4">
               Enterprise Regulatory Matrix
             </h2>
-            <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62]">
+            <p className="text-sm sm:text-base text-muted-foreground font-light dark:font-normal leading-relaxed">
               Every vertical we engineer adheres to rigid sovereign audit frameworks, deterministic encryption
               standards, and guaranteed transaction latency SLAs.
             </p>
           </div>
 
-          <div className="w-full overflow-x-auto rounded-2xl border border-border/60 dark:border-slate-800/80 bg-card/90 dark:bg-slate-900/90 shadow-sm backdrop-blur-xl">
+          <div className="w-full overflow-x-auto rounded-2xl border border-slate-200/80 dark:border-white/10 bg-card/90 dark:bg-slate-900/90 shadow-card backdrop-blur-xl">
             <table className="w-full text-left border-collapse min-w-187.5">
               <thead>
-                <tr className="border-b border-border/60 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-800/50 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <tr className="border-b border-slate-200/80 dark:border-white/10 bg-slate-100/70 dark:bg-slate-800/50 text-xs font-mono font-medium uppercase tracking-wider text-muted-foreground">
                   <th className="p-4 pl-6">Sector Vertical</th>
                   <th className="p-4">Governing Frameworks</th>
                   <th className="p-4">Latency SLA</th>
@@ -844,28 +837,28 @@ export function IndustriesView() {
                   <th className="p-4 pr-6">Audit Trail Standard</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-border/40 dark:divide-slate-800/60 text-xs sm:text-sm">
+              <tbody className="divide-y divide-slate-200/80 dark:divide-white/10 text-xs sm:text-sm font-light dark:font-normal">
                 {REGULATORY_MATRIX.map((row, idx) => (
                   <tr
                     key={idx}
                     className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors group"
                   >
-                    <td className="p-4 pl-6 font-semibold text-foreground flex items-center gap-2">
+                    <td className="p-4 pl-6 font-medium text-foreground flex items-center gap-2">
                       <div className="h-2 w-2 rounded-full bg-primary group-hover:scale-125 transition-transform" />
                       <span>{row.vertical}</span>
                     </td>
-                    <td className="p-4 font-normal text-slate-700 dark:text-slate-300">
+                    <td className="p-4 text-foreground/90">
                       {row.certifications}
                     </td>
                     <td className="p-4">
-                      <span className="inline-flex px-2.5 py-1 rounded-md text-xs font-semibold bg-primary/10 text-primary dark:text-cyan-400 border border-primary/20">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium skill-badge-gradient text-foreground shadow-xs">
                         {row.latencyRequirement}
                       </span>
                     </td>
                     <td className="p-4 text-muted-foreground font-mono text-[11px] sm:text-xs">
                       {row.encryptionProtocol}
                     </td>
-                    <td className="p-4 pr-6 text-muted-foreground font-normal">
+                    <td className="p-4 pr-6 text-muted-foreground">
                       {row.auditLogging}
                     </td>
                   </tr>
@@ -880,17 +873,15 @@ export function IndustriesView() {
       {/* 5. PRINCIPAL ARCHITECT CONSULTATION CTA                             */}
       {/* ==================================================================== */}
       <section className="py-20 md:py-28 px-6 relative overflow-hidden">
-        <div className="max-w-5xl mx-auto rounded-3xl p-8 sm:p-12 md:p-16 bg-linear-to-br from-card via-card to-primary/5 dark:from-slate-900 dark:via-slate-900/90 dark:to-primary/15 border border-border/80 dark:border-slate-800 shadow-2xl relative text-center flex flex-col items-center">
+        <div className="max-w-5xl mx-auto rounded-3xl p-8 sm:p-12 md:p-16 bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 shadow-card relative text-center flex flex-col items-center">
           {/* Subtle glowing orb */}
           <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-48 bg-primary/20 rounded-full blur-[90px] pointer-events-none" />
 
-
-
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight font-heading text-foreground max-w-3xl leading-[1.12] mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-foreground max-w-3xl leading-[1.12] mb-6">
             Have a Complex Vertical with Non-Standard Constraints?
           </h2>
 
-          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl font-normal leading-[1.62] mb-10">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl font-light dark:font-normal leading-relaxed mb-10">
             Our principal software architects and systems engineers work directly with your leadership to design,
             prototype, and deploy compliant software tailored exactly to your sector&apos;s parameters.
           </p>
@@ -898,7 +889,7 @@ export function IndustriesView() {
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link
               href={ROUTES.PUBLIC.START_PROJECT ? `${ROUTES.PUBLIC.START_PROJECT}?source_page=${encodeURIComponent('/industries')}` : `/start-project?source_page=${encodeURIComponent('/industries')}`}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-md shadow-primary/25 group hover:scale-105 tracking-normal"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-card group hover:scale-105 tracking-normal"
             >
               <span>Start a Project</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -906,14 +897,14 @@ export function IndustriesView() {
 
             <Link
               href="/contact#schedule"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold bg-card dark:bg-slate-800 text-foreground hover:bg-slate-100 dark:hover:bg-slate-700 border border-border dark:border-slate-700 transition-all hover:scale-105 tracking-normal"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-medium bg-card dark:bg-slate-800 text-foreground hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200/80 dark:border-white/10 transition-all hover:scale-105 tracking-normal shadow-card"
             >
               <span>Talk to an Expert</span>
             </Link>
 
             <Link
               href={ROUTES.PUBLIC.CASE_STUDIES}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold text-muted-foreground hover:text-primary transition-colors tracking-normal"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground transition-colors tracking-normal"
             >
               <span>View Case Studies &rarr;</span>
             </Link>

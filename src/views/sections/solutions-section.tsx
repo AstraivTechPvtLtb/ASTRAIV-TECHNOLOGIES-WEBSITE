@@ -52,13 +52,13 @@ export function SolutionsSection({ initialSolutions = SOLUTIONS_LIST }: Solution
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 sm:mb-16 text-left">
           <div className="max-w-3xl">
 
-            <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-display font-semibold tracking-tight text-foreground leading-[1.15]">
+            <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-display font-medium tracking-tight text-foreground leading-[1.15]">
               What business problems{' '}
-              <span className="heading-gradient font-semibold">
+              <span className="heading-gradient font-medium">
                 can Astraiv solve?
               </span>
             </h2>
-            <p className="mt-4 text-sm sm:text-base text-muted-foreground leading-[1.62] max-w-2xl font-normal">
+            <p className="mt-4 text-sm sm:text-base text-muted-foreground leading-[1.62] max-w-2xl font-light dark:font-normal">
               We don&apos;t just deliver software features—we solve high-stakes operational bottlenecks, eliminate crippling infrastructure spend, and engineer scalable engines for growth.
             </p>
           </div>
@@ -66,7 +66,7 @@ export function SolutionsSection({ initialSolutions = SOLUTIONS_LIST }: Solution
           <div className="shrink-0">
             <Link
               href={ROUTES.PUBLIC.SOLUTIONS}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-card/85 dark:bg-slate-900/80 border border-slate-300 dark:border-white/15 text-foreground font-semibold text-xs sm:text-sm tracking-normal hover:border-primary/40 dark:hover:border-blue-400/40 hover:text-primary dark:hover:text-blue-400 transition-all shadow-xs group"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-card/85 dark:bg-slate-900/80 border border-slate-300 dark:border-white/15 text-foreground font-medium text-xs sm:text-sm tracking-normal hover:border-primary/40 dark:hover:border-blue-400/40 hover:text-primary dark:hover:text-blue-400 transition-all shadow-xs group"
             >
               <span>Explore Solutions</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -94,20 +94,20 @@ export function SolutionsSection({ initialSolutions = SOLUTIONS_LIST }: Solution
                       {getSolutionIcon(solution.slug)}
                     </div>
                     <div className="min-w-0">
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-primary dark:text-blue-300 block">
+                      <span className="text-[10px] font-mono font-medium uppercase tracking-wider text-primary dark:text-blue-300 block">
                         {solution.categoryLabel}
                       </span>
-                      <h3 className="text-base sm:text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
+                      <h3 className="text-base sm:text-xl font-medium tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
                         {solution.title}
                       </h3>
                     </div>
                   </div>
 
                   <div className="text-left sm:text-right shrink-0 flex sm:flex-col items-baseline sm:items-end gap-2 sm:gap-0 pl-13 sm:pl-0">
-                    <span className="text-base sm:text-lg font-black text-primary dark:text-blue-400 font-mono block">
+                    <span className="text-base sm:text-lg font-bold text-primary dark:text-blue-400 font-mono block">
                       {solution.metric.value}
                     </span>
-                    <span className="text-[9.5px] font-semibold text-muted-foreground uppercase tracking-wider block">
+                    <span className="text-[9.5px] font-medium text-muted-foreground uppercase tracking-wider block">
                       Verified Impact
                     </span>
                   </div>
@@ -115,22 +115,22 @@ export function SolutionsSection({ initialSolutions = SOLUTIONS_LIST }: Solution
 
                 {/* Problem Statement Box */}
                 <div className="mb-3.5 p-3.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 text-left">
-                  <div className="flex items-center gap-2 mb-1 text-slate-700 dark:text-slate-300 font-semibold text-[11px] uppercase tracking-wider">
+                  <div className="flex items-center gap-2 mb-1 text-slate-700 dark:text-slate-300 font-medium text-[11px] uppercase tracking-wider">
                     <AlertCircle className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
                     <span>The Business Problem</span>
                   </div>
-                  <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-normal">
+                  <p className="text-xs text-muted-foreground dark:text-slate-300 leading-relaxed font-light dark:font-normal">
                     {solution.businessProblem?.summary || solution.tagline}
                   </p>
                 </div>
 
                 {/* Astraiv Solution Box */}
                 <div className="p-3.5 rounded-xl bg-blue-500/5 dark:bg-blue-950/20 border border-blue-500/20 dark:border-blue-500/30 text-left">
-                  <div className="flex items-center gap-2 mb-1 text-primary dark:text-blue-400 font-semibold text-[11px] uppercase tracking-wider">
+                  <div className="flex items-center gap-2 mb-1 text-primary dark:text-blue-400 font-medium text-[11px] uppercase tracking-wider">
                     <CheckCircle2 className="h-3.5 w-3.5 text-primary dark:text-blue-400 shrink-0" />
                     <span>Astraiv Solution</span>
                   </div>
-                  <p className="text-xs text-muted-foreground dark:text-slate-200 leading-relaxed font-normal line-clamp-3">
+                  <p className="text-xs text-muted-foreground dark:text-slate-200 leading-relaxed font-light dark:font-normal line-clamp-3">
                     {solution.shortDesc}
                   </p>
                 </div>
@@ -138,14 +138,14 @@ export function SolutionsSection({ initialSolutions = SOLUTIONS_LIST }: Solution
 
               {/* Bottom Action Link */}
               <div className="mt-6 pt-4 border-t border-border/40 dark:border-slate-800/60 flex items-center justify-between">
-                <span className="text-[11px] text-muted-foreground font-semibold flex items-center gap-1.5">
+                <span className="text-[11px] text-muted-foreground font-medium flex items-center gap-1.5">
                   <TrendingUp className="h-3.5 w-3.5 text-primary dark:text-blue-400" />
                   <span>{solution.metric.label}</span>
                 </span>
 
                 <Link
                   href={ROUTES.PUBLIC.SOLUTION_DETAIL(solution.slug)}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group/link min-h-7 py-1"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group/link min-h-7 py-1"
                 >
                   <span>Explore Solution</span>
                   <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-1" />
@@ -159,7 +159,7 @@ export function SolutionsSection({ initialSolutions = SOLUTIONS_LIST }: Solution
         <div className="mt-12 sm:mt-14 text-center">
           <Link
             href={ROUTES.PUBLIC.SOLUTIONS}
-            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-primary hover:bg-[#082d6c] dark:bg-blue-600 dark:hover:bg-blue-500 text-white font-bold text-sm tracking-wide transition-all shadow-sm hover:shadow-md border border-blue-900/20 dark:border-blue-400/30"
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-primary hover:bg-[#082d6c] dark:bg-blue-600 dark:hover:bg-blue-500 text-white font-medium text-sm tracking-wide transition-all shadow-sm hover:shadow-md border border-blue-900/20 dark:border-blue-400/30"
           >
             <span>Explore All Solutions</span>
             <ArrowRight className="h-4 w-4" />

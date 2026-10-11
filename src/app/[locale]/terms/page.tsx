@@ -61,31 +61,31 @@ export default async function TermsPage({ params }: TermsPageProps) {
         <div className="max-w-4xl mx-auto px-6 py-6 text-left">
           {/* Header */}
           <div className="mb-12">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight font-heading mb-3">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium text-foreground tracking-tight font-heading mb-3">
               Terms of <span className="heading-gradient">Service</span>
             </h1>
-            <p className="text-sm sm:text-base text-muted-foreground font-normal leading-relaxed">
+            <p className="text-sm sm:text-base text-muted-foreground font-light dark:font-normal leading-relaxed">
               {doc.summary || `Last updated: ${doc.effectiveDate || 'September 2026'}. These terms govern software engineering engagements, architectural consultations, IP assignments, and support agreements with Astraiv Technologies.`}
             </p>
           </div>
 
           {/* Terms Sections */}
-          <div className="space-y-10">
+          <div className="space-y-8">
             {doc.sections.map((section, idx) => (
               <section
                 key={idx}
-                className="p-7 sm:p-8 rounded-2xl bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 shadow-xs"
+                className="p-7 sm:p-8 rounded-2xl bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-card hover:shadow-card-hover transition-all duration-300"
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-border/40">
+                  <div className="p-2 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 text-primary">
                     <LegalIcon name={section.icon} className="h-5 w-5 text-primary" />
                   </div>
-                  <h2 className="text-xl font-semibold text-foreground tracking-[-0.015em]">
+                  <h2 className="text-xl font-medium text-foreground tracking-tight font-heading">
                     {section.title}
                   </h2>
                 </div>
 
-                <div className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-normal space-y-3 whitespace-pre-line">
+                <div className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-light dark:font-normal space-y-3 whitespace-pre-line">
                   {section.content}
                 </div>
               </section>
@@ -93,13 +93,13 @@ export default async function TermsPage({ params }: TermsPageProps) {
           </div>
 
           {/* Bottom Call to Action */}
-          <div className="mt-12 p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-border/60 text-center flex flex-col sm:flex-row items-center justify-between gap-4">
-            <span className="text-xs text-muted-foreground font-normal">
+          <div className="mt-12 p-6 rounded-2xl bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-card flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span className="text-xs text-muted-foreground font-light dark:font-normal">
               Need custom contractual terms, a bilateral NDA, or tailored Enterprise SLA parameters?
             </span>
             <Link
               href="/contact"
-              className="px-4 py-2 rounded-xl text-xs font-semibold bg-primary text-white hover:bg-primary/90 transition-colors whitespace-nowrap shadow-xs"
+              className="px-4 py-2 rounded-xl text-xs font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors whitespace-nowrap shadow-xs"
             >
               Request Custom MSA / NDA
             </Link>

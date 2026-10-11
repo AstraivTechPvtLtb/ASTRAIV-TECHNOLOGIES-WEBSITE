@@ -171,29 +171,30 @@
     font-family: var(--font-heading), sans-serif;
     letter-spacing: -0.025em;
     text-wrap: balance;
+    font-weight: 500;
   }
   h1 {
-    font-weight: 600;
-    line-height: 1.1;
+    font-weight: 500;
+    line-height: 1.12;
     letter-spacing: -0.03em;
   }
   h2 {
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.15;
     letter-spacing: -0.025em;
   }
   h3 {
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.2;
     letter-spacing: -0.02em;
   }
   h4 {
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.25;
     letter-spacing: -0.015em;
   }
   h5, h6 {
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.3;
     letter-spacing: -0.01em;
   }
@@ -268,6 +269,170 @@
   background-image: linear-gradient(135deg, var(--gradient-start, #38BDF8) 0%, var(--gradient-mid, #60A5FA) 50%, var(--gradient-end, #93C5FD) 100%);
 }
 
+@utility filter-btn-gradient {
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, rgba(11, 61, 145, 0.9) 0%, rgba(37, 99, 235, 0.75) 50%, rgba(59, 130, 246, 0.85) 100%) border-box;
+  border: 1.5px solid transparent;
+  color: var(--muted-foreground);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+}
+
+.filter-btn-gradient {
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, rgba(11, 61, 145, 0.9) 0%, rgba(37, 99, 235, 0.75) 50%, rgba(59, 130, 246, 0.85) 100%) border-box;
+  border: 1.5px solid transparent;
+  color: var(--muted-foreground);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+}
+
+/* Light mode hover: Exact glowing teal/cyan gradient border */
+.filter-btn-gradient:hover {
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, #0284C7 0%, #0EA5E9 35%, #06B6D4 70%, #14B8A6 100%) border-box;
+  border: 1.5px solid transparent;
+  color: #0369A1;
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.35), 0 2px 8px -1px rgba(2, 132, 199, 0.2);
+}
+
+.dark .filter-btn-gradient,
+:root[class~="dark"] .filter-btn-gradient,
+[data-theme="dark"] .filter-btn-gradient {
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, rgba(37, 99, 235, 0.95) 0%, rgba(56, 189, 248, 0.8) 50%, rgba(96, 165, 250, 0.95) 100%) border-box;
+  border: 1.5px solid transparent;
+  color: var(--muted-foreground);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Dark mode hover: Radiant cyan-teal glowing gradient border */
+.dark .filter-btn-gradient:hover,
+:root[class~="dark"] .filter-btn-gradient:hover,
+[data-theme="dark"] .filter-btn-gradient:hover {
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, #00F5D4 0%, #0EA5E9 40%, #38BDF8 80%, #60A5FA 100%) border-box;
+  border: 1.5px solid transparent;
+  color: #FFFFFF;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.45), 0 0 6px rgba(0, 245, 212, 0.5);
+}
+
+/* Selected button / option: Deep blue color with gradient border */
+@utility filter-btn-active {
+  background:
+    linear-gradient(#0B3D91, #0B3D91) padding-box,
+    linear-gradient(135deg, #38BDF8 0%, #60A5FA 50%, #93C5FD 100%) border-box;
+  border: 1.5px solid transparent;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px -2px rgba(11, 61, 145, 0.4), 0 0 10px rgba(56, 189, 248, 0.25);
+}
+
+.filter-btn-active {
+  background:
+    linear-gradient(#0B3D91, #0B3D91) padding-box,
+    linear-gradient(135deg, #38BDF8 0%, #60A5FA 50%, #93C5FD 100%) border-box;
+  border: 1.5px solid transparent;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px -2px rgba(11, 61, 145, 0.4), 0 0 10px rgba(56, 189, 248, 0.25);
+}
+
+.dark .filter-btn-active,
+:root[class~="dark"] .filter-btn-active,
+[data-theme="dark"] .filter-btn-active {
+  background:
+    linear-gradient(#1D4ED8, #1D4ED8) padding-box,
+    linear-gradient(135deg, #38BDF8 0%, #00F5D4 50%, #60A5FA 100%) border-box;
+  border: 1.5px solid transparent;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 18px -2px rgba(29, 78, 216, 0.55), 0 0 12px rgba(56, 189, 248, 0.35);
+}
+
+/* Static Skill Badge & Capsule Gradient Border (No hover effects, purely informational) */
+@utility skill-badge-gradient {
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, rgba(11, 61, 145, 0.9) 0%, rgba(37, 99, 235, 0.75) 50%, rgba(59, 130, 246, 0.85) 100%) border-box;
+  border: 1.5px solid transparent;
+  color: var(--foreground);
+  cursor: default;
+}
+
+.skill-badge-gradient {
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, rgba(11, 61, 145, 0.9) 0%, rgba(37, 99, 235, 0.75) 50%, rgba(59, 130, 246, 0.85) 100%) border-box;
+  border: 1.5px solid transparent;
+  color: var(--foreground);
+  cursor: default;
+}
+
+.dark .skill-badge-gradient,
+:root[class~="dark"] .skill-badge-gradient,
+[data-theme="dark"] .skill-badge-gradient {
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, rgba(37, 99, 235, 0.95) 0%, rgba(56, 189, 248, 0.8) 50%, rgba(96, 165, 250, 0.95) 100%) border-box;
+  border: 1.5px solid transparent;
+  color: var(--foreground);
+  cursor: default;
+}
+
+/* Universal Card Separation Shadow & Gradient Border Hover */
+@utility card-interactive {
+  position: relative;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(rgba(11, 61, 145, 0.12), rgba(11, 61, 145, 0.12)) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: 0 4px 22px -3px rgba(11, 61, 145, 0.09), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
+  will-change: transform, box-shadow;
+}
+
+.card-interactive {
+  position: relative;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(rgba(11, 61, 145, 0.12), rgba(11, 61, 145, 0.12)) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: 0 4px 22px -3px rgba(11, 61, 145, 0.09), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
+  will-change: transform, box-shadow;
+}
+
+.card-interactive:hover {
+  transform: translateY(-2.5px);
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, #0B3D91 0%, #1D4ED8 35%, #2563EB 70%, #3B82F6 100%) border-box;
+  box-shadow: 0 16px 36px -8px rgba(11, 61, 145, 0.14), 0 4px 14px -2px rgba(11, 61, 145, 0.08);
+}
+
+.dark .card-interactive,
+:root[class~="dark"] .card-interactive,
+[data-theme="dark"] .card-interactive {
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08)) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.65), 0 2px 8px -2px rgba(0, 0, 0, 0.4);
+}
+
+.dark .card-interactive:hover,
+:root[class~="dark"] .card-interactive:hover,
+[data-theme="dark"] .card-interactive:hover {
+  transform: translateY(-2.5px);
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, #2563EB 0%, #38BDF8 40%, #60A5FA 80%, #1D4ED8 100%) border-box;
+  box-shadow: 0 20px 45px -8px rgba(0, 0, 0, 0.8), 0 0 26px -4px rgba(37, 99, 235, 0.25);
+}
+
 @utility card-hover {
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease-out;
   will-change: transform;
@@ -279,6 +444,124 @@
 
 .dark .card-hover:hover {
   box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(59, 130, 246, 0.25);
+}
+
+/* Feature & Benefits Card Shadow Elevation */
+@utility feature-card-shadow {
+  position: relative;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(rgba(11, 61, 145, 0.12), rgba(11, 61, 145, 0.12)) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: 0 4px 22px -3px rgba(11, 61, 145, 0.09), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
+  will-change: transform, box-shadow;
+}
+
+.feature-card-shadow {
+  position: relative;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(rgba(11, 61, 145, 0.12), rgba(11, 61, 145, 0.12)) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: 0 4px 22px -3px rgba(11, 61, 145, 0.09), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
+  will-change: transform, box-shadow;
+}
+
+.feature-card-shadow:hover {
+  transform: translateY(-2.5px);
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, #0B3D91 0%, #1D4ED8 35%, #2563EB 70%, #3B82F6 100%) border-box;
+  box-shadow: 0 16px 36px -8px rgba(11, 61, 145, 0.14), 0 4px 14px -2px rgba(11, 61, 145, 0.08);
+}
+
+.dark .feature-card-shadow,
+:root[class~="dark"] .feature-card-shadow,
+[data-theme="dark"] .feature-card-shadow {
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08)) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.65), 0 2px 8px -2px rgba(0, 0, 0, 0.4);
+}
+
+.dark .feature-card-shadow:hover,
+:root[class~="dark"] .feature-card-shadow:hover,
+[data-theme="dark"] .feature-card-shadow:hover {
+  transform: translateY(-2.5px);
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, #2563EB 0%, #38BDF8 40%, #60A5FA 80%, #1D4ED8 100%) border-box;
+  box-shadow: 0 18px 42px -8px rgba(0, 0, 0, 0.8), 0 0 26px -4px rgba(37, 99, 235, 0.22);
+}
+
+/* Animated Job Card Border & Standout Elevation */
+@keyframes job-card-border-stream {
+  0% {
+    background-position: 0 0, 0% 50%;
+  }
+  50% {
+    background-position: 0 0, 100% 50%;
+  }
+  100% {
+    background-position: 0 0, 0% 50%;
+  }
+}
+
+@utility job-card-interactive {
+  position: relative;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(rgba(11, 61, 145, 0.12), rgba(11, 61, 145, 0.12)) border-box;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 22px -3px rgba(11, 61, 145, 0.09), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+  will-change: transform, box-shadow;
+}
+
+.job-card-interactive {
+  position: relative;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(rgba(11, 61, 145, 0.12), rgba(11, 61, 145, 0.12)) border-box;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 22px -3px rgba(11, 61, 145, 0.09), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+  will-change: transform, box-shadow;
+}
+
+.job-card-interactive:hover {
+  transform: translateY(-2.5px);
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, #0B3D91 0%, #0284C7 30%, #06B6D4 65%, #2563EB 100%) border-box;
+  background-size: 100% 100%, 200% 200%;
+  animation: job-card-border-stream 3.5s ease infinite;
+  box-shadow: 0 18px 38px -8px rgba(14, 165, 233, 0.22), 0 4px 14px -2px rgba(11, 61, 145, 0.12);
+}
+
+.dark .job-card-interactive,
+:root[class~="dark"] .job-card-interactive,
+[data-theme="dark"] .job-card-interactive {
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08)) border-box;
+  border: 2px solid transparent;
+  box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.65), 0 2px 8px -2px rgba(0, 0, 0, 0.4);
+}
+
+.dark .job-card-interactive:hover,
+:root[class~="dark"] .job-card-interactive:hover,
+[data-theme="dark"] .job-card-interactive:hover {
+  transform: translateY(-2.5px);
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, #2563EB 0%, #38BDF8 35%, #60A5FA 70%, #1D4ED8 100%) border-box;
+  background-size: 100% 100%, 200% 200%;
+  animation: job-card-border-stream 3.5s ease infinite;
+  box-shadow: 0 20px 45px -8px rgba(0, 0, 0, 0.8), 0 0 28px -4px rgba(56, 189, 248, 0.3);
 }
 
 @utility no-scrollbar {

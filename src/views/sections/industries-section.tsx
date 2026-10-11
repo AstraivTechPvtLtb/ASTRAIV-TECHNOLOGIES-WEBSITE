@@ -113,7 +113,7 @@ export function IndustriesSection() {
               <button
                 key={ind.id}
                 onClick={() => setActiveTab(idx)}
-                className={`flex items-center justify-center px-4 lg:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold tracking-wide transition-all duration-200 cursor-pointer select-none ${
+                className={`flex items-center justify-center px-4 lg:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium tracking-wide transition-all duration-200 cursor-pointer select-none ${
                   isActive
                     ? 'text-white bg-primary shadow-md shadow-primary/25 border border-primary ring-2 ring-primary/20'
                     : 'text-slate-700 dark:text-slate-300 bg-card/90 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-800 hover:text-foreground hover:border-primary/40 dark:hover:border-blue-400/40 active:scale-[0.98]'
@@ -150,7 +150,7 @@ export function IndustriesSection() {
                 
                 {/* Visual Overlay Tag */}
                 <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 flex flex-wrap items-center justify-between gap-2 text-white text-xs">
-                  <span className="px-3 py-1 rounded-full bg-slate-950/80 backdrop-blur-md border border-blue-400/30 text-blue-300 font-semibold text-[11px] uppercase tracking-wider flex items-center gap-1.5">
+                  <span className="px-3 py-1 rounded-full bg-slate-950/80 backdrop-blur-md border border-blue-400/30 text-blue-300 font-medium text-[11px] uppercase tracking-wider flex items-center gap-1.5">
                     <Activity className="h-3.5 w-3.5 animate-pulse" />
                     <span>Live Sector Architecture</span>
                   </span>
@@ -163,31 +163,31 @@ export function IndustriesSection() {
               {/* Right Column: Detailed Business & Engineering Scope */}
               <div className="lg:col-span-6 flex flex-col justify-between gap-5">
                 <div>
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-[-0.02em] text-foreground leading-tight">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-medium tracking-[-0.02em] text-foreground leading-tight">
                     {industries[activeTab].title}
                   </h3>
 
-                  <p className="text-xs sm:text-sm font-semibold text-primary dark:text-blue-400 mt-2">
+                  <p className="text-xs sm:text-sm font-medium text-primary dark:text-blue-400 mt-2">
                     {industries[activeTab].subtitle}
                   </p>
 
-                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal mt-3">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-light dark:font-normal mt-3">
                     {industries[activeTab].details}
                   </p>
                 </div>
 
                 {/* Operational Benchmarks Grid */}
                 <div className="p-4 sm:p-5 rounded-xl bg-slate-50/90 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex flex-col gap-3">
-                  <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
                     Operational Benchmarks
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {industries[activeTab].metrics.map((m, mIdx) => (
                       <div key={mIdx} className="flex flex-col">
-                        <span className="text-sm sm:text-base font-semibold text-foreground font-mono">
+                        <span className="text-sm sm:text-base font-medium text-foreground font-mono">
                           {m.val}
                         </span>
-                        <span className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">
+                        <span className="text-[11px] text-slate-600 dark:text-slate-400 font-normal">
                           {m.label}
                         </span>
                       </div>
@@ -199,7 +199,7 @@ export function IndustriesSection() {
                 <div className="pt-2 flex items-center justify-between">
                   <Link
                     href={ROUTES.PUBLIC.INDUSTRY_DETAIL(industries[activeTab].id)}
-                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group min-h-7 py-1"
+                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-primary dark:text-blue-400 hover:text-primary/80 dark:hover:text-blue-300 transition-colors group min-h-7 py-1"
                   >
                     <span>Explore {industries[activeTab].label} Solutions</span>
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -214,7 +214,7 @@ export function IndustriesSection() {
         <div className="mt-12 sm:mt-14 text-center">
           <Link
             href={ROUTES.PUBLIC.INDUSTRIES}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold text-foreground hover:text-primary dark:hover:text-blue-400 bg-card/90 hover:bg-card border border-slate-300 dark:border-slate-800 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all shadow-xs hover:shadow-md group"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-medium text-foreground hover:text-primary dark:hover:text-blue-400 bg-card/90 hover:bg-card border border-slate-300 dark:border-slate-800 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all shadow-xs hover:shadow-md group"
           >
             <span>Explore All Industries</span>
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />

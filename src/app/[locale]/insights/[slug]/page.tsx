@@ -106,14 +106,14 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
           <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
             <Link
               href="/insights/blog"
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-muted-foreground hover:text-primary transition-all duration-300 group"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-muted-foreground hover:text-primary transition-all duration-300 group"
             >
               <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
               <span>Back to Engineering Blog</span>
             </Link>
 
             {/* Breadcrumb path */}
-            <div className="hidden sm:flex items-center gap-2 text-xs font-semibold text-muted-foreground">
+            <div className="hidden sm:flex items-center gap-2 text-xs font-mono font-medium text-muted-foreground">
               <Link href="/insights" className="hover:text-primary transition-colors">
                 Insights
               </Link>
@@ -125,7 +125,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
                 {article.category.name}
               </Link>
               <span>/</span>
-              <span className="text-foreground/80 font-bold truncate max-w-50">
+              <span className="text-foreground/80 font-medium truncate max-w-50">
                 {article.title}
               </span>
             </div>
@@ -135,28 +135,28 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
           <div className="flex flex-wrap items-center gap-3 mb-5">
             <Link
               href={`/insights/blog?category=${encodeURIComponent(article.category.slug)}`}
-              className="px-3.5 py-1.5 text-xs font-black bg-primary/10 text-primary dark:bg-accent/15 dark:text-accent rounded-full border border-primary/20 dark:border-accent/20 uppercase tracking-wider hover:scale-105 transition-transform"
+              className="px-3.5 py-1.5 text-xs font-mono font-medium skill-badge-gradient text-foreground rounded-full uppercase tracking-wider hover:scale-105 transition-transform shadow-xs"
             >
               {article.category.name}
             </Link>
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground bg-card border border-border/50 px-2.5 py-1 rounded-full">
+            <div className="flex items-center gap-1.5 text-xs font-mono font-medium text-foreground skill-badge-gradient px-3 py-1 rounded-full shadow-xs">
               <Clock className="h-3.5 w-3.5 text-primary" />
               <span>{article.readingTime}</span>
             </div>
           </div>
 
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight heading-gradient mt-2 mb-6 leading-[1.15] font-heading">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight heading-gradient mt-2 mb-6 leading-[1.15] font-heading">
             {article.title}
           </h1>
 
           {/* Excerpt / Lead */}
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed font-medium mb-8 pb-8 border-b border-border/60 dark:border-slate-800">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed font-light dark:font-normal mb-8 pb-8 border-b border-slate-200/80 dark:border-white/10">
             {article.excerpt}
           </p>
 
           {/* Author & Timestamp Meta Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-6 pb-8 border-b border-border/60 dark:border-slate-800 mb-10 text-xs sm:text-sm font-semibold text-muted-foreground">
+          <div className="flex flex-wrap items-center justify-between gap-6 pb-8 border-b border-slate-200/80 dark:border-white/10 mb-10 text-xs sm:text-sm font-medium text-muted-foreground">
             {/* Author */}
             <div className="flex items-center gap-3">
               {article.author.image && (
@@ -169,13 +169,13 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
                 />
               )}
               <div>
-                <div className="font-extrabold text-foreground">{article.author.name}</div>
-                <div className="text-[11px] text-muted-foreground">{article.author.role}</div>
+                <div className="font-medium text-foreground">{article.author.name}</div>
+                <div className="text-[11px] font-mono font-medium text-muted-foreground">{article.author.role}</div>
               </div>
             </div>
 
             {/* Dates */}
-            <div className="flex flex-wrap items-center gap-4 text-xs font-semibold">
+            <div className="flex flex-wrap items-center gap-4 text-xs font-mono font-medium">
               <div className="flex items-center gap-1.5" title="Published date">
                 <Calendar className="h-3.5 w-3.5 text-muted-foreground" />
                 <span>Published {formatDate(article.publishedAt)}</span>
@@ -192,7 +192,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
 
           {/* Featured Hero Cover Image */}
           {article.coverImage && (
-            <div className="relative aspect-video rounded-3xl overflow-hidden mb-12 shadow-2xl border border-border/60 dark:border-slate-800 bg-slate-950">
+            <div className="relative aspect-video rounded-2xl overflow-hidden mb-12 shadow-card border border-slate-200/80 dark:border-white/10 bg-slate-950">
               <ResilientImage
                 src={article.coverImage}
                 alt={article.title}
@@ -205,8 +205,8 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
           )}
 
           {/* Key Architectural Takeaways Box */}
-          <div className="p-6 sm:p-7 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-border/80 dark:border-slate-800 mb-12">
-            <div className="text-xs font-black uppercase tracking-wider text-primary dark:text-blue-400 flex items-center gap-2 mb-3">
+          <div className="p-6 sm:p-7 rounded-2xl bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-card mb-12">
+            <div className="text-xs font-mono font-medium uppercase tracking-wider text-primary dark:text-blue-400 flex items-center gap-2 mb-3">
               <BookOpen className="h-4 w-4" />
               <span>Publication Abstract & Technical Primitives</span>
             </div>
@@ -214,35 +214,35 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
               {article.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-xs font-bold px-2.5 py-1 rounded-lg bg-card border border-border/60 text-foreground"
+                  className="text-xs font-mono font-medium px-2.5 py-1 rounded-full skill-badge-gradient text-foreground shadow-xs"
                 >
                   #{tag}
                 </span>
               ))}
             </div>
-            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-medium">
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-light dark:font-normal">
               This publication is engineered as a foundational reference for engineering leaders and systems architects evaluating {article.category.name} capabilities in high-concurrency production environments.
             </p>
           </div>
 
           {/* Main Article Content */}
           <div
-            className="prose dark:prose-invert max-w-none text-slate-800 dark:text-slate-200 leading-relaxed text-base md:text-lg font-medium
+            className="prose dark:prose-invert max-w-none text-slate-800 dark:text-slate-200 leading-relaxed text-base md:text-lg font-light dark:font-normal
               [&>p]:mb-6 [&>p]:leading-relaxed
-              [&>h2]:text-2xl [&>h2]:md:text-3xl [&>h2]:font-extrabold [&>h2]:tracking-tight [&>h2]:text-slate-900 [&>h2]:dark:text-slate-50 [&>h2]:mt-12 [&>h2]:mb-4 [&>h2]:pt-4 [&>h2]:border-t [&>h2]:border-border/40
-              [&>h3]:text-xl [&>h3]:md:text-2xl [&>h3]:font-bold [&>h3]:tracking-tight [&>h3]:text-slate-900 [&>h3]:dark:text-slate-50 [&>h3]:mt-8 [&>h3]:mb-3
+              [&>h2]:text-2xl [&>h2]:md:text-3xl [&>h2]:font-medium [&>h2]:tracking-tight [&>h2]:text-slate-900 [&>h2]:dark:text-slate-50 [&>h2]:mt-12 [&>h2]:mb-4 [&>h2]:pt-4 [&>h2]:border-t [&>h2]:border-slate-200/80 dark:[&>h2]:border-white/10
+              [&>h3]:text-xl [&>h3]:md:text-2xl [&>h3]:font-medium [&>h3]:tracking-tight [&>h3]:text-slate-900 [&>h3]:dark:text-slate-50 [&>h3]:mt-8 [&>h3]:mb-3
               [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-6 [&>ul]:space-y-2
               [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-6 [&>ol]:space-y-2
               [&>li]:leading-relaxed
-              [&>strong]:font-extrabold [&>strong]:text-slate-900 [&>strong]:dark:text-slate-50
+              [&>strong]:font-medium [&>strong]:text-slate-900 [&>strong]:dark:text-slate-50
               [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded-md [&>code]:bg-slate-100 [&>code]:dark:bg-slate-800 [&>code]:text-primary [&>code]:dark:text-accent [&>code]:text-sm [&>code]:font-mono
               [&>a]:text-primary [&>a]:dark:text-accent [&>a]:underline [&>a]:hover:opacity-85"
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
 
           {/* Cross-Taxonomy Relationship Badges */}
-          <div className="mt-14 pt-8 border-t border-border/60 dark:border-slate-800">
-            <h4 className="text-xs font-black uppercase tracking-wider text-muted-foreground mb-4">
+          <div className="mt-14 pt-8 border-t border-slate-200/80 dark:border-white/10">
+            <h4 className="text-xs font-mono font-medium uppercase tracking-wider text-muted-foreground mb-4">
               Related Enterprise Domains & Vertical Primitives
             </h4>
             <div className="flex flex-wrap gap-2.5">
@@ -250,7 +250,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
                 <Link
                   key={sol.slug}
                   href={`/solutions/${sol.slug}`}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-card border border-border hover:border-primary/40 text-xs font-bold text-foreground transition-colors group"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl skill-badge-gradient hover:border-primary/40 text-xs font-mono font-medium text-foreground transition-all duration-300 shadow-xs hover:shadow-card group"
                 >
                   <Layers className="h-3.5 w-3.5 text-primary group-hover:scale-110 transition-transform" />
                   <span>Solution: {sol.title}</span>
@@ -261,7 +261,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
                 <Link
                   key={srv.slug}
                   href={`/services/${srv.slug}`}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-card border border-border hover:border-primary/40 text-xs font-bold text-foreground transition-colors group"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl skill-badge-gradient hover:border-primary/40 text-xs font-mono font-medium text-foreground transition-all duration-300 shadow-xs hover:shadow-card group"
                 >
                   <Cpu className="h-3.5 w-3.5 text-primary dark:text-cyan-400 group-hover:scale-110 transition-transform" />
                   <span>Service: {srv.title}</span>
@@ -272,7 +272,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
                 <Link
                   key={ind.slug}
                   href={`/industries/${ind.slug}`}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-card border border-border hover:border-primary/40 text-xs font-bold text-foreground transition-colors group"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl skill-badge-gradient hover:border-primary/40 text-xs font-mono font-medium text-foreground transition-all duration-300 shadow-xs hover:shadow-card group"
                 >
                   <Building2 className="h-3.5 w-3.5 text-primary dark:text-cyan-400 group-hover:scale-110 transition-transform" />
                   <span>Industry: {ind.label}</span>
@@ -292,20 +292,20 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
         {/* RELATED ARTICLES SECTION: NEVER A DEAD END */}
         {/* ===================================================================== */}
         {relatedArticles.length > 0 && (
-          <section className="border-t border-border/60 dark:border-slate-800 py-16 mt-8 max-w-7xl mx-auto px-6 z-10 relative">
+          <section className="border-t border-slate-200/80 dark:border-white/10 py-16 mt-8 max-w-7xl mx-auto px-6 z-10 relative">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
               <div>
-                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-primary dark:text-accent uppercase tracking-wider mb-2">
+                <div className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-primary dark:text-accent uppercase tracking-wider mb-2">
                   <BookOpen className="h-3.5 w-3.5" />
                   <span>Continue Exploring</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground font-heading">
+                <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground font-heading">
                   Related Architecture Publications
                 </h2>
               </div>
               <Link
                 href="/insights/blog"
-                className="inline-flex items-center gap-1.5 text-xs font-extrabold text-primary dark:text-accent hover:underline"
+                className="inline-flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent hover:underline"
               >
                 <span>View Full Engineering Blog</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -316,7 +316,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
               {relatedArticles.map((rel) => (
                 <article
                   key={rel.id}
-                  className="overflow-hidden rounded-2xl bg-card border border-border/70 dark:border-slate-800 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:border-primary/40"
+                  className="overflow-hidden rounded-2xl bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between group hover:border-primary/40"
                 >
                   <div>
                     <div className="relative aspect-video overflow-hidden bg-slate-950">
@@ -329,37 +329,37 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
                       />
                       <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent" />
                       <div className="absolute top-3 left-3">
-                        <span className="px-2.5 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-black/70 backdrop-blur-xs text-white border border-white/20">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium uppercase tracking-wider skill-badge-gradient text-foreground shadow-xs">
                           {rel.category.name}
                         </span>
                       </div>
                     </div>
 
                     <div className="p-6">
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground font-semibold mb-2">
-                        <Clock className="h-3 w-3" />
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono font-medium mb-2">
+                        <Clock className="h-3 w-3 text-primary" />
                         <span>{rel.readingTime}</span>
                         <span>•</span>
                         <span>{formatDate(rel.publishedAt)}</span>
                       </div>
 
-                      <h3 className="text-base font-extrabold text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors leading-snug mb-2 line-clamp-2">
+                      <h3 className="text-base font-medium text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors leading-snug mb-2 line-clamp-2">
                         <Link href={`/insights/${rel.slug}`}>{rel.title}</Link>
                       </h3>
 
-                      <p className="text-xs text-muted-foreground font-medium leading-relaxed line-clamp-3 mb-4">
+                      <p className="text-xs text-muted-foreground font-light dark:font-normal leading-relaxed line-clamp-3 mb-4">
                         {rel.excerpt}
                       </p>
                     </div>
                   </div>
 
-                  <div className="px-6 py-4 border-t border-border/50 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-foreground/80">
+                  <div className="px-6 py-4 border-t border-slate-200/80 dark:border-white/10 bg-slate-50/50 dark:bg-slate-900/50 flex items-center justify-between">
+                    <span className="text-[11px] font-medium text-foreground/80">
                       {rel.author.name}
                     </span>
                     <Link
                       href={`/insights/${rel.slug}`}
-                      className="inline-flex items-center gap-1 text-xs font-extrabold text-primary dark:text-accent hover:underline group/cta"
+                      className="inline-flex items-center gap-1 text-xs font-medium text-primary dark:text-accent hover:underline group/cta"
                     >
                       <span>Read Deep Dive</span>
                       <ArrowRight className="h-3 w-3 transition-transform group-hover/cta:translate-x-1" />

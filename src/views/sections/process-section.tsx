@@ -70,12 +70,12 @@ export function ProcessSection({ variant = 'summary', headline }: ProcessSection
               viewport={MOTION_VIEWPORT.once}
               transition={{ delay: shouldReduceMotion ? 0 : index * 0.05, duration: MOTION_DURATIONS.reveal, ease: EASE_OUT_EXPO }}
               whileHover={shouldReduceMotion ? {} : { y: -2, transition: { duration: MOTION_DURATIONS.fast, ease: EASE_OUT_EXPO } }}
-              className="group relative p-7 sm:p-8 bg-card/95 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 rounded-2xl shadow-card hover:shadow-card-hover hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-300 transform-gpu flex flex-col justify-between"
+              className="group relative p-7 sm:p-8 card-interactive rounded-2xl flex flex-col justify-between"
             >
               <div>
                 {/* Top Row: Stage & Icon */}
                 <div className="flex items-center justify-between mb-5">
-                  <span className="px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-primary dark:text-blue-400 bg-primary/10 dark:bg-blue-400/10 rounded-full border border-primary/20 dark:border-blue-400/20">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium skill-badge-gradient text-foreground shadow-xs uppercase tracking-wider">
                     Stage {step.num} • {step.tag}
                   </span>
                   <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-100/90 dark:bg-slate-800/90 text-primary dark:text-blue-400 border border-slate-200/80 dark:border-slate-700/60 group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300">
@@ -85,10 +85,10 @@ export function ProcessSection({ variant = 'summary', headline }: ProcessSection
 
                 {/* Title & Description */}
                 <div className="flex flex-col gap-2 text-left">
-                  <h3 className="text-xl font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
+                  <h3 className="text-xl font-medium tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors">
                     {step.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-light dark:font-normal">
                     {isDetailed ? step.detailedDesc : step.summary}
                   </p>
                 </div>
@@ -97,10 +97,10 @@ export function ProcessSection({ variant = 'summary', headline }: ProcessSection
                 {isDetailed && (
                   <div className="mt-6 pt-5 border-t border-border/40 dark:border-slate-800/80 space-y-4">
                     <div>
-                      <span className="text-[10.5px] font-mono uppercase font-bold text-slate-400 block mb-2">
+                      <span className="text-[10.5px] font-mono uppercase font-medium text-slate-400 block mb-2">
                         Key Deliverables
                       </span>
-                      <ul className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
+                      <ul className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300 font-light dark:font-normal">
                         {step.keyDeliverables.map((deliv, dIdx) => (
                           <li key={dIdx} className="flex items-start gap-1.5">
                             <span className="h-1.5 w-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
@@ -111,11 +111,11 @@ export function ProcessSection({ variant = 'summary', headline }: ProcessSection
                     </div>
 
                     <div className="pt-3 border-t border-border/20 dark:border-slate-800/40">
-                      <span className="text-[10.5px] font-mono uppercase font-bold text-primary dark:text-cyan-400 mb-1.5 flex items-center gap-1">
+                      <span className="text-[10.5px] font-mono uppercase font-medium text-primary dark:text-cyan-400 mb-1.5 flex items-center gap-1">
                         <ShieldCheck className="h-3.5 w-3.5" />
                         <span>Quality Gate</span>
                       </span>
-                      <p className="text-[11px] text-muted-foreground leading-snug">
+                      <p className="text-[11px] text-muted-foreground leading-snug font-light dark:font-normal">
                         {step.qualityGates[0]}
                       </p>
                     </div>
@@ -124,7 +124,7 @@ export function ProcessSection({ variant = 'summary', headline }: ProcessSection
               </div>
 
               {/* Progress Line */}
-              <div className="mt-6 pt-4 border-t border-border/30 dark:border-slate-800/50 flex items-center justify-between text-[11px] font-semibold text-muted-foreground/75">
+              <div className="mt-6 pt-4 border-t border-border/30 dark:border-slate-800/50 flex items-center justify-between text-[11px] font-medium text-muted-foreground/75">
                 <span>Phase {index + 1} of 6</span>
                 <div className="flex items-center gap-1">
                   {[0, 1, 2, 3, 4, 5].map((dotIdx) => (
@@ -148,7 +148,7 @@ export function ProcessSection({ variant = 'summary', headline }: ProcessSection
           <div className="mt-12 sm:mt-14 text-center">
             <Link
               href={ROUTES.PUBLIC.COMPANY_ANCHORS.PROCESS}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-foreground hover:text-primary dark:hover:text-blue-400 bg-card/80 hover:bg-card border border-border/60 hover:border-primary/40 dark:hover:border-blue-400/40 transition-all shadow-xs hover:shadow-md group"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-mono font-medium text-foreground hover:text-primary transition-all shadow-xs hover:shadow-card filter-btn-gradient group"
             >
               <span>Explore Full 6-Stage Process &amp; Quality Gates</span>
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
@@ -161,14 +161,14 @@ export function ProcessSection({ variant = 'summary', headline }: ProcessSection
           <div className="mt-14 sm:mt-16 text-center flex flex-wrap items-center justify-center gap-4">
             <Link
               href={ROUTES.PUBLIC.START_PROJECT}
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-xs sm:text-sm font-bold shadow-md shadow-primary/20 transition-all group cursor-pointer"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-xs sm:text-sm font-medium shadow-md shadow-primary/20 transition-all group cursor-pointer"
             >
               <span>Scope Your Project With This Process</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               href={ROUTES.PUBLIC.CONTACT}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-card border border-border hover:border-primary/60 text-xs sm:text-sm font-bold text-foreground hover:text-primary transition-all shadow-2xs group cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-card border border-border hover:border-primary/60 text-xs sm:text-sm font-medium text-foreground hover:text-primary transition-all shadow-2xs group cursor-pointer"
             >
               <span>Talk to an Architect</span>
             </Link>

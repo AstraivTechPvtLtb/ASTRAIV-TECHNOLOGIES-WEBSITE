@@ -327,6 +327,10 @@ export interface CareersImageSettings {
   enabled: boolean;
   imageUrl: string;
   altText: string;
+  title?: string;
+  description?: string;
+  badgeText?: string;
+  badgeSubtext?: string;
   focalPoint?: string;
   width?: number;
   height?: number;
@@ -334,11 +338,33 @@ export interface CareersImageSettings {
   sizeLabel?: string;
 }
 
+export interface PublicSpeculativePageCopyData {
+  heading?: string;
+  subheading?: string;
+  supportGuidance: string;
+  successMessage: string;
+  buttonText?: string;
+  buttonUrl?: string;
+  contactEmailLabel?: string;
+  contactEmail?: string;
+  contactPhoneLabel?: string;
+  contactPhone?: string;
+  contactLocationLabel?: string;
+  contactLocation?: string;
+  formHeading?: string;
+  formBadge?: string;
+  formSubheading?: string;
+  ndaCheckboxLabel?: string;
+  submitButtonText?: string;
+  slaNote?: string;
+}
+
 export interface PublicCareersPageContent {
   heroHeading: string;
   heroSubtitle: string;
   cultureCards: CultureCardItem[];
   careersImage: CareersImageSettings;
+  speculativeImage?: CareersImageSettings;
   benefitsHeading: string;
   benefitsSubtitle: string;
   benefitsCards: BenefitsCardItem[];
@@ -354,19 +380,27 @@ export interface PublicCareersPageContent {
     buttonText: string;
     buttonUrl: string;
   };
-  speculativePageCopy: {
-    heading: string;
-    subheading: string;
-    supportGuidance: string;
-    successMessage: string;
-  };
+  speculativePageCopy: PublicSpeculativePageCopyData;
 }
 
 export interface PublicSharedCareersDefaults {
+  jobDetailImage?: CareersImageSettings;
+  missionHeading?: string;
+  missionTemplate?: string;
+  interviewRoadmapHeading?: string;
+  interviewRoadmapSubtitle?: string;
   interviewStages: Array<{ num: string; title: string; desc: string }>;
+  benefitsHeading?: string;
   commonBenefits: string[];
+  astraivStandardHeading?: string;
+  astraivStandardSubtitle?: string;
+  astraivStandardPoints?: string[];
+  referralHeading?: string;
+  referralBody?: string;
   defaultReferralBonus: string;
+  applicationSubheading?: string;
   defaultPrivacyText: string;
+  applicationSlaNote?: string;
 }
 
 export interface PaginatedJobsResult {

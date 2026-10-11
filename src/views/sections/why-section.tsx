@@ -63,16 +63,16 @@ export function WhySection({ variant = 'summary' }: WhySectionProps) {
               viewport={MOTION_VIEWPORT.once}
               transition={{ delay: shouldReduceMotion ? 0 : index * 0.06, duration: MOTION_DURATIONS.reveal, ease: EASE_OUT_EXPO }}
               whileHover={shouldReduceMotion ? {} : { y: -2, transition: { duration: MOTION_DURATIONS.fast, ease: EASE_OUT_EXPO } }}
-              className="group relative p-5 sm:p-6 lg:p-7 bg-card/95 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 rounded-2xl shadow-card hover:shadow-card-hover hover:border-primary/40 dark:hover:border-blue-400/40 transition-all duration-300 transform-gpu flex flex-col justify-between"
+              className="group relative p-5 sm:p-6 lg:p-7 card-interactive rounded-2xl flex flex-col justify-between"
             >
               <div>
                 {/* Top Row: Number, Icon & Badge */}
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-xl sm:text-2xl font-black font-mono text-slate-400 dark:text-slate-500 group-hover:text-primary dark:group-hover:text-blue-400 transition-colors">
+                    <span className="text-xl sm:text-2xl font-bold font-mono text-slate-400 dark:text-slate-500 group-hover:text-primary dark:group-hover:text-blue-400 transition-colors">
                       {pillar.num}
                     </span>
-                    <span className="px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase rounded-md bg-primary/10 text-primary dark:text-blue-300 border border-primary/20">
+                    <span className="px-2.5 py-0.5 text-[11px] font-mono font-medium uppercase rounded-full skill-badge-gradient text-foreground shadow-xs">
                       {pillar.badge}
                     </span>
                   </div>
@@ -83,10 +83,10 @@ export function WhySection({ variant = 'summary' }: WhySectionProps) {
 
                 {/* Title & Description */}
                 <div className="flex flex-col gap-2.5 text-left">
-                  <h3 className={`${isDetailed ? 'text-xl' : 'text-base sm:text-lg'} font-semibold tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors`}>
+                  <h3 className={`${isDetailed ? 'text-xl' : 'text-base sm:text-lg'} font-medium tracking-[-0.015em] text-foreground group-hover:text-primary dark:group-hover:text-blue-300 transition-colors`}>
                     {pillar.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-[1.62] font-normal">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-[1.62] font-light dark:font-normal">
                     {isDetailed ? pillar.completeDescription : pillar.summary}
                   </p>
                 </div>
@@ -94,10 +94,10 @@ export function WhySection({ variant = 'summary' }: WhySectionProps) {
                 {/* Detailed Mode: Tenets Checklist */}
                 {isDetailed && pillar.tenets && pillar.tenets.length > 0 && (
                   <div className="mt-6 pt-5 border-t border-border/40 dark:border-slate-800/80">
-                    <span className="text-[11px] font-mono uppercase font-bold text-slate-400 block mb-3">
+                    <span className="text-[11px] font-mono uppercase font-medium text-slate-400 block mb-3">
                       Architectural Tenets
                     </span>
-                    <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
+                    <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 font-light dark:font-normal">
                       {pillar.tenets.map((tenet, tIdx) => (
                         <li key={tIdx} className="flex items-start gap-2">
                           <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0 mt-0.5" />
@@ -110,13 +110,13 @@ export function WhySection({ variant = 'summary' }: WhySectionProps) {
               </div>
 
               {/* Bottom Metric or Enterprise Verified Standard */}
-              <div className="mt-6 pt-4 border-t border-border/30 dark:border-slate-800/50 flex items-center justify-between text-[11px] font-bold text-muted-foreground/80">
+              <div className="mt-6 pt-4 border-t border-border/30 dark:border-slate-800/50 flex items-center justify-between text-[11px] font-medium text-muted-foreground/80">
                 <div className="flex items-center gap-1.5 group-hover:text-primary dark:group-hover:text-blue-400 transition-colors">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary dark:bg-blue-400 opacity-60 group-hover:opacity-100 group-hover:animate-ping" />
                   <span>{isDetailed ? pillar.metrics.label : 'Enterprise Verified Standard'}</span>
                 </div>
                 {isDetailed && (
-                  <span className="font-mono text-foreground font-semibold text-xs">
+                  <span className="font-mono text-foreground font-medium text-xs">
                     {pillar.metrics.value}
                   </span>
                 )}
@@ -130,7 +130,7 @@ export function WhySection({ variant = 'summary' }: WhySectionProps) {
           <div className="mt-12 sm:mt-14 text-center">
             <Link
               href={ROUTES.PUBLIC.COMPANY_ANCHORS.WHY_US}
-              className="inline-flex items-center justify-center gap-2.5 w-full max-w-md sm:w-auto px-5 sm:px-8 py-3.5 rounded-xl bg-card/85 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-border/70 dark:border-slate-700 hover:border-primary/40 dark:hover:border-blue-400 text-foreground font-semibold text-xs sm:text-sm text-center leading-snug transition-all shadow-xs hover:shadow-md hover:scale-105 active:scale-95 group"
+              className="inline-flex items-center justify-center gap-2.5 w-full max-w-md sm:w-auto px-5 sm:px-8 py-3.5 rounded-xl bg-card/85 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-border/70 dark:border-slate-700 hover:border-primary/40 dark:hover:border-blue-400 text-foreground font-medium text-xs sm:text-sm text-center leading-snug transition-all shadow-xs hover:shadow-md hover:scale-105 active:scale-95 group"
             >
               <span>Why Astraiv: Explore Technical Tenets &amp; Philosophy</span>
               <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1 text-primary dark:text-blue-400" />

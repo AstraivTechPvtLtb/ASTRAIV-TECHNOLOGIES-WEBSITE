@@ -176,8 +176,8 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
             AI
           </div>
           <div className="flex flex-col leading-tight">
-            <span className="font-extrabold text-sm tracking-wider text-white">ASTRAIV TECHNOLOGIES</span>
-            <span className="text-[8px] font-mono tracking-widest text-teal-400 uppercase">CLIENT PORTAL</span>
+            <span className="font-medium text-sm tracking-wider text-white font-heading">ASTRAIV TECHNOLOGIES</span>
+            <span className="text-[8px] font-mono font-medium tracking-widest text-teal-400 uppercase">CLIENT PORTAL</span>
           </div>
         </div>
 
@@ -185,14 +185,14 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
         <div className="flex items-center gap-3 sm:gap-4">
           {/* Lead Number Pill */}
           <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-xs">
-            <span className="text-slate-400">Lead:</span>
-            <span className="font-mono font-bold text-teal-400">{leadNumber}</span>
+            <span className="text-slate-400 font-light">Lead:</span>
+            <span className="font-mono font-medium text-teal-400">{leadNumber}</span>
           </div>
 
           {/* Contact via Mail Button */}
           <a
             href={mailtoHref}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 text-xs font-bold transition-all shadow-md hover:shadow-teal-500/20 active:scale-95"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 text-xs font-medium transition-all shadow-md hover:shadow-teal-500/20 active:scale-95"
             title="Send an email to Astraiv engineering team"
           >
             <Mail className="h-3.5 w-3.5" />
@@ -201,10 +201,10 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
 
           {/* User & Logout */}
           <div className="flex items-center gap-2.5 pl-2 sm:pl-3 border-l border-slate-800">
-            <div className="h-7 w-7 rounded-full bg-teal-600/30 border border-teal-500/40 text-teal-300 flex items-center justify-center font-bold text-xs uppercase">
+            <div className="h-7 w-7 rounded-full bg-teal-600/30 border border-teal-500/40 text-teal-300 flex items-center justify-center font-medium font-mono text-xs uppercase">
               {user.name.substring(0, 2)}
             </div>
-            <span className="hidden md:inline text-xs font-semibold text-slate-300 truncate max-w-[120px]">
+            <span className="hidden md:inline text-xs font-medium text-slate-300 truncate max-w-[120px]">
               {user.name}
             </span>
             <button
@@ -222,31 +222,31 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
       {/* Main Content Viewport */}
       <main className="flex-1 py-8 px-4 sm:px-6 max-w-4xl mx-auto w-full space-y-6">
         {/* Title Bar */}
-        <div className="p-6 sm:p-8 rounded-2xl bg-slate-900 border border-slate-800/80 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="p-6 sm:p-8 rounded-2xl bg-slate-900/90 border border-slate-800/80 shadow-card flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 backdrop-blur-xl">
           <div>
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="text-xs font-mono font-bold text-teal-400 bg-teal-500/10 border border-teal-500/20 px-2.5 py-0.5 rounded-full">
+              <span className="text-xs font-mono font-medium text-teal-400 bg-teal-500/10 border border-teal-500/20 px-2.5 py-0.5 rounded-full">
                 {leadNumber}
               </span>
               <span className="text-xs text-slate-400">•</span>
-              <span className="text-xs font-semibold text-slate-300">{companyName}</span>
+              <span className="text-xs font-medium text-slate-300">{companyName}</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-heading">
+            <h1 className="text-2xl sm:text-3xl font-medium text-white tracking-tight font-heading">
               Track Project
             </h1>
-            <p className="text-xs sm:text-sm text-slate-400 mt-1">
+            <p className="text-xs sm:text-sm text-slate-400 mt-1 font-light leading-relaxed">
               Live progression of your project phases from design through maintenance.
             </p>
           </div>
 
           {/* Current Status Pill */}
-          <div className="px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center gap-3 shrink-0">
+          <div className="px-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center gap-3 shrink-0">
             <span className="h-2.5 w-2.5 rounded-full bg-teal-400 animate-pulse" />
             <div>
-              <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 leading-tight">
+              <span className="block text-[10px] font-mono font-medium uppercase tracking-wider text-slate-400 leading-tight">
                 Current Phase
               </span>
-              <span className="text-xs font-bold text-white font-mono">
+              <span className="text-xs font-medium text-white font-mono">
                 Testing (85%)
               </span>
             </div>
@@ -254,13 +254,13 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
         </div>
 
         {/* 5-Phase Project Timeline */}
-        <div className="p-6 sm:p-8 rounded-2xl bg-slate-900 border border-slate-800/80 shadow-xl space-y-8">
+        <div className="p-6 sm:p-8 rounded-2xl bg-slate-900/90 border border-slate-800/80 shadow-card space-y-8 backdrop-blur-xl">
           <div className="border-b border-slate-800/80 pb-4 flex items-center justify-between">
-            <h2 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+            <h2 className="text-lg font-medium text-white tracking-tight flex items-center gap-2 font-heading">
               <Layers className="h-4 w-4 text-teal-400" />
               <span>Project Lifecycle Milestones</span>
             </h2>
-            <span className="text-xs font-mono text-slate-400">
+            <span className="text-xs font-mono font-medium text-slate-400">
               5 Phases
             </span>
           </div>
@@ -281,10 +281,10 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
                 >
                   {/* Left Column: Date & Timestamp */}
                   <div className="text-left md:text-right flex flex-row md:flex-col justify-between md:justify-start items-baseline md:items-end gap-0.5 pt-1.5">
-                    <span className="text-xs sm:text-sm font-bold text-slate-200 font-mono">
+                    <span className="text-xs sm:text-sm font-medium text-slate-200 font-mono">
                       {phase.timeIST || phase.statusLabel}
                     </span>
-                    <span className="text-[11px] text-slate-400 font-medium">
+                    <span className="text-[11px] text-slate-400 font-light">
                       {phase.dateIST}
                     </span>
                   </div>
@@ -314,7 +314,7 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
                           <span className="h-2 w-2 rounded-full bg-teal-300" />
                         </div>
                       ) : (
-                        <div className="h-7 w-7 rounded-full bg-slate-900 border-2 border-slate-700 flex items-center justify-center text-slate-400 font-mono text-xs font-bold">
+                        <div className="h-7 w-7 rounded-full bg-slate-900 border-2 border-slate-700 flex items-center justify-center text-slate-400 font-mono text-xs font-medium">
                           {phase.stepNumber}
                         </div>
                       )}
@@ -336,27 +336,27 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
                     {/* Header */}
                     <div className="flex items-center justify-between gap-3 mb-1.5">
                       <div className="flex items-center gap-2.5">
-                        <span className="text-xs font-mono font-bold text-slate-400">
+                        <span className="text-xs font-mono font-medium text-slate-400">
                           0{phase.stepNumber}.
                         </span>
-                        <h3 className="text-base sm:text-lg font-black text-white tracking-tight">
+                        <h3 className="text-base sm:text-lg font-medium text-white tracking-tight font-heading">
                           {phase.name}
                         </h3>
                       </div>
 
                       <div className="flex items-center gap-2">
                         {isCompleted ? (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-teal-500/15 text-teal-400 border border-teal-500/30">
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-teal-500/15 text-teal-400 border border-teal-500/30">
                             <CheckCircle2 className="h-3 w-3" />
                             {phase.statusLabel}
                           </span>
                         ) : isInProgress ? (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-500/20 text-teal-300 border border-teal-400/40 animate-pulse">
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-blue-500/20 text-teal-300 border border-teal-400/40 animate-pulse">
                             <span className="h-1.5 w-1.5 rounded-full bg-teal-400 animate-ping" />
                             {phase.statusLabel}
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-400 border border-slate-700">
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-slate-800 text-slate-400 border border-slate-700">
                             <Clock className="h-3 w-3" />
                             {phase.statusLabel}
                           </span>
@@ -373,7 +373,7 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
                     </div>
 
                     {/* Summary */}
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                       {phase.summary}
                     </p>
 
@@ -381,8 +381,8 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
                     {isInProgress && phase.progressPercent && (
                       <div className="mt-3.5 space-y-1.5">
                         <div className="flex justify-between items-center text-xs">
-                          <span className="text-slate-400 font-medium">Phase Completion</span>
-                          <span className="font-mono text-teal-400 font-bold">{phase.progressPercent}%</span>
+                          <span className="text-slate-400 font-light">Phase Completion</span>
+                          <span className="font-mono text-teal-400 font-medium">{phase.progressPercent}%</span>
                         </div>
                         <div className="h-2 w-full rounded-full bg-slate-800 overflow-hidden">
                           <div
@@ -396,14 +396,14 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
                     {/* Expandable Deliverables Details */}
                     {isExpanded && (
                       <div className="mt-4 pt-3.5 border-t border-slate-800/80 space-y-2">
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
+                        <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-slate-400 block">
                           Phase Deliverables &amp; Checklist
                         </span>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
                           {phase.details.map((item, dIdx) => (
                             <div
                               key={dIdx}
-                              className="flex items-start gap-2 p-2 rounded-lg bg-slate-900/80 border border-slate-800/80 text-xs text-slate-300"
+                              className="flex items-start gap-2 p-2 rounded-lg bg-slate-900/80 border border-slate-800/80 text-xs text-slate-300 font-light"
                             >
                               <span className="h-1.5 w-1.5 rounded-full bg-teal-400 shrink-0 mt-1.5" />
                               <span className="leading-snug">{item}</span>
@@ -420,14 +420,14 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
         </div>
 
         {/* Contact via Mail Card */}
-        <div className="p-6 sm:p-7 rounded-2xl bg-linear-to-r from-slate-900 via-slate-900 to-teal-950/40 border border-slate-800/80 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="p-6 sm:p-7 rounded-2xl bg-linear-to-r from-slate-900 via-slate-900 to-teal-950/40 border border-slate-800/80 shadow-card flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 backdrop-blur-xl">
           <div className="space-y-1">
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
+            <h3 className="text-base font-medium text-white flex items-center gap-2 font-heading">
               <Mail className="h-4 w-4 text-teal-400" />
               <span>Contact Astraiv Engineering</span>
             </h3>
-            <p className="text-xs text-slate-400 leading-relaxed max-w-lg">
-              Have questions, feedback, or require scope changes for Lead <strong>{leadNumber}</strong>? Communicate directly with your dedicated architects via email.
+            <p className="text-xs text-slate-400 leading-relaxed max-w-lg font-light">
+              Have questions, feedback, or require scope changes for Lead <strong className="font-medium text-slate-300 font-mono">{leadNumber}</strong>? Communicate directly with your dedicated architects via email.
             </p>
           </div>
 
@@ -437,7 +437,7 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
               variant="outline"
               size="sm"
               onClick={handleCopyEmail}
-              className="h-9 px-3.5 border-slate-700 bg-slate-950/80 text-slate-300 hover:text-white text-xs rounded-xl"
+              className="h-9 px-3.5 border-slate-700 bg-slate-950/80 text-slate-300 hover:text-white text-xs rounded-xl font-mono font-medium"
             >
               {copiedEmail ? (
                 <>
@@ -454,7 +454,7 @@ export function AgileTrackerView({ user }: AgileTrackerViewProps) {
 
             <a
               href={mailtoHref}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 text-xs font-bold transition-all shadow-md hover:shadow-teal-500/20 active:scale-95"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 text-xs font-medium transition-all shadow-md hover:shadow-teal-500/20 active:scale-95"
             >
               <ExternalLink className="h-3.5 w-3.5" />
               <span>Send Mail</span>

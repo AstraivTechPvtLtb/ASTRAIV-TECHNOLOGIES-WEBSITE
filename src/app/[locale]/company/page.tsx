@@ -194,12 +194,12 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-175 h-75 bg-primary/10 rounded-full blur-[140px] pointer-events-none" />
 
           {/* Quick Jump Navigation Pill */}
-          <div className="flex flex-wrap items-center justify-center gap-2 max-w-5xl p-1.5 bg-card/80 dark:bg-slate-900/80 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-2xl shadow-xs mb-10">
+          <div className="flex flex-wrap items-center justify-center gap-2 max-w-5xl mb-10">
             {quickNav.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-accent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                className="px-3.5 py-1.5 rounded-xl text-xs font-mono font-medium filter-btn-gradient text-muted-foreground hover:text-foreground shadow-xs transition-all"
               >
                 {item.label}
               </a>
@@ -208,10 +208,10 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
 
           {/* Eyebrow & Hero Statement */}
           <div className="max-w-3xl mx-auto mb-14">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading mb-4 text-foreground">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight font-heading mb-4 text-foreground">
               {renderFormattedTitle(companyHeadline)}
             </h1>
-            <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-medium whitespace-pre-line">
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-light dark:font-normal whitespace-pre-line">
               {companyStory}
             </p>
           </div>
@@ -223,13 +223,13 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
             {pillars.map((pillar) => (
               <div
                 key={pillar.title}
-                className="p-7 bg-card/85 dark:bg-slate-900/85 backdrop-blur-xl border border-border/50 dark:border-slate-800/80 rounded-2xl shadow-xs hover:shadow-md hover:border-primary/30 dark:hover:border-accent/30 transition-all group"
+                className="p-7 bg-card/85 dark:bg-slate-900/85 backdrop-blur-xl border border-border/50 dark:border-slate-800/80 rounded-2xl shadow-card hover:shadow-card-hover hover:border-primary/30 dark:hover:border-accent/30 transition-all group"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100/90 dark:bg-slate-800/70 border border-border/40 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all mb-4">
                   {pillar.icon}
                 </div>
-                <h3 className="text-lg font-bold text-foreground mb-2">{pillar.title}</h3>
-                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-medium">
+                <h3 className="text-lg font-medium text-foreground mb-2">{pillar.title}</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-light dark:font-normal">
                   {pillar.description}
                 </p>
               </div>
@@ -243,13 +243,13 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
               className="p-5 rounded-2xl bg-card/60 dark:bg-slate-900/50 border border-border/60 hover:border-primary/50 transition-all flex items-center justify-between group"
             >
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-primary block mb-0.5">
+                <span className="text-[11px] font-medium uppercase tracking-wider text-primary block mb-0.5">
                   Canonical Services
                 </span>
-                <h4 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">
+                <h4 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
                   Explore All 8 Core Engineering Disciplines →
                 </h4>
-                <span className="text-xs text-muted-foreground">
+                <span className="text-xs text-muted-foreground font-light dark:font-normal">
                   AI Systems, Cloud Infrastructure, Custom Software, Web & Mobile
                 </span>
               </div>
@@ -261,13 +261,13 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
               className="p-5 rounded-2xl bg-card/60 dark:bg-slate-900/50 border border-border/60 hover:border-primary/50 transition-all flex items-center justify-between group"
             >
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-blue-500 block mb-0.5">
+                <span className="text-[11px] font-medium uppercase tracking-wider text-blue-500 block mb-0.5">
                   Technology Spectrum
                 </span>
-                <h4 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">
+                <h4 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
                   Inspect Our Architecture & Tech Radar →
                 </h4>
-                <span className="text-xs text-muted-foreground">
+                <span className="text-xs text-muted-foreground font-light dark:font-normal">
                   Next.js 16, TypeScript, Rust, Python, Postgres & AWS
                 </span>
               </div>
@@ -288,13 +288,13 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
                 className="p-5 rounded-2xl bg-card/60 dark:bg-slate-900/50 border border-border/60 hover:border-primary/50 transition-all flex items-center justify-between group"
               >
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-primary dark:text-cyan-400 block mb-0.5">
+                  <span className="text-[11px] font-medium uppercase tracking-wider text-primary dark:text-cyan-400 block mb-0.5">
                     Production Case Studies
                   </span>
-                  <h4 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">
+                  <h4 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
                     Explore Enterprise Deployments & Architecture →
                   </h4>
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-xs text-muted-foreground font-light dark:font-normal">
                     Inspect high-frequency ledgers, multi-tenant analytics, and IoT mesh systems
                   </span>
                 </div>
@@ -306,13 +306,13 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
                 className="p-5 rounded-2xl bg-card/60 dark:bg-slate-900/50 border border-border/60 hover:border-primary/50 transition-all flex items-center justify-between group"
               >
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-primary dark:text-cyan-400 block mb-0.5">
+                  <span className="text-[11px] font-medium uppercase tracking-wider text-primary dark:text-cyan-400 block mb-0.5">
                     Verified Endorsements
                   </span>
-                  <h4 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">
+                  <h4 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
                     Read All Client Reviews & Testimonials →
                   </h4>
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-xs text-muted-foreground font-light dark:font-normal">
                     Direct feedback from enterprise CTOs, VP of Engineering, and startup founders
                   </span>
                 </div>
@@ -331,10 +331,10 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
             <div className="p-8 sm:p-10 rounded-3xl bg-card/60 dark:bg-slate-900/40 border border-border/60 dark:border-slate-800/80">
               <div className="text-center max-w-3xl mx-auto mb-10">
 
-                <h3 className="text-xl sm:text-2xl font-bold tracking-tight font-heading">
+                <h3 className="text-xl sm:text-2xl font-medium tracking-tight font-heading">
                   Asynchronous Sprint Cadence &amp; Transparency
                 </h3>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1.5">
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1.5 font-light dark:font-normal">
                   How our distributed squad stays locked in alignment with your executive and engineering leaders.
                 </p>
               </div>
@@ -346,17 +346,17 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
                     className="p-5 bg-card/90 dark:bg-slate-900/80 border border-border/60 dark:border-slate-800/80 rounded-xl flex flex-col justify-between"
                   >
                     <div>
-                      <span className="text-xs font-mono font-bold text-primary block mb-2">
+                      <span className="text-xs font-mono font-medium text-primary block mb-2">
                         Phase {phase.step}
                       </span>
-                      <h4 className="text-sm font-bold text-foreground mb-1">
+                      <h4 className="text-sm font-medium text-foreground mb-1">
                         {phase.title}
                       </h4>
-                      <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+                      <p className="text-xs text-muted-foreground leading-relaxed mb-4 font-light dark:font-normal">
                         {phase.summary}
                       </p>
                     </div>
-                    <div className="pt-3 border-t border-border/40 text-[11px] font-semibold text-primary/90 flex items-center gap-1.5">
+                    <div className="pt-3 border-t border-border/40 text-[11px] font-medium text-primary/90 flex items-center gap-1.5">
                       <CheckCircle2 className="h-3.5 w-3.5 text-primary dark:text-cyan-400 shrink-0" />
                       <span>{phase.deliverable}</span>
                     </div>
@@ -375,10 +375,10 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
           <div className="max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-16">
 
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading mb-4">
-                <span className="heading-gradient">Rewards, Certifications & Accolades</span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight font-heading mb-4">
+                <span className="heading-gradient font-medium">Rewards, Certifications & Accolades</span>
               </h2>
-              <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-medium">
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-light dark:font-normal">
                 Our commitment to architectural precision, enterprise data protection, and continuous velocity is validated by rigorous global compliance benchmarks.
               </p>
             </div>
@@ -387,28 +387,28 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
               {accolades.map((acc) => (
                 <div
                   key={acc.title}
-                  className="p-7 bg-card/90 dark:bg-slate-900/80 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-2xl shadow-xs hover:shadow-md hover:border-primary/40 dark:hover:border-accent/40 transition-all flex flex-col justify-between group text-left"
+                  className="p-7 bg-card/90 dark:bg-slate-900/80 backdrop-blur-xl border border-border/60 dark:border-slate-800/80 rounded-2xl shadow-card hover:shadow-card-hover hover:border-primary/40 dark:hover:border-accent/40 transition-all flex flex-col justify-between group text-left"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-[10.5px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-primary/10 dark:bg-accent/10 text-primary dark:text-accent border border-primary/20 dark:border-accent/20">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium uppercase tracking-wider skill-badge-gradient text-foreground shadow-xs">
                         {acc.badge}
                       </span>
                       <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 group-hover:scale-110 transition-transform">
                         {acc.icon}
                       </div>
                     </div>
-                    <h3 className="text-lg font-bold text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors mb-2 leading-snug">
+                    <h3 className="text-lg font-medium text-foreground group-hover:text-primary dark:group-hover:text-accent transition-colors mb-2 leading-snug">
                       {acc.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-medium">
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-light dark:font-normal">
                       {acc.description}
                     </p>
                   </div>
 
-                  <div className="pt-4 mt-6 border-t border-border/40 dark:border-slate-800/80 flex items-center justify-between text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  <div className="pt-4 mt-6 border-t border-border/40 dark:border-slate-800/80 flex items-center justify-between text-xs font-medium text-slate-500 dark:text-slate-400">
                     <span>Verified Audit Status</span>
-                    <span className="text-primary dark:text-cyan-400 font-bold flex items-center gap-1">
+                    <span className="text-primary dark:text-cyan-400 font-medium flex items-center gap-1">
                       <CheckCircle2 className="h-3.5 w-3.5" /> Compliant
                     </span>
                   </div>
@@ -420,7 +420,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
             <div className="mt-12 text-center">
               <Link
                 href={ROUTES.PUBLIC.REWARDS_ACCOLADES}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20 text-xs sm:text-sm font-bold transition-all group cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20 text-xs sm:text-sm font-medium transition-all group cursor-pointer"
               >
                 <span>Explore Full Accolades, Certifications & Governance Directory</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -440,101 +440,101 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
           <div className="max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-16">
 
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading mb-4">
-                <span className="heading-gradient">Flexible Engagement Models</span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight font-heading mb-4">
+                <span className="heading-gradient font-medium">Flexible Engagement Models</span>
               </h2>
-              <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-medium">
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-light dark:font-normal">
                 Enterprise software engineering and AI implementations depend heavily on architectural scope, legacy constraints, and velocity goals. We provide deterministic engagement structures built for capital efficiency and contractual transparency.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto text-left">
-              <div className="p-8 rounded-2xl bg-card/90 dark:bg-slate-900/80 border border-border/70 dark:border-slate-800/80 shadow-xs flex flex-col justify-between hover:border-primary/40 transition-colors">
+              <div className="p-8 rounded-2xl bg-card/90 dark:bg-slate-900/80 border border-border/70 dark:border-slate-800/80 shadow-card hover:shadow-card-hover flex flex-col justify-between hover:border-primary/40 transition-colors">
                 <div>
                   <div className="p-3 rounded-xl bg-primary/10 text-primary w-fit mb-5">
                     <Clock className="h-6 w-6" />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">Milestone-Based</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-medium mb-6">
+                  <h3 className="text-xl font-medium text-foreground mb-2">Milestone-Based</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-light dark:font-normal mb-6">
                     Fixed-scope execution with crystal-clear deliverables, contractual acceptance criteria, and guaranteed budgets. Ideal for MVPs, scoping sprints, and system modernizations.
                   </p>
-                  <ul className="space-y-2.5 text-xs text-muted-foreground mb-8">
-                    <li className="flex items-center gap-2 font-medium">
+                  <ul className="space-y-2.5 text-xs text-muted-foreground mb-8 font-light dark:font-normal">
+                    <li className="flex items-center gap-2 font-normal">
                       <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       Guaranteed scope & deadline
                     </li>
-                    <li className="flex items-center gap-2 font-medium">
+                    <li className="flex items-center gap-2 font-normal">
                       <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       Milestone acceptance gates
                     </li>
-                    <li className="flex items-center gap-2 font-medium">
+                    <li className="flex items-center gap-2 font-normal">
                       <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       30-day defect warranty
                     </li>
                   </ul>
                 </div>
-                <div className="pt-4 border-t border-border/40 text-xs font-semibold text-primary">
+                <div className="pt-4 border-t border-border/40 text-xs font-medium text-primary">
                   Structured Milestones
                 </div>
               </div>
 
-              <div className="p-8 rounded-2xl bg-card/90 dark:bg-slate-900/80 border-2 border-primary/50 dark:border-blue-500/50 shadow-md flex flex-col justify-between relative">
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-primary text-white shadow-xs">
+              <div className="p-8 rounded-2xl bg-card/90 dark:bg-slate-900/80 border-2 border-primary/50 dark:border-blue-500/50 shadow-card hover:shadow-card-hover flex flex-col justify-between relative">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-[10px] font-mono font-medium uppercase tracking-wider bg-primary text-white shadow-xs">
                   Most Popular
                 </span>
                 <div>
                   <div className="p-3 rounded-xl bg-blue-500/10 text-blue-500 w-fit mb-5">
                     <Zap className="h-6 w-6" />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">Agile Sprint Retainer</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-medium mb-6">
+                  <h3 className="text-xl font-medium text-foreground mb-2">Agile Sprint Retainer</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-light dark:font-normal mb-6">
                     Bi-weekly sprint allocations offering agile flexibility for rapid iteration, continuous deployment, and evolving feature backlogs.
                   </p>
-                  <ul className="space-y-2.5 text-xs text-muted-foreground mb-8">
-                    <li className="flex items-center gap-2 font-medium">
+                  <ul className="space-y-2.5 text-xs text-muted-foreground mb-8 font-light dark:font-normal">
+                    <li className="flex items-center gap-2 font-normal">
                       <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       Two-week sprint cadences
                     </li>
-                    <li className="flex items-center gap-2 font-medium">
+                    <li className="flex items-center gap-2 font-normal">
                       <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       Dynamic backlog reprioritization
                     </li>
-                    <li className="flex items-center gap-2 font-medium">
+                    <li className="flex items-center gap-2 font-normal">
                       <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       Direct Slack/Teams integration
                     </li>
                   </ul>
                 </div>
-                <div className="pt-4 border-t border-border/40 text-xs font-semibold text-primary">
+                <div className="pt-4 border-t border-border/40 text-xs font-medium text-primary">
                   Bi-Weekly Sprints
                 </div>
               </div>
 
-              <div className="p-8 rounded-2xl bg-card/90 dark:bg-slate-900/80 border border-border/70 dark:border-slate-800/80 shadow-xs flex flex-col justify-between hover:border-primary/40 transition-colors">
+              <div className="p-8 rounded-2xl bg-card/90 dark:bg-slate-900/80 border border-border/70 dark:border-slate-800/80 shadow-card hover:shadow-card-hover flex flex-col justify-between hover:border-primary/40 transition-colors">
                 <div>
                   <div className="p-3 rounded-xl bg-primary/10 text-primary w-fit mb-5">
                     <Users className="h-6 w-6" />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">Dedicated Squad</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-medium mb-6">
+                  <h3 className="text-xl font-medium text-foreground mb-2">Dedicated Squad</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-light dark:font-normal mb-6">
                     A dedicated, self-contained engineering pod (Architect, Senior Full-Stack Developers, QA) embedded seamlessly within your product organization.
                   </p>
-                  <ul className="space-y-2.5 text-xs text-muted-foreground mb-8">
-                    <li className="flex items-center gap-2 font-medium">
+                  <ul className="space-y-2.5 text-xs text-muted-foreground mb-8 font-light dark:font-normal">
+                    <li className="flex items-center gap-2 font-normal">
                       <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       Dedicated senior engineering pod
                     </li>
-                    <li className="flex items-center gap-2 font-medium">
+                    <li className="flex items-center gap-2 font-normal">
                       <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       Enterprise SLA & SOC-2 compliance
                     </li>
-                    <li className="flex items-center gap-2 font-medium">
+                    <li className="flex items-center gap-2 font-normal">
                       <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                       Full IP & architectural ownership
                     </li>
                   </ul>
                 </div>
-                <div className="pt-4 border-t border-border/40 text-xs font-semibold text-primary">
+                <div className="pt-4 border-t border-border/40 text-xs font-medium text-primary">
                   Enterprise Scale
                 </div>
               </div>
@@ -544,7 +544,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
             <div className="mt-12 text-center">
               <Link
                 href={ROUTES.PUBLIC.PRICING}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20 text-xs sm:text-sm font-bold transition-all group"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20 text-xs sm:text-sm font-medium transition-all group"
               >
                 <span>View Complete Pricing Plans & Interactive Currency Calculator</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -559,31 +559,30 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
           className="py-20 md:py-28 px-6 bg-background border-t border-border/30 dark:border-slate-800/60 relative scroll-mt-24"
         >
           <div className="max-w-6xl mx-auto text-left">
-            <div className="p-8 sm:p-14 rounded-3xl bg-linear-to-br from-card via-card/90 to-primary/10 border border-border/80 dark:border-slate-800 shadow-md flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+            <div className="p-8 sm:p-14 rounded-3xl bg-linear-to-br from-card via-card/90 to-primary/10 border border-border/80 dark:border-slate-800 shadow-card hover:shadow-card-hover flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
               <div className="max-w-2xl space-y-4">
 
-
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground font-heading">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tight text-foreground font-heading">
                   Work With Senior Architects, <br />
-                  <span className="heading-gradient">
+                  <span className="heading-gradient font-medium">
                     Not Bureaucrats.
                   </span>
                 </h2>
 
-                <p className="text-xs sm:text-sm md:text-base text-muted-foreground leading-relaxed">
+                <p className="text-xs sm:text-sm md:text-base text-muted-foreground leading-relaxed font-light dark:font-normal">
                   We are a 100% remote-first engineering collective. No micromanagement, no useless status meetings. We value written RFCs, clean code, and deep uninterrupted focus time.
                 </p>
 
                 <div className="flex flex-wrap gap-4 pt-2">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
+                  <div className="flex items-center gap-2 text-xs font-medium text-foreground">
                     <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                     <span>100% Remote Global Autonomy</span>
                   </div>
-                  <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
+                  <div className="flex items-center gap-2 text-xs font-medium text-foreground">
                     <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                     <span>Async Deep Work Culture</span>
                   </div>
-                  <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
+                  <div className="flex items-center gap-2 text-xs font-medium text-foreground">
                     <CheckCircle2 className="h-4 w-4 text-primary dark:text-cyan-400 shrink-0" />
                     <span>Top-Tier Global Pay & Equity</span>
                   </div>
@@ -592,16 +591,15 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
 
               <div className="flex flex-col items-start lg:items-end gap-3 shrink-0">
 
-
                 <Link
                   href={ROUTES.PUBLIC.CAREERS}
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-xs sm:text-sm font-bold transition-all shadow-md shadow-primary/20 group cursor-pointer whitespace-nowrap"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-xs sm:text-sm font-medium transition-all shadow-md shadow-primary/20 group cursor-pointer whitespace-nowrap"
                 >
                   <span>Explore Open Positions & Apply</span>
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
 
-                <span className="text-[11px] text-muted-foreground">
+                <span className="text-[11px] text-muted-foreground font-light">
                   Reviewed by engineering founders within 48h
                 </span>
               </div>

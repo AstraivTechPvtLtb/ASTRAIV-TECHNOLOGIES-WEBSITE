@@ -106,20 +106,20 @@ export default async function FaqPage({ params }: FaqPageProps) {
               <Link
                 key={idx}
                 href={cat.href}
-                className="group p-5 rounded-2xl bg-card/80 dark:bg-slate-900/70 border border-border/70 dark:border-slate-800/80 hover:border-primary/50 transition-all shadow-xs flex flex-col justify-between"
+                className="group p-5 rounded-2xl bg-card/85 dark:bg-slate-900/80 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 hover:border-primary/50 transition-all shadow-card hover:shadow-card-hover flex flex-col justify-between"
               >
                 <div>
                   <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 w-fit mb-3 border border-border/40">
                     {cat.icon}
                   </div>
-                  <h3 className="font-bold text-foreground group-hover:text-primary transition-colors text-sm mb-1">
+                  <h3 className="font-medium text-foreground group-hover:text-primary transition-colors text-sm mb-1 tracking-tight">
                     {cat.title}
                   </h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
+                  <p className="text-xs text-muted-foreground leading-relaxed font-light dark:font-normal">
                     {cat.desc}
                   </p>
                 </div>
-                <div className="mt-4 pt-2 flex items-center text-xs font-bold text-primary group-hover:translate-x-1 transition-transform">
+                <div className="mt-4 pt-2 flex items-center text-xs font-medium text-primary group-hover:translate-x-1 transition-transform">
                   <span>Explore</span>
                   <ArrowRight className="h-3.5 w-3.5 ml-1" />
                 </div>
@@ -131,26 +131,26 @@ export default async function FaqPage({ params }: FaqPageProps) {
           <FaqSection asH1={true} showCategoryFilter={true} items={publishedFaqs as unknown as import('@/lib/faq-data').FaqItem[]} />
 
           {/* Dedicated Still Have Questions CTA */}
-          <div className="mt-12 p-8 rounded-3xl bg-linear-to-br from-primary/10 via-card to-card border border-primary/20 text-center flex flex-col items-center justify-center relative overflow-hidden shadow-sm">
+          <div className="mt-12 p-8 rounded-3xl bg-linear-to-br from-primary/10 via-card to-card border border-primary/20 text-center flex flex-col items-center justify-center relative overflow-hidden shadow-card">
             <div className="p-3.5 rounded-2xl bg-primary/20 text-primary border border-primary/30 mb-4">
               <MessageSquare className="h-6 w-6" />
             </div>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-foreground tracking-tight font-heading mb-2">
+            <h2 className="text-xl sm:text-2xl font-medium text-foreground tracking-tight mb-2">
               Have a Specific Technical Question?
             </h2>
-            <p className="text-xs sm:text-sm text-muted-foreground max-w-xl mx-auto mb-6 leading-relaxed">
+            <p className="text-xs sm:text-sm text-muted-foreground max-w-xl mx-auto mb-6 leading-relaxed font-light dark:font-normal">
               Our principal software architects are available to review your system requirements, explain our migration playbooks, or draft an initial architectural proposal.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-3">
               <Link
                 href={ROUTES.PUBLIC.CONTACT}
-                className="px-6 py-2.5 rounded-xl text-xs font-bold bg-primary text-white hover:bg-primary/90 transition-colors shadow-xs"
+                className="px-6 py-2.5 rounded-xl text-xs font-medium bg-primary text-white hover:bg-primary/90 transition-colors shadow-xs"
               >
                 Talk to an Expert
               </Link>
               <Link
                 href={ROUTES.PUBLIC.CASE_STUDIES}
-                className="px-6 py-2.5 rounded-xl text-xs font-bold bg-card border border-border hover:bg-accent/10 transition-colors text-foreground"
+                className="px-6 py-2.5 rounded-xl text-xs font-medium bg-card border border-border hover:bg-accent/10 transition-colors text-foreground"
               >
                 View Case Studies
               </Link>

@@ -252,10 +252,10 @@ export function SolutionsView() {
       {/* 1. PAGE HEADER */}
       <section className="pt-28 pb-6 md:pt-36 md:pb-8 px-6 max-w-7xl mx-auto w-full">
         <div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground font-heading tracking-tight leading-[1.12]">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium text-foreground tracking-tight leading-[1.12]">
             Enterprise <span className="heading-gradient">Solutions</span>
           </h1>
-          <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] mt-2 max-w-3xl">
+          <p className="text-sm sm:text-base text-muted-foreground font-light dark:font-normal leading-relaxed mt-2 max-w-3xl">
             Purpose-built technical architectures solving high-stakes enterprise bottlenecks.
           </p>
         </div>
@@ -263,18 +263,17 @@ export function SolutionsView() {
 
       {/* 2. FEATURED SHOWCASE BANNER ("Engineered for Impact.") */}
       <section className="px-6 mb-8 max-w-7xl mx-auto w-full">
-        <div className="relative overflow-hidden rounded-3xl border border-primary/25 dark:border-blue-600/30 bg-linear-to-br from-blue-50/70 via-indigo-50/40 to-blue-50/50 dark:from-slate-900/95 dark:via-slate-900/90 dark:to-blue-950/40 p-8 sm:p-12 shadow-md">
+        <div className="relative overflow-hidden rounded-3xl border border-slate-200/80 dark:border-white/10 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl p-8 sm:p-12 shadow-card">
           {/* Subtle decoration lines */}
           <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-primary/10 dark:bg-blue-600/10 blur-3xl pointer-events-none" />
           <div className="absolute -left-16 -bottom-16 h-64 w-64 rounded-full bg-secondary/10 dark:bg-blue-600/10 blur-3xl pointer-events-none" />
 
           <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             <div className="flex flex-col gap-3 max-w-2xl text-left">
-
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground font-heading tracking-tight leading-[1.15]">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-foreground tracking-tight leading-[1.15]">
                 Engineered for <span className="heading-gradient">Impact.</span>
               </h2>
-              <p className="text-sm sm:text-base text-muted-foreground leading-[1.62] font-normal">
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-light dark:font-normal">
                 Purpose-built technical architectures solving high-stakes enterprise bottlenecks.
                 From mission-critical data pipelines to cognitive autonomous agents, every system is designed
                 with architectural rigor, zero vendor lock-in, and measurable business ROI.
@@ -284,7 +283,7 @@ export function SolutionsView() {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full lg:w-auto">
               <Link
                 href="/contact"
-                className="px-6 py-3.5 rounded-xl font-semibold text-xs sm:text-sm text-white bg-primary hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 transition-all flex items-center justify-center gap-2 shadow-sm shadow-primary/20 tracking-normal"
+                className="px-6 py-3.5 rounded-xl font-medium text-xs sm:text-sm text-white bg-primary hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 transition-all flex items-center justify-center gap-2 shadow-card tracking-normal"
               >
                 <span>Talk to an Expert</span>
                 <ArrowRight className="h-4 w-4" />
@@ -292,7 +291,7 @@ export function SolutionsView() {
               <a
                 href="#all-solutions"
                 onClick={() => setSelectedCategory('all')}
-                className="px-6 py-3.5 rounded-xl font-semibold text-xs sm:text-sm text-slate-700 dark:text-slate-200 bg-white/90 dark:bg-slate-800/90 hover:bg-white dark:hover:bg-slate-800 border border-border/80 dark:border-slate-700/80 transition-all flex items-center justify-center gap-2 shadow-xs cursor-pointer tracking-normal"
+                className="px-6 py-3.5 rounded-xl font-medium text-xs sm:text-sm text-foreground bg-card hover:bg-muted border border-slate-200/80 dark:border-white/10 transition-all flex items-center justify-center gap-2 shadow-card cursor-pointer tracking-normal"
               >
                 <span>Browse All Categories</span>
                 <ChevronRight className="h-4 w-4" />
@@ -308,7 +307,7 @@ export function SolutionsView() {
           <div
             role="tablist"
             aria-label="Enterprise Solutions Categories"
-            className="inline-flex items-center flex-nowrap gap-2 p-1.5 bg-card/90 dark:bg-slate-900/90 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs whitespace-nowrap"
+            className="inline-flex items-center flex-nowrap gap-2 whitespace-nowrap"
           >
             {CATEGORIES.map((cat) => {
               const active = selectedCategory === cat.id;
@@ -320,10 +319,10 @@ export function SolutionsView() {
                   aria-selected={active}
                   onClick={() => setSelectedCategory(cat.id)}
                   className={cn(
-                    'px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer select-none whitespace-nowrap shrink-0 flex items-center gap-2',
+                    'px-4 sm:px-5 py-2.5 rounded-xl text-xs font-mono font-medium transition-all duration-200 cursor-pointer select-none whitespace-nowrap shrink-0 flex items-center gap-2',
                     active
-                      ? 'bg-primary text-white shadow-xs dark:bg-blue-600 dark:text-white font-semibold'
-                      : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
+                      ? 'filter-btn-active font-medium scale-[1.02]'
+                      : 'filter-btn-gradient text-muted-foreground hover:text-foreground shadow-xs'
                   )}
                 >
                   {cat.label}
@@ -342,15 +341,15 @@ export function SolutionsView() {
             <div className="flex flex-col gap-8">
               <div id="intelligent-systems" className="flex flex-col gap-3 scroll-mt-28">
                 <div className="flex items-center gap-3">
-                  <span className="h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
-                  <span className="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium skill-badge-gradient text-foreground shadow-xs uppercase tracking-wider">
+                    <span className="h-1.5 w-1.5 rounded-full bg-blue-600 animate-pulse" />
                     CATEGORY 01
                   </span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white font-heading tracking-tight leading-[1.15]">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-foreground tracking-tight leading-[1.15]">
                   Intelligent Systems
                 </h2>
-                <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] max-w-3xl">
+                <p className="text-sm sm:text-base text-muted-foreground font-light dark:font-normal leading-relaxed max-w-3xl">
                   Deploy cognitive intelligence into your existing infrastructure. Autonomous agents, enterprise knowledge lakes, and predictive data systems.
                 </p>
               </div>
@@ -373,19 +372,19 @@ export function SolutionsView() {
                 id="digital-products"
                 className={cn(
                   'flex flex-col gap-3 scroll-mt-28',
-                  selectedCategory === 'all' && 'pt-10 border-t border-border/60 dark:border-slate-800/80'
+                  selectedCategory === 'all' && 'pt-10 border-t border-slate-200/80 dark:border-white/10'
                 )}
               >
                 <div className="flex items-center gap-3">
-                  <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-                  <span className="text-xs font-semibold uppercase tracking-wider text-primary dark:text-blue-400">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium skill-badge-gradient text-foreground shadow-xs uppercase tracking-wider">
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
                     CATEGORY 02
                   </span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white font-heading tracking-tight leading-[1.15]">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-foreground tracking-tight leading-[1.15]">
                   Digital Products
                 </h2>
-                <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] max-w-3xl">
+                <p className="text-sm sm:text-base text-muted-foreground font-light dark:font-normal leading-relaxed max-w-3xl">
                   High-throughput recurring revenue platforms, mission-critical command centers, and automated workflow pipelines.
                 </p>
               </div>
@@ -407,19 +406,19 @@ export function SolutionsView() {
                 id="engineering-transformation"
                 className={cn(
                   'flex flex-col gap-3 scroll-mt-28',
-                  selectedCategory === 'all' && 'pt-10 border-t border-border/60 dark:border-slate-800/80'
+                  selectedCategory === 'all' && 'pt-10 border-t border-slate-200/80 dark:border-white/10'
                 )}
               >
                 <div className="flex items-center gap-3">
-                  <span className="h-2 w-2 rounded-full bg-cyan-500 animate-pulse" />
-                  <span className="text-xs font-semibold uppercase tracking-wider text-blue-700 dark:text-cyan-400">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium skill-badge-gradient text-foreground shadow-xs uppercase tracking-wider">
+                    <span className="h-1.5 w-1.5 rounded-full bg-cyan-500 animate-pulse" />
                     CATEGORY 03
                   </span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white font-heading tracking-tight leading-[1.15]">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-foreground tracking-tight leading-[1.15]">
                   Engineering Transformation
                 </h2>
-                <p className="text-sm sm:text-base text-muted-foreground font-normal leading-[1.62] max-w-3xl">
+                <p className="text-sm sm:text-base text-muted-foreground font-light dark:font-normal leading-relaxed max-w-3xl">
                   Zero-downtime refactoring and high-performance system integrations bridging legacy silos to modern cloud primitives.
                 </p>
               </div>
@@ -437,14 +436,13 @@ export function SolutionsView() {
       </section>
 
       {/* 4. ARCHITECTURAL RIGOR / HOW WE DELIVER SOLUTIONS */}
-      <section className="py-20 md:py-28 px-6 bg-slate-100/60 dark:bg-slate-900/50 border-y border-border/60 dark:border-slate-800/80">
+      <section className="py-20 md:py-28 px-6 bg-slate-50/50 dark:bg-slate-900/50 border-y border-slate-200/80 dark:border-white/10">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col gap-3 text-center max-w-3xl mx-auto mb-16">
-
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.12] text-foreground font-heading">
+            <h2 className="text-3xl md:text-5xl font-medium tracking-tight leading-[1.12] text-foreground">
               How Astraiv Delivers <span className="heading-gradient">High-Stakes Solutions</span>
             </h2>
-            <p className="text-base text-muted-foreground leading-[1.62] font-normal">
+            <p className="text-base text-muted-foreground leading-relaxed font-light dark:font-normal">
               Every system follows our battle-tested engineering blueprint designed to mitigate risk, guarantee high velocity, and maintain flawless stability.
             </p>
           </div>
@@ -478,18 +476,18 @@ export function SolutionsView() {
             ].map((phase) => (
               <div
                 key={phase.step}
-                className="p-7 bg-card dark:bg-slate-900/90 border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs hover:shadow-md transition-all flex flex-col gap-4 text-left group"
+                className="p-7 bg-card/90 dark:bg-slate-900/85 border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col gap-4 text-left group"
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-border/50 group-hover:bg-primary group-hover:text-white transition-colors">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-200/80 dark:border-white/10 group-hover:bg-primary group-hover:text-white transition-colors">
                     {phase.icon}
                   </div>
-                  <span className="text-2xl font-semibold font-heading text-slate-300 dark:text-slate-700">
+                  <span className="text-2xl font-medium font-mono text-muted-foreground/60 dark:text-slate-600">
                     {phase.step}
                   </span>
                 </div>
-                <h3 className="text-lg font-semibold tracking-[-0.015em] text-slate-900 dark:text-white">{phase.title}</h3>
-                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-normal">
+                <h3 className="text-lg font-medium tracking-tight text-foreground">{phase.title}</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-light dark:font-normal">
                   {phase.desc}
                 </p>
               </div>
@@ -500,32 +498,31 @@ export function SolutionsView() {
 
       {/* 5. ENTERPRISE CONSULTATION CTA */}
       <section className="py-20 md:py-28 px-6 max-w-5xl mx-auto w-full text-center">
-        <div className="relative overflow-hidden rounded-3xl border border-primary/20 dark:border-slate-700/80 bg-linear-to-b from-card via-card to-primary/5 dark:from-slate-900 dark:via-slate-900 dark:to-blue-950/30 p-10 sm:p-16 shadow-lg">
+        <div className="relative overflow-hidden rounded-3xl border border-slate-200/80 dark:border-white/10 bg-card/90 dark:bg-slate-900/85 p-10 sm:p-16 shadow-card">
           <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
-
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-heading text-slate-900 dark:text-white tracking-tight leading-[1.12]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-foreground tracking-tight leading-[1.12]">
               Let&apos;s Solve Your Enterprise Bottlenecks
             </h2>
-            <p className="text-sm sm:text-base text-muted-foreground leading-[1.62] font-normal">
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-light dark:font-normal">
               Schedule an in-depth technical scoping session with our principal engineers. We will analyze your system requirements and deliver a customized architectural roadmap.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-3.5 pt-2 w-full sm:w-auto">
               <Link
                 href={ROUTES.PUBLIC.START_PROJECT ? `${ROUTES.PUBLIC.START_PROJECT}?source_page=${encodeURIComponent('/solutions')}` : `/start-project?source_page=${encodeURIComponent('/solutions')}`}
-                className="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-sm text-white bg-primary hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 shadow-md shadow-primary/25 transition-all flex items-center justify-center gap-2 active:scale-95 tracking-normal"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl font-medium text-sm text-white bg-primary hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 shadow-card transition-all flex items-center justify-center gap-2 active:scale-95 tracking-normal"
               >
                 <span>Start a Project</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 href="/contact#schedule"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm text-slate-700 dark:text-slate-200 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl font-medium text-sm text-foreground bg-card hover:bg-muted border border-slate-200/80 dark:border-white/10 shadow-card transition-all flex items-center justify-center gap-2"
               >
                 <span>Talk to an Expert</span>
               </Link>
               <Link
                 href={ROUTES.PUBLIC.CASE_STUDIES}
-                className="w-full sm:w-auto px-6 py-4 rounded-xl font-bold text-sm text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400 transition-colors flex items-center justify-center gap-1.5"
+                className="w-full sm:w-auto px-6 py-4 rounded-xl font-medium text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center justify-center gap-1.5"
               >
                 <span>View Case Studies &rarr;</span>
               </Link>
@@ -541,7 +538,7 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
   return (
     <div
       id={solution.id}
-      className="group scroll-mt-32 p-7 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-border/70 dark:border-slate-800/80 rounded-2xl shadow-xs hover:shadow-xl hover:border-primary/40 dark:hover:border-accent/40 transition-all duration-300 flex flex-col justify-between text-left relative overflow-hidden h-full min-h-206.25"
+      className="group scroll-mt-32 p-7 sm:p-8 bg-card/90 dark:bg-slate-900/85 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between text-left relative overflow-hidden h-full min-h-206.25"
     >
       {/* Secondary alias anchor points for legacy routes and navigation links */}
       {solution.id === 'ai-business-automation' && (
@@ -575,52 +572,52 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
         <div className="flex items-center justify-between mb-5">
           <div
             className={cn(
-              'flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br border shrink-0 group-hover:scale-105 transition-transform duration-300',
+              'flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br border border-slate-200/80 dark:border-white/10 shrink-0 group-hover:scale-105 transition-transform duration-300',
               solution.iconBg
             )}
           >
             {solution.icon}
           </div>
 
-          <span className="text-[10.5px] uppercase font-semibold tracking-wider text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800/80 px-2.5 py-1 rounded-md border border-border/50 dark:border-slate-800">
+          <span className="text-[11px] uppercase font-mono font-medium tracking-wider skill-badge-gradient text-foreground px-2.5 py-1 rounded-full shadow-xs">
             {solution.categoryLabel}
           </span>
         </div>
 
         {/* Title */}
-        <h3 className="text-xl sm:text-2xl font-semibold text-slate-900 dark:text-white font-heading tracking-[-0.015em] mb-2 group-hover:text-primary dark:group-hover:text-accent transition-colors min-h-15 flex items-center">
+        <h3 className="text-xl sm:text-2xl font-medium text-foreground tracking-tight mb-2 group-hover:text-primary transition-colors min-h-15 flex items-center">
           <Link href={`/solutions/${solution.id}`}>
             {solution.title}
           </Link>
         </h3>
 
-        {/* Tagline (original dropdown copy) */}
-        <p className="text-xs sm:text-sm font-medium text-primary dark:text-blue-400 mb-3 min-h-10.5 flex items-center">
+        {/* Tagline */}
+        <p className="text-xs sm:text-sm font-normal text-primary dark:text-blue-400 mb-3 min-h-10.5 flex items-center">
           {solution.tagline}
         </p>
 
         {/* Detailed Description */}
-        <p className="text-xs sm:text-sm text-muted-foreground leading-[1.62] mb-6 font-normal min-h-21">
+        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6 font-light dark:font-normal min-h-21">
           {solution.description}
         </p>
 
         {/* Metric Highlight Box */}
-        <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-border/60 dark:border-slate-800/80 mb-6 flex items-center gap-3.5 min-h-17.5">
-          <span className="text-xl sm:text-2xl font-semibold font-heading tracking-[-0.02em] text-slate-900 dark:text-white shrink-0">
+        <div className="p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-950/70 border border-slate-200/80 dark:border-white/10 mb-6 flex items-center gap-3.5 min-h-17.5 shadow-xs">
+          <span className="text-xl sm:text-2xl font-mono font-medium tracking-tight text-foreground shrink-0">
             {solution.metric.value}
           </span>
-          <span className="text-[11.5px] sm:text-xs text-slate-600 dark:text-slate-400 font-medium leading-tight">
+          <span className="text-[11.5px] sm:text-xs text-muted-foreground font-light dark:font-normal leading-tight">
             {solution.metric.label}
           </span>
         </div>
 
         {/* Core Capabilities */}
         <div className="flex flex-col gap-2.5 mb-6 flex-1 justify-start">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+          <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-muted-foreground">
             Core Architecture
           </span>
           {solution.features.map((feat, i) => (
-            <div key={i} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300 font-normal">
+            <div key={i} className="flex items-start gap-2.5 text-xs text-foreground/90 dark:text-slate-300 font-light dark:font-normal">
               <CheckCircle2 className="h-3.5 w-3.5 text-primary dark:text-cyan-400 shrink-0 mt-0.5" />
               <span className="leading-snug">{feat}</span>
             </div>
@@ -630,12 +627,12 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
 
       <div className="mt-auto">
         {/* Technologies Stack Tags */}
-        <div className="pt-4 border-t border-border/50 dark:border-slate-800/80 mb-5 min-h-16 flex items-center">
+        <div className="pt-4 border-t border-slate-200/80 dark:border-white/10 mb-5 min-h-16 flex items-center">
           <div className="flex flex-wrap gap-1.5">
             {solution.technologies.map((tech) => (
               <span
                 key={tech}
-                className="px-2 py-0.5 rounded-md text-[10.5px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-border/40 dark:border-slate-700/60"
+                className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium skill-badge-gradient text-foreground shadow-xs"
               >
                 {tech}
               </span>
@@ -647,14 +644,14 @@ function SolutionCard({ solution }: { solution: SolutionItem }) {
         <div className="flex flex-col sm:flex-row items-center gap-2">
           <Link
             href={`/solutions/${solution.id}`}
-            className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-primary text-white hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 transition-all flex items-center justify-center gap-2 group/btn shadow-xs tracking-normal"
+            className="w-full py-2.5 px-4 rounded-xl text-xs font-medium bg-primary text-white hover:bg-primary/90 dark:bg-blue-600 dark:hover:bg-blue-500 transition-all flex items-center justify-center gap-2 group/btn shadow-card tracking-normal"
           >
             <span>Explore Solution</span>
             <ArrowRight className="h-3.5 w-3.5 group-hover/btn:translate-x-1 transition-transform" />
           </Link>
           <Link
             href={`/contact?service=Custom%20Solutions&solution=${encodeURIComponent(solution.title)}`}
-            className="w-full sm:w-auto py-2.5 px-3.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition-all flex items-center justify-center shrink-0 tracking-normal"
+            className="w-full sm:w-auto py-2.5 px-3.5 rounded-xl text-xs font-medium bg-card hover:bg-muted text-foreground border border-slate-200/80 dark:border-white/10 transition-all flex items-center justify-center shrink-0 tracking-normal shadow-card"
           >
             <span>Talk to an Expert</span>
           </Link>

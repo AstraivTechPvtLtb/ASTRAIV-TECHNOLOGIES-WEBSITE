@@ -88,13 +88,13 @@ export default async function PricingPage({ params }: PricingPageProps) {
         <div className="max-w-6xl mx-auto px-6">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-10">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight font-heading mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium text-foreground tracking-tight font-heading mb-4">
               Structured for Velocity. <br />
-              <span className="heading-gradient">
+              <span className="heading-gradient font-medium">
                 Tailored to Your Scope.
               </span>
             </h1>
-            <p className="text-sm sm:text-base text-muted-foreground font-medium leading-relaxed">
+            <p className="text-sm sm:text-base text-muted-foreground font-light dark:font-normal leading-relaxed">
               Astraiv delivers custom technology services engineered around your specific product requirements. Select the engagement structure that matches your timeline and operational needs, then request a detailed architectural quotation.
             </p>
           </div>
@@ -121,8 +121,8 @@ export default async function PricingPage({ params }: PricingPageProps) {
 
           {/* Quotation Transparency Notice */}
           <div className="mt-8 p-4 sm:p-5 rounded-2xl bg-card/60 dark:bg-slate-900/60 border border-border/70 dark:border-slate-800 text-center max-w-3xl mx-auto">
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              <span className="font-semibold text-foreground">How quotation works:</span> Every project is evaluated based on feature scope, external API integrations, architectural complexity, timeline urgency, and post-launch support requirements. No surprise fees or ambiguous commitments.
+            <p className="text-xs text-muted-foreground leading-relaxed font-light dark:font-normal">
+              <span className="font-medium text-foreground">How quotation works:</span> Every project is evaluated based on feature scope, external API integrations, architectural complexity, timeline urgency, and post-launch support requirements. No surprise fees or ambiguous commitments.
             </p>
           </div>
 
@@ -131,13 +131,13 @@ export default async function PricingPage({ params }: PricingPageProps) {
             {guarantees.map((g, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-2xl bg-card/80 dark:bg-slate-900/70 border border-border/70 dark:border-slate-800/80 shadow-xs"
+                className="p-6 rounded-2xl bg-card/80 dark:bg-slate-900/70 border border-border/70 dark:border-slate-800/80 shadow-card hover:shadow-card-hover"
               >
                 <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 w-fit mb-3.5 border border-border/40">
                   {g.icon}
                 </div>
-                <h3 className="text-sm font-bold text-foreground mb-1.5">{g.title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed font-medium">
+                <h3 className="text-sm font-medium text-foreground mb-1.5">{g.title}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed font-light dark:font-normal">
                   {g.desc}
                 </p>
               </div>
@@ -145,21 +145,21 @@ export default async function PricingPage({ params }: PricingPageProps) {
           </div>
 
           {/* Enterprise Custom Scope Callout */}
-          <div className="mt-14 p-8 sm:p-10 rounded-3xl bg-linear-to-br from-card via-card/90 to-primary/10 border border-border/80 dark:border-slate-800 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="mt-14 p-8 sm:p-10 rounded-3xl bg-linear-to-br from-card via-card/90 to-primary/10 border border-border/80 dark:border-slate-800 shadow-card hover:shadow-card-hover flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="max-w-2xl text-left">
-              <span className="text-xs uppercase font-extrabold tracking-wider text-primary">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium uppercase tracking-wider skill-badge-gradient text-foreground shadow-xs">
                 Enterprise & Large Organizations
               </span>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-foreground tracking-tight mt-1 mb-2">
+              <h2 className="text-xl sm:text-2xl font-medium text-foreground tracking-tight mt-1 mb-2">
                 Need a Custom RFP or Multi-Squad Engineering Retainer?
               </h2>
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-light dark:font-normal">
                 We partner with venture-backed scaleups and mid-market enterprises requiring dedicated multi-disciplinary squads, custom SLAs, SOC-2 compliance, and legacy modernization roadmaps.
               </p>
             </div>
             <Link
               href={ROUTES.PUBLIC.START_PROJECT ? `${ROUTES.PUBLIC.START_PROJECT}?source_page=${encodeURIComponent('/pricing')}` : `/start-project?source_page=${encodeURIComponent('/pricing')}`}
-              className="px-6 py-3 rounded-xl text-xs font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-md whitespace-nowrap shrink-0 hover:scale-105 cursor-pointer"
+              className="px-6 py-3 rounded-xl text-xs font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-md whitespace-nowrap shrink-0 hover:scale-105 cursor-pointer"
             >
               Request a Custom Proposal
             </Link>
@@ -181,29 +181,29 @@ export default async function PricingPage({ params }: PricingPageProps) {
             <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-blue-500/10 dark:bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10 max-w-2xl mx-auto space-y-4">
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight font-heading">
+              <h3 className="text-2xl sm:text-3xl font-medium text-foreground tracking-tight font-heading">
                 Ready to Scope Your Next Engineering Milestone?
               </h3>
-              <p className="text-xs sm:text-base text-muted-foreground leading-relaxed max-w-xl mx-auto">
+              <p className="text-xs sm:text-base text-muted-foreground leading-relaxed max-w-xl mx-auto font-light dark:font-normal">
                 Submit your project specifications for a structured 24-hour architectural assessment, or speak directly with our engineering leadership.
               </p>
               <div className="pt-3 flex flex-wrap items-center justify-center gap-3.5">
                 <Link
                   href={ROUTES.PUBLIC.START_PROJECT ? `${ROUTES.PUBLIC.START_PROJECT}?source_page=${encodeURIComponent('/pricing')}` : `/start-project?source_page=${encodeURIComponent('/pricing')}`}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-primary-foreground font-bold text-xs sm:text-sm shadow-md hover:bg-primary/90 transition-all hover:scale-105 active:scale-[0.98] cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-primary-foreground font-medium text-xs sm:text-sm shadow-md hover:bg-primary/90 transition-all hover:scale-105 active:scale-[0.98] cursor-pointer"
                 >
                   <span>Request a Quote</span>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-background dark:bg-slate-800/90 border border-border/90 dark:border-slate-700/80 text-foreground font-bold text-xs sm:text-sm hover:bg-muted/60 dark:hover:bg-slate-800 hover:border-primary/50 transition-all shadow-xs active:scale-[0.98] cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-background dark:bg-slate-800/90 border border-border/90 dark:border-slate-700/80 text-foreground font-medium text-xs sm:text-sm hover:bg-muted/60 dark:hover:bg-slate-800 hover:border-primary/50 transition-all shadow-xs active:scale-[0.98] cursor-pointer"
                 >
                   <span>Talk to an Architect</span>
                 </Link>
                 <Link
                   href={ROUTES.PUBLIC.CASE_STUDIES}
-                  className="inline-flex items-center justify-center gap-1.5 px-5 py-3.5 rounded-xl text-xs sm:text-sm font-bold text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 hover:underline transition-colors cursor-pointer"
+                  className="inline-flex items-center justify-center gap-1.5 px-5 py-3.5 rounded-xl text-xs sm:text-sm font-medium text-primary dark:text-cyan-400 hover:text-primary/80 dark:hover:text-cyan-300 hover:underline transition-colors cursor-pointer"
                 >
                   <span>Explore Case Studies &rarr;</span>
                 </Link>
