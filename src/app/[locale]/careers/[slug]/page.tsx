@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { Navbar, Footer } from '@/views';
-import { getPublicJobBySlug, getPublicCareersPageContent } from '@/controllers/public-data.controller';
+import { getPublicJobBySlug, getPublicCareersPageContent, getPublicJobOpenings } from '@/controllers/public-data.controller';
 import { JobApplicationForm } from '@/views/sections/job-application-form';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
@@ -20,8 +20,18 @@ import {
 } from 'lucide-react';
 import { createPageMetadata, BreadcrumbSchema, getJobPostingJsonLd } from '@/lib/seo';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const jobs = await getPublicJobOpenings();
+  const params: Array<{ locale: string; slug: string }> = [];
+  for (const locale of routing.locales) {
+    for (const job of jobs) {
+      params.push({ locale, slug: job.slug });
+    }
+  }
+  return params;
+}
 
 interface JobDetailPageProps {
   params: Promise<{ locale: string; slug: string }>;
