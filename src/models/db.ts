@@ -6,6 +6,7 @@
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
+import fs from 'fs';
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
@@ -46,7 +47,12 @@ const pool =
   globalForPrisma.pool ??
   new Pool({
     connectionString,
-    ssl: isLocalhost ? false : { rejectUnauthorized: false },
+    ssl: isLocalhost
+      ? false
+      : {
+          rejectUnauthorized: true,
+          ...(process.env.PGSSLROOTCERT ? { ca: fs.readFileSync(process.env.PGSSLROOTCERT).toString() } : {}),
+        },
     max: 10,
     connectionTimeoutMillis: 10000,
     idleTimeoutMillis: 30000,

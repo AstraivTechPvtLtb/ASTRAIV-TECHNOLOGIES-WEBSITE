@@ -53,15 +53,27 @@ export function findBrowserExecutable(): string {
  * Checks whether the target web server is reachable.
  */
 export async function isServerReachable(url = BASE_URL): Promise<boolean> {
-  try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 2500);
-    const res = await fetch(url, { signal: controller.signal });
-    clearTimeout(timeout);
-    return res.status >= 200 && res.status < 500;
-  } catch {
-    return false;
+  const urlsToTry = [url];
+  if (url.includes('localhost')) {
+    urlsToTry.push(url.replace('localhost', '127.0.0.1'));
+  } else if (url.includes('127.0.0.1')) {
+    urlsToTry.push(url.replace('127.0.0.1', 'localhost'));
   }
+
+  for (const targetUrl of urlsToTry) {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 2500);
+      const res = await fetch(targetUrl, { signal: controller.signal });
+      clearTimeout(timeout);
+      if (res.status >= 200 && res.status < 500) {
+        return true;
+      }
+    } catch {
+      // try next
+    }
+  }
+  return false;
 }
 
 /**

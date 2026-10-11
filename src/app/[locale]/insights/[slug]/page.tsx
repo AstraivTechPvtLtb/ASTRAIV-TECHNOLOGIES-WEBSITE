@@ -30,6 +30,7 @@ import {
 } from '@/controllers/cms.controller';
 
 import { createPageMetadata } from '@/lib/seo';
+import { sanitizeHtml } from '@/lib/sanitize-html';
 
 export const dynamic = 'force-dynamic';
 
@@ -237,7 +238,7 @@ export default async function InsightDetailPage({ params }: InsightDetailPagePro
               [&>strong]:font-medium [&>strong]:text-slate-900 [&>strong]:dark:text-slate-50
               [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded-md [&>code]:bg-slate-100 [&>code]:dark:bg-slate-800 [&>code]:text-primary [&>code]:dark:text-accent [&>code]:text-sm [&>code]:font-mono
               [&>a]:text-primary [&>a]:dark:text-accent [&>a]:underline [&>a]:hover:opacity-85"
-            dangerouslySetInnerHTML={{ __html: article.content }}
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(article.content) }}
           />
 
           {/* Cross-Taxonomy Relationship Badges */}

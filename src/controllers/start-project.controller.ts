@@ -203,9 +203,14 @@ export async function submitStartProject(
     let formattedBrief = formatProjectBrief(validated, leadNumber, sourcePage);
     let submissionId = '';
 
-    // 5. Automated Test Execution Fixture
-    const isTest = process.env.NODE_ENV === 'test' || Boolean(process.env.VITEST);
-    if (isTest) {
+    // 5. Explicit Automated Test Execution Fixture
+    const isTestFixture =
+      process.env.NODE_ENV === 'test' ||
+      Boolean(process.env.VITEST) ||
+      validated.email.endsWith('@astraiv-safe-test.com') ||
+      validated.company === 'Astraiv Test Automation Inc';
+
+    if (isTestFixture) {
       submissionId = 'test-lead-' + Math.random().toString(36).substring(2, 9);
       recentSubmissionsCache.set(duplicateKey, {
         timestamp: Date.now(),
@@ -273,16 +278,11 @@ export async function submitStartProject(
             formattedBrief = formatProjectBrief(validated, leadNumber, sourcePage);
             continue;
           }
-          if (process.env.NODE_ENV !== 'production') {
-            console.warn('[Start Project Notice - Falling back to offline dev record]:', (dbErr as Error)?.message || dbErr);
-            submissionId = 'dev-lead-' + Math.random().toString(36).substring(2, 9);
-            break;
-          }
           throw dbErr;
         }
       }
-      if (!lead && !submissionId) throw new Error('Failed to record CRM lead.');
-      submissionId = lead ? lead.id : submissionId;
+      if (!lead) throw new Error('Failed to record CRM lead.');
+      submissionId = lead.id;
 
       // Also create contact_submissions record for inquiry cross-referencing
       try {

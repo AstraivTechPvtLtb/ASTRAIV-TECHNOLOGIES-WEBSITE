@@ -14,9 +14,15 @@ describe('E2E: Critical Business Journeys (Headless Browser)', () => {
       return;
     }
 
-    const instance = await createE2EBrowser();
-    browser = instance.browser;
-    page = instance.page;
+    try {
+      const instance = await createE2EBrowser();
+      browser = instance.browser;
+      page = instance.page;
+    } catch (browserErr) {
+      console.warn(`[E2E Skipped]: Browser executable unavailable: ${(browserErr as Error)?.message || browserErr}`);
+      browser = null;
+      page = null;
+    }
   }, 35000);
 
   afterAll(async () => {
@@ -26,13 +32,18 @@ describe('E2E: Critical Business Journeys (Headless Browser)', () => {
   });
 
   const runIfServer = (name: string, fn: () => Promise<void>, timeout = 40000) => {
-    it(name, async () => {
-      if (!serverAvailable || !page) {
-        console.warn(`Skipping "${name}": server not reachable`);
-        return;
-      }
-      await fn();
-    }, timeout);
+    it(
+      name,
+      async (ctx) => {
+        if (!serverAvailable || !page) {
+          console.warn(`[E2E Skipped]: "${name}" requires reachable server at ${BASE_URL} and browser context.`);
+          ctx.skip();
+          return;
+        }
+        await fn();
+      },
+      timeout
+    );
   };
 
   describe('Journey 1: Home → Services → Service → Case Study → Start Project', () => {
