@@ -185,6 +185,9 @@ describe('E2E: Critical Business Journeys (Headless Browser)', () => {
           { timeout: 8000 }
         );
 
+        // Organic user pacing to satisfy anti-spam velocity threshold (> 2.5s)
+        await new Promise((r) => setTimeout(r, 2600));
+
         // Submit form
         await page.evaluate(() => {
           const buttons = Array.from(document.querySelectorAll('button'));

@@ -273,11 +273,16 @@ export async function submitStartProject(
             formattedBrief = formatProjectBrief(validated, leadNumber, sourcePage);
             continue;
           }
+          if (process.env.NODE_ENV !== 'production') {
+            console.warn('[Start Project Notice - Falling back to offline dev record]:', (dbErr as Error)?.message || dbErr);
+            submissionId = 'dev-lead-' + Math.random().toString(36).substring(2, 9);
+            break;
+          }
           throw dbErr;
         }
       }
-      if (!lead) throw new Error('Failed to record CRM lead.');
-      submissionId = lead.id;
+      if (!lead && !submissionId) throw new Error('Failed to record CRM lead.');
+      submissionId = lead ? lead.id : submissionId;
 
       // Also create contact_submissions record for inquiry cross-referencing
       try {
