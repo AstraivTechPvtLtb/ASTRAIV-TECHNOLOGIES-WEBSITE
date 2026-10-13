@@ -164,5 +164,90 @@ describe('Security Remediations Verification Suite', () => {
       expect(jwtSource).not.toContain('DEFAULT_64_BYTE_SECRET');
       expect(jwtSource).not.toContain('REDACTED_JWT_SECRET_HASH');
     });
+
+    it('verifies db.ts does NOT silently rewrite connection ports (e.g. 5432 to 6543)', () => {
+      const dbSource = fs.readFileSync(path.resolve(process.cwd(), 'src/models/db.ts'), 'utf-8');
+      expect(dbSource).not.toContain("replace(':5432'");
+      expect(dbSource).not.toContain("replace('5432'");
+      expect(dbSource).not.toContain(':6543');
+    });
+  });
+
+  describe('Release Blocker Remediation Invariants', () => {
+    it('validates real DOCX structure with [Content_Types].xml and word/ markers, rejecting generic ZIPs', () => {
+      // 1. Genuine DOCX package with OPC headers
+      const zipHeader = Buffer.from([0x50, 0x4B, 0x03, 0x04]);
+      const opcStructure = Buffer.from('[Content_Types].xml ... word/document.xml');
+      const validDocx = Buffer.concat([zipHeader, opcStructure, Buffer.alloc(1024, 0x20)]);
+      const resValid = validateDocumentBuffer(validDocx, 'candidate.docx');
+      expect(resValid.isValid).toBe(true);
+      expect(resValid.detectedFormat).toBe('docx');
+
+      // 2. Generic ZIP file without Word Open XML structure
+      const genericZip = Buffer.concat([zipHeader, Buffer.from('archive_file.txt'), Buffer.alloc(1024, 0x00)]);
+      const resInvalid = validateDocumentBuffer(genericZip, 'fake.docx');
+      expect(resInvalid.isValid).toBe(false);
+      expect(resInvalid.error).toContain('Invalid DOCX structure');
+    });
+
+    it('enforces that LocalStorageProvider constructor rejects production execution', () => {
+      const originalEnv = process.env.NODE_ENV;
+      const originalAllow = process.env.ALLOW_LOCAL_STORAGE_IN_PROD;
+      try {
+        (process.env as Record<string, string | undefined>).NODE_ENV = 'production';
+        delete process.env.ALLOW_LOCAL_STORAGE_IN_PROD;
+        const localSource = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/storage/local-provider.ts'), 'utf-8');
+        expect(localSource).toContain("process.env.NODE_ENV === 'production'");
+        expect(localSource).toContain('Access denied: LocalStorageProvider is restricted to authorized local development');
+      } finally {
+        (process.env as Record<string, string | undefined>).NODE_ENV = originalEnv;
+        if (originalAllow) process.env.ALLOW_LOCAL_STORAGE_IN_PROD = originalAllow;
+      }
+    });
+
+    it('verifies storage factory rejects missing durable cloud storage in production', () => {
+      const factorySource = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/storage/index.ts'), 'utf-8');
+      expect(factorySource).toContain('[CRITICAL_STORAGE_CONFIG]');
+      expect(factorySource).toContain("process.env.NODE_ENV === 'production'");
+    });
+
+    it('verifies direct-upload route forbids execution in production', () => {
+      const routeSource = fs.readFileSync(path.resolve(process.cwd(), 'src/app/api/applications/upload-direct/route.ts'), 'utf-8');
+      expect(routeSource).toContain("process.env.NODE_ENV === 'production'");
+      expect(routeSource).toContain('Direct filesystem uploads are disabled in production');
+      expect(routeSource).toContain('status: 403');
+    });
+
+    it('verifies R2 candidate resume storage isolates private resumes from public asset bucket', () => {
+      const r2Source = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/storage/r2-provider.ts'), 'utf-8');
+      expect(r2Source).toContain("process.env.R2_RESUME_BUCKET_NAME || 'astraiv-candidate-resumes'");
+      expect(r2Source).not.toContain('astraiv-assets');
+      expect(r2Source).toContain('process.env.CLOUDFLARE_R2_ACCOUNT_ID');
+      expect(r2Source).toContain('process.env.CLOUDFLARE_R2_ACCESS_KEY_ID');
+      expect(r2Source).toContain('process.env.CLOUDFLARE_R2_SECRET_ACCESS_KEY');
+    });
+
+    it('verifies local storage provider persists files across separate instances and requests', async () => {
+      const { LocalStorageProvider } = await import('@/lib/storage/local-provider');
+      const provider1 = new LocalStorageProvider();
+      const testKey = `resumes/test-persistence-${Date.now()}.pdf`;
+      const pdfHeader = Buffer.from('%PDF-1.4\n%test-payload');
+      const buffer = Buffer.concat([pdfHeader, Buffer.alloc(512, 0x20)]);
+
+      const saved = await provider1.saveBuffer(testKey, buffer, 'application/pdf');
+      expect(saved).toBe(true);
+
+      // Verify second provider instance on separate request can access persisted file
+      const provider2 = new LocalStorageProvider();
+      const download = await provider2.getSecureDownloadUrl({
+        key: testKey,
+        filename: 'downloaded.pdf',
+        mimeType: 'application/pdf',
+      });
+      expect(download.downloadUrl).toContain(encodeURIComponent(testKey));
+
+      // Cleanup
+      await provider2.deleteObject(testKey);
+    });
   });
 });

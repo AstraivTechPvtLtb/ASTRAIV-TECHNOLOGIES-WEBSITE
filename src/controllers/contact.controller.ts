@@ -77,11 +77,11 @@ export async function submitContactForm(
       // If a file was uploaded as base64, strictly validate format, magic signatures, size, and store in private storage
       if (validated.resumeData && validated.resumeName) {
         const base64Data = validated.resumeData.replace(/^data:[^;]+;base64,/, '');
-        // Approximate size check: 5MB maximum
-        if (base64Data.length > 5 * 1024 * 1024 * 1.37) {
+        // Consistent size check: 10MB maximum (matching UI and storage validator)
+        if (base64Data.length > 10 * 1024 * 1024 * 1.37) {
           return {
             success: false,
-            error: 'Resume attachment exceeds the 5MB size limit.',
+            error: 'Resume attachment exceeds the 10MB size limit.',
           };
         }
 
@@ -103,12 +103,19 @@ export async function submitContactForm(
           const storage = getStorageProvider();
           const saved = await storage.saveBuffer(finalKey, buffer, validation.mimeType);
 
-          if (saved) {
-            resumeLink = finalKey;
+          if (!saved) {
+            return {
+              success: false,
+              error: 'Failed to securely store your resume attachment. Please try again or provide an external link.',
+            };
           }
+          resumeLink = finalKey;
         } catch (fileErr) {
-          console.error('[Resume Save Warning]:', fileErr);
-          // Fallback: keep resumeName if storage provider encounters an issue
+          console.error('[Resume Save Error]:', fileErr);
+          return {
+            success: false,
+            error: 'Failed to securely store your resume attachment. Please try again or provide an external link.',
+          };
         }
       }
 

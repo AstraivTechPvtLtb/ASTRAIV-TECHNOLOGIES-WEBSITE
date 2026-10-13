@@ -18,7 +18,7 @@ import crypto from 'crypto';
 
 export class SupabaseStorageProvider implements StorageProvider {
   readonly providerName: StorageProviderType = 'supabase';
-  private bucket = 'resumes';
+  private bucket = (process.env.SUPABASE_RESUME_BUCKET || 'resumes').trim();
 
   static isConfigured(): boolean {
     return isSupabaseConfigured();
@@ -40,7 +40,12 @@ export class SupabaseStorageProvider implements StorageProvider {
       .createSignedUploadUrl(stagingKey);
 
     if (error || !data) {
-      // If signed upload URL not available in standard tier, provide direct route
+      if (process.env.NODE_ENV === 'production' && process.env.ALLOW_LOCAL_STORAGE_IN_PROD !== 'true') {
+        throw new Error(
+          `[SUPABASE_STORAGE_ERROR] Failed to create signed upload URL: ${error?.message || 'Bucket not found or permission denied'}`
+        );
+      }
+      // In local development/testing only, provide direct route
       return {
         provider: 'supabase',
         uploadUrl: `/api/applications/upload-direct?key=${encodeURIComponent(stagingKey)}&token=${encodeURIComponent(sessionToken)}`,

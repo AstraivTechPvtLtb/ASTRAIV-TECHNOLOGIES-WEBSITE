@@ -13,10 +13,11 @@ describe('Resume Document Binary & Structural Validator', () => {
     expect(result.detectedFormat).toBe('pdf');
   });
 
-  it('accepts a valid DOCX file with standard Zip magic bytes PK\\x03\\x04', () => {
-    // Valid DOCX / Zip header starting with PK\x03\x04
+  it('accepts a valid DOCX file with standard Zip magic bytes PK\\x03\\x04 and Open XML structure', () => {
+    // Valid DOCX starting with PK\x03\x04 and containing [Content_Types].xml and word/
     const zipHeader = Buffer.from([0x50, 0x4b, 0x03, 0x04, 0x14, 0x00]);
-    const dummyDocx = Buffer.concat([zipHeader, Buffer.alloc(2048, 0x00)]);
+    const opcPayload = Buffer.from('[Content_Types].xml ... word/document.xml');
+    const dummyDocx = Buffer.concat([zipHeader, opcPayload, Buffer.alloc(1024, 0x20)]);
 
     const result = validateDocumentBuffer(dummyDocx, 'resume.docx');
     expect(result.isValid).toBe(true);
@@ -24,6 +25,15 @@ describe('Resume Document Binary & Structural Validator', () => {
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     );
     expect(result.detectedFormat).toBe('docx');
+  });
+
+  it('rejects a generic ZIP file disguised as DOCX that lacks Open XML structure', () => {
+    const zipHeader = Buffer.from([0x50, 0x4b, 0x03, 0x04, 0x14, 0x00]);
+    const randomZip = Buffer.concat([zipHeader, Buffer.from('archive_file.txt'), Buffer.alloc(1024, 0x00)]);
+
+    const result = validateDocumentBuffer(randomZip, 'resume.docx');
+    expect(result.isValid).toBe(false);
+    expect(result.error).toContain('Invalid DOCX structure');
   });
 
   it('rejects an empty buffer', () => {

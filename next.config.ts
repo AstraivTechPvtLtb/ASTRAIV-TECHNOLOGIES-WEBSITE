@@ -6,6 +6,9 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', '@base-ui/react', 'recharts'],
+    serverActions: {
+      bodySizeLimit: '15mb',
+    },
   },
   images: {
     formats: ['image/avif', 'image/webp'],

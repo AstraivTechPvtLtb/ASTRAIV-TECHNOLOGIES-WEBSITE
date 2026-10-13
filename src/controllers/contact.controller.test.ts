@@ -196,9 +196,9 @@ describe('Contact Form Controller & Validation', () => {
     });
 
 
-    it('rejects base64 resume upload exceeding 5MB size limit', async () => {
-      // Over 5MB payload (5.5MB base64 string)
-      const oversizedBase64 = 'A'.repeat(5.5 * 1024 * 1024 * 1.37 + 100);
+    it('rejects base64 resume upload exceeding 10MB size limit', async () => {
+      // Over 10MB payload (10.5MB base64 string)
+      const oversizedBase64 = 'A'.repeat(10.5 * 1024 * 1024 * 1.37 + 100);
 
       const res = await submitContactForm({
         name: 'Heavy Candidate',
@@ -209,7 +209,7 @@ describe('Contact Form Controller & Validation', () => {
       });
 
       expect(res.success).toBe(false);
-      expect(res.error).toMatch(/exceeds the 5MB size limit/i);
+      expect(res.error).toMatch(/exceeds the 10MB size limit/i);
     });
   });
 });

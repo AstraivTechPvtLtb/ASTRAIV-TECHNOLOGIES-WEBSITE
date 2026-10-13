@@ -12,6 +12,13 @@ import { verifyUploadSessionToken } from '@/lib/storage/token';
 const STAGING_KEY_PATTERN = /^staging\/\d{4}-\d{2}-\d{2}\/[a-f0-9]{32}\.(pdf|docx|doc)$/;
 
 async function handleDirectUpload(key: string | null, token: string | null, buffer: Buffer) {
+  if (process.env.NODE_ENV === 'production' && process.env.ALLOW_LOCAL_STORAGE_IN_PROD !== 'true') {
+    return NextResponse.json(
+      { error: 'Direct filesystem uploads are disabled in production. Cloud storage is required.' },
+      { status: 403 }
+    );
+  }
+
   if (!key || !token) {
     return NextResponse.json({ error: 'Missing staging key or session token' }, { status: 400 });
   }
