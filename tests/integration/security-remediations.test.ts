@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
+import zlib from 'zlib';
 import { validateDocumentBuffer, sanitizeFilename } from '@/lib/storage/validator';
 import { generateUploadSessionToken, verifyUploadSessionToken } from '@/lib/storage/token';
 import {
@@ -174,46 +175,89 @@ describe('Security Remediations Verification Suite', () => {
   });
 
   describe('Release Blocker Remediation Invariants', () => {
-    it('validates real DOCX structure with [Content_Types].xml and word/ markers, rejecting generic ZIPs', () => {
+    it('validates real DOCX structure with [Content_Types].xml and word/ markers, rejecting generic or malformed ZIPs', () => {
       // 1. Genuine DOCX package with OPC headers
-      const zipHeader = Buffer.from([0x50, 0x4B, 0x03, 0x04]);
-      const opcStructure = Buffer.from('[Content_Types].xml ... word/document.xml');
-      const validDocx = Buffer.concat([zipHeader, opcStructure, Buffer.alloc(1024, 0x20)]);
+      const contentTypesXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>';
+      const wordDocumentXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:r><w:t>Astraiv Candidate</w:t></w:r></w:p></w:body></w:document>';
+      const entries = [
+        { name: '[Content_Types].xml', data: Buffer.from(contentTypesXml, 'utf8') },
+        { name: 'word/document.xml', data: Buffer.from(wordDocumentXml, 'utf8') },
+      ];
+      const localHeaders: Buffer[] = [];
+      const centralHeaders: Buffer[] = [];
+      let offset = 0;
+      for (const entry of entries) {
+        const nameBuf = Buffer.from(entry.name, 'utf8');
+        const deflated = zlib.deflateRawSync(entry.data);
+        const lh = Buffer.alloc(30 + nameBuf.length);
+        lh.writeUInt32LE(0x04034b50, 0);
+        lh.writeUInt16LE(20, 4);
+        lh.writeUInt16LE(0, 6);
+        lh.writeUInt16LE(8, 8);
+        lh.writeUInt32LE(deflated.length, 18);
+        lh.writeUInt32LE(entry.data.length, 22);
+        lh.writeUInt16LE(nameBuf.length, 26);
+        nameBuf.copy(lh, 30);
+        const localOffset = offset;
+        offset += lh.length + deflated.length;
+        localHeaders.push(lh, deflated);
+        const ch = Buffer.alloc(46 + nameBuf.length);
+        ch.writeUInt32LE(0x02014b50, 0);
+        ch.writeUInt16LE(20, 4);
+        ch.writeUInt16LE(20, 6);
+        ch.writeUInt16LE(8, 10);
+        ch.writeUInt32LE(deflated.length, 20);
+        ch.writeUInt32LE(entry.data.length, 24);
+        ch.writeUInt16LE(nameBuf.length, 28);
+        ch.writeUInt32LE(localOffset, 42);
+        nameBuf.copy(ch, 46);
+        centralHeaders.push(ch);
+      }
+      const centralDir = Buffer.concat(centralHeaders);
+      const eocd = Buffer.alloc(22);
+      eocd.writeUInt32LE(0x06054b50, 0);
+      eocd.writeUInt16LE(entries.length, 8);
+      eocd.writeUInt16LE(entries.length, 10);
+      eocd.writeUInt32LE(centralDir.length, 12);
+      eocd.writeUInt32LE(offset, 16);
+      const validDocx = Buffer.concat([...localHeaders, centralDir, eocd]);
+
       const resValid = validateDocumentBuffer(validDocx, 'candidate.docx');
       expect(resValid.isValid).toBe(true);
       expect(resValid.detectedFormat).toBe('docx');
 
-      // 2. Generic ZIP file without Word Open XML structure
+      // 2. Generic fake ZIP file without EOCD or Open XML structure
+      const zipHeader = Buffer.from([0x50, 0x4B, 0x03, 0x04]);
       const genericZip = Buffer.concat([zipHeader, Buffer.from('archive_file.txt'), Buffer.alloc(1024, 0x00)]);
       const resInvalid = validateDocumentBuffer(genericZip, 'fake.docx');
       expect(resInvalid.isValid).toBe(false);
-      expect(resInvalid.error).toContain('Invalid DOCX structure');
+      expect(resInvalid.error).toContain('Malformed or corrupt ZIP archive');
     });
 
-    it('enforces that LocalStorageProvider constructor rejects production execution', () => {
+    it('enforces that LocalStorageProvider constructor rejects production execution and has no escape hatches', () => {
       const originalEnv = process.env.NODE_ENV;
-      const originalAllow = process.env.ALLOW_LOCAL_STORAGE_IN_PROD;
       try {
         (process.env as Record<string, string | undefined>).NODE_ENV = 'production';
-        delete process.env.ALLOW_LOCAL_STORAGE_IN_PROD;
         const localSource = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/storage/local-provider.ts'), 'utf-8');
         expect(localSource).toContain("process.env.NODE_ENV === 'production'");
         expect(localSource).toContain('Access denied: LocalStorageProvider is restricted to authorized local development');
+        expect(localSource).not.toContain('ALLOW_LOCAL_STORAGE_IN_PROD');
       } finally {
         (process.env as Record<string, string | undefined>).NODE_ENV = originalEnv;
-        if (originalAllow) process.env.ALLOW_LOCAL_STORAGE_IN_PROD = originalAllow;
       }
     });
 
-    it('verifies storage factory rejects missing durable cloud storage in production', () => {
+    it('verifies storage factory rejects missing durable cloud storage in production without escape hatch', () => {
       const factorySource = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/storage/index.ts'), 'utf-8');
       expect(factorySource).toContain('[CRITICAL_STORAGE_CONFIG]');
       expect(factorySource).toContain("process.env.NODE_ENV === 'production'");
+      expect(factorySource).not.toContain('ALLOW_LOCAL_STORAGE_IN_PROD');
     });
 
-    it('verifies direct-upload route forbids execution in production', () => {
+    it('verifies direct-upload route forbids execution in production without escape hatch', () => {
       const routeSource = fs.readFileSync(path.resolve(process.cwd(), 'src/app/api/applications/upload-direct/route.ts'), 'utf-8');
       expect(routeSource).toContain("process.env.NODE_ENV === 'production'");
+      expect(routeSource).not.toContain('ALLOW_LOCAL_STORAGE_IN_PROD');
       expect(routeSource).toContain('Direct filesystem uploads are disabled in production');
       expect(routeSource).toContain('status: 403');
     });

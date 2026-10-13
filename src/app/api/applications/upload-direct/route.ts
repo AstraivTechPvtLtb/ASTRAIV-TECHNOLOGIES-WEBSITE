@@ -9,10 +9,10 @@ import path from 'path';
 import { validateDocumentBuffer } from '@/lib/storage/validator';
 import { verifyUploadSessionToken } from '@/lib/storage/token';
 
-const STAGING_KEY_PATTERN = /^staging\/\d{4}-\d{2}-\d{2}\/[a-f0-9]{32}\.(pdf|docx|doc)$/;
+const STAGING_KEY_PATTERN = /^staging\/\d{4}-\d{2}-\d{2}\/[a-f0-9]{32}\.(pdf|docx)$/;
 
 async function handleDirectUpload(key: string | null, token: string | null, buffer: Buffer) {
-  if (process.env.NODE_ENV === 'production' && process.env.ALLOW_LOCAL_STORAGE_IN_PROD !== 'true') {
+  if (process.env.NODE_ENV === 'production') {
     return NextResponse.json(
       { error: 'Direct filesystem uploads are disabled in production. Cloud storage is required.' },
       { status: 403 }

@@ -58,6 +58,7 @@ function generateApplicationNumber(): string {
 export async function submitCandidateApplication(
   payload: SubmitApplicationPayload
 ): Promise<ApplicationSubmissionResult> {
+  let resumeStorageKey: string | null = null;
   try {
     // 1. Anti-bot honeypot trap
     if (payload.honeypot && payload.honeypot.trim().length > 0) {
@@ -126,7 +127,7 @@ export async function submitCandidateApplication(
 
     // 4. Validate Resume: File upload vs External link
     let resumeStorageProvider: string | null = null;
-    let resumeStorageKey: string | null = null;
+    resumeStorageKey = null;
     let resumeOriginalName: string | null = null;
     let resumeMimeType: string | null = null;
     let resumeSizeBytes: number | null = null;
@@ -280,6 +281,16 @@ export async function submitCandidateApplication(
     };
   } catch (err) {
     console.error('[Submit Candidate Application Error]:', err);
+    // Prevent orphaned files if database persistence fails after promotion
+    if (resumeStorageKey) {
+      try {
+        const storageProvider = getStorageProvider();
+        await storageProvider.deleteObject(resumeStorageKey);
+        console.warn(`[Application Cleanup]: Purged orphaned resume object "${resumeStorageKey}" following DB persistence error.`);
+      } catch (cleanupErr) {
+        console.error('[Application Cleanup Error]: Failed to remove orphaned object:', cleanupErr);
+      }
+    }
     return {
       success: false,
       error: 'An unexpected error occurred while saving your application. Please try again.',
