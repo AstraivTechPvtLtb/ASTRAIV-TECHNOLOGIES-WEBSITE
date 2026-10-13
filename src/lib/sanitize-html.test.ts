@@ -111,4 +111,74 @@ describe('HTML Sanitizer Security & Formatting Suite (client/src/lib/sanitize-ht
       expect(sanitizeHtml('')).toBe('');
     });
   });
+
+  describe('3. Malformed SVG & Image Event-Handler XSS Regression Suite', () => {
+    it('rejects malformed SVG tags containing embedded script tags or handlers', () => {
+      const payloads = [
+        '<svg><script>alert("xss")</script></svg>',
+        '<svg onload="alert(1)"><circle cx="50" cy="50" r="40"/></svg>',
+        '<svg/onload=alert(1)>',
+        '<svg><image href="x" onerror="alert(1)" /></svg>',
+        '<svg><set attributeName="onmouseover" to="alert(1)"/></svg>',
+        '<svg><animate onbegin="alert(1)" attributeName="x"/></svg>',
+        '<svg><a xlink:href="javascript:alert(1)"><text>Click</text></a></svg>',
+      ];
+
+      for (const payload of payloads) {
+        const output = sanitizeHtml(payload);
+        expect(output).not.toContain('<script');
+        expect(output).not.toContain('alert(');
+        expect(output).not.toContain('onload=');
+        expect(output).not.toContain('onerror=');
+        expect(output).not.toContain('onmouseover=');
+        expect(output).not.toContain('onbegin=');
+        expect(output).not.toContain('javascript:');
+      }
+    });
+
+    it('neutralizes malformed image event handlers and tricky attribute injections', () => {
+      const payloads = [
+        '<img src="x" onerror="alert(1)">',
+        '<img/src="x"/onerror=alert(1)>',
+        '<img src=x onerror=alert(1)>',
+        '<img src="" onerror="alert(String.fromCharCode(88,83,83))">',
+        '<img src="javascript:alert(1)">',
+        '<img """><script>alert(1)</script>">',
+        '<img src="data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==">',
+      ];
+
+      for (const payload of payloads) {
+        const output = sanitizeHtml(payload);
+        expect(output).not.toContain('onerror');
+        expect(output).not.toContain('alert(');
+        expect(output).not.toContain('<script');
+        expect(output).not.toContain('javascript:');
+        expect(output).not.toContain('data:text/html');
+      }
+    });
+
+    it('neutralizes entity-encoded and whitespace-obfuscated script protocols', () => {
+      const payloads = [
+        '<a href="&Tab;javascript:alert(1)">Click</a>',
+        '<a href="jav&#x09;ascript:alert(1)">Click</a>',
+        '<a href=" &#14; javascript:alert(1)">Click</a>',
+      ];
+
+      for (const payload of payloads) {
+        const output = sanitizeHtml(payload);
+        expect(output).not.toContain('href="javascript:');
+        expect(output).not.toContain('alert(1)');
+      }
+    });
+
+    it('handles nested and malformed unclosed tags designed to evade regex parsers', () => {
+      const input = '<<SCRIPT>alert("XSS");//<</SCRIPT><p>Safe text</p><img src="test.jpg" onerror="evil()"';
+      const output = sanitizeHtml(input);
+      expect(output).not.toContain('<SCRIPT');
+      expect(output).not.toContain('alert("XSS")');
+      expect(output).not.toContain('onerror');
+      expect(output).toContain('Safe text');
+    });
+  });
 });
+

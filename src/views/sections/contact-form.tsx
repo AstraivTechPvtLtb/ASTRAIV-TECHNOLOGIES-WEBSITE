@@ -11,7 +11,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Loader2, UploadCloud, FileText, X, Link2, Briefcase, CheckCircle2, ArrowRight, RotateCcw, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { submitContactEnquiry } from '@/controllers/contact.controller';
-import { io } from 'socket.io-client';
 import { Link } from '@/i18n/routing';
 import { ROUTES } from '@/routes';
 import {
@@ -308,25 +307,6 @@ export function ContactForm() {
         setResumeFile(null);
         setResumeLink('');
         setResumeError(null);
-
-        // Immediate Client-Side Socket.IO Emission for Instant Admin Alert
-        if (result.data) {
-          try {
-            const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4001';
-            const socket = io(socketUrl, {
-              transports: ['websocket', 'polling'],
-              timeout: 4000,
-            });
-            socket.on('connect', () => {
-              socket.emit('new_enquiry', result.data);
-              setTimeout(() => {
-                socket.disconnect();
-              }, 1200);
-            });
-          } catch (socketErr) {
-            console.warn('[Socket Emit Warning]:', socketErr);
-          }
-        }
       } else {
         setSubmitSuccess(false);
         setErrorMessage(result.error || 'Something went wrong. Please try again or email us directly.');

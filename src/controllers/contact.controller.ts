@@ -19,6 +19,8 @@ import { verifyEmailAddress } from '@/lib/services/email-verifier';
 
 import { promises as fs } from 'fs';
 import path from 'path';
+import crypto from 'crypto';
+import { validateDocumentBuffer } from '@/lib/storage/validator';
 
 export interface ContactSubmissionResult {
   id: string;
@@ -71,18 +73,8 @@ export async function submitContactForm(
 
       let resumeLink = validated.resumeUrl || '';
 
-      // If a file was uploaded as base64, strictly validate format, size, and sanitize filename
+      // If a file was uploaded as base64, strictly validate format, magic signatures, size, and store in private storage
       if (validated.resumeData && validated.resumeName) {
-        const ext = path.extname(validated.resumeName).toLowerCase();
-        const allowedExtensions = ['.pdf', '.doc', '.docx'];
-
-        if (!allowedExtensions.includes(ext)) {
-          return {
-            success: false,
-            error: 'Invalid file format. Only PDF, DOC, and DOCX resume attachments are permitted.',
-          };
-        }
-
         const base64Data = validated.resumeData.replace(/^data:[^;]+;base64,/, '');
         // Approximate size check: 5MB maximum
         if (base64Data.length > 5 * 1024 * 1024 * 1.37) {
@@ -92,17 +84,33 @@ export async function submitContactForm(
           };
         }
 
+        const buffer = Buffer.from(base64Data, 'base64');
+        const validation = validateDocumentBuffer(buffer, validated.resumeName);
+        if (!validation.isValid) {
+          return {
+            success: false,
+            error: validation.error || 'Invalid file format. Only PDF and DOCX resume attachments are permitted.',
+          };
+        }
+
         try {
-          const uploadsDir = path.join(process.cwd(), 'public', 'uploads', 'resumes');
-          await fs.mkdir(uploadsDir, { recursive: true });
+          const datePrefix = new Date().toISOString().split('T')[0];
+          const randomHex = crypto.randomBytes(16).toString('hex');
+          const ext = validation.detectedFormat === 'docx' ? '.docx' : '.pdf';
+          const finalKey = `resumes/${datePrefix}/${randomHex}${ext}`;
 
-          const baseName = path.basename(validated.resumeName, ext).replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 50);
-          const safeFilename = `${Date.now()}-${baseName}${ext}`;
-          const filePath = path.join(uploadsDir, safeFilename);
+          const privateResumesDir = path.resolve(process.cwd(), '.data', 'resumes');
+          const targetPath = path.resolve(privateResumesDir, finalKey);
 
-          await fs.writeFile(filePath, Buffer.from(base64Data, 'base64'));
+          // Path traversal guard
+          if (!targetPath.startsWith(privateResumesDir + path.sep)) {
+            throw new Error('Path traversal detected');
+          }
 
-          resumeLink = `/uploads/resumes/${safeFilename}`;
+          await fs.mkdir(path.dirname(targetPath), { recursive: true });
+          await fs.writeFile(targetPath, buffer);
+
+          resumeLink = finalKey;
         } catch (fileErr) {
           console.error('[Resume Save Warning]:', fileErr);
           // Fallback: keep resumeName if local disk write encounters permission issue

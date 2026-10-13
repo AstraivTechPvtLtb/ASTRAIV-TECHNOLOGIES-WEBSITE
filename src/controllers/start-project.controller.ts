@@ -203,12 +203,15 @@ export async function submitStartProject(
     let formattedBrief = formatProjectBrief(validated, leadNumber, sourcePage);
     let submissionId = '';
 
-    // 5. Explicit Automated Test Execution Fixture
+    // 5. Automated Test Execution Fixture (Strictly prohibited in production environments)
     const isTestFixture =
-      process.env.NODE_ENV === 'test' ||
-      Boolean(process.env.VITEST) ||
-      validated.email.endsWith('@astraiv-safe-test.com') ||
-      validated.company === 'Astraiv Test Automation Inc';
+      process.env.NODE_ENV !== 'production' &&
+      (process.env.NODE_ENV === 'test' ||
+        Boolean(process.env.VITEST) ||
+        Boolean(process.env.E2E_TEST) ||
+        (process.env.NODE_ENV === 'development' &&
+          (validated.email.endsWith('@astraiv-safe-test.com') ||
+            validated.company === 'Astraiv Test Automation Inc')));
 
     if (isTestFixture) {
       submissionId = 'test-lead-' + Math.random().toString(36).substring(2, 9);

@@ -23,7 +23,7 @@ export function isSupabaseConfigured(): boolean {
  * Safely falls back to placeholders in local PostgreSQL mode without throwing.
  */
 export async function createClient() {
-  let cookieStore: any = null;
+  let cookieStore: Awaited<ReturnType<typeof cookies>> | null = null;
   try {
     cookieStore = await cookies();
   } catch {
