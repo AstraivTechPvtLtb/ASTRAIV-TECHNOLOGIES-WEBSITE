@@ -25,6 +25,8 @@
 *.pem
 service-account*.json
 *credentials*.json
+.data/
+scratch/
 
 # debug
 npm-debug.log*

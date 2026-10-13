@@ -80,7 +80,8 @@ async function sync() {
       INSERT INTO compliance_settings (
         id, iso_number, iso_label, show_iso_badge, show_iso_section,
         uptime_value, uptime_label, savings_value, savings_label,
-        actions_value, actions_label, sla_value, sla_label
+        actions_value, actions_label, sla_value, sla_label,
+        created_at, updated_at
       ) VALUES (
         'default-compliance-id',
         'ISO 27001:2022',
@@ -94,7 +95,9 @@ async function sync() {
         '10M+',
         'API ACTIONS',
         '100%',
-        'ON-TIME SLA DELIVERY'
+        'ON-TIME SLA DELIVERY',
+        NOW(),
+        NOW()
       ) ON CONFLICT (id) DO NOTHING;
     `);
     console.log('✔ compliance_settings default record verified');

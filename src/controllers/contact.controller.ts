@@ -17,10 +17,11 @@ import {
 } from '@/lib/validations/contact';
 import { verifyEmailAddress } from '@/lib/services/email-verifier';
 
-import { promises as fs } from 'fs';
-import path from 'path';
 import crypto from 'crypto';
 import { validateDocumentBuffer } from '@/lib/storage/validator';
+import { getStorageProvider } from '@/lib/storage';
+
+
 
 export interface ContactSubmissionResult {
   id: string;
@@ -99,21 +100,15 @@ export async function submitContactForm(
           const ext = validation.detectedFormat === 'docx' ? '.docx' : '.pdf';
           const finalKey = `resumes/${datePrefix}/${randomHex}${ext}`;
 
-          const privateResumesDir = path.resolve(process.cwd(), '.data', 'resumes');
-          const targetPath = path.resolve(privateResumesDir, finalKey);
+          const storage = getStorageProvider();
+          const saved = await storage.saveBuffer(finalKey, buffer, validation.mimeType);
 
-          // Path traversal guard
-          if (!targetPath.startsWith(privateResumesDir + path.sep)) {
-            throw new Error('Path traversal detected');
+          if (saved) {
+            resumeLink = finalKey;
           }
-
-          await fs.mkdir(path.dirname(targetPath), { recursive: true });
-          await fs.writeFile(targetPath, buffer);
-
-          resumeLink = finalKey;
         } catch (fileErr) {
           console.error('[Resume Save Warning]:', fileErr);
-          // Fallback: keep resumeName if local disk write encounters permission issue
+          // Fallback: keep resumeName if storage provider encounters an issue
         }
       }
 

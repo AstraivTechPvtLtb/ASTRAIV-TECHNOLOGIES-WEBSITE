@@ -969,17 +969,19 @@ export async function getPublicJobCategories(): Promise<JobCategory[]> {
         },
       });
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return records.map((c: any) => ({
-        id: c.id,
-        name: c.name,
-        slug: c.slug,
-        orderIndex: c.orderIndex,
-        active: c.active,
-        openingCount: c._count?.openings || 0,
-        createdAt: c.createdAt.toISOString(),
-        updatedAt: c.updatedAt.toISOString(),
-      }));
+      if (records.length > 0) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return records.map((c: any) => ({
+          id: c.id,
+          name: c.name,
+          slug: c.slug,
+          orderIndex: c.orderIndex,
+          active: c.active,
+          openingCount: c._count?.openings || 0,
+          createdAt: c.createdAt.toISOString(),
+          updatedAt: c.updatedAt.toISOString(),
+        }));
+      }
     }
 
     const rows = await db.$queryRaw<
@@ -995,14 +997,23 @@ export async function getPublicJobCategories(): Promise<JobCategory[]> {
       ORDER BY c.order_index ASC
     `;
 
-    return rows.map((r) => ({
-      id: r.id,
-      name: r.name,
-      slug: r.slug,
-      orderIndex: r.order_index,
-      active: r.active,
-      openingCount: Number(r.opening_count) || 0,
-    }));
+    if (rows.length > 0) {
+      return rows.map((r) => ({
+        id: r.id,
+        name: r.name,
+        slug: r.slug,
+        orderIndex: r.order_index,
+        active: r.active,
+        openingCount: Number(r.opening_count) || 0,
+      }));
+    }
+
+    return [
+      { id: 'cat-eng', name: 'Engineering', slug: 'engineering', orderIndex: 1, active: true, openingCount: 2 },
+      { id: 'cat-ai', name: 'AI & Automation', slug: 'ai-automation', orderIndex: 2, active: true, openingCount: 1 },
+      { id: 'cat-cloud', name: 'Cloud Ops', slug: 'cloud-ops', orderIndex: 3, active: true, openingCount: 1 },
+    ];
+
   } catch (err) {
     console.warn('[Get Public JobCategories Notice]:', err);
     return [
