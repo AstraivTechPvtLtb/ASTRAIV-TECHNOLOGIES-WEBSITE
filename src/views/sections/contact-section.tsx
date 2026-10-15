@@ -140,7 +140,7 @@ function ContactContent({ isPageHero = false, categories, roles, careersContent 
                   priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  unoptimized={specImage.imageUrl.startsWith('data:')}
+                  unoptimized={true}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-40 group-hover:opacity-20 transition-opacity pointer-events-none" />
                 <div className="absolute bottom-2.5 left-3 right-3 px-3 py-1.5 rounded-xl bg-slate-950/75 dark:bg-slate-900/85 backdrop-blur-md border border-white/10 flex items-center justify-between text-[11px] text-slate-200 font-medium pointer-events-none">

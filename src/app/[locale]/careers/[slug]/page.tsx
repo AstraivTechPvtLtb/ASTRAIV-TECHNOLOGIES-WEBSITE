@@ -477,6 +477,7 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
                         'Experienced architect candidate presenting cloud system architecture to Astraiv engineering leaders'
                       }
                       fill
+                      unoptimized={true}
                       sizes="(max-width: 1024px) 100vw, 380px"
                       className="object-cover object-center group-hover:scale-104 transition-transform duration-700 ease-out"
                     />
