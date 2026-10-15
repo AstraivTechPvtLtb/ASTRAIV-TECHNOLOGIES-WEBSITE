@@ -17,7 +17,12 @@ function getCleanConnectionString(): string {
   let raw = process.env.DATABASE_URL?.trim();
 
   if (!raw) {
-    if (process.env.NODE_ENV === 'test' || Boolean(process.env.VITEST)) {
+    if (
+      process.env.NODE_ENV === 'test' ||
+      Boolean(process.env.VITEST) ||
+      Boolean(process.env.CI) ||
+      process.env.NEXT_PHASE === 'phase-production-build'
+    ) {
       raw = 'postgresql://postgres:postgres@localhost:5432/astraiv_db';
     } else {
       throw new Error(
