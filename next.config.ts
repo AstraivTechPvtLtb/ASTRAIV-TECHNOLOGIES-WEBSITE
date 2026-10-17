@@ -4,6 +4,7 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
+  output: process.env.BUILD_STANDALONE === 'true' ? 'standalone' : undefined,
   experimental: {
     optimizePackageImports: ['lucide-react', '@base-ui/react', 'recharts'],
     serverActions: {

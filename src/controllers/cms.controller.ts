@@ -29,6 +29,8 @@ import type {
 
 const cmsDb = db as unknown as CmsDbClient;
 
+import { isSupabaseConfigured, createClient as createSupabaseClient } from '@/lib/supabase/server';
+
 /**
  * Circuit-breaker cache: if an entity table or column does not exist in the database (e.g. CI/remote pooler),
  * we record it here to avoid repetitive, latency-heavy network round-trips and console error dumps.
@@ -40,9 +42,7 @@ function isSchemaMismatch(err: unknown): boolean {
   const error = err as { code?: string; message?: string };
   if (
     error.code === 'P2021' ||
-    error.code === 'P2022' ||
-    error.code === 'ECONNREFUSED' ||
-    error.code === 'ETIMEDOUT'
+    error.code === 'P2022'
   ) {
     return true;
   }
@@ -52,15 +52,15 @@ function isSchemaMismatch(err: unknown): boolean {
     msg.includes('UndefinedColumn') ||
     msg.includes('UndefinedTable') ||
     msg.includes('42703') ||
-    msg.includes('42P01') ||
-    msg.includes('ECONNREFUSED') ||
-    msg.includes('Connection refused')
+    msg.includes('42P01')
   );
 }
 
 function handlePrismaError(entity: string, err: unknown, context: string): void {
-  disabledEntities.add(entity);
-  if (process.env.DEBUG_PRISMA) {
+  if (isSchemaMismatch(err)) {
+    disabledEntities.add(entity);
+  }
+  if (process.env.DEBUG_PRISMA || process.env.NODE_ENV !== 'production') {
     console.warn(`[CMS Controller - ${context} fallback]:`, (err as Error)?.message || err);
   }
 }
@@ -1149,38 +1149,77 @@ export interface PublicPageContent {
   status: string;
 }
 
-/**
- * Retrieves custom page content (headlines, hero text, CTAs) from the database with seamless fallback.
- */
 export async function getPublicPageContent(pageKey: string): Promise<PublicPageContent | null> {
-  if (disabledEntities.has('page_contents')) {
-    return null;
+  // Tier 1: Prisma ORM (direct or pooled PostgreSQL connection with verified CA)
+  if (!disabledEntities.has('page_contents')) {
+    try {
+      const row = await cmsDb.pageContent.findUnique({
+        where: { pageKey },
+      });
+
+      if (row) {
+        if (row.status === 'draft') return null;
+
+        const sections =
+          typeof row.sections === 'string'
+            ? JSON.parse(row.sections)
+            : (row.sections as Record<string, unknown>) || {};
+
+        return {
+          id: row.id,
+          pageKey: row.pageKey,
+          title: row.title,
+          sections,
+          metaTitle: row.metaTitle,
+          metaDescription: row.metaDescription,
+          status: row.status,
+        };
+      }
+    } catch (err: unknown) {
+      handlePrismaError('page_contents', err, `getPublicPageContent(${pageKey})`);
+    }
   }
 
-  try {
-    const row = await cmsDb.pageContent.findUnique({
-      where: { pageKey },
-    });
+  // Tier 2: Supabase REST API (HTTPS port 443 with Edge CDN resilience)
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = await createSupabaseClient();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data: record, error } = await (supabase as any)
+        .from('page_contents')
+        .select('*')
+        .eq('page_key', pageKey)
+        .maybeSingle();
 
-    if (!row || row.status === 'draft') return null;
+      if (!error && record) {
+        if (record.status === 'draft') return null;
 
-    const sections =
-      typeof row.sections === 'string'
-        ? JSON.parse(row.sections)
-        : (row.sections as Record<string, unknown>) || {};
+        const sections =
+          typeof record.sections === 'string'
+            ? JSON.parse(record.sections)
+            : (record.sections as Record<string, unknown>) || {};
 
-    return {
-      id: row.id,
-      pageKey: row.pageKey,
-      title: row.title,
-      sections,
-      metaTitle: row.metaTitle,
-      metaDescription: row.metaDescription,
-      status: row.status,
-    };
-  } catch (err: unknown) {
-    handlePrismaError('page_contents', err, `getPublicPageContent(${pageKey})`);
-    return null;
+        return {
+          id: record.id,
+          pageKey: record.page_key || record.pageKey || pageKey,
+          title: record.title,
+          sections,
+          metaTitle: record.meta_title ?? record.metaTitle ?? null,
+          metaDescription: record.meta_description ?? record.metaDescription ?? null,
+          status: record.status || 'published',
+        };
+      }
+    } catch (restErr: unknown) {
+      if (process.env.DEBUG_PRISMA || process.env.NODE_ENV !== 'production') {
+        console.warn(
+          `[CMS Controller - Supabase REST fallback error for ${pageKey}]:`,
+          (restErr as Error)?.message || restErr
+        );
+      }
+    }
   }
+
+  // Tier 3: Return null safely to allow page-level static/locale messages fallback
+  return null;
 }
 
