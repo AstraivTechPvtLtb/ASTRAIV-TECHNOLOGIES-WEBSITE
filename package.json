@@ -58,7 +58,7 @@
     "eslint-config-next": "16.4.3",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.9.3",
-    "prisma": "^8.0.0-rc.27",
+    "prisma": "^7.10.1",
     "puppeteer-core": "^25.11.0",
     "tailwindcss": "^4",
     "typescript": "^5",
